@@ -1,0 +1,24 @@
+---
+description: 
+globs: 
+alwaysApply: false
+---
+# Project Structure Guide
+
+This is a Next.js project with TypeScript. Here's the main structure:
+
+- `src/app/` - Contains the main application code
+  - `page.tsx` - The main page component
+  - `layout.tsx` - The root layout component
+  - `globals.css` - Global styles
+  - `favicon.ico` - Site favicon
+
+- Configuration files:
+  - `next.config.ts` - Next.js configuration
+  - `tsconfig.json` - TypeScript configuration
+  - `postcss.config.mjs` - PostCSS configuration
+  - `eslint.config.mjs` - ESLint configuration
+
+The application follows Next.js 13+ App Router conventions. The main entry point is [src/app/page.tsx](mdc:src/app/page.tsx), which is wrapped by the root layout in [src/app/layout.tsx](mdc:src/app/layout.tsx).
+
+Global styles are defined in [src/app/globals.css](mdc:src/app/globals.css) and are imported in the root layout.
