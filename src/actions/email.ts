@@ -7,8 +7,8 @@ import type { ReservationData, EventData } from '@/validation';
 export async function sendEmail(formData: FormData) {
   try {
     // Get and validate environment variables
-    const apiKey = process.env.RESEND_API_KEY;
-    const recipientEmail = process.env.RECIPIENT_EMAIL;
+    const apiKey = process.env.RESEND_API_KEY?.trim();
+    const recipientEmail = process.env.RECIPIENT_EMAIL?.trim();
 
     if (!apiKey) {
       return {
@@ -24,12 +24,12 @@ export async function sendEmail(formData: FormData) {
       };
     }
 
-    // Extract common form fields
-    const property = formData.get('property')?.toString() || '';
-    const name = formData.get('name')?.toString() || '';
-    const email = formData.get('email')?.toString() || '';
-    const phone = formData.get('phone')?.toString() || '';
-    const contactMethod = formData.get('contactMethod')?.toString() || '';
+    // Extract and sanitize common form fields
+    const property = formData.get('property')?.toString().trim() || '';
+    const name = formData.get('name')?.toString().trim() || '';
+    const email = formData.get('email')?.toString().trim() || '';
+    const phone = formData.get('phone')?.toString().trim() || '';
+    const contactMethod = formData.get('contactMethod')?.toString().trim() || '';
 
     // Determine if this is an event request
     const isEvent = property === 'Event Space Request';
@@ -41,19 +41,19 @@ export async function sendEmail(formData: FormData) {
     if (isEvent) {
       // Validate event data
       const eventData = {
-        eventType: formData.get('eventType')?.toString() || '',
-        checkIn: formData.get('checkIn')?.toString() || '',
-        guestCount: formData.get('guestCount')?.toString() || '',
+        eventType: formData.get('eventType')?.toString().trim() || '',
+        checkIn: formData.get('checkIn')?.toString().trim() || '',
+        guestCount: formData.get('guestCount')?.toString().trim() || '',
         name,
         email,
         phone,
         contactMethod,
-        message: formData.get('message')?.toString(),
+        message: formData.get('message')?.toString().trim(),
       };
 
       validatedData = eventSchema.parse(eventData) as EventData;
 
-      subject = `New Event Inquiry - ${validatedData.eventType}`;
+      subject = `New Event Inquiry - ${encodeURIComponent(validatedData.eventType)}`;
       emailContent = `
         <h2>New Event Inquiry</h2>
         <p><strong>Event Type:</strong> ${validatedData.eventType}</p>
@@ -64,13 +64,13 @@ export async function sendEmail(formData: FormData) {
         <p><strong>Phone:</strong> ${validatedData.phone}</p>
         <p><strong>Preferred Contact Method:</strong> ${validatedData.contactMethod}</p>
         ${validatedData.message ? `<p><strong>Additional Details:</strong> ${validatedData.message}</p>` : ''}
-      `;
+      `.trim();
     } else {
       // Validate reservation data
       const reservationData = {
         property,
-        checkIn: formData.get('checkIn')?.toString() || '',
-        checkOut: formData.get('checkOut')?.toString() || '',
+        checkIn: formData.get('checkIn')?.toString().trim() || '',
+        checkOut: formData.get('checkOut')?.toString().trim() || '',
         name,
         email,
         phone,
@@ -79,7 +79,7 @@ export async function sendEmail(formData: FormData) {
 
       validatedData = reservationSchema.parse(reservationData) as ReservationData;
 
-      subject = `New Booking Request for ${validatedData.property}`;
+      subject = `New Booking Request for ${encodeURIComponent(validatedData.property)}`;
       emailContent = `
         <h2>New Booking Request</h2>
         <p><strong>Property:</strong> ${validatedData.property}</p>
@@ -89,7 +89,7 @@ export async function sendEmail(formData: FormData) {
         <p><strong>Email:</strong> ${validatedData.email}</p>
         <p><strong>Phone:</strong> ${validatedData.phone}</p>
         <p><strong>Preferred Contact Method:</strong> ${validatedData.contactMethod}</p>
-      `;
+      `.trim();
     }
 
     // Initialize Resend with API key
