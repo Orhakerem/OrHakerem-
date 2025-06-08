@@ -2,15 +2,13 @@
 
 import { Package, Tv, Candy } from 'lucide-react';
 
-function ServiceCard({
-  icon: Icon,
-  title,
-  description,
-}: {
-  icon: any;
+interface ServiceCardProps {
+  icon: React.ComponentType<{ className?: string }>;
   title: string;
   description: string;
-}) {
+}
+
+function ServiceCard({ icon: Icon, title, description }: ServiceCardProps) {
   return (
     <div className="text-center p-6 bg-white/5 rounded-xl backdrop-blur-sm">
       <div className="inline-block p-4 bg-secondary rounded-full mb-4 relative">

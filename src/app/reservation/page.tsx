@@ -43,7 +43,7 @@ function Reservation() {
               Thank you for your reservation request!
             </h2>
             <p className="text-navy-light mb-6">
-              We'll contact you via your chosen method within 24 hours.
+              We&apos;ll contact you via your chosen method within 24 hours.
             </p>
             <button
               onClick={() => router.push('/')}

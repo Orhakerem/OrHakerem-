@@ -2,6 +2,7 @@
 
 import React, { useState } from 'react';
 import { X } from 'lucide-react';
+import Image from 'next/image';
 
 interface GalleryImage {
   src: string;
@@ -37,10 +38,11 @@ export default function ImageGallery({ images, maxDisplay = 12 }: ImageGalleryPr
               className="gallery-item relative aspect-4/3 overflow-hidden rounded-lg cursor-pointer transform transition-transform hover:scale-[1.02]"
               onClick={() => setSelectedImage(image)}
             >
-              <img
+              <Image
                 src={image.src}
                 alt={image.alt}
-                className="w-full h-full object-cover"
+                fill
+                className="object-cover"
                 loading="lazy"
               />
               <div className="absolute bottom-0 left-0 right-0 bg-primary/50 text-white p-2 text-sm">
@@ -72,9 +74,11 @@ export default function ImageGallery({ images, maxDisplay = 12 }: ImageGalleryPr
             <X className="w-8 h-8" />
           </button>
           <div className="max-w-7xl w-full">
-            <img
+            <Image
               src={selectedImage.src}
               alt={selectedImage.alt}
+              width={1200}
+              height={800}
               className="w-full h-auto max-h-[90vh] object-contain"
             />
             <div className="text-secondary text-center mt-4">{generateCaption(selectedImage)}</div>

@@ -1,6 +1,7 @@
 'use server';
 
 import { fallbackImages } from '@/constants';
+import Image from 'next/image';
 
 export default function BuildingDescription() {
   return (
@@ -10,10 +11,11 @@ export default function BuildingDescription() {
         <div className="grid md:grid-cols-2 gap-12 items-center">
           <div className="relative h-[400px] rounded-lg overflow-hidden shadow-xl">
             <div className="absolute inset-0 border-2 border-tertiary/20 rounded-lg"></div>
-            <img
+            <Image
               src={fallbackImages.buildingDescription}
               alt="Building Interior"
-              className="absolute inset-0 w-full h-full object-cover"
+              fill
+              className="object-cover"
             />
           </div>
           <div>
@@ -29,7 +31,7 @@ export default function BuildingDescription() {
               balance of comfort and sophistication.
             </p>
             <p className="text-primary/80 leading-relaxed">
-              Whether you're visiting for business or pleasure, our prime location and exceptional
+              Whether you&apos;re visiting for business or pleasure, our prime location and exceptional
               amenities ensure an unforgettable stay. Experience the warmth of Jerusalem hospitality
               combined with the luxury you deserve.
             </p>

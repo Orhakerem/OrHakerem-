@@ -95,7 +95,7 @@ const Home: React.FC = () => {
                 comforts with local charm.
               </p>
               <p className="text-primary/80 leading-relaxed">
-                Whether you're looking for a romantic getaway, a family holiday or a break with
+                Whether you&apos;re looking for a romantic getaway, a family holiday or a break with
                 friends, Or Hakerem is the place to be for unforgettable memories.
               </p>
             </div>
@@ -135,7 +135,7 @@ const Home: React.FC = () => {
           <div className="text-center mb-12">
             <h2 className="font-playfair text-4xl font-bold text-primary mb-4">Get in Touch</h2>
             <p className="text-primary/80 text-lg max-w-2xl mx-auto">
-              Have questions? We're here to help make your stay exceptional.
+              Have questions? We&apos;re here to help make your stay exceptional.
             </p>
           </div>
 

@@ -4,16 +4,15 @@ import React, { useState } from 'react';
 import { Calendar, Users, Moon, Mail, Phone, MessageSquare } from 'lucide-react';
 import { sendEmail } from '@/actions/email';
 import toast from 'react-hot-toast';
+import Image from 'next/image';
 
-function EventOption({
-  title,
-  description,
-  icon: Icon,
-}: {
+interface EventOptionProps {
   title: string;
   description: string;
-  icon: any;
-}) {
+  icon: React.ComponentType<{ className?: string }>;
+}
+
+function EventOption({ title, description, icon: Icon }: EventOptionProps) {
   return (
     <div className="text-center p-6 bg-white/5 rounded-xl backdrop-blur-sm">
       <div className="inline-block p-4 bg-secondary rounded-full mb-4 relative">
@@ -61,10 +60,11 @@ export default function Events() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Hero Section */}
         <div className="relative h-[500px] rounded-xl overflow-hidden mb-20">
-          <img
+          <Image
             src="https://images.unsplash.com/photo-1519671482749-fd09be7ccebf?auto=format&fit=crop&q=80"
             alt="Event Space"
-            className="absolute inset-0 w-full h-full object-cover"
+            fill
+            className="object-cover"
           />
           <div className="absolute inset-0  flex items-center">
             <div className="max-w-3xl mx-auto text-center px-4">

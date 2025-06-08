@@ -8,7 +8,6 @@ import {
   Share,
   MapPin,
   Wifi,
-  Car,
   Tv,
   UtensilsCrossed,
   Bath,

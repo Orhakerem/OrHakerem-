@@ -2,6 +2,7 @@ import React from 'react';
 import { Star, Calendar, Heart, MapPin } from 'lucide-react';
 import { propertyImages, fallbackImages } from '@/constants';
 import { useRouter } from 'next/navigation';
+import Image from 'next/image';
 
 type PropertyId = 'penthouse-jacuzzi' | 'cozy-studio';
 
@@ -45,7 +46,7 @@ function PropertyCard({ property }: { property: (typeof properties)[keyof typeof
     >
       <div className="absolute inset-0 border-2 border-tertiary/10 rounded-xl opacity-0 group-hover:opacity-100 transition-opacity"></div>
       <div className="relative h-64">
-        <img src={property.image} alt={property.title} className="w-full h-full object-cover" />
+        <Image src={property.image} alt={property.title} fill className="object-cover" />
         <button
           className="absolute top-4 right-4 p-2 bg-white rounded-full shadow-lg hover:bg-tertiary/5 transition-colors"
           onClick={e => {
