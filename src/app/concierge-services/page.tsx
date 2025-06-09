@@ -49,7 +49,6 @@ function ServiceCard({ icon: Icon, title, description, delay }: ServiceCardProps
 
 export default function ConciergeServicesPage() {
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const [showContactForm, setShowContactForm] = useState(false);
   const [showBackToTop, setShowBackToTop] = useState(false);
 
   const services = [
@@ -95,18 +94,19 @@ export default function ConciergeServicesPage() {
     }
   ];
 
-  const handleContactSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setIsSubmitting(true);
 
     try {
       const formData = new FormData(e.currentTarget);
-      formData.append('message', `Concierge Service Inquiry: ${formData.get('message')}`);
+      // Add context that this is a concierge service request
+      const originalMessage = formData.get('message') as string;
+      formData.set('message', `Concierge Service Request: ${originalMessage}`);
       
       const result = await sendContactEmail(formData);
       if (result.success) {
-        toast.success('Your concierge request has been sent successfully!');
-        setShowContactForm(false);
+        toast.success(result.message || 'Your concierge request has been sent successfully!');
         (e.target as HTMLFormElement).reset();
       } else {
         toast.error(result.error || 'Failed to send request');
@@ -214,144 +214,86 @@ export default function ConciergeServicesPage() {
           </div>
         </section>
 
-        {/* Contact Section with Enhanced Design */}
-        <div className="bg-gradient-to-br from-white to-cream rounded-3xl shadow-2xl p-12 max-w-5xl mx-auto relative overflow-hidden">
-          {/* Background decorative elements */}
-          <div className="absolute top-0 right-0 w-32 h-32 bg-secondary/10 rounded-full blur-2xl"></div>
-          <div className="absolute bottom-0 left-0 w-40 h-40 bg-tertiary/10 rounded-full blur-2xl"></div>
-          
-          <div className="relative z-10">
+        {/* Contact Section - Matching Homepage Design */}
+        <section className="py-16 bg-cream">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="text-center mb-12">
-              <div className="inline-block mb-4">
-                <span className="text-tertiary font-semibold text-lg tracking-wider uppercase">
-                  Get In Touch
-                </span>
-              </div>
-              <h2 className="font-playfair text-4xl font-bold text-primary mb-6">
-                Contact Our Concierge Team
-              </h2>
-              <div className="w-24 h-1 bg-gradient-to-r from-secondary to-tertiary mx-auto mb-6"></div>
-              <p className="text-primary/80 text-xl leading-relaxed max-w-3xl mx-auto">
-                Our dedicated team is available 24/7 to assist with all your requests
+              <h2 className="font-playfair text-4xl font-bold text-primary mb-4">Request Concierge Services</h2>
+              <p className="text-primary/80 text-lg max-w-2xl mx-auto">
+                Our dedicated concierge team is available 24/7 to fulfill your every request and create unforgettable experiences.
               </p>
             </div>
 
-            <div className="grid md:grid-cols-3 gap-8 mb-12">
-              <div className="text-center p-8 bg-white/50 backdrop-blur-sm rounded-2xl border border-white/20 hover:bg-white/70 transition-all duration-300 group">
-                <div className="inline-block p-4 bg-gradient-to-br from-secondary to-secondary-light rounded-full mb-4 group-hover:scale-110 transition-transform duration-300">
-                  <Mail className="w-8 h-8 text-primary" />
-                </div>
-                <h3 className="font-playfair text-xl font-bold text-primary mb-3">Email</h3>
-                <p className="text-primary/80 text-lg">concierge@orhakerem.com</p>
-              </div>
-              <div className="text-center p-8 bg-white/50 backdrop-blur-sm rounded-2xl border border-white/20 hover:bg-white/70 transition-all duration-300 group">
-                <div className="inline-block p-4 bg-gradient-to-br from-secondary to-secondary-light rounded-full mb-4 group-hover:scale-110 transition-transform duration-300">
-                  <Phone className="w-8 h-8 text-primary" />
-                </div>
-                <h3 className="font-playfair text-xl font-bold text-primary mb-3">Phone</h3>
-                <p className="text-primary/80 text-lg">+972 [Your Number]</p>
-              </div>
-              <div className="text-center p-8 bg-white/50 backdrop-blur-sm rounded-2xl border border-white/20 hover:bg-white/70 transition-all duration-300 group">
-                <div className="inline-block p-4 bg-gradient-to-br from-secondary to-secondary-light rounded-full mb-4 group-hover:scale-110 transition-transform duration-300">
-                  <MessageSquare className="w-8 h-8 text-primary" />
-                </div>
-                <h3 className="font-playfair text-xl font-bold text-primary mb-3">WhatsApp</h3>
-                <p className="text-primary/80 text-lg">Available 24/7</p>
-              </div>
-            </div>
-
-            <div className="text-center">
-              <div className="inline-block relative group">
-                <div className="absolute inset-0 bg-gradient-to-r from-secondary to-tertiary rounded-full blur-lg opacity-50 group-hover:opacity-75 transition-opacity duration-300"></div>
-                <button
-                  onClick={() => setShowContactForm(true)}
-                  className="relative inline-flex items-center bg-gradient-to-r from-secondary to-secondary-light text-primary px-10 py-4 rounded-full font-semibold text-lg hover:from-secondary-light hover:to-secondary transition-all duration-300 shadow-xl hover:shadow-2xl transform hover:scale-105"
-                >
-                  <span className="mr-3">Send Online Request</span>
-                  <div className="w-6 h-6 bg-primary/20 rounded-full flex items-center justify-center">
-                    <span className="text-primary text-sm">→</span>
-                  </div>
-                </button>
-              </div>
-              
-              <p className="text-primary/70 text-sm mt-4 font-medium">
-                Get personalized assistance for all your needs
-              </p>
-            </div>
-          </div>
-
-          {/* Contact Form Modal */}
-          {showContactForm && (
-            <div className="fixed inset-0 bg-black/50 flex items-center justify-center p-4 z-50">
-              <div className="bg-white rounded-2xl p-10 max-w-3xl w-full max-h-[90vh] overflow-y-auto">
-                <h3 className="font-playfair text-3xl font-bold text-primary mb-8">
-                  Concierge Service Request
-                </h3>
-
-                <form onSubmit={handleContactSubmit} className="space-y-8">
-                  <div className="grid md:grid-cols-2 gap-8">
+            <div className="max-w-2xl mx-auto">
+              <div className="bg-white rounded-2xl shadow-xl overflow-hidden p-8">
+                <form onSubmit={handleSubmit} className="space-y-6">
+                  <div className="grid md:grid-cols-2 gap-6">
                     <div>
-                      <label htmlFor="name" className="block text-lg font-medium text-primary/80 mb-2">
+                      <label
+                        htmlFor="name"
+                        className="block text-sm font-medium text-primary/80 mb-1"
+                      >
                         Your Name
                       </label>
                       <input
                         type="text"
                         id="name"
                         name="name"
+                        placeholder="Enter your name"
                         required
-                        className="w-full px-4 py-3 border border-gray-300 rounded-lg hover:border-primary focus:border-primary focus:ring-2 focus:ring-primary/20 transition-colors text-lg"
+                        className="w-full h-12 px-4 bg-cream border-2 border-transparent hover:border-primary focus:border-primary focus:ring-2 focus:ring-primary/20 rounded-lg transition-all duration-300 outline-none text-base"
                       />
                     </div>
 
                     <div>
-                      <label htmlFor="email" className="block text-lg font-medium text-primary/80 mb-2">
+                      <label
+                        htmlFor="email"
+                        className="block text-sm font-medium text-primary/80 mb-1"
+                      >
                         Email Address
                       </label>
                       <input
                         type="email"
                         id="email"
                         name="email"
+                        placeholder="your@email.com"
                         required
-                        className="w-full px-4 py-3 border border-gray-300 rounded-lg hover:border-primary focus:border-primary focus:ring-2 focus:ring-primary/20 transition-colors text-lg"
+                        className="w-full h-12 px-4 bg-cream border-2 border-transparent hover:border-primary focus:border-primary focus:ring-2 focus:ring-primary/20 rounded-lg transition-all duration-300 outline-none text-base"
                       />
                     </div>
                   </div>
 
                   <div>
-                    <label htmlFor="message" className="block text-lg font-medium text-primary/80 mb-2">
+                    <label
+                      htmlFor="message"
+                      className="block text-sm font-medium text-primary/80 mb-1"
+                    >
                       Service Request Details
                     </label>
                     <textarea
                       id="message"
                       name="message"
-                      rows={5}
+                      placeholder="Please describe the concierge service you need, preferred dates/times, and any special requirements..."
+                      rows={4}
                       required
-                      className="w-full px-4 py-3 border border-gray-300 rounded-lg hover:border-primary focus:border-primary focus:ring-2 focus:ring-primary/20 transition-colors text-lg"
-                      placeholder="Please describe the service you need, preferred dates/times, and any special requirements..."
+                      className="w-full px-4 py-3 bg-cream border-2 border-transparent hover:border-primary focus:border-primary focus:ring-2 focus:ring-primary/20 rounded-lg transition-all duration-300 outline-none resize-none text-base"
                     ></textarea>
                   </div>
 
-                  <div className="flex gap-6">
-                    <button
-                      type="button"
-                      onClick={() => setShowContactForm(false)}
-                      className="flex-1 px-8 py-4 border border-gray-300 rounded-lg text-primary hover:bg-gray-50 transition text-lg"
-                    >
-                      Cancel
-                    </button>
+                  <div>
                     <button
                       type="submit"
                       disabled={isSubmitting}
-                      className="flex-1 bg-primary text-secondary px-8 py-4 rounded-lg font-semibold hover:bg-primary-light transition disabled:opacity-50 text-lg"
+                      className="w-full bg-primary text-secondary h-12 rounded-xl text-base font-medium hover:bg-primary/90 transition-all duration-300 flex items-center justify-center disabled:opacity-50"
                     >
-                      {isSubmitting ? 'Sending...' : 'Send Request'}
+                      {isSubmitting ? 'Sending Request...' : 'Submit Concierge Request →'}
                     </button>
                   </div>
                 </form>
               </div>
             </div>
-          )}
-        </div>
+          </div>
+        </section>
 
         {/* Back to Top Button */}
         {showBackToTop && (
