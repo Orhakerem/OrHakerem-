@@ -1,12 +1,15 @@
 'use client';
 
-import React, { useState } from 'react';
-import { useRouter, useSearchParams } from 'next/navigation';
-import { Calendar, Mail, Phone, MessageSquare } from 'lucide-react';
-import { sendEmail } from '@/actions/email';
+import { Calendar, Mail, MessageSquare, Phone } from 'lucide-react';
 import toast from 'react-hot-toast';
 
-function Reservation() {
+import React, { Suspense, useState } from 'react';
+
+import { useRouter, useSearchParams } from 'next/navigation';
+
+import { sendEmail } from '@/actions/email';
+
+function ReservationContent() {
   const router = useRouter();
   const searchParams = useSearchParams();
   const propertyTitle = searchParams.get('property') || 'Property';
@@ -176,7 +179,7 @@ function Reservation() {
                     name="contactMethod"
                     value="email"
                     checked={contactMethod === 'email'}
-                    onChange={e => setContactMethod(e.target.value)}
+                    onChange={(e) => setContactMethod(e.target.value)}
                     className="absolute opacity-0"
                   />
                   <Mail
@@ -195,7 +198,7 @@ function Reservation() {
                     name="contactMethod"
                     value="phone"
                     checked={contactMethod === 'phone'}
-                    onChange={e => setContactMethod(e.target.value)}
+                    onChange={(e) => setContactMethod(e.target.value)}
                     className="absolute opacity-0"
                   />
                   <Phone
@@ -214,7 +217,7 @@ function Reservation() {
                     name="contactMethod"
                     value="whatsapp"
                     checked={contactMethod === 'whatsapp'}
-                    onChange={e => setContactMethod(e.target.value)}
+                    onChange={(e) => setContactMethod(e.target.value)}
                     className="absolute opacity-0"
                   />
                   <MessageSquare
@@ -242,6 +245,39 @@ function Reservation() {
         </div>
       </div>
     </div>
+  );
+}
+
+function ReservationLoadingFallback() {
+  return (
+    <div className="min-h-screen pt-24 pb-20 bg-cream">
+      <div className="max-w-2xl mx-auto px-4">
+        <div className="bg-white p-8 rounded-lg shadow-lg">
+          <div className="animate-pulse">
+            <div className="h-8 bg-gray-200 rounded mb-4"></div>
+            <div className="h-4 bg-gray-200 rounded mb-8"></div>
+            <div className="space-y-6">
+              <div className="h-12 bg-gray-200 rounded"></div>
+              <div className="grid grid-cols-2 gap-6">
+                <div className="h-12 bg-gray-200 rounded"></div>
+                <div className="h-12 bg-gray-200 rounded"></div>
+              </div>
+              <div className="h-12 bg-gray-200 rounded"></div>
+              <div className="h-12 bg-gray-200 rounded"></div>
+              <div className="h-12 bg-gray-200 rounded"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+function Reservation() {
+  return (
+    <Suspense fallback={<ReservationLoadingFallback />}>
+      <ReservationContent />
+    </Suspense>
   );
 }
 
