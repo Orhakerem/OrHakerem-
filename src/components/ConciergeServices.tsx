@@ -16,32 +16,34 @@ interface ServiceCardProps {
 
 function ServiceCard({ icon: Icon, title, description }: ServiceCardProps) {
   return (
-    <div className="text-center group">
-      <div className="inline-block p-6 mb-4 rounded-full transition-all duration-300 hover:bg-secondary/10">
-        <Icon className="w-12 h-12 text-secondary transition-colors duration-300 group-hover:text-primary" />
+    <div className="text-center p-6 bg-secondary-lighter rounded-xl transition-all duration-300 hover:scale-105 hover:shadow-lg">
+      <div className="inline-block p-4 bg-primary rounded-full mb-4 relative">
+        <div className="absolute inset-0 rounded-full bg-tertiary/20"></div>
+        <Icon className="w-8 h-8 text-secondary relative z-10" />
       </div>
-      <h3 className="font-playfair text-xl font-bold text-primary mb-2 transition-colors duration-300 group-hover:text-secondary">
+      <h3 className="font-playfair text-xl font-bold text-secondary mb-2">
         {title}
       </h3>
-      <p className="text-primary/70 leading-relaxed">{description}</p>
+      <p className="text-secondary-light leading-relaxed">{description}</p>
     </div>
   );
 }
 
 export default function ConciergeServices() {
   return (
-    <section className="py-24 bg-cream">
-      <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="text-center mb-16">
-          <h2 className="font-playfair text-4xl font-bold text-primary mb-4">
+    <section className="py-20 bg-primary relative overflow-hidden">
+      <div className="absolute inset-0 bg-tertiary/10"></div>
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative">
+        <div className="text-center mb-12">
+          <h2 className="font-playfair text-3xl font-bold text-secondary mb-4">
             Conciergerie Services
           </h2>
-          <p className="text-primary/70 text-lg max-w-2xl mx-auto leading-relaxed">
+          <p className="text-secondary-light text-lg max-w-2xl mx-auto leading-relaxed">
             Experience personalized luxury with our dedicated concierge team
           </p>
         </div>
         
-        <div className="grid md:grid-cols-2 gap-16 mb-16 max-w-4xl mx-auto">
+        <div className="grid md:grid-cols-2 gap-8 mb-12 max-w-4xl mx-auto">
           <ServiceCard
             icon={UtensilsCrossed}
             title="Restaurant Reservations"
@@ -67,7 +69,7 @@ export default function ConciergeServices() {
         <div className="text-center">
           <Link
             href="/concierge-services"
-            className="inline-block text-primary hover:text-secondary transition-colors duration-300 font-medium text-lg border-b-2 border-primary/20 hover:border-secondary pb-1"
+            className="inline-block bg-secondary text-primary px-8 py-3 rounded-full font-semibold hover:bg-secondary-light transition-all duration-300 shadow-lg hover:shadow-xl"
           >
             View All Services →
           </Link>

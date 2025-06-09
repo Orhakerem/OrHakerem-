@@ -101,12 +101,12 @@ export default function ConciergeServicesPage() {
         {/* Hero Section */}
         <div className="relative h-[500px] rounded-2xl overflow-hidden mb-20">
           <Image
-            src="https://images.unsplash.com/photo-1578662996442-48f60103fc96?auto=format&fit=crop&q=80"
+            src="https://images.unsplash.com/photo-1571896349842-33c89424de2d?auto=format&fit=crop&q=80"
             alt="Luxury Concierge Services"
             fill
             className="object-cover"
           />
-          <div className="absolute inset-0 bg-gradient-to-r from-black/40 to-black/20 flex items-center">
+          <div className="absolute inset-0 bg-gradient-to-r from-black/50 to-black/30 flex items-center">
             <div className="max-w-4xl mx-auto text-center px-4">
               <h1 className="font-playfair text-6xl font-bold text-white mb-8">
                 Premium Concierge Services
