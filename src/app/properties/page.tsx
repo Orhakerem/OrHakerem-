@@ -2,7 +2,7 @@
 
 import React from 'react';
 import { useRouter } from 'next/navigation';
-import { Star, Calendar, Heart, MapPin, Users, BedDouble, Bath, ArrowRight } from 'lucide-react';
+import { Calendar, Heart, MapPin, Users, BedDouble, Bath, ArrowRight } from 'lucide-react';
 import Image from 'next/image';
 
 const properties = {
@@ -40,12 +40,12 @@ function PropertyCard({ property }: { property: (typeof properties)[keyof typeof
   const router = useRouter();
 
   return (
-    <div className="group relative bg-white rounded-3xl overflow-hidden shadow-xl hover:shadow-2xl transition-all duration-700 hover:scale-[1.02]">
+    <div className="group relative bg-white rounded-2xl overflow-hidden shadow-xl hover:shadow-2xl transition-all duration-700 hover:scale-[1.02] aspect-square">
       {/* Gradient overlay on hover */}
-      <div className="absolute inset-0 bg-gradient-to-br from-secondary/5 to-tertiary/5 rounded-3xl opacity-0 group-hover:opacity-100 transition-opacity duration-500 z-10"></div>
+      <div className="absolute inset-0 bg-gradient-to-br from-secondary/5 to-tertiary/5 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-500 z-10"></div>
       
-      {/* Image Section */}
-      <div className="relative h-80 overflow-hidden">
+      {/* Image Section - Square format */}
+      <div className="relative h-1/2 overflow-hidden">
         <Image 
           src={property.image} 
           alt={property.title} 
@@ -56,108 +56,85 @@ function PropertyCard({ property }: { property: (typeof properties)[keyof typeof
         {/* Gradient overlay */}
         <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent"></div>
         
-        {/* Price badge - Enhanced */}
-        <div className="absolute top-6 left-6 bg-white/95 backdrop-blur-sm px-4 py-2 rounded-full shadow-lg">
-          <span className="font-bold text-primary text-lg">${property.price}</span>
+        {/* Price badge */}
+        <div className="absolute top-4 left-4 bg-white/95 backdrop-blur-sm px-3 py-1 rounded-full shadow-lg">
+          <span className="font-bold text-primary">${property.price}</span>
           <span className="text-primary/70 text-sm ml-1">/night</span>
         </div>
         
-        {/* Heart button - Enhanced */}
+        {/* Heart button */}
         <button
-          className="absolute top-6 right-6 p-3 bg-white/95 backdrop-blur-sm rounded-full shadow-lg hover:bg-white transition-all duration-300 hover:scale-110"
+          className="absolute top-4 right-4 p-2 bg-white/95 backdrop-blur-sm rounded-full shadow-lg hover:bg-white transition-all duration-300 hover:scale-110"
           onClick={(e) => {
             e.stopPropagation();
             // Handle favorite
           }}
         >
-          <Heart className="w-5 h-5 text-primary" />
+          <Heart className="w-4 h-4 text-primary" />
         </button>
-        
-        {/* Rating badge - Enhanced */}
-        <div className="absolute bottom-6 right-6 bg-white/95 backdrop-blur-sm px-3 py-2 rounded-full flex items-center shadow-lg">
-          <Star className="w-4 h-4 text-tertiary fill-current mr-1" />
-          <span className="font-semibold text-primary">{property.rating}</span>
-          <span className="text-primary/60 text-sm ml-1">({property.reviewCount})</span>
-        </div>
       </div>
 
-      {/* Content Section - Enhanced */}
-      <div className="p-8 relative z-20">
+      {/* Content Section - Bottom half */}
+      <div className="p-6 h-1/2 flex flex-col justify-between relative z-20">
         {/* Title and Location */}
-        <div className="mb-6">
-          <h3 className="font-playfair text-2xl font-bold text-primary mb-2 group-hover:text-secondary transition-colors duration-300">
+        <div className="mb-4">
+          <h3 className="font-playfair text-xl font-bold text-primary mb-1 group-hover:text-secondary transition-colors duration-300 line-clamp-2">
             {property.title}
           </h3>
-          <div className="flex items-center text-primary/60 mb-3">
-            <MapPin className="w-4 h-4 mr-2" />
-            <span className="text-sm">{property.location}</span>
+          <div className="flex items-center text-primary/60 mb-2">
+            <MapPin className="w-3 h-3 mr-1" />
+            <span className="text-xs">{property.location}</span>
           </div>
-          <p className="text-primary/80 leading-relaxed">{property.description}</p>
+          <p className="text-primary/80 text-sm leading-relaxed line-clamp-2">{property.description}</p>
         </div>
 
-        {/* Property Stats - Enhanced Grid */}
-        <div className="grid grid-cols-3 gap-4 mb-6 p-4 bg-cream rounded-2xl">
+        {/* Property Stats - Compact */}
+        <div className="grid grid-cols-3 gap-2 mb-4 p-3 bg-cream rounded-xl">
           <div className="text-center">
-            <div className="w-10 h-10 bg-primary/10 rounded-full flex items-center justify-center mx-auto mb-2">
-              <Users className="w-5 h-5 text-primary" />
+            <div className="w-6 h-6 bg-primary/10 rounded-full flex items-center justify-center mx-auto mb-1">
+              <Users className="w-3 h-3 text-primary" />
             </div>
-            <div className="text-sm font-semibold text-primary">{property.maxGuests} Guests</div>
+            <div className="text-xs font-semibold text-primary">{property.maxGuests}</div>
           </div>
           <div className="text-center">
-            <div className="w-10 h-10 bg-primary/10 rounded-full flex items-center justify-center mx-auto mb-2">
-              <BedDouble className="w-5 h-5 text-primary" />
+            <div className="w-6 h-6 bg-primary/10 rounded-full flex items-center justify-center mx-auto mb-1">
+              <BedDouble className="w-3 h-3 text-primary" />
             </div>
-            <div className="text-sm font-semibold text-primary">{property.bedrooms} Bedroom{property.bedrooms > 1 ? 's' : ''}</div>
+            <div className="text-xs font-semibold text-primary">{property.bedrooms}</div>
           </div>
           <div className="text-center">
-            <div className="w-10 h-10 bg-primary/10 rounded-full flex items-center justify-center mx-auto mb-2">
-              <Bath className="w-5 h-5 text-primary" />
+            <div className="w-6 h-6 bg-primary/10 rounded-full flex items-center justify-center mx-auto mb-1">
+              <Bath className="w-3 h-3 text-primary" />
             </div>
-            <div className="text-sm font-semibold text-primary">{property.bathrooms} Bath{property.bathrooms > 1 ? 's' : ''}</div>
-          </div>
-        </div>
-
-        {/* Features - Enhanced */}
-        <div className="mb-6">
-          <h4 className="font-semibold text-primary mb-3">Key Features</h4>
-          <div className="grid grid-cols-2 gap-2">
-            {property.features.map((feature, index) => (
-              <div 
-                key={index}
-                className="flex items-center p-2 bg-secondary/10 rounded-lg"
-              >
-                <div className="w-2 h-2 bg-secondary rounded-full mr-2"></div>
-                <span className="text-primary text-sm">{feature}</span>
-              </div>
-            ))}
+            <div className="text-xs font-semibold text-primary">{property.bathrooms}</div>
           </div>
         </div>
 
-        {/* Action Buttons - Enhanced */}
-        <div className="flex gap-3">
+        {/* Action Buttons - Compact */}
+        <div className="flex gap-2">
           <button
             onClick={() => router.push(`/properties/${property.id}`)}
-            className="flex-1 bg-gradient-to-r from-primary to-primary-light text-white py-3 px-6 rounded-full font-semibold hover:from-primary-light hover:to-primary transition-all duration-300 shadow-lg hover:shadow-xl transform hover:scale-105 flex items-center justify-center"
+            className="flex-1 bg-gradient-to-r from-primary to-primary-light text-white py-2 px-3 rounded-full font-semibold hover:from-primary-light hover:to-primary transition-all duration-300 shadow-lg hover:shadow-xl transform hover:scale-105 flex items-center justify-center text-sm"
           >
-            <span>View Details</span>
-            <ArrowRight className="w-4 h-4 ml-2" />
+            <span>Details</span>
+            <ArrowRight className="w-3 h-3 ml-1" />
           </button>
           <button
             onClick={(e) => {
               e.stopPropagation();
               router.push('/reservation');
             }}
-            className="bg-gradient-to-r from-secondary to-secondary-light text-primary py-3 px-6 rounded-full font-semibold hover:from-secondary-light hover:to-secondary transition-all duration-300 shadow-lg hover:shadow-xl transform hover:scale-105 flex items-center justify-center"
+            className="bg-gradient-to-r from-secondary to-secondary-light text-primary py-2 px-3 rounded-full font-semibold hover:from-secondary-light hover:to-secondary transition-all duration-300 shadow-lg hover:shadow-xl transform hover:scale-105 flex items-center justify-center text-sm"
           >
-            <Calendar className="w-4 h-4 mr-2" />
-            <span>Book Now</span>
+            <Calendar className="w-3 h-3 mr-1" />
+            <span>Book</span>
           </button>
         </div>
       </div>
 
       {/* Decorative corner elements */}
-      <div className="absolute top-4 left-4 w-3 h-3 bg-secondary rounded-full opacity-50 group-hover:opacity-100 transition-opacity duration-300"></div>
-      <div className="absolute bottom-4 right-4 w-3 h-3 bg-tertiary rounded-full opacity-50 group-hover:opacity-100 transition-opacity duration-300"></div>
+      <div className="absolute top-3 left-3 w-2 h-2 bg-secondary rounded-full opacity-50 group-hover:opacity-100 transition-opacity duration-300"></div>
+      <div className="absolute bottom-3 right-3 w-2 h-2 bg-tertiary rounded-full opacity-50 group-hover:opacity-100 transition-opacity duration-300"></div>
     </div>
   );
 }
@@ -166,7 +143,7 @@ export default function Properties() {
   return (
     <div className="min-h-screen pt-24 pb-20 bg-cream">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        {/* Hero Section - Enhanced */}
+        {/* Hero Section */}
         <div className="text-center mb-16">
           <div className="inline-block mb-4">
             <span className="text-tertiary font-semibold text-lg tracking-wider uppercase">
@@ -182,14 +159,14 @@ export default function Properties() {
           </p>
         </div>
 
-        {/* Properties Grid - Enhanced Layout */}
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 max-w-6xl mx-auto mb-16">
+        {/* Properties Grid - Square Cards */}
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-4xl mx-auto mb-16">
           {Object.values(properties).map((property) => (
             <PropertyCard key={property.id} property={property} />
           ))}
         </div>
 
-        {/* Call to Action Section - Enhanced */}
+        {/* Call to Action Section */}
         <div className="text-center bg-gradient-to-br from-primary via-primary to-primary-light rounded-3xl p-12 relative overflow-hidden">
           {/* Background decorative elements */}
           <div className="absolute inset-0">
