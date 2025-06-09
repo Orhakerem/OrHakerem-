@@ -176,7 +176,6 @@ export default function Events() {
               <h1 className="font-playfair text-6xl font-bold text-white mb-8">
                 Host Your Special Events
               </h1>
-              <div className="w-24 h-1 bg-gradient-to-r from-secondary to-tertiary mx-auto mb-6"></div>
               <p className="text-2xl text-white/90 max-w-4xl mx-auto leading-relaxed">
                 Experience luxury and elegance in our exclusive event spaces with breathtaking views 
                 and premium amenities for unforgettable celebrations.
@@ -198,7 +197,6 @@ export default function Events() {
               <h2 className="font-playfair text-5xl font-bold text-primary mb-6 leading-tight">
                 Available Event Spaces
               </h2>
-              <div className="w-24 h-1 bg-gradient-to-r from-secondary to-tertiary mx-auto mb-6"></div>
               <p className="text-primary/80 text-xl max-w-3xl mx-auto leading-relaxed">
                 Choose from our carefully curated event spaces, each designed to create magical moments 
                 and lasting memories for you and your guests.
@@ -246,7 +244,6 @@ export default function Events() {
               <h2 className="font-playfair text-5xl md:text-6xl font-bold text-white mb-6 leading-tight">
                 Create Unforgettable Moments
               </h2>
-              <div className="w-24 h-1 bg-gradient-to-r from-secondary to-tertiary mx-auto mb-6"></div>
               <p className="text-white/90 text-xl max-w-3xl mx-auto leading-relaxed">
                 Let us help you create an unforgettable experience. Our events team will contact you 
                 <br className="hidden md:block" />
