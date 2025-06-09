@@ -3,12 +3,8 @@
 import { 
   UtensilsCrossed, 
   Car, 
-  Calendar, 
-  ShoppingBag, 
   Sparkles, 
-  MapPin,
-  Briefcase,
-  Heart
+  Baby
 } from 'lucide-react';
 import Link from 'next/link';
 
@@ -20,36 +16,36 @@ interface ServiceCardProps {
 
 function ServiceCard({ icon: Icon, title, description }: ServiceCardProps) {
   return (
-    <div className="text-center p-6 bg-white/5 rounded-xl backdrop-blur-sm hover:bg-white/10 transition-all duration-300 group">
-      <div className="inline-block p-4 bg-secondary rounded-full mb-4 relative group-hover:scale-110 transition-transform duration-300">
-        <div className="absolute inset-0 rounded-full bg-tertiary/20"></div>
-        <Icon className="w-8 h-8 text-primary relative z-10" />
+    <div className="text-center group">
+      <div className="inline-block p-6 mb-4 rounded-full transition-all duration-300 hover:bg-secondary/10">
+        <Icon className="w-12 h-12 text-secondary transition-colors duration-300 group-hover:text-primary" />
       </div>
-      <h3 className="font-playfair text-xl font-bold text-secondary mb-2">{title}</h3>
-      <p className="text-secondary-light">{description}</p>
+      <h3 className="font-playfair text-xl font-bold text-primary mb-2 transition-colors duration-300 group-hover:text-secondary">
+        {title}
+      </h3>
+      <p className="text-primary/70 leading-relaxed">{description}</p>
     </div>
   );
 }
 
 export default function ConciergeServices() {
   return (
-    <section className="py-20 bg-primary relative overflow-hidden">
-      <div className="absolute inset-0 bg-tertiary/10"></div>
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative">
-        <div className="text-center mb-12">
-          <h2 className="font-playfair text-3xl font-bold text-secondary mb-4">
-            Personalized Concierge Services
+    <section className="py-24 bg-cream">
+      <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="text-center mb-16">
+          <h2 className="font-playfair text-4xl font-bold text-primary mb-4">
+            Conciergerie Services
           </h2>
-          <p className="text-secondary-light text-lg max-w-2xl mx-auto">
-            Experience Bespoke Luxury During Your Stay
+          <p className="text-primary/70 text-lg max-w-2xl mx-auto leading-relaxed">
+            Experience personalized luxury with our dedicated concierge team
           </p>
         </div>
         
-        <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6 mb-12">
+        <div className="grid md:grid-cols-2 gap-16 mb-16 max-w-4xl mx-auto">
           <ServiceCard
             icon={UtensilsCrossed}
-            title="Dining Experiences"
-            description="Exclusive restaurant reservations and curated culinary adventures"
+            title="Restaurant Reservations"
+            description="Priority bookings at exclusive restaurants and curated dining experiences"
           />
           <ServiceCard
             icon={Car}
@@ -57,43 +53,23 @@ export default function ConciergeServices() {
             description="Luxury chauffeur services and premium transportation arrangements"
           />
           <ServiceCard
-            icon={Calendar}
-            title="Entertainment Planning"
-            description="VIP event tickets and exclusive entertainment experiences"
-          />
-          <ServiceCard
-            icon={ShoppingBag}
-            title="Personal Shopping"
-            description="Boutique appointments and luxury shopping assistance"
-          />
-          <ServiceCard
             icon={Sparkles}
-            title="Wellness Services"
-            description="In-room spa treatments and wellness retreat bookings"
+            title="Spa & Wellness"
+            description="In-room treatments and premium wellness experiences tailored to you"
           />
           <ServiceCard
-            icon={MapPin}
-            title="Local Experiences"
-            description="Private tours and authentic cultural immersions"
-          />
-          <ServiceCard
-            icon={Briefcase}
-            title="Butler Assistance"
-            description="24/7 dedicated support for all your needs"
-          />
-          <ServiceCard
-            icon={Heart}
-            title="Special Requests"
-            description="Bespoke arrangements for celebrations and unique experiences"
+            icon={Baby}
+            title="Baby Sitting"
+            description="Certified childcare professionals available 24/7 for your peace of mind"
           />
         </div>
 
         <div className="text-center">
           <Link
             href="/concierge-services"
-            className="inline-block bg-secondary text-primary px-8 py-4 rounded-full font-semibold hover:bg-secondary-light transition-all duration-300 transform hover:scale-105 shadow-lg"
+            className="inline-block text-primary hover:text-secondary transition-colors duration-300 font-medium text-lg border-b-2 border-primary/20 hover:border-secondary pb-1"
           >
-            Discover Our Full Concierge Offerings
+            View All Services →
           </Link>
         </div>
       </div>

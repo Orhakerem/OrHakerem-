@@ -1,81 +1,49 @@
 'use client';
 
 import { useState } from 'react';
-import { ChevronDown, ChevronUp, Mail, Phone, MessageSquare } from 'lucide-react';
+import { Mail, Phone, MessageSquare, ArrowUp } from 'lucide-react';
 import Image from 'next/image';
 import Link from 'next/link';
 import toast from 'react-hot-toast';
 import { sendContactEmail } from '@/actions/contact';
 
-interface ServiceSectionProps {
-  title: string;
-  description: string;
-  isOpen: boolean;
-  onToggle: () => void;
-}
-
-function ServiceSection({ title, description, isOpen, onToggle }: ServiceSectionProps) {
-  return (
-    <div className="bg-white rounded-lg shadow-md hover:shadow-lg transition-shadow">
-      <button
-        onClick={onToggle}
-        className="w-full p-6 text-left flex justify-between items-center"
-      >
-        <h3 className="font-playfair text-xl font-bold text-primary">{title}</h3>
-        {isOpen ? (
-          <ChevronUp className="w-6 h-6 text-primary" />
-        ) : (
-          <ChevronDown className="w-6 h-6 text-primary" />
-        )}
-      </button>
-      <div
-        className={`px-6 transition-all duration-300 ease-in-out overflow-hidden ${
-          isOpen ? 'max-h-40 pb-6 opacity-100' : 'max-h-0 opacity-0'
-        }`}
-      >
-        <p className="text-primary/80">{description}</p>
-      </div>
-    </div>
-  );
-}
-
 export default function ConciergeServicesPage() {
-  const [openSection, setOpenSection] = useState<number>();
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [showContactForm, setShowContactForm] = useState(false);
+  const [showBackToTop, setShowBackToTop] = useState(false);
 
   const services = [
     {
-      title: 'Dining & Reservations',
-      description: 'Secure tables at Michelin-starred restaurants and exclusive dining experiences. Our team has established relationships with the finest establishments to ensure you enjoy exceptional culinary adventures.'
+      title: 'Dining Reservations',
+      description: 'Priority bookings at Michelin-starred restaurants and exclusive culinary experiences. Our established relationships with premier establishments ensure you enjoy exceptional dining adventures with seamless reservations.'
     },
     {
       title: 'Transportation',
-      description: 'Private airport transfers, luxury vehicle rentals, and chauffeur services. Travel in comfort and style with our premium transportation solutions tailored to your schedule.'
+      description: 'Luxury vehicle rentals with professional chauffeurs and private airport transfers. Travel in ultimate comfort and style with our premium transportation solutions, perfectly timed to your schedule and preferences.'
     },
     {
-      title: 'Entertainment & Events',
-      description: 'Access to sold-out shows, private events, and VIP experiences. From theater premieres to exclusive gallery openings, we provide access to the most sought-after entertainment.'
+      title: 'Baby Sitting',
+      description: 'Certified childcare professionals available 24/7 for your complete peace of mind. Our vetted and experienced caregivers provide exceptional care, allowing you to enjoy your stay with confidence and relaxation.'
+    },
+    {
+      title: 'Wellness & Spa',
+      description: 'In-room treatments and premium wellness experiences tailored to your needs. From therapeutic massages to personalized fitness sessions, rejuvenate with our comprehensive wellness services designed for complete relaxation.'
+    },
+    {
+      title: 'Event Planning',
+      description: 'VIP access to exclusive events and private celebrations with meticulous attention to detail. From intimate gatherings to grand celebrations, we orchestrate unforgettable experiences that exceed your expectations.'
     },
     {
       title: 'Personal Shopping',
-      description: 'Boutique appointments, personal stylists, and delivery services. Enjoy personalized shopping experiences with expert guidance and convenient delivery to your accommodation.'
-    },
-    {
-      title: 'Wellness & Relaxation',
-      description: 'In-room spa treatments, fitness trainers, and wellness retreat bookings. Rejuvenate with our comprehensive wellness services designed for your complete relaxation.'
-    },
-    {
-      title: 'Local Experiences',
-      description: 'Private guided tours, cultural immersions, and hidden gem discoveries. Explore authentic local culture with our curated experiences and insider knowledge.'
+      description: 'Personal stylists and boutique appointments with curated shopping experiences. Enjoy exclusive access to luxury brands and personalized styling services, with convenient delivery directly to your accommodation.'
     },
     {
       title: 'Business Services',
-      description: 'Meeting room arrangements, secretarial support, and tech services. Maintain productivity with our comprehensive business support services and professional facilities.'
+      description: 'Meeting rooms and secretarial support with comprehensive business solutions. Maintain productivity with our professional facilities, administrative assistance, and state-of-the-art technology services.'
     },
     {
       title: 'Special Requests',
-      description: 'Custom arrangements for celebrations, unique experiences, and last-minute needs. No request is too unique – our team specializes in creating memorable moments.'
+      description: 'Custom arrangements for unique experiences and memorable celebrations. No request is too distinctive – our specialized team excels at creating extraordinary moments tailored to your vision and desires.'
     }
   ];
 
@@ -103,33 +71,47 @@ export default function ConciergeServicesPage() {
     }
   };
 
+  const scrollToTop = () => {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  };
+
+  // Show/hide back to top button based on scroll position
+  useState(() => {
+    const handleScroll = () => {
+      setShowBackToTop(window.scrollY > 400);
+    };
+
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  });
+
   return (
     <div className="min-h-screen pt-24 pb-20 bg-cream">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Back Navigation */}
         <div className="mb-8">
           <Link
             href="/"
-            className="text-primary hover:text-[#D8B084] transition-colors duration-300 flex items-center"
+            className="text-primary hover:text-secondary transition-colors duration-300 flex items-center text-lg"
           >
             ← Back to Home
           </Link>
         </div>
 
         {/* Hero Section */}
-        <div className="relative h-[400px] rounded-xl overflow-hidden mb-16">
+        <div className="relative h-[500px] rounded-2xl overflow-hidden mb-20">
           <Image
-            src="https://images.unsplash.com/photo-1571896349842-33c89424de2d?auto=format&fit=crop&q=80"
+            src="https://images.unsplash.com/photo-1578662996442-48f60103fc96?auto=format&fit=crop&q=80"
             alt="Luxury Concierge Services"
             fill
             className="object-cover"
           />
-          <div className="absolute inset-0 bg-primary/60 flex items-center">
+          <div className="absolute inset-0 bg-gradient-to-r from-black/40 to-black/20 flex items-center">
             <div className="max-w-4xl mx-auto text-center px-4">
-              <h1 className="font-playfair text-5xl font-bold text-secondary mb-6">
+              <h1 className="font-playfair text-6xl font-bold text-white mb-8">
                 Premium Concierge Services
               </h1>
-              <p className="text-xl text-secondary-light max-w-3xl mx-auto">
+              <p className="text-2xl text-white/90 max-w-4xl mx-auto leading-relaxed">
                 Our dedicated concierge team provides impeccable service tailored to your every need. 
                 Experience the ultimate in personalized luxury during your stay.
               </p>
@@ -138,54 +120,55 @@ export default function ConciergeServicesPage() {
         </div>
 
         {/* Services List */}
-        <div className="mb-16">
-          <h2 className="text-center font-playfair text-3xl font-bold text-primary mb-12">
+        <div className="mb-20">
+          <h2 className="text-center font-playfair text-4xl font-bold text-primary mb-16">
             Our Complete Service Portfolio
           </h2>
-          <div className="grid gap-4 max-w-4xl mx-auto">
+          <div className="space-y-12 max-w-5xl mx-auto">
             {services.map((service, index) => (
-              <ServiceSection
-                key={index}
-                title={service.title}
-                description={service.description}
-                isOpen={openSection === index}
-                onToggle={() => setOpenSection(openSection === index ? undefined : index)}
-              />
+              <div key={index} className="bg-white rounded-2xl p-10 shadow-lg hover:shadow-xl transition-shadow duration-300">
+                <h3 className="font-playfair text-3xl font-bold text-primary mb-6">
+                  {service.title}
+                </h3>
+                <p className="text-primary/80 text-lg leading-relaxed">
+                  {service.description}
+                </p>
+              </div>
             ))}
           </div>
         </div>
 
         {/* Contact Section */}
-        <div className="bg-white rounded-2xl shadow-xl p-8 max-w-4xl mx-auto">
-          <h2 className="font-playfair text-3xl font-bold text-primary mb-6 text-center">
+        <div className="bg-white rounded-3xl shadow-2xl p-12 max-w-5xl mx-auto">
+          <h2 className="font-playfair text-4xl font-bold text-primary mb-8 text-center">
             Contact Our Concierge Team
           </h2>
-          <p className="text-primary/80 text-center mb-8">
+          <p className="text-primary/80 text-xl text-center mb-12 leading-relaxed">
             Our dedicated team is available 24/7 to assist with all your requests
           </p>
 
-          <div className="grid md:grid-cols-3 gap-6 mb-8">
-            <div className="text-center p-6 bg-cream rounded-lg">
-              <Mail className="w-8 h-8 text-primary mx-auto mb-3" />
-              <h3 className="font-semibold text-primary mb-2">Email</h3>
-              <p className="text-primary/80">concierge@orhakerem.com</p>
+          <div className="grid md:grid-cols-3 gap-8 mb-12">
+            <div className="text-center p-8 bg-cream rounded-2xl">
+              <Mail className="w-12 h-12 text-primary mx-auto mb-4" />
+              <h3 className="font-semibold text-primary mb-3 text-xl">Email</h3>
+              <p className="text-primary/80 text-lg">concierge@orhakerem.com</p>
             </div>
-            <div className="text-center p-6 bg-cream rounded-lg">
-              <Phone className="w-8 h-8 text-primary mx-auto mb-3" />
-              <h3 className="font-semibold text-primary mb-2">Phone</h3>
-              <p className="text-primary/80">+972 [Your Number]</p>
+            <div className="text-center p-8 bg-cream rounded-2xl">
+              <Phone className="w-12 h-12 text-primary mx-auto mb-4" />
+              <h3 className="font-semibold text-primary mb-3 text-xl">Phone</h3>
+              <p className="text-primary/80 text-lg">+972 [Your Number]</p>
             </div>
-            <div className="text-center p-6 bg-cream rounded-lg">
-              <MessageSquare className="w-8 h-8 text-primary mx-auto mb-3" />
-              <h3 className="font-semibold text-primary mb-2">WhatsApp</h3>
-              <p className="text-primary/80">Available 24/7</p>
+            <div className="text-center p-8 bg-cream rounded-2xl">
+              <MessageSquare className="w-12 h-12 text-primary mx-auto mb-4" />
+              <h3 className="font-semibold text-primary mb-3 text-xl">WhatsApp</h3>
+              <p className="text-primary/80 text-lg">Available 24/7</p>
             </div>
           </div>
 
           <div className="text-center">
             <button
               onClick={() => setShowContactForm(true)}
-              className="bg-primary text-secondary px-8 py-3 rounded-full font-semibold hover:bg-primary-light transition"
+              className="bg-primary text-secondary px-10 py-4 rounded-full font-semibold hover:bg-primary-light transition text-lg"
             >
               Send Online Request
             </button>
@@ -194,15 +177,15 @@ export default function ConciergeServicesPage() {
           {/* Contact Form Modal */}
           {showContactForm && (
             <div className="fixed inset-0 bg-black/50 flex items-center justify-center p-4 z-50">
-              <div className="bg-white rounded-lg p-8 max-w-2xl w-full max-h-[90vh] overflow-y-auto">
-                <h3 className="font-playfair text-2xl font-bold text-primary mb-6">
+              <div className="bg-white rounded-2xl p-10 max-w-3xl w-full max-h-[90vh] overflow-y-auto">
+                <h3 className="font-playfair text-3xl font-bold text-primary mb-8">
                   Concierge Service Request
                 </h3>
 
-                <form onSubmit={handleContactSubmit} className="space-y-6">
-                  <div className="grid md:grid-cols-2 gap-6">
+                <form onSubmit={handleContactSubmit} className="space-y-8">
+                  <div className="grid md:grid-cols-2 gap-8">
                     <div>
-                      <label htmlFor="name" className="block text-sm font-medium text-primary/80 mb-1">
+                      <label htmlFor="name" className="block text-lg font-medium text-primary/80 mb-2">
                         Your Name
                       </label>
                       <input
@@ -210,12 +193,12 @@ export default function ConciergeServicesPage() {
                         id="name"
                         name="name"
                         required
-                        className="w-full px-4 py-2 border border-gray-300 rounded-md hover:border-primary focus:border-primary focus:ring-2 focus:ring-primary/20 transition-colors"
+                        className="w-full px-4 py-3 border border-gray-300 rounded-lg hover:border-primary focus:border-primary focus:ring-2 focus:ring-primary/20 transition-colors text-lg"
                       />
                     </div>
 
                     <div>
-                      <label htmlFor="email" className="block text-sm font-medium text-primary/80 mb-1">
+                      <label htmlFor="email" className="block text-lg font-medium text-primary/80 mb-2">
                         Email Address
                       </label>
                       <input
@@ -223,37 +206,37 @@ export default function ConciergeServicesPage() {
                         id="email"
                         name="email"
                         required
-                        className="w-full px-4 py-2 border border-gray-300 rounded-md hover:border-primary focus:border-primary focus:ring-2 focus:ring-primary/20 transition-colors"
+                        className="w-full px-4 py-3 border border-gray-300 rounded-lg hover:border-primary focus:border-primary focus:ring-2 focus:ring-primary/20 transition-colors text-lg"
                       />
                     </div>
                   </div>
 
                   <div>
-                    <label htmlFor="message" className="block text-sm font-medium text-primary/80 mb-1">
+                    <label htmlFor="message" className="block text-lg font-medium text-primary/80 mb-2">
                       Service Request Details
                     </label>
                     <textarea
                       id="message"
                       name="message"
-                      rows={4}
+                      rows={5}
                       required
-                      className="w-full px-4 py-2 border border-gray-300 rounded-md hover:border-primary focus:border-primary focus:ring-2 focus:ring-primary/20 transition-colors"
+                      className="w-full px-4 py-3 border border-gray-300 rounded-lg hover:border-primary focus:border-primary focus:ring-2 focus:ring-primary/20 transition-colors text-lg"
                       placeholder="Please describe the service you need, preferred dates/times, and any special requirements..."
                     ></textarea>
                   </div>
 
-                  <div className="flex gap-4">
+                  <div className="flex gap-6">
                     <button
                       type="button"
                       onClick={() => setShowContactForm(false)}
-                      className="flex-1 px-6 py-3 border border-gray-300 rounded-md text-primary hover:bg-gray-50 transition"
+                      className="flex-1 px-8 py-4 border border-gray-300 rounded-lg text-primary hover:bg-gray-50 transition text-lg"
                     >
                       Cancel
                     </button>
                     <button
                       type="submit"
                       disabled={isSubmitting}
-                      className="flex-1 bg-primary text-secondary px-6 py-3 rounded-md font-semibold hover:bg-primary-light transition disabled:opacity-50"
+                      className="flex-1 bg-primary text-secondary px-8 py-4 rounded-lg font-semibold hover:bg-primary-light transition disabled:opacity-50 text-lg"
                     >
                       {isSubmitting ? 'Sending...' : 'Send Request'}
                     </button>
@@ -263,6 +246,17 @@ export default function ConciergeServicesPage() {
             </div>
           )}
         </div>
+
+        {/* Back to Top Button */}
+        {showBackToTop && (
+          <button
+            onClick={scrollToTop}
+            className="fixed bottom-8 right-8 bg-primary text-secondary p-4 rounded-full shadow-lg hover:bg-primary-light transition-all duration-300 z-40"
+            aria-label="Back to top"
+          >
+            <ArrowUp className="w-6 h-6" />
+          </button>
+        )}
       </div>
     </div>
   );
