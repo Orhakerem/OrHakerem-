@@ -74,7 +74,6 @@ export default function ConciergeServices() {
           <h2 className="font-playfair text-4xl md:text-5xl font-bold text-white mb-4 leading-tight">
             Conciergerie Services
           </h2>
-          <div className="w-20 h-1 bg-gradient-to-r from-secondary to-tertiary mx-auto mb-4"></div>
           <p className="text-white/90 text-lg max-w-2xl mx-auto leading-relaxed">
             Experience personalized luxury with our dedicated concierge team
           </p>

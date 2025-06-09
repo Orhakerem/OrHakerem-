@@ -112,7 +112,6 @@ const Home: React.FC = () => {
             <h2 className="font-playfair text-5xl md:text-6xl font-bold text-white mb-6 leading-tight">
               Get in Touch
             </h2>
-            <div className="w-24 h-1 bg-gradient-to-r from-secondary to-tertiary mx-auto mb-6"></div>
             <p className="text-white/90 text-xl max-w-3xl mx-auto leading-relaxed">
               Have questions? We&apos;re here to help make your stay exceptional
               <br className="hidden md:block" />
