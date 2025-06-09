@@ -1,30 +1,34 @@
 'use client';
 
-import React, { useState } from 'react';
-import { useRouter, useParams } from 'next/navigation';
 import {
-  Calendar,
-  Heart,
-  Share,
-  MapPin,
-  Wifi,
-  Tv,
-  UtensilsCrossed,
+  Baby,
   Bath,
   BedDouble,
+  Calendar,
   Coffee,
-  Users,
-  Baby,
-  Waves,
   Dumbbell,
-  Wind,
-  Shirt,
+  Heart,
   Laptop,
+  MapPin,
+  Share,
+  Shirt,
   Sofa,
+  Tv,
+  Users,
   Utensils,
+  UtensilsCrossed,
+  Waves,
+  Wifi,
+  Wind,
 } from 'lucide-react';
-import ImageGallery from '@/components/ImageGallery';
+
+import React, { useState } from 'react';
+
 import Image from 'next/image';
+import { useParams, useRouter } from 'next/navigation';
+
+import ImageGallery from '@/components/ImageGallery';
+
 //import PropertyCalendar from '../components/PropertyCalendar';
 
 const properties = {
@@ -47,9 +51,9 @@ Whether with family or friends I look forward to welcoming you and making your s
     price: 450,
     images: [
       '/penthouse/1-jacuzzi-angle.JPEG',
-      '/penthouse/2-salon-angle-1.jpg',
+      '/penthouse/2-salon-angle.jpg',
       '/penthouse/3-chambre-master-angle-1.jpg',
-      '/penthouse/4-terrasse -ext-coucher-soleil.HEIC',
+      '/penthouse/4-terrasse-ext-coucher-soleil.png',
       '/penthouse/5-cuisine-angle-1.jpg',
       '/penthouse/6-salle-de-bain-douche-angle-2.jpg',
       '/penthouse/7-vue-mer.jpg',
@@ -113,7 +117,7 @@ The studio is located on the 1st floor of a unique building that is described as
     price: 150,
     images: [
       '/studio/1.jpg',
-      '/studio/2.HEIC',
+      '/studio/2.png',
       '/studio/3.jpg',
       '/studio/4.jpg',
       '/studio/5.jpg',
@@ -122,8 +126,8 @@ The studio is located on the 1st floor of a unique building that is described as
       '/studio/8.JPG',
       '/studio/9.jpg',
       '/studio/10.jpg',
-      '/studio/11.heic',
-      '/studio/12.heic',
+      '/studio/11.png',
+      '/studio/12.png',
     ],
     amenities: [
       { icon: Waves, name: 'Beach Access', description: '2 minutes to beach' },
@@ -177,11 +181,11 @@ export default function PropertyDetails() {
   }
 
   const nextImage = () => {
-    setCurrentImageIndex(prev => (prev + 1) % property.images.length);
+    setCurrentImageIndex((prev) => (prev + 1) % property.images.length);
   };
 
   const prevImage = () => {
-    setCurrentImageIndex(prev => (prev - 1 + property.images.length) % property.images.length);
+    setCurrentImageIndex((prev) => (prev - 1 + property.images.length) % property.images.length);
   };
 
   return (

@@ -1,10 +1,13 @@
 'use client';
 
-import React, { useState } from 'react';
-import { Calendar, Users, Moon, Mail, Phone, MessageSquare } from 'lucide-react';
-import { sendEmail } from '@/actions/email';
+import { Calendar, Mail, MessageSquare, Moon, Phone, Users } from 'lucide-react';
 import toast from 'react-hot-toast';
+
+import React, { useState } from 'react';
+
 import Image from 'next/image';
+
+import { sendEmail } from '@/actions/email';
 
 interface EventOptionProps {
   title: string;
@@ -63,8 +66,8 @@ export default function Events() {
           <Image
             src="https://images.unsplash.com/photo-1519671482749-fd09be7ccebf?auto=format&fit=crop&q=80"
             alt="Event Space"
-            fill
             className="object-cover"
+            fill
           />
           <div className="absolute inset-0  flex items-center">
             <div className="max-w-3xl mx-auto text-center px-4">
@@ -257,7 +260,7 @@ export default function Events() {
                               name="contactMethod"
                               value="email"
                               checked={contactMethod === 'email'}
-                              onChange={e => setContactMethod(e.target.value)}
+                              onChange={(e) => setContactMethod(e.target.value)}
                               className="absolute opacity-0"
                             />
                             <Mail
@@ -276,7 +279,7 @@ export default function Events() {
                               name="contactMethod"
                               value="phone"
                               checked={contactMethod === 'phone'}
-                              onChange={e => setContactMethod(e.target.value)}
+                              onChange={(e) => setContactMethod(e.target.value)}
                               className="absolute opacity-0"
                             />
                             <Phone
@@ -295,7 +298,7 @@ export default function Events() {
                               name="contactMethod"
                               value="whatsapp"
                               checked={contactMethod === 'whatsapp'}
-                              onChange={e => setContactMethod(e.target.value)}
+                              onChange={(e) => setContactMethod(e.target.value)}
                               className="absolute opacity-0"
                             />
                             <MessageSquare

@@ -5,6 +5,21 @@ const nextConfig: NextConfig = {
   reactStrictMode: true,
   // Configure build output
   output: 'standalone',
+
+  // Configure images to allow external sources
+  images: {
+    remotePatterns: [
+      {
+        protocol: 'https',
+        hostname: '**',
+      },
+      {
+        protocol: 'http',
+        hostname: '**',
+      },
+    ],
+  },
+
   // Remove experimental.serverActions as it's no longer needed in Next.js 15
   // Remove i18n configuration as it's not supported in App Router
 };

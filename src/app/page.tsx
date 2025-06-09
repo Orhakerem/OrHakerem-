@@ -1,10 +1,13 @@
 'use client';
 
-import React, { useState } from 'react';
-import Image from 'next/image';
-import FAQ from '@/components/FAQ';
-import { sendContactEmail } from '@/actions/contact';
 import toast from 'react-hot-toast';
+
+import React, { useState } from 'react';
+
+import Image from 'next/image';
+
+import { sendContactEmail } from '@/actions/contact';
+import FAQ from '@/components/FAQ';
 
 interface ServiceCardProps {
   emoji: string;
@@ -51,12 +54,7 @@ const Home: React.FC = () => {
     <div className="min-h-screen">
       {/* Hero Section */}
       <div className="relative h-screen">
-        <video
-          autoPlay
-          muted
-          playsInline
-          className="absolute inset-0 w-full h-full object-cover"
-        >
+        <video autoPlay muted playsInline className="absolute inset-0 w-full h-full object-cover">
           <source src="/hero.mp4" type="video/mp4" />
         </video>
         <div className="absolute inset-0 bg-black/40">
@@ -79,7 +77,7 @@ const Home: React.FC = () => {
           <div className="grid md:grid-cols-2 gap-12 items-center">
             <div className="relative h-[400px] rounded-lg overflow-hidden">
               <Image
-                src="/penthouse/interieur/salon-angle.jpg"
+                src="/penthouse/2-salon-angle.jpg"
                 width={500}
                 height={500}
                 alt="Building Interior"
