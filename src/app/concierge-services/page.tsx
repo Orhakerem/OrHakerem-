@@ -164,7 +164,6 @@ export default function ConciergeServicesPage() {
               <h1 className="font-playfair text-6xl font-bold text-white mb-8">
                 Premium Concierge Services
               </h1>
-              <div className="w-24 h-1 bg-gradient-to-r from-secondary to-tertiary mx-auto mb-6"></div>
               <p className="text-2xl text-white/90 max-w-4xl mx-auto leading-relaxed">
                 Our dedicated concierge team provides impeccable service tailored to your every need. 
                 Experience the ultimate in personalized luxury during your stay.
@@ -186,7 +185,6 @@ export default function ConciergeServicesPage() {
               <h2 className="font-playfair text-5xl font-bold text-primary mb-6 leading-tight">
                 Our Complete Service Portfolio
               </h2>
-              <div className="w-24 h-1 bg-gradient-to-r from-secondary to-tertiary mx-auto mb-6"></div>
               <p className="text-primary/80 text-xl max-w-3xl mx-auto leading-relaxed">
                 Discover our comprehensive range of luxury services designed to exceed your expectations
               </p>
@@ -232,7 +230,6 @@ export default function ConciergeServicesPage() {
               <h2 className="font-playfair text-5xl md:text-6xl font-bold text-white mb-6 leading-tight">
                 Request Concierge Services
               </h2>
-              <div className="w-24 h-1 bg-gradient-to-r from-secondary to-tertiary mx-auto mb-6"></div>
               <p className="text-white/90 text-xl max-w-3xl mx-auto leading-relaxed">
                 Our dedicated concierge team is available 24/7 to fulfill your every request 
                 <br className="hidden md:block" />
