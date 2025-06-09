@@ -17,11 +17,11 @@ interface ServiceCardProps {
 function ServiceCard({ icon: Icon, title, description, delay }: ServiceCardProps) {
   return (
     <div 
-      className="group relative bg-white/10 backdrop-blur-sm rounded-2xl p-8 transition-all duration-500 hover:scale-105 hover:bg-white/20 hover:shadow-2xl border border-white/20"
+      className="group relative bg-white rounded-2xl p-8 transition-all duration-500 hover:scale-105 hover:shadow-2xl border border-gray-100"
       style={{ animationDelay: `${delay}ms` }}
     >
       {/* Gradient overlay on hover */}
-      <div className="absolute inset-0 bg-gradient-to-br from-secondary/20 to-tertiary/20 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+      <div className="absolute inset-0 bg-gradient-to-br from-secondary/10 to-tertiary/10 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
       
       {/* Floating icon container */}
       <div className="relative inline-block mb-6">
@@ -33,10 +33,10 @@ function ServiceCard({ icon: Icon, title, description, delay }: ServiceCardProps
         <div className="absolute inset-0 rounded-full border-2 border-secondary/30 animate-pulse group-hover:border-secondary/50 transition-colors duration-300"></div>
       </div>
       
-      <h3 className="font-playfair text-2xl font-bold text-white mb-4 group-hover:text-secondary transition-colors duration-300 relative z-10">
+      <h3 className="font-playfair text-2xl font-bold text-primary mb-4 group-hover:text-secondary transition-colors duration-300 relative z-10">
         {title}
       </h3>
-      <p className="text-white/90 leading-relaxed text-lg group-hover:text-white transition-colors duration-300 relative z-10">
+      <p className="text-primary/80 leading-relaxed text-lg group-hover:text-primary transition-colors duration-300 relative z-10">
         {description}
       </p>
       
@@ -173,28 +173,21 @@ export default function ConciergeServicesPage() {
           </div>
         </div>
 
-        {/* Services Section with Enhanced Design */}
-        <section className="py-20 bg-gradient-to-br from-primary via-primary to-primary-light relative overflow-hidden rounded-3xl mb-20">
-          {/* Background decorative elements */}
-          <div className="absolute inset-0">
-            <div className="absolute top-20 left-10 w-32 h-32 bg-secondary/10 rounded-full blur-3xl"></div>
-            <div className="absolute bottom-20 right-10 w-40 h-40 bg-tertiary/10 rounded-full blur-3xl"></div>
-            <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-96 h-96 bg-white/5 rounded-full blur-3xl"></div>
-          </div>
-          
-          {/* Animated background pattern */}
-          <div className="absolute inset-0 opacity-10">
-            <div className="absolute top-0 left-0 w-full h-full bg-gradient-to-r from-transparent via-white/5 to-transparent transform -skew-y-12 animate-pulse"></div>
-          </div>
-          
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+        {/* Services Section with Clean White Background */}
+        <section className="py-20 bg-cream mb-20">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             {/* Header section */}
             <div className="text-center mb-16">
-              <h2 className="font-playfair text-5xl font-bold text-white mb-6 leading-tight">
+              <div className="inline-block mb-4">
+                <span className="text-tertiary font-semibold text-lg tracking-wider uppercase">
+                  Our Services
+                </span>
+              </div>
+              <h2 className="font-playfair text-5xl font-bold text-primary mb-6 leading-tight">
                 Our Complete Service Portfolio
               </h2>
               <div className="w-24 h-1 bg-gradient-to-r from-secondary to-tertiary mx-auto mb-6"></div>
-              <p className="text-white/90 text-xl max-w-3xl mx-auto leading-relaxed">
+              <p className="text-primary/80 text-xl max-w-3xl mx-auto leading-relaxed">
                 Discover our comprehensive range of luxury services designed to exceed your expectations
               </p>
             </div>
