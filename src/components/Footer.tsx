@@ -2,68 +2,67 @@
 
 import React from 'react';
 import Link from 'next/link';
-import { Mail, Phone } from 'lucide-react';
+import { Mail } from 'lucide-react';
 
 export default function Footer() {
   return (
     <footer className="bg-primary text-white relative overflow-hidden">
-      {/* Background decorative elements */}
+      {/* Background decorative elements - Subtle */}
       <div className="absolute inset-0">
-        <div className="absolute top-10 left-10 w-24 h-24 bg-secondary/10 rounded-full blur-2xl"></div>
-        <div className="absolute bottom-10 right-10 w-32 h-32 bg-tertiary/10 rounded-full blur-2xl"></div>
+        <div className="absolute top-5 left-10 w-16 h-16 bg-secondary/5 rounded-full blur-xl"></div>
+        <div className="absolute bottom-5 right-10 w-20 h-20 bg-tertiary/5 rounded-full blur-xl"></div>
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-32 h-32 bg-white/3 rounded-full blur-2xl"></div>
       </div>
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-        {/* Main Footer Content */}
-        <div className="py-12 md:py-16">
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 md:gap-12">
+        {/* Main Footer Content - Compact */}
+        <div className="py-8">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-8">
             
-            {/* Column 1: Contact */}
+            {/* Column 1: Contact - Compact */}
             <div className="text-center md:text-left">
-              <h3 className="font-playfair text-xl font-bold text-secondary mb-6">Contact Us</h3>
+              <h3 className="font-playfair text-lg font-bold text-secondary mb-4">Contact Us</h3>
               
-              <div className="space-y-4">
-                <div className="flex items-center justify-center md:justify-start">
-                  <Mail className="w-5 h-5 text-secondary mr-3 flex-shrink-0" />
+              <div className="space-y-2">
+                <div className="flex items-center justify-center md:justify-start group">
+                  <Mail className="w-4 h-4 text-secondary mr-2 flex-shrink-0 group-hover:scale-110 transition-transform duration-300" />
                   <a 
                     href="mailto:keremliving@gmail.com" 
-                    className="text-white/90 hover:text-secondary transition-colors duration-300"
+                    className="text-white/90 hover:text-secondary transition-colors duration-300 text-sm"
                   >
                     keremliving@gmail.com
                   </a>
                 </div>
                 
-                <div className="flex items-center justify-center md:justify-start">
-                  <Phone className="w-5 h-5 text-secondary mr-3 flex-shrink-0" />
-                  <a 
-                    href="tel:+33651179925" 
-                    className="text-white/90 hover:text-secondary transition-colors duration-300"
-                  >
-                    +33 6 51 17 99 25
-                  </a>
-                </div>
-                
-                <div className="flex items-center justify-center md:justify-start">
-                  <Phone className="w-5 h-5 text-secondary mr-3 flex-shrink-0" />
-                  <a 
-                    href="tel:+972526869791" 
-                    className="text-white/90 hover:text-secondary transition-colors duration-300"
-                  >
-                    +972 52 686 9791
-                  </a>
+                <div className="flex items-center justify-center md:justify-start group">
+                  <span className="text-secondary mr-2 text-sm group-hover:scale-110 transition-transform duration-300">📞</span>
+                  <div className="flex flex-col space-y-1">
+                    <a 
+                      href="tel:+33651179925" 
+                      className="text-white/90 hover:text-secondary transition-colors duration-300 text-sm"
+                    >
+                      +33 6 51 17 99 25
+                    </a>
+                    <a 
+                      href="tel:+972526869791" 
+                      className="text-white/90 hover:text-secondary transition-colors duration-300 text-sm"
+                    >
+                      +972 52 686 9791
+                    </a>
+                  </div>
                 </div>
 
-                {/* Instagram Icon - Mobile centered, desktop left-aligned */}
-                <div className="pt-4 flex justify-center md:justify-start">
+                {/* Instagram Icon - Compact */}
+                <div className="pt-2 flex justify-center md:justify-start">
                   <a 
                     href="https://instagram.com/orhakerem" 
                     target="_blank" 
                     rel="noopener noreferrer"
-                    className="p-2 hover:bg-white/10 rounded-lg transition-colors duration-300 group"
+                    className="inline-flex items-center justify-center w-8 h-8 hover:bg-white/10 rounded-lg transition-all duration-300 group"
                     aria-label="Or Hakerem Instagram"
                   >
                     <svg 
-                      className="w-6 h-6 text-white group-hover:text-secondary transition-colors duration-300" 
+                      className="w-5 h-5 text-white group-hover:text-secondary transition-colors duration-300 group-hover:scale-110" 
                       fill="currentColor" 
                       viewBox="0 0 24 24"
                     >
@@ -74,58 +73,58 @@ export default function Footer() {
               </div>
             </div>
 
-            {/* Column 2: Quick Links */}
+            {/* Column 2: Quick Links - Compact */}
             <div className="text-center md:text-left">
-              <h3 className="font-playfair text-xl font-bold text-secondary mb-6">Navigation</h3>
+              <h3 className="font-playfair text-lg font-bold text-secondary mb-4">Navigation</h3>
               
-              <nav className="space-y-3">
+              <nav className="space-y-2">
                 <Link 
                   href="/properties" 
-                  className="block text-white/90 hover:text-secondary hover:underline hover:underline-offset-4 transition-all duration-300"
+                  className="block text-white/90 hover:text-secondary hover:translate-x-1 transition-all duration-300 text-sm"
                 >
                   Accommodations
                 </Link>
                 <Link 
                   href="/concierge-services" 
-                  className="block text-white/90 hover:text-secondary hover:underline hover:underline-offset-4 transition-all duration-300"
+                  className="block text-white/90 hover:text-secondary hover:translate-x-1 transition-all duration-300 text-sm"
                 >
                   Concierge Services
                 </Link>
                 <Link 
                   href="/events" 
-                  className="block text-white/90 hover:text-secondary hover:underline hover:underline-offset-4 transition-all duration-300"
+                  className="block text-white/90 hover:text-secondary hover:translate-x-1 transition-all duration-300 text-sm"
                 >
                   Events
                 </Link>
                 <Link 
                   href="/#contact" 
-                  className="block text-white/90 hover:text-secondary hover:underline hover:underline-offset-4 transition-all duration-300"
+                  className="block text-white/90 hover:text-secondary hover:translate-x-1 transition-all duration-300 text-sm"
                 >
                   Contact
                 </Link>
               </nav>
             </div>
 
-            {/* Column 3: Legal */}
+            {/* Column 3: Legal - Compact */}
             <div className="text-center md:text-left">
-              <h3 className="font-playfair text-xl font-bold text-secondary mb-6">Policies</h3>
+              <h3 className="font-playfair text-lg font-bold text-secondary mb-4">Policies</h3>
               
-              <nav className="space-y-3">
+              <nav className="space-y-2">
                 <Link 
                   href="/cancellation" 
-                  className="block text-white/90 hover:text-secondary hover:underline hover:underline-offset-4 transition-all duration-300"
+                  className="block text-white/90 hover:text-secondary hover:translate-x-1 transition-all duration-300 text-sm"
                 >
                   Cancellation Policy
                 </Link>
                 <Link 
                   href="/terms" 
-                  className="block text-white/90 hover:text-secondary hover:underline hover:underline-offset-4 transition-all duration-300"
+                  className="block text-white/90 hover:text-secondary hover:translate-x-1 transition-all duration-300 text-sm"
                 >
                   Terms & Conditions
                 </Link>
                 <Link 
                   href="/privacy" 
-                  className="block text-white/90 hover:text-secondary hover:underline hover:underline-offset-4 transition-all duration-300"
+                  className="block text-white/90 hover:text-secondary hover:translate-x-1 transition-all duration-300 text-sm"
                 >
                   Privacy Policy
                 </Link>
@@ -134,15 +133,18 @@ export default function Footer() {
           </div>
         </div>
 
-        {/* Bottom Bar */}
-        <div className="border-t border-white/20 py-6">
+        {/* Bottom Bar - Ultra Compact */}
+        <div className="border-t border-white/10 py-4">
           <div className="text-center">
-            <p className="text-white/80">
+            <p className="text-white/70 text-sm">
               © 2025 Or Hakerem. All rights reserved.
             </p>
           </div>
         </div>
       </div>
+
+      {/* Subtle gradient overlay */}
+      <div className="absolute inset-0 bg-gradient-to-t from-primary via-transparent to-transparent opacity-50 pointer-events-none"></div>
 
       {/* Microdata Schema */}
       <script
