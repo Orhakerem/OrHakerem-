@@ -27,7 +27,7 @@ import React, { useState } from 'react';
 import Image from 'next/image';
 import { useParams, useRouter } from 'next/navigation';
 
-import ImageGallery from '@/components/ImageGallery';
+import RoomGallery from '@/components/RoomGallery';
 
 //import PropertyCalendar from '../components/PropertyCalendar';
 
@@ -94,6 +94,91 @@ Kerem Hatemanim is a very lively neighbourhood, known for its historic charm. Yo
       '/penthouse/28-toilette-lavabo-angle-1.jpg',
       '/penthouse/29-toilette-lavabo-angle-2.jpg',
     ],
+    rooms: [
+      {
+        name: 'Master Bedroom',
+        description: 'Spacious master bedroom with queen size bed and sea views',
+        images: [
+          { src: '/penthouse/3-chambre-master-angle-1.jpg', alt: 'Master bedroom view 1' },
+          { src: '/penthouse/17-chambre-master-angle-2.jpg', alt: 'Master bedroom view 2' },
+          { src: '/penthouse/18-chambre-master-angle-3.jpg', alt: 'Master bedroom view 3' },
+        ]
+      },
+      {
+        name: 'Second Bedroom',
+        description: 'Comfortable bedroom with queen size bed and storage',
+        images: [
+          { src: '/penthouse/12-chambre-entre-angle-2.jpg', alt: 'Second bedroom view 1' },
+          { src: '/penthouse/13-chambre-entrée-angle-1.jpg', alt: 'Second bedroom view 2' },
+        ]
+      },
+      {
+        name: 'Third Bedroom',
+        description: 'Cozy bedroom with queen size bed and blackout curtains',
+        images: [
+          { src: '/penthouse/21-chambre-fenêtre-angle-3.jpg', alt: 'Third bedroom view 1' },
+          { src: '/penthouse/22-chambre-fenêtre-angle-1.jpg', alt: 'Third bedroom view 2' },
+          { src: '/penthouse/27-chambre-fenêtre-angle-2.jpg', alt: 'Third bedroom view 3' },
+        ]
+      },
+      {
+        name: 'Living Areas',
+        description: 'Bright and spacious living room and dining area',
+        images: [
+          { src: '/penthouse/2-salon-angle.jpg', alt: 'Living room main view' },
+          { src: '/penthouse/10-salon-angle-2.jpg', alt: 'Living room alternative view' },
+          { src: '/penthouse/16-salon-complet-lumière-naturelle.jpg', alt: 'Living room with natural light' },
+          { src: '/penthouse/11-espace-repas-angle.JPEG', alt: 'Dining area' },
+        ]
+      },
+      {
+        name: 'Kitchen',
+        description: 'Fully equipped modern kitchen with all amenities',
+        images: [
+          { src: '/penthouse/5-cuisine-angle-1.jpg', alt: 'Kitchen view' },
+        ]
+      },
+      {
+        name: 'Bathrooms',
+        description: 'Modern bathrooms with shower and toilet facilities',
+        images: [
+          { src: '/penthouse/6-salle-de-bain-douche-angle-2.jpg', alt: 'Main bathroom' },
+          { src: '/penthouse/15-douche.jpg', alt: 'Shower area' },
+          { src: '/penthouse/19-toilette-lavabo-angle-2.jpg', alt: 'Toilet and sink 1' },
+          { src: '/penthouse/20-toilette-lavabo-angle-1.jpg', alt: 'Toilet and sink 2' },
+          { src: '/penthouse/28-toilette-lavabo-angle-1.jpg', alt: 'Additional toilet 1' },
+          { src: '/penthouse/29-toilette-lavabo-angle-2.jpg', alt: 'Additional toilet 2' },
+        ]
+      },
+      {
+        name: 'Terrace & Jacuzzi',
+        description: 'Private terrace with jacuzzi, BBQ area and sea views',
+        images: [
+          { src: '/penthouse/1-jacuzzi-angle.JPEG', alt: 'Jacuzzi main view' },
+          { src: '/penthouse/26-jacuzzi-angle-2.JPEG', alt: 'Jacuzzi alternative view' },
+          { src: '/penthouse/4-terrasse-ext-coucher-soleil.png', alt: 'Terrace sunset view' },
+          { src: '/penthouse/7-vue-mer.jpg', alt: 'Sea view from terrace' },
+        ]
+      },
+      {
+        name: 'Building & Exterior',
+        description: 'Historic building and stunning aerial views',
+        images: [
+          { src: '/penthouse/8-ext-drone-13.jpg', alt: 'Aerial view 1' },
+          { src: '/penthouse/9-ext-drone-3.jpg', alt: 'Aerial view 2' },
+          { src: '/penthouse/23-ext-drone-12.jpg', alt: 'Aerial view 3' },
+          { src: '/penthouse/24-ext-drone-4.jpg', alt: 'Aerial view 4' },
+          { src: '/penthouse/25-ext-drone-10.jpg', alt: 'Aerial view 5' },
+        ]
+      },
+      {
+        name: 'Utilities',
+        description: 'Laundry area and additional facilities',
+        images: [
+          { src: '/penthouse/14-espace-laverie.jpg', alt: 'Laundry area' },
+        ]
+      }
+    ],
     amenities: [
       { icon: Waves, name: 'Beach Access', description: '2 minutes walk to the beach' },
       { icon: UtensilsCrossed, name: 'BBQ Area', description: 'Outdoor BBQ with all utensils' },
@@ -143,6 +228,44 @@ The studio is located on the 1st floor of a unique building that is described as
       '/studio/11.png',
       '/studio/12.png',
     ],
+    rooms: [
+      {
+        name: 'Studio Living Area',
+        description: 'Open plan living space with sofa and dining area',
+        images: [
+          { src: '/studio/1.jpg', alt: 'Studio main view' },
+          { src: '/studio/2.png', alt: 'Living area' },
+          { src: '/studio/3.jpg', alt: 'Dining space' },
+          { src: '/studio/4.jpg', alt: 'Seating area' },
+        ]
+      },
+      {
+        name: 'Bedroom Area',
+        description: 'Comfortable sleeping area with storage',
+        images: [
+          { src: '/studio/5.jpg', alt: 'Bedroom view 1' },
+          { src: '/studio/6.jpg', alt: 'Bedroom view 2' },
+          { src: '/studio/7.jpg', alt: 'Bedroom storage' },
+        ]
+      },
+      {
+        name: 'Kitchen & Bathroom',
+        description: 'Compact kitchen and modern bathroom facilities',
+        images: [
+          { src: '/studio/8.JPG', alt: 'Kitchen area' },
+          { src: '/studio/9.jpg', alt: 'Bathroom' },
+          { src: '/studio/10.jpg', alt: 'Kitchen details' },
+        ]
+      },
+      {
+        name: 'Building Views',
+        description: 'Historic building and surrounding area',
+        images: [
+          { src: '/studio/11.png', alt: 'Building exterior' },
+          { src: '/studio/12.png', alt: 'Area view' },
+        ]
+      }
+    ],
     amenities: [
       { icon: Waves, name: 'Beach Access', description: '2 minutes to beach' },
       { icon: Wind, name: 'Air Conditioning', description: 'Central air conditioning' },
@@ -162,15 +285,6 @@ The studio is located on the 1st floor of a unique building that is described as
       '1612c5568a7fef5df0dd4bcd0db49f267c2fe0dd5c5f5a52860d7d408562dba7@group.calendar.google.com',
   },
 };
-
-const sampleImages = [
-  {
-    src: '/path/to/your/image.jpg',
-    alt: 'Modern living area with sea view',
-    type: 'livingroom',
-    number: 1,
-  },
-];
 
 export default function PropertyDetails() {
   const params = useParams();
@@ -315,11 +429,15 @@ export default function PropertyDetails() {
                 </div>
               </div>
 
+              {/* Room Gallery Section */}
               <div className="mb-8">
                 <h2 className="font-playfair text-2xl font-bold text-primary mb-6">
-                  Photo Gallery
+                  Room Gallery
                 </h2>
-                <ImageGallery images={sampleImages} />
+                <p className="text-primary/80 mb-6">
+                  Explore each room and area of the property with our organized photo collections.
+                </p>
+                <RoomGallery rooms={property.rooms || []} />
               </div>
 
               <div className="mb-8">

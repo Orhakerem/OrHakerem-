@@ -55,7 +55,7 @@ const Home: React.FC = () => {
       </div>
 
       {/* Building Description */}
-      <section className="py-20 bg-cream border-l-8 border-r-8 border-white">
+      <section className="py-20 bg-cream border-l-16 border-r-16 border-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid md:grid-cols-2 gap-12 items-center">
             <div className="relative h-[400px] rounded-lg overflow-hidden">
@@ -85,10 +85,10 @@ const Home: React.FC = () => {
       </section>
 
       {/* White Separator - Wider */}
-      <div className="h-8 bg-white"></div>
+      <div className="h-12 bg-white"></div>
 
       {/* Concierge Services - Reduced padding and wider borders */}
-      <div className="border-l-8 border-r-8 border-white">
+      <div className="border-l-16 border-r-16 border-white">
         <section className="py-12 bg-gradient-to-br from-primary via-primary to-primary-light relative overflow-hidden">
           {/* Background decorative elements */}
           <div className="absolute inset-0">
@@ -205,10 +205,10 @@ const Home: React.FC = () => {
       </div>
 
       {/* White Separator - Wider */}
-      <div className="h-8 bg-white"></div>
+      <div className="h-12 bg-white"></div>
 
       {/* Contact Section - Enhanced 3D Design - Reduced size */}
-      <section className="py-12 bg-gradient-to-br from-primary via-primary to-primary-light relative overflow-hidden border-l-8 border-r-8 border-white">
+      <section className="py-12 bg-gradient-to-br from-primary via-primary to-primary-light relative overflow-hidden border-l-16 border-r-16 border-white">
         {/* Background decorative elements */}
         <div className="absolute inset-0">
           <div className="absolute top-20 left-10 w-32 h-32 bg-secondary/10 rounded-full blur-3xl"></div>

@@ -142,6 +142,15 @@
     animation-delay: -1s;
   }
 
+  /* Custom border widths */
+  .border-l-16 {
+    border-left-width: 64px;
+  }
+
+  .border-r-16 {
+    border-right-width: 64px;
+  }
+
   @keyframes pulse {
     0%,
     100% {
