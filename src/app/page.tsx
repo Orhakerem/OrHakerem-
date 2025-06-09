@@ -55,7 +55,7 @@ const Home: React.FC = () => {
       </div>
 
       {/* Building Description */}
-      <section className="py-20 bg-cream">
+      <section className="py-20 bg-cream border-l-4 border-r-4 border-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid md:grid-cols-2 gap-12 items-center">
             <div className="relative h-[400px] rounded-lg overflow-hidden">
@@ -84,11 +84,19 @@ const Home: React.FC = () => {
         </div>
       </section>
 
+      {/* White Separator */}
+      <div className="h-4 bg-white"></div>
+
       {/* Concierge Services */}
-      <ConciergeServices />
+      <div className="border-l-4 border-r-4 border-white">
+        <ConciergeServices />
+      </div>
+
+      {/* White Separator */}
+      <div className="h-4 bg-white"></div>
 
       {/* Contact Section - Enhanced 3D Design */}
-      <section className="py-20 bg-gradient-to-br from-primary via-primary to-primary-light relative overflow-hidden">
+      <section className="py-20 bg-gradient-to-br from-primary via-primary to-primary-light relative overflow-hidden border-l-4 border-r-4 border-white">
         {/* Background decorative elements */}
         <div className="absolute inset-0">
           <div className="absolute top-20 left-10 w-32 h-32 bg-secondary/10 rounded-full blur-3xl"></div>

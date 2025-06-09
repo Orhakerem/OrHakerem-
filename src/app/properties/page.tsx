@@ -12,7 +12,7 @@ const properties = {
     location: 'Kerem HaTeimanim, Tel Aviv',
     description:
       'Luxurious penthouse featuring a private jacuzzi, BBQ area, and breathtaking sea views.',
-    price: 450,
+    price: 500,
     rating: 4.9,
     reviewCount: 128,
     image: '/penthouse/1-jacuzzi-angle.JPEG',
