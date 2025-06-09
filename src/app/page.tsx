@@ -87,82 +87,135 @@ const Home: React.FC = () => {
       {/* Concierge Services */}
       <ConciergeServices />
 
-      {/* Contact Section */}
-      <section className="py-16 bg-cream">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-12">
-            <h2 className="font-playfair text-4xl font-bold text-primary mb-4">Get in Touch</h2>
-            <p className="text-primary/80 text-lg max-w-2xl mx-auto">
-              Have questions? We&apos;re here to help make your stay exceptional.
+      {/* Contact Section - Enhanced 3D Design */}
+      <section className="py-20 bg-gradient-to-br from-primary via-primary to-primary-light relative overflow-hidden">
+        {/* Background decorative elements */}
+        <div className="absolute inset-0">
+          <div className="absolute top-20 left-10 w-32 h-32 bg-secondary/10 rounded-full blur-3xl"></div>
+          <div className="absolute bottom-20 right-10 w-40 h-40 bg-tertiary/10 rounded-full blur-3xl"></div>
+          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-96 h-96 bg-white/5 rounded-full blur-3xl"></div>
+        </div>
+        
+        {/* Animated background pattern */}
+        <div className="absolute inset-0 opacity-10">
+          <div className="absolute top-0 left-0 w-full h-full bg-gradient-to-r from-transparent via-white/5 to-transparent transform -skew-y-12 animate-pulse"></div>
+        </div>
+        
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+          {/* Header section with enhanced typography */}
+          <div className="text-center mb-16">
+            <div className="inline-block mb-4">
+              <span className="text-secondary font-semibold text-lg tracking-wider uppercase">
+                Contact Us
+              </span>
+            </div>
+            <h2 className="font-playfair text-5xl md:text-6xl font-bold text-white mb-6 leading-tight">
+              Get in Touch
+            </h2>
+            <div className="w-24 h-1 bg-gradient-to-r from-secondary to-tertiary mx-auto mb-6"></div>
+            <p className="text-white/90 text-xl max-w-3xl mx-auto leading-relaxed">
+              Have questions? We&apos;re here to help make your stay exceptional
+              <br className="hidden md:block" />
+              and create unforgettable memories
             </p>
           </div>
 
-          <div className="max-w-2xl mx-auto">
-            <div className="bg-white rounded-2xl shadow-xl overflow-hidden p-8">
-              <form onSubmit={handleSubmit} className="space-y-6">
-                <div className="grid md:grid-cols-2 gap-6">
-                  <div>
+          {/* Enhanced Contact Form */}
+          <div className="max-w-3xl mx-auto">
+            <div className="group relative bg-white/10 backdrop-blur-sm rounded-3xl p-10 transition-all duration-500 hover:bg-white/20 hover:shadow-2xl border border-white/20">
+              {/* Gradient overlay on hover */}
+              <div className="absolute inset-0 bg-gradient-to-br from-secondary/20 to-tertiary/20 rounded-3xl opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+              
+              <form onSubmit={handleSubmit} className="space-y-8 relative z-10">
+                <div className="grid md:grid-cols-2 gap-8">
+                  <div className="group/input">
                     <label
                       htmlFor="name"
-                      className="block text-sm font-medium text-primary/80 mb-1"
+                      className="block text-sm font-medium text-white/90 mb-3 group-hover/input:text-secondary transition-colors duration-300"
                     >
                       Your Name
                     </label>
-                    <input
-                      type="text"
-                      id="name"
-                      name="name"
-                      placeholder="Enter your name"
-                      required
-                      className="w-full h-12 px-4 bg-cream border-2 border-transparent hover:border-primary focus:border-primary focus:ring-2 focus:ring-primary/20 rounded-lg transition-all duration-300 outline-none text-base"
-                    />
+                    <div className="relative">
+                      <input
+                        type="text"
+                        id="name"
+                        name="name"
+                        placeholder="Enter your name"
+                        required
+                        className="w-full h-14 px-6 bg-white/10 backdrop-blur-sm border-2 border-white/20 hover:border-secondary/50 focus:border-secondary focus:ring-2 focus:ring-secondary/20 rounded-xl transition-all duration-300 outline-none text-base text-white placeholder-white/60 group-hover/input:bg-white/20"
+                      />
+                      <div className="absolute inset-0 rounded-xl bg-gradient-to-r from-secondary/10 to-tertiary/10 opacity-0 group-hover/input:opacity-100 transition-opacity duration-300 pointer-events-none"></div>
+                    </div>
                   </div>
 
-                  <div>
+                  <div className="group/input">
                     <label
                       htmlFor="email"
-                      className="block text-sm font-medium text-primary/80 mb-1"
+                      className="block text-sm font-medium text-white/90 mb-3 group-hover/input:text-secondary transition-colors duration-300"
                     >
                       Email Address
                     </label>
-                    <input
-                      type="email"
-                      id="email"
-                      name="email"
-                      placeholder="your@email.com"
-                      required
-                      className="w-full h-12 px-4 bg-cream border-2 border-transparent hover:border-primary focus:border-primary focus:ring-2 focus:ring-primary/20 rounded-lg transition-all duration-300 outline-none text-base"
-                    />
+                    <div className="relative">
+                      <input
+                        type="email"
+                        id="email"
+                        name="email"
+                        placeholder="your@email.com"
+                        required
+                        className="w-full h-14 px-6 bg-white/10 backdrop-blur-sm border-2 border-white/20 hover:border-secondary/50 focus:border-secondary focus:ring-2 focus:ring-secondary/20 rounded-xl transition-all duration-300 outline-none text-base text-white placeholder-white/60 group-hover/input:bg-white/20"
+                      />
+                      <div className="absolute inset-0 rounded-xl bg-gradient-to-r from-secondary/10 to-tertiary/10 opacity-0 group-hover/input:opacity-100 transition-opacity duration-300 pointer-events-none"></div>
+                    </div>
                   </div>
                 </div>
 
-                <div>
+                <div className="group/input">
                   <label
                     htmlFor="message"
-                    className="block text-sm font-medium text-primary/80 mb-1"
+                    className="block text-sm font-medium text-white/90 mb-3 group-hover/input:text-secondary transition-colors duration-300"
                   >
                     Your Message
                   </label>
-                  <textarea
-                    id="message"
-                    name="message"
-                    placeholder="Write your message here..."
-                    rows={4}
-                    required
-                    className="w-full px-4 py-3 bg-cream border-2 border-transparent hover:border-primary focus:border-primary focus:ring-2 focus:ring-primary/20 rounded-lg transition-all duration-300 outline-none resize-none text-base"
-                  ></textarea>
+                  <div className="relative">
+                    <textarea
+                      id="message"
+                      name="message"
+                      placeholder="Write your message here..."
+                      rows={5}
+                      required
+                      className="w-full px-6 py-4 bg-white/10 backdrop-blur-sm border-2 border-white/20 hover:border-secondary/50 focus:border-secondary focus:ring-2 focus:ring-secondary/20 rounded-xl transition-all duration-300 outline-none resize-none text-base text-white placeholder-white/60 group-hover/input:bg-white/20"
+                    ></textarea>
+                    <div className="absolute inset-0 rounded-xl bg-gradient-to-r from-secondary/10 to-tertiary/10 opacity-0 group-hover/input:opacity-100 transition-opacity duration-300 pointer-events-none"></div>
+                  </div>
                 </div>
 
-                <div>
-                  <button
-                    type="submit"
-                    disabled={isSubmitting}
-                    className="w-full bg-primary text-secondary h-12 rounded-xl text-base font-medium hover:bg-primary/90 transition-all duration-300 flex items-center justify-center disabled:opacity-50"
-                  >
-                    {isSubmitting ? 'Sending...' : 'Send Message →'}
-                  </button>
+                <div className="text-center">
+                  <div className="inline-block relative group/button">
+                    <div className="absolute inset-0 bg-gradient-to-r from-secondary to-tertiary rounded-full blur-lg opacity-50 group-hover/button:opacity-75 transition-opacity duration-300"></div>
+                    <button
+                      type="submit"
+                      disabled={isSubmitting}
+                      className="relative inline-flex items-center bg-gradient-to-r from-secondary to-secondary-light text-primary px-12 py-4 rounded-full font-semibold text-lg hover:from-secondary-light hover:to-secondary transition-all duration-300 shadow-xl hover:shadow-2xl transform hover:scale-105 disabled:opacity-50 disabled:cursor-not-allowed"
+                    >
+                      <span className="mr-3">
+                        {isSubmitting ? 'Sending...' : 'Send Message'}
+                      </span>
+                      <div className="w-6 h-6 bg-primary/20 rounded-full flex items-center justify-center">
+                        <span className="text-primary text-sm">→</span>
+                      </div>
+                    </button>
+                  </div>
+                  
+                  {/* Subtitle under button */}
+                  <p className="text-white/70 text-sm mt-6 font-medium">
+                    We'll get back to you within 24 hours
+                  </p>
                 </div>
               </form>
+
+              {/* Decorative corner elements */}
+              <div className="absolute top-6 right-6 w-3 h-3 bg-secondary rounded-full opacity-50 group-hover:opacity-100 transition-opacity duration-300"></div>
+              <div className="absolute bottom-6 left-6 w-3 h-3 bg-tertiary rounded-full opacity-50 group-hover:opacity-100 transition-opacity duration-300"></div>
             </div>
           </div>
         </div>

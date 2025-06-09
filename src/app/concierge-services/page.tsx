@@ -207,7 +207,7 @@ export default function ConciergeServicesPage() {
           </div>
         </section>
 
-        {/* Contact Section - 3D Design Style */}
+        {/* Contact Section - Enhanced 3D Design Style */}
         <section className="py-20 bg-gradient-to-br from-primary via-primary to-primary-light relative overflow-hidden rounded-3xl">
           {/* Background decorative elements */}
           <div className="absolute inset-0">
