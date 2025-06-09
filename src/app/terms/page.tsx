@@ -1,13 +1,29 @@
 'use client';
 
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
-import { ArrowLeft, Printer, FileText, Clock, CreditCard, Shield, AlertTriangle } from 'lucide-react';
+import { ArrowLeft, Printer, FileText, Clock, CreditCard, Shield, AlertTriangle, ArrowUp } from 'lucide-react';
 
 export default function TermsPage() {
+  const [showBackToTop, setShowBackToTop] = useState(false);
+
   const handlePrint = () => {
     window.print();
   };
+
+  const scrollToTop = () => {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  };
+
+  // Show/hide back to top button based on scroll position
+  useEffect(() => {
+    const handleScroll = () => {
+      setShowBackToTop(window.scrollY > 400);
+    };
+
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
 
   return (
     <div className="min-h-screen pt-24 pb-20 bg-cream">
@@ -41,7 +57,6 @@ export default function TermsPage() {
             <h1 className="font-playfair text-4xl md:text-5xl font-bold text-primary mb-4">
               Rental Terms & Conditions
             </h1>
-            <div className="w-24 h-1 bg-gradient-to-r from-secondary to-tertiary mx-auto mb-4"></div>
             <p className="text-primary/70 text-lg">
               Last Updated: June 10, 2025
             </p>
@@ -249,6 +264,17 @@ export default function TermsPage() {
             </div>
           </section>
         </div>
+
+        {/* Back to Top Button */}
+        {showBackToTop && (
+          <button
+            onClick={scrollToTop}
+            className="fixed bottom-8 right-8 bg-gradient-to-r from-secondary to-secondary-light text-primary p-4 rounded-full shadow-lg hover:shadow-xl transition-all duration-300 z-40 hover:scale-110"
+            aria-label="Back to top"
+          >
+            <ArrowUp className="w-6 h-6" />
+          </button>
+        )}
       </div>
     </div>
   );
