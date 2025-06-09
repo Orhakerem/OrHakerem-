@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Mail, Phone, MessageSquare, ArrowUp } from 'lucide-react';
 import Image from 'next/image';
 import Link from 'next/link';
@@ -76,14 +76,14 @@ export default function ConciergeServicesPage() {
   };
 
   // Show/hide back to top button based on scroll position
-  useState(() => {
+  useEffect(() => {
     const handleScroll = () => {
       setShowBackToTop(window.scrollY > 400);
     };
 
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
-  });
+  }, []);
 
   return (
     <div className="min-h-screen pt-24 pb-20 bg-cream">
