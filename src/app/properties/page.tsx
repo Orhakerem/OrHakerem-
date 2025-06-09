@@ -2,7 +2,7 @@
 
 import React from 'react';
 import { useRouter } from 'next/navigation';
-import { Calendar, Heart, MapPin, Users, BedDouble, Bath, ArrowRight } from 'lucide-react';
+import { Calendar, MapPin, Users, BedDouble, Bath, ArrowRight } from 'lucide-react';
 import Image from 'next/image';
 
 const properties = {
@@ -40,11 +40,14 @@ function PropertyCard({ property }: { property: (typeof properties)[keyof typeof
   const router = useRouter();
 
   return (
-    <div className="group relative bg-white rounded-2xl overflow-hidden shadow-xl hover:shadow-2xl transition-all duration-700 hover:scale-[1.02] aspect-square">
+    <div 
+      className="group relative bg-white rounded-2xl overflow-hidden shadow-xl hover:shadow-2xl transition-all duration-700 hover:scale-[1.02] aspect-square cursor-pointer"
+      onClick={() => router.push(`/properties/${property.id}`)}
+    >
       {/* Gradient overlay on hover */}
       <div className="absolute inset-0 bg-gradient-to-br from-secondary/5 to-tertiary/5 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-500 z-10"></div>
       
-      {/* Image Section - Square format */}
+      {/* Image Section - Square format - Clean without price and heart */}
       <div className="relative h-1/2 overflow-hidden">
         <Image 
           src={property.image} 
@@ -55,23 +58,6 @@ function PropertyCard({ property }: { property: (typeof properties)[keyof typeof
         
         {/* Gradient overlay */}
         <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent"></div>
-        
-        {/* Price badge */}
-        <div className="absolute top-4 left-4 bg-white/95 backdrop-blur-sm px-3 py-1 rounded-full shadow-lg">
-          <span className="font-bold text-primary">${property.price}</span>
-          <span className="text-primary/70 text-sm ml-1">/night</span>
-        </div>
-        
-        {/* Heart button */}
-        <button
-          className="absolute top-4 right-4 p-2 bg-white/95 backdrop-blur-sm rounded-full shadow-lg hover:bg-white transition-all duration-300 hover:scale-110"
-          onClick={(e) => {
-            e.stopPropagation();
-            // Handle favorite
-          }}
-        >
-          <Heart className="w-4 h-4 text-primary" />
-        </button>
       </div>
 
       {/* Content Section - Bottom half */}
@@ -110,25 +96,37 @@ function PropertyCard({ property }: { property: (typeof properties)[keyof typeof
           </div>
         </div>
 
-        {/* Action Buttons - Compact */}
-        <div className="flex gap-2">
-          <button
-            onClick={() => router.push(`/properties/${property.id}`)}
-            className="flex-1 bg-gradient-to-r from-primary to-primary-light text-white py-2 px-3 rounded-full font-semibold hover:from-primary-light hover:to-primary transition-all duration-300 shadow-lg hover:shadow-xl transform hover:scale-105 flex items-center justify-center text-sm"
-          >
-            <span>Details</span>
-            <ArrowRight className="w-3 h-3 ml-1" />
-          </button>
-          <button
-            onClick={(e) => {
-              e.stopPropagation();
-              router.push('/reservation');
-            }}
-            className="bg-gradient-to-r from-secondary to-secondary-light text-primary py-2 px-3 rounded-full font-semibold hover:from-secondary-light hover:to-secondary transition-all duration-300 shadow-lg hover:shadow-xl transform hover:scale-105 flex items-center justify-center text-sm"
-          >
-            <Calendar className="w-3 h-3 mr-1" />
-            <span>Book</span>
-          </button>
+        {/* Price and Action Buttons */}
+        <div className="space-y-3">
+          {/* Price Display */}
+          <div className="text-center">
+            <span className="font-bold text-xl text-primary">${property.price}</span>
+            <span className="text-primary/70 text-sm ml-1">/night</span>
+          </div>
+
+          {/* Action Buttons - Compact */}
+          <div className="flex gap-2">
+            <button
+              onClick={(e) => {
+                e.stopPropagation();
+                router.push(`/properties/${property.id}`);
+              }}
+              className="flex-1 bg-gradient-to-r from-primary to-primary-light text-white py-2 px-3 rounded-full font-semibold hover:from-primary-light hover:to-primary transition-all duration-300 shadow-lg hover:shadow-xl transform hover:scale-105 flex items-center justify-center text-sm"
+            >
+              <span>Details</span>
+              <ArrowRight className="w-3 h-3 ml-1" />
+            </button>
+            <button
+              onClick={(e) => {
+                e.stopPropagation();
+                router.push('/reservation');
+              }}
+              className="bg-gradient-to-r from-secondary to-secondary-light text-primary py-2 px-3 rounded-full font-semibold hover:from-secondary-light hover:to-secondary transition-all duration-300 shadow-lg hover:shadow-xl transform hover:scale-105 flex items-center justify-center text-sm"
+            >
+              <Calendar className="w-3 h-3 mr-1" />
+              <span>Book</span>
+            </button>
+          </div>
         </div>
       </div>
 
