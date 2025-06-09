@@ -87,6 +87,15 @@ const Home: React.FC = () => {
       {/* Concierge Services */}
       <ConciergeServices />
 
+      {/* Clean Separation Section */}
+      <section className="py-16 bg-cream">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center">
+            <div className="w-32 h-1 bg-gradient-to-r from-secondary to-tertiary mx-auto"></div>
+          </div>
+        </div>
+      </section>
+
       {/* Contact Section - Enhanced 3D Design */}
       <section className="py-20 bg-gradient-to-br from-primary via-primary to-primary-light relative overflow-hidden">
         {/* Background decorative elements */}
