@@ -151,6 +151,28 @@
     border-right-width: 64px;
   }
 
+  /* Print styles */
+  @media print {
+    .print\:shadow-none {
+      box-shadow: none !important;
+    }
+    
+    .print\:p-0 {
+      padding: 0 !important;
+    }
+    
+    body {
+      background: white !important;
+      color: black !important;
+    }
+    
+    .bg-gradient-to-r,
+    .bg-gradient-to-br,
+    .bg-gradient-to-l {
+      background: #f5f5f5 !important;
+    }
+  }
+
   @keyframes pulse {
     0%,
     100% {
