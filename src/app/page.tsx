@@ -157,14 +157,14 @@ const Home: React.FC = () => {
                 <div className="relative inline-block mb-3">
                   <div className="relative p-3 bg-gradient-to-br from-secondary to-secondary-light rounded-full shadow-lg group-hover:shadow-xl transition-all duration-300 group-hover:scale-110">
                     <div className="absolute inset-0 rounded-full bg-white/20 group-hover:bg-white/30 transition-colors duration-300"></div>
-                    <span className="text-2xl relative z-10">✨</span>
+                    <span className="text-2xl relative z-10">🛍️</span>
                   </div>
                 </div>
                 <h3 className="font-playfair text-lg font-bold text-white mb-2 group-hover:text-secondary transition-colors duration-300 relative z-10">
-                  Spa & Wellness
+                  Personal Shopping
                 </h3>
                 <p className="text-white/90 text-sm leading-relaxed group-hover:text-white transition-colors duration-300 relative z-10">
-                  In-room treatments and wellness
+                  Curated shopping experiences
                 </p>
               </div>
 

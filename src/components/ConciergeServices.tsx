@@ -3,7 +3,7 @@
 import { 
   UtensilsCrossed, 
   Car, 
-  Sparkles, 
+  ShoppingBag, 
   Baby
 } from 'lucide-react';
 import Link from 'next/link';
@@ -94,9 +94,9 @@ export default function ConciergeServices() {
             delay={100}
           />
           <ServiceCard
-            icon={Sparkles}
-            title="Spa & Wellness"
-            description="In-room treatments and premium wellness experiences"
+            icon={ShoppingBag}
+            title="Personal Shopping"
+            description="Curated shopping experiences and personal styling services"
             delay={200}
           />
           <ServiceCard
