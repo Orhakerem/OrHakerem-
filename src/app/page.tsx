@@ -8,24 +8,7 @@ import Image from 'next/image';
 
 import { sendContactEmail } from '@/actions/contact';
 import FAQ from '@/components/FAQ';
-
-interface ServiceCardProps {
-  emoji: string;
-  title: string;
-  description: string;
-}
-
-function ServiceCard({ emoji, title, description }: ServiceCardProps) {
-  return (
-    <div className="text-center p-6 bg-secondary-lighter rounded-lg transition-transform hover:scale-105">
-      <div className="inline-block p-4 bg-primary rounded-full mb-4">
-        <span className="text-4xl">{emoji}</span>
-      </div>
-      <h3 className="font-playfair text-xl font-bold text-secondary mb-2">{title}</h3>
-      <p className="text-secondary-light">{description}</p>
-    </div>
-  );
-}
+import ConciergeServices from '@/components/ConciergeServices';
 
 const Home: React.FC = () => {
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -101,31 +84,8 @@ const Home: React.FC = () => {
         </div>
       </section>
 
-      {/* Guest Services */}
-      <section className="py-20 bg-primary">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <h2 className="text-center font-playfair text-3xl font-bold text-secondary mb-12">
-            Guest Services
-          </h2>
-          <div className="grid md:grid-cols-3 gap-8">
-            <ServiceCard
-              emoji="🕯️"
-              title="Shabbat Delivery"
-              description="Candle kits & meals available upon request for a peaceful Shabbat experience"
-            />
-            <ServiceCard
-              emoji="🎁"
-              title="Welcome Packs"
-              description="Complimentary essentials basket upon arrival to make you feel at home"
-            />
-            <ServiceCard
-              emoji="📺"
-              title="Streaming Included"
-              description="Free access to premium streaming platforms during your stay"
-            />
-          </div>
-        </div>
-      </section>
+      {/* Concierge Services */}
+      <ConciergeServices />
 
       {/* Contact Section */}
       <section className="py-16 bg-cream">
