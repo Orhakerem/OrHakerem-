@@ -53,7 +53,7 @@ export async function sendEmail(formData: FormData) {
 
       validatedData = eventSchema.parse(eventData) as EventData;
 
-      subject = `New Event Inquiry - ${encodeURIComponent(validatedData.eventType)}`;
+      subject = `New Event Inquiry - ${validatedData.eventType}`;
       emailContent = `
         <h2>New Event Inquiry</h2>
         <p><strong>Event Type:</strong> ${validatedData.eventType}</p>
@@ -79,7 +79,7 @@ export async function sendEmail(formData: FormData) {
 
       validatedData = reservationSchema.parse(reservationData) as ReservationData;
 
-      subject = `New Booking Request for ${encodeURIComponent(validatedData.property)}`;
+      subject = `New Booking Request for ${validatedData.property}`;
       emailContent = `
         <h2>New Booking Request</h2>
         <p><strong>Property:</strong> ${validatedData.property}</p>

@@ -36,7 +36,7 @@ export async function sendContactEmail(formData: FormData) {
     const { data: emailData, error } = await resend.emails.send({
       from: 'Or Hakerem <onboarding@resend.dev>',
       to: recipientEmail,
-      subject: `New message from ${encodeURIComponent(validatedData.name)}`,
+      subject: `New message from ${validatedData.name}`,
       html: `
         <h2>New Contact Form Submission</h2>
         <p><strong>From:</strong> ${validatedData.name}</p>
