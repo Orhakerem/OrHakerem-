@@ -206,9 +206,9 @@ const Home: React.FC = () => {
       {/* White Separator - Wider */}
       <div className="h-12 bg-white"></div>
 
-      {/* Contact Section - Enhanced 3D Design with rounded borders */}
+      {/* Contact Section - Enhanced 3D Design with rounded borders and ID for scrolling */}
       <div className="border-l-16 border-r-16 border-white">
-        <section className="py-12 bg-gradient-to-br from-primary via-primary to-primary-light relative overflow-hidden rounded-3xl mx-4">
+        <section id="contact" className="py-12 bg-gradient-to-br from-primary via-primary to-primary-light relative overflow-hidden rounded-3xl mx-4">
           {/* Background decorative elements */}
           <div className="absolute inset-0">
             <div className="absolute top-20 left-10 w-32 h-32 bg-secondary/10 rounded-full blur-3xl"></div>
