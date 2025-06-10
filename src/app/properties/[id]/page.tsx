@@ -33,7 +33,7 @@ import RoomGallery from '@/components/RoomGallery';
 
 const properties = {
   'penthouse-jacuzzi': {
-    title: 'Penthouse with Jacuzzi & BBQ',
+    title: 'Luxury Penthouse',
     location: 'Kerem HaTeimanim, Tel Aviv',
     description:
       'Luxurious penthouse featuring a private jacuzzi, BBQ area, and breathtaking sea views.',
@@ -199,7 +199,7 @@ Kerem Hatemanim is a very lively neighbourhood, known for its historic charm. Yo
       'ca294cd4b18c3afc09b054d0a7432e2c79a16ccfde54f326f84b661e626d4f18@group.calendar.google.com',
   },
   'cozy-studio': {
-    title: 'Cozy Studio, 2 Minutes from Sea',
+    title: 'Spacious & Cosy Apartment',
     location: 'Kerem HaTeimanim, Tel Aviv',
     description: 'Completely renovated studio perfect for short to long term stays.',
     longDescription: `Welcome to my precious Accommodation in the heart of Tel Aviv!
@@ -277,7 +277,7 @@ The studio is located on the 1st floor of a unique building that is described as
       { icon: Utensils, name: 'Full Amenities', description: 'All essentials provided' },
       { icon: Wifi, name: 'High-speed WiFi', description: 'Throughout the studio' },
     ],
-    maxGuests: 2,
+    maxGuests: 3,
     bedrooms: 1,
     beds: 1,
     baths: 1,

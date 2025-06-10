@@ -3,8 +3,8 @@
 import { 
   UtensilsCrossed, 
   Car, 
-  ShoppingBag, 
-  Baby
+  Baby,
+  Calendar
 } from 'lucide-react';
 import Link from 'next/link';
 
@@ -83,8 +83,8 @@ export default function ConciergeServices() {
         <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6 mb-12 max-w-6xl mx-auto">
           <ServiceCard
             icon={UtensilsCrossed}
-            title="Restaurant Reservations"
-            description="Priority bookings at exclusive restaurants and curated dining experiences"
+            title="Dining Reservations"
+            description="Priority booking and recommendation for restaurants ensure you enjoy exceptional dining adventures with seamless reservations"
             delay={0}
           />
           <ServiceCard
@@ -94,9 +94,9 @@ export default function ConciergeServices() {
             delay={100}
           />
           <ServiceCard
-            icon={ShoppingBag}
-            title="Personal Shopping"
-            description="Curated shopping experiences and personal styling services"
+            icon={Calendar}
+            title="Event Planning"
+            description="Access to events and private celebrations with meticulous attention to detail. From intimate gatherings to grand celebrations, we orchestrate unforgettable experiences that exceed your expectations"
             delay={200}
           />
           <ServiceCard

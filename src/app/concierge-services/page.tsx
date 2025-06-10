@@ -1,7 +1,7 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import { Mail, Phone, MessageSquare, ArrowUp, UtensilsCrossed, Car, ShoppingBag, Baby, Calendar, Sparkles, Briefcase, Star } from 'lucide-react';
+import { Mail, Phone, MessageSquare, ArrowUp, UtensilsCrossed, Car, Baby, Calendar, Star } from 'lucide-react';
 import Image from 'next/image';
 import Link from 'next/link';
 import toast from 'react-hot-toast';
@@ -55,7 +55,7 @@ export default function ConciergeServicesPage() {
     {
       icon: UtensilsCrossed,
       title: 'Dining Reservations',
-      description: 'Priority bookings at Michelin-starred restaurants and exclusive culinary experiences. Our established relationships with premier establishments ensure you enjoy exceptional dining adventures with seamless reservations.'
+      description: 'Priority booking and recommendation for restaurants ensure you enjoy exceptional dining adventures with seamless reservations.'
     },
     {
       icon: Car,
@@ -68,29 +68,9 @@ export default function ConciergeServicesPage() {
       description: 'Certified childcare professionals available 24/7 for your complete peace of mind. Our vetted and experienced caregivers provide exceptional care, allowing you to enjoy your stay with confidence and relaxation.'
     },
     {
-      icon: ShoppingBag,
-      title: 'Personal Shopping',
-      description: 'Personal stylists and boutique appointments with curated shopping experiences. Enjoy exclusive access to luxury brands and personalized styling services, with convenient delivery directly to your accommodation.'
-    },
-    {
       icon: Calendar,
       title: 'Event Planning',
-      description: 'VIP access to exclusive events and private celebrations with meticulous attention to detail. From intimate gatherings to grand celebrations, we orchestrate unforgettable experiences that exceed your expectations.'
-    },
-    {
-      icon: Sparkles,
-      title: 'Wellness Services',
-      description: 'In-room massage treatments and wellness experiences tailored to your needs. From therapeutic massages to personalized fitness sessions, rejuvenate with our comprehensive wellness services designed for complete relaxation.'
-    },
-    {
-      icon: Briefcase,
-      title: 'Business Services',
-      description: 'Meeting rooms and secretarial support with comprehensive business solutions. Maintain productivity with our professional facilities, administrative assistance, and state-of-the-art technology services.'
-    },
-    {
-      icon: Star,
-      title: 'Special Requests',
-      description: 'Custom arrangements for unique experiences and memorable celebrations. No request is too distinctive – our specialized team excels at creating extraordinary moments tailored to your vision and desires.'
+      description: 'Access to events and private celebrations with meticulous attention to detail. From intimate gatherings to grand celebrations, we orchestrate unforgettable experiences that exceed your expectations.'
     }
   ];
 

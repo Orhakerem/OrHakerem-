@@ -77,7 +77,7 @@ export default function Events() {
         'Panoramic sea views',
         'Jacuzzi access',
         'BBQ facilities',
-        'Capacity: 15-20 guests',
+        'Capacity: 50 guests',
         'Perfect for sunset events'
       ]
     },
@@ -89,7 +89,7 @@ export default function Events() {
         'Fully equipped kitchen',
         'Elegant dining setup',
         'Professional catering available',
-        'Capacity: 8-12 guests',
+        'Capacity: 50 guests',
         'Intimate atmosphere'
       ]
     },
@@ -101,7 +101,7 @@ export default function Events() {
         'Flexible space configuration',
         'Traditional & modern amenities',
         'Kosher meal arrangements',
-        'Capacity: 10-25 guests',
+        'Capacity: 80 guests',
         'Cultural celebration support'
       ]
     }
@@ -361,7 +361,7 @@ export default function Events() {
                             name="guestCount"
                             required
                             min="1"
-                            max="25"
+                            max="80"
                             className="w-full px-4 py-3 border border-gray-300 rounded-lg hover:border-primary focus:border-primary focus:ring-2 focus:ring-primary/20 transition-colors"
                           />
                         </div>
