@@ -17,7 +17,7 @@ const properties = {
     image: '/penthouse/1-jacuzzi-angle.JPEG',
     maxGuests: 6,
     bedrooms: 3,
-    bathrooms: 2,
+    bathrooms: 3,
     features: ['Private Jacuzzi', 'BBQ Terrace', 'Sea Views', 'Historic Building']
   },
   'cozy-studio': {

@@ -48,7 +48,7 @@ Take full advantage of the facilities on offer, such as the jacuzzi and barbecue
 
 Enjoy 3 comfortable bedrooms with top of the range bedding, a bright lounge to relax in, and a large terrace equipped with a jacuzzi and sea views🌊 All bedrooms have queen size beds, storage cupboards as well as curtains for total darkness if desired, the large bedroom has a cot.
 
-The two bathrooms are complete with shower and toilet, the 3rd is a shower only. The kitchen is fully equipped with coffee machine, microwave, oven, cooker, crockery and cooking utensils.
+The three bathrooms are complete with shower and toilet, providing ample convenience for all guests. The kitchen is fully equipped with coffee machine, microwave, oven, cooker, crockery and cooking utensils.
 
 The outdoor dining area is perfect for BBQ evenings.
 
@@ -143,7 +143,7 @@ Kerem Hatemanim is a very lively neighbourhood, known for its historic charm. Yo
       },
       {
         name: 'Bathrooms',
-        description: 'Modern bathrooms with shower and toilet facilities',
+        description: 'Three modern bathrooms with shower and toilet facilities',
         images: [
           { src: '/penthouse/6-salle-de-bain-douche-angle-2.jpg', alt: 'Main bathroom' },
           { src: '/penthouse/15-douche.jpg', alt: 'Shower area' },
@@ -197,7 +197,7 @@ Kerem Hatemanim is a very lively neighbourhood, known for its historic charm. Yo
     maxGuests: 6,
     bedrooms: 3,
     beds: 3,
-    baths: 2,
+    baths: 3,
     calendarId:
       'ca294cd4b18c3afc09b054d0a7432e2c79a16ccfde54f326f84b661e626d4f18@group.calendar.google.com',
   },
