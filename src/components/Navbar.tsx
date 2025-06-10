@@ -39,10 +39,10 @@ function Navbar() {
             <Link href="/" aria-label="Or Hakerem - Home" className="flex items-center">
               <div className="relative w-8 h-8 mr-3">
                 <Image
-                  src="/IMG_4760.jpg"
+                  src="/orhakerem_logo_original.jpg"
                   alt="Or Hakerem Logo"
                   fill
-                  className="object-contain"
+                  className="object-contain rounded-sm"
                   priority
                 />
               </div>
