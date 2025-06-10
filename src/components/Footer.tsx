@@ -8,22 +8,22 @@ import Image from 'next/image';
 export default function Footer() {
   return (
     <footer className="bg-primary text-white relative overflow-hidden rounded-t-3xl">
-      {/* Background decorative elements - Reduced */}
+      {/* Background decorative elements - Minimal */}
       <div className="absolute inset-0">
-        <div className="absolute top-5 left-5 w-16 h-16 bg-secondary/10 rounded-full blur-xl"></div>
-        <div className="absolute bottom-5 right-5 w-20 h-20 bg-tertiary/10 rounded-full blur-xl"></div>
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-32 h-32 bg-white/5 rounded-full blur-2xl"></div>
+        <div className="absolute top-3 left-3 w-12 h-12 bg-secondary/10 rounded-full blur-xl"></div>
+        <div className="absolute bottom-3 right-3 w-16 h-16 bg-tertiary/10 rounded-full blur-xl"></div>
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-24 h-24 bg-white/5 rounded-full blur-2xl"></div>
       </div>
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-        {/* Main Footer Content - Compact */}
-        <div className="py-8">
-          <div className="grid grid-cols-1 md:grid-cols-4 gap-6 md:gap-8">
+        {/* Main Footer Content - Ultra Compact */}
+        <div className="py-6">
+          <div className="grid grid-cols-1 md:grid-cols-4 gap-4 md:gap-6">
             
-            {/* Column 1: Logo & Brand - Even Bigger Logo */}
+            {/* Column 1: Logo & Brand - Huge Logo */}
             <div className="text-center md:text-left md:col-span-1">
-              <div className="flex items-center justify-center md:justify-start mb-4">
-                <div className="relative w-24 h-24 mr-4 group">
+              <div className="flex items-center justify-center md:justify-start mb-3">
+                <div className="relative w-32 h-32 mr-4 group">
                   <Image
                     src="/orhakerem_logo_original.jpg"
                     alt="Or Hakerem Logo"
@@ -43,9 +43,9 @@ export default function Footer() {
             
             {/* Column 2: Contact - Compact */}
             <div className="text-center md:text-left">
-              <h3 className="font-playfair text-xl font-bold text-secondary mb-4">Contact Us</h3>
+              <h3 className="font-playfair text-lg font-bold text-secondary mb-3">Contact Us</h3>
               
-              <div className="space-y-3">
+              <div className="space-y-2">
                 <div className="group">
                   <div className="flex items-center justify-center md:justify-start group-hover:bg-white/10 rounded-lg p-2 transition-colors duration-300">
                     <Mail className="w-4 h-4 text-secondary mr-2 flex-shrink-0 group-hover:scale-110 transition-transform duration-300" />
@@ -84,11 +84,11 @@ export default function Footer() {
                     href="https://www.instagram.com/or_hakerem/" 
                     target="_blank" 
                     rel="noopener noreferrer"
-                    className="inline-flex items-center justify-center w-10 h-10 bg-white/10 hover:bg-white/20 rounded-xl transition-all duration-300 group border border-white/20"
+                    className="inline-flex items-center justify-center w-8 h-8 bg-white/10 hover:bg-white/20 rounded-lg transition-all duration-300 group border border-white/20"
                     aria-label="Or Hakerem Instagram"
                   >
                     <svg 
-                      className="w-5 h-5 text-white group-hover:text-secondary transition-colors duration-300 group-hover:scale-110" 
+                      className="w-4 h-4 text-white group-hover:text-secondary transition-colors duration-300 group-hover:scale-110" 
                       fill="currentColor" 
                       viewBox="0 0 24 24"
                     >
@@ -101,9 +101,9 @@ export default function Footer() {
 
             {/* Column 3: Quick Links - Bigger Text */}
             <div className="text-center md:text-left">
-              <h3 className="font-playfair text-xl font-bold text-secondary mb-4">Navigation</h3>
+              <h3 className="font-playfair text-lg font-bold text-secondary mb-3">Navigation</h3>
               
-              <nav className="space-y-2">
+              <nav className="space-y-1">
                 <Link 
                   href="/properties" 
                   className="block text-white/90 hover:text-secondary hover:translate-x-2 transition-all duration-300 text-lg font-medium p-2 rounded-lg hover:bg-white/10"
@@ -133,9 +133,9 @@ export default function Footer() {
 
             {/* Column 4: Legal - Bigger Text */}
             <div className="text-center md:text-left">
-              <h3 className="font-playfair text-xl font-bold text-secondary mb-4">Policies</h3>
+              <h3 className="font-playfair text-lg font-bold text-secondary mb-3">Policies</h3>
               
-              <nav className="space-y-2">
+              <nav className="space-y-1">
                 <Link 
                   href="/cancellation" 
                   className="block text-white/90 hover:text-secondary hover:translate-x-2 transition-all duration-300 text-lg font-medium p-2 rounded-lg hover:bg-white/10"
@@ -159,13 +159,13 @@ export default function Footer() {
           </div>
         </div>
 
-        {/* Bottom Bar - Compact */}
-        <div className="border-t border-white/20 py-4">
+        {/* Bottom Bar - Ultra Compact */}
+        <div className="border-t border-white/20 py-3">
           <div className="text-center">
-            <p className="text-white/80 text-base font-medium">
+            <p className="text-white/80 text-sm font-medium">
               © 2025 Or Hakerem. All rights reserved.
             </p>
-            <p className="text-white/60 text-sm mt-1">
+            <p className="text-white/60 text-xs mt-1">
               Luxury accommodations in the heart of Tel Aviv
             </p>
           </div>
