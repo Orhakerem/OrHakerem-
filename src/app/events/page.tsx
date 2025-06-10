@@ -169,7 +169,7 @@ export default function Events() {
         {/* Hero Section */}
         <div className="relative h-[500px] rounded-2xl overflow-hidden mb-20">
           <Image
-            src="https://images.unsplash.com/photo-1519671482749-fd09be7ccebf?auto=format&fit=crop&q=80"
+            src="/penthouse/4-terrasse-ext-coucher-soleil.png"
             alt="Event Space"
             fill
             className="object-cover"
