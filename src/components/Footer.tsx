@@ -55,7 +55,7 @@ export default function Footer() {
                 {/* Instagram Icon - Compact */}
                 <div className="pt-2 flex justify-center md:justify-start">
                   <a 
-                    href="https://www.instagram.com/orhakerem/" 
+                    href="https://www.instagram.com/or_hakerem/" 
                     target="_blank" 
                     rel="noopener noreferrer"
                     className="inline-flex items-center justify-center w-8 h-8 hover:bg-white/10 rounded-lg transition-all duration-300 group"
