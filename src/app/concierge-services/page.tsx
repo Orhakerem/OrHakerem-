@@ -134,11 +134,11 @@ export default function ConciergeServicesPage() {
           </div>
         </div>
 
-        {/* Hero Section */}
+        {/* Hero Section with Vue Mer Image */}
         <div className="relative h-[500px] rounded-2xl overflow-hidden mb-20">
           <Image
-            src="/penthouse/2-salon-angle.jpg"
-            alt="Luxury Concierge Services"
+            src="/penthouse/7-vue-mer.jpg"
+            alt="Sea View from Luxury Concierge Services"
             fill
             className="object-cover"
           />
