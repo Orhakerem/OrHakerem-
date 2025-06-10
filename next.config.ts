@@ -27,6 +27,8 @@ const nextConfig: NextConfig = {
   experimental: {
     // Enable optimized package imports
     optimizePackageImports: ['lucide-react', 'react-hot-toast'],
+    // Disable problematic features that might cause build issues
+    serverComponentsExternalPackages: ['resend'],
   },
 
   // Configure TypeScript for build

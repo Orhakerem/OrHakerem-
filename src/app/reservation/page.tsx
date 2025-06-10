@@ -3,20 +3,30 @@
 import { Calendar, Mail, MessageSquare, Phone, ArrowLeft, Home } from 'lucide-react';
 import toast from 'react-hot-toast';
 
-import React, { Suspense, useState } from 'react';
+import React, { Suspense, useState, useEffect } from 'react';
 
-import { useRouter, useSearchParams } from 'next/navigation';
+import { useRouter } from 'next/navigation';
 import Link from 'next/link';
 
 import { sendEmail } from '@/actions/email';
 
 function ReservationContent() {
   const router = useRouter();
-  const searchParams = useSearchParams();
-  const propertyTitle = searchParams.get('property') || 'Property';
+  const [propertyTitle, setPropertyTitle] = useState('Property');
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSuccess, setIsSuccess] = useState(false);
   const [contactMethod, setContactMethod] = useState('email');
+
+  // Get property from URL parameters on client side
+  useEffect(() => {
+    if (typeof window !== 'undefined') {
+      const urlParams = new URLSearchParams(window.location.search);
+      const property = urlParams.get('property');
+      if (property) {
+        setPropertyTitle(property);
+      }
+    }
+  }, []);
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
