@@ -152,7 +152,7 @@ export default function Properties() {
             Luxury Properties
           </h1>
           <p className="text-primary/80 text-xl max-w-3xl mx-auto leading-relaxed">
-            Discover our premium accommodations in Tel Aviv's vibrant Kerem HaTeimanim neighborhood. 
+            Discover our premium accommodations in Tel Aviv&apos;s vibrant Kerem HaTeimanim neighborhood. 
             Each property offers a unique blend of modern luxury and historic charm.
           </p>
         </div>
@@ -203,7 +203,7 @@ export default function Properties() {
             </div>
             
             <p className="text-white/70 text-sm mt-6 font-medium">
-              Experience luxury in Tel Aviv's most charming neighborhood
+              Experience luxury in Tel Aviv&apos;s most charming neighborhood
             </p>
           </div>
         </div>

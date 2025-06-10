@@ -8,7 +8,6 @@ import Image from 'next/image';
 
 import { sendContactEmail } from '@/actions/contact';
 import FAQ from '@/components/FAQ';
-import ConciergeServices from '@/components/ConciergeServices';
 
 const Home: React.FC = () => {
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -326,7 +325,7 @@ const Home: React.FC = () => {
                     
                     {/* Subtitle under button */}
                     <p className="text-white/70 text-sm mt-4 font-medium">
-                      We'll get back to you within 24 hours
+                      We&apos;ll get back to you within 24 hours
                     </p>
                   </div>
                 </form>

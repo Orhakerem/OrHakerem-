@@ -7,9 +7,6 @@ const nextConfig: NextConfig = {
   // Configure build output for Vercel
   output: 'standalone',
   
-  // Optimize for production builds
-  swcMinify: true,
-  
   // Configure images to allow external sources
   images: {
     remotePatterns: [

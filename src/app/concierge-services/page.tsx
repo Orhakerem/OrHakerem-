@@ -1,7 +1,7 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import { Mail, Phone, MessageSquare, ArrowUp, UtensilsCrossed, Car, Baby, Calendar, Star, ArrowLeft, Home } from 'lucide-react';
+import { ArrowUp, UtensilsCrossed, Car, Baby, Calendar, ArrowLeft, Home } from 'lucide-react';
 import Image from 'next/image';
 import Link from 'next/link';
 import toast from 'react-hot-toast';
@@ -313,7 +313,7 @@ export default function ConciergeServicesPage() {
                     
                     {/* Subtitle under button */}
                     <p className="text-white/70 text-sm mt-6 font-medium">
-                      We'll respond to your request within 2 hours
+                      We&apos;ll respond to your request within 2 hours
                     </p>
                   </div>
                 </form>
