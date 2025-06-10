@@ -78,10 +78,6 @@ function ReservationContent() {
               </div>
               <Home className="w-5 h-5 mr-2 opacity-70 group-hover:opacity-100 transition-opacity duration-300" />
               <span className="relative z-10">Back to Home</span>
-              
-              {/* Decorative elements */}
-              <div className="absolute top-1 right-1 w-2 h-2 bg-secondary rounded-full opacity-50 group-hover:opacity-100 transition-opacity duration-300"></div>
-              <div className="absolute bottom-1 left-1 w-2 h-2 bg-tertiary rounded-full opacity-50 group-hover:opacity-100 transition-opacity duration-300"></div>
             </Link>
           </div>
         </div>
