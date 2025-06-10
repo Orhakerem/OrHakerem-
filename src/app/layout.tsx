@@ -70,11 +70,11 @@ export default function RootLayout({
   return (
     <html lang="en">
       <head>
-        <link rel="icon" href="/IMG_4760.jpg" sizes="any" />
-        <link rel="apple-touch-icon" href="/IMG_4760.jpg" />
-        <meta name="theme-color" content="#a5382b" />
-        <meta name="msapplication-TileColor" content="#a5382b" />
-        <meta name="msapplication-TileImage" content="/IMG_4760.jpg" />
+        <link rel="icon\" href="/IMG_4760.jpg\" sizes="any" />
+        <link rel="apple-touch-icon\" href="/IMG_4760.jpg" />
+        <meta name="theme-color\" content="#a5382b" />
+        <meta name="msapplication-TileColor\" content="#a5382b" />
+        <meta name="msapplication-TileImage\" content="/IMG_4760.jpg" />
       </head>
       <body className="min-h-screen bg-cream antialiased">
         <CustomCursor />
