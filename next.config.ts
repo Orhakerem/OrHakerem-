@@ -23,12 +23,13 @@ const nextConfig: NextConfig = {
     formats: ['image/webp', 'image/avif'],
   },
 
+  // Configure external packages
+  serverExternalPackages: ['resend'],
+
   // Configure experimental features for better performance
   experimental: {
     // Enable optimized package imports
     optimizePackageImports: ['lucide-react', 'react-hot-toast'],
-    // Disable problematic features that might cause build issues
-    serverComponentsExternalPackages: ['resend'],
   },
 
   // Configure TypeScript for build
