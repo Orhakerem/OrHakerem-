@@ -1,11 +1,12 @@
 'use client';
 
-import { Calendar, Mail, MessageSquare, Phone } from 'lucide-react';
+import { Calendar, Mail, MessageSquare, Phone, ArrowLeft, Home } from 'lucide-react';
 import toast from 'react-hot-toast';
 
 import React, { Suspense, useState } from 'react';
 
 import { useRouter, useSearchParams } from 'next/navigation';
+import Link from 'next/link';
 
 import { sendEmail } from '@/actions/email';
 
@@ -63,6 +64,28 @@ function ReservationContent() {
   return (
     <div className="min-h-screen pt-24 pb-20 bg-cream">
       <div className="max-w-2xl mx-auto px-4">
+        {/* Enhanced Back Navigation */}
+        <div className="mb-8">
+          <div className="inline-block relative group">
+            <div className="absolute inset-0 bg-gradient-to-r from-primary/20 to-secondary/20 rounded-full blur-lg opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+            <Link
+              href="/"
+              className="relative inline-flex items-center bg-white/80 backdrop-blur-sm text-primary px-6 py-3 rounded-full font-semibold text-lg hover:bg-white hover:text-secondary transition-all duration-300 shadow-lg hover:shadow-xl transform hover:scale-105 border border-primary/20"
+            >
+              <div className="relative mr-3">
+                <ArrowLeft className="w-5 h-5 transition-transform duration-300 group-hover:-translate-x-1" />
+                <div className="absolute inset-0 bg-secondary/20 rounded-full scale-0 group-hover:scale-150 transition-transform duration-300"></div>
+              </div>
+              <Home className="w-5 h-5 mr-2 opacity-70 group-hover:opacity-100 transition-opacity duration-300" />
+              <span className="relative z-10">Back to Home</span>
+              
+              {/* Decorative elements */}
+              <div className="absolute top-1 right-1 w-2 h-2 bg-secondary rounded-full opacity-50 group-hover:opacity-100 transition-opacity duration-300"></div>
+              <div className="absolute bottom-1 left-1 w-2 h-2 bg-tertiary rounded-full opacity-50 group-hover:opacity-100 transition-opacity duration-300"></div>
+            </Link>
+          </div>
+        </div>
+
         <div className="bg-white p-8 rounded-lg shadow-lg">
           <h1 className="font-playfair text-3xl font-bold text-navy mb-2">Reservation Request</h1>
           <p className="text-navy-light mb-8">

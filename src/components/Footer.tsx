@@ -3,6 +3,7 @@
 import React from 'react';
 import Link from 'next/link';
 import { Mail } from 'lucide-react';
+import Image from 'next/image';
 
 export default function Footer() {
   return (
@@ -17,9 +18,29 @@ export default function Footer() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         {/* Main Footer Content - Compact */}
         <div className="py-8">
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-8">
+          <div className="grid grid-cols-1 md:grid-cols-4 gap-6 md:gap-8">
             
-            {/* Column 1: Contact - Compact */}
+            {/* Column 1: Logo & Brand - New */}
+            <div className="text-center md:text-left">
+              <div className="flex items-center justify-center md:justify-start mb-4">
+                <div className="relative w-10 h-10 mr-3">
+                  <Image
+                    src="/orhakerem_logo_original.jpg"
+                    alt="Or Hakerem Logo"
+                    fill
+                    className="object-contain rounded-lg"
+                  />
+                </div>
+                <span className="font-playfair text-xl font-bold text-secondary">
+                  Or Hakerem
+                </span>
+              </div>
+              <p className="text-white/80 text-sm leading-relaxed">
+                Luxury properties in Tel Aviv's vibrant Kerem HaTeimanim neighborhood.
+              </p>
+            </div>
+            
+            {/* Column 2: Contact - Compact */}
             <div className="text-center md:text-left">
               <h3 className="font-playfair text-lg font-bold text-secondary mb-4">Contact Us</h3>
               
@@ -73,7 +94,7 @@ export default function Footer() {
               </div>
             </div>
 
-            {/* Column 2: Quick Links - Compact */}
+            {/* Column 3: Quick Links - Compact */}
             <div className="text-center md:text-left">
               <h3 className="font-playfair text-lg font-bold text-secondary mb-4">Navigation</h3>
               
@@ -105,7 +126,7 @@ export default function Footer() {
               </nav>
             </div>
 
-            {/* Column 3: Legal - Compact */}
+            {/* Column 4: Legal - Compact */}
             <div className="text-center md:text-left">
               <h3 className="font-playfair text-lg font-bold text-secondary mb-4">Policies</h3>
               
