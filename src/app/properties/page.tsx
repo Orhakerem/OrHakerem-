@@ -8,7 +8,7 @@ import Image from 'next/image';
 const properties = {
   'penthouse-jacuzzi': {
     id: 'penthouse-jacuzzi',
-    title: 'Penthouse with Jacuzzi & BBQ',
+    title: 'Luxury Penthouse',
     location: 'Kerem HaTeimanim, Tel Aviv',
     description: 'Luxurious penthouse featuring a private jacuzzi, BBQ area, and breathtaking sea views. Perfect for families and groups seeking an unforgettable experience.',
     price: 500,
@@ -22,14 +22,14 @@ const properties = {
   },
   'cozy-studio': {
     id: 'cozy-studio',
-    title: 'Cozy Studio, 2 Minutes from Sea',
+    title: 'Spacious & Cosy Apartment',
     location: 'Kerem HaTeimanim, Tel Aviv',
     description: 'Completely renovated studio perfect for short to long term stays. Modern amenities in a charming historic setting.',
     price: 150,
     rating: 4.8,
     reviewCount: 96,
     image: '/studio/1.jpg',
-    maxGuests: 2,
+    maxGuests: 3,
     bedrooms: 1,
     bathrooms: 1,
     features: ['Beach Access', 'Fully Equipped', 'Historic Charm', 'City Center']
@@ -149,7 +149,7 @@ export default function Properties() {
             </span>
           </div>
           <h1 className="font-playfair text-5xl md:text-6xl font-bold text-primary mb-6 leading-tight">
-            Luxury Properties
+            Properties
           </h1>
           <p className="text-primary/80 text-xl max-w-3xl mx-auto leading-relaxed">
             Discover our premium accommodations in Tel Aviv&apos;s vibrant Kerem HaTeimanim neighborhood. 

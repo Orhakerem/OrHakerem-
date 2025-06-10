@@ -9,7 +9,7 @@ type PropertyId = 'penthouse-jacuzzi' | 'cozy-studio';
 const properties = {
   'penthouse-jacuzzi': {
     id: 'penthouse-jacuzzi' as PropertyId,
-    title: 'Penthouse with Jacuzzi & BBQ',
+    title: 'Luxury Penthouse',
     location: 'Kerem HaTeimanim, Tel Aviv',
     description:
       'Luxurious penthouse featuring a private jacuzzi, BBQ area, and breathtaking sea views.',
@@ -23,7 +23,7 @@ const properties = {
   },
   'cozy-studio': {
     id: 'cozy-studio' as PropertyId,
-    title: 'Cozy Studio, 2 Minutes from Sea',
+    title: 'Spacious & Cosy Apartment',
     location: 'Kerem HaTeimanim, Tel Aviv',
     description: 'Completely renovated studio perfect for short to long term stays.',
     price: 150,
