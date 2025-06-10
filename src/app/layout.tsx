@@ -1,21 +1,10 @@
 import type { Metadata } from 'next';
-// import { Geist, Geist_Mono } from 'next/font/google';
 import CustomCursor from '@/components/CustomCursor';
 import Toast from '@/components/Toast';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
 
 import './globals.css';
-
-// const geistSans = Geist({
-//   variable: '--font-geist-sans',
-//   subsets: ['latin'],
-// });
-
-// const geistMono = Geist_Mono({
-//   variable: '--font-geist-mono',
-//   subsets: ['latin'],
-// });
 
 export const metadata: Metadata = {
   title: 'Or Hakerem - Luxury Properties in Tel Aviv',
@@ -29,14 +18,14 @@ export const metadata: Metadata = {
     address: false,
     telephone: false,
   },
-  metadataBase: new URL('https://orhakerem.com'),
+  metadataBase: new URL('https://orhakerem.vercel.app'),
   alternates: {
     canonical: '/',
   },
   openGraph: {
     title: 'Or Hakerem - Luxury Properties in Tel Aviv',
     description: 'Experience luxury living in Tel Aviv with our premium apartments and exceptional concierge services in Kerem HaTeimanim.',
-    url: 'https://orhakerem.com',
+    url: 'https://orhakerem.vercel.app',
     siteName: 'Or Hakerem',
     images: [
       {
@@ -71,9 +60,6 @@ export const metadata: Metadata = {
     shortcut: '/IMG_4760.jpg',
     apple: '/IMG_4760.jpg',
   },
-  verification: {
-    google: 'your-google-verification-code', // You'll need to add this when you set up Google Search Console
-  },
 };
 
 export default function RootLayout({
@@ -84,13 +70,13 @@ export default function RootLayout({
   return (
     <html lang="en">
       <head>
-        <link rel="icon\" href="/IMG_4760.jpg\" sizes="any" />
-        <link rel="apple-touch-icon\" href="/IMG_4760.jpg" />
-        <meta name="theme-color\" content="#a5382b" />
-        <meta name="msapplication-TileColor\" content="#a5382b" />
-        <meta name="msapplication-TileImage\" content="/IMG_4760.jpg" />
+        <link rel="icon" href="/IMG_4760.jpg" sizes="any" />
+        <link rel="apple-touch-icon" href="/IMG_4760.jpg" />
+        <meta name="theme-color" content="#a5382b" />
+        <meta name="msapplication-TileColor" content="#a5382b" />
+        <meta name="msapplication-TileImage" content="/IMG_4760.jpg" />
       </head>
-      <body className={`min-h-screen bg-cream antialiased`}>
+      <body className="min-h-screen bg-cream antialiased">
         <CustomCursor />
         <Toast />
         <Navbar />
