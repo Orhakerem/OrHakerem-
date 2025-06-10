@@ -4,6 +4,7 @@ import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { Home, Building, Calendar, Sparkles } from 'lucide-react';
+import Image from 'next/image';
 
 function Navbar() {
   const pathname = usePathname();
@@ -34,9 +35,20 @@ function Navbar() {
     >
       <div className="px-4 sm:px-6">
         <div className="flex items-center justify-between h-14">
-          <div className="shrink-0">
-            <Link href="/" aria-label="Or Hakerem - Home" className="text-secondary font-playfair font-bold text-lg">
-              Or Hakerem
+          <div className="shrink-0 flex items-center">
+            <Link href="/" aria-label="Or Hakerem - Home" className="flex items-center">
+              <div className="relative w-8 h-8 mr-3">
+                <Image
+                  src="/IMG_4760.jpg"
+                  alt="Or Hakerem Logo"
+                  fill
+                  className="object-contain"
+                  priority
+                />
+              </div>
+              <span className="text-secondary font-playfair font-bold text-lg">
+                Or Hakerem
+              </span>
             </Link>
           </div>
           <div className="flex space-x-2">
