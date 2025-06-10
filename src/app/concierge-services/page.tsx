@@ -137,7 +137,7 @@ export default function ConciergeServicesPage() {
         {/* Hero Section */}
         <div className="relative h-[500px] rounded-2xl overflow-hidden mb-20">
           <Image
-            src="/penthouse/1-jacuzzi-angle.JPEG"
+            src="/penthouse/2-salon-angle.jpg"
             alt="Luxury Concierge Services"
             fill
             className="object-cover"
