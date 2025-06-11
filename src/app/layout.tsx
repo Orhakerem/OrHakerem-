@@ -29,7 +29,7 @@ export const metadata: Metadata = {
     siteName: 'Or Hakerem',
     images: [
       {
-        url: '/IMG_4760.jpg',
+        url: '/orhakerem_logo_original.jpg',
         width: 1200,
         height: 630,
         alt: 'Or Hakerem - Luxury Properties in Tel Aviv',
@@ -42,7 +42,7 @@ export const metadata: Metadata = {
     card: 'summary_large_image',
     title: 'Or Hakerem - Luxury Properties in Tel Aviv',
     description: 'Experience luxury living in Tel Aviv with our premium apartments and exceptional concierge services.',
-    images: ['/IMG_4760.jpg'],
+    images: ['/orhakerem_logo_original.jpg'],
   },
   robots: {
     index: true,
@@ -56,9 +56,9 @@ export const metadata: Metadata = {
     },
   },
   icons: {
-    icon: '/IMG_4760.jpg',
-    shortcut: '/IMG_4760.jpg',
-    apple: '/IMG_4760.jpg',
+    icon: '/orhakerem_logo_original.jpg',
+    shortcut: '/orhakerem_logo_original.jpg',
+    apple: '/orhakerem_logo_original.jpg',
   },
 };
 
@@ -70,11 +70,11 @@ export default function RootLayout({
   return (
     <html lang="en">
       <head>
-        <link rel="icon\" href="/IMG_4760.jpg\" sizes="any" />
-        <link rel="apple-touch-icon\" href="/IMG_4760.jpg" />
-        <meta name="theme-color\" content="#a5382b" />
-        <meta name="msapplication-TileColor\" content="#a5382b" />
-        <meta name="msapplication-TileImage\" content="/IMG_4760.jpg" />
+        <link rel="icon" href="/orhakerem_logo_original.jpg" sizes="any" />
+        <link rel="apple-touch-icon" href="/orhakerem_logo_original.jpg" />
+        <meta name="theme-color" content="#a5382b" />
+        <meta name="msapplication-TileColor" content="#a5382b" />
+        <meta name="msapplication-TileImage" content="/orhakerem_logo_original.jpg" />
       </head>
       <body className="min-h-screen bg-cream antialiased">
         <CustomCursor />

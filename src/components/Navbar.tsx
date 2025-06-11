@@ -116,9 +116,9 @@ function Navbar() {
         </div>
       </nav>
 
-      {/* Mobile Navbar */}
+      {/* Mobile Navbar - Fixed for landscape orientation */}
       <nav
-        className={`md:hidden fixed top-4 left-1/2 -translate-x-1/2 z-50 transition-all duration-300 rounded-2xl w-[95%] max-w-sm ${
+        className={`md:hidden fixed top-2 left-1/2 -translate-x-1/2 z-50 transition-all duration-300 rounded-2xl w-[98%] max-w-lg ${
           isScrolled
             ? 'bg-primary shadow-lg backdrop-blur-md'
             : 'bg-primary/40 backdrop-blur-sm'
@@ -126,12 +126,12 @@ function Navbar() {
         role="navigation"
         aria-label="Main navigation"
       >
-        <div className="px-4">
-          {/* Mobile Header */}
-          <div className="flex items-center justify-between h-16">
+        <div className="px-3">
+          {/* Mobile Header - Reduced height for landscape */}
+          <div className="flex items-center justify-between h-12">
             <div className="shrink-0 flex items-center">
               <Link href="/" aria-label="Or Hakerem - Home" className="flex items-center" onClick={closeMobileMenu}>
-                <div className="relative w-10 h-10 mr-3">
+                <div className="relative w-8 h-8 mr-2">
                   <Image
                     src="/orhakerem_logo_original.jpg"
                     alt="Or Hakerem Logo"
@@ -140,7 +140,7 @@ function Navbar() {
                     priority
                   />
                 </div>
-                <span className="text-secondary font-playfair font-bold text-xl">
+                <span className="text-secondary font-playfair font-bold text-lg">
                   Or Hakerem
                 </span>
               </Link>
@@ -153,70 +153,130 @@ function Navbar() {
               aria-label="Toggle mobile menu"
             >
               {isMobileMenuOpen ? (
-                <X className="w-6 h-6" />
+                <X className="w-5 h-5" />
               ) : (
-                <Menu className="w-6 h-6" />
+                <Menu className="w-5 h-5" />
               )}
             </button>
           </div>
 
-          {/* Mobile Menu - Vertical Layout */}
+          {/* Mobile Menu - Horizontal layout for landscape, vertical for portrait */}
           {isMobileMenuOpen && (
-            <div className="pb-4 border-t border-white/20 mt-2">
-              <div className="flex flex-col space-y-2 pt-4">
+            <div className="pb-3 border-t border-white/20 mt-1">
+              {/* Landscape: Horizontal layout */}
+              <div className="landscape:hidden flex flex-col space-y-1 pt-3">
                 <Link
                   href="/"
                   onClick={closeMobileMenu}
-                  className={`flex items-center px-4 py-3 rounded-xl text-base font-medium transition-all duration-200 ${
+                  className={`flex items-center px-3 py-2 rounded-xl text-sm font-medium transition-all duration-200 ${
                     isActive('/')
                       ? 'bg-secondary text-primary shadow-sm'
                       : 'text-cream hover:bg-tertiary/30 hover:shadow-sm'
                   }`}
                   aria-current={isActive('/') ? 'page' : undefined}
                 >
-                  <Home className="w-5 h-5 mr-3" aria-hidden="true" />
+                  <Home className="w-4 h-4 mr-2" aria-hidden="true" />
                   <span>Home</span>
                 </Link>
                 
                 <Link
                   href="/properties"
                   onClick={closeMobileMenu}
-                  className={`flex items-center px-4 py-3 rounded-xl text-base font-medium transition-all duration-200 ${
+                  className={`flex items-center px-3 py-2 rounded-xl text-sm font-medium transition-all duration-200 ${
                     isActive('/properties')
                       ? 'bg-secondary text-primary shadow-sm'
                       : 'text-cream hover:bg-tertiary/30 hover:shadow-sm'
                   }`}
                   aria-current={isActive('/properties') ? 'page' : undefined}
                 >
-                  <Building className="w-5 h-5 mr-3" aria-hidden="true" />
+                  <Building className="w-4 h-4 mr-2" aria-hidden="true" />
                   <span>Properties</span>
                 </Link>
                 
                 <Link
                   href="/concierge-services"
                   onClick={closeMobileMenu}
-                  className={`flex items-center px-4 py-3 rounded-xl text-base font-medium transition-all duration-200 ${
+                  className={`flex items-center px-3 py-2 rounded-xl text-sm font-medium transition-all duration-200 ${
                     isActive('/concierge-services')
                       ? 'bg-secondary text-primary shadow-sm'
                       : 'text-cream hover:bg-tertiary/30 hover:shadow-sm'
                   }`}
                   aria-current={isActive('/concierge-services') ? 'page' : undefined}
                 >
-                  <Sparkles className="w-5 h-5 mr-3" aria-hidden="true" />
+                  <Sparkles className="w-4 h-4 mr-2" aria-hidden="true" />
                   <span>Services</span>
                 </Link>
                 
                 <Link
                   href="/events"
                   onClick={closeMobileMenu}
-                  className={`flex items-center px-4 py-3 rounded-xl text-base font-medium transition-all duration-200 ${
+                  className={`flex items-center px-3 py-2 rounded-xl text-sm font-medium transition-all duration-200 ${
                     isActive('/events')
                       ? 'bg-secondary text-primary shadow-sm'
                       : 'text-cream hover:bg-tertiary/30 hover:shadow-sm'
                   }`}
                   aria-current={isActive('/events') ? 'page' : undefined}
                 >
-                  <Calendar className="w-5 h-5 mr-3" aria-hidden="true" />
+                  <Calendar className="w-4 h-4 mr-2" aria-hidden="true" />
+                  <span>Events</span>
+                </Link>
+              </div>
+
+              {/* Portrait: Horizontal grid layout for landscape mode */}
+              <div className="portrait:hidden grid grid-cols-4 gap-1 pt-2">
+                <Link
+                  href="/"
+                  onClick={closeMobileMenu}
+                  className={`flex flex-col items-center px-2 py-2 rounded-lg text-xs font-medium transition-all duration-200 ${
+                    isActive('/')
+                      ? 'bg-secondary text-primary shadow-sm'
+                      : 'text-cream hover:bg-tertiary/30 hover:shadow-sm'
+                  }`}
+                  aria-current={isActive('/') ? 'page' : undefined}
+                >
+                  <Home className="w-4 h-4 mb-1" aria-hidden="true" />
+                  <span>Home</span>
+                </Link>
+                
+                <Link
+                  href="/properties"
+                  onClick={closeMobileMenu}
+                  className={`flex flex-col items-center px-2 py-2 rounded-lg text-xs font-medium transition-all duration-200 ${
+                    isActive('/properties')
+                      ? 'bg-secondary text-primary shadow-sm'
+                      : 'text-cream hover:bg-tertiary/30 hover:shadow-sm'
+                  }`}
+                  aria-current={isActive('/properties') ? 'page' : undefined}
+                >
+                  <Building className="w-4 h-4 mb-1" aria-hidden="true" />
+                  <span>Properties</span>
+                </Link>
+                
+                <Link
+                  href="/concierge-services"
+                  onClick={closeMobileMenu}
+                  className={`flex flex-col items-center px-2 py-2 rounded-lg text-xs font-medium transition-all duration-200 ${
+                    isActive('/concierge-services')
+                      ? 'bg-secondary text-primary shadow-sm'
+                      : 'text-cream hover:bg-tertiary/30 hover:shadow-sm'
+                  }`}
+                  aria-current={isActive('/concierge-services') ? 'page' : undefined}
+                >
+                  <Sparkles className="w-4 h-4 mb-1" aria-hidden="true" />
+                  <span>Services</span>
+                </Link>
+                
+                <Link
+                  href="/events"
+                  onClick={closeMobileMenu}
+                  className={`flex flex-col items-center px-2 py-2 rounded-lg text-xs font-medium transition-all duration-200 ${
+                    isActive('/events')
+                      ? 'bg-secondary text-primary shadow-sm'
+                      : 'text-cream hover:bg-tertiary/30 hover:shadow-sm'
+                  }`}
+                  aria-current={isActive('/events') ? 'page' : undefined}
+                >
+                  <Calendar className="w-4 h-4 mb-1" aria-hidden="true" />
                   <span>Events</span>
                 </Link>
               </div>

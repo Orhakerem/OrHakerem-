@@ -59,10 +59,10 @@ const Home: React.FC = () => {
           <div className="grid md:grid-cols-2 gap-12 items-center">
             <div className="relative h-[400px] rounded-lg overflow-hidden">
               <Image
-                src="/penthouse/2-salon-angle.jpg"
+                src="/penthouse/4-terrasse-ext-coucher-soleil.png"
                 width={500}
                 height={500}
-                alt="Building Interior"
+                alt="Luxury Lifestyle and Events"
                 className="absolute inset-0 w-full h-full object-cover"
               />
             </div>
