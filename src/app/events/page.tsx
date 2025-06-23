@@ -1,6 +1,6 @@
 'use client';
 
-import { Calendar, Mail, MessageSquare, Phone, Users, Sparkles, Heart, Star, ArrowUp, ArrowLeft, Home, Zap } from 'lucide-react';
+import { Calendar, Mail, MessageSquare, Phone, Users, Sparkles, Heart, Star, ArrowUp, ArrowLeft, Home } from 'lucide-react';
 import toast from 'react-hot-toast';
 
 import React, { useState, useEffect } from 'react';
@@ -148,58 +148,20 @@ export default function Events() {
   return (
     <div className="min-h-screen pt-24 pb-20 bg-cream">
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-        {/* Ultra Enhanced Back Navigation */}
+        {/* Enhanced Back Navigation */}
         <div className="mb-8">
           <div className="inline-block relative group">
-            {/* Animated background glow */}
-            <div className="absolute inset-0 bg-gradient-to-r from-primary/30 via-secondary/30 to-tertiary/30 rounded-full blur-xl opacity-0 group-hover:opacity-100 transition-all duration-500 scale-110"></div>
-            
-            {/* Floating particles effect */}
-            <div className="absolute inset-0 rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-500">
-              <div className="absolute top-1 left-2 w-1 h-1 bg-secondary rounded-full animate-ping"></div>
-              <div className="absolute top-3 right-4 w-1 h-1 bg-tertiary rounded-full animate-ping" style={{ animationDelay: '0.5s' }}></div>
-              <div className="absolute bottom-2 left-6 w-1 h-1 bg-primary rounded-full animate-ping" style={{ animationDelay: '1s' }}></div>
-            </div>
-            
+            <div className="absolute inset-0 bg-gradient-to-r from-primary/20 to-secondary/20 rounded-full blur-lg opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
             <Link
               href="/"
-              className="relative inline-flex items-center bg-gradient-to-r from-white via-white to-cream backdrop-blur-sm text-primary px-8 py-4 rounded-full font-bold text-lg hover:from-cream hover:via-white hover:to-white transition-all duration-500 shadow-2xl hover:shadow-3xl transform hover:scale-110 border-2 border-primary/20 hover:border-secondary/40 group overflow-hidden"
+              className="relative inline-flex items-center bg-white/80 backdrop-blur-sm text-primary px-6 py-3 rounded-full font-semibold text-lg hover:bg-white hover:text-secondary transition-all duration-300 shadow-lg hover:shadow-xl transform hover:scale-105 border border-primary/20"
             >
-              {/* Inner glow effect */}
-              <div className="absolute inset-0 bg-gradient-to-r from-secondary/10 via-transparent to-tertiary/10 rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
-              
-              {/* Animated arrow with trail effect */}
-              <div className="relative mr-4 flex items-center">
-                <div className="absolute inset-0 bg-secondary/20 rounded-full scale-0 group-hover:scale-150 transition-transform duration-500"></div>
-                <ArrowLeft className="w-6 h-6 transition-all duration-500 group-hover:-translate-x-2 group-hover:text-secondary relative z-10" />
-                
-                {/* Arrow trail effect */}
-                <div className="absolute left-0 opacity-0 group-hover:opacity-60 transition-all duration-300 group-hover:-translate-x-1">
-                  <ArrowLeft className="w-5 h-5 text-secondary/60" />
-                </div>
-                <div className="absolute left-0 opacity-0 group-hover:opacity-30 transition-all duration-500 group-hover:-translate-x-3">
-                  <ArrowLeft className="w-4 h-4 text-secondary/40" />
-                </div>
-              </div>
-              
-              {/* Enhanced home icon with pulse */}
               <div className="relative mr-3">
-                <Home className="w-6 h-6 opacity-70 group-hover:opacity-100 transition-all duration-500 group-hover:text-secondary group-hover:scale-110 relative z-10" />
-                <div className="absolute inset-0 bg-secondary/30 rounded-full scale-0 group-hover:scale-150 transition-transform duration-700 opacity-50"></div>
+                <ArrowLeft className="w-5 h-5 transition-transform duration-300 group-hover:-translate-x-1" />
+                <div className="absolute inset-0 bg-secondary/20 rounded-full scale-0 group-hover:scale-150 transition-transform duration-300"></div>
               </div>
-              
-              {/* Text with shimmer effect */}
-              <span className="relative z-10 bg-gradient-to-r from-primary via-secondary to-primary bg-clip-text group-hover:text-transparent transition-all duration-500">
-                Back to Home
-              </span>
-              
-              {/* Sparkle effect */}
-              <div className="absolute right-3 opacity-0 group-hover:opacity-100 transition-all duration-500">
-                <Zap className="w-4 h-4 text-tertiary animate-pulse" />
-              </div>
-              
-              {/* Border animation */}
-              <div className="absolute inset-0 rounded-full border-2 border-transparent bg-gradient-to-r from-secondary via-tertiary to-secondary bg-clip-border opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+              <Home className="w-5 h-5 mr-2 opacity-70 group-hover:opacity-100 transition-opacity duration-300" />
+              <span className="relative z-10">Back to Home</span>
             </Link>
           </div>
         </div>
