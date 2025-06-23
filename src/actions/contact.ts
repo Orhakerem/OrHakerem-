@@ -4,6 +4,11 @@ import { Resend } from 'resend';
 import { contactSchema } from '@/validation';
 import type { ContactData } from '@/validation';
 
+// Helper function to sanitize strings for HTTP headers
+function sanitizeForHeader(str: string): string {
+  return str.replace(/[^\x00-\xFF]/g, '?');
+}
+
 export async function sendContactEmail(formData: FormData) {
   try {
     const apiKey = process.env.RESEND_API_KEY?.trim();
@@ -36,7 +41,7 @@ export async function sendContactEmail(formData: FormData) {
     const { data: emailData, error } = await resend.emails.send({
       from: 'Or Hakerem <onboarding@resend.dev>',
       to: recipientEmail,
-      subject: `New message from ${validatedData.name}`,
+      subject: `New message from ${sanitizeForHeader(validatedData.name)}`,
       html: `
         <h2>New Contact Form Submission</h2>
         <p><strong>From:</strong> ${validatedData.name}</p>

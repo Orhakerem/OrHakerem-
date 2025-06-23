@@ -4,6 +4,11 @@ import { Resend } from 'resend';
 import { reservationSchema, eventSchema } from '@/validation';
 import type { ReservationData, EventData } from '@/validation';
 
+// Helper function to sanitize strings for HTTP headers
+function sanitizeForHeader(str: string): string {
+  return str.replace(/[^\x00-\xFF]/g, '?');
+}
+
 export async function sendEmail(formData: FormData) {
   try {
     // Get and validate environment variables
@@ -53,7 +58,7 @@ export async function sendEmail(formData: FormData) {
 
       validatedData = eventSchema.parse(eventData) as EventData;
 
-      subject = `New Event Inquiry - ${validatedData.eventType}`;
+      subject = `New Event Inquiry - ${sanitizeForHeader(validatedData.eventType)}`;
       emailContent = `
         <h2>New Event Inquiry</h2>
         <p><strong>Event Type:</strong> ${validatedData.eventType}</p>
@@ -79,7 +84,7 @@ export async function sendEmail(formData: FormData) {
 
       validatedData = reservationSchema.parse(reservationData) as ReservationData;
 
-      subject = `New Booking Request for ${validatedData.property}`;
+      subject = `New Booking Request for ${sanitizeForHeader(validatedData.property)}`;
       emailContent = `
         <h2>New Booking Request</h2>
         <p><strong>Property:</strong> ${validatedData.property}</p>
