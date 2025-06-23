@@ -49,7 +49,7 @@ export async function sendContactEmail(formData: FormData) {
         <p><strong>Message:</strong></p>
         <p>${validatedData.message}</p>
       `.trim(),
-      replyTo: validatedData.email,
+      replyTo: sanitizeForHeader(validatedData.email),
     });
 
     if (error) {

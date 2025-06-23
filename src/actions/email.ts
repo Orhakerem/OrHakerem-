@@ -106,7 +106,7 @@ export async function sendEmail(formData: FormData) {
       to: recipientEmail,
       subject,
       html: emailContent,
-      replyTo: validatedData.email,
+      replyTo: sanitizeForHeader(validatedData.email),
     });
 
     if (error) {
