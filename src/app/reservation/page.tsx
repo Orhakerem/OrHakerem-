@@ -300,12 +300,10 @@ function ReservationLoadingFallback() {
   );
 }
 
-function Reservation() {
+export default function Reservation() {
   return (
     <Suspense fallback={<ReservationLoadingFallback />}>
       <ReservationContent />
     </Suspense>
   );
 }
-
-export default Reservation;
