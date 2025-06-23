@@ -29,7 +29,7 @@ export const metadata: Metadata = {
     siteName: 'Or Hakerem',
     images: [
       {
-        url: '/orhakerem_logo_original.jpg',
+        url: '/OR_HAKEERM_converted.jpg',
         width: 1200,
         height: 630,
         alt: 'Or Hakerem - Luxury Properties in Tel Aviv',
@@ -42,7 +42,7 @@ export const metadata: Metadata = {
     card: 'summary_large_image',
     title: 'Or Hakerem - Luxury Properties in Tel Aviv',
     description: 'Experience luxury living in Tel Aviv with our premium apartments and exceptional concierge services.',
-    images: ['/orhakerem_logo_original.jpg'],
+    images: ['/OR_HAKEERM_converted.jpg'],
   },
   robots: {
     index: true,
@@ -56,9 +56,9 @@ export const metadata: Metadata = {
     },
   },
   icons: {
-    icon: '/orhakerem_logo_original.jpg',
-    shortcut: '/orhakerem_logo_original.jpg',
-    apple: '/orhakerem_logo_original.jpg',
+    icon: '/OR_HAKEERM_converted.jpg',
+    shortcut: '/OR_HAKEERM_converted.jpg',
+    apple: '/OR_HAKEERM_converted.jpg',
   },
 };
 
@@ -70,11 +70,11 @@ export default function RootLayout({
   return (
     <html lang="en">
       <head>
-        <link rel="icon" href="/orhakerem_logo_original.jpg" sizes="any" />
-        <link rel="apple-touch-icon" href="/orhakerem_logo_original.jpg" />
+        <link rel="icon" href="/OR_HAKEERM_converted.jpg" sizes="any" />
+        <link rel="apple-touch-icon" href="/OR_HAKEERM_converted.jpg" />
         <meta name="theme-color" content="#a5382b" />
         <meta name="msapplication-TileColor" content="#a5382b" />
-        <meta name="msapplication-TileImage" content="/orhakerem_logo_original.jpg" />
+        <meta name="msapplication-TileImage" content="/OR_HAKEERM_converted.jpg" />
       </head>
       <body className="min-h-screen bg-cream antialiased">
         <CustomCursor />

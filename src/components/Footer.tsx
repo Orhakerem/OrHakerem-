@@ -42,7 +42,7 @@ export default function Footer() {
             <div className="flex items-center justify-center mb-3">
               <div className="relative w-16 h-16 mr-3">
                 <Image
-                  src="/orhakerem_logo_original.jpg"
+                  src="/OR_HAKEERM_converted.jpg"
                   alt="Or Hakerem Logo"
                   fill
                   className="object-contain rounded-lg shadow-lg"
@@ -146,16 +146,16 @@ export default function Footer() {
           </div>
         </div>
 
-        {/* Desktop Layout - Unchanged */}
+        {/* Desktop Layout - Updated with new logo */}
         <div className="hidden md:block py-4">
           <div className="grid grid-cols-1 md:grid-cols-4 gap-3 md:gap-4">
             
-            {/* Column 1: Logo & Brand - Massive Logo */}
+            {/* Column 1: Logo & Brand - Updated logo */}
             <div className="text-center md:text-left md:col-span-1">
               <div className="flex items-center justify-center md:justify-start mb-2">
                 <div className="relative w-40 h-40 mr-4 group">
                   <Image
-                    src="/orhakerem_logo_original.jpg"
+                    src="/OR_HAKEERM_converted.jpg"
                     alt="Or Hakerem Logo"
                     fill
                     className="object-contain rounded-xl shadow-lg group-hover:scale-105 transition-transform duration-300"

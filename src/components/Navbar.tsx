@@ -50,7 +50,7 @@ function Navbar() {
               <Link href="/" aria-label="Or Hakerem - Home" className="flex items-center">
                 <div className="relative w-12 h-12 mr-4">
                   <Image
-                    src="/orhakerem_logo_original.jpg"
+                    src="/OR_HAKEERM_converted.jpg"
                     alt="Or Hakerem Logo"
                     fill
                     className="object-contain rounded-lg"
@@ -116,7 +116,7 @@ function Navbar() {
         </div>
       </nav>
 
-      {/* Mobile Navbar - Fixed for landscape orientation */}
+      {/* Mobile Navbar - Enhanced for landscape */}
       <nav
         className={`md:hidden fixed top-2 left-1/2 -translate-x-1/2 z-50 transition-all duration-300 rounded-2xl w-[98%] max-w-lg ${
           isScrolled
@@ -127,13 +127,13 @@ function Navbar() {
         aria-label="Main navigation"
       >
         <div className="px-3">
-          {/* Mobile Header - Reduced height for landscape */}
+          {/* Mobile Header - Optimized for landscape */}
           <div className="flex items-center justify-between h-12">
             <div className="shrink-0 flex items-center">
               <Link href="/" aria-label="Or Hakerem - Home" className="flex items-center" onClick={closeMobileMenu}>
                 <div className="relative w-8 h-8 mr-2">
                   <Image
-                    src="/orhakerem_logo_original.jpg"
+                    src="/OR_HAKEERM_converted.jpg"
                     alt="Or Hakerem Logo"
                     fill
                     className="object-contain rounded-lg"
@@ -160,11 +160,11 @@ function Navbar() {
             </button>
           </div>
 
-          {/* Mobile Menu - Horizontal layout for landscape, vertical for portrait */}
+          {/* Mobile Menu - Responsive layout */}
           {isMobileMenuOpen && (
             <div className="pb-3 border-t border-white/20 mt-1">
-              {/* Landscape: Horizontal layout */}
-              <div className="landscape:hidden flex flex-col space-y-1 pt-3">
+              {/* Portrait mode: Vertical layout */}
+              <div className="portrait:flex portrait:flex-col portrait:space-y-1 portrait:pt-3 landscape:hidden">
                 <Link
                   href="/"
                   onClick={closeMobileMenu}
@@ -222,12 +222,12 @@ function Navbar() {
                 </Link>
               </div>
 
-              {/* Portrait: Horizontal grid layout for landscape mode */}
-              <div className="portrait:hidden grid grid-cols-4 gap-1 pt-2">
+              {/* Landscape mode: Horizontal grid layout */}
+              <div className="landscape:grid landscape:grid-cols-4 landscape:gap-1 landscape:pt-2 portrait:hidden">
                 <Link
                   href="/"
                   onClick={closeMobileMenu}
-                  className={`flex flex-col items-center px-2 py-2 rounded-lg text-xs font-medium transition-all duration-200 ${
+                  className={`flex flex-col items-center px-1 py-2 rounded-lg text-xs font-medium transition-all duration-200 ${
                     isActive('/')
                       ? 'bg-secondary text-primary shadow-sm'
                       : 'text-cream hover:bg-tertiary/30 hover:shadow-sm'
@@ -235,13 +235,13 @@ function Navbar() {
                   aria-current={isActive('/') ? 'page' : undefined}
                 >
                   <Home className="w-4 h-4 mb-1" aria-hidden="true" />
-                  <span>Home</span>
+                  <span className="text-center leading-tight">Home</span>
                 </Link>
                 
                 <Link
                   href="/properties"
                   onClick={closeMobileMenu}
-                  className={`flex flex-col items-center px-2 py-2 rounded-lg text-xs font-medium transition-all duration-200 ${
+                  className={`flex flex-col items-center px-1 py-2 rounded-lg text-xs font-medium transition-all duration-200 ${
                     isActive('/properties')
                       ? 'bg-secondary text-primary shadow-sm'
                       : 'text-cream hover:bg-tertiary/30 hover:shadow-sm'
@@ -249,13 +249,13 @@ function Navbar() {
                   aria-current={isActive('/properties') ? 'page' : undefined}
                 >
                   <Building className="w-4 h-4 mb-1" aria-hidden="true" />
-                  <span>Properties</span>
+                  <span className="text-center leading-tight">Properties</span>
                 </Link>
                 
                 <Link
                   href="/concierge-services"
                   onClick={closeMobileMenu}
-                  className={`flex flex-col items-center px-2 py-2 rounded-lg text-xs font-medium transition-all duration-200 ${
+                  className={`flex flex-col items-center px-1 py-2 rounded-lg text-xs font-medium transition-all duration-200 ${
                     isActive('/concierge-services')
                       ? 'bg-secondary text-primary shadow-sm'
                       : 'text-cream hover:bg-tertiary/30 hover:shadow-sm'
@@ -263,13 +263,13 @@ function Navbar() {
                   aria-current={isActive('/concierge-services') ? 'page' : undefined}
                 >
                   <Sparkles className="w-4 h-4 mb-1" aria-hidden="true" />
-                  <span>Services</span>
+                  <span className="text-center leading-tight">Services</span>
                 </Link>
                 
                 <Link
                   href="/events"
                   onClick={closeMobileMenu}
-                  className={`flex flex-col items-center px-2 py-2 rounded-lg text-xs font-medium transition-all duration-200 ${
+                  className={`flex flex-col items-center px-1 py-2 rounded-lg text-xs font-medium transition-all duration-200 ${
                     isActive('/events')
                       ? 'bg-secondary text-primary shadow-sm'
                       : 'text-cream hover:bg-tertiary/30 hover:shadow-sm'
@@ -277,7 +277,7 @@ function Navbar() {
                   aria-current={isActive('/events') ? 'page' : undefined}
                 >
                   <Calendar className="w-4 h-4 mb-1" aria-hidden="true" />
-                  <span>Events</span>
+                  <span className="text-center leading-tight">Events</span>
                 </Link>
               </div>
             </div>
