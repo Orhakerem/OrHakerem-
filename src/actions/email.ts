@@ -10,17 +10,25 @@ export async function sendEmail(formData: FormData) {
     const apiKey = process.env.RESEND_API_KEY?.trim();
     const recipientEmail = process.env.RECIPIENT_EMAIL?.trim();
 
+    console.log('Environment check:', {
+      hasApiKey: !!apiKey,
+      hasRecipientEmail: !!recipientEmail,
+      apiKeyLength: apiKey?.length || 0
+    });
+
     if (!apiKey) {
+      console.error('Missing RESEND_API_KEY environment variable');
       return {
         success: false,
-        error: 'Missing Resend API key'
+        error: 'Email service configuration error: Missing API key'
       };
     }
 
     if (!recipientEmail) {
+      console.error('Missing RECIPIENT_EMAIL environment variable');
       return {
         success: false,
-        error: 'Missing recipient email'
+        error: 'Email service configuration error: Missing recipient email'
       };
     }
 
@@ -55,15 +63,56 @@ export async function sendEmail(formData: FormData) {
 
       subject = `New Event Inquiry - ${validatedData.eventType}`;
       emailContent = `
-        <h2>New Event Inquiry</h2>
-        <p><strong>Event Type:</strong> ${validatedData.eventType}</p>
-        <p><strong>Event Date:</strong> ${validatedData.checkIn}</p>
-        <p><strong>Expected Guests:</strong> ${validatedData.guestCount}</p>
-        <p><strong>Guest Name:</strong> ${validatedData.name}</p>
-        <p><strong>Email:</strong> ${validatedData.email}</p>
-        <p><strong>Phone:</strong> ${validatedData.phone}</p>
-        <p><strong>Preferred Contact Method:</strong> ${validatedData.contactMethod}</p>
-        ${validatedData.message ? `<p><strong>Additional Details:</strong> ${validatedData.message}</p>` : ''}
+        <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto; padding: 20px; background-color: #f5f5f5;">
+          <div style="background-color: #a5382b; color: white; padding: 20px; border-radius: 8px 8px 0 0;">
+            <h1 style="margin: 0; font-size: 24px;">New Event Inquiry</h1>
+            <p style="margin: 5px 0 0 0; opacity: 0.9;">Or Hakerem - Luxury Properties</p>
+          </div>
+          <div style="background-color: white; padding: 20px; border-radius: 0 0 8px 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.1);">
+            <h2 style="color: #a5382b; margin-top: 0;">Event Details</h2>
+            <table style="width: 100%; border-collapse: collapse;">
+              <tr style="border-bottom: 1px solid #eee;">
+                <td style="padding: 8px 0; font-weight: bold; color: #666;">Event Type:</td>
+                <td style="padding: 8px 0;">${validatedData.eventType}</td>
+              </tr>
+              <tr style="border-bottom: 1px solid #eee;">
+                <td style="padding: 8px 0; font-weight: bold; color: #666;">Event Date:</td>
+                <td style="padding: 8px 0;">${validatedData.checkIn}</td>
+              </tr>
+              <tr style="border-bottom: 1px solid #eee;">
+                <td style="padding: 8px 0; font-weight: bold; color: #666;">Expected Guests:</td>
+                <td style="padding: 8px 0;">${validatedData.guestCount}</td>
+              </tr>
+            </table>
+            
+            <h2 style="color: #a5382b; margin-top: 20px;">Contact Information</h2>
+            <table style="width: 100%; border-collapse: collapse;">
+              <tr style="border-bottom: 1px solid #eee;">
+                <td style="padding: 8px 0; font-weight: bold; color: #666;">Name:</td>
+                <td style="padding: 8px 0;">${validatedData.name}</td>
+              </tr>
+              <tr style="border-bottom: 1px solid #eee;">
+                <td style="padding: 8px 0; font-weight: bold; color: #666;">Email:</td>
+                <td style="padding: 8px 0;"><a href="mailto:${validatedData.email}" style="color: #a5382b;">${validatedData.email}</a></td>
+              </tr>
+              <tr style="border-bottom: 1px solid #eee;">
+                <td style="padding: 8px 0; font-weight: bold; color: #666;">Phone:</td>
+                <td style="padding: 8px 0;"><a href="tel:${validatedData.phone}" style="color: #a5382b;">${validatedData.phone}</a></td>
+              </tr>
+              <tr style="border-bottom: 1px solid #eee;">
+                <td style="padding: 8px 0; font-weight: bold; color: #666;">Preferred Contact:</td>
+                <td style="padding: 8px 0;">${validatedData.contactMethod}</td>
+              </tr>
+            </table>
+            
+            ${validatedData.message ? `
+              <h2 style="color: #a5382b; margin-top: 20px;">Additional Details</h2>
+              <div style="background-color: #f9f9f9; padding: 15px; border-radius: 4px; border-left: 4px solid #d8b084;">
+                ${validatedData.message}
+              </div>
+            ` : ''}
+          </div>
+        </div>
       `.trim();
     } else {
       // Validate reservation data
@@ -81,19 +130,56 @@ export async function sendEmail(formData: FormData) {
 
       subject = `New Booking Request for ${validatedData.property}`;
       emailContent = `
-        <h2>New Booking Request</h2>
-        <p><strong>Property:</strong> ${validatedData.property}</p>
-        <p><strong>Check-in:</strong> ${validatedData.checkIn}</p>
-        <p><strong>Check-out:</strong> ${validatedData.checkOut}</p>
-        <p><strong>Guest Name:</strong> ${validatedData.name}</p>
-        <p><strong>Email:</strong> ${validatedData.email}</p>
-        <p><strong>Phone:</strong> ${validatedData.phone}</p>
-        <p><strong>Preferred Contact Method:</strong> ${validatedData.contactMethod}</p>
+        <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto; padding: 20px; background-color: #f5f5f5;">
+          <div style="background-color: #a5382b; color: white; padding: 20px; border-radius: 8px 8px 0 0;">
+            <h1 style="margin: 0; font-size: 24px;">New Booking Request</h1>
+            <p style="margin: 5px 0 0 0; opacity: 0.9;">Or Hakerem - Luxury Properties</p>
+          </div>
+          <div style="background-color: white; padding: 20px; border-radius: 0 0 8px 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.1);">
+            <h2 style="color: #a5382b; margin-top: 0;">Reservation Details</h2>
+            <table style="width: 100%; border-collapse: collapse;">
+              <tr style="border-bottom: 1px solid #eee;">
+                <td style="padding: 8px 0; font-weight: bold; color: #666;">Property:</td>
+                <td style="padding: 8px 0;">${validatedData.property}</td>
+              </tr>
+              <tr style="border-bottom: 1px solid #eee;">
+                <td style="padding: 8px 0; font-weight: bold; color: #666;">Check-in:</td>
+                <td style="padding: 8px 0;">${validatedData.checkIn}</td>
+              </tr>
+              <tr style="border-bottom: 1px solid #eee;">
+                <td style="padding: 8px 0; font-weight: bold; color: #666;">Check-out:</td>
+                <td style="padding: 8px 0;">${validatedData.checkOut}</td>
+              </tr>
+            </table>
+            
+            <h2 style="color: #a5382b; margin-top: 20px;">Guest Information</h2>
+            <table style="width: 100%; border-collapse: collapse;">
+              <tr style="border-bottom: 1px solid #eee;">
+                <td style="padding: 8px 0; font-weight: bold; color: #666;">Name:</td>
+                <td style="padding: 8px 0;">${validatedData.name}</td>
+              </tr>
+              <tr style="border-bottom: 1px solid #eee;">
+                <td style="padding: 8px 0; font-weight: bold; color: #666;">Email:</td>
+                <td style="padding: 8px 0;"><a href="mailto:${validatedData.email}" style="color: #a5382b;">${validatedData.email}</a></td>
+              </tr>
+              <tr style="border-bottom: 1px solid #eee;">
+                <td style="padding: 8px 0; font-weight: bold; color: #666;">Phone:</td>
+                <td style="padding: 8px 0;"><a href="tel:${validatedData.phone}" style="color: #a5382b;">${validatedData.phone}</a></td>
+              </tr>
+              <tr style="border-bottom: 1px solid #eee;">
+                <td style="padding: 8px 0; font-weight: bold; color: #666;">Preferred Contact:</td>
+                <td style="padding: 8px 0;">${validatedData.contactMethod}</td>
+              </tr>
+            </table>
+          </div>
+        </div>
       `.trim();
     }
 
     // Initialize Resend with API key
     const resend = new Resend(apiKey);
+
+    console.log('Attempting to send email with Resend...');
 
     // Send email using Resend API
     const { data, error } = await resend.emails.send({
@@ -108,7 +194,7 @@ export async function sendEmail(formData: FormData) {
       console.error('Resend API error:', error);
       return {
         success: false,
-        error: error.message
+        error: `Email service error: ${error.message}`
       };
     }
 
@@ -122,7 +208,7 @@ export async function sendEmail(formData: FormData) {
     const errorMessage = error instanceof Error ? error.message : 'Failed to send email';
     return {
       success: false,
-      error: errorMessage
+      error: `Email sending failed: ${errorMessage}`
     };
   }
 }
