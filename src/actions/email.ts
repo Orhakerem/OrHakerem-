@@ -62,7 +62,7 @@ export async function sendEmail(formData: FormData) {
       const sanitizedEventType = sanitizeForHeader(validatedData.eventType);
       const sanitizedEmail = sanitizeForHeader(validatedData.email);
 
-      subject = `New Event Inquiry - ${sanitizedEventType}`;
+      subject = sanitizeForHeader(`New Event Inquiry - ${validatedData.eventType}`);
       emailContent = `
         <h2>New Event Inquiry</h2>
         <p><strong>Event Type:</strong> ${validatedData.eventType}</p>
@@ -118,7 +118,7 @@ export async function sendEmail(formData: FormData) {
       const sanitizedProperty = sanitizeForHeader(validatedData.property);
       const sanitizedEmail = sanitizeForHeader(validatedData.email);
 
-      subject = `New Booking Request for ${sanitizedProperty}`;
+      subject = sanitizeForHeader(`New Booking Request for ${validatedData.property}`);
       emailContent = `
         <h2>New Booking Request</h2>
         <p><strong>Property:</strong> ${validatedData.property}</p>

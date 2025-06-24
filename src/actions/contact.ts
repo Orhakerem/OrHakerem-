@@ -45,7 +45,7 @@ export async function sendContactEmail(formData: FormData) {
     const { data: emailData, error } = await resend.emails.send({
       from: 'Or Hakerem <onboarding@resend.dev>',
       to: recipientEmail,
-      subject: `New message from ${sanitizedName}`,
+      subject: sanitizeForHeader(`New message from ${validatedData.name}`),
       html: `
         <h2>New Contact Form Submission</h2>
         <p><strong>From:</strong> ${validatedData.name}</p>
