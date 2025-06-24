@@ -20,7 +20,7 @@ function ReservationContent() {
 
   // Get property from URL parameters using Next.js hook
   useEffect(() => {
-    const property = searchParams.get('property');
+    const property = searchParams?.get('property');
     if (property) {
       setPropertyTitle(property);
     }
