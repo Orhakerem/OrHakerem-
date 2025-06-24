@@ -36,12 +36,16 @@ export async function sendContactEmail(formData: FormData) {
 
     const validatedData = contactSchema.parse(data) as ContactData;
 
+    // Sanitize validated data for use in headers
+    const sanitizedName = sanitizeForHeader(validatedData.name);
+    const sanitizedEmail = sanitizeForHeader(validatedData.email);
+
     const resend = new Resend(apiKey);
 
     const { data: emailData, error } = await resend.emails.send({
       from: 'Or Hakerem <onboarding@resend.dev>',
       to: recipientEmail,
-      subject: `New message from ${sanitizeForHeader(validatedData.name)}`,
+      subject: `New message from ${sanitizedName}`,
       html: `
         <h2>New Contact Form Submission</h2>
         <p><strong>From:</strong> ${validatedData.name}</p>
@@ -49,7 +53,7 @@ export async function sendContactEmail(formData: FormData) {
         <p><strong>Message:</strong></p>
         <p>${validatedData.message}</p>
       `.trim(),
-      replyTo: sanitizeForHeader(validatedData.email),
+      replyTo: sanitizedEmail,
     });
 
     if (error) {

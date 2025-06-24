@@ -58,7 +58,11 @@ export async function sendEmail(formData: FormData) {
 
       validatedData = eventSchema.parse(eventData) as EventData;
 
-      subject = `New Event Inquiry - ${sanitizeForHeader(validatedData.eventType)}`;
+      // Sanitize validated data for use in headers
+      const sanitizedEventType = sanitizeForHeader(validatedData.eventType);
+      const sanitizedEmail = sanitizeForHeader(validatedData.email);
+
+      subject = `New Event Inquiry - ${sanitizedEventType}`;
       emailContent = `
         <h2>New Event Inquiry</h2>
         <p><strong>Event Type:</strong> ${validatedData.eventType}</p>
@@ -70,6 +74,32 @@ export async function sendEmail(formData: FormData) {
         <p><strong>Preferred Contact Method:</strong> ${validatedData.contactMethod}</p>
         ${validatedData.message ? `<p><strong>Additional Details:</strong> ${validatedData.message}</p>` : ''}
       `.trim();
+
+      // Initialize Resend with API key
+      const resend = new Resend(apiKey);
+
+      // Send email using Resend API
+      const { data, error } = await resend.emails.send({
+        from: 'Or Hakerem <onboarding@resend.dev>',
+        to: recipientEmail,
+        subject,
+        html: emailContent,
+        replyTo: sanitizedEmail,
+      });
+
+      if (error) {
+        console.error('Resend API error:', error);
+        return {
+          success: false,
+          error: error.message
+        };
+      }
+
+      console.log('Email sent successfully:', data?.id);
+      return { 
+        success: true,
+        message: 'Email sent successfully!'
+      };
     } else {
       // Validate reservation data
       const reservationData = {
@@ -84,7 +114,11 @@ export async function sendEmail(formData: FormData) {
 
       validatedData = reservationSchema.parse(reservationData) as ReservationData;
 
-      subject = `New Booking Request for ${sanitizeForHeader(validatedData.property)}`;
+      // Sanitize validated data for use in headers
+      const sanitizedProperty = sanitizeForHeader(validatedData.property);
+      const sanitizedEmail = sanitizeForHeader(validatedData.email);
+
+      subject = `New Booking Request for ${sanitizedProperty}`;
       emailContent = `
         <h2>New Booking Request</h2>
         <p><strong>Property:</strong> ${validatedData.property}</p>
@@ -95,33 +129,33 @@ export async function sendEmail(formData: FormData) {
         <p><strong>Phone:</strong> ${validatedData.phone}</p>
         <p><strong>Preferred Contact Method:</strong> ${validatedData.contactMethod}</p>
       `.trim();
-    }
 
-    // Initialize Resend with API key
-    const resend = new Resend(apiKey);
+      // Initialize Resend with API key
+      const resend = new Resend(apiKey);
 
-    // Send email using Resend API
-    const { data, error } = await resend.emails.send({
-      from: 'Or Hakerem <onboarding@resend.dev>',
-      to: recipientEmail,
-      subject,
-      html: emailContent,
-      replyTo: sanitizeForHeader(validatedData.email),
-    });
+      // Send email using Resend API
+      const { data, error } = await resend.emails.send({
+        from: 'Or Hakerem <onboarding@resend.dev>',
+        to: recipientEmail,
+        subject,
+        html: emailContent,
+        replyTo: sanitizedEmail,
+      });
 
-    if (error) {
-      console.error('Resend API error:', error);
-      return {
-        success: false,
-        error: error.message
+      if (error) {
+        console.error('Resend API error:', error);
+        return {
+          success: false,
+          error: error.message
+        };
+      }
+
+      console.log('Email sent successfully:', data?.id);
+      return { 
+        success: true,
+        message: 'Email sent successfully!'
       };
     }
-
-    console.log('Email sent successfully:', data?.id);
-    return { 
-      success: true,
-      message: 'Email sent successfully!'
-    };
   } catch (error) {
     console.error('Email sending failed:', error);
     const errorMessage = error instanceof Error ? error.message : 'Failed to send email';
