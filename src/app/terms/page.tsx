@@ -2,7 +2,7 @@
 
 import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
-import { ArrowLeft, Printer, FileText, Clock, CreditCard, Shield, AlertTriangle, ArrowUp } from 'lucide-react';
+import { ArrowLeft, Printer, FileText, Clock, CreditCard, Shield, AlertTriangle, ArrowUp, Home } from 'lucide-react';
 
 export default function TermsPage() {
   const [showBackToTop, setShowBackToTop] = useState(false);
@@ -28,16 +28,26 @@ export default function TermsPage() {
   return (
     <div className="min-h-screen pt-24 pb-20 bg-cream">
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-        {/* Header */}
-        <div className="mb-8 flex items-center justify-between">
-          <Link
-            href="/"
-            className="text-primary hover:text-secondary transition-colors duration-300 flex items-center text-lg"
-          >
-            <ArrowLeft className="w-5 h-5 mr-2" />
-            Back to Home
-          </Link>
-          
+        {/* Enhanced Back Navigation */}
+        <div className="mb-8">
+          <div className="inline-block relative group">
+            <div className="absolute inset-0 bg-gradient-to-r from-primary/20 to-secondary/20 rounded-full blur-lg opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+            <Link
+              href="/"
+              className="relative inline-flex items-center bg-white/80 backdrop-blur-sm text-primary px-6 py-3 rounded-full font-semibold text-lg hover:bg-white hover:text-secondary transition-all duration-300 shadow-lg hover:shadow-xl transform hover:scale-105 border border-primary/20"
+            >
+              <div className="relative mr-3">
+                <ArrowLeft className="w-5 h-5 transition-transform duration-300 group-hover:-translate-x-1" />
+                <div className="absolute inset-0 bg-secondary/20 rounded-full scale-0 group-hover:scale-150 transition-transform duration-300"></div>
+              </div>
+              <Home className="w-5 h-5 mr-2 opacity-70 group-hover:opacity-100 transition-opacity duration-300" />
+              <span className="relative z-10">Back to Home</span>
+            </Link>
+          </div>
+        </div>
+
+        {/* Header with Print Button */}
+        <div className="mb-8 flex items-center justify-end">
           <button
             onClick={handlePrint}
             className="flex items-center px-4 py-2 bg-primary text-white rounded-lg hover:bg-primary-light transition-colors"
