@@ -4,7 +4,7 @@ const nextConfig: NextConfig = {
   // Enable strict mode for better development experience
   reactStrictMode: true,
   
-  // Configure build output for Vercel
+  // Configure build output for deployment
   output: 'standalone',
   
   // Configure images to allow external sources

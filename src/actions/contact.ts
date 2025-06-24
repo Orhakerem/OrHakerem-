@@ -37,7 +37,6 @@ export async function sendContactEmail(formData: FormData) {
     const validatedData = contactSchema.parse(data) as ContactData;
 
     // Sanitize validated data for use in headers
-    const sanitizedName = sanitizeForHeader(validatedData.name);
     const sanitizedEmail = sanitizeForHeader(validatedData.email);
 
     const resend = new Resend(apiKey);

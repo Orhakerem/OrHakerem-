@@ -59,7 +59,6 @@ export async function sendEmail(formData: FormData) {
       validatedData = eventSchema.parse(eventData) as EventData;
 
       // Sanitize validated data for use in headers
-      const sanitizedEventType = sanitizeForHeader(validatedData.eventType);
       const sanitizedEmail = sanitizeForHeader(validatedData.email);
 
       subject = sanitizeForHeader(`New Event Inquiry - ${validatedData.eventType}`);
@@ -115,7 +114,6 @@ export async function sendEmail(formData: FormData) {
       validatedData = reservationSchema.parse(reservationData) as ReservationData;
 
       // Sanitize validated data for use in headers
-      const sanitizedProperty = sanitizeForHeader(validatedData.property);
       const sanitizedEmail = sanitizeForHeader(validatedData.email);
 
       subject = sanitizeForHeader(`New Booking Request for ${validatedData.property}`);
