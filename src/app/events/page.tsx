@@ -169,7 +169,7 @@ export default function Events() {
         {/* Hero Section with Corrected Image Path */}
         <div className="relative h-[500px] rounded-2xl overflow-hidden mb-20">
           <Image
-            src="/Orhakerem_Events.jpg"
+            src="/penthouse/4-terrasse-ext-coucher-soleil.png"
             alt="Or Hakerem Event Space - Rooftop Celebration"
             fill
             className="object-cover"
