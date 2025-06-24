@@ -248,7 +248,7 @@ const Home: React.FC = () => {
             <div className="text-center">
               <div className="inline-block relative group">
                 <div className="absolute inset-0 bg-gradient-to-r from-secondary to-tertiary rounded-full blur-lg opacity-50 group-hover:opacity-75 transition-opacity duration-300"></div>
-                <a
+                <Link
                   href="/concierge-services"
                   className="relative inline-flex items-center bg-gradient-to-r from-secondary to-secondary-light text-primary px-6 py-2 rounded-full font-semibold hover:from-secondary-light hover:to-secondary transition-all duration-300 shadow-xl hover:shadow-2xl transform hover:scale-105"
                 >
@@ -256,7 +256,7 @@ const Home: React.FC = () => {
                   <div className="w-4 h-4 bg-primary/20 rounded-full flex items-center justify-center">
                     <span className="text-primary text-xs">→</span>
                   </div>
-                </a>
+                </Link>
               </div>
             </div>
           </div>
