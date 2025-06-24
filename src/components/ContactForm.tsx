@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useState } from 'react';
-import { Mail, Phone, MessageSquare, Send, User } from 'lucide-react';
+import { Mail, MessageSquare, Send, User } from 'lucide-react';
 import toast from 'react-hot-toast';
 import { sendContactEmail } from '@/actions/contact';
 
