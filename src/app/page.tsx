@@ -174,21 +174,21 @@ const Home: React.FC = () => {
       </div>
 
       {/* White Separator - Wider */}
-      <div className="h-12 bg-white"></div>
+      <div className="h-8 bg-white"></div>
 
-      {/* Luxury Living in the Kerem - Compact Version with Logo */}
-      <section className="py-12 bg-cream border-l-16 border-r-16 border-white relative overflow-hidden">
-        {/* Subtle background elements */}
+      {/* Luxury Living in the Kerem - Ultra Compact & Elegant */}
+      <section className="py-8 bg-cream relative overflow-hidden">
+        {/* Minimal background elements */}
         <div className="absolute inset-0">
-          <div className="absolute top-10 left-10 w-20 h-20 bg-secondary/5 rounded-full blur-2xl"></div>
-          <div className="absolute bottom-10 right-10 w-32 h-32 bg-tertiary/5 rounded-full blur-2xl"></div>
+          <div className="absolute top-4 left-4 w-12 h-12 bg-secondary/5 rounded-full blur-xl"></div>
+          <div className="absolute bottom-4 right-4 w-16 h-16 bg-tertiary/5 rounded-full blur-xl"></div>
         </div>
 
-        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+        <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
           <div className="text-center max-w-4xl mx-auto">
-            {/* Logo Section */}
-            <div className="flex justify-center mb-6">
-              <div className="relative w-32 h-32 group">
+            {/* Logo Section - Smaller */}
+            <div className="flex justify-center mb-4">
+              <div className="relative w-20 h-20 group">
                 <Image
                   src="/OR_HAKEERM_Logo_Beige_TEXT (1).jpg"
                   alt="Or Hakerem Logo"
@@ -198,39 +198,40 @@ const Home: React.FC = () => {
               </div>
             </div>
 
-            {/* Main Heading - Compact */}
-            <h2 className="font-playfair text-3xl md:text-4xl font-light text-primary mb-6 leading-tight">
-              <span className="block text-lg md:text-xl font-normal text-secondary mb-2 tracking-wide uppercase">
+            {/* Elegant Typography - Ultra Compact */}
+            <div className="mb-4">
+              <span className="text-secondary font-light text-sm tracking-[0.2em] uppercase block mb-2">
                 Luxury Living
               </span>
-              <span className="block font-bold">
-                in the Kerem
-              </span>
-            </h2>
-
-            {/* Elegant Divider */}
-            <div className="flex items-center justify-center mb-6">
-              <div className="w-12 h-px bg-gradient-to-r from-transparent to-secondary"></div>
-              <div className="w-2 h-2 bg-secondary rounded-full mx-4"></div>
-              <div className="w-12 h-px bg-gradient-to-l from-transparent to-secondary"></div>
+              <h2 className="font-playfair text-2xl md:text-3xl font-light text-primary leading-tight">
+                <span className="font-normal italic">in the</span>
+                <span className="font-bold block text-3xl md:text-4xl">Kerem</span>
+              </h2>
             </div>
 
-            {/* Refined Description - Compact */}
-            <div className="max-w-3xl mx-auto space-y-4">
-              <p className="text-primary/90 text-lg md:text-xl leading-relaxed font-light">
+            {/* Minimal Divider */}
+            <div className="flex items-center justify-center mb-4">
+              <div className="w-8 h-px bg-secondary/40"></div>
+              <div className="w-1 h-1 bg-secondary rounded-full mx-3"></div>
+              <div className="w-8 h-px bg-secondary/40"></div>
+            </div>
+
+            {/* Refined Description - Ultra Compact */}
+            <div className="max-w-3xl mx-auto space-y-3 text-sm md:text-base">
+              <p className="text-primary/90 leading-relaxed font-light">
                 Nestled in the heart of Tel Aviv's most distinguished neighborhood, our properties offer an 
                 <span className="font-medium text-secondary"> unparalleled fusion </span>
                 of contemporary sophistication and timeless elegance.
               </p>
               
-              <p className="text-primary/80 text-base md:text-lg leading-relaxed font-light">
+              <p className="text-primary/80 leading-relaxed font-light">
                 Whether seeking a romantic retreat, a family sanctuary, or an intimate gathering space, 
                 Or Hakerem presents the epitome of luxury living where every detail has been 
                 <span className="font-medium text-tertiary"> meticulously curated </span>
                 to create unforgettable memories.
               </p>
 
-              <p className="text-primary/70 text-sm md:text-base leading-relaxed">
+              <p className="text-primary/70 text-xs md:text-sm leading-relaxed">
                 Kerem Hatemanim is a very lively district, known for its historical charm. You are only a few minutes from the city center 🌆
               </p>
             </div>
