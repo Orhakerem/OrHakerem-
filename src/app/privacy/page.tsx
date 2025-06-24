@@ -98,19 +98,16 @@ export default function PrivacyPage() {
           {/* Or Hakerem Signature Section */}
           <section className="text-center pt-8 border-t border-gray-200">
             <div className="mb-6">
-              <p className="font-playfair text-xl font-bold text-primary mb-4">Or Hakerem Luxury Properties</p>
-              <div className="flex justify-center items-center mb-4">
-                <div className="bg-gradient-to-br from-primary to-primary-light rounded-xl p-6 shadow-lg">
-                  <div className="font-playfair text-3xl font-bold text-white italic transform -rotate-3">
-                    Or Hakerem
-                  </div>
-                  <div className="text-secondary text-sm mt-1 font-medium">
-                    Luxury Properties
-                  </div>
-                </div>
-              </div>
-              <p className="text-primary/70 text-sm">
+              <p className="text-primary/70 text-sm mb-4">
                 Authorized Representative
+              </p>
+              <div className="flex justify-center items-center">
+                <span className="font-playfair text-4xl font-bold text-secondary">
+                  Or Hakerem
+                </span>
+              </div>
+              <p className="font-playfair text-lg text-primary mt-2">
+                Luxury Properties
               </p>
             </div>
           </section>
