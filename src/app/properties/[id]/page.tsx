@@ -40,31 +40,15 @@ const properties = {
     location: 'Kerem HaTeimanim, Tel Aviv',
     description:
       'Luxurious penthouse featuring a private jacuzzi, BBQ area, and breathtaking sea views.',
-    longDescription: `Welcome to this unique penthouse in the heart of Tel Aviv, a stone's throw from the beach and Shouk Hacarmel.
+    longDescription: `This unique penthouse located in the heart of Tel Aviv, just steps from the beach and the Carmel Market.
 
-Ideal for stays with friends or families and for private events: birthdays, EVJF/EVG, bar/bat mitzva, mikveh, Brit Mila, Houpa, and much more.
+Perfect for both friendly or family stays equipped with amenities like the jacuzzi and barbecue, and live a unforgettable experience in a special place.
 
-Take full advantage of the facilities on offer, such as the jacuzzi and barbecue, and enjoy a unique experience in an equally unique location 💫
-
-Enjoy 3 comfortable bedrooms with top of the range bedding, a bright lounge to relax in, and a large terrace equipped with a jacuzzi and sea views🌊 All bedrooms have queen size beds, storage cupboards as well as curtains for total darkness if desired, the large bedroom has a cot.
-
-The three bathrooms are complete with shower and toilet, providing ample convenience for all guests. The kitchen is fully equipped with coffee machine, microwave, oven, cooker, crockery and cooking utensils.
+All bedrooms are equipped with a queen size bed, storage cupboards and curtains for total darkness if desired, the large bedroom is equipped with a baby bed. The kitchen is fully equipped; coffee machine, microwave, oven…
 
 The outdoor dining area is perfect for BBQ evenings.
 
-The main feature of this flat is the terrace, with top of the range facilities such as BBQ, Jacuzzi and sea view you can be sure to have an unforgettable experience and leave with wonderful memories!
-
-I take great pride in keeping my accommodation pleasant, clean, comfortable and welcoming.
-
-Whether with family or friends I look forward to welcoming you and making your stay as enjoyable as possible.
-
-Travellers' access The flat is located at the top of a unique building which is classified as a historic monument dating back to the Ottoman Empire.
-
-Following renovation in keeping with the building's identity and architectural theme, it now houses flats of a high standard for all types of stay.
-
-The building is located at the entrance to Kerem Hateimanim, 200 metres from the beach and a 3-minute walk from Shouk Hacarmel.
-
-Kerem Hatemanim is a very lively neighbourhood, known for its historic charm. You are only a few minutes from the city center 🌆`,
+The main feature of this apartment is the terrace, with amenities such as BBQ, jacuzzi and sea views you can be sure to have an unforgettable experience and leave with wonderful memories!`,
     price: 500,
     images: [
       '/penthouse/1-jacuzzi-angle.JPEG',
@@ -205,9 +189,7 @@ Kerem Hatemanim is a very lively neighbourhood, known for its historic charm. Yo
     title: 'Spacious & Cosy Apartment',
     location: 'Kerem HaTeimanim, Tel Aviv',
     description: 'Completely renovated studio perfect for short to long term stays.',
-    longDescription: `Welcome to my precious Accommodation in the heart of Tel Aviv!
-
-This completely renovated studio is perfect for short, medium and long term rentals. Fully equipped and located 2 minutes walk from the beach, the Shouk Hacarmel and the entrance of the Kerem Hateimanim, live a unique experience 💫
+    longDescription: `This renovated apartment is perfect for short, medium, and long-term rentals. Fully equipped and located 2 minutes walk from the beach, the Shouk Hacarmel and the entrance of Kerem Hateimanim, live a unique experience.
 
 Enjoy the comfort of this cosy studio apartment in the heart of Tel Aviv ☀️ 
 
