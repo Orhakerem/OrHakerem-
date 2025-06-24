@@ -73,7 +73,7 @@ const Home: React.FC = () => {
               <div className="relative w-48 h-48 lg:w-64 lg:h-64 group">
                 <div className="absolute inset-0 bg-gradient-to-br from-secondary/20 to-tertiary/20 rounded-3xl opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
                 <Image
-                  src="/orhakerem_logo_original.jpg"
+                  src="/OR_HAKEERM_logo_beige_NOTEXT.jpg"
                   alt="Or Hakerem Logo"
                   fill
                   className="object-contain group-hover:scale-105 transition-transform duration-500 rounded-2xl"
