@@ -57,9 +57,6 @@ export default function TermsPage() {
             <h1 className="font-playfair text-4xl md:text-5xl font-bold text-primary mb-4">
               Rental Terms & Conditions
             </h1>
-            <p className="text-primary/70 text-lg">
-              Last Updated: June 10, 2025
-            </p>
           </div>
 
           {/* Section 1: Cancellation Policies */}
@@ -254,13 +251,23 @@ export default function TermsPage() {
             </div>
           </section>
 
-          {/* Signature Section */}
+          {/* Or Hakerem Signature Section */}
           <section className="text-center pt-8 border-t border-gray-200">
             <div className="mb-6">
-              <p className="font-playfair text-xl font-bold text-primary mb-2">Or Hakerem Luxury Properties</p>
-              <div className="w-32 h-16 bg-gray-100 rounded-lg mx-auto flex items-center justify-center border-2 border-dashed border-gray-300">
-                <span className="text-gray-500 text-sm">Authorized Signature</span>
+              <p className="font-playfair text-xl font-bold text-primary mb-4">Or Hakerem Luxury Properties</p>
+              <div className="flex justify-center items-center mb-4">
+                <div className="bg-gradient-to-br from-primary to-primary-light rounded-xl p-6 shadow-lg">
+                  <div className="font-playfair text-3xl font-bold text-white italic transform -rotate-3">
+                    Or Hakerem
+                  </div>
+                  <div className="text-secondary text-sm mt-1 font-medium">
+                    Luxury Properties
+                  </div>
+                </div>
               </div>
+              <p className="text-primary/70 text-sm">
+                Authorized Representative
+              </p>
             </div>
           </section>
         </div>

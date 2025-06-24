@@ -35,7 +35,7 @@ export default function PrivacyPage() {
           </div>
 
           {/* Main Content */}
-          <div className="bg-gradient-to-br from-blue-50 to-blue-100 rounded-xl p-8 md:p-12 text-center">
+          <div className="bg-gradient-to-br from-blue-50 to-blue-100 rounded-xl p-8 md:p-12 text-center mb-8">
             <div className="max-w-2xl mx-auto">
               <div className="mb-8">
                 <div className="inline-flex items-center justify-center w-20 h-20 bg-blue-500 rounded-full mb-6">
@@ -86,7 +86,7 @@ export default function PrivacyPage() {
           </div>
 
           {/* Temporary Data Handling Notice */}
-          <div className="mt-8 bg-yellow-50 border-2 border-yellow-200 rounded-xl p-6">
+          <div className="bg-yellow-50 border-2 border-yellow-200 rounded-xl p-6 mb-8">
             <h3 className="font-bold text-yellow-800 mb-3">Current Data Handling</h3>
             <p className="text-yellow-700">
               Currently, any personal information you provide through our contact forms or booking inquiries 
@@ -94,6 +94,26 @@ export default function PrivacyPage() {
               We do not share your information with third parties without your consent.
             </p>
           </div>
+
+          {/* Or Hakerem Signature Section */}
+          <section className="text-center pt-8 border-t border-gray-200">
+            <div className="mb-6">
+              <p className="font-playfair text-xl font-bold text-primary mb-4">Or Hakerem Luxury Properties</p>
+              <div className="flex justify-center items-center mb-4">
+                <div className="bg-gradient-to-br from-primary to-primary-light rounded-xl p-6 shadow-lg">
+                  <div className="font-playfair text-3xl font-bold text-white italic transform -rotate-3">
+                    Or Hakerem
+                  </div>
+                  <div className="text-secondary text-sm mt-1 font-medium">
+                    Luxury Properties
+                  </div>
+                </div>
+              </div>
+              <p className="text-primary/70 text-sm">
+                Authorized Representative
+              </p>
+            </div>
+          </section>
         </div>
       </div>
     </div>
