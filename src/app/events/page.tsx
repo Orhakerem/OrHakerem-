@@ -166,11 +166,11 @@ export default function Events() {
           </div>
         </div>
 
-        {/* Hero Section */}
+        {/* Hero Section with New Events Image */}
         <div className="relative h-[500px] rounded-2xl overflow-hidden mb-20">
           <Image
-            src="/penthouse/4-terrasse-ext-coucher-soleil.png"
-            alt="Event Space"
+            src="/Events_Orhakerem.jpg"
+            alt="Or Hakerem Event Space - Rooftop Celebration"
             fill
             className="object-cover"
           />
