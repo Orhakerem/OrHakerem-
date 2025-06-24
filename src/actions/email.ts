@@ -6,7 +6,7 @@ import type { ReservationData, EventData } from '@/validation';
 
 // Helper function to sanitize strings for HTTP headers
 function sanitizeForHeader(str: string): string {
-  return str.replace(/[^\x00-\xFF]/g, '?');
+  return str.replace(/[^\x00-\x7F]/g, '?');
 }
 
 export async function sendEmail(formData: FormData) {
