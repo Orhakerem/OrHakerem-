@@ -32,7 +32,7 @@ export default function BuildingDescription() {
             </p>
             <p className="text-primary/80 leading-relaxed">
               Whether you&apos;re visiting for business or pleasure, our prime location and exceptional
-              amenities ensure an unforgettable stay. Experience the warmth of Jerusalem hospitality
+              amenities ensure an unforgettable stay. Experience the warmth of Tel Aviv hospitality
               combined with the luxury you deserve.
             </p>
           </div>
