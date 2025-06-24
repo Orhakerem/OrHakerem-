@@ -176,64 +176,87 @@ const Home: React.FC = () => {
       {/* White Separator - Wider */}
       <div className="h-8 bg-white"></div>
 
-      {/* Luxury Living in the Kerem - Ultra Compact & Elegant */}
-      <section className="py-8 bg-cream relative overflow-hidden">
-        {/* Minimal background elements */}
+      {/* Luxury Living in the Kerem - Bigger Typography & Left Logo */}
+      <section className="py-16 bg-cream relative overflow-hidden">
+        {/* Enhanced background elements */}
         <div className="absolute inset-0">
-          <div className="absolute top-4 left-4 w-12 h-12 bg-secondary/5 rounded-full blur-xl"></div>
-          <div className="absolute bottom-4 right-4 w-16 h-16 bg-tertiary/5 rounded-full blur-xl"></div>
+          <div className="absolute top-8 left-8 w-32 h-32 bg-secondary/10 rounded-full blur-3xl"></div>
+          <div className="absolute bottom-8 right-8 w-40 h-40 bg-tertiary/10 rounded-full blur-3xl"></div>
+          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-96 h-96 bg-white/5 rounded-full blur-3xl"></div>
         </div>
 
-        <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-          <div className="text-center max-w-4xl mx-auto">
-            {/* Logo Section - Smaller */}
-            <div className="flex justify-center mb-4">
-              <div className="relative w-20 h-20 group">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+          <div className="flex flex-col lg:flex-row items-center gap-12">
+            {/* Logo Section - Left Side */}
+            <div className="flex-shrink-0">
+              <div className="relative w-48 h-48 lg:w-64 lg:h-64 group">
+                <div className="absolute inset-0 bg-gradient-to-br from-secondary/20 to-tertiary/20 rounded-3xl opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
                 <Image
                   src="/OR_HAKEERM_Logo_Beige_TEXT (1).jpg"
                   alt="Or Hakerem Logo"
                   fill
-                  className="object-contain group-hover:scale-105 transition-transform duration-300"
+                  className="object-contain group-hover:scale-105 transition-transform duration-500 rounded-2xl"
                 />
+                {/* Decorative frame */}
+                <div className="absolute inset-0 border-2 border-secondary/20 rounded-3xl group-hover:border-secondary/40 transition-colors duration-500"></div>
               </div>
             </div>
 
-            {/* Elegant Typography - Ultra Compact */}
-            <div className="mb-4">
-              <span className="text-secondary font-light text-sm tracking-[0.2em] uppercase block mb-2">
-                Luxury Living
-              </span>
-              <h2 className="font-playfair text-2xl md:text-3xl font-light text-primary leading-tight">
-                <span className="font-normal italic">in the</span>
-                <span className="font-bold block text-3xl md:text-4xl">Kerem</span>
-              </h2>
-            </div>
+            {/* Content Section - Right Side */}
+            <div className="flex-1 text-center lg:text-left">
+              {/* Elegant Typography - Much Bigger */}
+              <div className="mb-8">
+                <span className="text-secondary font-semibold text-xl tracking-[0.3em] uppercase block mb-4">
+                  Luxury Living
+                </span>
+                <h2 className="font-playfair text-5xl md:text-7xl lg:text-8xl font-light text-primary leading-none mb-4">
+                  <span className="font-normal italic text-4xl md:text-5xl lg:text-6xl block mb-2">in the</span>
+                  <span className="font-bold block">Kerem</span>
+                </h2>
+              </div>
 
-            {/* Minimal Divider */}
-            <div className="flex items-center justify-center mb-4">
-              <div className="w-8 h-px bg-secondary/40"></div>
-              <div className="w-1 h-1 bg-secondary rounded-full mx-3"></div>
-              <div className="w-8 h-px bg-secondary/40"></div>
-            </div>
+              {/* Sophisticated Divider */}
+              <div className="flex items-center justify-center lg:justify-start mb-8">
+                <div className="w-16 h-px bg-gradient-to-r from-secondary to-tertiary"></div>
+                <div className="w-3 h-3 bg-secondary rounded-full mx-4 shadow-lg"></div>
+                <div className="w-16 h-px bg-gradient-to-l from-secondary to-tertiary"></div>
+              </div>
 
-            {/* Refined Description - Ultra Compact */}
-            <div className="max-w-3xl mx-auto space-y-3 text-sm md:text-base">
-              <p className="text-primary/90 leading-relaxed font-light">
-                Nestled in the heart of Tel Aviv's most distinguished neighborhood, our properties offer an 
-                <span className="font-medium text-secondary"> unparalleled fusion </span>
-                of contemporary sophistication and timeless elegance.
-              </p>
-              
-              <p className="text-primary/80 leading-relaxed font-light">
-                Whether seeking a romantic retreat, a family sanctuary, or an intimate gathering space, 
-                Or Hakerem presents the epitome of luxury living where every detail has been 
-                <span className="font-medium text-tertiary"> meticulously curated </span>
-                to create unforgettable memories.
-              </p>
+              {/* Enhanced Description - Bigger Text */}
+              <div className="max-w-4xl space-y-6 text-lg md:text-xl">
+                <p className="text-primary/90 leading-relaxed font-light">
+                  Nestled in the heart of Tel Aviv's most distinguished neighborhood, our properties offer an 
+                  <span className="font-medium text-secondary"> unparalleled fusion </span>
+                  of contemporary sophistication and timeless elegance.
+                </p>
+                
+                <p className="text-primary/80 leading-relaxed font-light">
+                  Whether seeking a romantic retreat, a family sanctuary, or an intimate gathering space, 
+                  Or Hakerem presents the epitome of luxury living where every detail has been 
+                  <span className="font-medium text-tertiary"> meticulously curated </span>
+                  to create unforgettable memories.
+                </p>
 
-              <p className="text-primary/70 text-xs md:text-sm leading-relaxed">
-                Kerem Hatemanim is a very lively district, known for its historical charm. You are only a few minutes from the city center 🌆
-              </p>
+                <p className="text-primary/70 text-base md:text-lg leading-relaxed italic">
+                  Kerem Hatemanim is a very lively district, known for its historical charm. You are only a few minutes from the city center 🌆
+                </p>
+              </div>
+
+              {/* Call to Action */}
+              <div className="mt-10 flex justify-center lg:justify-start">
+                <div className="inline-block relative group">
+                  <div className="absolute inset-0 bg-gradient-to-r from-secondary to-tertiary rounded-full blur-lg opacity-50 group-hover:opacity-75 transition-opacity duration-300"></div>
+                  <a
+                    href="/properties"
+                    className="relative inline-flex items-center bg-gradient-to-r from-secondary to-secondary-light text-primary px-8 py-4 rounded-full font-semibold text-lg hover:from-secondary-light hover:to-secondary transition-all duration-300 shadow-xl hover:shadow-2xl transform hover:scale-105"
+                  >
+                    <span className="mr-3">Explore Properties</span>
+                    <div className="w-6 h-6 bg-primary/20 rounded-full flex items-center justify-center">
+                      <span className="text-primary text-sm">→</span>
+                    </div>
+                  </a>
+                </div>
+              </div>
             </div>
           </div>
         </div>
