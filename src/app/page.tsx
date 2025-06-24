@@ -5,6 +5,7 @@ import toast from 'react-hot-toast';
 import React, { useState } from 'react';
 
 import Image from 'next/image';
+import Link from 'next/link';
 
 import { sendContactEmail } from '@/actions/contact';
 import FAQ from '@/components/FAQ';
@@ -126,7 +127,7 @@ const Home: React.FC = () => {
               <div className="mt-10 flex justify-center lg:justify-start">
                 <div className="inline-block relative group">
                   <div className="absolute inset-0 bg-gradient-to-r from-secondary to-tertiary rounded-full blur-lg opacity-50 group-hover:opacity-75 transition-opacity duration-300"></div>
-                  <a
+                  <Link
                     href="/properties"
                     className="relative inline-flex items-center bg-gradient-to-r from-secondary to-secondary-light text-primary px-8 py-4 rounded-full font-semibold text-lg hover:from-secondary-light hover:to-secondary transition-all duration-300 shadow-xl hover:shadow-2xl transform hover:scale-105"
                   >
@@ -134,7 +135,7 @@ const Home: React.FC = () => {
                     <div className="w-6 h-6 bg-primary/20 rounded-full flex items-center justify-center">
                       <span className="text-primary text-sm">→</span>
                     </div>
-                  </a>
+                  </Link>
                 </div>
               </div>
             </div>
