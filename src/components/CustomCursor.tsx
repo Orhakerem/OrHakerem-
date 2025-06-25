@@ -2,8 +2,13 @@
 
 import { useEffect, useState } from 'react';
 
+interface Position {
+  x: number;
+  y: number;
+}
+
 export default function CustomCursor() {
-  const [position, setPosition] = useState({ x: 0, y: 0 });
+  const [position, setPosition] = useState<Position>({ x: 0, y: 0 });
   const [isVisible, setIsVisible] = useState(false);
 
   useEffect(() => {
@@ -14,18 +19,20 @@ export default function CustomCursor() {
     const onMouseEnter = () => setIsVisible(true);
     const onMouseLeave = () => setIsVisible(false);
 
-    document.addEventListener('mousemove', onMouseMove);
-    document.addEventListener('mouseenter', onMouseEnter);
-    document.addEventListener('mouseleave', onMouseLeave);
+    if (typeof document !== 'undefined') {
+      document.addEventListener('mousemove', onMouseMove);
+      document.addEventListener('mouseenter', onMouseEnter);
+      document.addEventListener('mouseleave', onMouseLeave);
 
-    return () => {
-      document.removeEventListener('mousemove', onMouseMove);
-      document.removeEventListener('mouseenter', onMouseEnter);
-      document.removeEventListener('mouseleave', onMouseLeave);
-    };
+      return () => {
+        document.removeEventListener('mousemove', onMouseMove);
+        document.removeEventListener('mouseenter', onMouseEnter);
+        document.removeEventListener('mouseleave', onMouseLeave);
+      };
+    }
   }, []);
 
-  if (!isVisible) return null;
+  if (!isVisible || typeof window === 'undefined') return null;
 
   return (
     <div

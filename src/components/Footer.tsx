@@ -10,7 +10,7 @@ export default function Footer() {
     e.preventDefault();
     
     // Check if we're on the homepage
-    if (window.location.pathname === '/') {
+    if (typeof window !== 'undefined' && window.location.pathname === '/') {
       // Scroll to the contact section
       const contactSection = document.querySelector('#contact');
       if (contactSection) {
@@ -19,7 +19,7 @@ export default function Footer() {
           block: 'start'
         });
       }
-    } else {
+    } else if (typeof window !== 'undefined') {
       // Navigate to homepage with hash
       window.location.href = '/#contact';
     }

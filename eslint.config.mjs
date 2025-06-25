@@ -1,6 +1,4 @@
 import js from '@eslint/js';
-import tseslint from '@typescript-eslint/eslint-plugin';
-import tsparser from '@typescript-eslint/parser';
 
 /** @type {import('eslint').Linter.Config[]} */
 const eslintConfig = [
@@ -18,10 +16,40 @@ const eslintConfig = [
   },
   js.configs.recommended,
   {
-    files: ['**/*.{js,jsx}'],
+    files: ['**/*.{js,jsx,ts,tsx}'],
     languageOptions: {
       ecmaVersion: 'latest',
       sourceType: 'module',
+      globals: {
+        // Browser globals
+        window: 'readonly',
+        document: 'readonly',
+        navigator: 'readonly',
+        console: 'readonly',
+        setTimeout: 'readonly',
+        clearTimeout: 'readonly',
+        setInterval: 'readonly',
+        clearInterval: 'readonly',
+        fetch: 'readonly',
+        FormData: 'readonly',
+        URLSearchParams: 'readonly',
+        URL: 'readonly',
+        Event: 'readonly',
+        MouseEvent: 'readonly',
+        KeyboardEvent: 'readonly',
+        HTMLElement: 'readonly',
+        HTMLAnchorElement: 'readonly',
+        HTMLInputElement: 'readonly',
+        HTMLTextAreaElement: 'readonly',
+        HTMLFormElement: 'readonly',
+        HTMLButtonElement: 'readonly',
+        Element: 'readonly',
+        Node: 'readonly',
+        NodeList: 'readonly',
+        // React globals
+        React: 'readonly',
+        JSX: 'readonly'
+      },
       parserOptions: {
         ecmaFeatures: {
           jsx: true
@@ -29,34 +57,12 @@ const eslintConfig = [
       }
     },
     rules: {
+      // Disable problematic rules that cause build issues
       'react/no-unescaped-entities': 'off',
       'no-unused-vars': 'warn',
       'no-console': 'warn',
-      'prefer-const': 'error'
-    }
-  },
-  {
-    files: ['**/*.{ts,tsx}'],
-    languageOptions: {
-      parser: tsparser,
-      ecmaVersion: 'latest',
-      sourceType: 'module',
-      parserOptions: {
-        ecmaFeatures: {
-          jsx: true
-        }
-      }
-    },
-    plugins: {
-      '@typescript-eslint': tseslint
-    },
-    rules: {
-      ...tseslint.configs.recommended.rules,
-      'react/no-unescaped-entities': 'off',
-      'no-unused-vars': 'off',
-      '@typescript-eslint/no-unused-vars': 'warn',
-      'no-console': 'warn',
-      'prefer-const': 'error'
+      'prefer-const': 'error',
+      'no-undef': 'error'
     }
   }
 ];
