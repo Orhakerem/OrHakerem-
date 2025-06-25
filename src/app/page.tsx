@@ -57,20 +57,20 @@ const Home: React.FC = () => {
       {/* White Separator - Wider */}
       <div className="h-8 bg-white"></div>
 
-      {/* Luxury Living in the Kerem - Bigger Typography & Left Logo */}
-      <section className="py-16 bg-cream relative overflow-hidden">
+      {/* Luxury Living in the Kerem - Optimized and Compact */}
+      <section className="py-12 bg-cream relative overflow-hidden">
         {/* Enhanced background elements */}
         <div className="absolute inset-0">
-          <div className="absolute top-8 left-8 w-32 h-32 bg-secondary/10 rounded-full blur-3xl"></div>
-          <div className="absolute bottom-8 right-8 w-40 h-40 bg-tertiary/10 rounded-full blur-3xl"></div>
-          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-96 h-96 bg-white/5 rounded-full blur-3xl"></div>
+          <div className="absolute top-6 left-6 w-24 h-24 bg-secondary/10 rounded-full blur-3xl"></div>
+          <div className="absolute bottom-6 right-6 w-32 h-32 bg-tertiary/10 rounded-full blur-3xl"></div>
+          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-64 h-64 bg-white/5 rounded-full blur-3xl"></div>
         </div>
 
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-          <div className="flex flex-col lg:flex-row items-center gap-12">
-            {/* Logo Section - Left Side */}
+          <div className="flex flex-col lg:flex-row items-center gap-8">
+            {/* Logo Section - Left Side - Compact */}
             <div className="flex-shrink-0">
-              <div className="relative w-48 h-48 lg:w-64 lg:h-64 group">
+              <div className="relative w-32 h-32 lg:w-40 lg:h-40 group">
                 <div className="absolute inset-0 bg-gradient-to-br from-secondary/20 to-tertiary/20 rounded-3xl opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
                 <Image
                   src="/OR_HAKEERM_logo_beige_NOTEXT.jpg"
@@ -83,57 +83,57 @@ const Home: React.FC = () => {
               </div>
             </div>
 
-            {/* Content Section - Right Side */}
+            {/* Content Section - Right Side - Optimized */}
             <div className="flex-1 text-center lg:text-left">
-              {/* Elegant Typography - Much Bigger */}
-              <div className="mb-8">
-                <span className="text-secondary font-semibold text-xl tracking-[0.3em] uppercase block mb-4">
+              {/* Elegant Typography - Reduced Size */}
+              <div className="mb-6">
+                <span className="text-secondary font-semibold text-lg tracking-[0.2em] uppercase block mb-3">
                   Luxury Living
                 </span>
-                <h2 className="font-playfair text-5xl md:text-7xl lg:text-8xl font-light text-primary leading-none mb-4">
-                  <span className="font-normal italic text-4xl md:text-5xl lg:text-6xl block mb-2">in the</span>
+                <h2 className="font-playfair text-4xl md:text-5xl lg:text-6xl font-light text-primary leading-none mb-3">
+                  <span className="font-normal italic text-3xl md:text-4xl lg:text-5xl block mb-1">in the</span>
                   <span className="font-bold block">Kerem</span>
                 </h2>
               </div>
 
-              {/* Sophisticated Divider */}
-              <div className="flex items-center justify-center lg:justify-start mb-8">
-                <div className="w-16 h-px bg-gradient-to-r from-secondary to-tertiary"></div>
-                <div className="w-3 h-3 bg-secondary rounded-full mx-4 shadow-lg"></div>
-                <div className="w-16 h-px bg-gradient-to-l from-secondary to-tertiary"></div>
+              {/* Sophisticated Divider - Compact */}
+              <div className="flex items-center justify-center lg:justify-start mb-6">
+                <div className="w-12 h-px bg-gradient-to-r from-secondary to-tertiary"></div>
+                <div className="w-2 h-2 bg-secondary rounded-full mx-3 shadow-lg"></div>
+                <div className="w-12 h-px bg-gradient-to-l from-secondary to-tertiary"></div>
               </div>
 
-              {/* Enhanced Description - Bigger Text */}
-              <div className="max-w-4xl space-y-6 text-lg md:text-xl">
+              {/* Enhanced Description - Better Typography and Spacing */}
+              <div className="max-w-3xl space-y-4 text-base md:text-lg">
                 <p className="text-primary/90 leading-relaxed font-light">
                   Nestled in the heart of Tel Aviv&apos;s most distinguished neighborhood, our properties offer an 
                   <span className="font-medium text-secondary"> unparalleled fusion </span>
                   of contemporary sophistication and timeless elegance.
                 </p>
                 
-                <p className="text-primary/80 leading-relaxed font-light">
+                <p className="text-primary/80 leading-relaxed font-light font-switzer">
                   Whether seeking a romantic retreat, a family sanctuary, or an intimate gathering space, 
                   Or Hakerem presents the epitome of luxury living where every detail has been 
                   <span className="font-medium text-tertiary"> meticulously curated </span>
                   to create unforgettable memories.
                 </p>
 
-                <p className="text-primary/70 text-base md:text-lg leading-relaxed italic">
+                <p className="text-primary/70 text-sm md:text-base leading-relaxed italic font-lato">
                   Kerem Hatemanim is a very lively district, known for its historical charm. You are only a few minutes from the city center 🌆
                 </p>
               </div>
 
-              {/* Call to Action */}
-              <div className="mt-10 flex justify-center lg:justify-start">
+              {/* Call to Action - Compact */}
+              <div className="mt-8 flex justify-center lg:justify-start">
                 <div className="inline-block relative group">
                   <div className="absolute inset-0 bg-gradient-to-r from-secondary to-tertiary rounded-full blur-lg opacity-50 group-hover:opacity-75 transition-opacity duration-300"></div>
                   <Link
                     href="/properties"
-                    className="relative inline-flex items-center bg-gradient-to-r from-secondary to-secondary-light text-primary px-8 py-4 rounded-full font-semibold text-lg hover:from-secondary-light hover:to-secondary transition-all duration-300 shadow-xl hover:shadow-2xl transform hover:scale-105"
+                    className="relative inline-flex items-center bg-gradient-to-r from-secondary to-secondary-light text-primary px-6 py-3 rounded-full font-semibold text-base hover:from-secondary-light hover:to-secondary transition-all duration-300 shadow-xl hover:shadow-2xl transform hover:scale-105"
                   >
-                    <span className="mr-3">Explore Properties</span>
-                    <div className="w-6 h-6 bg-primary/20 rounded-full flex items-center justify-center">
-                      <span className="text-primary text-sm">→</span>
+                    <span className="mr-2">Explore Properties</span>
+                    <div className="w-5 h-5 bg-primary/20 rounded-full flex items-center justify-center">
+                      <span className="text-primary text-xs">→</span>
                     </div>
                   </Link>
                 </div>
