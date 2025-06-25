@@ -18,7 +18,7 @@ const nextConfig: NextConfig = {
     ],
     // Optimize image loading
     formats: ['image/webp', 'image/avif'],
-    // Disable image optimization for Vercel compatibility
+    // Enable image optimization for Vercel
     unoptimized: false,
   },
 

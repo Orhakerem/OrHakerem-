@@ -34,16 +34,16 @@ const Home: React.FC = () => {
   };
 
   return (
-    <div className="min-h-screen" style={{ paddingTop: '70px' }}>
-      {/* Hero Section */}
-      <div className="relative h-screen">
+    <div className="min-h-screen">
+      {/* Hero Section - Proper spacing below navbar */}
+      <div className="relative h-screen" style={{ marginTop: '80px' }}>
         <div className="absolute inset-0 bg-gradient-to-r from-primary/80 to-primary/60">
           <div className="max-w-7xl mx-auto px-4 h-full flex items-center justify-center">
             <div className="text-center text-white">
-              <h1 className="font-playfair text-5xl md:text-6xl font-bold mb-4">
+              <h1 className="font-playfair text-4xl md:text-5xl lg:text-6xl font-bold mb-6">
                 Discover Or Hakerem
               </h1>
-              <p className="text-xl max-w-2xl mx-auto">
+              <p className="text-lg md:text-xl max-w-2xl mx-auto leading-relaxed">
                 Experience luxury living in the heart of Tel Aviv with our premium accommodations
               </p>
             </div>

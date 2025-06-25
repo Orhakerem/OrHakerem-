@@ -100,26 +100,6 @@
 }
 
 @layer components {
-  /* Navbar specific styles */
-  .nav-item {
-    border-radius: 0;
-    text-decoration: none;
-    display: flex;
-    align-items: center;
-    transition: none !important;
-    transform: none !important;
-    box-shadow: none !important;
-    max-height: 70px;
-    padding: 23px 15px;
-  }
-
-  .nav-item:hover {
-    color: #D4AF37 !important;
-    background-color: transparent;
-    transform: none !important;
-    box-shadow: none !important;
-  }
-
   .modern-card {
     @apply rounded-[24px] bg-white p-8 transition-all duration-300 ease-in-out;
     box-shadow: 0 8px 32px rgba(0, 0, 0, 0.05);
