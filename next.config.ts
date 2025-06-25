@@ -18,6 +18,8 @@ const nextConfig: NextConfig = {
     ],
     // Optimize image loading
     formats: ['image/webp', 'image/avif'],
+    // Disable image optimization for Vercel compatibility
+    unoptimized: false,
   },
 
   // Configure external packages
@@ -27,6 +29,8 @@ const nextConfig: NextConfig = {
   experimental: {
     // Enable optimized package imports
     optimizePackageImports: ['lucide-react', 'react-hot-toast'],
+    // Disable problematic features that cause hydration issues
+    serverComponentsExternalPackages: ['sharp'],
   },
 
   // Configure TypeScript for build
@@ -70,6 +74,37 @@ const nextConfig: NextConfig = {
   // Vercel-specific optimizations
   poweredByHeader: false,
   compress: true,
+
+  // Webpack configuration to resolve dependency issues
+  webpack: (config, { isServer }) => {
+    // Fix for sharp and other native dependencies
+    if (!isServer) {
+      config.resolve.fallback = {
+        ...config.resolve.fallback,
+        fs: false,
+        net: false,
+        tls: false,
+        crypto: false,
+        stream: false,
+        url: false,
+        zlib: false,
+        http: false,
+        https: false,
+        assert: false,
+        os: false,
+        path: false,
+      };
+    }
+
+    // Ignore problematic dependencies
+    config.externals = config.externals || [];
+    config.externals.push({
+      'sharp': 'commonjs sharp',
+      'canvas': 'commonjs canvas',
+    });
+
+    return config;
+  },
 };
 
 export default nextConfig;
