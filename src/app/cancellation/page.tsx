@@ -1,6 +1,5 @@
 'use client';
 
-import React from 'react';
 import Link from 'next/link';
 import { ArrowLeft, Clock, AlertTriangle, CheckCircle, XCircle, Home } from 'lucide-react';
 

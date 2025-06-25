@@ -1,8 +1,7 @@
 'use server';
 
 import { Resend } from 'resend';
-import { contactSchema } from '@/validation';
-import type { ContactData } from '@/validation';
+import { contactSchema, type ContactData } from '@/validation';
 
 // Helper function to sanitize strings for HTTP headers
 function sanitizeForHeader(str: string): string {

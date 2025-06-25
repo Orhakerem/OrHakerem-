@@ -1,8 +1,7 @@
 'use server';
 
 import { Resend } from 'resend';
-import { reservationSchema, eventSchema } from '@/validation';
-import type { ReservationData, EventData } from '@/validation';
+import { reservationSchema, eventSchema, type ReservationData, type EventData } from '@/validation';
 
 // Helper function to sanitize strings for HTTP headers
 function sanitizeForHeader(str: string): string {
