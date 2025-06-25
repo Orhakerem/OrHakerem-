@@ -40,7 +40,7 @@ function Navbar() {
     <>
       {/* Desktop Navbar */}
       <nav
-        className={`hidden md:block fixed top: 0 left-0 right-0 z-[1000] transition-none h-[70px] overflow-hidden ${
+        className={`hidden md:block fixed top-0 left-0 right-0 z-[1000] transition-none h-[70px] overflow-hidden ${
           isScrolled
             ? 'bg-white shadow-lg'
             : 'bg-white/95 backdrop-blur-sm'
