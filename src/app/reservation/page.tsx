@@ -10,21 +10,28 @@ import { sendEmail } from '@/actions/email';
 
 function ReservationContent() {
   const router = useRouter();
-  const searchParams = useSearchParams();
   const [propertyTitle, setPropertyTitle] = useState('Property');
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSuccess, setIsSuccess] = useState(false);
   const [contactMethod, setContactMethod] = useState('email');
+  const [isClient, setIsClient] = useState(false);
+
+  // Ensure we're on the client side before using useSearchParams
+  useEffect(() => {
+    setIsClient(true);
+  }, []);
+
+  const searchParams = useSearchParams();
 
   // Get property from URL parameters using Next.js hook
   useEffect(() => {
-    if (searchParams) {
+    if (isClient && searchParams) {
       const property = searchParams.get('property');
       if (property) {
         setPropertyTitle(property);
       }
     }
-  }, [searchParams]);
+  }, [searchParams, isClient]);
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
