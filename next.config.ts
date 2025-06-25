@@ -64,8 +64,12 @@ const nextConfig: NextConfig = {
     ];
   },
 
-  // Configure output for static export if needed
+  // Configure output for Vercel deployment
   output: 'standalone',
+
+  // Vercel-specific optimizations
+  poweredByHeader: false,
+  compress: true,
 };
 
 export default nextConfig;
