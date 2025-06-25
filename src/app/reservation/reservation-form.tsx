@@ -17,16 +17,22 @@ export default function ReservationForm() {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSuccess, setIsSuccess] = useState(false);
   const [contactMethod, setContactMethod] = useState('email');
+  const [isClient, setIsClient] = useState(false);
+
+  // Ensure component is fully hydrated before accessing searchParams
+  useEffect(() => {
+    setIsClient(true);
+  }, []);
 
   // Get property from URL parameters using Next.js hook
   useEffect(() => {
-    if (searchParams) {
+    if (isClient && searchParams) {
       const property = searchParams.get('property');
       if (property) {
         setPropertyTitle(property);
       }
     }
-  }, [searchParams]);
+  }, [searchParams, isClient]);
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -47,6 +53,32 @@ export default function ReservationForm() {
       setIsSubmitting(false);
     }
   };
+
+  // Don't render until client-side hydration is complete
+  if (!isClient) {
+    return (
+      <div className="min-h-screen pt-24 pb-20 bg-cream">
+        <div className="max-w-2xl mx-auto px-4">
+          <div className="bg-white p-8 rounded-lg shadow-lg">
+            <div className="animate-pulse">
+              <div className="h-8 bg-gray-200 rounded mb-4"></div>
+              <div className="h-4 bg-gray-200 rounded mb-8"></div>
+              <div className="space-y-6">
+                <div className="h-12 bg-gray-200 rounded"></div>
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                  <div className="h-12 bg-gray-200 rounded"></div>
+                  <div className="h-12 bg-gray-200 rounded"></div>
+                </div>
+                <div className="h-12 bg-gray-200 rounded"></div>
+                <div className="h-12 bg-gray-200 rounded"></div>
+                <div className="h-12 bg-gray-200 rounded"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    );
+  }
 
   if (isSuccess) {
     return (
