@@ -3,7 +3,7 @@
 import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { Home, Building, Calendar, Sparkles, Menu, X } from 'lucide-react';
+import { Home, Building, Calendar, Sparkles, Menu, X, Users, Mail } from 'lucide-react';
 import Image from 'next/image';
 
 function Navbar() {
@@ -40,111 +40,153 @@ function Navbar() {
     <>
       {/* Desktop Navbar */}
       <nav
-        className={`hidden md:block fixed top-4 left-1/2 -translate-x-1/2 z-50 transition-all duration-300 rounded-full w-[95%] max-w-5xl ${
+        className={`hidden md:block fixed top: 0 left-0 right-0 z-[1000] transition-none h-[70px] overflow-hidden ${
           isScrolled
-            ? 'bg-primary shadow-lg backdrop-blur-md'
-            : 'bg-primary/40 backdrop-blur-sm hover:bg-primary/60'
+            ? 'bg-white shadow-lg'
+            : 'bg-white/95 backdrop-blur-sm'
         }`}
         role="navigation"
         aria-label="Main navigation"
+        style={{ position: 'sticky', top: 0 }}
       >
-        <div className="px-6 sm:px-8">
-          <div className="flex items-center justify-between h-18">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-full">
+          <div className="flex items-center justify-between h-full">
+            {/* Logo Section */}
             <div className="shrink-0 flex items-center">
               <Link href="/" aria-label="Or Hakerem - Home" className="flex items-center">
-                <div className="relative w-12 h-12 mr-4">
+                <div className="relative w-[50px] h-[50px] mr-3">
                   <Image
                     src="/orhakerem_logo_original.jpg"
                     alt="Or Hakerem Logo"
                     fill
-                    className="object-contain rounded-lg"
+                    className="object-contain"
+                    style={{ objectFit: 'contain', maxHeight: '50px' }}
                     priority
                   />
                 </div>
-                <span className="text-secondary font-playfair font-bold text-2xl">
+                <span className="text-primary font-playfair font-bold text-xl">
                   Or Hakerem
                 </span>
               </Link>
             </div>
-            <div className="flex space-x-3">
+
+            {/* Navigation Items */}
+            <div className="flex items-center space-x-1">
               <Link
                 href="/"
-                className={`flex items-center px-6 py-3 rounded-full text-base font-medium transition-all duration-200 ${
+                className={`nav-item flex items-center transition-none max-h-[70px] ${
                   isActive('/')
-                    ? 'bg-secondary text-primary shadow-sm'
-                    : 'text-cream hover:bg-tertiary/30 hover:shadow-sm'
+                    ? 'bg-secondary text-primary'
+                    : 'text-primary'
                 }`}
+                style={{ padding: '23px 15px' }}
                 aria-current={isActive('/') ? 'page' : undefined}
               >
-                <Home className="w-5 h-5 mr-3" aria-hidden="true" />
-                <span>Home</span>
+                <Home className="w-4 h-4 mr-2" aria-hidden="true" />
+                <span className="text-sm font-medium">Home</span>
               </Link>
+
               <Link
                 href="/properties"
-                className={`flex items-center px-6 py-3 rounded-full text-base font-medium transition-all duration-200 ${
+                className={`nav-item flex items-center transition-none max-h-[70px] ${
                   isActive('/properties')
-                    ? 'bg-secondary text-primary shadow-sm'
-                    : 'text-cream hover:bg-tertiary/30 hover:shadow-sm'
+                    ? 'bg-secondary text-primary'
+                    : 'text-primary'
                 }`}
+                style={{ padding: '23px 15px' }}
                 aria-current={isActive('/properties') ? 'page' : undefined}
               >
-                <Building className="w-5 h-5 mr-3" aria-hidden="true" />
-                <span>Properties</span>
+                <Building className="w-4 h-4 mr-2" aria-hidden="true" />
+                <span className="text-sm font-medium">Accommodations</span>
               </Link>
+
               <Link
                 href="/concierge-services"
-                className={`flex items-center px-6 py-3 rounded-full text-base font-medium transition-all duration-200 ${
+                className={`nav-item flex items-center transition-none max-h-[70px] ${
                   isActive('/concierge-services')
-                    ? 'bg-secondary text-primary shadow-sm'
-                    : 'text-cream hover:bg-tertiary/30 hover:shadow-sm'
+                    ? 'bg-secondary text-primary'
+                    : 'text-primary'
                 }`}
+                style={{ padding: '23px 15px' }}
                 aria-current={isActive('/concierge-services') ? 'page' : undefined}
               >
-                <Sparkles className="w-5 h-5 mr-3" aria-hidden="true" />
-                <span>Services</span>
+                <Sparkles className="w-4 h-4 mr-2" aria-hidden="true" />
+                <span className="text-sm font-medium">Services</span>
               </Link>
+
+              <Link
+                href="/properties"
+                className={`nav-item flex items-center transition-none max-h-[70px] ${
+                  pathname.includes('/gallery')
+                    ? 'bg-secondary text-primary'
+                    : 'text-primary'
+                }`}
+                style={{ padding: '23px 15px' }}
+                aria-current={pathname.includes('/gallery') ? 'page' : undefined}
+              >
+                <Building className="w-4 h-4 mr-2" aria-hidden="true" />
+                <span className="text-sm font-medium">Gallery</span>
+              </Link>
+
               <Link
                 href="/events"
-                className={`flex items-center px-6 py-3 rounded-full text-base font-medium transition-all duration-200 ${
+                className={`nav-item flex items-center transition-none max-h-[70px] ${
                   isActive('/events')
-                    ? 'bg-secondary text-primary shadow-sm'
-                    : 'text-cream hover:bg-tertiary/30 hover:shadow-sm'
+                    ? 'bg-secondary text-primary'
+                    : 'text-primary'
                 }`}
+                style={{ padding: '23px 15px' }}
                 aria-current={isActive('/events') ? 'page' : undefined}
               >
-                <Calendar className="w-5 h-5 mr-3" aria-hidden="true" />
-                <span>Events</span>
+                <Users className="w-4 h-4 mr-2" aria-hidden="true" />
+                <span className="text-sm font-medium">About</span>
+              </Link>
+
+              <Link
+                href="/contact"
+                className={`nav-item flex items-center transition-none max-h-[70px] ${
+                  isActive('/contact')
+                    ? 'bg-secondary text-primary'
+                    : 'text-primary'
+                }`}
+                style={{ padding: '23px 15px' }}
+                aria-current={isActive('/contact') ? 'page' : undefined}
+              >
+                <Mail className="w-4 h-4 mr-2" aria-hidden="true" />
+                <span className="text-sm font-medium">Contact</span>
               </Link>
             </div>
           </div>
         </div>
       </nav>
 
-      {/* Mobile Navbar - Fixed for landscape orientation */}
+      {/* Mobile Navbar */}
       <nav
-        className={`md:hidden fixed top-2 left-1/2 -translate-x-1/2 z-50 transition-all duration-300 rounded-2xl w-[98%] max-w-lg ${
+        className={`md:hidden fixed top-0 left-0 right-0 z-[1000] transition-none h-[70px] overflow-hidden ${
           isScrolled
-            ? 'bg-primary shadow-lg backdrop-blur-md'
-            : 'bg-primary/40 backdrop-blur-sm'
+            ? 'bg-white shadow-lg'
+            : 'bg-white/95 backdrop-blur-sm'
         }`}
         role="navigation"
         aria-label="Main navigation"
+        style={{ position: 'sticky', top: 0 }}
       >
-        <div className="px-3">
-          {/* Mobile Header - Reduced height for landscape */}
-          <div className="flex items-center justify-between h-12">
+        <div className="px-4 h-full">
+          {/* Mobile Header */}
+          <div className="flex items-center justify-between h-full">
             <div className="shrink-0 flex items-center">
               <Link href="/" aria-label="Or Hakerem - Home" className="flex items-center" onClick={closeMobileMenu}>
-                <div className="relative w-8 h-8 mr-2">
+                <div className="relative w-[40px] h-[40px] mr-2">
                   <Image
                     src="/orhakerem_logo_original.jpg"
                     alt="Or Hakerem Logo"
                     fill
-                    className="object-contain rounded-lg"
+                    className="object-contain"
+                    style={{ objectFit: 'contain', maxHeight: '40px' }}
                     priority
                   />
                 </div>
-                <span className="text-secondary font-playfair font-bold text-lg">
+                <span className="text-primary font-playfair font-bold text-lg">
                   Or Hakerem
                 </span>
               </Link>
@@ -153,135 +195,113 @@ function Navbar() {
             {/* Mobile Menu Button */}
             <button
               onClick={toggleMobileMenu}
-              className="p-2 rounded-full text-cream hover:bg-tertiary/30 transition-colors duration-200"
+              className="p-2 text-primary transition-none"
+              style={{ position: 'fixed', right: '20px' }}
               aria-label="Toggle mobile menu"
             >
               {isMobileMenuOpen ? (
-                <X className="w-5 h-5" />
+                <X className="w-6 h-6" />
               ) : (
-                <Menu className="w-5 h-5" />
+                <Menu className="w-6 h-6" />
               )}
             </button>
           </div>
 
-          {/* Mobile Menu - Horizontal layout for landscape, vertical for portrait */}
+          {/* Mobile Menu */}
           {isMobileMenuOpen && (
-            <div className="pb-3 border-t border-white/20 mt-1">
-              {/* Landscape: Horizontal layout */}
-              <div className="landscape:hidden flex flex-col space-y-1 pt-3">
+            <div 
+              className="absolute left-0 right-0 bg-white border-t border-gray-200 shadow-lg"
+              style={{ top: '70px' }}
+            >
+              <div className="flex flex-col py-2">
                 <Link
                   href="/"
                   onClick={closeMobileMenu}
-                  className={`flex items-center px-3 py-2 rounded-xl text-sm font-medium transition-all duration-200 ${
+                  className={`nav-item flex items-center transition-none max-h-[70px] ${
                     isActive('/')
-                      ? 'bg-secondary text-primary shadow-sm'
-                      : 'text-cream hover:bg-tertiary/30 hover:shadow-sm'
+                      ? 'bg-secondary text-primary'
+                      : 'text-primary'
                   }`}
+                  style={{ padding: '15px 20px' }}
                   aria-current={isActive('/') ? 'page' : undefined}
                 >
-                  <Home className="w-4 h-4 mr-2" aria-hidden="true" />
-                  <span>Home</span>
+                  <Home className="w-4 h-4 mr-3" aria-hidden="true" />
+                  <span className="text-sm font-medium">Home</span>
                 </Link>
                 
                 <Link
                   href="/properties"
                   onClick={closeMobileMenu}
-                  className={`flex items-center px-3 py-2 rounded-xl text-sm font-medium transition-all duration-200 ${
+                  className={`nav-item flex items-center transition-none max-h-[70px] ${
                     isActive('/properties')
-                      ? 'bg-secondary text-primary shadow-sm'
-                      : 'text-cream hover:bg-tertiary/30 hover:shadow-sm'
+                      ? 'bg-secondary text-primary'
+                      : 'text-primary'
                   }`}
+                  style={{ padding: '15px 20px' }}
                   aria-current={isActive('/properties') ? 'page' : undefined}
                 >
-                  <Building className="w-4 h-4 mr-2" aria-hidden="true" />
-                  <span>Properties</span>
+                  <Building className="w-4 h-4 mr-3" aria-hidden="true" />
+                  <span className="text-sm font-medium">Accommodations</span>
                 </Link>
                 
                 <Link
                   href="/concierge-services"
                   onClick={closeMobileMenu}
-                  className={`flex items-center px-3 py-2 rounded-xl text-sm font-medium transition-all duration-200 ${
+                  className={`nav-item flex items-center transition-none max-h-[70px] ${
                     isActive('/concierge-services')
-                      ? 'bg-secondary text-primary shadow-sm'
-                      : 'text-cream hover:bg-tertiary/30 hover:shadow-sm'
+                      ? 'bg-secondary text-primary'
+                      : 'text-primary'
                   }`}
+                  style={{ padding: '15px 20px' }}
                   aria-current={isActive('/concierge-services') ? 'page' : undefined}
                 >
-                  <Sparkles className="w-4 h-4 mr-2" aria-hidden="true" />
-                  <span>Services</span>
+                  <Sparkles className="w-4 h-4 mr-3" aria-hidden="true" />
+                  <span className="text-sm font-medium">Services</span>
                 </Link>
-                
-                <Link
-                  href="/events"
-                  onClick={closeMobileMenu}
-                  className={`flex items-center px-3 py-2 rounded-xl text-sm font-medium transition-all duration-200 ${
-                    isActive('/events')
-                      ? 'bg-secondary text-primary shadow-sm'
-                      : 'text-cream hover:bg-tertiary/30 hover:shadow-sm'
-                  }`}
-                  aria-current={isActive('/events') ? 'page' : undefined}
-                >
-                  <Calendar className="w-4 h-4 mr-2" aria-hidden="true" />
-                  <span>Events</span>
-                </Link>
-              </div>
 
-              {/* Portrait: Horizontal grid layout for landscape mode */}
-              <div className="portrait:hidden grid grid-cols-4 gap-1 pt-2">
-                <Link
-                  href="/"
-                  onClick={closeMobileMenu}
-                  className={`flex flex-col items-center px-2 py-2 rounded-lg text-xs font-medium transition-all duration-200 ${
-                    isActive('/')
-                      ? 'bg-secondary text-primary shadow-sm'
-                      : 'text-cream hover:bg-tertiary/30 hover:shadow-sm'
-                  }`}
-                  aria-current={isActive('/') ? 'page' : undefined}
-                >
-                  <Home className="w-4 h-4 mb-1" aria-hidden="true" />
-                  <span>Home</span>
-                </Link>
-                
                 <Link
                   href="/properties"
                   onClick={closeMobileMenu}
-                  className={`flex flex-col items-center px-2 py-2 rounded-lg text-xs font-medium transition-all duration-200 ${
-                    isActive('/properties')
-                      ? 'bg-secondary text-primary shadow-sm'
-                      : 'text-cream hover:bg-tertiary/30 hover:shadow-sm'
+                  className={`nav-item flex items-center transition-none max-h-[70px] ${
+                    pathname.includes('/gallery')
+                      ? 'bg-secondary text-primary'
+                      : 'text-primary'
                   }`}
-                  aria-current={isActive('/properties') ? 'page' : undefined}
+                  style={{ padding: '15px 20px' }}
+                  aria-current={pathname.includes('/gallery') ? 'page' : undefined}
                 >
-                  <Building className="w-4 h-4 mb-1" aria-hidden="true" />
-                  <span>Properties</span>
-                </Link>
-                
-                <Link
-                  href="/concierge-services"
-                  onClick={closeMobileMenu}
-                  className={`flex flex-col items-center px-2 py-2 rounded-lg text-xs font-medium transition-all duration-200 ${
-                    isActive('/concierge-services')
-                      ? 'bg-secondary text-primary shadow-sm'
-                      : 'text-cream hover:bg-tertiary/30 hover:shadow-sm'
-                  }`}
-                  aria-current={isActive('/concierge-services') ? 'page' : undefined}
-                >
-                  <Sparkles className="w-4 h-4 mb-1" aria-hidden="true" />
-                  <span>Services</span>
+                  <Building className="w-4 h-4 mr-3" aria-hidden="true" />
+                  <span className="text-sm font-medium">Gallery</span>
                 </Link>
                 
                 <Link
                   href="/events"
                   onClick={closeMobileMenu}
-                  className={`flex flex-col items-center px-2 py-2 rounded-lg text-xs font-medium transition-all duration-200 ${
+                  className={`nav-item flex items-center transition-none max-h-[70px] ${
                     isActive('/events')
-                      ? 'bg-secondary text-primary shadow-sm'
-                      : 'text-cream hover:bg-tertiary/30 hover:shadow-sm'
+                      ? 'bg-secondary text-primary'
+                      : 'text-primary'
                   }`}
+                  style={{ padding: '15px 20px' }}
                   aria-current={isActive('/events') ? 'page' : undefined}
                 >
-                  <Calendar className="w-4 h-4 mb-1" aria-hidden="true" />
-                  <span>Events</span>
+                  <Users className="w-4 h-4 mr-3" aria-hidden="true" />
+                  <span className="text-sm font-medium">About</span>
+                </Link>
+
+                <Link
+                  href="/contact"
+                  onClick={closeMobileMenu}
+                  className={`nav-item flex items-center transition-none max-h-[70px] ${
+                    isActive('/contact')
+                      ? 'bg-secondary text-primary'
+                      : 'text-primary'
+                  }`}
+                  style={{ padding: '15px 20px' }}
+                  aria-current={isActive('/contact') ? 'page' : undefined}
+                >
+                  <Mail className="w-4 h-4 mr-3" aria-hidden="true" />
+                  <span className="text-sm font-medium">Contact</span>
                 </Link>
               </div>
             </div>
@@ -292,8 +312,9 @@ function Navbar() {
       {/* Mobile Menu Overlay */}
       {isMobileMenuOpen && (
         <div 
-          className="md:hidden fixed inset-0 bg-black/20 z-40"
+          className="md:hidden fixed inset-0 bg-black/20 z-[999]"
           onClick={closeMobileMenu}
+          style={{ top: '70px' }}
         />
       )}
     </>
