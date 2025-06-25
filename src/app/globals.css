@@ -1,0 +1,234 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --background: #ffffff;
+  --foreground: #171717;
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --font-sans: var(--font-geist-sans);
+  --font-mono: var(--font-geist-mono);
+}
+
+@theme {
+  --color-cream: #f5f5f5;
+  --color-primary: #a5382b;
+  --color-secondary: #d8b084;
+  --color-tertiary: #115814;
+  --color-primary-light: rgba(165, 56, 43, 0.9);
+  --color-primary-lighter: rgba(165, 56, 43, 0.15);
+  --color-secondary-light: rgba(216, 176, 132, 0.9);
+  --color-secondary-lighter: rgba(216, 176, 132, 0.15);
+  --color-tertiary-light: rgba(17, 88, 20, 0.9);
+  --color-tertiary-lighter: rgba(17, 88, 20, 0.15);
+  --font-playfair: 'Playfair Display', serif;
+  --font-lato: 'Lato', sans-serif;
+  --font-switzer: 'Switzer', sans-serif;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --background: #0a0a0a;
+    --foreground: #ededed;
+  }
+}
+
+/* Import Google Fonts for better typography */
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;0,800;0,900;1,400;1,500;1,600;1,700;1,800;1,900&family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&family=Inter:wght@100;200;300;400;500;600;700;800;900&family=Crimson+Text:ital,wght@0,400;0,600;0,700;1,400;1,600;1,700&display=swap');
+
+.auto-gallery {
+  --primary-color: #a5382b;
+  --accent-color: #d8b084;
+  --tertiary-color: #115814;
+  border-radius: 12px;
+  overflow: hidden;
+  padding: 1.2rem;
+}
+
+.gallery-item {
+  box-shadow:
+    0 4px 6px -1px rgb(0 0 0 / 0.1),
+    0 2px 4px -2px rgb(0 0 0 / 0.1);
+}
+
+@media (max-width: 600px) {
+  .auto-gallery {
+    padding: 0.8rem;
+  }
+}
+
+@media (max-width: 1024px) {
+  .auto-gallery {
+    padding: 1rem;
+  }
+}
+
+@layer base {
+  body {
+    @apply bg-cream text-primary cursor-default;
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  }
+
+  html {
+    scroll-behavior: smooth;
+  }
+
+  /* Enhanced font families */
+  .font-playfair {
+    font-family: 'Playfair Display', serif;
+  }
+
+  .font-lato {
+    font-family: 'Lato', sans-serif;
+    font-weight: 400;
+    letter-spacing: 0.01em;
+  }
+
+  .font-switzer {
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  }
+
+  .font-crimson {
+    font-family: 'Crimson Text', serif;
+    font-weight: 400;
+    letter-spacing: 0.02em;
+  }
+}
+
+@layer components {
+  /* Navbar specific styles */
+  .nav-item {
+    border-radius: 0;
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    transition: none !important;
+    transform: none !important;
+    box-shadow: none !important;
+    max-height: 70px;
+    padding: 23px 15px;
+  }
+
+  .nav-item:hover {
+    color: #D4AF37 !important;
+    background-color: transparent;
+    transform: none !important;
+    box-shadow: none !important;
+  }
+
+  .modern-card {
+    @apply rounded-[24px] bg-white p-8 transition-all duration-300 ease-in-out;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.05);
+  }
+
+  .modern-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 16px 48px rgba(0, 0, 0, 0.1);
+  }
+
+  .organic-shape {
+    border-radius: 24px 48px 24px 64px;
+  }
+
+  .gradient-overlay {
+    @apply absolute inset-0;
+    background: linear-gradient(15deg, rgba(165, 56, 43, 0.9) 0%, rgba(216, 176, 132, 0.8) 100%);
+  }
+
+  .wave-divider {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    overflow: hidden;
+    line-height: 0;
+  }
+
+  .wave-divider svg {
+    position: relative;
+    display: block;
+    width: calc(100% + 1.3px);
+    height: 120px;
+  }
+
+  .btn-modern {
+    @apply rounded-full px-8 py-3 transition-all duration-300 ease-in-out;
+    background: linear-gradient(15deg, #a5382b 0%, #d8b084 100%);
+  }
+
+  .btn-modern:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 24px rgba(165, 56, 43, 0.2);
+  }
+
+  .custom-cursor {
+    @apply pointer-events-none fixed z-50 h-6 w-6 mix-blend-difference;
+    border: 2px solid #d8b084;
+    border-radius: 50%;
+    transform: translate(-50%, -50%);
+    transition: all 0.1s ease-out;
+  }
+
+  .loader {
+    @apply relative h-16 w-16;
+  }
+
+  .loader::before,
+  .loader::after {
+    content: '';
+    @apply absolute inset-0 rounded-full;
+    background: linear-gradient(15deg, #a5382b 0%, #d8b084 100%);
+    animation: pulse 2s ease-in-out infinite;
+  }
+
+  .loader::after {
+    animation-delay: -1s;
+  }
+
+  /* Custom border widths */
+  .border-l-16 {
+    border-left-width: 64px;
+  }
+
+  .border-r-16 {
+    border-right-width: 64px;
+  }
+
+  /* Print styles */
+  @media print {
+    .print\:shadow-none {
+      box-shadow: none !important;
+    }
+    
+    .print\:p-0 {
+      padding: 0 !important;
+    }
+    
+    body {
+      background: white !important;
+      color: black !important;
+    }
+    
+    .bg-gradient-to-r,
+    .bg-gradient-to-br,
+    .bg-gradient-to-l {
+      background: #f5f5f5 !important;
+    }
+  }
+
+  @keyframes pulse {
+    0%,
+    100% {
+      transform: scale(0.5);
+      opacity: 0;
+    }
+    50% {
+      transform: scale(1);
+      opacity: 1;
+    }
+  }
+}
