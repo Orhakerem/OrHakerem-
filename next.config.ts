@@ -23,14 +23,12 @@ const nextConfig: NextConfig = {
   },
 
   // Configure external packages
-  serverExternalPackages: ['resend'],
+  serverExternalPackages: ['resend', 'sharp'],
 
   // Configure experimental features for better performance
   experimental: {
     // Enable optimized package imports
     optimizePackageImports: ['lucide-react', 'react-hot-toast'],
-    // Disable problematic features that cause hydration issues
-    serverComponentsExternalPackages: ['sharp'],
   },
 
   // Configure TypeScript for build
