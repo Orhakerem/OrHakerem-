@@ -91,6 +91,7 @@ const nextConfig: NextConfig = {
         assert: false,
         os: false,
         path: false,
+        'tunnel-agent': false,
       };
     }
 
