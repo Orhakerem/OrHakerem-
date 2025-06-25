@@ -1,5 +1,3 @@
-'use client';
-
 import { Calendar, Mail, MessageSquare, Phone, ArrowLeft, Home } from 'lucide-react';
 import toast from 'react-hot-toast';
 
@@ -277,6 +275,12 @@ function ReservationContent() {
   );
 }
 
+'use client';
+
+function ClientReservationContent() {
+  return <ReservationContent />;
+}
+
 function ReservationLoadingFallback() {
   return (
     <div className="min-h-screen pt-24 pb-20 bg-cream">
@@ -305,7 +309,7 @@ function ReservationLoadingFallback() {
 export default function Reservation() {
   return (
     <Suspense fallback={<ReservationLoadingFallback />}>
-      <ReservationContent />
+      <ClientReservationContent />
     </Suspense>
   );
 }
