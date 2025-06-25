@@ -63,6 +63,9 @@ const nextConfig: NextConfig = {
       },
     ];
   },
+
+  // Configure output for static export if needed
+  output: 'standalone',
 };
 
 export default nextConfig;
