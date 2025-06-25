@@ -68,9 +68,9 @@ const Home: React.FC = () => {
 
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
           <div className="flex flex-col lg:flex-row items-center gap-8">
-            {/* Logo Section - Left Side - Compact */}
+            {/* Logo Section - Left Side - Bigger */}
             <div className="flex-shrink-0">
-              <div className="relative w-32 h-32 lg:w-40 lg:h-40 group">
+              <div className="relative w-40 h-40 lg:w-48 lg:h-48 group">
                 <div className="absolute inset-0 bg-gradient-to-br from-secondary/20 to-tertiary/20 rounded-3xl opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
                 <Image
                   src="/OR_HAKEERM_logo_beige_NOTEXT.jpg"
@@ -104,21 +104,21 @@ const Home: React.FC = () => {
               </div>
 
               {/* Enhanced Description - Better Typography and Spacing */}
-              <div className="max-w-3xl space-y-4 text-base md:text-lg">
-                <p className="text-primary/90 leading-relaxed font-light">
+              <div className="max-w-3xl space-y-5 text-lg md:text-xl">
+                <p className="text-primary/90 leading-relaxed font-light font-lato">
                   Nestled in the heart of Tel Aviv&apos;s most distinguished neighborhood, our properties offer an 
                   <span className="font-medium text-secondary"> unparalleled fusion </span>
                   of contemporary sophistication and timeless elegance.
                 </p>
                 
-                <p className="text-primary/80 leading-relaxed font-light font-switzer">
+                <p className="text-primary/80 leading-relaxed font-light font-lato">
                   Whether seeking a romantic retreat, a family sanctuary, or an intimate gathering space, 
                   Or Hakerem presents the epitome of luxury living where every detail has been 
                   <span className="font-medium text-tertiary"> meticulously curated </span>
                   to create unforgettable memories.
                 </p>
 
-                <p className="text-primary/70 text-sm md:text-base leading-relaxed italic font-lato">
+                <p className="text-primary/70 text-base md:text-lg leading-relaxed italic font-playfair">
                   Kerem Hatemanim is a very lively district, known for its historical charm. You are only a few minutes from the city center 🌆
                 </p>
               </div>
