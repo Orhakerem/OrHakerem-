@@ -8,14 +8,6 @@
       "NEXT_TELEMETRY_DISABLED": "1"
     }
   },
-  "functions": {
-    "src/app/**/*.tsx": {
-      "maxDuration": 30
-    },
-    "src/actions/**/*.ts": {
-      "maxDuration": 30
-    }
-  },
   "headers": [
     {
       "source": "/(.*)",
