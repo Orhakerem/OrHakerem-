@@ -38,7 +38,7 @@ function Navbar() {
 
   return (
     <>
-      {/* Desktop Navbar - Fixed height 80px, bigger than before */}
+      {/* Desktop Navbar - Fixed height 80px */}
       <nav
         className={`hidden md:block fixed top-0 left-0 right-0 z-[1000] transition-all duration-300 ${
           isScrolled
@@ -69,7 +69,7 @@ function Navbar() {
               </Link>
             </div>
 
-            {/* Navigation Items - Properly spaced, not taking full height */}
+            {/* Navigation Items */}
             <div className="flex items-center space-x-2">
               <Link
                 href="/"
@@ -94,7 +94,7 @@ function Navbar() {
                 aria-current={isActive('/properties') ? 'page' : undefined}
               >
                 <Building className="w-4 h-4 mr-2" aria-hidden="true" />
-                <span>Accommodations</span>
+                <span>Properties</span>
               </Link>
 
               <Link
@@ -111,19 +111,6 @@ function Navbar() {
               </Link>
 
               <Link
-                href="/properties"
-                className={`flex items-center px-4 py-2 rounded-lg text-sm font-medium transition-colors duration-200 ${
-                  pathname.includes('/gallery')
-                    ? 'bg-secondary text-primary'
-                    : 'text-primary hover:text-secondary hover:bg-secondary/10'
-                }`}
-                aria-current={pathname.includes('/gallery') ? 'page' : undefined}
-              >
-                <Calendar className="w-4 h-4 mr-2" aria-hidden="true" />
-                <span>Gallery</span>
-              </Link>
-
-              <Link
                 href="/events"
                 className={`flex items-center px-4 py-2 rounded-lg text-sm font-medium transition-colors duration-200 ${
                   isActive('/events')
@@ -133,7 +120,7 @@ function Navbar() {
                 aria-current={isActive('/events') ? 'page' : undefined}
               >
                 <Users className="w-4 h-4 mr-2" aria-hidden="true" />
-                <span>About</span>
+                <span>Events</span>
               </Link>
 
               <Link
@@ -184,7 +171,7 @@ function Navbar() {
               </Link>
             </div>
             
-            {/* Mobile Menu Button - Fixed position */}
+            {/* Mobile Menu Button */}
             <button
               onClick={toggleMobileMenu}
               className="fixed right-5 top-6 p-3 text-primary hover:text-secondary transition-colors duration-200 bg-white/90 rounded-lg shadow-sm"
@@ -199,7 +186,7 @@ function Navbar() {
             </button>
           </div>
 
-          {/* Mobile Menu - Opens below navbar */}
+          {/* Mobile Menu */}
           {isMobileMenuOpen && (
             <div 
               className="absolute left-0 right-0 bg-white border-t border-gray-200 shadow-lg rounded-b-lg"
@@ -231,7 +218,7 @@ function Navbar() {
                   aria-current={isActive('/properties') ? 'page' : undefined}
                 >
                   <Building className="w-4 h-4 mr-3" aria-hidden="true" />
-                  <span>Accommodations</span>
+                  <span>Properties</span>
                 </Link>
                 
                 <Link
@@ -247,20 +234,6 @@ function Navbar() {
                   <Sparkles className="w-4 h-4 mr-3" aria-hidden="true" />
                   <span>Services</span>
                 </Link>
-
-                <Link
-                  href="/properties"
-                  onClick={closeMobileMenu}
-                  className={`flex items-center px-6 py-3 text-sm font-medium transition-colors duration-200 ${
-                    pathname.includes('/gallery')
-                      ? 'bg-secondary text-primary'
-                      : 'text-primary hover:text-secondary hover:bg-secondary/10'
-                  }`}
-                  aria-current={pathname.includes('/gallery') ? 'page' : undefined}
-                >
-                  <Calendar className="w-4 h-4 mr-3" aria-hidden="true" />
-                  <span>Gallery</span>
-                </Link>
                 
                 <Link
                   href="/events"
@@ -273,7 +246,7 @@ function Navbar() {
                   aria-current={isActive('/events') ? 'page' : undefined}
                 >
                   <Users className="w-4 h-4 mr-3" aria-hidden="true" />
-                  <span>About</span>
+                  <span>Events</span>
                 </Link>
 
                 <Link

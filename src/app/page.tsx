@@ -35,9 +35,23 @@ const Home: React.FC = () => {
 
   return (
     <div className="min-h-screen">
-      {/* Hero Section - Proper spacing below navbar */}
-      <div className="relative h-screen" style={{ marginTop: '80px' }}>
-        <div className="absolute inset-0 bg-gradient-to-r from-primary/80 to-primary/60">
+      {/* Hero Section with Video Background */}
+      <div className="relative h-screen overflow-hidden" style={{ marginTop: '80px' }}>
+        {/* Video Background */}
+        <video
+          autoPlay
+          muted
+          loop
+          playsInline
+          className="absolute inset-0 w-full h-full object-cover"
+        >
+          <source src="/hero.mp4" type="video/mp4" />
+          {/* Fallback for browsers that don't support video */}
+          <div className="absolute inset-0 bg-primary"></div>
+        </video>
+        
+        {/* Overlay */}
+        <div className="absolute inset-0 bg-primary/40">
           <div className="max-w-7xl mx-auto px-4 h-full flex items-center justify-center">
             <div className="text-center text-white">
               <h1 className="font-playfair text-4xl md:text-5xl lg:text-6xl font-bold mb-6">
