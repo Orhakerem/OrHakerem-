@@ -35,8 +35,8 @@ const Home: React.FC = () => {
 
   return (
     <div className="min-h-screen">
-      {/* Hero Section with Video Background - No Red Filter */}
-      <div className="relative h-screen overflow-hidden" style={{ marginTop: '80px' }}>
+      {/* Hero Section with Video Background - No Margin Top */}
+      <div className="relative w-full h-screen overflow-hidden">
         {/* Video Background */}
         <video
           autoPlay
@@ -44,24 +44,21 @@ const Home: React.FC = () => {
           loop
           playsInline
           className="absolute inset-0 w-full h-full object-cover"
+          style={{ filter: 'brightness(0.85)' }}
         >
           <source src="/hero.mp4" type="video/mp4" />
           {/* Fallback for browsers that don't support video */}
           <div className="absolute inset-0 bg-primary"></div>
         </video>
         
-        {/* Subtle Dark Overlay for Text Readability - No Red Tint */}
-        <div className="absolute inset-0 bg-black/30">
-          <div className="max-w-7xl mx-auto px-4 h-full flex items-center justify-center">
-            <div className="text-center text-white">
-              <h1 className="font-playfair text-4xl md:text-5xl lg:text-6xl font-bold mb-6">
-                Discover Or Hakerem
-              </h1>
-              <p className="text-lg md:text-xl max-w-2xl mx-auto leading-relaxed">
-                Experience luxury living in the heart of Tel Aviv with our premium accommodations
-              </p>
-            </div>
-          </div>
+        {/* Title Overlay */}
+        <div className="hero-title">
+          <h1 className="font-playfair font-bold">
+            Discover Or Hakerem
+          </h1>
+          <p className="text-lg md:text-xl max-w-2xl leading-relaxed mt-4 text-white/90">
+            Experience luxury living in the heart of Tel Aviv with our premium accommodations
+          </p>
         </div>
       </div>
 
