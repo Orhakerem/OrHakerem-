@@ -35,7 +35,7 @@ const Home: React.FC = () => {
 
   return (
     <div className="min-h-screen">
-      {/* Hero Section with Video Background */}
+      {/* Hero Section with Video Background - No Red Filter */}
       <div className="relative h-screen overflow-hidden" style={{ marginTop: '80px' }}>
         {/* Video Background */}
         <video
@@ -50,8 +50,8 @@ const Home: React.FC = () => {
           <div className="absolute inset-0 bg-primary"></div>
         </video>
         
-        {/* Overlay */}
-        <div className="absolute inset-0 bg-primary/40">
+        {/* Subtle Dark Overlay for Text Readability - No Red Tint */}
+        <div className="absolute inset-0 bg-black/30">
           <div className="max-w-7xl mx-auto px-4 h-full flex items-center justify-center">
             <div className="text-center text-white">
               <h1 className="font-playfair text-4xl md:text-5xl lg:text-6xl font-bold mb-6">
