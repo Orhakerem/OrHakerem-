@@ -75,7 +75,7 @@ const nextConfig: NextConfig = {
 
   // Webpack configuration to resolve dependency issues
   webpack: (config, { isServer }) => {
-    // Fix for sharp and other native dependencies
+    // Fix for native dependencies on client side
     if (!isServer) {
       config.resolve.fallback = {
         ...config.resolve.fallback,
@@ -95,10 +95,9 @@ const nextConfig: NextConfig = {
       };
     }
 
-    // Ignore problematic dependencies
+    // Only externalize canvas as it's not handled by serverExternalPackages
     config.externals = config.externals || [];
     config.externals.push({
-      'sharp': 'commonjs sharp',
       'canvas': 'commonjs canvas',
     });
 
