@@ -5,34 +5,29 @@ import toast from 'react-hot-toast';
 
 import React, { useState, useEffect } from 'react';
 
-import { useRouter, useSearchParams } from 'next/navigation';
+import { useRouter } from 'next/navigation';
 import Link from 'next/link';
 
 import { sendEmail } from '@/actions/email';
 
-export default function ReservationForm() {
+interface ReservationFormProps {
+  initialSearchParams: { [key: string]: string | string[] | undefined };
+}
+
+export default function ReservationForm({ initialSearchParams }: ReservationFormProps) {
   const router = useRouter();
-  const searchParams = useSearchParams();
   const [propertyTitle, setPropertyTitle] = useState('Property');
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSuccess, setIsSuccess] = useState(false);
   const [contactMethod, setContactMethod] = useState('email');
-  const [isClient, setIsClient] = useState(false);
 
-  // Ensure component is fully hydrated before accessing searchParams
+  // Get property from initial search parameters
   useEffect(() => {
-    setIsClient(true);
-  }, []);
-
-  // Get property from URL parameters using Next.js hook
-  useEffect(() => {
-    if (isClient && searchParams) {
-      const property = searchParams.get('property');
-      if (property) {
-        setPropertyTitle(property);
-      }
+    const property = initialSearchParams?.property;
+    if (property && typeof property === 'string') {
+      setPropertyTitle(property);
     }
-  }, [searchParams, isClient]);
+  }, [initialSearchParams]);
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -53,32 +48,6 @@ export default function ReservationForm() {
       setIsSubmitting(false);
     }
   };
-
-  // Don't render until client-side hydration is complete
-  if (!isClient) {
-    return (
-      <div className="min-h-screen pt-24 pb-20 bg-cream">
-        <div className="max-w-2xl mx-auto px-4">
-          <div className="bg-white p-8 rounded-lg shadow-lg">
-            <div className="animate-pulse">
-              <div className="h-8 bg-gray-200 rounded mb-4"></div>
-              <div className="h-4 bg-gray-200 rounded mb-8"></div>
-              <div className="space-y-6">
-                <div className="h-12 bg-gray-200 rounded"></div>
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                  <div className="h-12 bg-gray-200 rounded"></div>
-                  <div className="h-12 bg-gray-200 rounded"></div>
-                </div>
-                <div className="h-12 bg-gray-200 rounded"></div>
-                <div className="h-12 bg-gray-200 rounded"></div>
-                <div className="h-12 bg-gray-200 rounded"></div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    );
-  }
 
   if (isSuccess) {
     return (
