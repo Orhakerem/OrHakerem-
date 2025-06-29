@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useState, useEffect } from 'react';
-import { ChevronLeft, ChevronRight, Star, Quote } from 'lucide-react';
+import { Star, Quote } from 'lucide-react';
 
 interface Testimonial {
   name: string;
@@ -479,22 +479,6 @@ export default function TestimonialsCarousel() {
     return () => clearInterval(interval);
   }, [isAutoPlaying]);
 
-  const goToNext = () => {
-    setCurrentIndex((prevIndex) => 
-      prevIndex === testimonials.length - 1 ? 0 : prevIndex + 1
-    );
-  };
-
-  const goToPrevious = () => {
-    setCurrentIndex((prevIndex) => 
-      prevIndex === 0 ? testimonials.length - 1 : prevIndex - 1
-    );
-  };
-
-  const goToSlide = (index: number) => {
-    setCurrentIndex(index);
-  };
-
   const renderStars = (rating: number) => {
     return Array.from({ length: 5 }, (_, i) => (
       <Star
@@ -581,60 +565,6 @@ export default function TestimonialsCarousel() {
                 </div>
               </div>
             </div>
-          </div>
-
-          {/* Navigation Arrows */}
-          <button
-            onClick={goToPrevious}
-            className="absolute left-4 top-1/2 -translate-y-1/2 p-4 bg-white/90 backdrop-blur-sm rounded-full shadow-xl hover:shadow-2xl transition-all duration-300 hover:scale-110 border border-secondary/20 group"
-            aria-label="Previous testimonial"
-          >
-            <ChevronLeft className="w-6 h-6 text-primary group-hover:text-secondary transition-colors duration-300" />
-          </button>
-
-          <button
-            onClick={goToNext}
-            className="absolute right-4 top-1/2 -translate-y-1/2 p-4 bg-white/90 backdrop-blur-sm rounded-full shadow-xl hover:shadow-2xl transition-all duration-300 hover:scale-110 border border-secondary/20 group"
-            aria-label="Next testimonial"
-          >
-            <ChevronRight className="w-6 h-6 text-primary group-hover:text-secondary transition-colors duration-300" />
-          </button>
-        </div>
-
-        {/* Pagination Dots */}
-        <div className="flex justify-center mt-12 space-x-2 flex-wrap max-w-4xl mx-auto">
-          {testimonials.map((_, index) => (
-            <button
-              key={index}
-              onClick={() => goToSlide(index)}
-              className={`w-2 h-2 rounded-full transition-all duration-300 m-1 ${
-                index === currentIndex
-                  ? 'bg-secondary scale-125 shadow-lg'
-                  : 'bg-primary/30 hover:bg-primary/50'
-              }`}
-              aria-label={`Go to testimonial ${index + 1}`}
-            />
-          ))}
-        </div>
-
-        {/* Stats Section */}
-        <div className="mt-16 grid grid-cols-1 md:grid-cols-3 gap-8 max-w-4xl mx-auto">
-          <div className="text-center p-6 bg-white rounded-2xl shadow-lg border border-secondary/10">
-            <div className="text-4xl font-bold text-primary mb-2">5.0</div>
-            <div className="flex justify-center mb-2">
-              {renderStars(5)}
-            </div>
-            <div className="text-primary/70">Average Rating</div>
-          </div>
-          
-          <div className="text-center p-6 bg-white rounded-2xl shadow-lg border border-secondary/10">
-            <div className="text-4xl font-bold text-primary mb-2">80+</div>
-            <div className="text-primary/70">Happy Guests</div>
-          </div>
-          
-          <div className="text-center p-6 bg-white rounded-2xl shadow-lg border border-secondary/10">
-            <div className="text-4xl font-bold text-primary mb-2">100%</div>
-            <div className="text-primary/70">5-Star Reviews</div>
           </div>
         </div>
       </div>
