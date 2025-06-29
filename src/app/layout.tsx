@@ -29,7 +29,7 @@ export const metadata: Metadata = {
     siteName: 'Or Hakerem',
     images: [
       {
-        url: '/web-app-manifest-512x512 copy.png',
+        url: '/favicon/web-app-manifest-512x512.png',
         width: 1200,
         height: 630,
         alt: 'Or Hakerem - Luxury Properties in Tel Aviv',
@@ -42,7 +42,7 @@ export const metadata: Metadata = {
     card: 'summary_large_image',
     title: 'Or Hakerem - Luxury Properties in Tel Aviv',
     description: 'Experience luxury living in Tel Aviv with our premium apartments and exceptional concierge services.',
-    images: ['/web-app-manifest-512x512 copy.png'],
+    images: ['/favicon/web-app-manifest-512x512.png'],
   },
   robots: {
     index: true,
@@ -57,20 +57,19 @@ export const metadata: Metadata = {
   },
   icons: {
     icon: [
-      { url: '/web-app-manifest-512x512 copy.png', sizes: '32x32', type: 'image/png' },
-      { url: '/web-app-manifest-512x512 copy.png', sizes: '16x16', type: 'image/png' },
-      { url: '/web-app-manifest-512x512 copy.png', sizes: '192x192', type: 'image/png' },
+      { url: '/favicon/favicon.ico', sizes: 'any', type: 'image/x-icon' },
+      { url: '/favicon/web-app-manifest-192x192.png', sizes: '192x192', type: 'image/png' },
+      { url: '/favicon/web-app-manifest-512x512.png', sizes: '512x512', type: 'image/png' },
     ],
-    shortcut: '/web-app-manifest-512x512 copy.png',
+    shortcut: '/favicon/favicon.ico',
     apple: [
-      { url: '/web-app-manifest-512x512 copy.png', sizes: '180x180', type: 'image/png' },
+      { url: '/favicon/apple-touch-icon.png', sizes: '180x180', type: 'image/png' },
     ],
     other: [
-      { rel: 'icon', url: '/web-app-manifest-512x512 copy.png', sizes: '192x192', type: 'image/png' },
-      { rel: 'icon', url: '/web-app-manifest-512x512 copy.png', sizes: '512x512', type: 'image/png' },
+      { rel: 'icon', url: '/favicon/favicon.svg', type: 'image/svg+xml' },
     ],
   },
-  manifest: '/site.webmanifest',
+  manifest: '/favicon/manifest.json',
 };
 
 export default function RootLayout({
@@ -81,15 +80,16 @@ export default function RootLayout({
   return (
     <html lang="en">
       <head>
-        <link rel="icon" href="/web-app-manifest-512x512 copy.png" sizes="32x32" />
-        <link rel="icon" href="/web-app-manifest-512x512 copy.png" sizes="16x16" type="image/png" />
-        <link rel="icon" href="/web-app-manifest-512x512 copy.png" sizes="32x32" type="image/png" />
-        <link rel="apple-touch-icon" href="/web-app-manifest-512x512 copy.png" sizes="180x180" />
-        <link rel="manifest" href="/site.webmanifest" />
+        <link rel="icon" href="/favicon/favicon.ico" sizes="32x32" />
+        <link rel="icon" href="/favicon/favicon.ico" sizes="16x16" type="image/png" />
+        <link rel="icon" href="/favicon/favicon.ico" sizes="32x32" type="image/png" />
+        <link rel="apple-touch-icon" href="/favicon/apple-touch-icon.png" sizes="180x180" />
+        <link rel="manifest" href="/favicon/manifest.json" />
         <meta name="theme-color" content="#a5382b" />
         <meta name="msapplication-TileColor" content="#a5382b" />
-        <meta name="msapplication-TileImage" content="/web-app-manifest-512x512 copy.png" />
-        <meta name="msapplication-config" content="/browserconfig.xml" />
+        <meta name="msapplication-TileImage" content="/favicon/web-app-manifest-512x512.png" />
+        <meta name="msapplication-config" content="/favicon/browserconfig.xml" />
+        <meta name="apple-mobile-web-app-title" content="MyWebSite" />
       </head>
       <body className="min-h-screen bg-cream antialiased">
         <CustomCursor />
