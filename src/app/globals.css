@@ -237,10 +237,10 @@
     border-right-width: 64px;
   }
 
-  /* Floating Navbar Styles - Compact and Transparent */
+  /* Floating Navbar Styles - Amélioré et épuré */
   .navbar-floating {
-    height: 65px;
-    padding: 10px 20px;
+    height: 70px;
+    padding: 12px 25px;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -250,7 +250,7 @@
     transform: translateX(-50%);
     width: 95%;
     max-width: 1200px;
-    background: rgba(165, 56, 43, 0.7);
+    background: rgba(165, 56, 43, 0.85);
     backdrop-filter: blur(20px);
     border-radius: 35px;
     box-shadow: 
@@ -267,12 +267,14 @@
     align-items: center;
     justify-content: space-between;
     padding: 0 15px;
+    height: 100%;
   }
 
   .logo-section-floating {
     display: flex;
     align-items: center;
     flex-shrink: 0;
+    height: 100%;
   }
 
   .logo-section-floating .relative {
@@ -293,98 +295,141 @@
     background-clip: text;
   }
 
+  .logo-text-floating:hover {
+    transform: scale(1.05);
+    filter: drop-shadow(0 4px 8px rgba(216, 176, 132, 0.4));
+  }
+
   .logo-text-floating.mobile {
     font-size: 1.4rem;
   }
 
   .nav-items-floating {
     display: flex;
-    gap: 8px;
+    gap: 12px;
     align-items: center;
     flex: 1;
     justify-content: center;
     padding: 0 20px;
+    height: 100%;
   }
 
-  /* Navigation buttons - EXACT match to "View All Services" button */
+  /* Navigation buttons - Design épuré sans flèches ni cercles */
   .nav-item-floating {
     display: inline-flex;
     align-items: center;
+    justify-content: center;
     color: #a5382b;
     text-decoration: none;
     font-family: 'Inter', sans-serif;
     font-weight: 600;
     font-size: 14px;
     padding: 12px 24px;
-    border-radius: 9999px;
-    background: linear-gradient(to right, #d8b084, rgba(216, 176, 132, 0.9));
+    height: 45px;
+    border-radius: 25px;
+    background: linear-gradient(135deg, #d8b084 0%, #c49a6a 100%);
     transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     position: relative;
     overflow: hidden;
-    box-shadow: 0 8px 24px rgba(216, 176, 132, 0.3);
-    border: none;
+    box-shadow: 
+      0 4px 15px rgba(216, 176, 132, 0.25),
+      0 0 0 1px rgba(255, 255, 255, 0.1) inset;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    min-width: 100px;
   }
 
+  /* Effet shimmer subtil */
+  .nav-item-floating::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+    transition: left 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  .nav-item-floating:hover::before {
+    left: 100%;
+  }
+
+  /* Hover effects épurés */
   .nav-item-floating:hover {
-    background: linear-gradient(to right, rgba(216, 176, 132, 0.9), #d8b084);
-    transform: scale(1.05);
-    box-shadow: 0 12px 32px rgba(216, 176, 132, 0.4);
+    background: linear-gradient(135deg, #e8c49a 0%, #d4a876 100%);
+    color: #8b2f23;
+    transform: translateY(-2px) scale(1.02);
+    box-shadow: 
+      0 8px 25px rgba(216, 176, 132, 0.4),
+      0 0 0 1px rgba(165, 56, 43, 0.1) inset;
+  }
+
+  /* État actif */
+  .nav-item-floating.active {
+    background: linear-gradient(135deg, #e8c49a 0%, #d4a876 100%);
+    color: #8b2f23;
+    box-shadow: 
+      0 6px 20px rgba(216, 176, 132, 0.4),
+      0 0 0 2px rgba(165, 56, 43, 0.2) inset;
+    transform: translateY(-1px);
   }
 
   .nav-item-floating span {
     position: relative;
     z-index: 2;
     transition: all 0.3s ease;
+    white-space: nowrap;
   }
 
-  /* Add arrow element to match the "View All Services →" button */
-  .nav-item-floating::after {
-    content: '';
-    display: inline-block;
-    width: 20px;
-    height: 20px;
-    background: rgba(165, 56, 43, 0.2);
-    border-radius: 50%;
-    margin-left: 8px;
-    position: relative;
-    transition: all 0.3s ease;
+  .nav-item-floating:hover span {
+    font-weight: 700;
   }
 
-  .nav-item-floating::before {
-    content: '→';
-    position: absolute;
-    right: 16px;
-    top: 50%;
-    transform: translateY(-50%);
-    color: #a5382b;
-    font-size: 12px;
-    z-index: 3;
-    transition: all 0.3s ease;
-  }
-
-  /* Mobile Menu Button - Matching design */
+  /* Mobile Menu Button - Design épuré */
   .mobile-menu-button-floating {
-    background: linear-gradient(to right, #d8b084, rgba(216, 176, 132, 0.9));
+    background: linear-gradient(135deg, #d8b084 0%, #c49a6a 100%);
     border: none;
     color: #a5382b;
     cursor: pointer;
     padding: 12px;
     border-radius: 20px;
     transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-    box-shadow: 0 8px 24px rgba(216, 176, 132, 0.3);
+    box-shadow: 
+      0 4px 15px rgba(216, 176, 132, 0.3),
+      0 0 0 1px rgba(255, 255, 255, 0.1) inset;
     position: relative;
     overflow: hidden;
+    height: 45px;
+    width: 45px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .mobile-menu-button-floating::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(135deg, rgba(232, 196, 154, 0.3), transparent);
+    border-radius: 20px;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+  }
+
+  .mobile-menu-button-floating:hover::before {
+    opacity: 1;
   }
 
   .mobile-menu-button-floating:hover {
-    background: linear-gradient(to right, rgba(216, 176, 132, 0.9), #d8b084);
+    background: linear-gradient(135deg, #e8c49a 0%, #d4a876 100%);
+    color: #8b2f23;
     transform: scale(1.05);
-    box-shadow: 0 12px 32px rgba(216, 176, 132, 0.4);
+    box-shadow: 0 6px 20px rgba(216, 176, 132, 0.4);
   }
 
   .mobile-menu-floating {
     position: absolute;
-    top: 60px;
+    top: 75px;
     left: 0;
     right: 0;
     background: linear-gradient(135deg, #ffffff 0%, #fafafa 100%);
@@ -405,7 +450,7 @@
     padding: 20px 0;
   }
 
-  /* Mobile nav items - Matching button design */
+  /* Mobile nav items - Design épuré */
   .mobile-nav-item-floating {
     display: flex;
     align-items: center;
@@ -415,27 +460,52 @@
     font-weight: 600;
     font-size: 15px;
     padding: 15px 25px;
-    margin: 5px 15px;
-    border-radius: 9999px;
-    background: linear-gradient(to right, #d8b084, rgba(216, 176, 132, 0.9));
-    box-shadow: 0 4px 16px rgba(216, 176, 132, 0.3);
     transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
     position: relative;
     overflow: hidden;
   }
 
+  .mobile-nav-item-floating::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    width: 4px;
+    background: linear-gradient(135deg, #d8b084 0%, #c49a6a 100%);
+    transform: scaleY(0);
+    transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    border-radius: 0 4px 4px 0;
+  }
+
+  .mobile-nav-item-floating::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(135deg, rgba(216, 176, 132, 0.15) 0%, rgba(216, 176, 132, 0.1) 100%);
+    transform: translateX(-100%);
+    transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  .mobile-nav-item-floating:hover::before,
+  .mobile-nav-item-floating.active::before {
+    transform: scaleY(1);
+  }
+
+  .mobile-nav-item-floating:hover::after {
+    transform: translateX(0);
+  }
+
   .mobile-nav-item-floating:hover {
-    background: linear-gradient(to right, rgba(216, 176, 132, 0.9), #d8b084);
-    transform: scale(1.02);
-    box-shadow: 0 6px 20px rgba(216, 176, 132, 0.4);
+    color: #8b2f23;
+    padding-left: 40px;
+    background: linear-gradient(135deg, rgba(216, 176, 132, 0.2) 0%, rgba(216, 176, 132, 0.15) 100%);
   }
 
   .mobile-nav-item-floating.active {
-    background: linear-gradient(to right, rgba(216, 176, 132, 1), rgba(216, 176, 132, 0.8));
+    background: linear-gradient(135deg, rgba(216, 176, 132, 0.25) 0%, rgba(216, 176, 132, 0.2) 100%);
     color: #8b2f23;
     font-weight: 700;
-    transform: scale(1.02);
-    box-shadow: 0 6px 20px rgba(216, 176, 132, 0.5);
   }
 
   .mobile-nav-item-floating span {
@@ -500,7 +570,7 @@
     }
 
     .mobile-menu-floating {
-      top: 60px;
+      top: 65px;
     }
   }
 

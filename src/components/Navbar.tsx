@@ -24,14 +24,14 @@ function Navbar() {
 
   return (
     <>
-      {/* Desktop Navbar - Floating and Thin */}
+      {/* Desktop Navbar - Design épuré et amélioré */}
       <nav
         className="navbar-floating hidden md:block"
         role="navigation"
         aria-label="Main navigation"
       >
         <div className="navbar-container-floating">
-          {/* Logo Section - Left positioned with increased size */}
+          {/* Logo Section - Centré verticalement */}
           <div className="logo-section-floating">
             <Link href="/" aria-label="Or Hakerem - Home" className="flex items-center">
               <div className="relative w-[50px] h-[50px] mr-4">
@@ -49,7 +49,7 @@ function Navbar() {
             </Link>
           </div>
 
-          {/* Navigation Items - Center */}
+          {/* Navigation Items - Centrés et épurés */}
           <div className="nav-items-floating">
             <Link
               href="/"
@@ -88,12 +88,12 @@ function Navbar() {
             </Link>
           </div>
 
-          {/* Empty space for balance */}
+          {/* Espace pour équilibrer la mise en page */}
           <div className="flex-shrink-0 w-[120px]"></div>
         </div>
       </nav>
 
-      {/* Mobile Navbar - Floating and Thin */}
+      {/* Mobile Navbar - Design épuré */}
       <nav
         className="navbar-floating md:hidden"
         role="navigation"
