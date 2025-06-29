@@ -77,7 +77,7 @@ export default function Events() {
         'Panoramic sea views',
         'Jacuzzi access',
         'BBQ facilities',
-        'Capacity: 50 guests',
+        'Capacity: 80 guests',
         'Perfect for sunset events'
       ]
     },
