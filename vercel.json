@@ -9,11 +9,6 @@
       "NODE_OPTIONS": "--max-old-space-size=4096"
     }
   },
-  "functions": {
-    "src/app/api/**/*.ts": {
-      "runtime": "nodejs18.x"
-    }
-  },
   "headers": [
     {
       "source": "/(.*)",
