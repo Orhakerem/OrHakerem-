@@ -19,6 +19,9 @@ const nextConfig = {
     formats: ['image/webp', 'image/avif'],
     // Enable image optimization for Vercel
     unoptimized: false,
+    // Optimisation des images
+    deviceSizes: [640, 750, 828, 1080, 1200, 1920, 2048, 3840],
+    imageSizes: [16, 32, 48, 64, 96, 128, 256, 384],
   },
 
   // Configure external packages
@@ -28,6 +31,12 @@ const nextConfig = {
   experimental: {
     // Enable optimized package imports
     optimizePackageImports: ['lucide-react', 'react-hot-toast'],
+    // Optimisation du CSS
+    optimizeCss: true,
+    // Optimisation des polices
+    fontLoaders: [
+      { loader: '@next/font/google', options: { subsets: ['latin'] } },
+    ],
   },
 
   // Configure TypeScript for build
@@ -60,6 +69,31 @@ const nextConfig = {
             key: 'Referrer-Policy',
             value: 'origin-when-cross-origin',
           },
+          // Cache des polices
+          {
+            key: 'Cache-Control',
+            value: 'public, max-age=31536000, immutable',
+          },
+        ],
+      },
+      // Headers spécifiques pour les polices
+      {
+        source: '/fonts/(.*)',
+        headers: [
+          {
+            key: 'Cache-Control',
+            value: 'public, max-age=31536000, immutable',
+          },
+        ],
+      },
+      // Headers pour les images
+      {
+        source: '/images/(.*)',
+        headers: [
+          {
+            key: 'Cache-Control',
+            value: 'public, max-age=31536000, immutable',
+          },
         ],
       },
     ];
@@ -73,7 +107,7 @@ const nextConfig = {
   compress: true,
 
   // Webpack configuration to resolve dependency issues
-  webpack: (config, { isServer }) => {
+  webpack: (config, { isServer, dev }) => {
     // Fix for native dependencies on client side
     if (!isServer) {
       config.resolve.fallback = {
@@ -100,7 +134,38 @@ const nextConfig = {
       'canvas': 'commonjs canvas',
     });
 
+    // Optimisations pour la production
+    if (!dev) {
+      // Optimisation des chunks
+      config.optimization = {
+        ...config.optimization,
+        splitChunks: {
+          chunks: 'all',
+          cacheGroups: {
+            vendor: {
+              test: /[\\/]node_modules[\\/]/,
+              name: 'vendors',
+              chunks: 'all',
+            },
+          },
+        },
+      };
+    }
+
     return config;
+  },
+
+  // Optimisation du bundle
+  swcMinify: true,
+  
+  // Optimisation des redirections
+  async redirects() {
+    return [];
+  },
+
+  // Optimisation des rewrites
+  async rewrites() {
+    return [];
   },
 };
 
