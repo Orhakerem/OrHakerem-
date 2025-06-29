@@ -53,10 +53,10 @@ const Home: React.FC = () => {
         
         {/* Title Overlay */}
         <div className="hero-title">
-          <h1 className="font-playfair font-bold">
+          <h1 className="font-playfair font-bold hero-subtitle">
             Discover Or Hakerem
           </h1>
-          <p className="text-lg md:text-xl max-w-2xl leading-relaxed mt-4 text-white/90">
+          <p className="text-lg md:text-xl max-w-2xl leading-relaxed mt-4 hero-subtitle">
             Experience luxury living in the heart of Tel Aviv with our premium accommodations
           </p>
         </div>
