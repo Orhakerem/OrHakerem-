@@ -31,10 +31,10 @@ function Navbar() {
         aria-label="Main navigation"
       >
         <div className="navbar-container-floating">
-          {/* Logo Section - Left positioned */}
+          {/* Logo Section - Left positioned with increased size */}
           <div className="logo-section-floating">
             <Link href="/" aria-label="Or Hakerem - Home" className="flex items-center">
-              <div className="relative w-[45px] h-[45px] mr-3">
+              <div className="relative w-[60px] h-[60px] mr-4">
                 <Image
                   src="/orhakerem_logo_original.jpg"
                   alt="Or Hakerem Logo"
@@ -98,7 +98,7 @@ function Navbar() {
           </div>
 
           {/* Empty space for balance */}
-          <div className="flex-shrink-0 w-[100px]"></div>
+          <div className="flex-shrink-0 w-[120px]"></div>
         </div>
       </nav>
 
@@ -111,7 +111,7 @@ function Navbar() {
         <div className="navbar-container-floating">
           <div className="logo-section-floating">
             <Link href="/" aria-label="Or Hakerem - Home" className="flex items-center" onClick={closeMobileMenu}>
-              <div className="relative w-[40px] h-[40px] mr-2">
+              <div className="relative w-[50px] h-[50px] mr-3">
                 <Image
                   src="/orhakerem_logo_original.jpg"
                   alt="Or Hakerem Logo"
