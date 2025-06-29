@@ -306,26 +306,29 @@
     padding: 0 20px;
   }
 
-  /* Navigation buttons - Matching "View All Services" design */
+  /* Navigation buttons - EXACT match to "View All Services" button */
   .nav-item-floating {
     display: inline-flex;
     align-items: center;
-    color: var(--color-primary);
+    color: #a5382b;
     text-decoration: none;
     font-family: 'Inter', sans-serif;
     font-weight: 600;
     font-size: 14px;
     padding: 12px 24px;
     border-radius: 9999px;
-    background: linear-gradient(135deg, var(--color-secondary) 0%, var(--color-secondary-light) 100%);
+    background: linear-gradient(to right, #d8b084, rgba(216, 176, 132, 0.9));
     transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     position: relative;
     overflow: hidden;
-    box-shadow: 
-      0 4px 15px rgba(216, 176, 132, 0.25),
-      0 0 0 1px rgba(255, 255, 255, 0.1) inset;
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    height: 100%;
+    box-shadow: 0 8px 24px rgba(216, 176, 132, 0.3);
+    border: none;
+  }
+
+  .nav-item-floating:hover {
+    background: linear-gradient(to right, rgba(216, 176, 132, 0.9), #d8b084);
+    transform: scale(1.05);
+    box-shadow: 0 12px 32px rgba(216, 176, 132, 0.4);
   }
 
   .nav-item-floating span {
@@ -334,20 +337,49 @@
     transition: all 0.3s ease;
   }
 
+  /* Add arrow element to match the "View All Services →" button */
+  .nav-item-floating::after {
+    content: '';
+    display: inline-block;
+    width: 20px;
+    height: 20px;
+    background: rgba(165, 56, 43, 0.2);
+    border-radius: 50%;
+    margin-left: 8px;
+    position: relative;
+    transition: all 0.3s ease;
+  }
+
+  .nav-item-floating::before {
+    content: '→';
+    position: absolute;
+    right: 16px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #a5382b;
+    font-size: 12px;
+    z-index: 3;
+    transition: all 0.3s ease;
+  }
+
   /* Mobile Menu Button - Matching design */
   .mobile-menu-button-floating {
-    background: linear-gradient(135deg, var(--color-secondary) 0%, var(--color-secondary-light) 100%);
+    background: linear-gradient(to right, #d8b084, rgba(216, 176, 132, 0.9));
     border: none;
-    color: var(--color-primary);
+    color: #a5382b;
     cursor: pointer;
     padding: 12px;
     border-radius: 20px;
     transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-    box-shadow: 
-      0 4px 15px rgba(216, 176, 132, 0.3),
-      0 0 0 1px rgba(255, 255, 255, 0.1) inset;
+    box-shadow: 0 8px 24px rgba(216, 176, 132, 0.3);
     position: relative;
     overflow: hidden;
+  }
+
+  .mobile-menu-button-floating:hover {
+    background: linear-gradient(to right, rgba(216, 176, 132, 0.9), #d8b084);
+    transform: scale(1.05);
+    box-shadow: 0 12px 32px rgba(216, 176, 132, 0.4);
   }
 
   .mobile-menu-floating {
@@ -373,25 +405,37 @@
     padding: 20px 0;
   }
 
-  /* Mobile nav items - Clean design without hover effects */
+  /* Mobile nav items - Matching button design */
   .mobile-nav-item-floating {
     display: flex;
     align-items: center;
-    color: var(--color-primary);
+    color: #a5382b;
     text-decoration: none;
     font-family: 'Inter', sans-serif;
     font-weight: 600;
     font-size: 15px;
     padding: 15px 25px;
+    margin: 5px 15px;
+    border-radius: 9999px;
+    background: linear-gradient(to right, #d8b084, rgba(216, 176, 132, 0.9));
+    box-shadow: 0 4px 16px rgba(216, 176, 132, 0.3);
     transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
     position: relative;
     overflow: hidden;
   }
 
+  .mobile-nav-item-floating:hover {
+    background: linear-gradient(to right, rgba(216, 176, 132, 0.9), #d8b084);
+    transform: scale(1.02);
+    box-shadow: 0 6px 20px rgba(216, 176, 132, 0.4);
+  }
+
   .mobile-nav-item-floating.active {
-    background: linear-gradient(135deg, rgba(216, 176, 132, 0.25) 0%, rgba(216, 176, 132, 0.2) 100%);
+    background: linear-gradient(to right, rgba(216, 176, 132, 1), rgba(216, 176, 132, 0.8));
     color: #8b2f23;
     font-weight: 700;
+    transform: scale(1.02);
+    box-shadow: 0 6px 20px rgba(216, 176, 132, 0.5);
   }
 
   .mobile-nav-item-floating span {

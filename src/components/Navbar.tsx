@@ -3,7 +3,7 @@
 import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { Home, Building, Calendar, Sparkles, Menu, X, Users, Mail } from 'lucide-react';
+import { Home, Building, Sparkles, Menu, X, Users } from 'lucide-react';
 import Image from 'next/image';
 
 function Navbar() {
@@ -34,7 +34,7 @@ function Navbar() {
           {/* Logo Section - Left positioned with increased size */}
           <div className="logo-section-floating">
             <Link href="/" aria-label="Or Hakerem - Home" className="flex items-center">
-              <div className="relative w-[60px] h-[60px] mr-4">
+              <div className="relative w-[50px] h-[50px] mr-4">
                 <Image
                   src="/orhakerem_logo_original.jpg"
                   alt="Or Hakerem Logo"
@@ -86,15 +86,6 @@ function Navbar() {
               <Users className="w-4 h-4 mr-2" aria-hidden="true" />
               <span>Events</span>
             </Link>
-
-            <Link
-              href="/contact"
-              className={`nav-item-floating ${isActive('/contact') ? 'active' : ''}`}
-              aria-current={isActive('/contact') ? 'page' : undefined}
-            >
-              <Mail className="w-4 h-4 mr-2" aria-hidden="true" />
-              <span>Contact</span>
-            </Link>
           </div>
 
           {/* Empty space for balance */}
@@ -111,7 +102,7 @@ function Navbar() {
         <div className="navbar-container-floating">
           <div className="logo-section-floating">
             <Link href="/" aria-label="Or Hakerem - Home" className="flex items-center" onClick={closeMobileMenu}>
-              <div className="relative w-[50px] h-[50px] mr-3">
+              <div className="relative w-[40px] h-[40px] mr-3">
                 <Image
                   src="/orhakerem_logo_original.jpg"
                   alt="Or Hakerem Logo"
@@ -179,16 +170,6 @@ function Navbar() {
                 >
                   <Users className="w-4 h-4 mr-3" aria-hidden="true" />
                   <span>Events</span>
-                </Link>
-
-                <Link
-                  href="/contact"
-                  onClick={closeMobileMenu}
-                  className={`mobile-nav-item-floating ${isActive('/contact') ? 'active' : ''}`}
-                  aria-current={isActive('/contact') ? 'page' : undefined}
-                >
-                  <Mail className="w-4 h-4 mr-3" aria-hidden="true" />
-                  <span>Contact</span>
                 </Link>
               </div>
             </div>
