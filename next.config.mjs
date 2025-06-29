@@ -1,6 +1,5 @@
-import type { NextConfig } from 'next';
-
-const nextConfig: NextConfig = {
+/** @type {import('next').NextConfig} */
+const nextConfig = {
   // Enable strict mode for better development experience
   reactStrictMode: true,
   
