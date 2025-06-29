@@ -67,6 +67,14 @@ const testimonials: Testimonial[] = [
     text: "The perfect place! Right next to the market with a beautiful rooftop and sea view. Would absolutely come back."
   },
   {
+    name: "Ran",
+    location: "Ramat Yishai, Israel",
+    rating: 5,
+    date: "April 2025",
+    stayType: "Group trip",
+    text: "We had a great time. Could've used more towels, but we never asked the host – that's on us."
+  },
+  {
     name: "Matan",
     location: "Plano, Texas",
     rating: 5,
@@ -75,12 +83,162 @@ const testimonials: Testimonial[] = [
     text: "Amazing house, very clean, incredible rooftop. Everything was spotless. The host answered all my needs. I'm definitely coming back."
   },
   {
+    name: "קרין",
+    location: "Israel",
+    rating: 5,
+    date: "February 2025",
+    stayType: "Group trip",
+    text: "We arrived to a super clean and organized apartment. We asked for extra towels for the jacuzzi and got them immediately. The host and his father were always available and smiling. The jacuzzi was hot and cozy, and the terrace was huge. Great location near the beach and market. Israelis – note the VAT is added after payment. Highly recommend!"
+  },
+  {
+    name: "ליטל",
+    location: "Cyprus",
+    rating: 5,
+    date: "February 2025",
+    stayType: "Few nights stay",
+    text: "The host and his father are truly wonderful. The apartment is gorgeous and comfortable, with a dreamy rooftop. A little slice of paradise in the heart of Tel Aviv. We stayed as a family of five and had a perfect, spacious experience. Highly recommend 💜"
+  },
+  {
+    name: "תקווה",
+    location: "Israel",
+    rating: 5,
+    date: "November 2024",
+    stayType: "Few nights stay",
+    text: "This apartment exceeded all our expectations! Great location – close to everything but still peaceful. Beautifully decorated, super clean, fully equipped kitchen, comfy beds, and a stunning terrace that became our favorite spot. The host was responsive and gave great local tips. We had an amazing experience and would gladly return!"
+  },
+  {
+    name: "דינה",
+    location: "Israel",
+    rating: 5,
+    date: "May 2025",
+    stayType: "Group trip",
+    text: "Fun apartment for a vacation, perfect and spacious rooftop. The host was kind and very available for any questions. Clean apartment, comfortable beds, and the perfect beachside location. Highly recommended 🙏"
+  },
+  {
+    name: "Ofek",
+    location: "Tel Aviv-Yafo, Israel",
+    rating: 5,
+    date: "May 2025",
+    stayType: "Group trip",
+    text: "We were a group of 7. The apartment was clean and organized. The big terrace, barbecue, and jacuzzi made our stay amazing! The host was always available and super friendly. Highly recommend."
+  },
+  {
+    name: "Gabriel",
+    rating: 5,
+    date: "May 2025",
+    stayType: "One-night stay",
+    text: "Great place, great communication, worth every shekel! Will be back!"
+  },
+  {
+    name: "Nitzan",
+    location: "Tel Aviv, Israel",
+    rating: 5,
+    date: "March 2025",
+    stayType: "Group trip",
+    text: "The host was very nice and flexible! I had a reservation issue and he immediately helped and adjusted. Amazing service!"
+  },
+  {
     name: "Ava",
     location: "Philadelphia, USA",
     rating: 5,
     date: "November 2024",
     stayType: "Group trip",
     text: "Most amazing stay!!! This apartment was all we dreamed of – perfect location, perfect amenities, just perfect! The hosts were amazing and so hospitable. Couldn't have asked for a better weekend!!"
+  },
+  {
+    name: "Omer",
+    location: "Israel",
+    rating: 5,
+    date: "February 2025",
+    stayType: "Group trip",
+    text: "Lovely place, spacious and clean, right next to Carmel Market and the heart of Tel Aviv. The host was kind and responsive at any hour. Highly recommend."
+  },
+  {
+    name: "Idan",
+    location: "Jerusalem, Israel",
+    rating: 5,
+    date: "February 2025",
+    stayType: "Group trip",
+    text: "Stunning penthouse with a huge and fun terrace. Two minutes from the beach. The host was communicative and took care of everything before and during our stay. Amazing experience."
+  },
+  {
+    name: "Sarel & Michal",
+    rating: 5,
+    date: "December 2024",
+    stayType: "Few nights stay",
+    text: "The host and his father are such wonderful people. They welcomed us warmly, the communication was excellent, and the home was absolutely lovely – beyond all expectations. Thank you, we will definitely come again 🫶🏻"
+  },
+  {
+    name: "דורית",
+    location: "Israel",
+    rating: 5,
+    date: "December 2024",
+    stayType: "Group trip",
+    text: "Three of us stayed for a long weekend – it was perfect! The apartment is luxurious and comfortable with a dream terrace. The host gave us a warm, homey feeling and was always available. Highly recommended – this will be our go-to place in Tel Aviv!"
+  },
+  {
+    name: "Sagi",
+    location: "Israel",
+    rating: 5,
+    date: "November 2024",
+    stayType: "Group trip",
+    text: "Perfect stay! The hosts were kind and responsive, the apartment was clean, well-equipped, and just like the photos. Great location. Amazing experience – can't wait to return!"
+  },
+  {
+    name: "אורי",
+    location: "Israel",
+    rating: 5,
+    date: "March 2025",
+    stayType: "One-night stay",
+    text: "Wonderful host and a lovely place. Looking forward to staying here again."
+  },
+  {
+    name: "אורן",
+    location: "Israel",
+    rating: 5,
+    date: "February 2025",
+    stayType: "Group trip",
+    text: "Stunning rooftop apartment, clean and tidy. Well-equipped terrace, great host – responsive and attentive. Highly recommended!"
+  },
+  {
+    name: "שון",
+    location: "Israel",
+    rating: 5,
+    date: "January 2025",
+    stayType: "Group trip",
+    text: "Excellent location. Large and comfy terrace. Met all expectations. We'll be back next year."
+  },
+  {
+    name: "ירדן",
+    location: "Israel",
+    rating: 5,
+    date: "November 2024",
+    stayType: "Few nights stay",
+    text: "No words – it was perfect. The host and his father were incredibly kind, took care of everything, the apartment was spotless and fully equipped. Wholeheartedly recommend. We'll definitely return!"
+  },
+  {
+    name: "Avi",
+    location: "Israel",
+    rating: 5,
+    date: "March 2025",
+    stayType: "Group trip",
+    text: "Great location, great apartment."
+  },
+  {
+    name: "דביר",
+    location: "Israel",
+    rating: 5,
+    date: "November 2024",
+    stayType: "Few nights stay",
+    text: "The host was amazing and kind. The place was spacious and close to everything. Definitely coming back again! Highly recommend."
+  },
+  {
+    name: "Lidor",
+    location: "Israel",
+    rating: 5,
+    date: "December 2024",
+    stayType: "Few nights stay",
+    text: "Awesome place!"
   },
   {
     name: "Sandrine",
@@ -98,12 +256,50 @@ const testimonials: Testimonial[] = [
     text: "Of all the Airbnb hosts I've ever had, the host was by far the best. His communication and friendliness were unmatched. Any request we had was addressed within the hour. Truly an amazing stay – we will be back. Highly recommend!"
   },
   {
+    name: "Lea",
+    location: "France",
+    rating: 5,
+    date: "January 2025",
+    stayType: "About one week",
+    text: "Incredible stay. A peaceful haven – everything was perfect. I'll come back for sure. Thank you!"
+  },
+  {
     name: "Carol",
     location: "Buenos Aires, Argentina",
     rating: 5,
     date: "May 2025",
     stayType: "One-night stay",
     text: "The apartment was beautiful, very comfortable, well located and peaceful. My flight was very delayed, but I managed to have dinner nearby and stroll around early the next morning. The beach is only 200 meters away – what a luxury! I'd definitely come back. The host made sure I had water and coffee – so thoughtful. Thank you!"
+  },
+  {
+    name: "Tamara",
+    rating: 5,
+    date: "May 2025",
+    stayType: "About one week",
+    text: "This place is beautiful! The reviews are right – it's even better than the photos. The host was wonderful and easy to communicate with. The apartment is central, clean, and spacious. I really enjoyed my stay!"
+  },
+  {
+    name: "Atar",
+    location: "Baltimore, USA",
+    rating: 5,
+    date: "May 2025",
+    stayType: "Few nights stay",
+    text: "The host was incredible – flexible and helpful! I extended my stay several times. Perfectly sized and located apartment. I'll definitely return."
+  },
+  {
+    name: "Karin",
+    rating: 5,
+    date: "May 2025",
+    stayType: "About one week",
+    text: "The host was very friendly and helpful. The area between Carmel Market and the beach is wonderful, with lots of restaurants and shops. Quiet bedroom, fully equipped kitchen – perfect for cooking. Merci!"
+  },
+  {
+    name: "Liraz",
+    location: "Israel",
+    rating: 5,
+    date: "December 2024",
+    stayType: "Over one week stay",
+    text: "I stayed 13 nights and the host was attentive to every question and request before and during the stay. It was perfect for my long workdays – quiet, comfortable, and central. I'll definitely return for my next business trip."
   },
   {
     name: "Chaya",
@@ -114,11 +310,89 @@ const testimonials: Testimonial[] = [
     text: "Absolutely wonderful place, great location, and the host couldn't have been nicer or more helpful. I'll definitely stay here again and can't recommend it enough!"
   },
   {
+    name: "Juliette",
+    rating: 5,
+    date: "March 2025",
+    stayType: "One-night stay",
+    text: "The host took care of everything and went above and beyond. Great place in a fantastic location. Highly recommended."
+  },
+  {
+    name: "Assaf",
+    location: "Israel",
+    rating: 5,
+    date: "March 2025",
+    stayType: "One-night stay",
+    text: "Excellent place. The host was very available and helpful. The apartment looks just like the pictures – maybe even cooler. Central location, close to the sea and the market. Small note: the bedroom ceiling is low if you're over 1.9m :)"
+  },
+  {
+    name: "Malka",
+    location: "Bet Shemesh, Israel",
+    rating: 5,
+    date: "March 2025",
+    stayType: "One-night stay",
+    text: "Beautiful place! Fantastic location near the beach. The apartment was tidy and spacious. I'd love to stay again ♡"
+  },
+  {
+    name: "נדב",
+    location: "Israel",
+    rating: 5,
+    date: "February 2025",
+    stayType: "One-night stay",
+    text: "Excellent! The host let us check in at 2:00 PM, a few hours early. Amazing location, spacious, beautifully designed, and very clean."
+  },
+  {
+    name: "גמא",
+    location: "Hadera, Israel",
+    rating: 5,
+    date: "February 2025",
+    stayType: "One-night stay",
+    text: "Wonderful! The host was lovely, communicative, and made us feel like we could reach out anytime. The apartment was beautiful, clean, and very pleasant. Great location. We had a great experience."
+  },
+  {
+    name: "Yuval",
+    location: "Israel",
+    rating: 5,
+    date: "February 2025",
+    stayType: "One-night stay",
+    text: "Stunning apartment! The host answered questions even before booking and made sure we had the best possible stay :) Perfect location by the sea 😊😊"
+  },
+  {
+    name: "Eran",
+    rating: 5,
+    date: "January 2025",
+    stayType: "Few nights stay",
+    text: "Had a great time! Friendly, responsive, and helpful host. Great location."
+  },
+  {
     name: "Miguel",
     rating: 5,
     date: "November 2024",
     stayType: "One-night stay",
     text: "The host might just be the best I've ever had. Amazing communication, great recommendations, and a beautiful apartment! Highly recommend – it was a pleasure to meet someone like him. I'll definitely stay here again."
+  },
+  {
+    name: "Yaniv",
+    location: "Miami, USA",
+    rating: 5,
+    date: "April 2025",
+    stayType: "One-night stay",
+    text: "Great location!!!"
+  },
+  {
+    name: "Chaya",
+    location: "New York, USA",
+    rating: 5,
+    date: "April 2025",
+    stayType: "Few nights stay",
+    text: "Perfect!"
+  },
+  {
+    name: "Garry",
+    location: "Fawkner, Australia",
+    rating: 5,
+    date: "December 2024",
+    stayType: "Few nights stay",
+    text: "Great host, quick replies. Amazing location – close to the market. Perfect for a solo traveler or a couple."
   },
   {
     name: "Andrea",
@@ -127,6 +401,64 @@ const testimonials: Testimonial[] = [
     date: "December 2024",
     stayType: "Few nights stay",
     text: "Charming place in a great location with a lovely host – we loved it and would return anytime!"
+  },
+  {
+    name: "Adina",
+    rating: 5,
+    date: "November 2024",
+    stayType: "Few nights stay",
+    text: "Really cute little place right near the beach. The host was very responsive and kind :)"
+  },
+  {
+    name: "Itay",
+    rating: 5,
+    date: "February 2025",
+    stayType: "One-night stay",
+    text: "Great apartment – clean, excellent location."
+  },
+  {
+    name: "Or",
+    location: "Be'er Sheva, Israel",
+    rating: 5,
+    date: "December 2024",
+    stayType: "Few nights stay",
+    text: "Beautiful, clean apartment in a perfect location! The host and his father were warm and helpful. We'll definitely stay here again."
+  },
+  {
+    name: "Mor",
+    rating: 5,
+    date: "December 2024",
+    stayType: "One-night stay",
+    text: "Amazing host – quick to respond and super helpful. Everything was perfect. Gorgeous apartment. Great location – peaceful yet central."
+  },
+  {
+    name: "מאיה",
+    rating: 5,
+    date: "November 2024",
+    stayType: "One-night stay",
+    text: "Lovely area, apartment exactly like in the photos. The host made us feel very welcome and answered all our questions. Clean, comfortable – highly recommended!"
+  },
+  {
+    name: "Michael",
+    rating: 5,
+    date: "November 2024",
+    stayType: "Few nights stay",
+    text: "Great apartment, great location, and a great host!"
+  },
+  {
+    name: "Tatiana",
+    rating: 5,
+    date: "November 2024",
+    stayType: "Few nights stay",
+    text: "Cute apartment in the perfect location!"
+  },
+  {
+    name: "Eduardo",
+    location: "Jerusalem, Israel",
+    rating: 5,
+    date: "November 2024",
+    stayType: "Few nights stay",
+    text: "Excellent experience! The apartment exceeded our expectations with its beautiful design and perfect location. The host was incredibly welcoming and made sure we had everything we needed for a comfortable stay."
   }
 ];
 
@@ -142,7 +474,7 @@ export default function TestimonialsCarousel() {
       setCurrentIndex((prevIndex) => 
         prevIndex === testimonials.length - 1 ? 0 : prevIndex + 1
       );
-    }, 5000); // Change every 5 seconds
+    }, 4000); // Change every 4 seconds
 
     return () => clearInterval(interval);
   }, [isAutoPlaying]);
@@ -270,12 +602,12 @@ export default function TestimonialsCarousel() {
         </div>
 
         {/* Pagination Dots */}
-        <div className="flex justify-center mt-12 space-x-3">
+        <div className="flex justify-center mt-12 space-x-2 flex-wrap max-w-4xl mx-auto">
           {testimonials.map((_, index) => (
             <button
               key={index}
               onClick={() => goToSlide(index)}
-              className={`w-3 h-3 rounded-full transition-all duration-300 ${
+              className={`w-2 h-2 rounded-full transition-all duration-300 m-1 ${
                 index === currentIndex
                   ? 'bg-secondary scale-125 shadow-lg'
                   : 'bg-primary/30 hover:bg-primary/50'
@@ -296,7 +628,7 @@ export default function TestimonialsCarousel() {
           </div>
           
           <div className="text-center p-6 bg-white rounded-2xl shadow-lg border border-secondary/10">
-            <div className="text-4xl font-bold text-primary mb-2">{testimonials.length}+</div>
+            <div className="text-4xl font-bold text-primary mb-2">80+</div>
             <div className="text-primary/70">Happy Guests</div>
           </div>
           
