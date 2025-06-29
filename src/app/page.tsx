@@ -9,6 +9,7 @@ import Link from 'next/link';
 
 import { sendContactEmail } from '@/actions/contact';
 import FAQ from '@/components/FAQ';
+import TestimonialsCarousel from '@/components/TestimonialsCarousel';
 
 const Home: React.FC = () => {
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -234,6 +235,12 @@ const Home: React.FC = () => {
           </div>
         </div>
       </section>
+
+      {/* White Separator */}
+      <div className="h-12 bg-white"></div>
+
+      {/* Testimonials Carousel */}
+      <TestimonialsCarousel />
 
       {/* White Separator */}
       <div className="h-12 bg-white"></div>
