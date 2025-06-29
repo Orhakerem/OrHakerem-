@@ -2,33 +2,14 @@
 
 import toast from 'react-hot-toast';
 
-import React, { useState, Suspense } from 'react';
+import React, { useState } from 'react';
 
 import Image from 'next/image';
 import Link from 'next/link';
-import dynamic from 'next/dynamic';
 
 import { sendContactEmail } from '@/actions/contact';
 import FAQ from '@/components/FAQ';
-
-// Chargement dynamique des composants lourds
-const OptimizedTestimonialsCarousel = dynamic(
-  () => import('@/components/OptimizedTestimonialsCarousel'),
-  {
-    loading: () => (
-      <div className="py-20 bg-cream">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center">
-            <div className="animate-pulse bg-gray-200 h-8 w-64 mx-auto mb-4 rounded"></div>
-            <div className="animate-pulse bg-gray-200 h-12 w-96 mx-auto mb-8 rounded"></div>
-            <div className="animate-pulse bg-white rounded-3xl h-96 shadow-2xl"></div>
-          </div>
-        </div>
-      </div>
-    ),
-    ssr: false
-  }
-);
+import TestimonialsCarousel from '@/components/TestimonialsCarousel';
 
 const Home: React.FC = () => {
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -65,7 +46,6 @@ const Home: React.FC = () => {
           playsInline
           className="absolute inset-0 w-full h-full object-cover"
           style={{ filter: 'brightness(0.85)' }}
-          preload="metadata"
         >
           <source src="/hero.mp4" type="video/mp4" />
           {/* Fallback for browsers that don't support video */}
@@ -103,7 +83,6 @@ const Home: React.FC = () => {
                   alt="Or Hakerem Logo"
                   fill
                   className="object-contain group-hover:scale-105 transition-transform duration-500 rounded-2xl"
-                  sizes="(max-width: 768px) 160px, 192px"
                 />
                 <div className="absolute inset-0 border-2 border-secondary/20 rounded-3xl group-hover:border-secondary/40 transition-colors duration-500"></div>
               </div>
@@ -260,20 +239,8 @@ const Home: React.FC = () => {
       {/* White Separator */}
       <div className="h-12 bg-white"></div>
 
-      {/* Testimonials Carousel avec Suspense */}
-      <Suspense fallback={
-        <div className="py-20 bg-cream">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="text-center">
-              <div className="animate-pulse bg-gray-200 h-8 w-64 mx-auto mb-4 rounded"></div>
-              <div className="animate-pulse bg-gray-200 h-12 w-96 mx-auto mb-8 rounded"></div>
-              <div className="animate-pulse bg-white rounded-3xl h-96 shadow-2xl"></div>
-            </div>
-          </div>
-        </div>
-      }>
-        <OptimizedTestimonialsCarousel />
-      </Suspense>
+      {/* Testimonials Carousel */}
+      <TestimonialsCarousel />
 
       {/* White Separator */}
       <div className="h-12 bg-white"></div>

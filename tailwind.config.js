@@ -20,9 +20,9 @@ module.exports = {
         'tertiary-lighter': 'rgba(17, 88, 20, 0.15)',
       },
       fontFamily: {
-        playfair: ['var(--font-playfair)', 'serif'],
-        lato: ['var(--font-lato)', 'sans-serif'],
-        inter: ['var(--font-inter)', 'sans-serif'],
+        playfair: ['Playfair Display', 'serif'],
+        lato: ['Lato', 'sans-serif'],
+        switzer: ['Inter', 'sans-serif'],
         crimson: ['Crimson Text', 'serif'],
       },
     },
