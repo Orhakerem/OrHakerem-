@@ -50,6 +50,7 @@ The outdoor dining area is perfect for BBQ evenings.
 
 The main feature of this apartment is the terrace, with amenities such as BBQ, jacuzzi and sea views you can be sure to have an unforgettable experience and leave with wonderful memories!`,
     price: 2500,
+    cleaningFee: 800,
     images: [
       '/penthouse/1-jacuzzi-angle.JPEG',
       '/penthouse/2-salon-angle.jpg',
@@ -199,6 +200,7 @@ The apartment is a large room divided into two parts: on one side you'll find th
 
 The studio is located on the 1st floor of a unique building that is described as a historical monument dating from the Ottoman Empire.`,
     price: 600,
+    cleaningFee: 250,
     images: [
       '/studio/1.jpg',
       '/studio/2.png',
@@ -443,14 +445,41 @@ export default function PropertyDetails() {
                 {/*<PropertyCalendar propertyId={params.id as string} calendarId={property.calendarId} />*/}
               </div>
 
-              <div className="flex justify-center">
-                <button
-                  onClick={() => router.push('/reservation')}
-                  className="bg-gold text-navy px-8 py-3 rounded-full font-semibold hover:bg-gold/90 transition flex items-center"
-                >
-                  <Calendar className="w-5 h-5 mr-2" />
-                  Book Now
-                </button>
+              {/* Enhanced Booking Section */}
+              <div className="bg-gradient-to-br from-cream to-white rounded-2xl p-8 border border-secondary/20 shadow-lg">
+                <div className="text-center mb-6">
+                  <h3 className="font-playfair text-2xl font-bold text-primary mb-4">
+                    Réservez votre séjour
+                  </h3>
+                  
+                  {/* Pricing Information */}
+                  <div className="bg-white rounded-xl p-6 mb-6 border border-primary/10 shadow-sm">
+                    <div className="flex justify-between items-center mb-4">
+                      <span className="text-primary/80 text-lg">Prix par nuit :</span>
+                      <span className="font-bold text-2xl text-primary">{property.price}₪</span>
+                    </div>
+                    <div className="flex justify-between items-center text-primary/70">
+                      <span>Frais de ménage :</span>
+                      <span className="font-semibold">{property.cleaningFee} shekels</span>
+                    </div>
+                  </div>
+
+                  {/* Enhanced Book Now Button */}
+                  <div className="inline-block relative group">
+                    <div className="absolute inset-0 bg-gradient-to-r from-secondary to-tertiary rounded-full blur-lg opacity-50 group-hover:opacity-75 transition-opacity duration-300"></div>
+                    <button
+                      onClick={() => router.push('/reservation')}
+                      className="relative inline-flex items-center bg-gradient-to-r from-secondary to-secondary-light text-primary px-12 py-4 rounded-full font-semibold text-lg hover:from-secondary-light hover:to-secondary transition-all duration-300 shadow-xl hover:shadow-2xl transform hover:scale-105"
+                    >
+                      <Calendar className="w-6 h-6 mr-3" />
+                      <span>RÉSERVER MAINTENANT</span>
+                    </button>
+                  </div>
+                  
+                  <p className="text-primary/70 text-sm mt-4 font-medium">
+                    Réponse garantie sous 24h
+                  </p>
+                </div>
               </div>
             </div>
           </div>
