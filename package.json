@@ -4,13 +4,13 @@
   "private": true,
   "packageManager": "pnpm@8.15.0",
   "scripts": {
-    "dev": "next dev",
-    "build": "next build",
-    "start": "next start",
-    "lint": "next lint",
-    "vercel-build": "pnpm run build",
-    "clean": "rm -rf .next node_modules pnpm-lock.yaml",
-    "reinstall": "pnpm run clean && pnpm install"
+    "dev": "export LANG=en_US.UTF-8 && export LC_ALL=en_US.UTF-8 && next dev",
+    "build": "export LANG=en_US.UTF-8 && export LC_ALL=en_US.UTF-8 && next build",
+    "start": "export LANG=en_US.UTF-8 && export LC_ALL=en_US.UTF-8 && next start",
+    "lint": "export LANG=en_US.UTF-8 && export LC_ALL=en_US.UTF-8 && next lint",
+    "vercel-build": "export LANG=en_US.UTF-8 && export LC_ALL=en_US.UTF-8 && pnpm run build",
+    "clean": "export LANG=en_US.UTF-8 && export LC_ALL=en_US.UTF-8 && rm -rf .next node_modules pnpm-lock.yaml",
+    "reinstall": "export LANG=en_US.UTF-8 && export LC_ALL=en_US.UTF-8 && pnpm run clean && pnpm install"
   },
   "dependencies": {
     "next": "14.2.5",
