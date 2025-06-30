@@ -12,7 +12,7 @@ const properties = {
     title: 'Luxury Penthouse',
     location: 'Kerem HaTeimanim, Tel Aviv',
     description: 'This unique penthouse located in the heart of Tel Aviv, just steps from the beach and the Carmel Market. Perfect for both friendly or family stays equipped with amenities like the jacuzzi and barbecue, and live a unforgettable experience in a special place.',
-    price: 500,
+    price: 2500,
     rating: 4.9,
     reviewCount: 128,
     image: '/penthouse/1-jacuzzi-angle.JPEG',
@@ -26,7 +26,7 @@ const properties = {
     title: 'Spacious & Cosy Apartment',
     location: 'Kerem HaTeimanim, Tel Aviv',
     description: 'This renovated apartment is perfect for short, medium, and long-term rentals. Fully equipped and located 2 minutes walk from the beach, the Shouk Hacarmel and the entrance of Kerem Hateimanim, live a unique experience.',
-    price: 150,
+    price: 600,
     rating: 4.8,
     reviewCount: 96,
     image: '/studio/1.jpg',
@@ -101,7 +101,7 @@ function PropertyCard({ property }: { property: (typeof properties)[keyof typeof
         <div className="space-y-3">
           {/* Price Display */}
           <div className="text-center">
-            <span className="font-bold text-xl text-primary">${property.price}</span>
+            <span className="font-bold text-xl text-primary">{property.price}₪</span>
             <span className="text-primary/70 text-sm ml-1">/night</span>
           </div>
 

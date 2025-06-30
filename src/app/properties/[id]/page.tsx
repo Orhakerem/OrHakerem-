@@ -49,7 +49,7 @@ All bedrooms are equipped with a queen size bed, storage cupboards and curtains 
 The outdoor dining area is perfect for BBQ evenings.
 
 The main feature of this apartment is the terrace, with amenities such as BBQ, jacuzzi and sea views you can be sure to have an unforgettable experience and leave with wonderful memories!`,
-    price: 500,
+    price: 2500,
     images: [
       '/penthouse/1-jacuzzi-angle.JPEG',
       '/penthouse/2-salon-angle.jpg',
@@ -198,7 +198,7 @@ The apartment is a large room divided into two parts: on one side you'll find th
 *Please Note: The ceiling in the room where the bed is is quite low, so if you're taller than 1m85 this could be a problem.
 
 The studio is located on the 1st floor of a unique building that is described as a historical monument dating from the Ottoman Empire.`,
-    price: 150,
+    price: 600,
     images: [
       '/studio/1.jpg',
       '/studio/2.png',
@@ -372,7 +372,7 @@ export default function PropertyDetails() {
                 </div>
                 <div className="text-right">
                   <div className="text-navy">
-                    <span className="font-bold text-2xl">${property.price}</span>
+                    <span className="font-bold text-2xl">{property.price}₪</span>
                     <span className="text-navy/60"> / night</span>
                   </div>
                 </div>
