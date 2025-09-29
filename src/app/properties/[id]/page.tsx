@@ -1,28 +1,6 @@
 'use client';
 
-import {
-  Baby,
-  Bath,
-  BedDouble,
-  Calendar,
-  Coffee,
-  Dumbbell,
-  Heart,
-  Laptop,
-  MapPin,
-  Share,
-  Shirt,
-  Sofa,
-  Tv,
-  Users,
-  Utensils,
-  UtensilsCrossed,
-  Waves,
-  Wifi,
-  Wind,
-  ArrowLeft,
-  Home,
-} from 'lucide-react';
+import { Baby, Bath, BedDouble, Calendar, Coffee, Dumbbell, Heart, Laptop, MapPin, Share, Shirt, Sofa, Tv, Users, Utensils, UtensilsCrossed, Waves, Wifi, Wind, ArrowLeft, Chrome as Home } from 'lucide-react';
 
 import React, { useState } from 'react';
 
