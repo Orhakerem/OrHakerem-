@@ -54,6 +54,9 @@ The main feature of this apartment is the terrace, with amenities such as BBQ, j
     images: [
       '/penthouse/1-jacuzzi-angle.JPEG',
       '/penthouse/2-salon-angle.jpg',
+      '/penthouse/salon angle 1.JPG',
+      '/penthouse/salon angle 2.JPG',
+      '/penthouse/salon angle 3.JPG',
       '/penthouse/3-chambre-master-angle-1.jpg',
       '/penthouse/4-terrasse-ext-coucher-soleil.png',
       '/penthouse/5-cuisine-angle-1.jpg',
@@ -79,6 +82,8 @@ The main feature of this apartment is the terrace, with amenities such as BBQ, j
       '/penthouse/25-ext-drone-10.jpg',
       '/penthouse/26-jacuzzi-angle-2.JPEG',
       '/penthouse/27-chambre-fenêtre-angle-2.jpg',
+      '/penthouse/chaises hautes angle 1.JPG',
+      '/penthouse/chaises hautes angle 2.JPG',
       '/penthouse/28-toilette-lavabo-angle-1.jpg',
       '/penthouse/29-toilette-lavabo-angle-2.jpg',
     ],
@@ -114,6 +119,9 @@ The main feature of this apartment is the terrace, with amenities such as BBQ, j
         description: 'Bright and spacious living room and dining area',
         images: [
           { src: '/penthouse/2-salon-angle.jpg', alt: 'Living room main view' },
+          { src: '/penthouse/salon angle 1.JPG', alt: 'Living room angle 1' },
+          { src: '/penthouse/salon angle 2.JPG', alt: 'Living room angle 2' },
+          { src: '/penthouse/salon angle 3.JPG', alt: 'Living room angle 3' },
           { src: '/penthouse/10-salon-angle-2.jpg', alt: 'Living room alternative view' },
           { src: '/penthouse/16-salon-complet-lumière-naturelle.jpg', alt: 'Living room with natural light' },
           { src: '/penthouse/11-espace-repas-angle.JPEG', alt: 'Dining area' },
@@ -146,6 +154,8 @@ The main feature of this apartment is the terrace, with amenities such as BBQ, j
           { src: '/penthouse/26-jacuzzi-angle-2.JPEG', alt: 'Jacuzzi alternative view' },
           { src: '/penthouse/4-terrasse-ext-coucher-soleil.png', alt: 'Terrace sunset view' },
           { src: '/penthouse/7-vue-mer.jpg', alt: 'Sea view from terrace' },
+          { src: '/penthouse/chaises hautes angle 1.JPG', alt: 'Terrace high chairs angle 1' },
+          { src: '/penthouse/chaises hautes angle 2.JPG', alt: 'Terrace high chairs angle 2' },
         ]
       },
       {
