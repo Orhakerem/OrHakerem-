@@ -191,53 +191,41 @@ The studio is located on the 1st floor of a unique building that is described as
     cleaningFee: 250,
     images: [
       '/studio/1.jpg',
-      '/studio/2.png',
+      '/studio/2.jpg',
       '/studio/3.jpg',
       '/studio/4.jpg',
       '/studio/5.jpg',
       '/studio/6.jpg',
       '/studio/7.jpg',
-      '/studio/8.JPG',
+      '/studio/8.jpg',
       '/studio/9.jpg',
-      '/studio/10.jpg',
-      '/studio/11.png',
-      '/studio/12.png',
     ],
     rooms: [
       {
-        name: 'Studio Living Area',
-        description: 'Open plan living space with sofa and dining area',
-        images: [
-          { src: '/studio/1.jpg', alt: 'Studio main view' },
-          { src: '/studio/2.png', alt: 'Living area' },
-          { src: '/studio/3.jpg', alt: 'Dining space' },
-          { src: '/studio/4.jpg', alt: 'Seating area' },
-        ]
-      },
-      {
-        name: 'Bedroom Area',
+        name: 'Bedroom',
         description: 'Comfortable sleeping area with storage',
         images: [
-          { src: '/studio/5.jpg', alt: 'Bedroom view 1' },
-          { src: '/studio/6.jpg', alt: 'Bedroom view 2' },
-          { src: '/studio/7.jpg', alt: 'Bedroom storage' },
+          { src: '/studio/1.jpg', alt: 'Chambre angle 1' },
+          { src: '/studio/2.jpg', alt: 'Chambre angle 2' },
+          { src: '/studio/3.jpg', alt: 'Chambre angle 3' },
+          { src: '/studio/5.jpg', alt: 'Lit angle 1' },
         ]
       },
       {
-        name: 'Kitchen & Bathroom',
-        description: 'Compact kitchen and modern bathroom facilities',
+        name: 'Kitchen',
+        description: 'Compact kitchen fully equipped',
         images: [
-          { src: '/studio/8.JPG', alt: 'Kitchen area' },
-          { src: '/studio/9.jpg', alt: 'Bathroom' },
-          { src: '/studio/10.jpg', alt: 'Kitchen details' },
+          { src: '/studio/4.jpg', alt: 'Cuisine angle 1' },
         ]
       },
       {
-        name: 'Building Views',
-        description: 'Historic building and surrounding area',
+        name: 'Living Area',
+        description: 'Open plan living space with dining area',
         images: [
-          { src: '/studio/11.png', alt: 'Building exterior' },
-          { src: '/studio/12.png', alt: 'Area view' },
+          { src: '/studio/6.jpg', alt: 'Salon angle 2' },
+          { src: '/studio/7.jpg', alt: 'Salon angle 3 Zoom' },
+          { src: '/studio/8.jpg', alt: 'Salon angle 3' },
+          { src: '/studio/9.jpg', alt: 'Salon angle 4' },
         ]
       }
     ],
