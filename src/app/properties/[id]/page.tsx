@@ -221,7 +221,7 @@ The studio is located on the 1st floor of a unique building that is described as
 '/studio/Canape_ouvert_angle_2.jpg',
     ],
     rooms: [
-
+      {
         name: 'Bedroom',
         description: 'Comfortable sleeping area with storage',
         images: [
