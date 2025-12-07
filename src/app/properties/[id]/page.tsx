@@ -231,8 +231,6 @@ The studio is located on the 1st floor of a unique building that is described as
           { src: '/studio/5.jpg', alt: 'Lit angle 1' },
         ]
       },
-        ]
-      
       {
         name: 'Kitchen',
         description: 'Compact kitchen fully equipped',
