@@ -29,7 +29,7 @@ const properties = {
     price: 600,
     rating: 4.8,
     reviewCount: 96,
-    image: '/studio/1.jpg',
+    image: '/studio/lit_angle_1.jpg',
     maxGuests: 3,
     bedrooms: 1,
     bathrooms: 1,
