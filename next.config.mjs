@@ -21,9 +21,6 @@ const nextConfig = {
     unoptimized: false,
   },
 
-  // Configure external packages
-  serverExternalPackages: ['resend', 'sharp'],
-
   // Configure experimental features for better performance
   experimental: {
     // Enable optimized package imports
