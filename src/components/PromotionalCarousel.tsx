@@ -18,33 +18,27 @@ const PromotionalCarousel: React.FC = () => {
   const slides: Slide[] = [
     {
       id: 1,
-      src: '/penthouse/7-vue-mer.jpg',
-      alt: 'Penthouse Sea View',
-      title: 'Stunning Sea Views',
+      src: '/penthouse/ext_drone_3.jpg',
+      alt: 'Property Aerial View',
+      title: 'Exclusive Aerial Views',
     },
     {
       id: 2,
-      src: '/penthouse/4-terrasse-ext-coucher-soleil.png',
-      alt: 'Penthouse Sunset Terrace',
-      title: 'Sunset Terrace Experience',
+      src: '/penthouse/chaises_hautes_angle_2.jpg',
+      alt: 'Terrace Seating',
+      title: 'Premium Outdoor Seating',
     },
     {
       id: 3,
-      src: '/penthouse/1-jacuzzi-angle.JPEG',
-      alt: 'Luxury Jacuzzi',
-      title: 'Private Jacuzzi',
+      src: '/penthouse/ext_drone_5.jpg',
+      alt: 'Drone Property Overview',
+      title: 'Panoramic Property Views',
     },
     {
       id: 4,
-      src: '/penthouse/5-cuisine-angle-1.jpg',
-      alt: 'Luxury Kitchen',
-      title: 'Modern Chef\'s Kitchen',
-    },
-    {
-      id: 5,
-      src: '/studio/Salon_angle_1.jpg',
-      alt: 'Studio Living Room',
-      title: 'Elegant Living Spaces',
+      src: '/penthouse/ext_drone_13.jpg',
+      alt: 'Stunning Aerial Perspective',
+      title: 'Spectacular Drone Perspectives',
     },
   ];
 
@@ -85,7 +79,7 @@ const PromotionalCarousel: React.FC = () => {
     <section className="w-full bg-white py-12 overflow-hidden">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div
-          className="relative w-full h-96 md:h-[500px] lg:h-[600px] rounded-3xl overflow-hidden group"
+          className="relative w-full h-64 md:h-80 lg:h-96 rounded-3xl overflow-hidden group"
           onMouseEnter={handleMouseEnter}
           onMouseLeave={handleMouseLeave}
         >
@@ -145,11 +139,11 @@ const PromotionalCarousel: React.FC = () => {
           </div>
         </div>
 
-        <div className="text-center mt-8">
+        <div className="text-center mt-6">
           <span className="text-secondary font-semibold text-sm tracking-[0.2em] uppercase">
             Featured Properties
           </span>
-          <p className="text-primary/70 text-lg mt-2 font-lato">
+          <p className="text-primary/70 text-base mt-2 font-lato">
             Explore our curated collection of luxury accommodations
           </p>
         </div>

@@ -11,6 +11,7 @@ import { sendContactEmail } from '@/actions/contact';
 import FAQ from '@/components/FAQ';
 import TestimonialsCarousel from '@/components/TestimonialsCarousel';
 import PromotionalCarousel from '@/components/PromotionalCarousel';
+import EventsCTA from '@/components/EventsCTA';
 
 const Home: React.FC = () => {
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -64,14 +65,6 @@ const Home: React.FC = () => {
         </div>
       </div>
 
-      {/* White Separator */}
-      <div className="h-8 bg-white"></div>
-
-      {/* Promotional Carousel */}
-      <PromotionalCarousel />
-
-      {/* White Separator */}
-      <div className="h-8 bg-white"></div>
 
       {/* Luxury Living Section */}
       <section className="py-12 bg-cream relative overflow-hidden">
@@ -240,6 +233,18 @@ const Home: React.FC = () => {
               </div>
             </Link>
           </div>
+        </div>
+      </section>
+
+      {/* White Separator */}
+      <div className="h-12 bg-white"></div>
+
+      {/* Promotional Carousel with Events CTA */}
+      <PromotionalCarousel />
+
+      <section className="w-full bg-white pb-8">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <EventsCTA />
         </div>
       </section>
 
