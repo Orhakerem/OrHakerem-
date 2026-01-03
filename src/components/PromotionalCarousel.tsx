@@ -2,6 +2,7 @@
 
 import React, { useState, useEffect } from 'react';
 import Image from 'next/image';
+import Link from 'next/link';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
 
 interface Slide {
@@ -139,13 +140,25 @@ const PromotionalCarousel: React.FC = () => {
           </div>
         </div>
 
-        <div className="text-center mt-6">
-          <span className="text-secondary font-semibold text-sm tracking-[0.2em] uppercase">
-            Featured Properties
+        <div className="text-center mt-12">
+          <span className="text-secondary font-semibold text-sm tracking-[0.2em] uppercase block mb-3">
+            Special Events
           </span>
-          <p className="text-primary/70 text-base mt-2 font-lato">
-            Explore our curated collection of luxury accommodations
+          <h3 className="font-playfair text-3xl md:text-4xl font-light text-primary mb-4">
+            Host Your Celebration
+          </h3>
+          <p className="text-primary/70 text-lg mb-8 font-lato max-w-2xl mx-auto">
+            Our properties are the perfect venue for unforgettable moments. Discover exclusive events and private gatherings.
           </p>
+          <Link
+            href="/events"
+            className="inline-flex items-center justify-center bg-gradient-to-r from-secondary to-secondary-light text-primary px-8 py-3 rounded-full font-semibold text-base hover:from-secondary-light hover:to-secondary transition-all duration-300 shadow-xl hover:shadow-2xl transform hover:scale-105"
+          >
+            <span className="mr-2">Explore Events</span>
+            <div className="w-5 h-5 bg-primary/20 rounded-full flex items-center justify-center">
+              <span className="text-primary text-xs">→</span>
+            </div>
+          </Link>
         </div>
       </div>
     </section>
