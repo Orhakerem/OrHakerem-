@@ -168,14 +168,14 @@ const Home: React.FC = () => {
             <div className="group relative text-center p-4 bg-white/10 backdrop-blur-sm rounded-xl transition-all duration-500 hover:scale-105 hover:bg-white/20 hover:shadow-xl border border-white/20">
               <div className="relative inline-block mb-3">
                 <div className="relative p-3 bg-gradient-to-br from-secondary to-secondary-light rounded-full shadow-lg group-hover:shadow-xl transition-all duration-300 group-hover:scale-110">
-                  <span className="text-2xl relative z-10">🍽️</span>
+                  <span className="text-2xl relative z-10">🛒</span>
                 </div>
               </div>
               <h3 className="font-playfair text-lg font-bold text-white mb-2 group-hover:text-secondary transition-colors duration-300 relative z-10">
-                Dining Reservations
+                Grocery Delivery
               </h3>
               <p className="text-white/90 text-sm leading-relaxed group-hover:text-white transition-colors duration-300 relative z-10">
-                Priority booking and recommendation for restaurants
+                Fresh groceries and supplies delivered to your door
               </p>
             </div>
 
