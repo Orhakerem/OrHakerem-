@@ -114,10 +114,25 @@ export default function ConciergeServicesPage() {
   }, []);
 
   return (
-    <div className="min-h-screen pt-24 pb-20 bg-cream">
-      <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div className="min-h-screen bg-cream">
+      {/* Hero Section with Video Background - Full Screen */}
+      <section className="relative h-screen w-full overflow-hidden">
+        {/* Video Background */}
+        <video
+          autoPlay
+          muted
+          loop
+          playsInline
+          className="absolute inset-0 w-full h-full object-cover"
+          style={{ filter: 'brightness(0.85)' }}
+        >
+          <source src="/2.mp4" type="video/mp4" />
+          {/* Fallback for browsers that don't support video */}
+          <div className="absolute inset-0 bg-primary"></div>
+        </video>
+
         {/* Enhanced Back Navigation */}
-        <div className="mb-8">
+        <div className="absolute top-24 left-8 z-30">
           <div className="inline-block relative group">
             <div className="absolute inset-0 bg-gradient-to-r from-primary/20 to-secondary/20 rounded-full blur-lg opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
             <Link
@@ -134,33 +149,27 @@ export default function ConciergeServicesPage() {
           </div>
         </div>
 
-        {/* Hero Section with Vue Mer Image */}
-        <div className="relative h-[500px] rounded-2xl overflow-hidden mb-20">
-          <Image
-            src="/penthouse/7-vue-mer.jpg"
-            alt="Sea View from Luxury Concierge Services"
-            fill
-            className="object-cover"
-          />
-          <div className="absolute inset-0 bg-gradient-to-r from-black/50 to-black/30 flex items-center">
-            <div className="max-w-4xl mx-auto text-center px-4">
-              <div className="inline-block mb-4">
-                <span className="text-secondary font-semibold text-lg tracking-wider uppercase">
-                  Luxury Services
-                </span>
-              </div>
-              <h1 className="font-playfair text-6xl font-bold text-white mb-8">
-                Premium Concierge Services
-              </h1>
-              <p className="text-2xl text-white/90 max-w-4xl mx-auto leading-relaxed">
-                Our dedicated concierge team provides impeccable service tailored to your every need. 
-                Experience the ultimate in personalized luxury during your stay.
-              </p>
+        {/* Content Overlay */}
+        <div className="absolute inset-0 flex items-center justify-center z-10">
+          <div className="max-w-4xl mx-auto text-center px-4">
+            <div className="inline-block mb-4">
+              <span className="text-secondary font-semibold text-lg tracking-wider uppercase">
+                Luxury Services
+              </span>
             </div>
+            <h1 className="font-playfair text-6xl font-bold text-white mb-8">
+              Premium Concierge Services
+            </h1>
+            <p className="text-2xl text-white/90 max-w-4xl mx-auto leading-relaxed">
+              Our dedicated concierge team provides impeccable service tailored to your every need.
+              Experience the ultimate in personalized luxury during your stay.
+            </p>
           </div>
         </div>
+      </section>
 
-        {/* Services Section with Clean White Background */}
+      {/* Services Section with Clean White Background */}
+      <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
         <section className="py-20 bg-cream mb-20">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             {/* Header section */}
@@ -325,18 +334,18 @@ export default function ConciergeServicesPage() {
             </div>
           </div>
         </section>
-
-        {/* Back to Top Button */}
-        {showBackToTop && (
-          <button
-            onClick={scrollToTop}
-            className="fixed bottom-8 right-8 bg-gradient-to-r from-secondary to-secondary-light text-primary p-4 rounded-full shadow-lg hover:shadow-xl transition-all duration-300 z-40 hover:scale-110"
-            aria-label="Back to top"
-          >
-            <ArrowUp className="w-6 h-6" />
-          </button>
-        )}
       </div>
+
+      {/* Back to Top Button */}
+      {showBackToTop && (
+        <button
+          onClick={scrollToTop}
+          className="fixed bottom-8 right-8 bg-gradient-to-r from-secondary to-secondary-light text-primary p-4 rounded-full shadow-lg hover:shadow-xl transition-all duration-300 z-40 hover:scale-110"
+          aria-label="Back to top"
+        >
+          <ArrowUp className="w-6 h-6" />
+        </button>
+      )}
     </div>
   );
 }
