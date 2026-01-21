@@ -115,21 +115,20 @@ export default function ConciergeServicesPage() {
 
   return (
     <div className="min-h-screen bg-cream">
-      {/* Hero Section with Video Background - Full Screen */}
+      {/* Hero Section with Image Background - Full Screen */}
       <section className="relative h-screen w-full overflow-hidden">
-        {/* Video Background */}
-        <video
-          autoPlay
-          muted
-          loop
-          playsInline
-          className="absolute inset-0 w-full h-full object-cover"
-          style={{ filter: 'brightness(0.85)' }}
-        >
-          <source src="/2.mp4" type="video/mp4" />
-          {/* Fallback for browsers that don't support video */}
-          <div className="absolute inset-0 bg-primary"></div>
-        </video>
+        {/* Image Background */}
+        <Image
+          src="/Orhakerem_Events.jpg"
+          alt="Concierge Services"
+          fill
+          priority
+          className="object-cover"
+          quality={100}
+        />
+
+        {/* Dark Overlay */}
+        <div className="absolute inset-0 bg-black/60"></div>
 
         {/* Enhanced Back Navigation */}
         <div className="absolute top-24 left-8 z-30">
