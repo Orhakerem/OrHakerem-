@@ -192,6 +192,37 @@ export default function Events() {
           </div>
         </div>
 
+        {/* Video Showcase Section */}
+        <section className="py-20 bg-white rounded-3xl mb-20 shadow-xl">
+          <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div className="text-center mb-12">
+              <div className="inline-block mb-4">
+                <span className="text-tertiary font-semibold text-lg tracking-wider uppercase">
+                  Discover
+                </span>
+              </div>
+              <h2 className="font-playfair text-5xl font-bold text-primary mb-6 leading-tight">
+                Experience Our Venue
+              </h2>
+              <p className="text-primary/80 text-xl max-w-3xl mx-auto leading-relaxed">
+                Take a stunning aerial tour of Or Hakerem and discover why our rooftop venue
+                is the perfect setting for your special celebration.
+              </p>
+            </div>
+
+            <div className="relative rounded-2xl overflow-hidden shadow-2xl">
+              <video
+                controls
+                className="w-full h-auto"
+                poster="/Orhakerem_Events copy.jpg"
+              >
+                <source src="/2.mp4" type="video/mp4" />
+                Your browser does not support the video tag.
+              </video>
+            </div>
+          </div>
+        </section>
+
         {/* Event Spaces Section */}
         <section className="py-20 bg-cream mb-20">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
