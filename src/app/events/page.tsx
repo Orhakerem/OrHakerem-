@@ -166,18 +166,17 @@ export default function Events() {
         </div>
 
         {/* Video Section - Integrated like homepage */}
-        <section>
-          <div>
-            <div>
-              <video
-                autoPlay
-                muted
-                loop
-                playsInline
-              >
-                <source src="/2.mp4" type="video/mp4" />
-              </video>
-            </div>
+        <section className="w-full -mt-16 mb-12 -mx-4 sm:-mx-6 lg:-mx-8">
+          <div className="relative w-full h-[75vh] min-h-[600px]">
+            <video
+              autoPlay
+              muted
+              loop
+              playsInline
+              className="absolute inset-0 w-full h-full object-cover"
+            >
+              <source src="/2.mp4" type="video/mp4" />
+            </video>
           </div>
         </section>
 
