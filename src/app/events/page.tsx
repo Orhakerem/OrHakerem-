@@ -164,6 +164,13 @@ export default function Events() {
             </Link>
           </div>
         </div>
+
+        {/* Hero Title */}
+        <div className="text-center mb-12 px-4">
+          <h1 className="font-playfair text-4xl md:text-5xl lg:text-6xl font-bold text-secondary animate-fadeInUp">
+            Discover a special place for your events
+          </h1>
+        </div>
       </div>
 
       {/* Video Section - Full Width */}
