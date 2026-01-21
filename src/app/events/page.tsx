@@ -5,7 +5,6 @@ import toast from 'react-hot-toast';
 
 import React, { useState, useEffect } from 'react';
 
-import Image from 'next/image';
 import Link from 'next/link';
 
 import { sendEmail } from '@/actions/email';
@@ -146,19 +145,31 @@ export default function Events() {
   }, []);
 
   return (
-    <div className="min-h-screen pt-24 pb-20 bg-cream">
-      <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-        {/* Enhanced Back Navigation */}
-        <div className="mb-8">
+    <div className="min-h-screen">
+      {/* Hero Section with Video Background */}
+      <div className="relative w-full h-screen overflow-hidden">
+        <video
+          autoPlay
+          muted
+          loop
+          playsInline
+          className="absolute inset-0 w-full h-full object-cover"
+          style={{ filter: 'brightness(0.7)' }}
+        >
+          <source src="/2.mp4" type="video/mp4" />
+          <div className="absolute inset-0 bg-primary"></div>
+        </video>
+
+        {/* Back Navigation - Floating on Video */}
+        <div className="absolute top-28 left-4 sm:left-8 z-20">
           <div className="inline-block relative group">
             <div className="absolute inset-0 bg-gradient-to-r from-primary/20 to-secondary/20 rounded-full blur-lg opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
             <Link
               href="/"
-              className="relative inline-flex items-center bg-white/80 backdrop-blur-sm text-primary px-6 py-3 rounded-full font-semibold text-lg hover:bg-white hover:text-secondary transition-all duration-300 shadow-lg hover:shadow-xl transform hover:scale-105 border border-primary/20"
+              className="relative inline-flex items-center bg-white/20 backdrop-blur-md text-white px-6 py-3 rounded-full font-semibold text-lg hover:bg-white/30 hover:text-secondary transition-all duration-300 shadow-lg hover:shadow-xl transform hover:scale-105 border border-white/30"
             >
               <div className="relative mr-3">
                 <ArrowLeft className="w-5 h-5 transition-transform duration-300 group-hover:-translate-x-1" />
-                <div className="absolute inset-0 bg-secondary/20 rounded-full scale-0 group-hover:scale-150 transition-transform duration-300"></div>
               </div>
               <Home className="w-5 h-5 mr-2 opacity-70 group-hover:opacity-100 transition-opacity duration-300" />
               <span className="relative z-10">Back to Home</span>
@@ -166,66 +177,53 @@ export default function Events() {
           </div>
         </div>
 
-        {/* Hero Section with New Event Image */}
-        <div className="relative h-[500px] rounded-2xl overflow-hidden mb-20">
-          <Image
-            src="/Orhakerem_Events copy.jpg"
-            alt="Or Hakerem Event Space - Rooftop Celebration"
-            fill
-            className="object-cover"
-          />
-          <div className="absolute inset-0 bg-gradient-to-r from-black/50 to-black/30 flex items-center">
-            <div className="max-w-4xl mx-auto text-center px-4">
-              <div className="inline-block mb-4">
-                <span className="text-secondary font-semibold text-lg tracking-wider uppercase">
-                  Exclusive Events
-                </span>
-              </div>
-              <h1 className="font-playfair text-6xl font-bold text-white mb-8">
-                Host Your Special Events
-              </h1>
-              <p className="text-2xl text-white/90 max-w-4xl mx-auto leading-relaxed">
-                Experience luxury and elegance in our exclusive event spaces with breathtaking views 
-                and premium amenities for unforgettable celebrations.
-              </p>
+        {/* Title Overlay */}
+        <div className="absolute inset-0 flex items-center justify-center">
+          <div className="max-w-5xl mx-auto text-center px-4">
+            <div className="inline-block mb-6">
+              <span className="text-secondary font-semibold text-xl tracking-[0.2em] uppercase bg-white/10 backdrop-blur-sm px-6 py-2 rounded-full border border-secondary/30">
+                Exclusive Events
+              </span>
+            </div>
+            <h1 className="font-playfair text-5xl md:text-7xl font-bold text-white mb-8 leading-tight">
+              Host Your Special Events
+            </h1>
+            <p className="text-xl md:text-2xl text-white/90 max-w-4xl mx-auto leading-relaxed mb-10">
+              Experience luxury and elegance in our exclusive rooftop venue with breathtaking views
+              and premium amenities for unforgettable celebrations.
+            </p>
+            <div className="flex flex-col sm:flex-row gap-4 justify-center">
+              <button
+                onClick={() => setShowForm(true)}
+                className="inline-flex items-center justify-center bg-gradient-to-r from-secondary to-secondary-light text-primary px-10 py-4 rounded-full font-semibold text-lg hover:from-secondary-light hover:to-secondary transition-all duration-300 shadow-xl hover:shadow-2xl transform hover:scale-105"
+              >
+                <Calendar className="w-6 h-6 mr-3" />
+                <span>Plan Your Event</span>
+              </button>
+              <a
+                href="#venues"
+                className="inline-flex items-center justify-center bg-white/10 backdrop-blur-sm text-white px-10 py-4 rounded-full font-semibold text-lg hover:bg-white/20 transition-all duration-300 border border-white/30"
+              >
+                <span>Explore Venues</span>
+              </a>
             </div>
           </div>
         </div>
 
-        {/* Video Showcase Section */}
-        <section className="py-20 bg-white rounded-3xl mb-20 shadow-xl">
-          <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="text-center mb-12">
-              <div className="inline-block mb-4">
-                <span className="text-tertiary font-semibold text-lg tracking-wider uppercase">
-                  Discover
-                </span>
-              </div>
-              <h2 className="font-playfair text-5xl font-bold text-primary mb-6 leading-tight">
-                Experience Our Venue
-              </h2>
-              <p className="text-primary/80 text-xl max-w-3xl mx-auto leading-relaxed">
-                Take a stunning aerial tour of Or Hakerem and discover why our rooftop venue
-                is the perfect setting for your special celebration.
-              </p>
-            </div>
-
-            <div className="relative rounded-2xl overflow-hidden shadow-2xl">
-              <video
-                controls
-                className="w-full h-auto"
-                poster="/Orhakerem_Events copy.jpg"
-              >
-                <source src="/2.mp4" type="video/mp4" />
-                Your browser does not support the video tag.
-              </video>
-            </div>
+        {/* Scroll Indicator */}
+        <div className="absolute bottom-8 left-1/2 -translate-x-1/2 animate-bounce">
+          <div className="w-8 h-12 rounded-full border-2 border-white/50 flex items-start justify-center pt-2">
+            <div className="w-1.5 h-3 bg-white/70 rounded-full animate-pulse"></div>
           </div>
-        </section>
+        </div>
+      </div>
 
-        {/* Event Spaces Section */}
-        <section className="py-20 bg-cream mb-20">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      {/* Content Sections */}
+      <div className="bg-cream pb-20">
+        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 pt-20">
+          {/* Event Spaces Section */}
+          <section id="venues" className="py-20 bg-cream mb-20">
+            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             {/* Header section */}
             <div className="text-center mb-16">
               <div className="inline-block mb-4">
@@ -255,11 +253,11 @@ export default function Events() {
                 />
               ))}
             </div>
-          </div>
-        </section>
+            </div>
+          </section>
 
-        {/* Contact Section */}
-        <section className="py-20 bg-gradient-to-br from-primary via-primary to-primary-light relative overflow-hidden rounded-3xl">
+          {/* Contact Section */}
+          <section className="py-20 bg-gradient-to-br from-primary via-primary to-primary-light relative overflow-hidden rounded-3xl">
           {/* Background decorative elements */}
           <div className="absolute inset-0">
             <div className="absolute top-20 left-10 w-32 h-32 bg-secondary/10 rounded-full blur-3xl"></div>
@@ -564,19 +562,20 @@ export default function Events() {
               </>
             )}
           </div>
-        </section>
-
-        {/* Back to Top Button */}
-        {showBackToTop && (
-          <button
-            onClick={scrollToTop}
-            className="fixed bottom-8 right-8 bg-gradient-to-r from-secondary to-secondary-light text-primary p-4 rounded-full shadow-lg hover:shadow-xl transition-all duration-300 z-40 hover:scale-110"
-            aria-label="Back to top"
-          >
-            <ArrowUp className="w-6 h-6" />
-          </button>
-        )}
+          </section>
+        </div>
       </div>
+
+      {/* Back to Top Button */}
+      {showBackToTop && (
+        <button
+          onClick={scrollToTop}
+          className="fixed bottom-8 right-8 bg-gradient-to-r from-secondary to-secondary-light text-primary p-4 rounded-full shadow-lg hover:shadow-xl transition-all duration-300 z-40 hover:scale-110"
+          aria-label="Back to top"
+        >
+          <ArrowUp className="w-6 h-6" />
+        </button>
+      )}
     </div>
   );
 }
