@@ -145,31 +145,19 @@ export default function Events() {
   }, []);
 
   return (
-    <div className="min-h-screen">
-      {/* Hero Section with Video Background */}
-      <div className="relative w-full h-screen overflow-hidden">
-        <video
-          autoPlay
-          muted
-          loop
-          playsInline
-          className="absolute inset-0 w-full h-full object-cover"
-          style={{ filter: 'brightness(0.7)' }}
-        >
-          <source src="/2.mp4" type="video/mp4" />
-          <div className="absolute inset-0 bg-primary"></div>
-        </video>
-
-        {/* Back Navigation - Floating on Video */}
-        <div className="absolute top-28 left-4 sm:left-8 z-20">
+    <div className="min-h-screen pt-24 pb-20 bg-cream">
+      <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+        {/* Back Navigation */}
+        <div className="mb-8">
           <div className="inline-block relative group">
             <div className="absolute inset-0 bg-gradient-to-r from-primary/20 to-secondary/20 rounded-full blur-lg opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
             <Link
               href="/"
-              className="relative inline-flex items-center bg-white/20 backdrop-blur-md text-white px-6 py-3 rounded-full font-semibold text-lg hover:bg-white/30 hover:text-secondary transition-all duration-300 shadow-lg hover:shadow-xl transform hover:scale-105 border border-white/30"
+              className="relative inline-flex items-center bg-white/80 backdrop-blur-sm text-primary px-6 py-3 rounded-full font-semibold text-lg hover:bg-white hover:text-secondary transition-all duration-300 shadow-lg hover:shadow-xl transform hover:scale-105 border border-primary/20"
             >
               <div className="relative mr-3">
                 <ArrowLeft className="w-5 h-5 transition-transform duration-300 group-hover:-translate-x-1" />
+                <div className="absolute inset-0 bg-secondary/20 rounded-full scale-0 group-hover:scale-150 transition-transform duration-300"></div>
               </div>
               <Home className="w-5 h-5 mr-2 opacity-70 group-hover:opacity-100 transition-opacity duration-300" />
               <span className="relative z-10">Back to Home</span>
@@ -177,53 +165,67 @@ export default function Events() {
           </div>
         </div>
 
-        {/* Title Overlay */}
-        <div className="absolute inset-0 flex items-center justify-center">
-          <div className="max-w-5xl mx-auto text-center px-4">
-            <div className="inline-block mb-6">
-              <span className="text-secondary font-semibold text-xl tracking-[0.2em] uppercase bg-white/10 backdrop-blur-sm px-6 py-2 rounded-full border border-secondary/30">
+        {/* Video Section - Integrated like homepage */}
+        <section className="w-full bg-white py-12 rounded-3xl overflow-hidden mb-12">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div className="relative w-full h-64 md:h-80 lg:h-[600px] rounded-3xl overflow-hidden group">
+              <video
+                autoPlay
+                muted
+                loop
+                playsInline
+                className="absolute inset-0 w-full h-full object-cover"
+              >
+                <source src="/2.mp4" type="video/mp4" />
+              </video>
+              <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent"></div>
+            </div>
+          </div>
+        </section>
+
+        {/* Promotional CTA Section */}
+        <section className="py-16 bg-gradient-to-br from-primary via-primary to-primary-light relative overflow-hidden rounded-3xl mb-12">
+          <div className="absolute inset-0">
+            <div className="absolute top-6 left-6 w-24 h-24 bg-secondary/10 rounded-full blur-3xl"></div>
+            <div className="absolute bottom-6 right-6 w-32 h-32 bg-tertiary/10 rounded-full blur-3xl"></div>
+          </div>
+
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+            <div className="text-center">
+              <span className="text-secondary font-semibold text-sm tracking-[0.2em] uppercase block mb-3">
                 Exclusive Events
               </span>
-            </div>
-            <h1 className="font-playfair text-5xl md:text-7xl font-bold text-white mb-8 leading-tight">
-              Host Your Special Events
-            </h1>
-            <p className="text-xl md:text-2xl text-white/90 max-w-4xl mx-auto leading-relaxed mb-10">
-              Experience luxury and elegance in our exclusive rooftop venue with breathtaking views
-              and premium amenities for unforgettable celebrations.
-            </p>
-            <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <button
-                onClick={() => setShowForm(true)}
-                className="inline-flex items-center justify-center bg-gradient-to-r from-secondary to-secondary-light text-primary px-10 py-4 rounded-full font-semibold text-lg hover:from-secondary-light hover:to-secondary transition-all duration-300 shadow-xl hover:shadow-2xl transform hover:scale-105"
-              >
-                <Calendar className="w-6 h-6 mr-3" />
-                <span>Plan Your Event</span>
-              </button>
-              <a
-                href="#venues"
-                className="inline-flex items-center justify-center bg-white/10 backdrop-blur-sm text-white px-10 py-4 rounded-full font-semibold text-lg hover:bg-white/20 transition-all duration-300 border border-white/30"
-              >
-                <span>Explore Venues</span>
-              </a>
+              <h1 className="font-playfair text-4xl md:text-5xl font-light text-white mb-4">
+                Host Your Celebration
+              </h1>
+              <p className="text-white/90 text-lg mb-8 font-lato max-w-3xl mx-auto">
+                Our rooftop venue is the perfect setting for unforgettable moments. Discover exclusive events and private gatherings with breathtaking views.
+              </p>
+              <div className="flex flex-col sm:flex-row gap-4 justify-center">
+                <button
+                  onClick={() => setShowForm(true)}
+                  className="inline-flex items-center justify-center bg-gradient-to-r from-secondary to-secondary-light text-primary px-8 py-3 rounded-full font-semibold text-base hover:from-secondary-light hover:to-secondary transition-all duration-300 shadow-xl hover:shadow-2xl transform hover:scale-105"
+                >
+                  <Calendar className="w-5 h-5 mr-2" />
+                  <span>Plan Your Event</span>
+                </button>
+                <a
+                  href="#venues"
+                  className="inline-flex items-center justify-center bg-white/10 backdrop-blur-sm text-white px-8 py-3 rounded-full font-semibold text-base hover:bg-white/20 transition-all duration-300 border border-white/30"
+                >
+                  <span>Explore Venues</span>
+                  <div className="w-5 h-5 bg-white/20 rounded-full flex items-center justify-center ml-2">
+                    <span className="text-white text-xs">→</span>
+                  </div>
+                </a>
+              </div>
             </div>
           </div>
-        </div>
+        </section>
 
-        {/* Scroll Indicator */}
-        <div className="absolute bottom-8 left-1/2 -translate-x-1/2 animate-bounce">
-          <div className="w-8 h-12 rounded-full border-2 border-white/50 flex items-start justify-center pt-2">
-            <div className="w-1.5 h-3 bg-white/70 rounded-full animate-pulse"></div>
-          </div>
-        </div>
-      </div>
-
-      {/* Content Sections */}
-      <div className="bg-cream pb-20">
-        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 pt-20">
-          {/* Event Spaces Section */}
-          <section id="venues" className="py-20 bg-cream mb-20">
-            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        {/* Event Spaces Section */}
+        <section id="venues" className="py-20 bg-cream mb-20">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             {/* Header section */}
             <div className="text-center mb-16">
               <div className="inline-block mb-4">
@@ -253,11 +255,11 @@ export default function Events() {
                 />
               ))}
             </div>
-            </div>
-          </section>
+          </div>
+        </section>
 
-          {/* Contact Section */}
-          <section className="py-20 bg-gradient-to-br from-primary via-primary to-primary-light relative overflow-hidden rounded-3xl">
+        {/* Contact Section */}
+        <section className="py-20 bg-gradient-to-br from-primary via-primary to-primary-light relative overflow-hidden rounded-3xl">
           {/* Background decorative elements */}
           <div className="absolute inset-0">
             <div className="absolute top-20 left-10 w-32 h-32 bg-secondary/10 rounded-full blur-3xl"></div>
@@ -562,20 +564,19 @@ export default function Events() {
               </>
             )}
           </div>
-          </section>
-        </div>
-      </div>
+        </section>
 
-      {/* Back to Top Button */}
-      {showBackToTop && (
-        <button
-          onClick={scrollToTop}
-          className="fixed bottom-8 right-8 bg-gradient-to-r from-secondary to-secondary-light text-primary p-4 rounded-full shadow-lg hover:shadow-xl transition-all duration-300 z-40 hover:scale-110"
-          aria-label="Back to top"
-        >
-          <ArrowUp className="w-6 h-6" />
-        </button>
-      )}
+        {/* Back to Top Button */}
+        {showBackToTop && (
+          <button
+            onClick={scrollToTop}
+            className="fixed bottom-8 right-8 bg-gradient-to-r from-secondary to-secondary-light text-primary p-4 rounded-full shadow-lg hover:shadow-xl transition-all duration-300 z-40 hover:scale-110"
+            aria-label="Back to top"
+          >
+            <ArrowUp className="w-6 h-6" />
+          </button>
+        )}
+      </div>
     </div>
   );
 }
