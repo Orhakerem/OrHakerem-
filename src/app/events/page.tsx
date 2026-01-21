@@ -145,50 +145,57 @@ export default function Events() {
   }, []);
 
   return (
-    <div className="min-h-screen pt-24 pb-20 bg-cream">
-      <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-        {/* Back Navigation */}
-        <div className="mb-8">
-          <div className="inline-block relative group">
-            <div className="absolute inset-0 bg-gradient-to-r from-primary/20 to-secondary/20 rounded-full blur-lg opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
-            <Link
-              href="/"
-              className="relative inline-flex items-center bg-white/80 backdrop-blur-sm text-primary px-6 py-3 rounded-full font-semibold text-lg hover:bg-white hover:text-secondary transition-all duration-300 shadow-lg hover:shadow-xl transform hover:scale-105 border border-primary/20"
-            >
-              <div className="relative mr-3">
-                <ArrowLeft className="w-5 h-5 transition-transform duration-300 group-hover:-translate-x-1" />
-                <div className="absolute inset-0 bg-secondary/20 rounded-full scale-0 group-hover:scale-150 transition-transform duration-300"></div>
+    <div className="min-h-screen bg-cream">
+      {/* Video Section - Full Width with Overlays */}
+      <section className="relative w-full h-[75vh] min-h-[600px]">
+        {/* Video Background */}
+        <video
+          autoPlay
+          muted
+          loop
+          playsInline
+          className="absolute inset-0 w-full h-full object-cover"
+          style={{ filter: 'brightness(0.8)' }}
+        >
+          <source src="/2.mp4" type="video/mp4" />
+        </video>
+
+        {/* Dark Overlay */}
+        <div className="absolute inset-0 bg-primary/30"></div>
+
+        {/* Back Navigation - Positioned over video */}
+        <div className="absolute top-24 left-0 right-0 z-20">
+          <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div className="mb-8">
+              <div className="inline-block relative group">
+                <div className="absolute inset-0 bg-gradient-to-r from-primary/20 to-secondary/20 rounded-full blur-lg opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                <Link
+                  href="/"
+                  className="relative inline-flex items-center bg-white/80 backdrop-blur-sm text-primary px-6 py-3 rounded-full font-semibold text-lg hover:bg-white hover:text-secondary transition-all duration-300 shadow-lg hover:shadow-xl transform hover:scale-105 border border-primary/20"
+                >
+                  <div className="relative mr-3">
+                    <ArrowLeft className="w-5 h-5 transition-transform duration-300 group-hover:-translate-x-1" />
+                    <div className="absolute inset-0 bg-secondary/20 rounded-full scale-0 group-hover:scale-150 transition-transform duration-300"></div>
+                  </div>
+                  <Home className="w-5 h-5 mr-2 opacity-70 group-hover:opacity-100 transition-opacity duration-300" />
+                  <span className="relative z-10">Back to Home</span>
+                </Link>
               </div>
-              <Home className="w-5 h-5 mr-2 opacity-70 group-hover:opacity-100 transition-opacity duration-300" />
-              <span className="relative z-10">Back to Home</span>
-            </Link>
+            </div>
           </div>
         </div>
 
-        {/* Hero Title */}
-        <div className="text-center mb-12 px-4">
-          <h1 className="font-playfair text-4xl md:text-5xl lg:text-6xl font-bold text-secondary animate-fadeInUp">
-            Discover a special place for your events
-          </h1>
-        </div>
-      </div>
-
-      {/* Video Section - Full Width */}
-      <section className="w-full mb-12">
-        <div className="relative w-full h-[75vh] min-h-[600px]">
-          <video
-            autoPlay
-            muted
-            loop
-            playsInline
-            className="absolute inset-0 w-full h-full object-cover"
-          >
-            <source src="/2.mp4" type="video/mp4" />
-          </video>
+        {/* Hero Title - Positioned over video */}
+        <div className="absolute top-40 md:top-48 left-0 right-0 z-10">
+          <div className="text-center px-4">
+            <h1 className="font-playfair text-3xl md:text-4xl lg:text-5xl font-bold text-secondary animate-fadeInUp drop-shadow-lg">
+              Discover a special place for your events
+            </h1>
+          </div>
         </div>
       </section>
 
-      <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
 
         {/* Promotional CTA Section */}
         <section className="py-16 bg-gradient-to-br from-primary via-primary to-primary-light relative overflow-hidden rounded-3xl mb-12">
