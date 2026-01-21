@@ -48,11 +48,11 @@ const Home: React.FC = () => {
           className="absolute inset-0 w-full h-full object-cover"
           style={{ filter: 'brightness(0.85)' }}
         >
-          <source src="/hero.mp4" type="video/mp4" />
+          <source src="/2.mp4" type="video/mp4" />
           {/* Fallback for browsers that don't support video */}
           <div className="absolute inset-0 bg-primary"></div>
         </video>
-        
+
         {/* Title Overlay */}
         <div className="hero-title">
           <h1 className="font-playfair font-bold hero-subtitle">
