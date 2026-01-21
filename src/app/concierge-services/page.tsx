@@ -1,9 +1,8 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import { ArrowUp, UtensilsCrossed, Car, Baby, Calendar, ArrowLeft, Home } from 'lucide-react';
+import { ArrowUp, UtensilsCrossed, Car, Baby, Calendar } from 'lucide-react';
 import Image from 'next/image';
-import Link from 'next/link';
 import toast from 'react-hot-toast';
 import { sendContactEmail } from '@/actions/contact';
 
@@ -129,24 +128,6 @@ export default function ConciergeServicesPage() {
 
         {/* Dark Overlay */}
         <div className="absolute inset-0 bg-black/60"></div>
-
-        {/* Enhanced Back Navigation */}
-        <div className="absolute top-24 left-8 z-30">
-          <div className="inline-block relative group">
-            <div className="absolute inset-0 bg-gradient-to-r from-primary/20 to-secondary/20 rounded-full blur-lg opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
-            <Link
-              href="/"
-              className="relative inline-flex items-center bg-white/80 backdrop-blur-sm text-primary px-6 py-3 rounded-full font-semibold text-lg hover:bg-white hover:text-secondary transition-all duration-300 shadow-lg hover:shadow-xl transform hover:scale-105 border border-primary/20"
-            >
-              <div className="relative mr-3">
-                <ArrowLeft className="w-5 h-5 transition-transform duration-300 group-hover:-translate-x-1" />
-                <div className="absolute inset-0 bg-secondary/20 rounded-full scale-0 group-hover:scale-150 transition-transform duration-300"></div>
-              </div>
-              <Home className="w-5 h-5 mr-2 opacity-70 group-hover:opacity-100 transition-opacity duration-300" />
-              <span className="relative z-10">Back to Home</span>
-            </Link>
-          </div>
-        </div>
 
         {/* Content Overlay */}
         <div className="absolute inset-0 flex items-center justify-center z-10">
