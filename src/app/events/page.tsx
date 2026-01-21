@@ -166,19 +166,17 @@ export default function Events() {
         </div>
 
         {/* Video Section - Integrated like homepage */}
-        <section className="w-full bg-white py-12 rounded-3xl overflow-hidden mb-12">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="relative w-full h-64 md:h-80 lg:h-[600px] rounded-3xl overflow-hidden group">
+        <section>
+          <div>
+            <div>
               <video
                 autoPlay
                 muted
                 loop
                 playsInline
-                className="absolute inset-0 w-full h-full object-cover"
               >
                 <source src="/2.mp4" type="video/mp4" />
               </video>
-              <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent"></div>
             </div>
           </div>
         </section>
