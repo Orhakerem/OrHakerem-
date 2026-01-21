@@ -164,21 +164,24 @@ export default function Events() {
             </Link>
           </div>
         </div>
+      </div>
 
-        {/* Video Section - Integrated like homepage */}
-        <section className="w-full -mt-16 mb-12 -mx-4 sm:-mx-6 lg:-mx-8">
-          <div className="relative w-full h-[75vh] min-h-[600px]">
-            <video
-              autoPlay
-              muted
-              loop
-              playsInline
-              className="absolute inset-0 w-full h-full object-cover"
-            >
-              <source src="/2.mp4" type="video/mp4" />
-            </video>
-          </div>
-        </section>
+      {/* Video Section - Full Width */}
+      <section className="w-full mb-12">
+        <div className="relative w-full h-[75vh] min-h-[600px]">
+          <video
+            autoPlay
+            muted
+            loop
+            playsInline
+            className="absolute inset-0 w-full h-full object-cover"
+          >
+            <source src="/2.mp4" type="video/mp4" />
+          </video>
+        </div>
+      </section>
+
+      <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
 
         {/* Promotional CTA Section */}
         <section className="py-16 bg-gradient-to-br from-primary via-primary to-primary-light relative overflow-hidden rounded-3xl mb-12">
