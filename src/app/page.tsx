@@ -68,8 +68,8 @@ const Home: React.FC = () => {
       {/* Luxury Living Section */}
       <section className="py-12 bg-cream relative overflow-hidden">
         <div className="absolute inset-0">
-          <div className="absolute top-6 left-6 w-24 h-24 bg-secondary/10 rounded-full blur-3xl"></div>
-          <div className="absolute bottom-6 right-6 w-32 h-32 bg-tertiary/10 rounded-full blur-3xl"></div>
+          <div className="absolute top-6 left-6 w-16 h-16 bg-secondary/10 rounded-full blur-2xl"></div>
+          <div className="absolute bottom-6 right-6 w-20 h-20 bg-tertiary/10 rounded-full blur-2xl"></div>
         </div>
 
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
