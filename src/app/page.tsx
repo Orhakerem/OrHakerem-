@@ -73,22 +73,9 @@ const Home: React.FC = () => {
         </div>
 
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-          <div className="flex flex-col lg:flex-row items-center gap-8">
-            {/* Logo Section */}
-            <div className="flex-shrink-0">
-              <div className="relative w-40 h-40 lg:w-48 lg:h-48 group">
-                <Image
-                  src="/OR_HAKEERM_logo_beige_NOTEXT.jpg"
-                  alt="Or Hakerem Logo"
-                  fill
-                  className="object-contain group-hover:scale-105 transition-transform duration-500 rounded-2xl"
-                />
-                <div className="absolute inset-0 border-2 border-secondary/20 rounded-3xl group-hover:border-secondary/40 transition-colors duration-500"></div>
-              </div>
-            </div>
-
+          <div className="flex flex-col items-center">
             {/* Content Section */}
-            <div className="flex-1 text-center lg:text-left">
+            <div className="flex-1 text-center">
               <div className="mb-6">
                 <span className="text-secondary font-semibold text-lg tracking-[0.2em] uppercase block mb-3">
                   Luxury Living
@@ -99,7 +86,7 @@ const Home: React.FC = () => {
                 </h2>
               </div>
 
-              <div className="flex items-center justify-center lg:justify-start mb-6">
+              <div className="flex items-center justify-center mb-6">
                 <div className="w-12 h-px bg-gradient-to-r from-secondary to-tertiary"></div>
                 <div className="w-2 h-2 bg-secondary rounded-full mx-3 shadow-lg"></div>
                 <div className="w-12 h-px bg-gradient-to-l from-secondary to-tertiary"></div>
@@ -124,7 +111,7 @@ const Home: React.FC = () => {
                 </p>
               </div>
 
-              <div className="mt-8 flex justify-center lg:justify-start">
+              <div className="mt-8 flex justify-center">
                 <Link
                   href="/properties"
                   className="inline-flex items-center bg-gradient-to-r from-secondary to-secondary-light text-primary px-6 py-3 rounded-full font-semibold text-base hover:from-secondary-light hover:to-secondary transition-all duration-300 shadow-xl hover:shadow-2xl transform hover:scale-105"
