@@ -143,13 +143,19 @@ const Home: React.FC = () => {
       {/* White Separator */}
       <div className="h-12 bg-white"></div>
 
+      {/* Promotional Carousel with Events CTA */}
+      <PromotionalCarousel />
+
+      {/* White Separator */}
+      <div className="h-12 bg-white"></div>
+
       {/* Concierge Services */}
       <section className="py-12 bg-gradient-to-br from-primary via-primary to-primary-light relative overflow-hidden rounded-3xl mx-4">
         <div className="absolute inset-0">
           <div className="absolute top-10 left-10 w-24 h-24 bg-secondary/10 rounded-full blur-2xl"></div>
           <div className="absolute bottom-10 right-10 w-32 h-32 bg-tertiary/10 rounded-full blur-2xl"></div>
         </div>
-        
+
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
           <div className="text-center mb-10">
             <span className="text-secondary font-semibold tracking-wider uppercase">
@@ -162,7 +168,7 @@ const Home: React.FC = () => {
               Experience personalized luxury with our dedicated concierge team
             </p>
           </div>
-          
+
           <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-4 mb-8 max-w-5xl mx-auto">
             <div className="group relative text-center p-4 bg-white/10 backdrop-blur-sm rounded-xl transition-all duration-500 hover:scale-105 hover:bg-white/20 hover:shadow-xl border border-white/20">
               <div className="relative inline-block mb-3">
@@ -238,25 +244,13 @@ const Home: React.FC = () => {
       {/* White Separator */}
       <div className="h-12 bg-white"></div>
 
-      {/* Promotional Carousel with Events CTA */}
-      <PromotionalCarousel />
-
-      {/* White Separator */}
-      <div className="h-12 bg-white"></div>
-
-      {/* Testimonials Carousel */}
-      <TestimonialsCarousel />
-
-      {/* White Separator */}
-      <div className="h-12 bg-white"></div>
-
       {/* Contact Section */}
       <section id="contact" className="py-12 bg-gradient-to-br from-primary via-primary to-primary-light relative overflow-hidden rounded-3xl mx-4">
         <div className="absolute inset-0">
           <div className="absolute top-20 left-10 w-32 h-32 bg-secondary/10 rounded-full blur-3xl"></div>
           <div className="absolute bottom-20 right-10 w-40 h-40 bg-tertiary/10 rounded-full blur-3xl"></div>
         </div>
-        
+
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
           <div className="text-center mb-10">
             <span className="text-secondary font-semibold text-lg tracking-wider uppercase">
@@ -339,7 +333,7 @@ const Home: React.FC = () => {
                       <span className="text-primary text-sm">→</span>
                     </div>
                   </button>
-                  
+
                   <p className="text-white/70 text-sm mt-4 font-medium">
                     We&apos;ll get back to you within 24 hours
                   </p>
@@ -349,6 +343,12 @@ const Home: React.FC = () => {
           </div>
         </div>
       </section>
+
+      {/* White Separator */}
+      <div className="h-12 bg-white"></div>
+
+      {/* Testimonials Carousel */}
+      <TestimonialsCarousel />
 
       {/* FAQ Section */}
       <FAQ />
