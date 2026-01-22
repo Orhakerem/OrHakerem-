@@ -41,6 +41,12 @@ const PromotionalCarousel: React.FC = () => {
       alt: 'Stunning Aerial Perspective',
       title: 'Spectacular Drone Perspectives',
     },
+    {
+      id: 5,
+      src: '/img_5322.jpg',
+      alt: 'Or Hakerem Property',
+      title: 'Luxury Living Experience',
+    },
   ];
 
   useEffect(() => {
