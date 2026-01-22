@@ -77,10 +77,10 @@ const PromotionalCarousel: React.FC = () => {
   };
 
   return (
-    <section className="w-full bg-white py-12 overflow-hidden">
+    <section className="w-full bg-white py-16 md:py-20 overflow-hidden">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div
-          className="relative w-full h-64 md:h-80 lg:h-96 rounded-3xl overflow-hidden group"
+          className="relative w-full h-96 md:h-[500px] lg:h-[600px] rounded-3xl overflow-hidden group"
           onMouseEnter={handleMouseEnter}
           onMouseLeave={handleMouseLeave}
         >
