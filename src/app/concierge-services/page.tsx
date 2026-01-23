@@ -1,7 +1,7 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import { ArrowUp, Car, Baby, Calendar } from 'lucide-react';
+import { ArrowUp, Car, Baby, Calendar, ShoppingBasket } from 'lucide-react';
 import Image from 'next/image';
 import toast from 'react-hot-toast';
 import { sendContactEmail } from '@/actions/contact';
@@ -51,6 +51,11 @@ export default function ConciergeServicesPage() {
   const [showBackToTop, setShowBackToTop] = useState(false);
 
   const services = [
+    {
+      icon: ShoppingBasket,
+      title: 'Grocery Delivery',
+      description: 'We offer delivery during your stays on demand and even before check-in. Have your favorite groceries and essentials waiting for you upon arrival, or request fresh supplies anytime during your stay for ultimate convenience.'
+    },
     {
       icon: Car,
       title: 'Transportation',
