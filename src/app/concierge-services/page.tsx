@@ -1,7 +1,7 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import { ArrowUp, UtensilsCrossed, Car, Baby, Calendar } from 'lucide-react';
+import { ArrowUp, Car, Baby, Calendar } from 'lucide-react';
 import Image from 'next/image';
 import toast from 'react-hot-toast';
 import { sendContactEmail } from '@/actions/contact';
@@ -51,11 +51,6 @@ export default function ConciergeServicesPage() {
   const [showBackToTop, setShowBackToTop] = useState(false);
 
   const services = [
-    {
-      icon: UtensilsCrossed,
-      title: 'Dining Reservations',
-      description: 'Priority booking and recommendation for restaurants ensure you enjoy exceptional dining adventures with seamless reservations.'
-    },
     {
       icon: Car,
       title: 'Transportation',
