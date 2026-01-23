@@ -80,11 +80,6 @@ export default function Events() {
 
         {/* Promotional CTA Section */}
         <section className="py-16 bg-gradient-to-br from-primary via-primary to-primary-light relative overflow-hidden rounded-3xl mb-12">
-          <div className="absolute inset-0">
-            <div className="absolute top-6 left-6 w-24 h-24 bg-secondary/10 rounded-full blur-3xl"></div>
-            <div className="absolute bottom-6 right-6 w-32 h-32 bg-tertiary/10 rounded-full blur-3xl"></div>
-          </div>
-
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
             <div className="text-center">
               <span className="text-secondary font-semibold text-sm tracking-[0.2em] uppercase block mb-3">
