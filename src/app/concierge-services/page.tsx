@@ -1,7 +1,7 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import { ArrowUp, Car, Baby, Calendar, ShoppingBasket, Sparkles } from 'lucide-react';
+import { ArrowUp, Car, Baby, Calendar, ShoppingBasket, Sparkles, Sparkle, UtensilsCrossed } from 'lucide-react';
 import toast from 'react-hot-toast';
 import { sendContactEmail } from '@/actions/contact';
 
@@ -14,33 +14,35 @@ interface ServiceCardProps {
 
 function ServiceCard({ icon: Icon, title, description, delay }: ServiceCardProps) {
   return (
-    <div 
-      className="group relative bg-white rounded-2xl p-8 transition-all duration-500 hover:scale-105 hover:shadow-2xl border border-gray-100"
+    <div
+      className="group relative bg-white rounded-xl p-5 transition-all duration-500 hover:scale-105 hover:shadow-2xl border border-gray-100"
       style={{ animationDelay: `${delay}ms` }}
     >
       {/* Gradient overlay on hover */}
-      <div className="absolute inset-0 bg-gradient-to-br from-secondary/10 to-tertiary/10 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
-      
-      {/* Floating icon container */}
-      <div className="relative inline-block mb-6">
-        <div className="relative p-4 bg-gradient-to-br from-secondary to-secondary-light rounded-full shadow-lg group-hover:shadow-xl transition-all duration-300 group-hover:scale-110">
+      <div className="absolute inset-0 bg-gradient-to-br from-secondary/10 to-tertiary/10 rounded-xl opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+
+      {/* Floating icon container - Reduced size */}
+      <div className="relative inline-block mb-4">
+        <div className="relative p-3 bg-gradient-to-br from-secondary to-secondary-light rounded-full shadow-lg group-hover:shadow-xl transition-all duration-300 group-hover:scale-110">
           <div className="absolute inset-0 rounded-full bg-white/20 group-hover:bg-white/30 transition-colors duration-300"></div>
-          <Icon className="w-8 h-8 text-primary relative z-10 group-hover:text-primary/90 transition-colors duration-300" />
+          <Icon className="w-6 h-6 text-primary relative z-10 group-hover:text-primary/90 transition-colors duration-300" />
         </div>
         {/* Floating animation ring */}
         <div className="absolute inset-0 rounded-full border-2 border-secondary/30 animate-pulse group-hover:border-secondary/50 transition-colors duration-300"></div>
       </div>
-      
-      <h3 className="font-playfair text-2xl font-bold text-primary mb-4 group-hover:text-secondary transition-colors duration-300 relative z-10">
+
+      {/* Reduced heading size */}
+      <h3 className="font-playfair text-xl font-bold text-primary mb-3 group-hover:text-secondary transition-colors duration-300 relative z-10">
         {title}
       </h3>
-      <p className="text-primary/80 leading-relaxed text-lg group-hover:text-primary transition-colors duration-300 relative z-10">
+      {/* Reduced text size and spacing */}
+      <p className="text-primary/80 leading-relaxed text-sm group-hover:text-primary transition-colors duration-300 relative z-10">
         {description}
       </p>
-      
+
       {/* Decorative corner elements */}
-      <div className="absolute top-4 right-4 w-2 h-2 bg-secondary rounded-full opacity-50 group-hover:opacity-100 transition-opacity duration-300"></div>
-      <div className="absolute bottom-4 left-4 w-2 h-2 bg-tertiary rounded-full opacity-50 group-hover:opacity-100 transition-opacity duration-300"></div>
+      <div className="absolute top-3 right-3 w-1.5 h-1.5 bg-secondary rounded-full opacity-50 group-hover:opacity-100 transition-opacity duration-300"></div>
+      <div className="absolute bottom-3 left-3 w-1.5 h-1.5 bg-tertiary rounded-full opacity-50 group-hover:opacity-100 transition-opacity duration-300"></div>
     </div>
   );
 }
@@ -69,6 +71,16 @@ export default function ConciergeServicesPage() {
       icon: Calendar,
       title: 'Event Planning',
       description: 'Access to events and private celebrations with meticulous attention to detail. From intimate gatherings to grand celebrations, we orchestrate unforgettable experiences that exceed your expectations.'
+    },
+    {
+      icon: Sparkle,
+      title: 'Cleaning on Demand',
+      description: 'We offer cleaning services during your stay, provided by a professional team that will not interfere with your time in the apartment.'
+    },
+    {
+      icon: UtensilsCrossed,
+      title: 'Dining Reservation',
+      description: 'Experience the finest culinary destinations with our exclusive restaurant reservation service. We secure tables at the most sought-after establishments, ensuring you enjoy exceptional dining experiences throughout your stay.'
     }
   ];
 
@@ -198,8 +210,8 @@ export default function ConciergeServicesPage() {
             </p>
           </div>
 
-          {/* Services grid with enhanced cards */}
-          <div className="grid md:grid-cols-2 gap-8 max-w-5xl mx-auto">
+          {/* Services grid with enhanced cards - Updated to 3 columns with reduced gap */}
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-6xl mx-auto">
             {services.map((service, index) => (
               <ServiceCard
                 key={index}
@@ -217,15 +229,17 @@ export default function ConciergeServicesPage() {
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="h-px bg-gradient-to-r from-transparent via-primary/20 to-transparent mb-16"></div>
 
-        {/* Contact Section - Compact Design (60% of original size) */}
-        <section className="py-12 bg-gradient-to-br from-primary via-primary to-primary-light relative overflow-hidden rounded-2xl">
+        {/* Contact Section - Centered and with bottom spacing */}
+        <section className="py-12 bg-gradient-to-br from-primary via-primary to-primary-light relative overflow-hidden rounded-2xl mb-20">
           {/* Background decorative elements */}
           <div className="absolute inset-0">
             <div className="absolute top-10 left-5 w-24 h-24 bg-secondary/10 rounded-full blur-2xl"></div>
             <div className="absolute bottom-10 right-5 w-32 h-32 bg-tertiary/10 rounded-full blur-2xl"></div>
           </div>
 
-          <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+          {/* Centered content container */}
+          <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 flex items-center justify-center">
+            <div className="w-full">
             {/* Compact Header */}
             <div className="text-center mb-10">
               <div className="inline-flex items-center gap-2 mb-3 px-4 py-1.5 bg-secondary/20 backdrop-blur-sm rounded-full">
@@ -315,6 +329,7 @@ export default function ConciergeServicesPage() {
                   </div>
                 </form>
               </div>
+            </div>
             </div>
           </div>
         </section>
