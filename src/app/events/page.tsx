@@ -1,62 +1,11 @@
 'use client';
 
-import { Calendar, Mail, MessageSquare, Phone, Users, Sparkles, Heart, Star, ArrowUp } from 'lucide-react';
+import { Calendar, Mail, MessageSquare, Phone, Sparkles, Star, ArrowUp } from 'lucide-react';
 import toast from 'react-hot-toast';
 
 import React, { useState, useEffect } from 'react';
 
 import { sendEmail } from '@/actions/email';
-
-interface EventOptionProps {
-  title: string;
-  description: string;
-  icon: React.ComponentType<{ className?: string }>;
-  features: string[];
-  delay: number;
-}
-
-function EventOption({ title, description, icon: Icon, features, delay }: EventOptionProps) {
-  return (
-    <div 
-      className="group relative bg-white rounded-2xl p-8 transition-all duration-500 hover:scale-105 hover:shadow-2xl border border-gray-100"
-      style={{ animationDelay: `${delay}ms` }}
-    >
-      {/* Gradient overlay on hover */}
-      <div className="absolute inset-0 bg-gradient-to-br from-secondary/10 to-tertiary/10 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
-      
-      {/* Floating icon container */}
-      <div className="relative inline-block mb-6">
-        <div className="relative p-4 bg-gradient-to-br from-secondary to-secondary-light rounded-full shadow-lg group-hover:shadow-xl transition-all duration-300 group-hover:scale-110">
-          <div className="absolute inset-0 rounded-full bg-white/20 group-hover:bg-white/30 transition-colors duration-300"></div>
-          <Icon className="w-8 h-8 text-primary relative z-10 group-hover:text-primary/90 transition-colors duration-300" />
-        </div>
-        {/* Floating animation ring */}
-        <div className="absolute inset-0 rounded-full border-2 border-secondary/30 animate-pulse group-hover:border-secondary/50 transition-colors duration-300"></div>
-      </div>
-      
-      <h3 className="font-playfair text-2xl font-bold text-primary mb-4 group-hover:text-secondary transition-colors duration-300 relative z-10">
-        {title}
-      </h3>
-      <p className="text-primary/80 leading-relaxed text-lg mb-6 group-hover:text-primary transition-colors duration-300 relative z-10">
-        {description}
-      </p>
-
-      {/* Features list */}
-      <ul className="space-y-2 relative z-10">
-        {features.map((feature, index) => (
-          <li key={index} className="flex items-center text-primary/70 group-hover:text-primary transition-colors duration-300">
-            <Star className="w-4 h-4 text-tertiary mr-2 flex-shrink-0" />
-            <span className="text-sm">{feature}</span>
-          </li>
-        ))}
-      </ul>
-      
-      {/* Decorative corner elements */}
-      <div className="absolute top-4 right-4 w-2 h-2 bg-secondary rounded-full opacity-50 group-hover:opacity-100 transition-opacity duration-300"></div>
-      <div className="absolute bottom-4 left-4 w-2 h-2 bg-tertiary rounded-full opacity-50 group-hover:opacity-100 transition-opacity duration-300"></div>
-    </div>
-  );
-}
 
 export default function Events() {
   const [showForm, setShowForm] = useState(false);
@@ -64,45 +13,6 @@ export default function Events() {
   const [isSuccess, setIsSuccess] = useState(false);
   const [contactMethod, setContactMethod] = useState('email');
   const [showBackToTop, setShowBackToTop] = useState(false);
-
-  const eventSpaces = [
-    {
-      title: 'Rooftop Terrace',
-      description: 'An elegant open-air space perfect for cocktail parties and intimate gatherings, featuring breathtaking city and sea views.',
-      icon: Sparkles,
-      features: [
-        'Panoramic sea views',
-        'Jacuzzi access',
-        'BBQ facilities',
-        'Capacity: 80 guests',
-        'Perfect for sunset events'
-      ]
-    },
-    {
-      title: 'Private Dining Experience',
-      description: 'Sophisticated indoor venue ideal for dinner parties and small celebrations with full catering options.',
-      icon: Heart,
-      features: [
-        'Fully equipped kitchen',
-        'Elegant dining setup',
-        'Professional catering available',
-        'Capacity: 50 guests',
-        'Intimate atmosphere'
-      ]
-    },
-    {
-      title: 'Celebration Space',
-      description: 'Perfect setting for special occasions including bar/bat mitzvahs, brit mila, and family celebrations.',
-      icon: Users,
-      features: [
-        'Flexible space configuration',
-        'Traditional & modern amenities',
-        'Kosher meal arrangements',
-        'Capacity: 80 guests',
-        'Cultural celebration support'
-      ]
-    }
-  ];
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -209,7 +119,7 @@ export default function Events() {
           </div>
         </section>
 
-        {/* Event Spaces Section */}
+        {/* Event Spaces Section - Redesigned */}
         <section id="venues" className="py-20 bg-cream mb-20">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             {/* Header section */}
@@ -222,56 +132,116 @@ export default function Events() {
               <h2 className="font-playfair text-5xl font-bold text-primary mb-6 leading-tight">
                 Available Event Spaces
               </h2>
-              <p className="text-primary/80 text-xl max-w-3xl mx-auto leading-relaxed">
-                Choose from our carefully curated event spaces, each designed to create magical moments 
-                and lasting memories for you and your guests.
-              </p>
             </div>
-            
-            {/* Event spaces grid */}
-            <div className="grid md:grid-cols-1 lg:grid-cols-3 gap-8 max-w-7xl mx-auto">
-              {eventSpaces.map((space, index) => (
-                <EventOption
-                  key={index}
-                  title={space.title}
-                  description={space.description}
-                  icon={space.icon}
-                  features={space.features}
-                  delay={index * 100}
-                />
-              ))}
+
+            {/* Unified venue description */}
+            <div className="bg-white rounded-3xl p-12 shadow-xl border border-gray-100 max-w-5xl mx-auto">
+              <p className="text-primary/90 text-xl leading-relaxed mb-10 text-center">
+                Our stunning penthouse offers the perfect setting for any celebration. With breathtaking panoramic sea and city views,
+                elegant indoor spaces, and a spectacular rooftop terrace, we provide everything you need to create unforgettable moments
+                for you and your guests.
+              </p>
+
+              {/* Event Types */}
+              <div className="mb-10">
+                <h3 className="font-playfair text-2xl font-bold text-primary mb-6 text-center">
+                  Perfect For These Special Events
+                </h3>
+                <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+                  {[
+                    'Wedding',
+                    'Bar/Bat Mitzvah',
+                    'Brit Mila',
+                    'Birthday Party',
+                    'Bachelor Party',
+                    'Heena',
+                    'Private Dinner',
+                    'Cocktail Party'
+                  ].map((event, index) => (
+                    <div
+                      key={index}
+                      className="flex items-center justify-center p-4 bg-gradient-to-br from-secondary/10 to-tertiary/10 rounded-xl hover:from-secondary/20 hover:to-tertiary/20 transition-all duration-300"
+                    >
+                      <Star className="w-4 h-4 text-tertiary mr-2 flex-shrink-0" />
+                      <span className="text-primary font-medium text-sm">{event}</span>
+                    </div>
+                  ))}
+                </div>
+              </div>
+
+              {/* Venue Features */}
+              <div className="mb-8">
+                <h3 className="font-playfair text-2xl font-bold text-primary mb-6 text-center">
+                  Venue Features & Amenities
+                </h3>
+                <div className="grid md:grid-cols-2 gap-x-8 gap-y-4">
+                  {[
+                    'Panoramic sea and city views',
+                    'Capacity: up to 80 guests',
+                    'Rooftop terrace with jacuzzi',
+                    'BBQ facilities',
+                    'Fully equipped professional kitchen',
+                    'Elegant dining setup',
+                    'Professional catering available',
+                    'Flexible space configuration',
+                    'Traditional & modern amenities',
+                    'Kosher meal arrangements',
+                    'Perfect for sunset events',
+                    'Indoor and outdoor spaces',
+                    'Premium audio system',
+                    'Stunning photo opportunities'
+                  ].map((feature, index) => (
+                    <div
+                      key={index}
+                      className="flex items-start group"
+                    >
+                      <Sparkles className="w-5 h-5 text-secondary mr-3 flex-shrink-0 mt-0.5 group-hover:scale-110 transition-transform duration-300" />
+                      <span className="text-primary/80 group-hover:text-primary transition-colors duration-300">{feature}</span>
+                    </div>
+                  ))}
+                </div>
+              </div>
+
+              {/* CTA Button */}
+              <div className="text-center pt-6">
+                <button
+                  onClick={() => setShowForm(true)}
+                  className="inline-flex items-center bg-gradient-to-r from-secondary to-secondary-light text-primary px-10 py-4 rounded-full font-semibold text-lg hover:from-secondary-light hover:to-secondary transition-all duration-300 shadow-lg hover:shadow-xl transform hover:scale-105"
+                >
+                  <Calendar className="w-5 h-5 mr-2" />
+                  <span>Inquire About Your Event</span>
+                </button>
+              </div>
             </div>
           </div>
         </section>
 
-        {/* Contact Section */}
-        <section className="py-20 bg-gradient-to-br from-primary via-primary to-primary-light relative overflow-hidden rounded-3xl">
+        {/* Contact Section - Compact */}
+        <section className="py-12 bg-gradient-to-br from-primary via-primary to-primary-light relative overflow-hidden rounded-3xl">
           {/* Background decorative elements */}
           <div className="absolute inset-0">
-            <div className="absolute top-20 left-10 w-32 h-32 bg-secondary/10 rounded-full blur-3xl"></div>
-            <div className="absolute bottom-20 right-10 w-40 h-40 bg-tertiary/10 rounded-full blur-3xl"></div>
-            <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-96 h-96 bg-white/5 rounded-full blur-3xl"></div>
+            <div className="absolute top-10 left-10 w-24 h-24 bg-secondary/10 rounded-full blur-3xl"></div>
+            <div className="absolute bottom-10 right-10 w-32 h-32 bg-tertiary/10 rounded-full blur-3xl"></div>
           </div>
-          
+
           {/* Animated background pattern */}
           <div className="absolute inset-0 opacity-10">
             <div className="absolute top-0 left-0 w-full h-full bg-gradient-to-r from-transparent via-white/5 to-transparent transform -skew-y-12 animate-pulse"></div>
           </div>
-          
+
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
             {/* Header section */}
-            <div className="text-center mb-16">
-              <div className="inline-block mb-4">
-                <span className="text-secondary font-semibold text-lg tracking-wider uppercase">
+            <div className="text-center mb-10">
+              <div className="inline-block mb-3">
+                <span className="text-secondary font-semibold text-base tracking-wider uppercase">
                   Plan Your Event
                 </span>
               </div>
-              <h2 className="font-playfair text-5xl md:text-6xl font-bold text-white mb-6 leading-tight">
+              <h2 className="font-playfair text-3xl md:text-4xl font-bold text-white mb-4 leading-tight">
                 Create Unforgettable Moments
               </h2>
-              <p className="text-white/90 text-xl max-w-3xl mx-auto leading-relaxed">
-                Let us help you create an unforgettable experience. Our events team will contact you 
-                <br className="hidden md:block" />
+              <p className="text-white/90 text-lg max-w-2xl mx-auto leading-relaxed">
+                Let us help you create an unforgettable experience. Our events team will contact you
                 to discuss your requirements and bring your vision to life.
               </p>
             </div>
@@ -298,18 +268,18 @@ export default function Events() {
               </div>
             ) : (
               <>
-                <div className="text-center mb-12">
+                <div className="text-center mb-8">
                   <div className="inline-block relative group">
                     <div className="absolute inset-0 bg-gradient-to-r from-secondary to-tertiary rounded-full blur-lg opacity-50 group-hover:opacity-75 transition-opacity duration-300"></div>
                     <button
                       onClick={() => setShowForm(true)}
-                      className="relative inline-flex items-center bg-gradient-to-r from-secondary to-secondary-light text-primary px-12 py-4 rounded-full font-semibold text-lg hover:from-secondary-light hover:to-secondary transition-all duration-300 shadow-xl hover:shadow-2xl transform hover:scale-105"
+                      className="relative inline-flex items-center bg-gradient-to-r from-secondary to-secondary-light text-primary px-10 py-3 rounded-full font-semibold text-base hover:from-secondary-light hover:to-secondary transition-all duration-300 shadow-xl hover:shadow-2xl transform hover:scale-105"
                     >
-                      <Calendar className="w-6 h-6 mr-3" />
+                      <Calendar className="w-5 h-5 mr-2" />
                       <span>Inquire About Events</span>
                     </button>
                   </div>
-                  <p className="text-white/70 text-sm mt-6 font-medium">
+                  <p className="text-white/70 text-xs mt-4 font-medium">
                     Free consultation • Custom event planning • Premium service
                   </p>
                 </div>
@@ -346,12 +316,14 @@ export default function Events() {
                               className="w-full px-4 py-3 border border-gray-300 rounded-lg hover:border-primary focus:border-primary focus:ring-2 focus:ring-primary/20 transition-colors"
                             >
                               <option value="">Select event type</option>
-                              <option value="cocktail">Cocktail Party</option>
-                              <option value="dinner">Private Dinner</option>
-                              <option value="celebration">Celebration</option>
+                              <option value="wedding">Wedding</option>
                               <option value="bar-mitzvah">Bar/Bat Mitzvah</option>
                               <option value="brit-mila">Brit Mila</option>
-                              <option value="corporate">Corporate Event</option>
+                              <option value="birthday">Birthday Party</option>
+                              <option value="bachelor">Bachelor Party</option>
+                              <option value="heena">Heena</option>
+                              <option value="dinner">Private Dinner</option>
+                              <option value="cocktail">Cocktail Party</option>
                               <option value="other">Other</option>
                             </select>
                           </div>
