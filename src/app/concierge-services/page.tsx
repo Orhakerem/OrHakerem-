@@ -40,9 +40,9 @@ function ServiceCard({ icon: Icon, title, description, delay }: ServiceCardProps
         {description}
       </p>
 
-      {/* Decorative corner elements */}
-      <div className="absolute top-3 right-3 w-1.5 h-1.5 bg-secondary rounded-full opacity-50 group-hover:opacity-100 transition-opacity duration-300"></div>
-      <div className="absolute bottom-3 left-3 w-1.5 h-1.5 bg-tertiary rounded-full opacity-50 group-hover:opacity-100 transition-opacity duration-300"></div>
+      {/* Decorative corner elements - Moved away from borders */}
+      <div className="absolute top-6 right-6 w-1.5 h-1.5 bg-secondary rounded-full opacity-50 group-hover:opacity-100 transition-opacity duration-300"></div>
+      <div className="absolute bottom-6 left-6 w-1.5 h-1.5 bg-tertiary rounded-full opacity-50 group-hover:opacity-100 transition-opacity duration-300"></div>
     </div>
   );
 }
