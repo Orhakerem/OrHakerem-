@@ -3,7 +3,7 @@
 import { Calendar, Mail, MessageSquare, Phone, Sparkles, Star, ArrowUp } from 'lucide-react';
 import toast from 'react-hot-toast';
 
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 
 import { sendEmail } from '@/actions/email';
 
@@ -13,6 +13,16 @@ export default function Events() {
   const [isSuccess, setIsSuccess] = useState(false);
   const [contactMethod, setContactMethod] = useState('email');
   const [showBackToTop, setShowBackToTop] = useState(false);
+  const videoRef = useRef<HTMLVideoElement>(null);
+
+  useEffect(() => {
+    const video = videoRef.current;
+    if (video) {
+      video.play().catch(() => {
+        // Autoplay was prevented, video will show first frame
+      });
+    }
+  }, []);
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -54,17 +64,22 @@ export default function Events() {
   return (
     <div className="min-h-screen bg-cream">
       {/* Video Section - Full Width */}
-      <section className="relative w-full h-[75vh] min-h-[600px] pt-20">
+      <section className="relative w-full h-[75vh] min-h-[600px] pt-20 bg-primary">
         {/* Video Background */}
         <video
+          ref={videoRef}
           autoPlay
           muted
           loop
           playsInline
+          preload="auto"
           className="absolute inset-0 w-full h-full object-cover"
         >
           <source src="/events-video.mp4" type="video/mp4" />
         </video>
+
+        {/* Dark overlay for better text visibility */}
+        <div className="absolute inset-0 bg-black/30 z-[1]"></div>
 
         {/* Hero Title - Positioned at bottom of video */}
         <div className="absolute bottom-8 md:bottom-12 left-0 right-0 z-10">
