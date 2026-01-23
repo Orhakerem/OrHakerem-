@@ -78,41 +78,6 @@ export default function Events() {
 
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
 
-        {/* Promotional CTA Section */}
-        <section className="py-16 bg-gradient-to-br from-primary via-primary to-primary-light relative overflow-hidden rounded-3xl mb-12">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-            <div className="text-center">
-              <span className="text-secondary font-semibold text-sm tracking-[0.2em] uppercase block mb-3">
-                Exclusive Events
-              </span>
-              <h1 className="font-playfair text-4xl md:text-5xl font-light text-white mb-4">
-                Host Your Celebration
-              </h1>
-              <p className="text-white/90 text-lg mb-8 font-lato max-w-3xl mx-auto">
-                Our rooftop venue is the perfect setting for unforgettable moments. Discover exclusive events and private gatherings with breathtaking views.
-              </p>
-              <div className="flex flex-col sm:flex-row gap-4 justify-center">
-                <button
-                  onClick={() => setShowForm(true)}
-                  className="inline-flex items-center justify-center bg-gradient-to-r from-secondary to-secondary-light text-primary px-8 py-3 rounded-full font-semibold text-base hover:from-secondary-light hover:to-secondary transition-all duration-300 shadow-xl hover:shadow-2xl transform hover:scale-105"
-                >
-                  <Calendar className="w-5 h-5 mr-2" />
-                  <span>Plan Your Event</span>
-                </button>
-                <a
-                  href="#venues"
-                  className="inline-flex items-center justify-center bg-white/10 backdrop-blur-sm text-white px-8 py-3 rounded-full font-semibold text-base hover:bg-white/20 transition-all duration-300 border border-white/30"
-                >
-                  <span>Explore Venues</span>
-                  <div className="w-5 h-5 bg-white/20 rounded-full flex items-center justify-center ml-2">
-                    <span className="text-white text-xs">→</span>
-                  </div>
-                </a>
-              </div>
-            </div>
-          </div>
-        </section>
-
         {/* Event Spaces Section - Redesigned */}
         <section id="venues" className="py-20 bg-cream mb-20">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -194,17 +159,6 @@ export default function Events() {
                     </div>
                   ))}
                 </div>
-              </div>
-
-              {/* CTA Button */}
-              <div className="text-center pt-6">
-                <button
-                  onClick={() => setShowForm(true)}
-                  className="inline-flex items-center bg-gradient-to-r from-secondary to-secondary-light text-primary px-10 py-4 rounded-full font-semibold text-lg hover:from-secondary-light hover:to-secondary transition-all duration-300 shadow-lg hover:shadow-xl transform hover:scale-105"
-                >
-                  <Calendar className="w-5 h-5 mr-2" />
-                  <span>Inquire About Your Event</span>
-                </button>
               </div>
             </div>
           </div>
