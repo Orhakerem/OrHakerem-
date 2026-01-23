@@ -64,7 +64,7 @@ export default function Events() {
           playsInline
           className="absolute inset-0 w-full h-full object-cover"
         >
-          <source src="/2.mp4" type="video/mp4" />
+          <source src="/hero.mp4" type="video/mp4" />
         </video>
 
         {/* Hero Title - Positioned at bottom of video */}
