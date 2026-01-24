@@ -1,6 +1,6 @@
 'use client';
 
-import { Baby, Bath, BedDouble, Calendar, Coffee, Dumbbell, Heart, Laptop, MapPin, Share, Shirt, Sofa, Tv, Users, Utensils, UtensilsCrossed, Waves, Wifi, Wind, ArrowLeft, Chrome as Home } from 'lucide-react';
+import { Baby, Bath, BedDouble, Calendar, Coffee, Dumbbell, Laptop, MapPin, Shirt, Sofa, Tv, Users, Utensils, UtensilsCrossed, Waves, Wifi, Wind, ArrowLeft, Chrome as Home } from 'lucide-react';
 
 import React, { useState } from 'react';
 
@@ -325,14 +325,6 @@ export default function PropertyDetails() {
               >
                 →
               </button>
-              <div className="absolute top-4 right-4 flex space-x-2">
-                <button className="p-2 bg-white rounded-full shadow-lg hover:bg-gray-100">
-                  <Share className="w-5 h-5 text-navy" />
-                </button>
-                <button className="p-2 bg-white rounded-full shadow-lg hover:bg-gray-100">
-                  <Heart className="w-5 h-5 text-navy" />
-                </button>
-              </div>
             </div>
           </div>
 
