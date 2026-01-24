@@ -19,8 +19,7 @@ export default function Hero() {
               Welcome to Or Hakerem
             </h1>
             <p className="text-xl max-w-2xl">
-              Experience luxury living in the heart of Jerusalem with our premium apartments and
-              exceptional service.
+              Experience luxury rental in the heart of Tel Aviv with our premium accommodations
             </p>
           </div>
         </div>
