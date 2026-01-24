@@ -3,6 +3,7 @@ import CustomCursor from '@/components/CustomCursor';
 import Toast from '@/components/Toast';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
+import GoogleAnalytics from '@/components/GoogleAnalytics';
 
 import './globals.css';
 
@@ -92,6 +93,7 @@ export default function RootLayout({
         <meta name="apple-mobile-web-app-title" content="MyWebSite" />
       </head>
       <body className="min-h-screen bg-cream antialiased">
+        <GoogleAnalytics />
         <CustomCursor />
         <Toast />
         <Navbar />
