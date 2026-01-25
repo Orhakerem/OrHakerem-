@@ -69,9 +69,7 @@ export default function ShortTermRentalsPage() {
             </div>
 
             <h1 className="font-playfair text-4xl md:text-6xl lg:text-7xl font-bold text-white mb-8 leading-tight animate-fade-in">
-              Short Term Rental in Tel Aviv
-              <br />
-              <span className="text-secondary">Luxury Apartment Tel Aviv</span>
+              Luxury Rental in the Heart of Tel Aviv
             </h1>
 
             <p className="text-xl md:text-2xl text-white/90 max-w-3xl mx-auto leading-relaxed mb-12">
