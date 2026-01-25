@@ -150,6 +150,12 @@ export default function Footer() {
                 Management
               </Link>
               <Link
+                href="/short-term-rentals"
+                className="text-white/90 hover:text-secondary transition-colors duration-300"
+              >
+                Rentals
+              </Link>
+              <Link
                 href="/terms"
                 className="text-white/90 hover:text-secondary transition-colors duration-300"
               >
@@ -301,6 +307,12 @@ export default function Footer() {
                   className="block text-white/90 hover:text-secondary hover:translate-x-2 transition-all duration-300 text-xl font-medium p-1 rounded-lg hover:bg-white/10 leading-none"
                 >
                   Property Management
+                </Link>
+                <Link
+                  href="/short-term-rentals"
+                  className="block text-white/90 hover:text-secondary hover:translate-x-2 transition-all duration-300 text-xl font-medium p-1 rounded-lg hover:bg-white/10 leading-none"
+                >
+                  Short Term Rentals
                 </Link>
                 <Link
                   href="/#contact"

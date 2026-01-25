@@ -3,7 +3,7 @@
 import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { Home, Building, Sparkles, Menu, X, Users, Briefcase } from 'lucide-react';
+import { Home, Building, Sparkles, Menu, X, Users, Briefcase, Key } from 'lucide-react';
 import Image from 'next/image';
 
 function Navbar() {
@@ -94,6 +94,15 @@ function Navbar() {
             >
               <Briefcase className="w-4 h-4 mr-2" aria-hidden="true" />
               <span>Management</span>
+            </Link>
+
+            <Link
+              href="/short-term-rentals"
+              className={`nav-item-floating ${isActive('/short-term-rentals') ? 'active' : ''}`}
+              aria-current={isActive('/short-term-rentals') ? 'page' : undefined}
+            >
+              <Key className="w-4 h-4 mr-2" aria-hidden="true" />
+              <span>Rentals</span>
             </Link>
           </div>
 
@@ -189,6 +198,16 @@ function Navbar() {
                 >
                   <Briefcase className="w-4 h-4 mr-3" aria-hidden="true" />
                   <span>Property Management</span>
+                </Link>
+
+                <Link
+                  href="/short-term-rentals"
+                  onClick={closeMobileMenu}
+                  className={`mobile-nav-item-floating ${isActive('/short-term-rentals') ? 'active' : ''}`}
+                  aria-current={isActive('/short-term-rentals') ? 'page' : undefined}
+                >
+                  <Key className="w-4 h-4 mr-3" aria-hidden="true" />
+                  <span>Short Term Rentals</span>
                 </Link>
               </div>
             </div>
