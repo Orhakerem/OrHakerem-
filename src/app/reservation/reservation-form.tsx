@@ -16,7 +16,7 @@ interface ReservationFormProps {
 
 export default function ReservationForm({ initialSearchParams }: ReservationFormProps) {
   const router = useRouter();
-  const [propertyTitle, setPropertyTitle] = useState('Property');
+  const [propertyTitle, setPropertyTitle] = useState('');
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSuccess, setIsSuccess] = useState(false);
   const [contactMethod, setContactMethod] = useState('email');
@@ -105,14 +105,18 @@ export default function ReservationForm({ initialSearchParams }: ReservationForm
               <label htmlFor="property" className="block text-sm font-medium text-primary/80 mb-1">
                 Property
               </label>
-              <input
-                type="text"
+              <select
                 id="property"
                 name="property"
                 value={propertyTitle}
-                readOnly
-                className="w-full px-4 py-2 border border-gray-300 rounded-md bg-gray-50"
-              />
+                onChange={(e) => setPropertyTitle(e.target.value)}
+                required
+                className="w-full px-4 py-2 border border-gray-300 rounded-md bg-white cursor-pointer focus:outline-none focus:ring-2 focus:ring-secondary/50 focus:border-secondary"
+              >
+                <option value="" disabled>Select a property</option>
+                <option value="Studio">Studio</option>
+                <option value="Penthouse">Penthouse</option>
+              </select>
             </div>
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
