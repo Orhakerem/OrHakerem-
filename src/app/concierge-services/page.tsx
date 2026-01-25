@@ -126,7 +126,7 @@ export default function ConciergeServicesPage() {
   return (
     <div className="min-h-screen bg-cream">
       {/* Modern Hero Section - No Image */}
-      <section className="relative min-h-[85vh] w-full overflow-hidden bg-gradient-to-br from-primary via-primary-light to-primary">
+      <section className="relative min-h-[85vh] w-full overflow-hidden bg-gradient-to-br from-primary via-primary-light to-primary pt-24">
         {/* Animated Background Pattern */}
         <div className="absolute inset-0 opacity-20">
           <div className="absolute top-20 left-10 w-72 h-72 bg-secondary rounded-full blur-3xl animate-pulse"></div>
@@ -141,7 +141,7 @@ export default function ConciergeServicesPage() {
         </div>
 
         {/* Content */}
-        <div className="relative z-10 flex items-center justify-center min-h-[85vh] px-4">
+        <div className="relative z-10 flex items-center justify-center min-h-[calc(85vh-6rem)] px-4">
           <div className="max-w-5xl mx-auto text-center">
             {/* Floating Badge */}
             <div className="inline-flex items-center gap-2 mb-8 px-6 py-3 bg-white/10 backdrop-blur-sm rounded-full border border-white/20">

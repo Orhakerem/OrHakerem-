@@ -47,7 +47,7 @@ export default function ShortTermRentalsPage() {
 
   return (
     <div className="min-h-screen bg-cream">
-      <section className="relative min-h-[85vh] w-full overflow-hidden bg-gradient-to-br from-primary via-primary-light to-primary">
+      <section className="relative min-h-[85vh] w-full overflow-hidden bg-gradient-to-br from-primary via-primary-light to-primary pt-24">
         <div className="absolute inset-0 opacity-20">
           <div className="absolute top-20 left-10 w-72 h-72 bg-secondary rounded-full blur-3xl animate-shimmer-glow"></div>
           <div className="absolute bottom-20 right-10 w-96 h-96 bg-tertiary rounded-full blur-3xl animate-shimmer-glow" style={{ animationDelay: '2s' }}></div>
@@ -67,7 +67,7 @@ export default function ShortTermRentalsPage() {
           <div className="absolute top-1/2 right-1/3 w-12 h-12 border border-tertiary/20 rounded-full animate-float-drift" style={{ animationDelay: '5s' }}></div>
         </div>
 
-        <div className="relative z-10 flex items-center justify-center min-h-[85vh] px-4">
+        <div className="relative z-10 flex items-center justify-center min-h-[calc(85vh-6rem)] px-4">
           <div className="max-w-5xl mx-auto text-center">
             <div className="inline-flex items-center gap-2 mb-8 px-6 py-3 bg-white/10 backdrop-blur-sm rounded-full border border-white/20">
               <Home className="w-5 h-5 text-secondary animate-pulse" />
