@@ -162,6 +162,12 @@ const Home: React.FC = () => {
       {/* White Separator */}
       <div className="h-12 bg-white"></div>
 
+      {/* Promotional Carousel with Events CTA */}
+      <PromotionalCarousel />
+
+      {/* White Separator */}
+      <div className="h-12 bg-white"></div>
+
       {/* Events Tel Aviv Section */}
       <section className="py-16 bg-cream relative overflow-hidden">
         <div className="absolute inset-0">
@@ -209,12 +215,6 @@ const Home: React.FC = () => {
           </div>
         </div>
       </section>
-
-      {/* White Separator */}
-      <div className="h-12 bg-white"></div>
-
-      {/* Promotional Carousel with Events CTA */}
-      <PromotionalCarousel />
 
       {/* White Separator */}
       <div className="h-12 bg-white"></div>
