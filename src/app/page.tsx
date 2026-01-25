@@ -56,7 +56,7 @@ const Home: React.FC = () => {
         {/* Title Overlay */}
         <div className="hero-title">
           <h1 className="font-playfair font-bold hero-subtitle">
-            Luxury Rental Tel Aviv | Premium Short Term Apartments in Kerem HaTeimanim
+            Premium Short Term Apartments in the heart of Tel Aviv
           </h1>
           <p className="text-lg md:text-xl max-w-2xl leading-relaxed mt-4 hero-subtitle">
             Experience Or Hakerem – where exceptional hospitality meets contemporary elegance in the heart of Tel Aviv
