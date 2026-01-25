@@ -49,14 +49,22 @@ export default function ShortTermRentalsPage() {
     <div className="min-h-screen bg-cream">
       <section className="relative min-h-[85vh] w-full overflow-hidden bg-gradient-to-br from-primary via-primary-light to-primary">
         <div className="absolute inset-0 opacity-20">
-          <div className="absolute top-20 left-10 w-72 h-72 bg-secondary rounded-full blur-3xl animate-pulse"></div>
-          <div className="absolute bottom-20 right-10 w-96 h-96 bg-tertiary rounded-full blur-3xl animate-pulse" style={{ animationDelay: '1s' }}></div>
-          <div className="absolute top-1/2 left-1/3 w-64 h-64 bg-white rounded-full blur-3xl animate-pulse" style={{ animationDelay: '2s' }}></div>
+          <div className="absolute top-20 left-10 w-72 h-72 bg-secondary rounded-full blur-3xl animate-shimmer-glow"></div>
+          <div className="absolute bottom-20 right-10 w-96 h-96 bg-tertiary rounded-full blur-3xl animate-shimmer-glow" style={{ animationDelay: '2s' }}></div>
+          <div className="absolute top-1/2 left-1/3 w-64 h-64 bg-white rounded-full blur-3xl animate-shimmer-glow" style={{ animationDelay: '4s' }}></div>
         </div>
 
-        <div className="absolute inset-0 overflow-hidden">
-          <div className="absolute top-40 right-20 w-32 h-32 border-4 border-secondary/30 rounded-lg rotate-12 animate-spin-slow"></div>
-          <div className="absolute bottom-40 left-20 w-24 h-24 border-4 border-tertiary/30 rounded-full animate-bounce-slow"></div>
+        <div className="absolute inset-0 overflow-hidden pointer-events-none">
+          <div className="absolute top-1/4 right-1/4 w-3 h-3 bg-secondary/40 rounded-full animate-float-up" style={{ animationDelay: '0s' }}></div>
+          <div className="absolute top-1/3 right-1/3 w-2 h-2 bg-white/30 rounded-full animate-float-up" style={{ animationDelay: '2s' }}></div>
+          <div className="absolute top-1/2 left-1/4 w-4 h-4 bg-tertiary/30 rounded-full animate-float-up" style={{ animationDelay: '4s' }}></div>
+          <div className="absolute top-2/3 right-1/5 w-2 h-2 bg-secondary/50 rounded-full animate-float-up" style={{ animationDelay: '6s' }}></div>
+          <div className="absolute top-3/4 left-1/3 w-3 h-3 bg-white/40 rounded-full animate-float-up" style={{ animationDelay: '8s' }}></div>
+          <div className="absolute top-1/5 left-2/3 w-2 h-2 bg-tertiary/40 rounded-full animate-float-up" style={{ animationDelay: '10s' }}></div>
+
+          <div className="absolute top-32 right-16 w-20 h-20 border-2 border-secondary/20 rounded-full animate-float-drift"></div>
+          <div className="absolute bottom-32 left-16 w-16 h-16 border-2 border-white/15 rounded-lg animate-float-drift" style={{ animationDelay: '3s' }}></div>
+          <div className="absolute top-1/2 right-1/3 w-12 h-12 border border-tertiary/20 rounded-full animate-float-drift" style={{ animationDelay: '5s' }}></div>
         </div>
 
         <div className="relative z-10 flex items-center justify-center min-h-[85vh] px-4">
@@ -321,41 +329,46 @@ export default function ShortTermRentalsPage() {
         </div>
       </section>
 
-      <section className="relative py-24 bg-gradient-to-br from-primary via-primary to-primary-light overflow-hidden">
+      <div className="h-12 bg-white"></div>
+
+      <section className="relative py-16 bg-gradient-to-br from-primary via-primary to-primary-light overflow-hidden rounded-3xl mx-4 mb-16">
         <div className="absolute inset-0">
-          <div className="absolute top-10 left-5 w-24 h-24 bg-secondary/10 rounded-full blur-2xl"></div>
-          <div className="absolute bottom-10 right-5 w-32 h-32 bg-tertiary/10 rounded-full blur-2xl"></div>
+          <div className="absolute top-10 left-10 w-24 h-24 bg-secondary/10 rounded-full blur-2xl"></div>
+          <div className="absolute bottom-10 right-10 w-32 h-32 bg-tertiary/10 rounded-full blur-2xl"></div>
         </div>
 
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 text-center">
-          <h2 className="font-playfair text-4xl md:text-5xl font-bold text-white mb-6">
+          <span className="text-secondary font-semibold tracking-wider uppercase mb-4 block">
+            Start Your Journey
+          </span>
+          <h2 className="font-playfair text-3xl md:text-4xl font-bold text-white mb-6">
             Book Your Luxury Apartment in Tel Aviv Today
           </h2>
-          <p className="text-white/90 text-lg leading-relaxed mb-8 max-w-3xl mx-auto">
-            Experience Tel Aviv the way it&apos;s meant to be experienced. Our <strong>short term rental</strong> apartments combine prime location, luxury amenities, and exceptional service to create the perfect base for your Israeli adventure. Whether you&apos;re here for business, pleasure, or somewhere in between, we have the ideal <strong>apartment Tel Aviv</strong> space waiting for you.
+          <p className="text-white/90 text-lg leading-relaxed mb-6 max-w-3xl mx-auto">
+            Experience Tel Aviv the way it&apos;s meant to be experienced. Our <strong>short term rental</strong> apartments combine prime location, luxury amenities, and exceptional service to create the perfect base for your Israeli adventure.
           </p>
-          <p className="text-white/90 text-lg leading-relaxed mb-12 max-w-3xl mx-auto">
-            Don&apos;t settle for ordinary hotel rooms when you can enjoy the space, privacy, and authentic local experience of a <strong>luxury apartment in Tel Aviv</strong>. Our properties book quickly, especially during peak seasons, so secure your dates today.
+          <p className="text-white/90 text-lg leading-relaxed mb-10 max-w-3xl mx-auto">
+            Don&apos;t settle for ordinary hotel rooms when you can enjoy the space, privacy, and authentic local experience of a <strong>luxury apartment in Tel Aviv</strong>.
           </p>
 
-          <div className="flex flex-col sm:flex-row gap-6 justify-center">
+          <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <button
               onClick={() => router.push('/properties')}
-              className="inline-flex items-center justify-center bg-gradient-to-r from-secondary to-secondary-light text-primary px-10 py-5 rounded-full font-semibold text-xl hover:from-secondary-light hover:to-secondary transition-all duration-300 shadow-xl hover:shadow-2xl transform hover:scale-105"
+              className="inline-flex items-center justify-center bg-gradient-to-r from-secondary to-secondary-light text-primary px-8 py-4 rounded-full font-semibold text-lg hover:from-secondary-light hover:to-secondary transition-all duration-300 shadow-xl hover:shadow-2xl transform hover:scale-105"
             >
-              <Calendar className="w-7 h-7 mr-3" />
+              <Calendar className="w-6 h-6 mr-3" />
               <span>View Available Apartments</span>
             </button>
 
             <Link
               href="/reservation"
-              className="inline-flex items-center justify-center bg-white/20 backdrop-blur-sm text-white px-10 py-5 rounded-full font-semibold text-xl hover:bg-white/30 transition-all duration-300 border border-white/30"
+              className="inline-flex items-center justify-center bg-white/20 backdrop-blur-sm text-white px-8 py-4 rounded-full font-semibold text-lg hover:bg-white/30 transition-all duration-300 border border-white/30"
             >
               <span>Make a Reservation</span>
             </Link>
           </div>
 
-          <p className="text-white/70 text-sm mt-8">
+          <p className="text-white/70 text-sm mt-6">
             Questions? Contact us anytime – our team is here to help you find your perfect Tel Aviv home.
           </p>
         </div>
