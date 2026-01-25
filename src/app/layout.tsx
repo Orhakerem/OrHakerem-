@@ -8,9 +8,9 @@ import GoogleAnalytics from '@/components/GoogleAnalytics';
 import './globals.css';
 
 export const metadata: Metadata = {
-  title: 'Or Hakerem - Luxury Properties in Tel Aviv',
-  description: 'Experience luxury living in Tel Aviv with our premium apartments and exceptional concierge services in Kerem HaTeimanim.',
-  keywords: 'luxury apartments Tel Aviv, Kerem HaTeimanim, vacation rentals, concierge services, penthouse jacuzzi, Tel Aviv accommodation',
+  title: 'Luxury Rental Tel Aviv | Or Hakerem | Kerem HaTeimanim',
+  description: 'Premium short term rental in Tel Aviv. Luxury apartments in Kerem HaTeimanim. Property management & events Tel Aviv. Book your stay at Or Hakerem.',
+  keywords: 'hakerem, luxury rental Tel Aviv, short term rental in Tel Aviv, luxury apartment in Tel Aviv, apartment Tel Aviv, events Tel Aviv, Kerem HaTeimanim, property management Tel Aviv, vacation rentals Israel',
   authors: [{ name: 'Or Hakerem' }],
   creator: 'Or Hakerem',
   publisher: 'Or Hakerem',
@@ -24,8 +24,8 @@ export const metadata: Metadata = {
     canonical: '/',
   },
   openGraph: {
-    title: 'Or Hakerem - Luxury Properties in Tel Aviv',
-    description: 'Experience luxury living in Tel Aviv with our premium apartments and exceptional concierge services in Kerem HaTeimanim.',
+    title: 'Luxury Rental Tel Aviv | Or Hakerem | Kerem HaTeimanim',
+    description: 'Premium short term rental in Tel Aviv. Luxury apartments in Kerem HaTeimanim. Property management & events Tel Aviv. Book your stay at Or Hakerem.',
     url: 'https://orhakerem.vercel.app',
     siteName: 'Or Hakerem',
     images: [
@@ -41,8 +41,8 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Or Hakerem - Luxury Properties in Tel Aviv',
-    description: 'Experience luxury living in Tel Aviv with our premium apartments and exceptional concierge services.',
+    title: 'Luxury Rental Tel Aviv | Or Hakerem | Kerem HaTeimanim',
+    description: 'Premium short term rental in Tel Aviv. Luxury apartments in Kerem HaTeimanim. Property management & events Tel Aviv.',
     images: ['/favicon/web-app-manifest-512x512.png'],
   },
   robots: {
