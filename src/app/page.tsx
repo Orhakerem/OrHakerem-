@@ -191,11 +191,11 @@ const Home: React.FC = () => {
               </div>
 
               <div className="max-w-4xl space-y-6 text-lg md:text-xl">
-                <p className="text-primary/90 leading-relaxed font-light font-lato">
+                <p className="text-primary/90 leading-relaxed font-light font-lato text-center">
                   Transform your special occasions into unforgettable memories at Or Hakerem. Our <span className="font-medium text-secondary">luxury apartments in Tel Aviv</span> serve as exclusive venues for intimate events, from milestone celebrations and engagement dinners to corporate gatherings and private parties. The Penthouse, with its expansive terrace and rooftop jacuzzi, provides a breathtaking backdrop for <span className="font-medium text-tertiary">events Tel Aviv</span> accommodating up to 30 guests. Our event coordination team manages every detail, from catering arrangements to ambiance creation, allowing you to focus solely on celebrating with your loved ones.
                 </p>
 
-                <p className="text-primary/85 leading-relaxed font-light font-lato">
+                <p className="text-primary/85 leading-relaxed font-light font-lato text-center">
                   Choosing Or Hakerem for <span className="font-medium text-secondary">events Tel Aviv</span> means selecting a venue that combines residential warmth with boutique hotel sophistication. Unlike traditional event spaces, our properties offer the intimacy and comfort of a private home while delivering professional event services. Whether hosting a sunset cocktail reception or an elegant dinner party, your celebration benefits from our prime Kerem HaTeimanim location and comprehensive concierge support.
                 </p>
               </div>
