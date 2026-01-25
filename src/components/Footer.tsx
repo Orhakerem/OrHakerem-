@@ -125,32 +125,38 @@ export default function Footer() {
           {/* Mobile Navigation - Horizontal Compact */}
           <div className="text-center mb-4">
             <div className="flex flex-wrap justify-center gap-x-4 gap-y-1 text-sm">
-              <Link 
-                href="/properties" 
+              <Link
+                href="/properties"
                 className="text-white/90 hover:text-secondary transition-colors duration-300"
               >
                 Properties
               </Link>
-              <Link 
-                href="/concierge-services" 
+              <Link
+                href="/concierge-services"
                 className="text-white/90 hover:text-secondary transition-colors duration-300"
               >
                 Services
               </Link>
-              <Link 
-                href="/events" 
+              <Link
+                href="/events"
                 className="text-white/90 hover:text-secondary transition-colors duration-300"
               >
                 Events
               </Link>
-              <Link 
-                href="/terms" 
+              <Link
+                href="/property-management"
+                className="text-white/90 hover:text-secondary transition-colors duration-300"
+              >
+                Management
+              </Link>
+              <Link
+                href="/terms"
                 className="text-white/90 hover:text-secondary transition-colors duration-300"
               >
                 Terms
               </Link>
-              <Link 
-                href="/privacy" 
+              <Link
+                href="/privacy"
                 className="text-white/90 hover:text-secondary transition-colors duration-300"
               >
                 Privacy
@@ -270,27 +276,33 @@ export default function Footer() {
             {/* Column 3: Quick Links - Bigger Text */}
             <div className="text-center md:text-left">
               <h3 className="font-playfair text-xl font-bold text-secondary mb-2 leading-none">Navigation</h3>
-              
+
               <nav className="space-y-0.5">
-                <Link 
-                  href="/properties" 
+                <Link
+                  href="/properties"
                   className="block text-white/90 hover:text-secondary hover:translate-x-2 transition-all duration-300 text-xl font-medium p-1 rounded-lg hover:bg-white/10 leading-none"
                 >
                   Accommodations
                 </Link>
-                <Link 
-                  href="/concierge-services" 
+                <Link
+                  href="/concierge-services"
                   className="block text-white/90 hover:text-secondary hover:translate-x-2 transition-all duration-300 text-xl font-medium p-1 rounded-lg hover:bg-white/10 leading-none"
                 >
                   Concierge Services
                 </Link>
-                <Link 
-                  href="/events" 
+                <Link
+                  href="/events"
                   className="block text-white/90 hover:text-secondary hover:translate-x-2 transition-all duration-300 text-xl font-medium p-1 rounded-lg hover:bg-white/10 leading-none"
                 >
                   Events
                 </Link>
-                <Link 
+                <Link
+                  href="/property-management"
+                  className="block text-white/90 hover:text-secondary hover:translate-x-2 transition-all duration-300 text-xl font-medium p-1 rounded-lg hover:bg-white/10 leading-none"
+                >
+                  Property Management
+                </Link>
+                <Link
                   href="/#contact"
                   onClick={handleContactClick}
                   className="block text-white/90 hover:text-secondary hover:translate-x-2 transition-all duration-300 text-xl font-medium p-1 rounded-lg hover:bg-white/10 leading-none cursor-pointer"

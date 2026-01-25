@@ -3,7 +3,7 @@
 import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { Home, Building, Sparkles, Menu, X, Users } from 'lucide-react';
+import { Home, Building, Sparkles, Menu, X, Users, Briefcase } from 'lucide-react';
 import Image from 'next/image';
 
 function Navbar() {
@@ -85,6 +85,15 @@ function Navbar() {
             >
               <Users className="w-4 h-4 mr-2" aria-hidden="true" />
               <span>Events</span>
+            </Link>
+
+            <Link
+              href="/property-management"
+              className={`nav-item-floating ${isActive('/property-management') ? 'active' : ''}`}
+              aria-current={isActive('/property-management') ? 'page' : undefined}
+            >
+              <Briefcase className="w-4 h-4 mr-2" aria-hidden="true" />
+              <span>Management</span>
             </Link>
           </div>
 
@@ -170,6 +179,16 @@ function Navbar() {
                 >
                   <Users className="w-4 h-4 mr-3" aria-hidden="true" />
                   <span>Events</span>
+                </Link>
+
+                <Link
+                  href="/property-management"
+                  onClick={closeMobileMenu}
+                  className={`mobile-nav-item-floating ${isActive('/property-management') ? 'active' : ''}`}
+                  aria-current={isActive('/property-management') ? 'page' : undefined}
+                >
+                  <Briefcase className="w-4 h-4 mr-3" aria-hidden="true" />
+                  <span>Property Management</span>
                 </Link>
               </div>
             </div>
