@@ -56,10 +56,10 @@ const Home: React.FC = () => {
         {/* Title Overlay */}
         <div className="hero-title">
           <h1 className="font-playfair font-bold hero-subtitle">
-            Premium Short Term Apartments in the heart of Tel Aviv
+             Short-term rental apartments in the center of Tel Aviv
           </h1>
           <p className="text-lg md:text-xl max-w-2xl leading-relaxed mt-4 hero-subtitle">
-            Experience Or Hakerem – where exceptional hospitality meets contemporary elegance in the heart of Tel Aviv
+            Discover a new place where your experience is different but better - Orhakerem
           </p>
         </div>
       </div>
@@ -92,11 +92,11 @@ const Home: React.FC = () => {
 
               <div className="max-w-4xl space-y-6 text-lg md:text-xl">
                 <p className="text-primary/90 leading-relaxed font-light font-lato">
-                  Discover the art of refined living at Or Hakerem, Tel Aviv&apos;s premier destination for <span className="font-medium text-secondary">luxury rental</span> accommodations. Nestled in the historic and vibrant neighborhood of Kerem HaTeimanim, our meticulously curated properties redefine <span className="font-medium text-secondary">short term rental</span> experiences for discerning international travelers and local guests seeking an extraordinary escape in Israel&apos;s cultural capital.
+                  Start your experience in a city that never stops, differently, at Orhakerem, we offer a unique type of <span className="font-medium text-secondary">short term rental</span> accommodations where you feel at home. Nestled in the historic neighborhood of Kerem HaTeimanim, this unique building has a historical past, and his perfect location offers new apartments for short-term rental and events.
                 </p>
 
                 <p className="text-primary/85 leading-relaxed font-light font-lato">
-                  Whether you&apos;re planning an intimate celebration, a family gathering, or simply desire a sophisticated urban retreat, our <span className="font-medium text-tertiary">luxury apartment</span> offerings in Tel Aviv provide the perfect sanctuary. Each property has been thoughtfully designed to combine timeless elegance with modern convenience, ensuring every moment of your stay exceeds expectations.
+                  Whether you&apos;re planning an intimate celebration, a family gathering, or simply desire a sophisticated urban retreat, our <span className="font-medium text-tertiary">unique place</span> offers the perfect sanctuary in Tel Aviv for all of your demands. Each property has been thoughtfully designed to combine modern design with the history of this building and of the Kerem Hateimanim.
                 </p>
               </div>
 
@@ -119,102 +119,8 @@ const Home: React.FC = () => {
       {/* White Separator */}
       <div className="h-12 bg-white"></div>
 
-      {/* Your Luxury Apartment Section */}
-      <section className="py-16 bg-white relative overflow-hidden">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-          <div className="flex flex-col items-center">
-            <div className="flex-1 text-center">
-              <div className="mb-6">
-                <h2 className="font-playfair text-3xl md:text-4xl lg:text-5xl font-bold text-primary leading-tight mb-6">
-                  Your Luxury Apartment in Tel Aviv Awaits
-                </h2>
-              </div>
-
-              <div className="flex items-center justify-center mb-8">
-                <div className="w-12 h-px bg-gradient-to-r from-secondary to-tertiary"></div>
-                <div className="w-2 h-2 bg-secondary rounded-full mx-3 shadow-lg"></div>
-                <div className="w-12 h-px bg-gradient-to-l from-secondary to-tertiary"></div>
-              </div>
-
-              <div className="max-w-4xl space-y-6 text-lg md:text-xl">
-                <p className="text-primary/90 leading-relaxed font-light font-lato">
-                  Or Hakerem specializes in premium <span className="font-medium text-secondary">short term rental</span> properties that embody the essence of sophisticated Tel Aviv living. Our exclusive collection features two distinguished apartments: an intimate Studio perfect for couples and romantic getaways, and an expansive Penthouse complete with a private rooftop jacuzzi and panoramic city views. Both properties are located steps from the pulsing energy of Carmel Market and the serene Mediterranean coastline.
-                </p>
-
-                <p className="text-primary/85 leading-relaxed font-light font-lato">
-                  Kerem HaTeimanim, one of Tel Aviv&apos;s most authentic and charming districts, offers guests an unparalleled blend of historical character and modern vitality. This centuries-old Yemenite quarter is renowned for its culinary excellence, artisanal boutiques, and architectural heritage. From our prime location, you&apos;re mere minutes from Rothschild Boulevard, the bustling city center, world-class dining establishments, and Tel Aviv&apos;s legendary nightlife.
-                </p>
-              </div>
-
-              <div className="mt-10">
-                <h3 className="font-playfair text-2xl md:text-3xl font-semibold text-primary mb-6">
-                  Elevate Your Stay with Bespoke Concierge Services
-                </h3>
-                <p className="text-primary/85 leading-relaxed font-light font-lato text-lg md:text-xl max-w-4xl mx-auto">
-                  At Or Hakerem, luxury extends beyond exceptional accommodations. Our dedicated concierge team provides personalized services designed to enhance every aspect of your Tel Aviv experience. From pre-arrival grocery delivery and private airport transfers to restaurant reservations and curated city tours, we anticipate your needs before they arise. Professional babysitting services are available for families, ensuring parents can explore Tel Aviv&apos;s vibrant culture with complete peace of mind.
-                </p>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* White Separator */}
-      <div className="h-12 bg-white"></div>
-
       {/* Promotional Carousel with Events CTA */}
       <PromotionalCarousel />
-
-      {/* White Separator */}
-      <div className="h-12 bg-white"></div>
-
-      {/* Events Tel Aviv Section */}
-      <section className="py-16 bg-cream relative overflow-hidden">
-        <div className="absolute inset-0">
-          <div className="absolute top-10 left-10 w-24 h-24 bg-secondary/10 rounded-full blur-2xl"></div>
-          <div className="absolute bottom-10 right-10 w-32 h-32 bg-tertiary/10 rounded-full blur-2xl"></div>
-        </div>
-
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-          <div className="flex flex-col items-center">
-            <div className="flex-1 text-center">
-              <div className="mb-6">
-                <h2 className="font-playfair text-3xl md:text-4xl lg:text-5xl font-bold text-primary leading-tight mb-6">
-                  Events Tel Aviv – Your Private Celebration Venue
-                </h2>
-              </div>
-
-              <div className="flex items-center justify-center mb-8">
-                <div className="w-12 h-px bg-gradient-to-r from-secondary to-tertiary"></div>
-                <div className="w-2 h-2 bg-secondary rounded-full mx-3 shadow-lg"></div>
-                <div className="w-12 h-px bg-gradient-to-l from-secondary to-tertiary"></div>
-              </div>
-
-              <div className="max-w-4xl space-y-6 text-lg md:text-xl">
-                <p className="text-primary/90 leading-relaxed font-light font-lato text-center">
-                  Transform your special occasions into unforgettable memories at Or Hakerem. Our <span className="font-medium text-secondary">luxury apartments in Tel Aviv</span> serve as exclusive venues for intimate events, from milestone celebrations and engagement dinners to corporate gatherings and private parties. The Penthouse, with its expansive terrace and rooftop jacuzzi, provides a breathtaking backdrop for <span className="font-medium text-tertiary">events Tel Aviv</span> accommodating up to 30 guests. Our event coordination team manages every detail, from catering arrangements to ambiance creation, allowing you to focus solely on celebrating with your loved ones.
-                </p>
-
-                <p className="text-primary/85 leading-relaxed font-light font-lato text-center">
-                  Choosing Or Hakerem for <span className="font-medium text-secondary">events Tel Aviv</span> means selecting a venue that combines residential warmth with boutique hotel sophistication. Unlike traditional event spaces, our properties offer the intimacy and comfort of a private home while delivering professional event services. Whether hosting a sunset cocktail reception or an elegant dinner party, your celebration benefits from our prime Kerem HaTeimanim location and comprehensive concierge support.
-                </p>
-              </div>
-
-              <div className="mt-10 flex justify-center">
-                <Link
-                  href="/events"
-                  className="inline-flex items-center bg-gradient-to-r from-secondary to-secondary-light text-primary px-8 py-4 rounded-full font-semibold text-lg hover:from-secondary-light hover:to-secondary transition-all duration-300 shadow-xl hover:shadow-2xl transform hover:scale-105"
-                >
-                  <span className="mr-2">Discover Event Spaces</span>
-                  <div className="w-5 h-5 bg-primary/20 rounded-full flex items-center justify-center">
-                    <span className="text-primary text-xs">→</span>
-                  </div>
-                </Link>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
 
       {/* White Separator */}
       <div className="h-12 bg-white"></div>
