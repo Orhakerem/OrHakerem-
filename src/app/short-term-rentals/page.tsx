@@ -120,16 +120,6 @@ export default function ShortTermRentalsPage() {
 
 
       <section className="relative py-24 bg-cream">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-16">
-            <h2 className="font-playfair text-4xl md:text-5xl font-bold text-primary mb-6">
-              Premium Amenities in Every Apartment
-            </h2>
-            <p className="text-primary/80 text-lg max-w-3xl mx-auto">
-              Our <strong>luxury apartment in Tel Aviv</strong> rentals come fully equipped with modern amenities that ensure comfort and convenience throughout your stay.
-            </p>
-          </div>
-
           <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
             {[
               { icon: Wifi, title: 'High-Speed WiFi', description: 'Reliable fiber-optic internet for work and entertainment' },
@@ -240,13 +230,10 @@ export default function ShortTermRentalsPage() {
             Start Your Journey
           </span>
           <h2 className="font-playfair text-3xl md:text-4xl font-bold text-white mb-6">
-            Book Your Luxury Apartment in Tel Aviv Today
+            Book Your stay in Tel Aviv Today
           </h2>
           <p className="text-white/90 text-lg leading-relaxed mb-6 max-w-3xl mx-auto">
-            Experience Tel Aviv the way it&apos;s meant to be experienced. Our <strong>short term rental</strong> apartments combine prime location, luxury amenities, and exceptional service to create the perfect base for your Israeli adventure.
-          </p>
-          <p className="text-white/90 text-lg leading-relaxed mb-10 max-w-3xl mx-auto">
-            Don&apos;t settle for ordinary hotel rooms when you can enjoy the space, privacy, and authentic local experience of a <strong>luxury apartment in Tel Aviv</strong>.
+            Experience Tel Aviv the way it&apos;s meant to be experienced.
           </p>
 
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
