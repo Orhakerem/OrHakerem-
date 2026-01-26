@@ -219,6 +219,65 @@ const Home: React.FC = () => {
 
       {/* White Separator */}
       <div className="h-12 bg-white"></div>
+      
+      {/* Simple booking process section*/}
+      <section className="relative py-24 bg-white">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center mb-16">
+            <h2 className="font-playfair text-4xl md:text-5xl font-bold text-primary mb-6">
+              Simple Booking Process
+            </h2>
+            <p className="text-primary/80 text-lg max-w-3xl mx-auto">
+              Securing your <strong>short term rental in Tel Aviv</strong> is quick and straightforward. Here&apos;s how it works:
+            </p>
+          </div>
+
+          <div className="grid md:grid-cols-4 gap-8">
+            {[
+              {
+                step: '1',
+                title: 'Browse & Select',
+                description: 'Explore our available apartments and choose the perfect space for your needs and dates.'
+              },
+              {
+                step: '2',
+                title: 'Instant Booking',
+                description: 'Book directly through our website or contact us for personalized assistance and special requests.'
+              },
+              {
+                step: '3',
+                title: 'Easy Check-In',
+                description: 'Receive detailed arrival instructions. Self-check-in options available for maximum flexibility.'
+              },
+              {
+                step: '4',
+                title: 'Enjoy Your Stay',
+                description: 'Relax in your luxury apartment with 24/7 support available whenever you need us.'
+              }
+            ].map((item, index) => (
+              <div key={index} className="relative">
+                <div className="text-center">
+                  <div className="inline-flex items-center justify-center w-16 h-16 bg-gradient-to-br from-secondary to-secondary-light rounded-full mb-4 shadow-lg">
+                    <span className="text-primary font-bold text-2xl">{item.step}</span>
+                  </div>
+                  <h3 className="font-playfair text-xl font-bold text-primary mb-3">
+                    {item.title}
+                  </h3>
+                  <p className="text-primary/80 leading-relaxed">
+                    {item.description}
+                  </p>
+                </div>
+                {index < 3 && (
+                  <div className="hidden md:block absolute top-8 left-full w-full h-0.5 bg-gradient-to-r from-secondary to-transparent -translate-x-1/2"></div>
+                )}
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+        {/* White Separator */}
+      <div className="h-12 bg-white"></div>
 
       {/* Contact Section */}
       <section id="contact" className="py-12 bg-gradient-to-br from-primary via-primary to-primary-light relative overflow-hidden rounded-3xl mx-4">
