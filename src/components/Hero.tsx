@@ -18,9 +18,6 @@ export default function Hero() {
             <h1 className="font-playfair text-5xl md:text-6xl font-bold mb-4">
               Welcome to Or Hakerem
             </h1>
-            <p className="text-xl max-w-2xl">
-              Experience luxury rental in the heart of Tel Aviv with our premium accommodations
-            </p>
           </div>
         </div>
       </div>
