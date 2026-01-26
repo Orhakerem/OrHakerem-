@@ -81,7 +81,7 @@ export default function ShortTermRentalsPage() {
             </h1>
 
             <p className="text-xl md:text-2xl text-white/90 max-w-3xl mx-auto leading-relaxed mb-12">
-              Experience Tel Aviv like a local in our premium short-term rental apartments. Perfectly located in historic Kerem HaTeimanim, steps from the beach and city center.
+              Discover a new home in our premium short-term rental apartments. Perfectly located in historic Kerem HaTeimanim, steps from the beach and city center.
             </p>
 
             <div className="flex flex-wrap justify-center gap-4">
@@ -95,7 +95,7 @@ export default function ShortTermRentalsPage() {
               </div>
               <div className="px-6 py-3 bg-white/10 backdrop-blur-sm rounded-full border border-white/20 text-white/90 flex items-center gap-2">
                 <Clock className="w-4 h-4" />
-                <span>Instant Booking</span>
+                <span>Easy Booking</span>
               </div>
             </div>
 
@@ -122,10 +122,10 @@ export default function ShortTermRentalsPage() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
             <h2 className="font-playfair text-4xl md:text-5xl font-bold text-primary mb-6">
-              Why Choose Our Short Term Rental in Tel Aviv?
+              Yours advantages  
             </h2>
             <p className="text-primary/80 text-lg max-w-4xl mx-auto leading-relaxed">
-              Whether you&apos;re visiting Tel Aviv for business, leisure, or an extended stay, our <strong>luxury apartment Tel Aviv</strong> properties offer everything you need for an unforgettable experience. Unlike traditional hotels, our <strong>short term rental in Tel Aviv</strong> accommodations provide the space, comfort, and authentic local atmosphere that transforms your visit into a true home away from home.
+              Whether you&apos;re visiting Tel Aviv for business, leisure, or an extended stay, our <strong> properties </strong> offer everything you need to make the perfect experience that answers to all of your needs and expectations.
             </p>
           </div>
 
