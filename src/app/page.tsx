@@ -92,7 +92,7 @@ const Home: React.FC = () => {
 
               <div className="max-w-4xl space-y-6 text-lg md:text-xl">
                 <p className="text-primary/90 leading-relaxed font-light font-lato">
-                  Start your experience in a city that never stops, differently, at Orhakerem, we offer a unique type of <span className="font-medium text-secondary">short term rental</span> accommodations where you feel at home. Nestled in the historic neighborhood of Kerem HaTeimanim, this unique building has a historical past, and his perfect location offers new apartments for short-term rental and events.
+                  Start your experience in a city that never stops, but differently. At Orhakerem, we offer a unique type of <span className="font-medium text-secondary">short term rental</span> accommodations where you feel at home. Nestled in the historic neighborhood of Kerem HaTeimanim, this unique building has a historical past, and his perfect location offers new apartments for short-term rental and events.
                 </p>
 
                 <p className="text-primary/85 leading-relaxed font-light font-lato">
@@ -123,137 +123,7 @@ const Home: React.FC = () => {
       <PromotionalCarousel />
 
       {/* White Separator */}
-      <div className="h-12 bg-white"></div>
-
-      {/* Property Management Section */}
-      <section className="py-16 bg-white relative overflow-hidden hidden">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-          <div className="flex flex-col items-center">
-            <div className="flex-1 text-center">
-              <div className="mb-6">
-                <h2 className="font-playfair text-3xl md:text-4xl lg:text-5xl font-bold text-primary leading-tight mb-6">
-                  Professional Property Management Services
-                </h2>
-              </div>
-
-              <div className="flex items-center justify-center mb-8">
-                <div className="w-12 h-px bg-gradient-to-r from-secondary to-tertiary"></div>
-                <div className="w-2 h-2 bg-secondary rounded-full mx-3 shadow-lg"></div>
-                <div className="w-12 h-px bg-gradient-to-l from-secondary to-tertiary"></div>
-              </div>
-
-              <div className="max-w-4xl space-y-6 text-lg md:text-xl">
-                <p className="text-primary/90 leading-relaxed font-light font-lato">
-                  Property owners throughout Tel Aviv trust Or Hakerem to maximize their <span className="font-medium text-secondary">short term rental</span> income while maintaining the highest hospitality standards. Our comprehensive property management services include professional photography, dynamic pricing optimization, guest communication, 24/7 maintenance support, and meticulous housekeeping. We handle every operational aspect, from listing optimization across major booking platforms to guest screening and review management.
-                </p>
-
-                <p className="text-primary/85 leading-relaxed font-light font-lato">
-                  With an intimate understanding of Tel Aviv&apos;s <span className="font-medium text-tertiary">luxury rental</span> market and a commitment to delivering five-star guest experiences, Or Hakerem transforms properties into profitable investments. Our proven track record in Kerem HaTeimanim and surrounding neighborhoods demonstrates our ability to consistently achieve superior occupancy rates and maximize returns while preserving the integrity and condition of your valuable asset.
-                </p>
-              </div>
-
-              <div className="mt-10 flex justify-center">
-                <Link
-                  href="/contact"
-                  className="inline-flex items-center bg-gradient-to-r from-tertiary to-tertiary/90 text-white px-8 py-4 rounded-full font-semibold text-lg hover:from-tertiary/90 hover:to-tertiary transition-all duration-300 shadow-xl hover:shadow-2xl transform hover:scale-105"
-                >
-                  <span className="mr-2">Partner With Or Hakerem</span>
-                  <div className="w-5 h-5 bg-white/20 rounded-full flex items-center justify-center">
-                    <span className="text-white text-xs">→</span>
-                  </div>
-                </Link>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* White Separator */}
-      <div className="h-12 bg-white"></div>
-
-      {/* Why Choose Or Hakerem Section */}
-      <section className="py-16 bg-cream relative overflow-hidden">
-        <div className="absolute inset-0">
-          <div className="absolute top-6 left-6 w-16 h-16 bg-secondary/10 rounded-full blur-2xl"></div>
-          <div className="absolute bottom-6 right-6 w-20 h-20 bg-tertiary/10 rounded-full blur-2xl"></div>
-        </div>
-
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-          <div className="flex flex-col items-center">
-            <div className="flex-1 text-center">
-              <div className="mb-6">
-                <h3 className="font-playfair text-2xl md:text-3xl lg:text-4xl font-semibold text-primary leading-tight mb-6">
-                  Why Choose Or Hakerem for Your Tel Aviv Stay
-                </h3>
-              </div>
-
-              <div className="flex items-center justify-center mb-8">
-                <div className="w-12 h-px bg-gradient-to-r from-secondary to-tertiary"></div>
-                <div className="w-2 h-2 bg-secondary rounded-full mx-3 shadow-lg"></div>
-                <div className="w-12 h-px bg-gradient-to-l from-secondary to-tertiary"></div>
-              </div>
-
-              <div className="max-w-4xl space-y-6 text-lg md:text-xl">
-                <p className="text-primary/90 leading-relaxed font-light font-lato">
-                  Unlike conventional hotels or impersonal rental platforms, Or Hakerem offers boutique hospitality with authentic local expertise. Every guest receives personalized attention from our multilingual team, who provide insider recommendations and ensure seamless experiences from booking through departure. Our <span className="font-medium text-secondary">luxury apartments in Tel Aviv</span> feature premium furnishings, fully equipped kitchens with high-end appliances, premium bedding and linens, fast fiber-optic WiFi, and thoughtful amenities that make you feel instantly at home.
-                </p>
-
-                <p className="text-primary/85 leading-relaxed font-light font-lato">
-                  The Or Hakerem difference lies in our obsessive attention to detail and genuine passion for hospitality. We&apos;ve cultivated a collection of properties that reflect Tel Aviv&apos;s unique character while meeting international luxury standards. From the moment you inquire about availability until long after your departure, our commitment to exceptional service remains unwavering. This dedication has earned us countless five-star reviews and a loyal community of returning guests who consider Or Hakerem their Tel Aviv home away from home.
-                </p>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* White Separator */}
-      <div className="h-12 bg-white"></div>
-
-      {/* Book Your Luxury Rental Section */}
-      <section className="py-16 bg-white relative overflow-hidden">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-          <div className="flex flex-col items-center">
-            <div className="flex-1 text-center">
-              <div className="mb-6">
-                <h2 className="font-playfair text-3xl md:text-4xl lg:text-5xl font-bold text-primary leading-tight mb-6">
-                  Book Your Luxury Rental in Tel Aviv Today
-                </h2>
-              </div>
-
-              <div className="flex items-center justify-center mb-8">
-                <div className="w-12 h-px bg-gradient-to-r from-secondary to-tertiary"></div>
-                <div className="w-2 h-2 bg-secondary rounded-full mx-3 shadow-lg"></div>
-                <div className="w-12 h-px bg-gradient-to-l from-secondary to-tertiary"></div>
-              </div>
-
-              <div className="max-w-4xl space-y-6 text-lg md:text-xl mb-10">
-                <p className="text-primary/90 leading-relaxed font-light font-lato">
-                  Ready to experience Tel Aviv through the lens of refined hospitality? Or Hakerem invites you to discover why discerning travelers consistently choose our properties for their Kerem HaTeimanim accommodations. Browse our exclusive <span className="font-medium text-secondary">apartment Tel Aviv</span> collection, explore our comprehensive concierge services, and contact our reservations team to begin planning your unforgettable Tel Aviv journey. Whether seeking a romantic weekend escape, an extended family vacation, or an elegant venue for <span className="font-medium text-tertiary">events Tel Aviv</span>, your perfect <span className="font-medium text-secondary">luxury rental</span> awaits.
-                </p>
-              </div>
-
-              <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
-                <Link
-                  href="/properties"
-                  className="hidden inline-flex items-center bg-gradient-to-r from-secondary to-secondary-light text-primary px-8 py-4 rounded-full font-semibold text-lg hover:from-secondary-light hover:to-secondary transition-all duration-300 shadow-xl hover:shadow-2xl transform hover:scale-105"
-                >
-                  <span className="mr-2">Book Your Luxury Apartment Now</span>
-                  <div className="w-5 h-5 bg-primary/20 rounded-full flex items-center justify-center">
-                    <span className="text-primary text-xs">→</span>
-                  </div>
-                </Link>
-                <p className="text-primary/70 text-base font-medium">
-                  Experience world-class hospitality in the heart of Tel Aviv
-                </p>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* White Separator */}
-      <div className="h-12 bg-white"></div>
+      <div className="h-12 bg-white"> </div>
 
       {/* Concierge Services */}
       <section className="py-12 bg-gradient-to-br from-primary via-primary to-primary-light relative overflow-hidden rounded-3xl mx-4">
