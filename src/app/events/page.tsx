@@ -1,6 +1,6 @@
 'use client';
 
-import { Calendar, Mail, MessageSquare, Phone, Sparkles, Star, ArrowUp } from 'lucide-react';
+import { Calendar, Mail, MessageSquare, Phone, Check, Star, ArrowUp } from 'lucide-react';
 import toast from 'react-hot-toast';
 
 import React, { useState, useEffect, useRef } from 'react';
@@ -169,7 +169,7 @@ export default function Events() {
                       key={index}
                       className="flex items-start group"
                     >
-                      <Sparkles className="w-5 h-5 text-secondary mr-3 flex-shrink-0 mt-0.5 group-hover:scale-110 transition-transform duration-300" />
+                      <Check className="w-5 h-5 text-secondary mr-3 flex-shrink-0 mt-0.5 group-hover:scale-110 transition-transform duration-300" />
                       <span className="text-primary/80 group-hover:text-primary transition-colors duration-300">{feature}</span>
                     </div>
                   ))}

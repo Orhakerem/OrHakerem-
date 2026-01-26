@@ -3,7 +3,7 @@
 import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { Home, Building, Sparkles, Menu, X, Users, Key } from 'lucide-react';
+import { Home, Building, Menu, X, Users, Key } from 'lucide-react';
 import Image from 'next/image';
 
 function Navbar() {
@@ -74,7 +74,6 @@ function Navbar() {
               className={`nav-item-floating ${isActive('/concierge-services') ? 'active' : ''}`}
               aria-current={isActive('/concierge-services') ? 'page' : undefined}
             >
-              <Sparkles className="w-4 h-4 mr-2" aria-hidden="true" />
               <span>Services</span>
             </Link>
 
@@ -167,7 +166,6 @@ function Navbar() {
                   className={`mobile-nav-item-floating ${isActive('/concierge-services') ? 'active' : ''}`}
                   aria-current={isActive('/concierge-services') ? 'page' : undefined}
                 >
-                  <Sparkles className="w-4 h-4 mr-3" aria-hidden="true" />
                   <span>Services</span>
                 </Link>
                 

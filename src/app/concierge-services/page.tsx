@@ -1,7 +1,7 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import { ArrowUp, Car, Baby, Calendar, ShoppingBasket, Sparkles, Sparkle, UtensilsCrossed } from 'lucide-react';
+import { ArrowUp, Car, Baby, Calendar, ShoppingBasket, Sparkle, UtensilsCrossed } from 'lucide-react';
 import toast from 'react-hot-toast';
 import { sendContactEmail } from '@/actions/contact';
 
@@ -143,14 +143,6 @@ export default function ConciergeServicesPage() {
         {/* Content */}
         <div className="relative z-10 flex items-start justify-center min-h-[calc(85vh-6rem)] px-4 pt-16">
           <div className="max-w-5xl mx-auto text-center">
-            {/* Floating Badge */}
-            <div className="inline-flex items-center gap-2 mb-8 px-6 py-3 bg-white/10 backdrop-blur-sm rounded-full border border-white/20">
-              <Sparkles className="w-5 h-5 text-secondary animate-pulse" />
-              <span className="text-white font-semibold text-sm tracking-wider uppercase">
-                Luxury Services
-              </span>
-            </div>
-
             {/* Main Heading with Animation */}
             <h1 className="font-playfair text-5xl md:text-7xl lg:text-8xl font-bold text-white mb-8 leading-tight animate-fade-in">
               Premium Concierge
