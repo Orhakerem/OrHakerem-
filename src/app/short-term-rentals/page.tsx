@@ -120,6 +120,7 @@ export default function ShortTermRentalsPage() {
 
 
       <section className="relative py-24 bg-cream">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
             {[
               { icon: Wifi, title: 'High-Speed WiFi', description: 'Reliable fiber-optic internet for work and entertainment' },
