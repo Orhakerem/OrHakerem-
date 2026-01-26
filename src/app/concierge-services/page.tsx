@@ -55,22 +55,22 @@ export default function ConciergeServicesPage() {
     {
       icon: ShoppingBasket,
       title: 'Grocery Delivery',
-      description: 'We offer delivery during your stays on demand and even before check-in. Have your favorite groceries and essentials waiting for you upon arrival, or request fresh supplies anytime during your stay for ultimate convenience.'
+      description: 'We offer delivery during your stay on demand and even before check-in.'
     },
     {
       icon: Car,
       title: 'Transportation',
-      description: 'Luxury vehicle rentals with professional chauffeurs and private airport transfers. Travel in ultimate comfort and style with our premium transportation solutions, perfectly timed to your schedule and preferences.'
+      description: 'Vehicle rentals with professional drivers and private airport and city-to-city transfers.'
     },
     {
       icon: Baby,
       title: 'Baby Sitting',
-      description: 'Certified childcare professionals available 24/7 for your complete peace of mind. Our vetted and experienced caregivers provide exceptional care, allowing you to enjoy your stay with confidence and relaxation.'
+      description: 'Certified childcare professionals available 24/7 for your complete peace of mind.'
     },
     {
       icon: Calendar,
       title: 'Event Planning',
-      description: 'Access to events and private celebrations with meticulous attention to detail. From intimate gatherings to grand celebrations, we orchestrate unforgettable experiences that exceed your expectations.'
+      description: 'Access to events and private celebrations with meticulous attention to every detail.'
     },
     {
       icon: Sparkle,
@@ -80,7 +80,7 @@ export default function ConciergeServicesPage() {
     {
       icon: UtensilsCrossed,
       title: 'Dining Reservation',
-      description: 'Experience the finest culinary destinations with our exclusive restaurant reservation service. We secure tables at the most sought-after establishments, ensuring you enjoy exceptional dining experiences throughout your stay.'
+      description: 'Experience the finest culinary destinations with our restaurant reservation service. We secure tables at the most sought-after establishments.'
     }
   ];
 
