@@ -118,67 +118,58 @@ export default function ShortTermRentalsPage() {
         </div>
       </section>
 
+
       <section className="relative py-24 bg-cream">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
             <h2 className="font-playfair text-4xl md:text-5xl font-bold text-primary mb-6">
-              Yours advantages  
+              Premium Amenities in Every Apartment
             </h2>
-            <p className="text-primary/80 text-lg max-w-4xl mx-auto leading-relaxed">
-              Whether you&apos;re visiting Tel Aviv for business, leisure, or an extended stay, our <strong> properties </strong> offer everything you need to make the perfect experience that answers to all of your needs and expectations.
+            <p className="text-primary/80 text-lg max-w-3xl mx-auto">
+              Our <strong>luxury apartment in Tel Aviv</strong> rentals come fully equipped with modern amenities that ensure comfort and convenience throughout your stay.
             </p>
           </div>
 
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8 mb-16">
-            <FeatureCard
-              icon={MapPin}
-              title="Unbeatable Location"
-              description="Our apartments are situated in Kerem HaTeimanim, Tel Aviv's most charming historic neighborhood. Walk to the beach in 2 minutes, explore the famous Carmel Market, and enjoy immediate access to the city's best restaurants, cafes, and nightlife."
-            />
-            <FeatureCard
-              icon={Home}
-              title="Fully Equipped Living"
-              description="Every apartment Tel Aviv property we offer comes fully furnished and equipped with everything you need: modern kitchen, high-speed WiFi, air conditioning, premium linens, washer, and thoughtful touches that make you feel at home from day one."
-            />
-            <FeatureCard
-              icon={Sparkles}
-              title="Stylish Design"
-              description="Experience contemporary luxury in beautifully designed spaces. Our luxury apartment in Tel Aviv properties blend modern aesthetics with comfort, featuring quality furnishings, tasteful decor, and attention to detail throughout."
-            />
-            <FeatureCard
-              icon={Shield}
-              title="Safe & Secure"
-              description="Your safety matters. All apartments feature secure entry systems, 24/7 emergency support, and comprehensive insurance coverage. We carefully screen guests and maintain the highest security standards for complete peace of mind."
-            />
-            <FeatureCard
-              icon={Clock}
-              title="Flexible Terms"
-              description="Whether you need a short term rental for a weekend getaway, month-long business trip, or extended stay, we accommodate your schedule. Flexible check-in times and customized lease terms designed around your needs."
-            />
-            <FeatureCard
-              icon={Star}
-              title="Exceptional Service"
-              description="From booking to checkout, our multilingual team provides white-glove service. Professional cleaning between stays, 24/7 guest support, concierge services, and local recommendations ensure a seamless experience."
-            />
+          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+            {[
+              { icon: Wifi, title: 'High-Speed WiFi', description: 'Reliable fiber-optic internet for work and entertainment' },
+              { icon: Home, title: 'Full Kitchen', description: 'Modern appliances, cookware, and everything for home cooking' },
+              { icon: Sparkles, title: 'Professional Cleaning', description: 'Thoroughly cleaned and sanitized before every arrival' },
+              { icon: Car, title: 'Easy Parking', description: 'Street parking available or garage options nearby' },
+              { icon: CheckCircle, title: 'Air Conditioning', description: 'Climate control throughout for year-round comfort' },
+              { icon: Users, title: 'Flexible Capacity', description: 'Accommodations from cozy studios to 6-person penthouses' },
+              { icon: Shield, title: 'Secure Access', description: 'Electronic locks and secure building entry systems' },
+              { icon: Clock, title: '24/7 Support', description: 'Round-the-clock assistance for any needs or questions' }
+            ].map((amenity, index) => (
+              <div key={index} className="bg-white rounded-xl p-6 hover:shadow-lg transition-all duration-300">
+                <amenity.icon className="w-10 h-10 text-secondary mb-4" />
+                <h3 className="font-playfair text-lg font-bold text-primary mb-2">
+                  {amenity.title}
+                </h3>
+                <p className="text-primary/70 text-sm">
+                  {amenity.description}
+                </p>
+              </div>
+            ))}
           </div>
         </div>
       </section>
-
+      
       <section className="relative py-24 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid lg:grid-cols-2 gap-12 items-center">
             <div>
               <h2 className="font-playfair text-4xl md:text-5xl font-bold text-primary mb-6">
-                Discover Kerem HaTeimanim – Your Perfect Tel Aviv Base
+                Discover Kerem HaTeimanim – Your only Tel Aviv Base
               </h2>
               <p className="text-primary/80 text-lg leading-relaxed mb-6">
-                When searching for an <strong>apartment Tel Aviv</strong> rental, location defines your entire experience. Kerem HaTeimanim, one of Tel Aviv&apos;s oldest and most authentic neighborhoods, offers the perfect blend of local culture and modern convenience.
+                When searching for an <strong>apartment in Tel Aviv</strong>, location defines your entire experience and memories. Kerem HaTeimanim, one of Tel Aviv&apos;s oldest and most authentic neighborhoods, offers a unique blend of festivity and local atmosphere while being adapted for families and business trips.
               </p>
               <p className="text-primary/80 text-lg leading-relaxed mb-6">
-                This historic quarter sits at the crossroads of everything that makes Tel Aviv extraordinary. Mediterranean beaches lie just minutes away. The vibrant Carmel Market buzzes with fresh produce, spices, and local delicacies. Tree-lined streets wind past Bauhaus architecture, cozy cafes, and hidden wine bars that locals treasure.
+                This historic quarter sits at the crossroads of everything you want to experience at Tel Aviv. The unique Tayelet is only 2 minutes by walk from here. The Carmel Market to buy your everything and memories.
               </p>
               <p className="text-primary/80 text-lg leading-relaxed mb-8">
-                Choosing our <strong>short term rental in Tel Aviv</strong> here means waking up to the aroma of fresh pastries, strolling to the beach before breakfast, and experiencing the authentic rhythm of Israeli life. You&apos;re not just visiting Tel Aviv—you&apos;re living it.
+                Choosing <strong>Orhakerem</strong> means waking up to the aroma of fresh pastries, strolling to the beach before breakfast, and experiencing the authentic rhythm of Israeli life. You&apos;re not just visiting Tel Aviv, you&apos;re living it.
               </p>
 
               <div className="bg-cream rounded-xl p-6 border-l-4 border-secondary">
@@ -188,7 +179,7 @@ export default function ShortTermRentalsPage() {
                 <ul className="space-y-2 text-primary/80">
                   <li className="flex items-start">
                     <CheckCircle className="w-5 h-5 text-secondary mr-3 flex-shrink-0 mt-0.5" />
-                    <span>Beaches – 2 minutes</span>
+                    <span>Beach – 2 minutes</span>
                   </li>
                   <li className="flex items-start">
                     <CheckCircle className="w-5 h-5 text-secondary mr-3 flex-shrink-0 mt-0.5" />
@@ -238,42 +229,6 @@ export default function ShortTermRentalsPage() {
         </div>
       </section>
 
-      <section className="relative py-24 bg-cream">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-16">
-            <h2 className="font-playfair text-4xl md:text-5xl font-bold text-primary mb-6">
-              Premium Amenities in Every Apartment
-            </h2>
-            <p className="text-primary/80 text-lg max-w-3xl mx-auto">
-              Our <strong>luxury apartment in Tel Aviv</strong> rentals come fully equipped with modern amenities that ensure comfort and convenience throughout your stay.
-            </p>
-          </div>
-
-          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
-            {[
-              { icon: Wifi, title: 'High-Speed WiFi', description: 'Reliable fiber-optic internet for work and entertainment' },
-              { icon: Home, title: 'Full Kitchen', description: 'Modern appliances, cookware, and everything for home cooking' },
-              { icon: Sparkles, title: 'Professional Cleaning', description: 'Thoroughly cleaned and sanitized before every arrival' },
-              { icon: Car, title: 'Easy Parking', description: 'Street parking available or garage options nearby' },
-              { icon: CheckCircle, title: 'Air Conditioning', description: 'Climate control throughout for year-round comfort' },
-              { icon: Users, title: 'Flexible Capacity', description: 'Accommodations from cozy studios to 6-person penthouses' },
-              { icon: Shield, title: 'Secure Access', description: 'Electronic locks and secure building entry systems' },
-              { icon: Clock, title: '24/7 Support', description: 'Round-the-clock assistance for any needs or questions' }
-            ].map((amenity, index) => (
-              <div key={index} className="bg-white rounded-xl p-6 hover:shadow-lg transition-all duration-300">
-                <amenity.icon className="w-10 h-10 text-secondary mb-4" />
-                <h3 className="font-playfair text-lg font-bold text-primary mb-2">
-                  {amenity.title}
-                </h3>
-                <p className="text-primary/70 text-sm">
-                  {amenity.description}
-                </p>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
       <section className="relative py-16 bg-gradient-to-br from-primary via-primary to-primary-light overflow-hidden rounded-3xl mx-4 mb-16">
         <div className="absolute inset-0">
           <div className="absolute top-10 left-10 w-24 h-24 bg-secondary/10 rounded-full blur-2xl"></div>
@@ -316,7 +271,7 @@ export default function ShortTermRentalsPage() {
           </p>
         </div>
       </section>
-
+      
       {showBackToTop && (
         <button
           onClick={scrollToTop}
