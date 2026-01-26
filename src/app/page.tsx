@@ -268,7 +268,7 @@ const Home: React.FC = () => {
                   </p>
                 </div>
                 {index < 3 && (
-                  <div className="hidden md:block absolute top-8 left-full w-full h-0.5 bg-gradient-to-r from-secondary to-transparent -translate-x-1/2"></div>
+                  <div className="hidden md:block absolute top-8 left-full w-[calc(100%-4rem)] h-0.5 bg-gradient-to-r from-secondary to-transparent -translate-x-1/2"></div>
                 )}
               </div>
             ))}
