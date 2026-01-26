@@ -170,10 +170,6 @@ export default function Properties() {
           <h1 className="font-playfair text-5xl md:text-6xl font-bold text-primary mb-6 leading-tight">
             Properties
           </h1>
-          <p className="text-primary/80 text-xl max-w-3xl mx-auto leading-relaxed">
-            Discover our premium accommodations in Tel Aviv&apos;s vibrant Kerem HaTeimanim neighborhood. 
-            Each property offers a unique blend of modern luxury and historic charm.
-          </p>
         </div>
 
         {/* Properties Grid - Square Cards */}
