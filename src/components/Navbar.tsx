@@ -4,7 +4,6 @@ import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { Home, Building, Menu, X, Users, Key } from 'lucide-react';
-import Image from 'next/image';
 
 function Navbar() {
   const pathname = usePathname();
@@ -34,15 +33,6 @@ function Navbar() {
           {/* Logo Section - Centré verticalement */}
           <div className="logo-section-floating">
             <Link href="/" aria-label="Or Hakerem - Home" className="flex items-center">
-              <div className="relative w-[50px] h-[50px] mr-4">
-                <Image
-                  src="/orhakerem_logo_original.jpg"
-                  alt="Or Hakerem Logo"
-                  fill
-                  className="object-contain rounded-lg shadow-md transition-transform duration-300 hover:scale-105"
-                  priority
-                />
-              </div>
               <span className="logo-text-floating">
                 Or Hakerem
               </span>
@@ -110,15 +100,6 @@ function Navbar() {
         <div className="navbar-container-floating">
           <div className="logo-section-floating">
             <Link href="/" aria-label="Or Hakerem - Home" className="flex items-center" onClick={closeMobileMenu}>
-              <div className="relative w-[40px] h-[40px] mr-3">
-                <Image
-                  src="/orhakerem_logo_original.jpg"
-                  alt="Or Hakerem Logo"
-                  fill
-                  className="object-contain rounded-lg shadow-md"
-                  priority
-                />
-              </div>
               <span className="logo-text-floating mobile">
                 Or Hakerem
               </span>

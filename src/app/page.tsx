@@ -144,11 +144,6 @@ const Home: React.FC = () => {
 
           <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-4 mb-8 max-w-5xl mx-auto">
             <div className="group relative text-center p-4 bg-white/10 backdrop-blur-sm rounded-xl transition-all duration-500 hover:scale-105 hover:bg-white/20 hover:shadow-xl border border-white/20">
-              <div className="relative inline-block mb-3">
-                <div className="relative p-3 bg-gradient-to-br from-secondary to-secondary-light rounded-full shadow-lg group-hover:shadow-xl transition-all duration-300 group-hover:scale-110">
-                  <span className="text-2xl relative z-10">🛒</span>
-                </div>
-              </div>
               <h3 className="font-playfair text-lg font-bold text-white mb-2 group-hover:text-secondary transition-colors duration-300 relative z-10">
                 Grocery Delivery
               </h3>
@@ -158,11 +153,6 @@ const Home: React.FC = () => {
             </div>
 
             <div className="group relative text-center p-4 bg-white/10 backdrop-blur-sm rounded-xl transition-all duration-500 hover:scale-105 hover:bg-white/20 hover:shadow-xl border border-white/20">
-              <div className="relative inline-block mb-3">
-                <div className="relative p-3 bg-gradient-to-br from-secondary to-secondary-light rounded-full shadow-lg group-hover:shadow-xl transition-all duration-300 group-hover:scale-110">
-                  <span className="text-2xl relative z-10">🚗</span>
-                </div>
-              </div>
               <h3 className="font-playfair text-lg font-bold text-white mb-2 group-hover:text-secondary transition-colors duration-300 relative z-10">
                 Private Transfers
               </h3>
@@ -172,11 +162,6 @@ const Home: React.FC = () => {
             </div>
 
             <div className="group relative text-center p-4 bg-white/10 backdrop-blur-sm rounded-xl transition-all duration-500 hover:scale-105 hover:bg-white/20 hover:shadow-xl border border-white/20">
-              <div className="relative inline-block mb-3">
-                <div className="relative p-3 bg-gradient-to-br from-secondary to-secondary-light rounded-full shadow-lg group-hover:shadow-xl transition-all duration-300 group-hover:scale-110">
-                  <span className="text-2xl relative z-10">📅</span>
-                </div>
-              </div>
               <h3 className="font-playfair text-lg font-bold text-white mb-2 group-hover:text-secondary transition-colors duration-300 relative z-10">
                 Event Planning
               </h3>
@@ -186,11 +171,6 @@ const Home: React.FC = () => {
             </div>
 
             <div className="group relative text-center p-4 bg-white/10 backdrop-blur-sm rounded-xl transition-all duration-500 hover:scale-105 hover:bg-white/20 hover:shadow-xl border border-white/20">
-              <div className="relative inline-block mb-3">
-                <div className="relative p-3 bg-gradient-to-br from-secondary to-secondary-light rounded-full shadow-lg group-hover:shadow-xl transition-all duration-300 group-hover:scale-110">
-                  <span className="text-2xl relative z-10">👶</span>
-                </div>
-              </div>
               <h3 className="font-playfair text-lg font-bold text-white mb-2 group-hover:text-secondary transition-colors duration-300 relative z-10">
                 Baby Sitting
               </h3>

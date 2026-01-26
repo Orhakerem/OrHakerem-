@@ -1,6 +1,6 @@
 'use client';
 
-import { Calendar, Mail, MessageSquare, Phone, Star, ArrowUp } from 'lucide-react';
+import { Calendar, Mail, MessageSquare, Phone, ArrowUp } from 'lucide-react';
 import toast from 'react-hot-toast';
 
 import React, { useState, useEffect, useRef } from 'react';
@@ -136,7 +136,6 @@ export default function Events() {
                       key={index}
                       className="flex items-center justify-center p-4 bg-gradient-to-br from-secondary/10 to-tertiary/10 rounded-xl hover:from-secondary/20 hover:to-tertiary/20 transition-all duration-300"
                     >
-                      <Star className="w-4 h-4 text-tertiary mr-2 flex-shrink-0" />
                       <span className="text-primary font-medium text-sm">{event}</span>
                     </div>
                   ))}
