@@ -28,7 +28,7 @@ The outdoor dining area is perfect for BBQ evenings.
 
 The main feature of this apartment is the terrace, with amenities such as BBQ, jacuzzi and sea views you can be sure to have an unforgettable experience and leave with wonderful memories!`,
     price: 2500,
-    cleaningFee: 800,
+    cleaningFee: 650,
     images: [
       '/penthouse/1-jacuzzi-angle.JPEG',
       '/penthouse/salon_angle_1.JPG',
@@ -159,7 +159,7 @@ The main feature of this apartment is the terrace, with amenities such as BBQ, j
       { icon: Laptop, name: 'Work Space', description: 'Dedicated desk and chair' },
       { icon: Wifi, name: 'High-speed WiFi', description: 'Throughout the property' },
     ],
-    maxGuests: 6,
+    maxGuests: 7,
     bedrooms: 3,
     beds: 3,
     baths: 3,
@@ -179,8 +179,8 @@ The apartment is a large room divided into two parts: on one side you'll find th
 *Please Note: The ceiling in the room where the bed is is quite low, so if you're taller than 1m85 this could be a problem.
 
 The studio is located on the 1st floor of a unique building that is described as a historical monument dating from the Ottoman Empire.`,
-    price: 600,
-    cleaningFee: 250,
+    price: 450,
+    cleaningFee: 200,
     images: [
       '/studio/Salon_angle_1.jpg',
       '/studio/lit_angle_1.jpg',
@@ -417,18 +417,18 @@ export default function PropertyDetails() {
               <div className="bg-gradient-to-br from-cream to-white rounded-2xl p-8 border border-secondary/20 shadow-lg">
                 <div className="text-center mb-6">
                   <h3 className="font-playfair text-2xl font-bold text-primary mb-4">
-                    Réservez votre séjour
+                    Book your stay
                   </h3>
                   
                   {/* Pricing Information */}
                   <div className="bg-white rounded-xl p-6 mb-6 border border-primary/10 shadow-sm">
                     <div className="flex justify-between items-center mb-4">
-                      <span className="text-primary/80 text-lg">Prix par nuit :</span>
+                      <span className="text-primary/80 text-lg">Price per night :</span>
                       <span className="font-bold text-2xl text-primary">{property.price}₪</span>
                     </div>
                     <div className="flex justify-between items-center text-primary/70">
-                      <span>Frais de ménage :</span>
-                      <span className="font-semibold">{property.cleaningFee} shekels</span>
+                      <span>Cleaning fees:</span>
+                      <span className="font-semibold">{property.cleaningFee}₪</span>
                     </div>
                   </div>
 
@@ -440,12 +440,12 @@ export default function PropertyDetails() {
                       className="relative inline-flex items-center bg-gradient-to-r from-secondary to-secondary-light text-primary px-12 py-4 rounded-full font-semibold text-lg hover:from-secondary-light hover:to-secondary transition-all duration-300 shadow-xl hover:shadow-2xl transform hover:scale-105"
                     >
                       <Calendar className="w-6 h-6 mr-3" />
-                      <span>RÉSERVER MAINTENANT</span>
+                      <span>BOOK NOW</span>
                     </button>
                   </div>
                   
                   <p className="text-primary/70 text-sm mt-4 font-medium">
-                    Réponse garantie sous 24h
+                    Response within 24 hours garanteed
                   </p>
                 </div>
               </div>
