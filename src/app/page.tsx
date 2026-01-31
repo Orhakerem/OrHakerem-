@@ -56,10 +56,10 @@ const Home: React.FC = () => {
         {/* Title Overlay */}
         <div className="hero-title">
           <h1 className="font-playfair font-bold hero-subtitle">
-             Short-term rental apartments in the center of Tel Aviv
+             Short-term rental apartments in Tel Aviv
           </h1>
           <p className="text-lg md:text-xl max-w-2xl leading-relaxed mt-4 hero-subtitle">
-            Discover a new place where your experience is different but better - Orhakerem
+            Discover a new place where your experience is differently better - Orhakerem
           </p>
         </div>
       </div>
