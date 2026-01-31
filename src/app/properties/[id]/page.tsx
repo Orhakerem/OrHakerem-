@@ -179,7 +179,7 @@ The apartment is a large room divided into two parts: on one side you'll find th
 *Please Note: The ceiling in the room where the bed is is quite low, so if you're taller than 1m85 this could be a problem.
 
 The studio is located on the 1st floor of a unique building that is described as a historical monument dating from the Ottoman Empire.`,
-    price: 450,
+    price: 400,
     cleaningFee: 200,
     images: [
       '/studio/Salon_angle_1.jpg',
@@ -240,7 +240,7 @@ The studio is located on the 1st floor of a unique building that is described as
       { icon: Utensils, name: 'Full Amenities', description: 'All essentials provided' },
       { icon: Wifi, name: 'High-speed WiFi', description: 'Throughout the studio' },
     ],
-    maxGuests: 3,
+    maxGuests: 4,
     bedrooms: 1,
     beds: 1,
     baths: 1,
