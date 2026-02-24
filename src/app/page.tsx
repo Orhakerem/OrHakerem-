@@ -120,7 +120,7 @@ const Home: React.FC = () => {
       <div className="h-12 bg-white"></div>
 
       {/* Promotional Carousel with Events CTA */}
-      <PromotionalCarousel />
+      <PromotionalCarousel/>
 
       {/* White Separator */}
       <div className="h-12 bg-white"></div>
