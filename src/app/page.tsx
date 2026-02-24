@@ -59,7 +59,7 @@ const Home: React.FC = () => {
              Short-term rental apartments in Tel Aviv
           </h1>
         </div>
-
+      </div>
 
       {/* Welcome Section */}
       <section className="py-16 bg-cream relative overflow-hidden">
