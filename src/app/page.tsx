@@ -58,11 +58,7 @@ const Home: React.FC = () => {
           <h1 className="font-playfair font-bold hero-subtitle">
              Short-term rental apartments in Tel Aviv
           </h1>
-          <p className="text-lg md:text-xl max-w-2xl leading-relaxed mt-4 hero-subtitle">
-            Discover a new place where your experience is differently better - Orhakerem
-          </p>
         </div>
-      </div>
 
 
       {/* Welcome Section */}
