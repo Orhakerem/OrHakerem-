@@ -359,6 +359,64 @@ const Home: React.FC = () => {
       {/* White Separator */}
       <div className="h-12 bg-white"></div>
 
+      {/* Location Section */}
+      <section className="py-16 bg-cream relative overflow-hidden">
+        <div className="absolute inset-0">
+          <div className="absolute top-6 left-6 w-16 h-16 bg-secondary/10 rounded-full blur-2xl"></div>
+          <div className="absolute bottom-6 right-6 w-20 h-20 bg-tertiary/10 rounded-full blur-2xl"></div>
+        </div>
+
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+          <div className="flex flex-col items-center">
+            <div className="text-center mb-12">
+              <span className="text-secondary font-semibold text-lg tracking-[0.2em] uppercase block mb-3">
+                Our Location
+              </span>
+              <h2 className="font-playfair text-4xl md:text-5xl lg:text-6xl font-bold text-primary leading-tight mb-6">
+                At the Heart of Tel Aviv
+              </h2>
+            </div>
+
+            <div className="max-w-4xl w-full mb-8">
+              <p className="text-primary/90 text-lg md:text-xl leading-relaxed font-light text-center mb-8">
+                Our building is located at <span className="font-medium text-secondary">35 Hakovshim Street</span>, in the Kerem HaTeimanim neighborhood, just steps away from the beach and the Carmel Market.
+              </p>
+
+              <div className="w-full rounded-2xl overflow-hidden shadow-xl border border-primary/10">
+                <iframe
+                  src="https://www.google.com/maps?q=Hakovshim+35+Tel+Aviv&output=embed"
+                  width="100%"
+                  height="450"
+                  style={{ border: 0, minHeight: '400px' }}
+                  allowFullScreen
+                  loading="lazy"
+                  referrerPolicy="no-referrer-when-downgrade"
+                  className="w-full"
+                  title="Or Hakerem Location - 35 Hakovshim Street, Tel Aviv"
+                ></iframe>
+              </div>
+
+              <div className="text-center mt-8">
+                <a
+                  href="https://www.google.com/maps?q=Hakovshim+35+Tel+Aviv"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center bg-gradient-to-r from-secondary to-secondary-light text-primary px-8 py-4 rounded-full font-semibold text-lg hover:from-secondary-light hover:to-secondary transition-all duration-300 shadow-xl hover:shadow-2xl transform hover:scale-105"
+                >
+                  <span className="mr-2">Open in Google Maps</span>
+                  <div className="w-5 h-5 bg-primary/20 rounded-full flex items-center justify-center">
+                    <span className="text-primary text-xs">→</span>
+                  </div>
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* White Separator */}
+      <div className="h-12 bg-white"></div>
+
       {/* Testimonials Carousel */}
       <TestimonialsCarousel />
 
