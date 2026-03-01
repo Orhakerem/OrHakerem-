@@ -277,17 +277,11 @@
     font-size: 1.8rem;
     font-weight: 700;
     font-family: 'Playfair Display', serif;
-    text-shadow: 0 2px 8px rgba(0,0,0,0.2);
-    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-    background: linear-gradient(135deg, #d8b084 0%, #f4e4c1 100%);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
+    transition: all 0.3s ease;
   }
 
   .logo-text-floating:hover {
-    transform: scale(1.05);
-    filter: drop-shadow(0 4px 8px rgba(216, 176, 132, 0.4));
+    color: #f4e4c1;
   }
 
   .logo-text-floating.mobile {
@@ -381,25 +375,9 @@
     justify-content: center;
   }
 
-  .mobile-menu-button-floating::before {
-    content: '';
-    position: absolute;
-    inset: 0;
-    background: linear-gradient(135deg, rgba(232, 196, 154, 0.3), transparent);
-    border-radius: 20px;
-    opacity: 0;
-    transition: opacity 0.3s ease;
-  }
-
-  .mobile-menu-button-floating:hover::before {
-    opacity: 1;
-  }
-
   .mobile-menu-button-floating:hover {
-    background: linear-gradient(135deg, #e8c49a 0%, #d4a876 100%);
-    color: #8b2f23;
-    transform: scale(1.05);
-    box-shadow: 0 6px 20px rgba(216, 176, 132, 0.4);
+    color: #f4e4c1;
+    transition: color 0.3s ease;
   }
 
   .mobile-menu-floating {
@@ -440,46 +418,12 @@
     overflow: hidden;
   }
 
-  .mobile-nav-item-floating::before {
-    content: '';
-    position: absolute;
-    left: 0;
-    top: 0;
-    bottom: 0;
-    width: 4px;
-    background: linear-gradient(135deg, #d8b084 0%, #c49a6a 100%);
-    transform: scaleY(0);
-    transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-    border-radius: 0 4px 4px 0;
-  }
-
-  .mobile-nav-item-floating::after {
-    content: '';
-    position: absolute;
-    inset: 0;
-    background: linear-gradient(135deg, rgba(216, 176, 132, 0.15) 0%, rgba(216, 176, 132, 0.1) 100%);
-    transform: translateX(-100%);
-    transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-  }
-
-  .mobile-nav-item-floating:hover::before,
-  .mobile-nav-item-floating.active::before {
-    transform: scaleY(1);
-  }
-
-  .mobile-nav-item-floating:hover::after {
-    transform: translateX(0);
-  }
-
   .mobile-nav-item-floating:hover {
-    color: #8b2f23;
-    padding-left: 40px;
-    background: linear-gradient(135deg, rgba(216, 176, 132, 0.2) 0%, rgba(216, 176, 132, 0.15) 100%);
+    color: #f4e4c1;
   }
 
   .mobile-nav-item-floating.active {
-    background: linear-gradient(135deg, rgba(216, 176, 132, 0.25) 0%, rgba(216, 176, 132, 0.2) 100%);
-    color: #8b2f23;
+    color: #f4e4c1;
     font-weight: 700;
   }
 
