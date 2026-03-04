@@ -3,7 +3,7 @@
 import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { Home, Building, Menu, X, Users, Key } from 'lucide-react';
+import { Menu, X } from 'lucide-react';
 
 function Navbar() {
   const pathname = usePathname();
@@ -46,7 +46,6 @@ function Navbar() {
               className={`nav-item-floating ${isActive('/') ? 'active' : ''}`}
               aria-current={isActive('/') ? 'page' : undefined}
             >
-              <Home className="w-4 h-4 mr-2" aria-hidden="true" />
               <span>Home</span>
             </Link>
 
@@ -55,7 +54,7 @@ function Navbar() {
               className={`nav-item-floating ${isActive('/properties') ? 'active' : ''}`}
               aria-current={isActive('/properties') ? 'page' : undefined}
             >
-              <Building className="w-4 h-4 mr-2" aria-hidden="true" />
+              
               <span>Properties</span>
             </Link>
 
@@ -72,7 +71,6 @@ function Navbar() {
               className={`nav-item-floating ${isActive('/events') ? 'active' : ''}`}
               aria-current={isActive('/events') ? 'page' : undefined}
             >
-              <Users className="w-4 h-4 mr-2" aria-hidden="true" />
               <span>Events</span>
             </Link>
 
@@ -81,7 +79,6 @@ function Navbar() {
               className={`nav-item-floating ${isActive('/short-term-rentals') ? 'active' : ''}`}
               aria-current={isActive('/short-term-rentals') ? 'page' : undefined}
             >
-              <Key className="w-4 h-4 mr-2" aria-hidden="true" />
               <span>Rentals</span>
             </Link>
           </div>
