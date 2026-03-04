@@ -134,7 +134,7 @@ function Navbar() {
                   className={`mobile-nav-item-floating ${isActive('/properties') ? 'active' : ''}`}
                   aria-current={isActive('/properties') ? 'page' : undefined}
                 >
-                  <Building className="w-4 h-4 mr-3" aria-hidden="true" />
+                  
                   <span>Properties</span>
                 </Link>
                 
