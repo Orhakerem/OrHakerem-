@@ -124,7 +124,7 @@ function Navbar() {
                   className={`mobile-nav-item-floating ${isActive('/') ? 'active' : ''}`}
                   aria-current={isActive('/') ? 'page' : undefined}
                 >
-                  <Home className="w-4 h-4 mr-3" aria-hidden="true" />
+          
                   <span>Home</span>
                 </Link>
                 
@@ -153,7 +153,7 @@ function Navbar() {
                   className={`mobile-nav-item-floating ${isActive('/events') ? 'active' : ''}`}
                   aria-current={isActive('/events') ? 'page' : undefined}
                 >
-                  <Users className="w-4 h-4 mr-3" aria-hidden="true" />
+                  
                   <span>Events</span>
                 </Link>
 
@@ -163,7 +163,7 @@ function Navbar() {
                   className={`mobile-nav-item-floating ${isActive('/short-term-rentals') ? 'active' : ''}`}
                   aria-current={isActive('/short-term-rentals') ? 'page' : undefined}
                 >
-                  <Key className="w-4 h-4 mr-3" aria-hidden="true" />
+                  
                   <span>Short Term Rentals</span>
                 </Link>
               </div>
