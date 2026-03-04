@@ -144,6 +144,14 @@ const PromotionalCarousel: React.FC = () => {
               />
             ))}
           </div>
+
+          <Link
+            href="/properties"
+            className="absolute bottom-8 left-1/2 -translate-x-1/2 z-20 px-6 py-3 rounded-full backdrop-blur-md bg-secondary/30 border border-white/20 text-primary font-semibold text-sm hover:bg-secondary/50 transition-all duration-300 hover:scale-105 hover:shadow-xl shadow-lg"
+            aria-label="Explore Properties"
+          >
+            Explore Properties
+          </Link>
         </div>
 
         <div className="text-center mt-12">
