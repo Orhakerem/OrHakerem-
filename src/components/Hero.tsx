@@ -25,14 +25,19 @@ export default function Hero() {
           Welcome to Or Hakerem
         </h1>
 
-        {/* CTA */}
+        {/* Translucid CTA */}
         <Link
           href="/properties"
-          className="px-8 py-3 rounded-full bg-secondary/40 backdrop-blur-md border border-white/20 text-primary font-semibold text-sm hover:bg-secondary/50 hover:scale-105 hover:shadow-xl shadow-lg transition-all duration-300 z-30"
-          aria-label="Explore Properties"
+          className="relative z-30 px-8 py-3 rounded-full 
+          bg-white/20 backdrop-blur-md
+          border border-white/30
+          text-white font-semibold
+          transition-all duration-300
+          hover:bg-white/30 hover:scale-105"
         >
           Explore our properties
         </Link>
+
       </div>
     </div>
   );
