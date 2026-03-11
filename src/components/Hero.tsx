@@ -37,6 +37,7 @@ export default function Hero() {
         >
           Explore our properties
         </Link>
-    </div>
+   </div>
+  </div>
   );
 }
