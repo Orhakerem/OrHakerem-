@@ -306,12 +306,6 @@ export default function Footer() {
                   href="/property-management"
                   className="block text-white/90 hover:text-secondary hover:translate-x-2 transition-all duration-300 text-xl font-medium p-1 rounded-lg hover:bg-white/10 leading-none"
                 >
-                  Property Management
-                </Link>
-                <Link
-                  href="/short-term-rentals"
-                  className="block text-white/90 hover:text-secondary hover:translate-x-2 transition-all duration-300 text-xl font-medium p-1 rounded-lg hover:bg-white/10 leading-none"
-                >
                   Short Term Rentals
                 </Link>
                 <Link
