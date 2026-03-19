@@ -173,7 +173,7 @@ export default function Footer() {
           {/* Mobile Copyright - Ultra Compact */}
           <div className="text-center border-t border-white/20 pt-3">
             <p className="text-white/80 text-xs leading-none">
-              © 2025 Or Hakerem. All rights reserved.
+              © 2026 Or Hakerem. All rights reserved.
             </p>
           </div>
         </div>
@@ -305,13 +305,6 @@ export default function Footer() {
                 <Link
                   href="/property-management"
                   className="block text-white/90 hover:text-secondary hover:translate-x-2 transition-all duration-300 text-xl font-medium p-1 rounded-lg hover:bg-white/10 leading-none"
-                >
-                  Short Term Rentals
-                </Link>
-                <Link
-                  href="/#contact"
-                  onClick={handleContactClick}
-                  className="block text-white/90 hover:text-secondary hover:translate-x-2 transition-all duration-300 text-xl font-medium p-1 rounded-lg hover:bg-white/10 leading-none cursor-pointer"
                 >
                   Contact
                 </Link>
