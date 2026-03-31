@@ -213,19 +213,39 @@ The studio is located on the 1st floor of a unique building that is described as
       },
       {
         name: 'Kitchen',
-        description: 'Compact kitchen fully equipped',
+        description: 'Compact kitchen fully equipped for everyday cooking',
         images: [
           { src: '/studio/Cuisine_angle_1.jpg', alt: 'Cuisine angle 1' },
+          { src: '/studio/cuisine_angle_2.jpg', alt: 'Cuisine angle 2' },
         ]
       },
       {
         name: 'Living Area',
-        description: 'Open plan living space with dining area',
+        description: 'Open plan living space with dining area and lounge seating',
         images: [
+          { src: '/studio/Salon_angle_1.jpg', alt: 'Salon angle 1' },
+          { src: '/studio/Salon_angle_1_Zoom.jpg', alt: 'Salon angle 1 zoom' },
           { src: '/studio/Salon_angle_2.jpg', alt: 'Salon angle 2' },
-          { src: '/studio/Salon_angle_3_Zoom.jpg', alt: 'Salon angle 3 Zoom' },
           { src: '/studio/Salon_angle_3.jpg', alt: 'Salon angle 3' },
+          { src: '/studio/Salon_angle_3_Zoom.jpg', alt: 'Salon angle 3 zoom' },
           { src: '/studio/Salon_angle_4.jpg', alt: 'Salon angle 4' },
+        ]
+      },
+      {
+        name: 'Sofa Bed Area',
+        description: 'Convertible sofa area near the entrance for additional sleeping space',
+        images: [
+          { src: '/studio/Canape_ouvert_angle_1.jpg', alt: 'Canape ouvert angle 1' },
+          { src: '/studio/Canape_ouvert_angle_2.jpg', alt: 'Canape ouvert angle 2' },
+        ]
+      },
+      {
+        name: 'Bathroom',
+        description: 'Private bathroom with shower and vanity',
+        images: [
+          { src: '/studio/Salle_de_bain_angle_1.jpg', alt: 'Salle de bain angle 1' },
+          { src: '/studio/Salle_de_bain_angle_2.jpg', alt: 'Salle de bain angle 2' },
+          { src: '/studio/Salle_de_bain_angle_3.jpg', alt: 'Salle de bain angle 3' },
         ]
       }
     ],
