@@ -78,7 +78,7 @@ const Home: React.FC = () => {
 
         <div className="hero-home-mobile-text">
           <div className="hero-home-mobile-text-inner">
-            <h1 className="hero-home-mobile-title font-playfair font-bold" data-animate="text">
+            <h1 className="hero-home-mobile-title font-montserrat font-bold" data-animate="text">
               Short-term rental apartments in Tel Aviv
             </h1>
           </div>
