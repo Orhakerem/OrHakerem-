@@ -301,10 +301,6 @@ export default function ContactForm({
               </p>
             </div>
           </form>
-
-          {/* Decorative corner elements */}
-          <div className="absolute top-4 right-4 w-2 h-2 bg-secondary rounded-full opacity-50 group-hover:opacity-100 transition-opacity duration-300"></div>
-          <div className="absolute bottom-4 left-4 w-2 h-2 bg-tertiary rounded-full opacity-50 group-hover:opacity-100 transition-opacity duration-300"></div>
         </div>
       </div>
     </div>

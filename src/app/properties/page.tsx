@@ -130,10 +130,6 @@ function PropertyCard({ property }: { property: (typeof properties)[keyof typeof
           </div>
         </div>
       </div>
-
-      {/* Decorative corner elements */}
-      <div className="absolute top-3 left-3 w-2 h-2 bg-secondary rounded-full opacity-50 group-hover:opacity-100 transition-opacity duration-300"></div>
-      <div className="absolute bottom-3 right-3 w-2 h-2 bg-tertiary rounded-full opacity-50 group-hover:opacity-100 transition-opacity duration-300"></div>
     </div>
   );
 }

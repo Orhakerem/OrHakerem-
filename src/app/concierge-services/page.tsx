@@ -40,10 +40,6 @@ function ServiceCard({ icon: Icon, title, description, delay }: ServiceCardProps
       <p className="text-primary/80 leading-relaxed text-sm group-hover:text-primary transition-colors duration-300 relative z-10">
         {description}
       </p>
-
-      {/* Decorative corner elements - Moved away from borders */}
-      <div className="absolute top-6 right-6 w-1.5 h-1.5 bg-secondary rounded-full opacity-50 group-hover:opacity-100 transition-opacity duration-300"></div>
-      <div className="absolute bottom-6 left-6 w-1.5 h-1.5 bg-tertiary rounded-full opacity-50 group-hover:opacity-100 transition-opacity duration-300"></div>
     </div>
   );
 }
