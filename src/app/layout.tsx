@@ -1,12 +1,18 @@
 import type { Metadata } from 'next';
+import dynamic from 'next/dynamic';
 import Script from 'next/script';
-import CustomCursor from '@/components/CustomCursor';
 import Toast from '@/components/Toast';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
 import GoogleAnalytics from '@/components/GoogleAnalytics';
+import { SITE_URL } from '@/app/seo';
+import { crimson, inter, lato, montserrat, playfair } from '@/app/fonts';
 
 import './globals.css';
+
+const CustomCursor = dynamic(() => import('@/components/CustomCursor'), {
+  ssr: false,
+});
 
 export const metadata: Metadata = {
   title: 'Luxury Rental Tel Aviv | Or Hakerem | Kerem HaTeimanim',
@@ -20,14 +26,14 @@ export const metadata: Metadata = {
     address: false,
     telephone: false,
   },
-  metadataBase: new URL('https://orhakerem.vercel.app'),
+  metadataBase: new URL(SITE_URL),
   alternates: {
     canonical: '/',
   },
   openGraph: {
     title: 'Luxury Rental Tel Aviv | Or Hakerem | Kerem HaTeimanim',
     description: 'Premium short term rental in Tel Aviv. Luxury apartments in Kerem HaTeimanim. Property management & events Tel Aviv. Book your stay at Or Hakerem.',
-    url: 'https://orhakerem.vercel.app',
+    url: SITE_URL,
     siteName: 'Or Hakerem',
     images: [
       {
@@ -93,7 +99,7 @@ export default function RootLayout({
         <meta name="msapplication-config" content="/favicon/browserconfig.xml" />
         <meta name="apple-mobile-web-app-title" content="MyWebSite" />
       </head>
-      <body className="min-h-screen bg-cream antialiased">
+      <body className={`${inter.variable} ${playfair.variable} ${lato.variable} ${crimson.variable} ${montserrat.variable} min-h-screen bg-cream antialiased`}>
         <GoogleAnalytics />
         <CustomCursor />
         <Toast />

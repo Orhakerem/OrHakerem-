@@ -66,6 +66,8 @@ export default function RoomGallery({ rooms }: RoomGalleryProps) {
                 alt={room.images[0]?.alt || room.name}
                 fill
                 className="object-cover"
+                loading="lazy"
+                sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
               />
               <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent"></div>
               <div className="absolute bottom-4 left-4 text-white">
@@ -128,6 +130,7 @@ export default function RoomGallery({ rooms }: RoomGalleryProps) {
                 fill
                 className="object-contain"
                 priority
+                sizes="100vw"
               />
             </div>
           </div>
@@ -148,6 +151,8 @@ export default function RoomGallery({ rooms }: RoomGalleryProps) {
                     alt={image.alt}
                     fill
                     className="object-cover"
+                    loading="lazy"
+                    sizes="64px"
                   />
                 </button>
               ))}

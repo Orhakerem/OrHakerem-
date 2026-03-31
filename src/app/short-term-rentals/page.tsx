@@ -199,6 +199,8 @@ export default function ShortTermRentalsPage() {
                   alt="Luxury apartment Tel Aviv with sea views from Kerem HaTeimanim"
                   fill
                   className="object-cover"
+                  loading="lazy"
+                  sizes="(max-width: 768px) 100vw, 50vw"
                 />
               </div>
               <div className="absolute -bottom-6 -left-6 bg-white rounded-xl p-6 shadow-xl max-w-xs">

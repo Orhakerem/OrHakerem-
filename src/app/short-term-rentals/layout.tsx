@@ -1,4 +1,5 @@
 import type { Metadata } from 'next';
+import { SITE_URL } from '@/app/seo';
 
 export const metadata: Metadata = {
   title: 'Short Term Rental Tel Aviv | Luxury Apartment Tel Aviv | Or Hakerem',
@@ -7,7 +8,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: 'Short Term Rental Tel Aviv | Luxury Apartment Tel Aviv | Or Hakerem',
     description: 'Premium short term rental in Tel Aviv. Discover luxury apartments in Kerem HaTeimanim, steps from the beach.',
-    url: 'https://orhakerem.vercel.app/short-term-rentals',
+    url: `${SITE_URL}/short-term-rentals`,
     siteName: 'Or Hakerem',
     images: [
       {

@@ -55,6 +55,8 @@ function PropertyCard({ property }: { property: (typeof properties)[keyof typeof
           alt={property.title} 
           fill 
           className="object-cover group-hover:scale-110 transition-transform duration-700" 
+          loading="lazy"
+          sizes="(max-width: 768px) 100vw, (max-width: 1024px) 90vw, 40vw"
         />
         
         {/* Gradient overlay */}

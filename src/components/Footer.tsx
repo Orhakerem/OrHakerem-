@@ -45,6 +45,8 @@ export default function Footer() {
                   alt="Or Hakerem Logo"
                   fill
                   className="object-contain rounded-lg shadow-lg"
+                  loading="lazy"
+                  sizes="64px"
                 />
               </div>
               <div>
@@ -199,6 +201,8 @@ export default function Footer() {
                     alt="Or Hakerem Logo"
                     fill
                     className="object-contain rounded-xl shadow-lg group-hover:scale-105 transition-transform duration-300"
+                    loading="lazy"
+                    sizes="160px"
                   />
                   <div className="absolute inset-0 rounded-xl bg-gradient-to-br from-secondary/20 to-tertiary/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
                 </div>

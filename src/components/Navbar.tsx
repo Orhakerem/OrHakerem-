@@ -40,6 +40,7 @@ function Navbar() {
                 width={30}
                 height={30}
                 className="nav-logo-floating"
+                sizes="64px"
               />
               <span className="logo-text-floating">
                 Or Hakerem
@@ -109,6 +110,7 @@ function Navbar() {
                 width={24}
                 height={24}
                 className="nav-logo-floating"
+                sizes="45px"
               />
               <span className="logo-text-floating mobile">
                 Or Hakerem

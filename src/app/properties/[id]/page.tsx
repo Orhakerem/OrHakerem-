@@ -329,6 +329,8 @@ export default function PropertyDetails() {
                 fill
                 className="object-cover"
                 priority={currentImageIndex === 0}
+                loading={currentImageIndex === 0 ? 'eager' : 'lazy'}
+                sizes="(max-width: 768px) 100vw, 1200px"
               />
               <div className="absolute bottom-4 right-4 bg-black/50 px-3 py-1 rounded-full text-white text-sm">
                 {currentImageIndex + 1} / {property.images.length}

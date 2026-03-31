@@ -104,6 +104,8 @@ const PromotionalCarousel: React.FC = () => {
                 fill
                 className="object-cover"
                 priority={index === 0}
+                loading={index === 0 ? 'eager' : 'lazy'}
+                sizes="(max-width: 768px) 100vw, (max-width: 1280px) 90vw, 1200px"
               />
               <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent"></div>
 
