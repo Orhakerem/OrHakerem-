@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;0,800;0,900;1,400;1,500;1,600;1,700;1,800;1,900&family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&family=Inter:wght@100;200;300;400;500;600;700;800;900&family=Crimson+Text:ital,wght@0,400;0,600;0,700;1,400;1,600;1,700&family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap');
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -5,16 +7,6 @@
 :root {
   --background: #ffffff;
   --foreground: #171717;
-}
-
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
-
-@theme {
   --color-cream: #f5f5f5;
   --color-primary: #a5382b;
   --color-secondary: #d8b084;
@@ -36,9 +28,6 @@
     --foreground: #ededed;
   }
 }
-
-/* Import Google Fonts for better typography */
-@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;0,800;0,900;1,400;1,500;1,600;1,700;1,800;1,900&family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&family=Inter:wght@100;200;300;400;500;600;700;800;900&family=Crimson+Text:ital,wght@0,400;0,600;0,700;1,400;1,600;1,700&family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap');
 
 /* Fade in up animation */
 @keyframes fadeInUp {
@@ -72,6 +61,97 @@
   }
   60% {
     transform: translateY(-5px);
+  }
+}
+
+[data-animate] {
+  opacity: 0;
+  transition:
+    opacity 0.6s ease-out,
+    transform 0.6s ease-out;
+  will-change: transform, opacity;
+}
+
+[data-animate="fade-up"] {
+  transform: translateY(40px);
+}
+
+[data-animate="fade-left"] {
+  transform: translateX(-40px);
+}
+
+[data-animate="fade-right"] {
+  transform: translateX(40px);
+}
+
+[data-animate="scale"] {
+  transform: scale(0.96);
+  transform-origin: center center;
+}
+
+[data-animate="zoom"] {
+  transform: scale(1.05);
+  transform-origin: center center;
+}
+
+[data-animate="text"] {
+  transform: translateY(24px);
+}
+
+[data-animate].show {
+  opacity: 1;
+  transform: translate(0, 0) scale(1);
+  will-change: auto;
+}
+
+[data-delay="1"] {
+  transition-delay: 0.1s;
+}
+
+[data-delay="2"] {
+  transition-delay: 0.2s;
+}
+
+[data-delay="3"] {
+  transition-delay: 0.3s;
+}
+
+@media (max-width: 768px) {
+  [data-animate] {
+    transition-duration: 0.4s;
+  }
+
+  [data-animate="fade-up"] {
+    transform: translateY(20px);
+  }
+
+  [data-animate="fade-left"] {
+    transform: translateX(-20px);
+  }
+
+  [data-animate="fade-right"] {
+    transform: translateX(20px);
+  }
+
+  [data-animate="text"] {
+    transform: translateY(16px);
+  }
+
+  [data-animate="zoom"] {
+    transform: scale(1.02);
+  }
+
+  [data-animate="scale"] {
+    transform: scale(0.985);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  [data-animate] {
+    opacity: 1 !important;
+    transform: none !important;
+    transition: none !important;
+    will-change: auto;
   }
 }
 
@@ -149,6 +229,65 @@
 }
 
 @layer components {
+  .glass-cta-wrap {
+    position: absolute;
+    bottom: 40px;
+    left: 50%;
+    z-index: 20;
+    transform: translateX(-50%);
+  }
+
+  .glass-cta {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 21px 45px;
+    border-radius: 999px;
+    background: rgba(255, 255, 255, 0.08);
+    border: 1px solid rgba(255, 255, 255, 0.35);
+    color: #fff;
+    font-size: 22.5px;
+    font-weight: 500;
+    letter-spacing: 0.5px;
+    text-shadow: 0 1px 3px rgba(0, 0, 0, 0.4);
+    transition:
+      background-color 0.3s ease,
+      transform 0.3s ease,
+      border-color 0.3s ease;
+  }
+
+  .glass-cta::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    background: linear-gradient(
+      120deg,
+      rgba(255, 255, 255, 0.15),
+      rgba(255, 255, 255, 0.02)
+    );
+    opacity: 0.6;
+    pointer-events: none;
+  }
+
+  .glass-cta:hover {
+    background: rgba(255, 255, 255, 0.18);
+    border-color: rgba(255, 255, 255, 0.6);
+    transform: scale(1.04);
+  }
+
+  @media (max-width: 768px) {
+    .glass-cta-wrap {
+      bottom: 24px;
+    }
+
+    .glass-cta {
+      padding: 18px 36px;
+      font-size: 21px;
+    }
+  }
+
   .modern-card {
     @apply rounded-[24px] bg-white p-8 transition-all duration-300 ease-in-out;
     box-shadow: 0 8px 32px rgba(0, 0, 0, 0.05);
