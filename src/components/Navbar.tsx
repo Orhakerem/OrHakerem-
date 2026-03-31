@@ -2,6 +2,7 @@
 
 import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
+import Image from 'next/image';
 import { usePathname } from 'next/navigation';
 import { Menu, X } from 'lucide-react';
 
@@ -32,7 +33,14 @@ function Navbar() {
         <div className="navbar-container-floating">
           {/* Logo Section - Centré verticalement */}
           <div className="logo-section-floating">
-            <Link href="/" aria-label="Or Hakerem - Home" className="flex items-center">
+            <Link href="/" aria-label="Or Hakerem - Home" className="nav-brand-floating">
+              <Image
+                src="/orhakerem_logo_original.jpg"
+                alt="Or Hakerem logo"
+                width={30}
+                height={30}
+                className="nav-logo-floating"
+              />
               <span className="logo-text-floating">
                 Or Hakerem
               </span>
@@ -83,8 +91,6 @@ function Navbar() {
             </Link>
           </div>
 
-          {/* Espace pour équilibrer la mise en page */}
-          <div className="flex-shrink-0 w-[120px]"></div>
         </div>
       </nav>
 
@@ -96,7 +102,14 @@ function Navbar() {
       >
         <div className="navbar-container-floating">
           <div className="logo-section-floating">
-            <Link href="/" aria-label="Or Hakerem - Home" className="flex items-center" onClick={closeMobileMenu}>
+            <Link href="/" aria-label="Or Hakerem - Home" className="nav-brand-floating" onClick={closeMobileMenu}>
+              <Image
+                src="/orhakerem_logo_original.jpg"
+                alt="Or Hakerem logo"
+                width={24}
+                height={24}
+                className="nav-logo-floating"
+              />
               <span className="logo-text-floating mobile">
                 Or Hakerem
               </span>

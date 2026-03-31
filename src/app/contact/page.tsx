@@ -76,13 +76,13 @@ export default function ContactPage() {
               </a>
             </div>
 
-            {/* Phone */}
+            {/* Phone / WhatsApp */}
             <div className="text-center p-6 bg-gradient-to-br from-cream to-white rounded-xl border border-secondary/20">
               <div className="inline-flex items-center justify-center w-16 h-16 bg-gradient-to-br from-tertiary to-tertiary-light rounded-full mb-4">
                 <span className="text-2xl text-white">📞</span>
               </div>
-              <h3 className="font-playfair text-xl font-bold text-primary mb-2">Phone</h3>
-              <div className="space-y-1">
+              <h3 className="font-playfair text-xl font-bold text-primary mb-2">Phone & WhatsApp</h3>
+              <div className="space-y-3">
                 <a 
                   href="tel:+33651179925"
                   className="block text-primary/80 hover:text-secondary transition-colors duration-300 font-medium"
@@ -90,10 +90,12 @@ export default function ContactPage() {
                   +33 6 51 17 99 25
                 </a>
                 <a 
-                  href="tel:+972526869791"
-                  className="block text-primary/80 hover:text-secondary transition-colors duration-300 font-medium"
+                  href="https://wa.me/972526869791"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center justify-center rounded-full bg-gradient-to-r from-secondary to-secondary-light px-5 py-2.5 font-semibold text-primary shadow-lg transition-all duration-300 hover:scale-[1.02] hover:shadow-xl"
                 >
-                  +972 52 686 9791
+                  WhatsApp: +972 52 686 9791
                 </a>
               </div>
             </div>

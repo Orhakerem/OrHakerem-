@@ -46,7 +46,6 @@ const Home: React.FC = () => {
             loop
             playsInline
             className="hero-home-video absolute inset-0 w-full h-full object-cover"
-            style={{ filter: 'brightness(0.85)' }}
           >
             <source src="/hero.mp4" type="video/mp4" />
           </video>
@@ -65,9 +64,7 @@ const Home: React.FC = () => {
         <div className="glass-cta-wrap hero-home-cta-wrap">
           <Link
             href="/properties"
-            className="glass-cta"
-            data-animate="scale"
-            data-delay="1"
+            className="glass-cta hero-scroll-cta"
           >
             View Properties
           </Link>
@@ -92,7 +89,6 @@ const Home: React.FC = () => {
               loop
               playsInline
               className="hero-home-mobile-video"
-              style={{ filter: 'brightness(0.85)' }}
             >
               <source src="/hero.mp4" type="video/mp4" />
             </video>
@@ -100,9 +96,7 @@ const Home: React.FC = () => {
             <div className="hero-home-mobile-video-cta">
               <Link
                 href="/properties"
-                className="glass-cta"
-                data-animate="scale"
-                data-delay="1"
+                className="glass-cta hero-scroll-cta"
               >
                 View Properties
               </Link>

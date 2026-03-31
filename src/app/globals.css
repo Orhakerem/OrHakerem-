@@ -236,13 +236,40 @@
 }
 
 @layer components {
+  .whatsapp-float {
+    position: fixed;
+    right: 24px;
+    bottom: 24px;
+    z-index: 9999;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 56px;
+    height: 56px;
+    border-radius: 50%;
+    background: #25d366;
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
+    transition: all 0.3s ease;
+  }
+
+  .whatsapp-float:hover {
+    transform: scale(1.08);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.25);
+  }
+
   .hero-home {
+    opacity: 1;
+    filter: none;
     background:
       radial-gradient(circle at top, rgba(216, 176, 132, 0.18), transparent 45%),
       linear-gradient(180deg, #16202d 0%, #1d2a3a 52%, #24364a 100%);
   }
 
   .hero-home-media {
+    opacity: 1;
+    filter: none;
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
     background:
       radial-gradient(circle at top, rgba(255, 255, 255, 0.1), transparent 40%),
       linear-gradient(180deg, rgba(10, 18, 28, 0.24) 0%, rgba(10, 18, 28, 0.38) 100%);
@@ -250,11 +277,13 @@
 
   .hero-home-video {
     z-index: 1;
+    filter: none !important;
+    opacity: 1 !important;
   }
 
   .hero-home-overlay {
     z-index: 2;
-    background: linear-gradient(180deg, rgba(12, 18, 28, 0.18) 0%, rgba(12, 18, 28, 0.36) 100%);
+    background: linear-gradient(180deg, rgba(12, 18, 28, 0.04) 0%, rgba(12, 18, 28, 0.1) 100%);
   }
 
   .hero-home-fallback {
@@ -281,6 +310,8 @@
     width: 100%;
     height: auto;
     background: #000;
+    filter: none !important;
+    opacity: 1 !important;
   }
 
   .hero-home-mobile-video-cta {
@@ -314,10 +345,23 @@
     font-weight: 500;
     letter-spacing: 0.5px;
     text-shadow: 0 1px 3px rgba(0, 0, 0, 0.4);
+    transition: all 0.3s ease;
+  }
+
+  .glass-cta.hero-scroll-cta {
+    opacity: 0;
+    transform: translateY(10px);
     transition:
+      opacity 0.7s cubic-bezier(0.22, 1, 0.36, 1),
+      transform 0.7s cubic-bezier(0.22, 1, 0.36, 1),
       background-color 0.3s ease,
-      transform 0.3s ease,
       border-color 0.3s ease;
+  }
+
+  .glass-cta.hero-scroll-cta.visible {
+    opacity: 1;
+    transform: translateY(0);
+    will-change: opacity, transform;
   }
 
   .glass-cta::before {
@@ -339,26 +383,27 @@
     position: absolute;
     top: 0;
     left: -120%;
-    width: 48%;
+    width: 40%;
     height: 100%;
     background: linear-gradient(
       120deg,
       transparent,
-      rgba(255, 255, 255, 0.3),
+      rgba(255, 255, 255, 0.18),
       transparent
     );
     transform: skewX(-20deg);
+    z-index: 2;
     pointer-events: none;
   }
 
   .glass-cta:hover {
     background: rgba(255, 255, 255, 0.18);
     border-color: rgba(255, 255, 255, 0.6);
-    transform: scale(1.04);
+    transform: translateY(0) scale(1.02);
   }
 
   .glass-cta:hover::after {
-    animation: shine 1.2s ease forwards;
+    animation: shine 1.4s ease forwards;
   }
 
   @keyframes shine {
@@ -366,7 +411,7 @@
       left: -120%;
     }
     to {
-      left: 140%;
+      left: 120%;
     }
   }
 
@@ -401,8 +446,24 @@
   }
 
   @media (max-width: 768px) {
+    .whatsapp-float {
+      width: 50px;
+      height: 50px;
+      right: 18px;
+      bottom: 18px;
+    }
+
     .glass-cta::after {
       display: none;
+    }
+
+    .glass-cta.hero-scroll-cta {
+      transform: translateY(6px);
+      transition:
+        opacity 0.6s ease,
+        transform 0.6s ease,
+        background-color 0.3s ease,
+        border-color 0.3s ease;
     }
 
     .glass-cta-wrap {
@@ -498,8 +559,8 @@
 
   /* Floating Navbar Styles - Amélioré et épuré */
   .navbar-floating {
-    height: 70px;
-    padding: 12px 25px;
+    height: 78px;
+    padding: 11px 22px;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -507,8 +568,8 @@
     top: 15px;
     left: 50%;
     transform: translateX(-50%);
-    width: 95%;
-    max-width: 1200px;
+    width: max-content;
+    max-width: 95%;
     background: rgba(165, 56, 43, 0.85);
     backdrop-filter: blur(20px);
     border-radius: 35px;
@@ -521,11 +582,12 @@
   }
 
   .navbar-container-floating {
-    width: 100%;
+    width: fit-content;
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding: 0 15px;
+    gap: 22px;
+    padding: 0;
     height: 100%;
   }
 
@@ -536,9 +598,19 @@
     height: 100%;
   }
 
-  .logo-section-floating .relative {
-    width: 50px;
-    height: 50px;
+  .nav-brand-floating {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    text-decoration: none;
+  }
+
+  .nav-logo-floating {
+    height: 64px;
+    width: auto;
+    object-fit: contain;
+    flex-shrink: 0;
+    border-radius: 8px;
   }
 
   .logo-text-floating {
@@ -546,6 +618,7 @@
     font-size: 1.8rem;
     font-weight: 700;
     font-family: 'Playfair Display', serif;
+    margin-left: 2px;
     transition: all 0.3s ease;
   }
 
@@ -559,11 +632,10 @@
 
   .nav-items-floating {
     display: flex;
-    gap: 10px;
+    gap: 16px;
     align-items: center;
-    flex: 1;
     justify-content: center;
-    padding: 0 20px;
+    padding: 0;
     height: 100%;
   }
 
@@ -576,9 +648,9 @@
     text-decoration: none;
     font-family: 'Inter', sans-serif;
     font-weight: 600;
-    font-size: 14px;
-    padding: 12px 14px;
-    height: 45px;
+    font-size: 15px;
+    padding: 13px 16px;
+    height: 48px;
     border-radius: 25px;
     background: linear-gradient(135deg, #d8b084 0%, #c49a6a 100%);
     transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
@@ -588,8 +660,8 @@
       0 4px 15px rgba(216, 176, 132, 0.25),
       0 0 0 1px rgba(255, 255, 255, 0.1) inset;
     border: 1px solid rgba(255, 255, 255, 0.1);
-    width: 120px;
     flex-shrink: 0;
+    white-space: nowrap;
   }
 
   /* Hover effects épurés - sans effet shimmer */
@@ -763,7 +835,7 @@
     .hero-home-mobile-text {
       display: block;
       background: transparent;
-      padding: 0.625rem 0.8rem 0.75rem;
+      padding: 0.08rem 0.8rem 0.75rem;
     }
 
     .hero-home-mobile-text-inner {
@@ -1118,7 +1190,7 @@
     }
 
     .hero-home-mobile-text {
-      padding: 0.5rem 0.8rem 0.625rem;
+      padding: 0.04rem 0.8rem 0.625rem;
     }
 
     .hero-home-mobile-text-inner {
@@ -1286,8 +1358,8 @@
     }
 
     .navbar-floating {
-      height: 60px;
-      padding: 10px 16px;
+      height: 64px;
+      padding: 8px 14px;
       border-radius: 30px;
       top: 10px;
       width: calc(100% - 16px);
@@ -1313,9 +1385,16 @@
       text-overflow: ellipsis;
     }
 
-    .logo-section-floating .relative {
-      width: 40px;
-      height: 40px;
+    .nav-brand-floating {
+      gap: 8px;
+    }
+
+    .nav-logo-floating {
+      height: 44.8px;
+    }
+
+    .logo-text-floating.mobile {
+      font-size: 1.15rem;
     }
 
     .nav-items-floating {
