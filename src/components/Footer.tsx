@@ -75,12 +75,10 @@ export default function Footer() {
                   +33 6 51 17 99 25
                 </a>
                 <a 
-                  href="https://wa.me/972526869791"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="inline-flex items-center justify-center rounded-full bg-white/14 px-3 py-1.5 font-medium text-white transition-all duration-300 hover:bg-white/22 hover:text-secondary"
+                  href="tel:+972526869791"
+                  className="text-white/90 hover:text-secondary transition-colors duration-300"
                 >
-                  WhatsApp
+                  +972 52 686 9791
                 </a>
               </div>
 
@@ -241,12 +239,10 @@ export default function Footer() {
                         +33 6 51 17 99 25
                       </a>
                       <a 
-                        href="https://wa.me/972526869791"
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="mt-1 inline-flex w-fit items-center justify-center rounded-full bg-white/14 px-3 py-1.5 text-sm font-medium text-white transition-all duration-300 hover:bg-white/22 hover:text-secondary"
+                        href="tel:+972526869791"
+                        className="text-white/90 hover:text-secondary transition-colors duration-300 text-base font-medium leading-none mt-1"
                       >
-                        WhatsApp
+                        +972 52 686 9791
                       </a>
                     </div>
                   </div>

@@ -805,12 +805,21 @@
 
   @media (max-width: 1024px) {
     .hero-home {
+      --hero-mobile-frame-top: 5px;
+      --hero-mobile-frame-bottom: 20px;
+      --hero-mobile-side-gap: 0.2rem;
+      --hero-mobile-video-side-gap: 0.2rem;
+      --hero-mobile-navbar-top: 15px;
+      --hero-mobile-navbar-height: 78px;
       height: auto !important;
       min-height: 0;
       overflow: visible;
       background: var(--color-secondary);
-      margin-top: 5px;
-      padding-bottom: 5px;
+      margin-top: var(--hero-mobile-frame-top);
+      margin-left: auto;
+      margin-right: auto;
+      width: calc(100% - (var(--hero-mobile-frame-top) * 2));
+      padding-bottom: var(--hero-mobile-frame-bottom);
       border-top-left-radius: 30px;
       border-top-right-radius: 30px;
       border-bottom-left-radius: 30px;
@@ -828,14 +837,14 @@
 
     .hero-home-mobile-strip {
       display: block;
-      height: calc(5.5rem - 15px);
+      height: calc(var(--hero-mobile-navbar-top) + var(--hero-mobile-navbar-height) - var(--hero-mobile-frame-top));
       background: transparent;
     }
 
     .hero-home-mobile-text {
       display: block;
       background: transparent;
-      padding: 0.08rem 0.8rem 0.75rem;
+      padding: 0.95rem var(--hero-mobile-side-gap) 1rem;
     }
 
     .hero-home-mobile-text-inner {
@@ -848,7 +857,7 @@
       margin: 0;
       color: var(--color-primary);
       font-size: 1.42rem;
-      font-weight: 800;
+      font-weight: 900;
       letter-spacing: 0.04em;
       line-height: 1;
       text-transform: uppercase;
@@ -858,7 +867,8 @@
     .hero-home-mobile-video-section {
       display: block;
       background: transparent;
-      padding: 0 0.8rem 0;
+      padding: 0 var(--hero-mobile-video-side-gap) 0;
+      margin-bottom: 0;
     }
 
     .hero-home-mobile-video-wrap {
@@ -1185,12 +1195,19 @@
 
   /* Mobile styles */
   @media (max-width: 768px) {
+    .hero-home {
+      --hero-mobile-navbar-top: 10px;
+      --hero-mobile-navbar-height: 64px;
+      --hero-mobile-side-gap: 0.2rem;
+      --hero-mobile-video-side-gap: 0.35rem;
+    }
+
     .hero-home-mobile-strip {
-      height: calc(5rem - 15px);
+      height: calc(var(--hero-mobile-navbar-top) + var(--hero-mobile-navbar-height) - var(--hero-mobile-frame-top));
     }
 
     .hero-home-mobile-text {
-      padding: 0.04rem 0.8rem 0.625rem;
+      padding: 0.8rem var(--hero-mobile-side-gap) 0.9rem;
     }
 
     .hero-home-mobile-text-inner {
@@ -1199,7 +1216,7 @@
 
     .hero-home-mobile-title {
       font-size: 0.98rem;
-      font-weight: 800;
+      font-weight: 900;
       letter-spacing: 0.03em;
       line-height: 1;
       text-transform: uppercase;
@@ -1207,7 +1224,8 @@
     }
 
     .hero-home-mobile-video-section {
-      padding: 0 0.8rem 0;
+      padding: 0 var(--hero-mobile-video-side-gap) 0;
+      margin-bottom: 0;
     }
 
     .hero-home-mobile-video-cta {
@@ -1371,15 +1389,18 @@
       padding: 0;
       gap: 12px;
       min-width: 0;
+      width: 100%;
+      justify-content: space-between;
     }
 
     .logo-section-floating {
       min-width: 0;
-      flex: 1;
+      flex: 0 1 auto;
+      justify-content: flex-start;
     }
 
     .logo-text-floating.mobile {
-      font-size: 1.15rem;
+      font-size: 1.55rem;
       white-space: nowrap;
       overflow: hidden;
       text-overflow: ellipsis;
@@ -1393,8 +1414,13 @@
       height: 44.8px;
     }
 
+    .mobile-menu-button-floating {
+      margin-left: auto;
+      flex: 0 0 auto;
+    }
+
     .logo-text-floating.mobile {
-      font-size: 1.15rem;
+      font-size: 1.55rem;
     }
 
     .nav-items-floating {
