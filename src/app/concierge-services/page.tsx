@@ -15,7 +15,8 @@ interface ServiceCardProps {
 function ServiceCard({ icon: Icon, title, description, delay }: ServiceCardProps) {
   return (
     <div
-      className="group relative bg-white rounded-xl p-5 transition-all duration-500 hover:scale-105 hover:shadow-2xl border border-gray-100"
+      data-animate="scale"
+      className="service-card group relative bg-white rounded-xl p-5 transition-all duration-500 hover:scale-105 hover:shadow-2xl border border-gray-100"
       style={{ animationDelay: `${delay}ms` }}
     >
       {/* Gradient overlay on hover */}
@@ -126,7 +127,7 @@ export default function ConciergeServicesPage() {
   return (
     <div className="min-h-screen bg-cream">
       {/* Modern Hero Section - No Image */}
-      <section className="relative min-h-[85vh] w-full overflow-hidden bg-gradient-to-br from-primary via-primary-light to-primary pt-24">
+      <section className="hero-section services-hero-section relative min-h-[85vh] w-full overflow-hidden bg-gradient-to-br from-primary via-primary-light to-primary pt-24" data-animate="fade-up">
         {/* Animated Background Pattern */}
         <div className="absolute inset-0 opacity-20">
           <div className="absolute top-20 left-10 w-72 h-72 bg-secondary rounded-full blur-3xl animate-pulse"></div>
@@ -141,10 +142,10 @@ export default function ConciergeServicesPage() {
         </div>
 
         {/* Content */}
-        <div className="relative z-10 flex items-start justify-center min-h-[calc(85vh-6rem)] px-4 pt-16">
-          <div className="max-w-5xl mx-auto text-center">
+        <div className="services-hero-inner relative z-10 flex items-start justify-center min-h-[calc(85vh-6rem)] px-4 pt-16">
+          <div className="services-hero-content max-w-5xl mx-auto text-center">
             {/* Main Heading with Animation */}
-            <h1 className="font-playfair text-5xl md:text-7xl lg:text-8xl font-bold text-white mb-8 leading-tight animate-fade-in">
+            <h1 className="font-playfair text-5xl md:text-7xl lg:text-8xl font-bold text-white mb-8 leading-tight animate-fade-in" data-animate="text">
               Premium Concierge
               <br />
               <span className="text-secondary">Services</span>
@@ -157,7 +158,7 @@ export default function ConciergeServicesPage() {
             </p>
 
             {/* Feature Pills */}
-            <div className="flex flex-wrap justify-center gap-4">
+            <div className="services-hero-pills flex flex-wrap justify-center gap-4">
               <div className="px-6 py-3 bg-white/10 backdrop-blur-sm rounded-full border border-white/20 text-white/90">
                 24/7 Available
               </div>
@@ -180,17 +181,17 @@ export default function ConciergeServicesPage() {
       </section>
 
       {/* Services Section - Redesigned */}
-      <section className="relative py-24 bg-cream">
+      <section className="services-grid-section relative py-24 bg-cream" data-animate="fade-up">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           {/* Header section with modern design */}
-          <div className="text-center mb-20">
+          <div className="services-grid-header text-center mb-20" data-animate="fade-up">
             <div className="inline-flex items-center gap-2 mb-6 px-5 py-2 bg-tertiary/10 rounded-full">
               <div className="w-2 h-2 bg-tertiary rounded-full animate-pulse"></div>
               <span className="text-tertiary font-semibold text-sm tracking-wider uppercase">
                 Our Services
               </span>
             </div>
-            <h2 className="font-playfair text-4xl md:text-6xl font-bold text-primary mb-6 leading-tight">
+            <h2 className="font-playfair text-4xl md:text-6xl font-bold text-primary mb-6 leading-tight" data-animate="text">
               Tailored to Your
               <br />
               <span className="text-transparent bg-clip-text bg-gradient-to-r from-secondary to-tertiary">
@@ -203,7 +204,7 @@ export default function ConciergeServicesPage() {
           </div>
 
           {/* Services grid with enhanced cards - Updated to 3 columns with reduced gap */}
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-6xl mx-auto">
+          <div className="services-grid grid md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-6xl mx-auto" data-animate-group="cards">
             {services.map((service, index) => (
               <ServiceCard
                 key={index}
@@ -222,7 +223,7 @@ export default function ConciergeServicesPage() {
         <div className="h-px bg-gradient-to-r from-transparent via-primary/20 to-transparent mb-16"></div>
 
         {/* Contact Section - Centered and with bottom spacing */}
-        <section className="py-12 bg-gradient-to-br from-primary via-primary to-primary-light relative overflow-hidden rounded-2xl mb-20">
+        <section className="services-contact-section py-12 bg-gradient-to-br from-primary via-primary to-primary-light relative overflow-hidden rounded-2xl mb-20">
           {/* Background decorative elements */}
           <div className="absolute inset-0">
             <div className="absolute top-10 left-5 w-24 h-24 bg-secondary/10 rounded-full blur-2xl"></div>
@@ -233,7 +234,7 @@ export default function ConciergeServicesPage() {
           <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 flex items-center justify-center">
             <div className="w-full">
             {/* Compact Header */}
-            <div className="text-center mb-10">
+            <div className="services-contact-header text-center mb-10">
               <div className="inline-flex items-center gap-2 mb-3 px-4 py-1.5 bg-secondary/20 backdrop-blur-sm rounded-full">
                 <span className="text-secondary font-semibold text-xs tracking-wider uppercase">
                   Get In Touch
@@ -249,9 +250,9 @@ export default function ConciergeServicesPage() {
 
             {/* Compact Contact Form */}
             <div className="max-w-2xl mx-auto">
-              <div className="relative bg-white/10 backdrop-blur-sm rounded-2xl p-6 border border-white/20">
-                <form onSubmit={handleSubmit} className="space-y-5 relative z-10">
-                  <div className="grid md:grid-cols-2 gap-5">
+              <div className="services-contact-card relative bg-white/10 backdrop-blur-sm rounded-2xl p-6 border border-white/20">
+                <form onSubmit={handleSubmit} className="services-contact-form space-y-5 relative z-10">
+                  <div className="services-contact-grid grid md:grid-cols-2 gap-5">
                     <div>
                       <label
                         htmlFor="name"

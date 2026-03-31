@@ -1,4 +1,5 @@
 import type { Metadata } from 'next';
+import Script from 'next/script';
 import CustomCursor from '@/components/CustomCursor';
 import Toast from '@/components/Toast';
 import Navbar from '@/components/Navbar';
@@ -101,6 +102,7 @@ export default function RootLayout({
           {children}
         </main>
         <Footer />
+        <Script src="/scrollAnimations.js" strategy="afterInteractive" />
       </body>
     </html>
   );

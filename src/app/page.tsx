@@ -4,7 +4,6 @@ import toast from 'react-hot-toast';
 
 import React, { useState } from 'react';
 
-import Image from 'next/image';
 import Link from 'next/link';
 
 import { sendContactEmail } from '@/actions/contact';
@@ -38,31 +37,82 @@ const Home: React.FC = () => {
   return (
     <div className="min-h-screen">
       {/* Hero Section with Video Background - No Margin Top */}
-      <div className="relative w-full h-screen overflow-hidden">
-        {/* Video Background */}
-        <video
-          autoPlay
-          muted
-          loop
-          playsInline
-          className="absolute inset-0 w-full h-full object-cover"
-          style={{ filter: 'brightness(0.85)' }}
-        >
-          <source src="/hero.mp4" type="video/mp4" />
+      <div className="hero-home relative w-full h-screen overflow-hidden">
+        <div className="hero-home-media absolute inset-0">
+          {/* Video Background */}
+          <video
+            autoPlay
+            muted
+            loop
+            playsInline
+            className="hero-home-video absolute inset-0 w-full h-full object-cover"
+            style={{ filter: 'brightness(0.85)' }}
+          >
+            <source src="/hero.mp4" type="video/mp4" />
+          </video>
+          <div className="hero-home-overlay absolute inset-0"></div>
           {/* Fallback for browsers that don't support video */}
-          <div className="absolute inset-0 bg-primary"></div>
-        </video>
+          <div className="hero-home-fallback absolute inset-0 bg-primary"></div>
+        </div>
 
-        {/* Title Overlay */}
-        <div className="hero-title">
+        {/* Desktop / large tablet overlay */}
+        <div className="hero-title hero-home-title" data-animate="text">
           <h1 className="font-playfair font-bold hero-subtitle">
              Short-term rental apartments in Tel Aviv
           </h1>
         </div>
+
+        <div className="glass-cta-wrap hero-home-cta-wrap">
+          <Link
+            href="/properties"
+            className="glass-cta"
+            data-animate="scale"
+            data-delay="1"
+          >
+            View Properties
+          </Link>
+        </div>
+
+        {/* Mobile / tablet hero */}
+        <div className="hero-home-mobile-strip"></div>
+
+        <div className="hero-home-mobile-text">
+          <div className="hero-home-mobile-text-inner">
+            <h1 className="hero-home-mobile-title font-playfair font-bold" data-animate="text">
+              Short-term rental apartments in Tel Aviv
+            </h1>
+          </div>
+        </div>
+
+        <div className="hero-home-mobile-video-section">
+          <div className="hero-home-mobile-video-wrap">
+            <video
+              autoPlay
+              muted
+              loop
+              playsInline
+              className="hero-home-mobile-video"
+              style={{ filter: 'brightness(0.85)' }}
+            >
+              <source src="/hero.mp4" type="video/mp4" />
+            </video>
+
+            <div className="hero-home-mobile-video-cta">
+              <Link
+                href="/properties"
+                className="glass-cta"
+                data-animate="scale"
+                data-delay="1"
+              >
+                View Properties
+              </Link>
+            </div>
+          </div>
+        </div>
       </div>
 
       {/* Welcome Section */}
-      <section className="py-16 bg-cream relative overflow-hidden">
+      <section className="py-16 bg-cream relative overflow-hidden" data-animate="fade-up">
         <div className="absolute inset-0">
           <div className="absolute top-6 left-6 w-16 h-16 bg-secondary/10 rounded-full blur-2xl"></div>
           <div className="absolute bottom-6 right-6 w-20 h-20 bg-tertiary/10 rounded-full blur-2xl"></div>
@@ -71,11 +121,11 @@ const Home: React.FC = () => {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
           <div className="flex flex-col items-center">
             <div className="flex-1 text-center">
-              <div className="mb-6">
+              <div className="mb-6" data-animate="fade-up">
                 <span className="text-secondary font-semibold text-lg tracking-[0.2em] uppercase block mb-3">
                   Welcome to
                 </span>
-                <h2 className="font-playfair text-4xl md:text-5xl lg:text-6xl font-bold text-primary leading-tight mb-6">
+                <h2 className="font-playfair text-4xl md:text-5xl lg:text-6xl font-bold text-primary leading-tight mb-6" data-animate="text" data-delay="1">
                   Or Hakerem
                 </h2>
               </div>
@@ -86,7 +136,7 @@ const Home: React.FC = () => {
                 <div className="w-12 h-px bg-gradient-to-l from-secondary to-tertiary"></div>
               </div>
 
-              <div className="max-w-4xl space-y-6 text-lg md:text-xl">
+              <div className="max-w-4xl space-y-6 text-lg md:text-xl" data-animate="fade-up" data-delay="2">
                 <p className="text-primary/90 leading-relaxed font-light font-lato">
                   Start your experience in a city that never stops, but differently. At Orhakerem, we offer a unique type of <span className="font-medium text-secondary">short term rental</span> accommodations where you feel at home. Nestled in the historic neighborhood of Kerem HaTeimanim, this unique building has a historical past, and his perfect location offers new apartments for short-term rental and events.
                 </p>
@@ -96,33 +146,24 @@ const Home: React.FC = () => {
                 </p>
               </div>
 
-              <div className="mt-10 flex justify-center">
-                <Link
-                  href="/properties"
-                  className="inline-flex items-center bg-gradient-to-r from-secondary to-secondary-light text-primary px-8 py-4 rounded-full font-semibold text-lg hover:from-secondary-light hover:to-secondary transition-all duration-300 shadow-xl hover:shadow-2xl transform hover:scale-105"
-                >
-                  <span className="mr-2">Explore Properties</span>
-                  <div className="w-5 h-5 bg-primary/20 rounded-full flex items-center justify-center">
-                    <span className="text-primary text-xs">→</span>
-                  </div>
-                </Link>
-              </div>
             </div>
           </div>
         </div>
       </section>
 
       {/* White Separator */}
-      <div className="h-12 bg-white"></div>
+      <div className="home-section-divider h-12 bg-white"></div>
 
       {/* Promotional Carousel with Events CTA */}
-      <PromotionalCarousel/>
+      <div data-animate="fade-up">
+        <PromotionalCarousel/>
+      </div>
 
       {/* White Separator */}
       <div className="h-12 bg-white"></div>
 
       {/* Location Section */}
-      <section className="py-16 bg-cream relative overflow-hidden">
+      <section className="home-location-section py-16 bg-cream relative overflow-hidden" data-animate="fade-up">
         <div className="absolute inset-0">
           <div className="absolute top-6 left-6 w-16 h-16 bg-secondary/10 rounded-full blur-2xl"></div>
           <div className="absolute bottom-6 right-6 w-20 h-20 bg-tertiary/10 rounded-full blur-2xl"></div>
@@ -130,21 +171,21 @@ const Home: React.FC = () => {
 
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
           <div className="flex flex-col items-center">
-            <div className="text-center mb-12">
+            <div className="home-location-header text-center mb-12" data-animate="fade-up">
               <span className="text-secondary font-semibold text-lg tracking-[0.2em] uppercase block mb-3">
                 Our Location
               </span>
-              <h2 className="font-playfair text-4xl md:text-5xl lg:text-6xl font-bold text-primary leading-tight mb-6">
+              <h2 className="font-playfair text-4xl md:text-5xl lg:text-6xl font-bold text-primary leading-tight mb-6" data-animate="text" data-delay="1">
                 At the Heart of Tel Aviv
               </h2>
             </div>
 
-            <div className="max-w-4xl w-full mb-8">
+            <div className="home-location-content max-w-4xl w-full mb-8" data-animate="fade-up" data-delay="2">
               <p className="text-primary/90 text-lg md:text-xl leading-relaxed font-light text-center mb-8">
                 Our building is located at <span className="font-medium text-secondary">35 Hakovshim Street</span>, in the Kerem HaTeimanim neighborhood, just steps away from the beach and the Carmel Market.
               </p>
 
-              <div className="w-full rounded-2xl overflow-hidden shadow-xl border border-primary/10">
+              <div className="w-full rounded-2xl overflow-hidden shadow-xl border border-primary/10" data-animate="zoom">
                 <iframe
                   src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3380.969106191464!2d34.76409907581854!3d32.07008431977721!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x151d4c843acd13ab%3A0xb4aff2902a9ec6dd!2sHaKovshim%2035%2C%20Tel%20Aviv-Jaffa!5e0!3m2!1sfr!2sil!4v1771934464053!5m2!1sfr!2sil"
                   width="100%"
@@ -159,7 +200,7 @@ const Home: React.FC = () => {
                 
               </div>
 
-              <div className="text-center mt-8">
+              <div className="text-center mt-8" data-animate="scale" data-delay="3">
                 <a
                   href="https://www.google.com/maps?q=Hakovshim+35+Tel+Aviv"
                   target="_blank"
@@ -178,21 +219,21 @@ const Home: React.FC = () => {
       </section>
 
      {/* White Separator */}
-      <div className="h-12 bg-white"></div>
+      <div className="home-section-divider h-12 bg-white"></div>
 
       {/* Contact Section */}
-      <section id="contact" className="py-12 bg-gradient-to-br from-primary via-primary to-primary-light relative overflow-hidden rounded-3xl mx-4">
+      <section id="contact" className="home-contact-section py-12 bg-gradient-to-br from-primary via-primary to-primary-light relative overflow-hidden rounded-3xl mx-4" data-animate="fade-up">
         <div className="absolute inset-0">
           <div className="absolute top-20 left-10 w-32 h-32 bg-secondary/10 rounded-full blur-3xl"></div>
           <div className="absolute bottom-20 right-10 w-40 h-40 bg-tertiary/10 rounded-full blur-3xl"></div>
         </div>
 
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-          <div className="text-center mb-10">
+          <div className="home-contact-header text-center mb-10" data-animate="fade-up">
             <span className="text-secondary font-semibold text-lg tracking-wider uppercase">
               Contact Us
             </span>
-            <h2 className="font-playfair text-3xl md:text-4xl font-bold text-white mb-4 leading-tight">
+            <h2 className="font-playfair text-3xl md:text-4xl font-bold text-white mb-4 leading-tight" data-animate="text" data-delay="1">
               Get in Touch
             </h2>
             <p className="text-white/90 text-lg max-w-2xl mx-auto leading-relaxed">
@@ -200,9 +241,9 @@ const Home: React.FC = () => {
             </p>
           </div>
 
-          <div className="max-w-2xl mx-auto">
-            <div className="group relative bg-white/10 backdrop-blur-sm rounded-3xl p-6 transition-all duration-500 hover:bg-white/20 hover:shadow-2xl border border-white/20">
-              <form onSubmit={handleSubmit} className="space-y-6 relative z-10">
+          <div className="max-w-2xl mx-auto" data-animate="scale" data-delay="2">
+            <div className="home-contact-card group relative bg-white/10 backdrop-blur-sm rounded-3xl p-6 transition-all duration-500 hover:bg-white/20 hover:shadow-2xl border border-white/20">
+              <form onSubmit={handleSubmit} className="home-contact-form space-y-6 relative z-10">
                 <div className="grid md:grid-cols-2 gap-6">
                   <div className="group/input">
                     <label
@@ -281,13 +322,17 @@ const Home: React.FC = () => {
       </section>
 
          {/* White Separator */}
-      <div className="h-12 bg-white"></div>
+      <div className="home-section-divider h-12 bg-white"></div>
 
       {/* Testimonials Carousel */}
-      <TestimonialsCarousel />
+      <div data-animate="fade-up">
+        <TestimonialsCarousel />
+      </div>
 
       {/* FAQ Section */}
-      <FAQ />
+      <div data-animate="fade-up">
+        <FAQ />
+      </div>
     </div>
   );
 };

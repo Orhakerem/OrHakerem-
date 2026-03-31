@@ -194,12 +194,19 @@
     font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
     margin: 0;
     padding: 0;
+    overflow-x: hidden;
   }
 
   html {
     scroll-behavior: smooth;
     margin: 0;
     padding: 0;
+    overflow-x: hidden;
+  }
+
+  img {
+    max-width: 100%;
+    height: auto;
   }
 
   /* Enhanced font families */
@@ -229,6 +236,61 @@
 }
 
 @layer components {
+  .hero-home {
+    background:
+      radial-gradient(circle at top, rgba(216, 176, 132, 0.18), transparent 45%),
+      linear-gradient(180deg, #16202d 0%, #1d2a3a 52%, #24364a 100%);
+  }
+
+  .hero-home-media {
+    background:
+      radial-gradient(circle at top, rgba(255, 255, 255, 0.1), transparent 40%),
+      linear-gradient(180deg, rgba(10, 18, 28, 0.24) 0%, rgba(10, 18, 28, 0.38) 100%);
+  }
+
+  .hero-home-video {
+    z-index: 1;
+  }
+
+  .hero-home-overlay {
+    z-index: 2;
+    background: linear-gradient(180deg, rgba(12, 18, 28, 0.18) 0%, rgba(12, 18, 28, 0.36) 100%);
+  }
+
+  .hero-home-fallback {
+    z-index: 0;
+  }
+
+  .hero-home-title,
+  .hero-home-cta-wrap {
+    z-index: 3;
+  }
+
+  .hero-home-mobile-strip,
+  .hero-home-mobile-text,
+  .hero-home-mobile-video-section {
+    display: none;
+  }
+
+  .hero-home-mobile-video-wrap {
+    position: relative;
+  }
+
+  .hero-home-mobile-video {
+    display: block;
+    width: 100%;
+    height: auto;
+    background: #000;
+  }
+
+  .hero-home-mobile-video-cta {
+    position: absolute;
+    left: 50%;
+    bottom: 1rem;
+    z-index: 3;
+    transform: translateX(-50%);
+  }
+
   .glass-cta-wrap {
     position: absolute;
     bottom: 40px;
@@ -277,14 +339,47 @@
     transform: scale(1.04);
   }
 
+  .book-button {
+    backdrop-filter: none !important;
+    -webkit-backdrop-filter: none !important;
+  }
+
+  .book-button-primary {
+    background: linear-gradient(to right, #d8b084, rgba(216, 176, 132, 0.9));
+    color: #a5382b;
+  }
+
+  .book-button-secondary {
+    background: rgba(255, 255, 255, 0.2);
+    color: #fff;
+    border: 1px solid rgba(255, 255, 255, 0.3);
+  }
+
+  .property-card {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .property-card-image {
+    position: relative;
+  }
+
+  .property-card-content {
+    display: flex;
+    flex-direction: column;
+  }
+
   @media (max-width: 768px) {
     .glass-cta-wrap {
       bottom: 24px;
     }
 
     .glass-cta {
-      padding: 18px 36px;
-      font-size: 21px;
+      padding: 17px 31px;
+      font-size: 22px;
+      white-space: nowrap;
+      line-height: 1;
+      border-radius: 999px;
     }
   }
 
@@ -601,14 +696,577 @@
     color: #D8B084;
   }
 
+  @media (max-width: 1024px) {
+    .hero-home {
+      height: auto !important;
+      min-height: 0;
+      overflow: visible;
+      background: var(--color-secondary);
+      padding-bottom: 2px;
+      border-top-left-radius: 24px;
+      border-top-right-radius: 24px;
+      border-bottom-left-radius: 30px;
+      border-bottom-right-radius: 30px;
+    }
+
+    .hero-home-media {
+      display: none;
+    }
+
+    .hero-home-title,
+    .hero-home-cta-wrap {
+      display: none;
+    }
+
+    .hero-home-mobile-strip {
+      display: block;
+      height: 5.5rem;
+      background: transparent;
+    }
+
+    .hero-home-mobile-text {
+      display: block;
+      background: transparent;
+      padding: 1rem 1rem 1.125rem;
+    }
+
+    .hero-home-mobile-text-inner {
+      max-width: 36rem;
+      margin: 0 auto;
+      text-align: center;
+    }
+
+    .hero-home-mobile-title {
+      margin: 0;
+      color: var(--color-primary);
+      font-size: 2.2rem;
+      line-height: 1.12;
+    }
+
+    .hero-home-mobile-video-section {
+      display: block;
+      background: transparent;
+      padding: 0 1rem 0;
+    }
+
+    .hero-home-mobile-video-wrap {
+      width: min(100%, 52rem);
+      margin: 0 auto;
+      overflow: hidden;
+      border-radius: 0;
+      box-shadow: none;
+    }
+
+    .hero-home-mobile-video-cta .glass-cta {
+      padding: 16.8px 36px;
+      font-size: 18px;
+    }
+
+    .property-card {
+      aspect-ratio: auto;
+      min-height: 0;
+    }
+
+    .property-card-image {
+      height: auto !important;
+      aspect-ratio: 16 / 10;
+      min-height: 220px;
+      flex: 0 0 auto;
+    }
+
+    .property-card-content {
+      height: auto !important;
+      min-height: 0;
+      padding: 1.25rem;
+      gap: 0.875rem;
+    }
+
+    .property-card-copy {
+      margin-bottom: 0;
+      min-height: 7.5rem;
+    }
+
+    .property-card-stats {
+      margin-bottom: 0;
+      padding: 0.75rem;
+    }
+
+    .property-card-footer {
+      margin-top: auto;
+      gap: 0.75rem;
+    }
+
+    .property-card-actions {
+      gap: 0.625rem;
+    }
+
+    .property-card-button {
+      min-height: 2.625rem;
+      padding-left: 0.875rem;
+      padding-right: 0.875rem;
+      white-space: nowrap;
+      flex-shrink: 0;
+    }
+
+    .hero-section {
+      min-height: 72vh !important;
+      padding-top: 5.5rem !important;
+    }
+
+    .services-hero-section {
+      min-height: 38vh !important;
+      padding-top: 4rem !important;
+      padding-bottom: 0 !important;
+    }
+
+    .rentals-hero-section {
+      min-height: 60vh !important;
+    }
+
+    .services-hero-inner {
+      min-height: calc(38vh - 4rem) !important;
+      padding-top: 0.25rem !important;
+      padding-bottom: 0 !important;
+      align-items: flex-start !important;
+    }
+
+    .services-hero-content,
+    .rentals-hero-content {
+      padding-top: 0;
+      padding-bottom: 1.25rem;
+    }
+
+    .services-hero-content {
+      max-width: 50rem;
+      padding-bottom: 0.125rem !important;
+    }
+
+    .services-hero-content h1 {
+      font-size: 3rem;
+      margin-bottom: 0.875rem !important;
+    }
+
+    .rentals-hero-content h1 {
+      font-size: 3rem;
+      margin-bottom: 1rem !important;
+    }
+
+    .services-hero-content p,
+    .rentals-hero-content p {
+      font-size: 0.98rem;
+      margin-bottom: 0.875rem !important;
+    }
+
+    .services-hero-pills,
+    .rentals-hero-pills {
+      gap: 0.5rem;
+    }
+
+    .services-hero-pills > div,
+    .rentals-hero-pills > div,
+    .rentals-hero-badge {
+      padding: 0.5rem 0.85rem;
+      font-size: 0.82rem;
+    }
+
+    .home-section-divider {
+      height: 2rem;
+    }
+
+    .home-location-section,
+    .home-contact-section,
+    .home-testimonials-section,
+    .home-faq-section,
+    .properties-cta-section,
+    .services-grid-section,
+    .services-contact-section,
+    .events-plan-section,
+    .rentals-amenities-section,
+    .rentals-journey-section {
+      padding-top: 3rem !important;
+      padding-bottom: 3rem !important;
+    }
+
+    .home-contact-section,
+    .services-contact-section {
+      padding-top: 2.5rem !important;
+      padding-bottom: 2.5rem !important;
+    }
+
+    .home-contact-section {
+      padding-top: 1rem !important;
+      padding-bottom: 1rem !important;
+    }
+
+    .events-venues-section {
+      padding-top: 4rem !important;
+      padding-bottom: 4rem !important;
+      margin-bottom: 3.5rem !important;
+    }
+
+    .home-location-header,
+    .home-contact-header,
+    .home-testimonials-header,
+    .home-faq-header,
+    .services-grid-header,
+    .services-contact-header,
+    .events-plan-header,
+    .events-venues-header {
+      margin-bottom: 2rem !important;
+    }
+
+    .home-contact-header {
+      margin-bottom: 0.75rem !important;
+    }
+
+    .home-location-content,
+    .home-contact-card,
+    .home-testimonials-card,
+    .home-testimonials-guest,
+    .home-faq-item,
+    .properties-cta-section,
+    .services-contact-card,
+    .events-venues-card,
+    .events-plan-success,
+    .rentals-amenity-card,
+    .rentals-journey-section {
+      padding: 1.5rem !important;
+    }
+
+    .home-contact-card,
+    .services-contact-card {
+      padding: 1.25rem !important;
+    }
+
+    .home-contact-card {
+      padding: 0.75rem !important;
+      border-radius: 1.25rem !important;
+    }
+
+    .home-contact-form,
+    .services-contact-form {
+      gap: 0.875rem !important;
+    }
+
+    .home-contact-form > :not([hidden]) ~ :not([hidden]) {
+      margin-top: 0.625rem !important;
+    }
+
+    .home-contact-form .grid.md\:grid-cols-2 {
+      gap: 0.625rem !important;
+    }
+
+    .home-contact-form .group\/input label {
+      margin-bottom: 0.25rem !important;
+    }
+
+    .home-contact-form input {
+      height: 2.625rem !important;
+    }
+
+    .home-contact-form textarea {
+      min-height: 7.5rem !important;
+      padding-top: 0.625rem !important;
+      padding-bottom: 0.625rem !important;
+    }
+
+    .home-contact-form .text-center {
+      margin-top: 0 !important;
+    }
+
+    .home-contact-form .text-center .mt-4 {
+      margin-top: 0.5rem !important;
+    }
+
+    .services-contact-grid {
+      gap: 0.875rem !important;
+    }
+
+    .home-testimonials-header h2,
+    .events-venues-header h2 {
+      font-size: 2.75rem;
+      margin-bottom: 1rem !important;
+    }
+
+    .home-testimonials-header p,
+    .home-contact-header p,
+    .services-grid-header p,
+    .services-contact-header p,
+    .events-plan-header p,
+    .properties-cta-section p,
+    .rentals-journey-section p {
+      font-size: 1rem;
+      margin-bottom: 0.875rem !important;
+    }
+
+    .home-faq-grid,
+    .services-grid,
+    .rentals-amenities-grid {
+      gap: 1rem !important;
+    }
+
+    .services-grid-section {
+      padding-top: 2.75rem !important;
+      padding-bottom: 2.75rem !important;
+    }
+
+    .services-grid-header {
+      margin-bottom: 1.5rem !important;
+    }
+
+    .service-card {
+      padding: 1rem !important;
+    }
+
+    .service-card h3 {
+      margin-bottom: 0.5rem !important;
+      font-size: 1.05rem;
+    }
+
+    .service-card p {
+      font-size: 0.88rem;
+      line-height: 1.5;
+    }
+
+    .service-card .relative.inline-block,
+    .service-card .relative.inline-block + h3 {
+      margin-bottom: 0.625rem;
+    }
+
+    .service-card .relative.p-4,
+    .service-card .relative.p-3 {
+      padding: 0.75rem !important;
+    }
+
+    .events-venues-card {
+      padding: 2rem !important;
+    }
+
+    .events-plan-cta {
+      margin-bottom: 1.5rem !important;
+    }
+
+    .event-form-wrap {
+      width: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .event-form {
+      width: min(88vw, 720px) !important;
+      max-width: min(88vw, 720px) !important;
+      margin-left: auto !important;
+      margin-right: auto !important;
+      padding: 1.25rem !important;
+    }
+
+    .book-button-primary {
+      background: linear-gradient(to right, #d8b084, rgba(216, 176, 132, 0.9)) !important;
+      color: #a5382b !important;
+      border: none !important;
+      box-shadow:
+        0 12px 24px rgba(216, 176, 132, 0.2),
+        0 0 0 1px rgba(255, 255, 255, 0.08) inset;
+    }
+  }
+
   /* Mobile styles */
   @media (max-width: 768px) {
+    .hero-home-mobile-strip {
+      height: 5rem;
+    }
+
+    .hero-home-mobile-text {
+      padding: 0.875rem 0.875rem 1rem;
+    }
+
+    .hero-home-mobile-text-inner {
+      max-width: 22rem;
+    }
+
+    .hero-home-mobile-title {
+      font-size: 1.7rem;
+      line-height: 1.1;
+    }
+
+    .hero-home-mobile-video-section {
+      padding: 0 0.875rem 0;
+    }
+
+    .hero-home-mobile-video-cta {
+      bottom: 0.875rem;
+    }
+
+    .hero-home-mobile-video-cta .glass-cta {
+      padding: 13.6px 24.8px;
+      font-size: 17.6px;
+    }
+
+    .property-card {
+      aspect-ratio: auto;
+    }
+
+    .property-card-image {
+      aspect-ratio: 4 / 3;
+      min-height: 200px;
+    }
+
+    .property-card-content {
+      padding: 1rem;
+      gap: 0.75rem;
+    }
+
+    .property-card-copy {
+      min-height: 7rem;
+    }
+
+    .property-card-copy h3 {
+      font-size: 1.125rem;
+      line-height: 1.3;
+    }
+
+    .property-card-copy p {
+      margin-bottom: 0;
+    }
+
+    .property-card-stats {
+      padding: 0.625rem;
+    }
+
+    .property-card-footer {
+      gap: 0.625rem;
+    }
+
+    .property-card-actions {
+      gap: 0.5rem;
+    }
+
+    .property-card-button {
+      min-height: 2.5rem;
+      font-size: 0.875rem;
+      padding-left: 0.75rem;
+      padding-right: 0.75rem;
+    }
+
+    .property-card-button-secondary {
+      min-width: 5.25rem;
+    }
+
+    .hero-section {
+      min-height: 64vh !important;
+      padding-top: 5rem !important;
+    }
+
+    .services-hero-section {
+      min-height: 34vh !important;
+      padding-top: 3.75rem !important;
+      padding-bottom: 0 !important;
+    }
+
+    .rentals-hero-section {
+      min-height: 54vh !important;
+    }
+
+    .services-hero-inner {
+      min-height: calc(34vh - 3.75rem) !important;
+      padding-top: 0 !important;
+      padding-bottom: 0 !important;
+      align-items: flex-start !important;
+    }
+
+    .services-hero-content,
+    .rentals-hero-content {
+      padding-bottom: 0.75rem;
+    }
+
+    .services-hero-content {
+      max-width: 32rem;
+      padding-bottom: 0 !important;
+    }
+
+    .services-hero-content h1 {
+      font-size: 2.1rem;
+      margin-bottom: 0.75rem !important;
+    }
+
+    .rentals-hero-content h1 {
+      font-size: 2.15rem;
+      margin-bottom: 0.75rem !important;
+    }
+
+    .services-hero-content p,
+    .rentals-hero-content p {
+      font-size: 0.9rem;
+      margin-bottom: 0.75rem !important;
+    }
+
+    .home-contact-section {
+      padding-top: 0.875rem !important;
+      padding-bottom: 0.875rem !important;
+    }
+
+    .home-contact-header {
+      margin-bottom: 0.625rem !important;
+    }
+
+    .home-contact-card {
+      padding: 0.625rem !important;
+      border-radius: 1rem !important;
+    }
+
+    .home-contact-form > :not([hidden]) ~ :not([hidden]) {
+      margin-top: 0.5rem !important;
+    }
+
+    .home-contact-form .grid.md\:grid-cols-2 {
+      gap: 0.5rem !important;
+    }
+
+    .home-contact-form .group\/input label {
+      margin-bottom: 0.25rem !important;
+    }
+
+    .home-contact-form input {
+      height: 2.5rem !important;
+    }
+
+    .home-contact-form textarea {
+      min-height: 6.5rem !important;
+      padding-top: 0.5rem !important;
+      padding-bottom: 0.5rem !important;
+    }
+
+    .home-contact-form .text-center .mt-4 {
+      margin-top: 0.375rem !important;
+    }
+
     .navbar-floating {
       height: 60px;
-      padding: 8px 16px;
+      padding: 10px 16px;
       border-radius: 30px;
       top: 10px;
-      width: 96%;
+      width: calc(100% - 16px);
+      max-width: calc(100% - 16px);
+      box-sizing: border-box;
+    }
+
+    .navbar-container-floating {
+      padding: 0;
+      gap: 12px;
+      min-width: 0;
+    }
+
+    .logo-section-floating {
+      min-width: 0;
+      flex: 1;
+    }
+
+    .logo-text-floating.mobile {
+      font-size: 1.15rem;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
     }
 
     .logo-section-floating .relative {
@@ -629,6 +1287,334 @@
 
     .mobile-menu-floating {
       top: 65px;
+      left: 0;
+      right: 0;
+      margin: 0;
+      width: 100%;
+      max-width: 100%;
+      box-sizing: border-box;
+      border-radius: 18px;
+      backdrop-filter: none;
+      -webkit-backdrop-filter: none;
+    }
+
+    .mobile-menu-items-floating {
+      padding: 12px 0;
+    }
+
+    .mobile-nav-item-floating {
+      padding: 13px 18px;
+      font-size: 13px;
+      white-space: nowrap;
+    }
+
+    .mobile-menu-button-floating {
+      flex-shrink: 0;
+      width: 40px;
+      height: 40px;
+      padding: 10px;
+    }
+
+    .mobile-overlay-floating {
+      backdrop-filter: none;
+      -webkit-backdrop-filter: none;
+    }
+
+    .home-location-section,
+    .home-contact-section,
+    .home-testimonials-section,
+    .home-faq-section,
+    .properties-cta-section,
+    .services-grid-section,
+    .services-contact-section,
+    .events-plan-section,
+    .rentals-amenities-section,
+    .rentals-journey-section {
+      padding-top: 2.5rem !important;
+      padding-bottom: 2.5rem !important;
+    }
+
+    .home-contact-section,
+    .services-contact-section {
+      padding-top: 1.5rem !important;
+      padding-bottom: 1.5rem !important;
+    }
+
+    .events-venues-section {
+      padding-top: 3rem !important;
+      padding-bottom: 3rem !important;
+      margin-bottom: 2.5rem !important;
+    }
+
+    .home-location-header,
+    .home-contact-header,
+    .home-testimonials-header,
+    .home-faq-header,
+    .services-grid-header,
+    .services-contact-header,
+    .events-plan-header,
+    .events-venues-header {
+      margin-bottom: 1.25rem !important;
+    }
+
+    .home-location-header h2,
+    .home-contact-header h2,
+    .home-testimonials-header h2,
+    .services-grid-header h2,
+    .events-plan-header h2,
+    .rentals-journey-section h2 {
+      font-size: 2rem !important;
+      margin-bottom: 0.75rem !important;
+    }
+
+    .home-faq-header h2,
+    .events-venues-header h2 {
+      font-size: 1.85rem !important;
+      margin-bottom: 0.75rem !important;
+    }
+
+    .home-location-content p,
+    .home-contact-header p,
+    .home-testimonials-header p,
+    .services-grid-header p,
+    .services-contact-header p,
+    .events-plan-header p,
+    .properties-cta-section p,
+    .rentals-journey-section p {
+      font-size: 0.95rem !important;
+      margin-bottom: 0.75rem !important;
+    }
+
+    .home-location-content,
+    .home-contact-card,
+    .home-testimonials-card,
+    .home-testimonials-guest,
+    .home-faq-item,
+    .properties-cta-section,
+    .services-contact-card,
+    .events-venues-card,
+    .events-plan-success,
+    .rentals-amenity-card,
+    .rentals-journey-section {
+      padding: 1rem !important;
+    }
+
+    .home-contact-card,
+    .services-contact-card {
+      padding: 0.75rem !important;
+    }
+
+    .home-contact-form,
+    .services-contact-form {
+      gap: 0.625rem !important;
+    }
+
+    .services-contact-grid {
+      gap: 0.75rem !important;
+    }
+
+    .home-faq-grid {
+      gap: 0.75rem !important;
+    }
+
+    .home-faq-item h3 {
+      font-size: 1rem;
+      line-height: 1.35;
+    }
+
+    .home-testimonials-card {
+      border-radius: 1.25rem;
+    }
+
+    .home-testimonials-guest {
+      padding: 1rem !important;
+    }
+
+    .home-testimonials-guest h4 {
+      font-size: 1.35rem;
+    }
+
+    .home-section-divider {
+      height: 1.25rem;
+    }
+
+    .reservation-container,
+    .reservation-form,
+    .event-form,
+    .event-modal form {
+      width: 100%;
+      max-width: 100%;
+      overflow-x: hidden;
+    }
+
+    .reservation-container {
+      padding-left: 16px;
+      padding-right: 16px;
+    }
+
+    input,
+    select,
+    textarea {
+      width: 100%;
+      max-width: 100%;
+      box-sizing: border-box;
+    }
+
+    .event-modal {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow-x: hidden;
+      padding: 16px;
+    }
+
+    .event-form-wrap {
+      width: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .event-form {
+      width: min(90vw, 560px) !important;
+      max-width: min(90vw, 560px) !important;
+      margin: auto;
+      padding: 1rem !important;
+      border-radius: 16px;
+      max-height: min(88vh, 720px);
+    }
+
+    .book-button-secondary {
+      backdrop-filter: none !important;
+      -webkit-backdrop-filter: none !important;
+      background: rgba(255, 255, 255, 0.08) !important;
+      box-shadow: none;
+    }
+
+    .book-button-secondary:hover {
+      background: rgba(255, 255, 255, 0.14) !important;
+    }
+
+    .book-button-primary {
+      background: linear-gradient(to right, #d8b084, rgba(216, 176, 132, 0.9)) !important;
+      color: #a5382b !important;
+    }
+
+    .max-w-4xl,
+    .max-w-5xl,
+    .max-w-6xl,
+    .max-w-7xl {
+      max-width: 100%;
+    }
+
+    .gap-8 {
+      gap: 1.25rem;
+    }
+
+    .gap-12,
+    .gap-16,
+    .gap-20 {
+      gap: 1.5rem;
+    }
+
+    .site-footer-mobile {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 0.75rem 1rem;
+      padding-top: 0.75rem !important;
+      padding-bottom: 0.75rem !important;
+    }
+
+    .site-footer-mobile-brand,
+    .site-footer-mobile-contact,
+    .site-footer-mobile-meta {
+      grid-column: 1 / -1;
+    }
+
+    .site-footer-mobile-brand,
+    .site-footer-mobile-contact,
+    .site-footer-mobile-nav,
+    .site-footer-mobile-policies {
+      margin-bottom: 0 !important;
+    }
+
+    .site-footer-mobile-brand .mb-3,
+    .site-footer-mobile-contact .mb-3,
+    .site-footer-mobile-nav .mb-3,
+    .site-footer-mobile-policies .mb-3 {
+      margin-bottom: 0.375rem !important;
+    }
+
+    .site-footer-mobile-brand .w-16 {
+      width: 3rem !important;
+      height: 3rem !important;
+      margin-right: 0.5rem !important;
+    }
+
+    .site-footer-mobile-brand .text-2xl {
+      font-size: 1.35rem !important;
+      line-height: 1 !important;
+    }
+
+    .site-footer-mobile-brand .text-sm {
+      font-size: 0.85rem !important;
+      line-height: 1.2 !important;
+    }
+
+    .site-footer-mobile-contact h3,
+    .site-footer-mobile-nav h3,
+    .site-footer-mobile-policies h3 {
+      margin-bottom: 0.5rem !important;
+      font-size: 1rem !important;
+    }
+
+    .site-footer-mobile-contact-content {
+      gap: 0.375rem !important;
+    }
+
+    .site-footer-mobile-phone-row {
+      gap: 0.75rem !important;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+
+    .site-footer-mobile-socials {
+      gap: 0.5rem !important;
+    }
+
+    .site-footer-mobile-nav .gap-x-4,
+    .site-footer-mobile-policies .gap-x-4 {
+      column-gap: 0.75rem !important;
+    }
+
+    .site-footer-mobile-nav .gap-y-1,
+    .site-footer-mobile-policies .gap-y-1 {
+      row-gap: 0.375rem !important;
+    }
+
+    .site-footer-mobile .w-8 {
+      width: 2rem !important;
+      height: 2rem !important;
+    }
+
+    .site-footer-mobile-contact a,
+    .site-footer-mobile-nav a,
+    .site-footer-mobile-policies a {
+      font-size: 0.9rem !important;
+      line-height: 1.3 !important;
+    }
+
+    .site-footer-mobile-meta p {
+      font-size: 0.8rem !important;
+      line-height: 1.25 !important;
+    }
+
+    .site-footer-mobile-meta {
+      margin-top: 0.125rem;
+    }
+
+    .site-footer-mobile .pt-3 {
+      padding-top: 0.625rem !important;
     }
   }
 

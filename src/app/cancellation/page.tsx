@@ -8,7 +8,7 @@ export default function CancellationPage() {
     <div className="min-h-screen pt-24 pb-20 bg-cream">
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Enhanced Back Navigation */}
-        <div className="mb-8">
+        <div className="mb-8" data-animate="fade-right">
           <div className="inline-block relative group">
             <div className="absolute inset-0 bg-gradient-to-r from-primary/20 to-secondary/20 rounded-full blur-lg opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
             <Link
@@ -26,13 +26,13 @@ export default function CancellationPage() {
         </div>
 
         {/* Main Content */}
-        <div className="bg-white rounded-2xl shadow-xl p-8 md:p-12">
+        <div className="bg-white rounded-2xl shadow-xl p-8 md:p-12" data-animate="fade-up">
           {/* Title Section */}
-          <div className="text-center mb-12">
+          <div className="text-center mb-12" data-animate="fade-up">
             <div className="inline-flex items-center justify-center w-16 h-16 bg-gradient-to-br from-primary to-primary-light rounded-full mb-6">
               <Clock className="w-8 h-8 text-white" />
             </div>
-            <h1 className="font-playfair text-4xl md:text-5xl font-bold text-primary mb-6">
+            <h1 className="font-playfair text-4xl md:text-5xl font-bold text-primary mb-6" data-animate="text">
               Cancellation Policy
             </h1>
             <p className="text-primary/80 text-lg max-w-2xl mx-auto">
@@ -41,12 +41,12 @@ export default function CancellationPage() {
           </div>
 
           {/* Cancellation Timeline */}
-          <section className="mb-12">
+          <section className="mb-12" data-animate="fade-up" data-delay="1">
             <h2 className="font-playfair text-2xl font-bold text-primary mb-8 text-center">
               Cancellation Timeline & Refunds
             </h2>
             
-            <div className="grid md:grid-cols-2 gap-6 mb-8">
+            <div className="grid md:grid-cols-2 gap-6 mb-8" data-animate-group="cards">
               <div className="space-y-4">
                 <div className="p-6 bg-gradient-to-r from-green-50 to-green-100 rounded-xl border-l-4 border-green-500 shadow-lg">
                   <div className="flex items-center mb-3">
@@ -90,7 +90,7 @@ export default function CancellationPage() {
           </section>
 
           {/* Non-refundable Circumstances */}
-          <section className="mb-12">
+          <section className="mb-12" data-animate="fade-up" data-delay="2">
             <div className="bg-red-50 border-2 border-red-200 rounded-xl p-8">
               <div className="flex items-center mb-6">
                 <AlertTriangle className="w-8 h-8 text-red-600 mr-4" />
@@ -135,7 +135,7 @@ export default function CancellationPage() {
           </section>
 
           {/* Important Notes */}
-          <section className="mb-8">
+          <section className="mb-8" data-animate="fade-up" data-delay="3">
             <div className="bg-blue-50 border-2 border-blue-200 rounded-xl p-8">
               <h3 className="font-playfair text-xl font-bold text-blue-800 mb-4">Important Notes</h3>
               <ul className="space-y-3 text-blue-700">
@@ -160,7 +160,7 @@ export default function CancellationPage() {
           </section>
 
           {/* Contact Information */}
-          <section className="text-center bg-gradient-to-br from-primary/5 to-secondary/5 rounded-xl p-8">
+          <section className="text-center bg-gradient-to-br from-primary/5 to-secondary/5 rounded-xl p-8" data-animate="scale" data-delay="1">
             <h3 className="font-playfair text-xl font-bold text-primary mb-4">
               Questions About Cancellations?
             </h3>

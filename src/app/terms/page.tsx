@@ -29,7 +29,7 @@ export default function TermsPage() {
     <div className="min-h-screen pt-24 pb-20 bg-cream">
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Enhanced Back Navigation */}
-        <div className="mb-8">
+        <div className="mb-8" data-animate="fade-right">
           <div className="inline-block relative group">
             <div className="absolute inset-0 bg-gradient-to-r from-primary/20 to-secondary/20 rounded-full blur-lg opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
             <Link
@@ -47,7 +47,7 @@ export default function TermsPage() {
         </div>
 
         {/* Header with Print Button */}
-        <div className="mb-8 flex items-center justify-end">
+        <div className="mb-8 flex items-center justify-end" data-animate="fade-left">
           <button
             onClick={handlePrint}
             className="flex items-center px-4 py-2 bg-primary text-white rounded-lg hover:bg-primary-light transition-colors"
@@ -58,19 +58,19 @@ export default function TermsPage() {
         </div>
 
         {/* Main Content */}
-        <div className="bg-white rounded-2xl shadow-xl p-8 md:p-12 print:shadow-none print:p-0">
+        <div className="bg-white rounded-2xl shadow-xl p-8 md:p-12 print:shadow-none print:p-0" data-animate="fade-up">
           {/* Title Section */}
-          <div className="text-center mb-12">
+          <div className="text-center mb-12" data-animate="fade-up">
             <div className="inline-flex items-center justify-center w-16 h-16 bg-gradient-to-br from-primary to-primary-light rounded-full mb-6">
               <FileText className="w-8 h-8 text-white" />
             </div>
-            <h1 className="font-playfair text-4xl md:text-5xl font-bold text-primary mb-4">
+            <h1 className="font-playfair text-4xl md:text-5xl font-bold text-primary mb-4" data-animate="text">
               Rental Terms & Conditions
             </h1>
           </div>
 
           {/* Section 1: Cancellation Policies */}
-          <section className="mb-12">
+          <section className="mb-12" data-animate="fade-up" data-delay="1">
             <div className="flex items-center mb-6">
               <div className="p-3 bg-gradient-to-br from-primary to-primary-light rounded-full mr-4">
                 <Clock className="w-6 h-6 text-white" />
@@ -119,7 +119,7 @@ export default function TermsPage() {
           </section>
 
           {/* Section 2: Payments & Schedule */}
-          <section className="mb-12">
+          <section className="mb-12" data-animate="fade-up" data-delay="2">
             <div className="flex items-center mb-6">
               <div className="p-3 bg-gradient-to-br from-secondary to-secondary-light rounded-full mr-4">
                 <CreditCard className="w-6 h-6 text-primary" />
@@ -164,7 +164,7 @@ export default function TermsPage() {
           </section>
 
           {/* Section 3: Guest Responsibilities */}
-          <section className="mb-12">
+          <section className="mb-12" data-animate="fade-up" data-delay="3">
             <div className="flex items-center mb-6">
               <div className="p-3 bg-gradient-to-br from-tertiary to-tertiary-light rounded-full mr-4">
                 <Shield className="w-6 h-6 text-white" />
@@ -202,7 +202,7 @@ export default function TermsPage() {
           </section>
 
           {/* Section 4: Or Hakerem Responsibilities */}
-          <section className="mb-12">
+          <section className="mb-12" data-animate="fade-up" data-delay="1">
             <div className="flex items-center mb-6">
               <div className="p-3 bg-gradient-to-br from-primary to-primary-light rounded-full mr-4">
                 <Shield className="w-6 h-6 text-white" />

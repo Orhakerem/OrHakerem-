@@ -136,17 +136,17 @@ export default function ContactForm({
   return (
     <div className={`w-full ${className}`}>
       {showTitle && (
-        <div className="text-center mb-8">
-          <h2 className="font-playfair text-3xl md:text-4xl font-bold text-white mb-4 leading-tight">
+        <div className="text-center mb-8" data-animate="fade-up">
+          <h2 className="font-playfair text-3xl md:text-4xl font-bold text-white mb-4 leading-tight" data-animate="text" data-delay="1">
             {title}
           </h2>
-          <p className="text-white/90 text-lg max-w-2xl mx-auto leading-relaxed">
+          <p className="text-white/90 text-lg max-w-2xl mx-auto leading-relaxed" data-animate="fade-up" data-delay="2">
             {subtitle}
           </p>
         </div>
       )}
 
-      <div className="max-w-2xl mx-auto">
+      <div className="max-w-2xl mx-auto" data-animate="scale" data-delay="1">
         <div className={`group relative bg-white/10 backdrop-blur-sm rounded-3xl transition-all duration-500 hover:bg-white/20 hover:shadow-2xl border border-white/20 ${getVariantClasses()}`}>
           {/* Gradient overlay on hover */}
           <div className="absolute inset-0 bg-gradient-to-br from-secondary/20 to-tertiary/20 rounded-3xl opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>

@@ -491,7 +491,7 @@ export default function TestimonialsCarousel() {
   };
 
   return (
-    <section className="py-20 bg-cream relative overflow-hidden">
+    <section className="home-testimonials-section py-20 bg-cream relative overflow-hidden">
       {/* Background decorative elements */}
       <div className="absolute inset-0">
         <div className="absolute top-10 left-10 w-32 h-32 bg-secondary/10 rounded-full blur-3xl"></div>
@@ -501,7 +501,7 @@ export default function TestimonialsCarousel() {
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         {/* Header section */}
-        <div className="text-center mb-16">
+        <div className="home-testimonials-header text-center mb-16">
           <div className="inline-block mb-4">
             <span className="text-tertiary font-semibold text-lg tracking-wider uppercase">
               Guest Reviews
@@ -517,12 +517,12 @@ export default function TestimonialsCarousel() {
 
         {/* Carousel Container */}
         <div 
-          className="relative max-w-5xl mx-auto"
+          className="home-testimonials-carousel relative max-w-5xl mx-auto"
           onMouseEnter={() => setIsAutoPlaying(false)}
           onMouseLeave={() => setIsAutoPlaying(true)}
         >
           {/* Main Testimonial Card */}
-          <div className="relative bg-white rounded-3xl shadow-2xl p-8 md:p-12 border border-secondary/10 overflow-hidden">
+          <div className="home-testimonials-card relative bg-white rounded-3xl shadow-2xl p-8 md:p-12 border border-secondary/10 overflow-hidden">
             {/* Gradient overlay */}
             <div className="absolute inset-0 bg-gradient-to-br from-secondary/5 to-tertiary/5 rounded-3xl"></div>
             
@@ -548,7 +548,7 @@ export default function TestimonialsCarousel() {
 
               {/* Guest Info */}
               <div className="text-center">
-                <div className="inline-block p-6 bg-gradient-to-br from-cream to-white rounded-2xl shadow-lg border border-secondary/20">
+                <div className="home-testimonials-guest inline-block p-6 bg-gradient-to-br from-cream to-white rounded-2xl shadow-lg border border-secondary/20">
                   <h4 className="font-playfair text-2xl font-bold text-primary mb-2">
                     {testimonials[currentIndex].name}
                   </h4>

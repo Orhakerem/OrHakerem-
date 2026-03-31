@@ -10,7 +10,7 @@ export default function ContactPage() {
     <div className="min-h-screen pt-24 pb-20 bg-cream">
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Enhanced Back Navigation */}
-        <div className="mb-8">
+        <div className="mb-8" data-animate="fade-right">
           <div className="inline-block relative group">
             <div className="absolute inset-0 bg-gradient-to-r from-primary/20 to-secondary/20 rounded-full blur-lg opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
             <Link
@@ -28,7 +28,7 @@ export default function ContactPage() {
         </div>
 
         {/* Contact Section */}
-        <section className="py-20 bg-gradient-to-br from-primary via-primary to-primary-light relative overflow-hidden rounded-3xl">
+        <section className="py-20 bg-gradient-to-br from-primary via-primary to-primary-light relative overflow-hidden rounded-3xl" data-animate="fade-up">
           {/* Background decorative elements */}
           <div className="absolute inset-0">
             <div className="absolute top-20 left-10 w-32 h-32 bg-secondary/10 rounded-full blur-3xl"></div>
@@ -51,9 +51,9 @@ export default function ContactPage() {
         </section>
 
         {/* Additional Contact Information */}
-        <section className="mt-16 bg-white rounded-2xl shadow-xl p-8 md:p-12">
+        <section className="mt-16 bg-white rounded-2xl shadow-xl p-8 md:p-12" data-animate="fade-up">
           <div className="text-center mb-8">
-            <h2 className="font-playfair text-3xl font-bold text-primary mb-4">
+            <h2 className="font-playfair text-3xl font-bold text-primary mb-4" data-animate="text">
               Other Ways to Reach Us
             </h2>
             <p className="text-primary/80 text-lg">
@@ -61,7 +61,7 @@ export default function ContactPage() {
             </p>
           </div>
 
-          <div className="grid md:grid-cols-3 gap-8">
+          <div className="grid md:grid-cols-3 gap-8" data-animate-group="cards">
             {/* Email */}
             <div className="text-center p-6 bg-gradient-to-br from-cream to-white rounded-xl border border-secondary/20">
               <div className="inline-flex items-center justify-center w-16 h-16 bg-gradient-to-br from-secondary to-secondary-light rounded-full mb-4">

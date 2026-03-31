@@ -41,14 +41,15 @@ function PropertyCard({ property }: { property: (typeof properties)[keyof typeof
 
   return (
     <div 
-      className="group relative bg-white rounded-2xl overflow-hidden shadow-xl hover:shadow-2xl transition-all duration-700 hover:scale-[1.02] aspect-square cursor-pointer"
+      data-animate="scale"
+      className="property-card group relative bg-white rounded-2xl overflow-hidden shadow-xl hover:shadow-2xl transition-all duration-700 hover:scale-[1.02] aspect-square cursor-pointer"
       onClick={() => router.push(`/properties/${property.id}`)}
     >
       {/* Gradient overlay on hover */}
       <div className="absolute inset-0 bg-gradient-to-br from-secondary/5 to-tertiary/5 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-500 z-10"></div>
       
       {/* Image Section - Square format - Clean without price and heart */}
-      <div className="relative h-1/2 overflow-hidden">
+      <div className="property-card-image relative h-1/2 overflow-hidden" data-animate="zoom">
         <Image 
           src={property.image} 
           alt={property.title} 
@@ -61,9 +62,9 @@ function PropertyCard({ property }: { property: (typeof properties)[keyof typeof
       </div>
 
       {/* Content Section - Bottom half */}
-      <div className="p-6 h-1/2 flex flex-col justify-between relative z-20">
+      <div className="property-card-content p-6 h-1/2 flex flex-col justify-between relative z-20">
         {/* Title and Location */}
-        <div className="mb-4">
+        <div className="property-card-copy mb-4">
           <h3 className="font-playfair text-xl font-bold text-primary mb-1 group-hover:text-secondary transition-colors duration-300 line-clamp-2">
             {property.title}
           </h3>
@@ -75,7 +76,7 @@ function PropertyCard({ property }: { property: (typeof properties)[keyof typeof
         </div>
 
         {/* Property Stats - Compact */}
-        <div className="grid grid-cols-3 gap-2 mb-4 p-3 bg-cream rounded-xl">
+        <div className="property-card-stats grid grid-cols-3 gap-2 mb-4 p-3 bg-cream rounded-xl">
           <div className="text-center">
             <div className="w-6 h-6 bg-primary/10 rounded-full flex items-center justify-center mx-auto mb-1">
               <Users className="w-3 h-3 text-primary" />
@@ -97,7 +98,7 @@ function PropertyCard({ property }: { property: (typeof properties)[keyof typeof
         </div>
 
         {/* Price and Action Buttons */}
-        <div className="space-y-3">
+        <div className="property-card-footer space-y-3">
           {/* Price Display */}
           <div className="text-center">
             <span className="font-bold text-xl text-primary">{property.price}₪</span>
@@ -105,13 +106,13 @@ function PropertyCard({ property }: { property: (typeof properties)[keyof typeof
           </div>
 
           {/* Action Buttons - Compact */}
-          <div className="flex gap-2">
+          <div className="property-card-actions flex gap-2">
             <button
               onClick={(e) => {
                 e.stopPropagation();
                 router.push(`/properties/${property.id}`);
               }}
-              className="flex-1 bg-gradient-to-r from-primary to-primary-light text-white py-2 px-3 rounded-full font-semibold hover:from-primary-light hover:to-primary transition-all duration-300 shadow-lg hover:shadow-xl transform hover:scale-105 flex items-center justify-center text-sm"
+              className="property-card-button property-card-button-primary flex-1 bg-gradient-to-r from-primary to-primary-light text-white py-2 px-3 rounded-full font-semibold hover:from-primary-light hover:to-primary transition-all duration-300 shadow-lg hover:shadow-xl transform hover:scale-105 flex items-center justify-center text-sm"
             >
               <span>Details</span>
               <ArrowRight className="w-3 h-3 ml-1" />
@@ -121,7 +122,7 @@ function PropertyCard({ property }: { property: (typeof properties)[keyof typeof
                 e.stopPropagation();
                 router.push('/reservation');
               }}
-              className="bg-gradient-to-r from-secondary to-secondary-light text-primary py-2 px-3 rounded-full font-semibold hover:from-secondary-light hover:to-secondary transition-all duration-300 shadow-lg hover:shadow-xl transform hover:scale-105 flex items-center justify-center text-sm"
+              className="property-card-button property-card-button-secondary bg-gradient-to-r from-secondary to-secondary-light text-primary py-2 px-3 rounded-full font-semibold hover:from-secondary-light hover:to-secondary transition-all duration-300 shadow-lg hover:shadow-xl transform hover:scale-105 flex items-center justify-center text-sm"
             >
               <Calendar className="w-3 h-3 mr-1" />
               <span>Book</span>
@@ -142,26 +143,26 @@ export default function Properties() {
     <div className="min-h-screen pt-24 pb-20 bg-cream">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Hero Section */}
-        <div className="text-center mb-16">
+        <div className="text-center mb-16" data-animate="fade-up">
           <div className="inline-block mb-4">
             <span className="text-tertiary font-semibold text-lg tracking-wider uppercase">
               Our Accommodations
             </span>
           </div>
-          <h1 className="font-playfair text-5xl md:text-6xl font-bold text-primary mb-6 leading-tight">
+          <h1 className="font-playfair text-5xl md:text-6xl font-bold text-primary mb-6 leading-tight" data-animate="text">
             Properties
           </h1>
         </div>
 
         {/* Properties Grid - Square Cards */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-4xl mx-auto mb-16">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-4xl mx-auto mb-16" data-animate-group="cards">
           {Object.values(properties).map((property) => (
             <PropertyCard key={property.id} property={property} />
           ))}
         </div>
 
         {/* Call to Action Section */}
-        <div className="text-center bg-gradient-to-br from-primary via-primary to-primary-light rounded-3xl p-12 relative overflow-hidden">
+        <div className="properties-cta-section text-center bg-gradient-to-br from-primary via-primary to-primary-light rounded-3xl p-12 relative overflow-hidden" data-animate="fade-up">
           {/* Background decorative elements */}
           <div className="absolute inset-0">
             <div className="absolute top-10 left-10 w-32 h-32 bg-secondary/10 rounded-full blur-3xl"></div>
@@ -179,10 +180,9 @@ export default function Properties() {
             
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <div className="inline-block relative group">
-                <div className="absolute inset-0 bg-gradient-to-r from-secondary to-tertiary rounded-full blur-lg opacity-50 group-hover:opacity-75 transition-opacity duration-300"></div>
                 <button
                   onClick={() => window.location.href = '/reservation'}
-                  className="relative inline-flex items-center bg-gradient-to-r from-secondary to-secondary-light text-primary px-8 py-4 rounded-full font-semibold text-lg hover:from-secondary-light hover:to-secondary transition-all duration-300 shadow-xl hover:shadow-2xl transform hover:scale-105"
+                  className="book-button book-button-primary relative inline-flex items-center bg-gradient-to-r from-secondary to-secondary-light text-primary px-8 py-4 rounded-full font-semibold text-lg hover:from-secondary-light hover:to-secondary transition-all duration-300 shadow-xl hover:shadow-2xl transform hover:scale-105"
                 >
                   <Calendar className="w-6 h-6 mr-3" />
                   <span>Book Your Stay</span>
@@ -191,7 +191,7 @@ export default function Properties() {
               
               <button
                 onClick={() => window.location.href = '/concierge-services'}
-                className="inline-flex items-center bg-white/20 backdrop-blur-sm text-white px-8 py-4 rounded-full font-semibold text-lg hover:bg-white/30 transition-all duration-300 border border-white/30"
+                className="book-button book-button-secondary inline-flex items-center bg-white/20 text-white px-8 py-4 rounded-full font-semibold text-lg hover:bg-white/30 transition-all duration-300 border border-white/30"
               >
                 <span>Explore Services</span>
                 <ArrowRight className="w-6 h-6 ml-3" />

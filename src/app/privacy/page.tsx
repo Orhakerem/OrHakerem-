@@ -9,7 +9,7 @@ export default function PrivacyPage() {
     <div className="min-h-screen pt-24 pb-20 bg-cream">
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Enhanced Back Navigation */}
-        <div className="mb-8">
+        <div className="mb-8" data-animate="fade-right">
           <div className="inline-block relative group">
             <div className="absolute inset-0 bg-gradient-to-r from-primary/20 to-secondary/20 rounded-full blur-lg opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
             <Link
@@ -27,13 +27,13 @@ export default function PrivacyPage() {
         </div>
 
         {/* Main Content */}
-        <div className="bg-white rounded-2xl shadow-xl p-8 md:p-12">
+        <div className="bg-white rounded-2xl shadow-xl p-8 md:p-12" data-animate="fade-up">
           {/* Title Section */}
-          <div className="text-center mb-12">
+          <div className="text-center mb-12" data-animate="fade-up">
             <div className="inline-flex items-center justify-center w-16 h-16 bg-gradient-to-br from-primary to-primary-light rounded-full mb-6">
               <Shield className="w-8 h-8 text-white" />
             </div>
-            <h1 className="font-playfair text-4xl md:text-5xl font-bold text-primary mb-6">
+            <h1 className="font-playfair text-4xl md:text-5xl font-bold text-primary mb-6" data-animate="text">
               Privacy Policy
             </h1>
             <p className="text-primary/80 text-lg max-w-2xl mx-auto">
@@ -42,7 +42,7 @@ export default function PrivacyPage() {
           </div>
 
           {/* Main Content */}
-          <div className="bg-gradient-to-br from-blue-50 to-blue-100 rounded-xl p-8 md:p-12 text-center mb-8">
+          <div className="bg-gradient-to-br from-blue-50 to-blue-100 rounded-xl p-8 md:p-12 text-center mb-8" data-animate="scale" data-delay="1">
             <div className="max-w-2xl mx-auto">
               <div className="mb-8">
                 <div className="inline-flex items-center justify-center w-20 h-20 bg-blue-500 rounded-full mb-6">
@@ -93,7 +93,7 @@ export default function PrivacyPage() {
           </div>
 
           {/* Temporary Data Handling Notice */}
-          <div className="bg-yellow-50 border-2 border-yellow-200 rounded-xl p-6 mb-8">
+          <div className="bg-yellow-50 border-2 border-yellow-200 rounded-xl p-6 mb-8" data-animate="fade-up" data-delay="2">
             <h3 className="font-bold text-yellow-800 mb-3">Current Data Handling</h3>
             <p className="text-yellow-700">
               Currently, any personal information you provide through our contact forms or booking inquiries 
@@ -103,7 +103,7 @@ export default function PrivacyPage() {
           </div>
 
           {/* Or Hakerem Signature Section */}
-          <section className="text-center pt-8 border-t border-gray-200">
+          <section className="text-center pt-8 border-t border-gray-200" data-animate="fade-up" data-delay="3">
             <div className="mb-6">
               <p className="text-primary/70 text-sm mb-4">
                 Authorized Representative

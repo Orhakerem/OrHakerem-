@@ -52,7 +52,7 @@ export default function ReservationForm({ initialSearchParams }: ReservationForm
   if (isSuccess) {
     return (
       <div className="min-h-screen pt-24 pb-20 bg-cream">
-        <div className="max-w-2xl mx-auto px-4">
+        <div className="reservation-container max-w-2xl mx-auto px-4">
           <div className="bg-white p-8 rounded-lg shadow-lg text-center">
             <h2 className="font-playfair text-2xl font-bold text-primary mb-4">
               Thank you for your reservation request!
@@ -74,9 +74,9 @@ export default function ReservationForm({ initialSearchParams }: ReservationForm
 
   return (
     <div className="min-h-screen pt-24 pb-20 bg-cream">
-      <div className="max-w-2xl mx-auto px-4">
+      <div className="reservation-container max-w-2xl mx-auto px-4">
         {/* Enhanced Back Navigation */}
-        <div className="mb-8">
+        <div className="mb-8" data-animate="fade-right">
           <div className="inline-block relative group">
             <div className="absolute inset-0 bg-gradient-to-r from-primary/20 to-secondary/20 rounded-full blur-lg opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
             <Link
@@ -93,14 +93,14 @@ export default function ReservationForm({ initialSearchParams }: ReservationForm
           </div>
         </div>
 
-        <div className="bg-white p-8 rounded-lg shadow-lg">
-          <h1 className="font-playfair text-3xl font-bold text-primary mb-2">Reservation Request</h1>
-          <p className="text-primary/80 mb-8">
+        <div className="bg-white p-8 rounded-lg shadow-lg" data-animate="scale">
+          <h1 className="font-playfair text-3xl font-bold text-primary mb-2" data-animate="text">Reservation Request</h1>
+          <p className="text-primary/80 mb-8" data-animate="fade-up" data-delay="1">
             Your reservation request will be handled by our team. Please provide your contact
             preferences.
           </p>
 
-          <form onSubmit={handleSubmit} className="space-y-6">
+          <form onSubmit={handleSubmit} className="reservation-form space-y-6" data-animate="fade-up" data-delay="2">
             <div>
               <label htmlFor="property" className="block text-sm font-medium text-primary/80 mb-1">
                 Property

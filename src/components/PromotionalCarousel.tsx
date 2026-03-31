@@ -83,10 +83,11 @@ const PromotionalCarousel: React.FC = () => {
   };
 
   return (
-    <section className="w-full bg-white py-16 md:py-20 overflow-hidden">
+    <section className="w-full bg-white py-16 md:py-20 overflow-hidden" data-animate="fade-up">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div
           className="relative w-full h-96 md:h-[500px] lg:h-[600px] rounded-3xl overflow-hidden group"
+          data-animate="zoom"
           onMouseEnter={handleMouseEnter}
           onMouseLeave={handleMouseLeave}
         >
@@ -146,11 +147,11 @@ const PromotionalCarousel: React.FC = () => {
           </div>
         </div>
 
-        <div className="text-center mt-12">
+        <div className="text-center mt-12" data-animate="fade-up" data-delay="1">
           <span className="text-secondary font-semibold text-sm tracking-[0.2em] uppercase block mb-3">
             Special Events
           </span>
-          <h3 className="font-playfair text-3xl md:text-4xl font-light text-primary mb-4">
+          <h3 className="font-playfair text-3xl md:text-4xl font-light text-primary mb-4" data-animate="text" data-delay="2">
             Host Your Celebration
           </h3>
           <p className="text-primary/70 text-lg mb-8 font-lato max-w-2xl mx-auto">

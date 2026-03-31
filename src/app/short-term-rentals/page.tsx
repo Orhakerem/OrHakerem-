@@ -14,7 +14,7 @@ interface FeatureCardProps {
 
 function FeatureCard({ icon: Icon, title, description }: FeatureCardProps) {
   return (
-    <div className="bg-white rounded-xl p-6 shadow-lg hover:shadow-2xl transition-all duration-300 hover:scale-105">
+    <div className="bg-white rounded-xl p-6 shadow-lg hover:shadow-2xl transition-all duration-300 hover:scale-105" data-animate="scale">
       <div className="w-14 h-14 bg-gradient-to-br from-secondary to-secondary-light rounded-full flex items-center justify-center mb-4">
         <Icon className="w-7 h-7 text-primary" />
       </div>
@@ -47,7 +47,7 @@ export default function ShortTermRentalsPage() {
 
   return (
     <div className="min-h-screen bg-cream">
-      <section className="relative min-h-[85vh] w-full overflow-hidden bg-gradient-to-br from-primary via-primary-light to-primary pt-24">
+      <section className="hero-section rentals-hero-section relative min-h-[85vh] w-full overflow-hidden bg-gradient-to-br from-primary via-primary-light to-primary pt-24" data-animate="fade-up">
         <div className="absolute inset-0 opacity-20">
           <div className="absolute top-20 left-10 w-72 h-72 bg-secondary rounded-full blur-3xl animate-shimmer-glow"></div>
           <div className="absolute bottom-20 right-10 w-96 h-96 bg-tertiary rounded-full blur-3xl animate-shimmer-glow" style={{ animationDelay: '2s' }}></div>
@@ -68,15 +68,15 @@ export default function ShortTermRentalsPage() {
         </div>
 
         <div className="relative z-10 flex items-center justify-center min-h-[calc(85vh-6rem)] px-4">
-          <div className="max-w-5xl mx-auto text-center">
-            <div className="inline-flex items-center gap-2 mb-8 px-6 py-3 bg-white/10 backdrop-blur-sm rounded-full border border-white/20">
+          <div className="rentals-hero-content max-w-5xl mx-auto text-center">
+            <div className="rentals-hero-badge inline-flex items-center gap-2 mb-8 px-6 py-3 bg-white/10 backdrop-blur-sm rounded-full border border-white/20">
               <Home className="w-5 h-5 text-secondary animate-pulse" />
               <span className="text-white font-semibold text-sm tracking-wider uppercase">
                 Premium Accommodations
               </span>
             </div>
 
-            <h1 className="font-playfair text-4xl md:text-6xl lg:text-7xl font-bold text-white mb-8 leading-tight animate-fade-in">
+            <h1 className="font-playfair text-4xl md:text-6xl lg:text-7xl font-bold text-white mb-8 leading-tight animate-fade-in" data-animate="text">
               Luxury Rental in the Heart of Tel Aviv
             </h1>
 
@@ -84,7 +84,7 @@ export default function ShortTermRentalsPage() {
               Discover a new home in our premium short-term rental apartments. Perfectly located in historic Kerem HaTeimanim, steps from the beach and city center.
             </p>
 
-            <div className="flex flex-wrap justify-center gap-4">
+            <div className="rentals-hero-pills flex flex-wrap justify-center gap-4">
               <div className="px-6 py-3 bg-white/10 backdrop-blur-sm rounded-full border border-white/20 text-white/90 flex items-center gap-2">
                 <MapPin className="w-4 h-4" />
                 <span>Prime Location</span>
@@ -119,9 +119,9 @@ export default function ShortTermRentalsPage() {
       </section>
 
 
-      <section className="relative py-24 bg-cream">
+      <section className="rentals-amenities-section relative py-24 bg-cream">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+          <div className="rentals-amenities-grid grid md:grid-cols-2 lg:grid-cols-4 gap-6">
             {[
               { icon: Wifi, title: 'High-Speed WiFi', description: 'Reliable fiber-optic internet for work and entertainment' },
               { icon: Home, title: 'Full Kitchen', description: 'Modern appliances, cookware, and everything for home cooking' },
@@ -132,7 +132,7 @@ export default function ShortTermRentalsPage() {
               { icon: Shield, title: 'Secure Access', description: 'Electronic locks and secure building entry systems' },
               { icon: Clock, title: '24/7 Support', description: 'Round-the-clock assistance for any needs or questions' }
             ].map((amenity, index) => (
-              <div key={index} className="bg-white rounded-xl p-6 hover:shadow-lg transition-all duration-300">
+              <div key={index} className="rentals-amenity-card bg-white rounded-xl p-6 hover:shadow-lg transition-all duration-300">
                 <amenity.icon className="w-10 h-10 text-secondary mb-4" />
                 <h3 className="font-playfair text-lg font-bold text-primary mb-2">
                   {amenity.title}
@@ -146,11 +146,11 @@ export default function ShortTermRentalsPage() {
         </div>
       </section>
       
-      <section className="relative py-24 bg-white">
+      <section className="relative py-24 bg-white" data-animate="fade-up">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid lg:grid-cols-2 gap-12 items-center">
-            <div>
-              <h2 className="font-playfair text-4xl md:text-5xl font-bold text-primary mb-6">
+            <div data-animate="fade-right">
+              <h2 className="font-playfair text-4xl md:text-5xl font-bold text-primary mb-6" data-animate="text">
                 Discover Kerem HaTeimanim – Your only Tel Aviv Base
               </h2>
               <p className="text-primary/80 text-lg leading-relaxed mb-6">
@@ -192,8 +192,8 @@ export default function ShortTermRentalsPage() {
               </div>
             </div>
 
-            <div className="relative">
-              <div className="relative h-[600px] rounded-2xl overflow-hidden shadow-2xl">
+            <div className="relative" data-animate="fade-left">
+              <div className="relative h-[600px] rounded-2xl overflow-hidden shadow-2xl" data-animate="zoom">
                 <Image
                   src="/penthouse/7-vue-mer.jpg"
                   alt="Luxury apartment Tel Aviv with sea views from Kerem HaTeimanim"
@@ -220,7 +220,7 @@ export default function ShortTermRentalsPage() {
         </div>
       </section>
 
-      <section className="relative py-16 bg-gradient-to-br from-primary via-primary to-primary-light overflow-hidden rounded-3xl mx-4 mb-16">
+      <section className="rentals-journey-section relative py-16 bg-gradient-to-br from-primary via-primary to-primary-light overflow-hidden rounded-3xl mx-4 mb-16" data-animate="fade-up">
         <div className="absolute inset-0">
           <div className="absolute top-10 left-10 w-24 h-24 bg-secondary/10 rounded-full blur-2xl"></div>
           <div className="absolute bottom-10 right-10 w-32 h-32 bg-tertiary/10 rounded-full blur-2xl"></div>

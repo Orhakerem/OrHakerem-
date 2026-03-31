@@ -26,7 +26,7 @@ export default function Footer() {
   };
 
   return (
-    <footer className="bg-primary text-white relative overflow-hidden rounded-t-3xl">
+    <footer className="site-footer bg-primary text-white relative overflow-hidden rounded-t-3xl">
       {/* Background decorative elements - Minimal */}
       <div className="absolute inset-0">
         <div className="absolute top-2 left-2 w-8 h-8 bg-secondary/10 rounded-full blur-lg"></div>
@@ -35,10 +35,9 @@ export default function Footer() {
       </div>
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-        {/* Mobile Layout - Ultra Compact */}
-        <div className="md:hidden py-6">
-          {/* Mobile Header - Logo and Brand */}
-          <div className="text-center mb-4">
+        {/* Mobile Layout - Compact Desktop Mirror */}
+        <div className="site-footer-mobile md:hidden py-6">
+          <div className="site-footer-mobile-brand text-center mb-4">
             <div className="flex items-center justify-center mb-3">
               <div className="relative w-16 h-16 mr-3">
                 <Image
@@ -57,9 +56,9 @@ export default function Footer() {
             </div>
           </div>
 
-          {/* Mobile Contact - Compact */}
-          <div className="text-center mb-4">
-            <div className="flex flex-col items-center space-y-2">
+          <div className="site-footer-mobile-contact text-center mb-4">
+            <h3 className="font-playfair text-lg font-bold text-secondary mb-3 leading-none">Contact Us</h3>
+            <div className="site-footer-mobile-contact-content flex flex-col items-center space-y-2">
               <a 
                 href="mailto:keremliving@gmail.com" 
                 className="flex items-center text-white/90 hover:text-secondary transition-colors duration-300 text-sm"
@@ -68,7 +67,7 @@ export default function Footer() {
                 keremliving@gmail.com
               </a>
               
-              <div className="flex space-x-4 text-sm">
+              <div className="site-footer-mobile-phone-row flex space-x-4 text-sm">
                 <a 
                   href="tel:+33651179925" 
                   className="text-white/90 hover:text-secondary transition-colors duration-300"
@@ -84,7 +83,7 @@ export default function Footer() {
               </div>
 
               {/* Social Icons - Compact */}
-              <div className="flex gap-2">
+              <div className="site-footer-mobile-socials flex gap-2">
                 <a
                   href="https://www.instagram.com/or_hakerem/"
                   target="_blank"
@@ -122,20 +121,20 @@ export default function Footer() {
             </div>
           </div>
 
-          {/* Mobile Navigation - Horizontal Compact */}
-          <div className="text-center mb-4">
+          <div className="site-footer-mobile-nav text-center mb-4">
+            <h3 className="font-playfair text-lg font-bold text-secondary mb-3 leading-none">Navigation</h3>
             <div className="flex flex-wrap justify-center gap-x-4 gap-y-1 text-sm">
               <Link
                 href="/properties"
                 className="text-white/90 hover:text-secondary transition-colors duration-300"
               >
-                Properties
+                Accommodations
               </Link>
               <Link
                 href="/concierge-services"
                 className="text-white/90 hover:text-secondary transition-colors duration-300"
               >
-                Services
+                Concierge Services
               </Link>
               <Link
                 href="/events"
@@ -143,37 +142,46 @@ export default function Footer() {
               >
                 Events
               </Link>
-              <Link
-                href="/property-management"
+              <a
+                href="/#contact"
+                onClick={handleContactClick}
                 className="text-white/90 hover:text-secondary transition-colors duration-300"
               >
-                Management
-              </Link>
+                Contact
+              </a>
+            </div>
+          </div>
+
+          <div className="site-footer-mobile-policies text-center mb-4">
+            <h3 className="font-playfair text-lg font-bold text-secondary mb-3 leading-none">Policies</h3>
+            <div className="flex flex-wrap justify-center gap-x-4 gap-y-1 text-sm">
               <Link
-                href="/short-term-rentals"
+                href="/cancellation"
                 className="text-white/90 hover:text-secondary transition-colors duration-300"
               >
-                Rentals
+                Cancellation Policy
               </Link>
               <Link
                 href="/terms"
                 className="text-white/90 hover:text-secondary transition-colors duration-300"
               >
-                Terms
+                Terms & Conditions
               </Link>
               <Link
                 href="/privacy"
                 className="text-white/90 hover:text-secondary transition-colors duration-300"
               >
-                Privacy
+                Privacy Policy
               </Link>
             </div>
           </div>
 
-          {/* Mobile Copyright - Ultra Compact */}
-          <div className="text-center border-t border-white/20 pt-3">
+          <div className="site-footer-mobile-meta text-center border-t border-white/20 pt-3">
             <p className="text-white/80 text-xs leading-none">
-              © 2026 Or Hakerem. All rights reserved.
+              © 2025 Or Hakerem. All rights reserved.
+            </p>
+            <p className="text-white/60 text-xs mt-1 leading-none">
+              Luxury accommodations in the heart of Tel Aviv
             </p>
           </div>
         </div>
@@ -302,12 +310,13 @@ export default function Footer() {
                 >
                   Events
                 </Link>
-                <Link
-                  href="/property-management"
+                <a
+                  href="/#contact"
+                  onClick={handleContactClick}
                   className="block text-white/90 hover:text-secondary hover:translate-x-2 transition-all duration-300 text-xl font-medium p-1 rounded-lg hover:bg-white/10 leading-none"
                 >
                   Contact
-                </Link>
+                </a>
               </nav>
             </div>
 

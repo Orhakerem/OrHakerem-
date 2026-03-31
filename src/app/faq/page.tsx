@@ -64,7 +64,7 @@ export default function FAQPage() {
     <div className="min-h-screen pt-24 pb-20 bg-cream">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Enhanced Back Navigation */}
-        <div className="mb-8">
+        <div className="mb-8" data-animate="fade-right">
           <div className="inline-block relative group">
             <div className="absolute inset-0 bg-gradient-to-r from-primary/20 to-secondary/20 rounded-full blur-lg opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
             <Link
@@ -81,15 +81,16 @@ export default function FAQPage() {
           </div>
         </div>
 
-        <h1 className="text-center font-playfair text-4xl font-bold text-primary mb-12">
+        <h1 className="text-center font-playfair text-4xl font-bold text-primary mb-12" data-animate="text">
           Frequently Asked Questions
         </h1>
 
-        <div className="grid gap-6 max-w-3xl mx-auto">
+        <div className="grid gap-6 max-w-3xl mx-auto" data-animate-group="cards">
           {faqs.map((faq, index) => (
             <div
               key={index}
               className="bg-white p-6 rounded-lg shadow-md hover:shadow-lg transition-shadow cursor-pointer"
+              data-delay={String((index % 3) + 1)}
               onClick={() => setOpenIndex(openIndex === index ? undefined : index)}
             >
               <div className="flex justify-between items-center">
