@@ -8,9 +8,13 @@ import Image from 'next/image';
 import { useParams, useRouter } from 'next/navigation';
 import Link from 'next/link';
 
+import BookingRangeCalendar from '@/components/BookingRangeCalendar';
 import RoomGallery from '@/components/RoomGallery';
-
-//import PropertyCalendar from '../components/PropertyCalendar';
+import {
+  type BookingDateRange,
+  getNightCount,
+  isValidBookingRange,
+} from '@/lib/booking-dates';
 
 const properties = {
   'penthouse-jacuzzi': {
@@ -273,6 +277,10 @@ export default function PropertyDetails() {
   const params = useParams();
   const router = useRouter();
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
+  const [dateRange, setDateRange] = useState<BookingDateRange>({
+    checkIn: null,
+    checkOut: null,
+  });
   const property = properties[params.id as keyof typeof properties];
 
   if (!property) {
@@ -297,6 +305,22 @@ export default function PropertyDetails() {
 
   const prevImage = () => {
     setCurrentImageIndex((prev) => (prev - 1 + property.images.length) % property.images.length);
+  };
+
+  const selectedNights = getNightCount(dateRange);
+  const hasValidDateRange = isValidBookingRange(dateRange);
+
+  const handleBookNow = () => {
+    const searchParams = new URLSearchParams({
+      property: property.title,
+    });
+
+    if (hasValidDateRange && dateRange.checkIn && dateRange.checkOut) {
+      searchParams.set('checkIn', dateRange.checkIn);
+      searchParams.set('checkOut', dateRange.checkOut);
+    }
+
+    router.push(`/reservation?${searchParams.toString()}`);
   };
 
   return (
@@ -428,47 +452,64 @@ export default function PropertyDetails() {
                 <RoomGallery rooms={property.rooms || []} />
               </div>
 
-              <div className="mb-8">
-                <h2 className="font-playfair text-2xl font-bold text-navy mb-6">
-                  Availability Calendar
-                </h2>
-                {/*<PropertyCalendar propertyId={params.id as string} calendarId={property.calendarId} />*/}
-              </div>
-
               {/* Enhanced Booking Section */}
               <div className="bg-gradient-to-br from-cream to-white rounded-2xl p-8 border border-secondary/20 shadow-lg">
-                <div className="text-center mb-6">
-                  <h3 className="font-playfair text-2xl font-bold text-primary mb-4">
+                <div className="mb-6">
+                  <h3 className="font-playfair text-2xl font-bold text-primary mb-3">
                     Book your stay
                   </h3>
-                  
-                  {/* Pricing Information */}
-                  <div className="bg-white rounded-xl p-6 mb-6 border border-primary/10 shadow-sm">
-                    <div className="flex justify-between items-center mb-4">
-                      <span className="text-primary/80 text-lg">Price per night :</span>
-                      <span className="font-bold text-2xl text-primary">{property.price}₪</span>
-                    </div>
-                    <div className="flex justify-between items-center text-primary/70">
-                      <span>Cleaning fees:</span>
-                      <span className="font-semibold">{property.cleaningFee}₪</span>
-                    </div>
-                  </div>
-
-                  {/* Enhanced Book Now Button */}
-                  <div className="inline-block relative group">
-                    <div className="absolute inset-0 bg-gradient-to-r from-secondary to-tertiary rounded-full blur-lg opacity-50 group-hover:opacity-75 transition-opacity duration-300"></div>
-                    <button
-                      onClick={() => router.push('/reservation')}
-                      className="relative inline-flex items-center bg-gradient-to-r from-secondary to-secondary-light text-primary px-12 py-4 rounded-full font-semibold text-lg hover:from-secondary-light hover:to-secondary transition-all duration-300 shadow-xl hover:shadow-2xl transform hover:scale-105"
-                    >
-                      <Calendar className="w-6 h-6 mr-3" />
-                      <span>BOOK NOW</span>
-                    </button>
-                  </div>
-                  
-                  <p className="text-primary/70 text-sm mt-4 font-medium">
-                    Response within 24 hours garanteed
+                  <p className="text-primary/75 max-w-2xl">
+                    Choose your dates directly here, then continue to the reservation request
+                    form with your stay already filled in.
                   </p>
+                </div>
+
+                <div className="space-y-6">
+                  <BookingRangeCalendar value={dateRange} onChange={setDateRange} />
+
+                  <div className="grid gap-5 md:grid-cols-2 xl:grid-cols-3">
+                    <div className="bg-white rounded-xl p-6 border border-primary/10 shadow-sm">
+                      <div className="flex justify-between items-center mb-4">
+                        <span className="text-primary/80 text-lg">Price per night :</span>
+                        <span className="font-bold text-2xl text-primary">{property.price}₪</span>
+                      </div>
+                      <div className="flex justify-between items-center text-primary/70">
+                        <span>Cleaning fees:</span>
+                        <span className="font-semibold">{property.cleaningFee}₪</span>
+                      </div>
+                    </div>
+
+                    <div className="bg-white rounded-xl p-5 border border-secondary/20 shadow-sm text-left">
+                      <p className="text-xs font-semibold uppercase tracking-[0.22em] text-primary/45 mb-3">
+                        Reservation status
+                      </p>
+                      {hasValidDateRange ? (
+                        <p className="text-primary font-semibold">
+                          {selectedNights} night{selectedNights === 1 ? '' : 's'} selected. Your
+                          dates will be transferred to the reservation form.
+                        </p>
+                      ) : (
+                        <p className="text-primary/70">
+                          Select a valid check-in and check-out to prepare your request.
+                        </p>
+                      )}
+                    </div>
+
+                    <div className="relative group md:col-span-2 xl:col-span-1">
+                      <div className="absolute inset-0 bg-gradient-to-r from-secondary to-tertiary rounded-full blur-lg opacity-50 group-hover:opacity-75 transition-opacity duration-300"></div>
+                      <button
+                        onClick={handleBookNow}
+                        className="relative inline-flex w-full items-center justify-center bg-gradient-to-r from-secondary to-secondary-light text-primary px-12 py-4 rounded-full font-semibold text-lg hover:from-secondary-light hover:to-secondary transition-all duration-300 shadow-xl hover:shadow-2xl transform hover:scale-[1.02]"
+                      >
+                        <Calendar className="w-6 h-6 mr-3" />
+                        <span>BOOK NOW</span>
+                      </button>
+
+                      <p className="mt-4 text-primary/70 text-sm font-medium text-center">
+                        Response within 24 hours garanteed
+                      </p>
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>

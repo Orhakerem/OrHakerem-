@@ -1,0 +1,147 @@
+export const BUSINESS_TIME_ZONE = 'Asia/Jerusalem';
+export const ISO_DATE_REGEX = /^\d{4}-\d{2}-\d{2}$/;
+
+const DAY_IN_MS = 24 * 60 * 60 * 1000;
+
+export interface BookingDateRange {
+  checkIn: string | null;
+  checkOut: string | null;
+}
+
+function getDateParts(date: Date, timeZone: string) {
+  const parts = new Intl.DateTimeFormat('en-CA', {
+    timeZone,
+    year: 'numeric',
+    month: '2-digit',
+    day: '2-digit',
+  }).formatToParts(date);
+
+  return {
+    year: parts.find((part) => part.type === 'year')?.value ?? '',
+    month: parts.find((part) => part.type === 'month')?.value ?? '',
+    day: parts.find((part) => part.type === 'day')?.value ?? '',
+  };
+}
+
+function formatUtcDate(date: Date) {
+  const year = date.getUTCFullYear();
+  const month = String(date.getUTCMonth() + 1).padStart(2, '0');
+  const day = String(date.getUTCDate()).padStart(2, '0');
+
+  return `${year}-${month}-${day}`;
+}
+
+export function isIsoDateString(value: string) {
+  if (!ISO_DATE_REGEX.test(value)) {
+    return false;
+  }
+
+  const [year, month, day] = value.split('-').map(Number);
+  const candidate = new Date(Date.UTC(year, month - 1, day, 12));
+
+  return formatUtcDate(candidate) === value;
+}
+
+export function createDateFromIso(value: string) {
+  const [year, month, day] = value.split('-').map(Number);
+
+  return new Date(Date.UTC(year, month - 1, day, 12));
+}
+
+export function toIsoDateString(date: Date, timeZone = BUSINESS_TIME_ZONE) {
+  const { year, month, day } = getDateParts(date, timeZone);
+
+  return `${year}-${month}-${day}`;
+}
+
+export function formatIsoDate(value: string, locale = 'en-US', timeZone = BUSINESS_TIME_ZONE) {
+  return new Intl.DateTimeFormat(locale, {
+    timeZone,
+    month: 'short',
+    day: 'numeric',
+    year: 'numeric',
+  }).format(createDateFromIso(value));
+}
+
+export function getTodayIsoInTimeZone(timeZone = BUSINESS_TIME_ZONE) {
+  return toIsoDateString(new Date(), timeZone);
+}
+
+export function compareIsoDates(left: string, right: string) {
+  if (left === right) {
+    return 0;
+  }
+
+  return left < right ? -1 : 1;
+}
+
+export function addNights(value: string, nights: number) {
+  const nextDate = new Date(createDateFromIso(value).getTime() + nights * DAY_IN_MS);
+
+  return formatUtcDate(nextDate);
+}
+
+export function getNightCount(range: BookingDateRange) {
+  if (!range.checkIn || !range.checkOut) {
+    return 0;
+  }
+
+  const diff = createDateFromIso(range.checkOut).getTime() - createDateFromIso(range.checkIn).getTime();
+
+  return Math.max(0, Math.round(diff / DAY_IN_MS));
+}
+
+export function normalizeCheckIn(
+  value: string | null | undefined,
+  todayIso = getTodayIsoInTimeZone(),
+) {
+  if (!value || !isIsoDateString(value)) {
+    return null;
+  }
+
+  return compareIsoDates(value, todayIso) >= 0 ? value : null;
+}
+
+export function normalizeCheckOut(value: string | null | undefined, checkIn: string | null) {
+  if (!value || !checkIn || !isIsoDateString(value)) {
+    return null;
+  }
+
+  return compareIsoDates(value, checkIn) > 0 ? value : null;
+}
+
+export function sanitizeBookingDateRange(
+  checkInValue: string | null | undefined,
+  checkOutValue: string | null | undefined,
+  todayIso = getTodayIsoInTimeZone(),
+  autoSelectCheckOut = false,
+): BookingDateRange {
+  const checkIn = normalizeCheckIn(checkInValue, todayIso);
+  const checkOut = normalizeCheckOut(checkOutValue, checkIn);
+
+  if (!checkIn) {
+    return { checkIn: null, checkOut: null };
+  }
+
+  if (checkOut) {
+    return { checkIn, checkOut };
+  }
+
+  return {
+    checkIn,
+    checkOut: autoSelectCheckOut ? addNights(checkIn, 1) : null,
+  };
+}
+
+export function isValidBookingRange(
+  range: BookingDateRange,
+  todayIso = getTodayIsoInTimeZone(),
+) {
+  const checkIn = normalizeCheckIn(range.checkIn, todayIso);
+
+  if (!checkIn) {
+    return false;
+  }
+
+  return normalizeCheckOut(range.checkOut, checkIn) !== null;
+}

@@ -1,15 +1,45 @@
 import { z } from 'zod';
 
+import {
+  compareIsoDates,
+  getTodayIsoInTimeZone,
+  ISO_DATE_REGEX,
+  isIsoDateString,
+} from '@/lib/booking-dates';
+
+const isoDateSchema = z
+  .string()
+  .regex(ISO_DATE_REGEX, 'Date must use YYYY-MM-DD format')
+  .refine((value) => isIsoDateString(value), 'Invalid calendar date');
+
 export const reservationSchema = z.object({
   property: z.string().min(1, 'Property is required'),
-  checkIn: z.string().min(1, 'Check-in date is required'),
-  checkOut: z.string().min(1, 'Check-out date is required'),
+  checkIn: isoDateSchema,
+  checkOut: isoDateSchema,
   name: z.string().min(1, 'Name is required'),
   email: z.string().email('Invalid email address'),
   phone: z.string().min(1, 'Phone number is required'),
   contactMethod: z.enum(['email', 'phone', 'whatsapp'], {
     errorMap: () => ({ message: 'Please select a contact method' }),
   }),
+}).superRefine((data, ctx) => {
+  const todayIso = getTodayIsoInTimeZone();
+
+  if (compareIsoDates(data.checkIn, todayIso) < 0) {
+    ctx.addIssue({
+      code: z.ZodIssueCode.custom,
+      path: ['checkIn'],
+      message: 'Check-in date cannot be in the past',
+    });
+  }
+
+  if (compareIsoDates(data.checkOut, data.checkIn) <= 0) {
+    ctx.addIssue({
+      code: z.ZodIssueCode.custom,
+      path: ['checkOut'],
+      message: 'Check-out must be after check-in',
+    });
+  }
 });
 
 export const eventSchema = z.object({

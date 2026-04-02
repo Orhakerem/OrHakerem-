@@ -13,6 +13,8 @@ import PromotionalCarousel from '@/components/PromotionalCarousel';
 
 const Home: React.FC = () => {
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const heroHeadline =
+    "Luxury short-term rentals in Tel Aviv's Kerem HaTeimanim, within walking distance of the city's most iconic locations.";
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -57,7 +59,7 @@ const Home: React.FC = () => {
         {/* Desktop / large tablet overlay */}
         <div className="hero-title hero-home-title" data-animate="text">
           <h1 className="font-playfair font-bold hero-subtitle">
-             Short-term rental apartments in Tel Aviv
+            {heroHeadline}
           </h1>
         </div>
 
@@ -76,7 +78,7 @@ const Home: React.FC = () => {
         <div className="hero-home-mobile-text">
           <div className="hero-home-mobile-text-inner">
             <h1 className="hero-home-mobile-title font-montserrat font-bold" data-animate="text">
-              Short-term rental apartments in Tel Aviv
+              {heroHeadline}
             </h1>
           </div>
         </div>
@@ -133,6 +135,10 @@ const Home: React.FC = () => {
               <div className="max-w-4xl space-y-6 text-lg md:text-xl" data-animate="fade-up" data-delay="2">
                 <p className="text-primary/90 leading-relaxed font-light font-lato">
                   Start your experience in a city that never stops, but differently. At Orhakerem, we offer a unique type of <span className="font-medium text-secondary">short term rental</span> accommodations where you feel at home. Nestled in the historic neighborhood of Kerem HaTeimanim, this unique building has a historical past, and his perfect location offers new apartments for short-term rental and events.
+                </p>
+
+                <p className="text-primary/80 leading-relaxed font-light font-lato">
+                  Located in the heart of Kerem HaTeimanim, Or Hakerem offers boutique apartments within walking distance of Carmel Market, Banana Beach, and Nachalat Binyamin.
                 </p>
 
                 <p className="text-primary/85 leading-relaxed font-light font-lato">

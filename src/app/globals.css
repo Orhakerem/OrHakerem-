@@ -165,6 +165,97 @@
     0 2px 4px -2px rgb(0 0 0 / 0.1);
 }
 
+.booking-calendar-root .booking-calendar-day {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.75rem;
+  height: 2.75rem;
+}
+
+.booking-calendar-root .booking-calendar-disabled .booking-calendar-day-button {
+  color: rgba(165, 56, 43, 0.28);
+  cursor: not-allowed;
+  background: transparent;
+  opacity: 0.55;
+}
+
+.booking-calendar-root .booking-calendar-outside .booking-calendar-day-button {
+  color: rgba(165, 56, 43, 0.35);
+}
+
+.booking-calendar-root .booking-calendar-today .booking-calendar-day-button {
+  border: 1px solid rgba(216, 176, 132, 0.8);
+  box-shadow: inset 0 0 0 1px rgba(216, 176, 132, 0.2);
+}
+
+.booking-calendar-root .booking-calendar-range-middle {
+  background: rgba(216, 176, 132, 0.2);
+}
+
+.booking-calendar-root .booking-calendar-range-middle .booking-calendar-day-button {
+  border-radius: 0;
+  background: transparent;
+}
+
+.booking-calendar-root .booking-calendar-range-start,
+.booking-calendar-root .booking-calendar-range-end {
+  background: transparent;
+}
+
+.booking-calendar-root .booking-calendar-range-start {
+  background: linear-gradient(
+    to right,
+    transparent 50%,
+    rgba(216, 176, 132, 0.2) 50%
+  );
+}
+
+.booking-calendar-root .booking-calendar-range-end {
+  background: linear-gradient(
+    to right,
+    rgba(216, 176, 132, 0.2) 50%,
+    transparent 50%
+  );
+}
+
+.booking-calendar-root .booking-calendar-range-start.booking-calendar-range-end {
+  background: transparent;
+}
+
+.booking-calendar-root .booking-calendar-selected .booking-calendar-day-button,
+.booking-calendar-root .booking-calendar-range-start .booking-calendar-day-button,
+.booking-calendar-root .booking-calendar-range-end .booking-calendar-day-button {
+  background: var(--color-primary);
+  color: #fff;
+  box-shadow: 0 12px 24px rgba(165, 56, 43, 0.2);
+}
+
+.event-modal {
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  -webkit-overflow-scrolling: touch;
+}
+
+.event-form-wrap {
+  min-height: 100%;
+}
+
+.event-form {
+  width: min(100%, 760px);
+  max-width: min(100%, 760px);
+  max-height: calc(100dvh - 1.5rem);
+  overflow-x: hidden;
+  overflow-y: auto;
+}
+
+@supports not (height: 100dvh) {
+  .event-form {
+    max-height: calc(100vh - 1.5rem);
+  }
+}
+
 @media (max-width: 600px) {
   .auto-gallery {
     padding: 0.8rem;
@@ -787,9 +878,9 @@
     left: 8%;
     color: #D8B084;
     font-size: 3.2rem;
-    max-width: 600px;
+    max-width: 760px;
     text-shadow: 0 2px 4px rgba(0,0,0,0.3);
-    line-height: 1.2;
+    line-height: 1.15;
     animation: fadeInUp 1s ease;
   }
 
@@ -851,12 +942,15 @@
     .hero-home-mobile-title {
       margin: 0;
       color: var(--color-primary);
-      font-size: 1.42rem;
+      font-size: 1.2rem;
       font-weight: 900;
-      letter-spacing: 0.04em;
-      line-height: 1;
-      text-transform: uppercase;
-      white-space: nowrap;
+      letter-spacing: 0.01em;
+      line-height: 1.2;
+      text-transform: none;
+      white-space: normal;
+      max-width: 26rem;
+      margin-left: auto;
+      margin-right: auto;
     }
 
     .hero-home-mobile-video-section {
@@ -1176,6 +1270,7 @@
       margin-left: auto !important;
       margin-right: auto !important;
       padding: 1.25rem !important;
+      max-height: calc(100dvh - 3rem) !important;
     }
 
     .book-button-primary {
@@ -1210,12 +1305,15 @@
     }
 
     .hero-home-mobile-title {
-      font-size: 0.98rem;
+      font-size: 0.95rem;
       font-weight: 900;
-      letter-spacing: 0.03em;
-      line-height: 1;
-      text-transform: uppercase;
-      white-space: nowrap;
+      letter-spacing: 0.01em;
+      line-height: 1.2;
+      text-transform: none;
+      white-space: normal;
+      max-width: 20rem;
+      margin-left: auto;
+      margin-right: auto;
     }
 
     .hero-home-mobile-video-section {
@@ -1606,26 +1704,27 @@
 
     .event-modal {
       display: flex;
-      align-items: center;
+      align-items: flex-start;
       justify-content: center;
       overflow-x: hidden;
-      padding: 16px;
+      padding: 12px;
     }
 
     .event-form-wrap {
       width: 100%;
       display: flex;
-      align-items: center;
+      min-height: 100%;
+      align-items: flex-start;
       justify-content: center;
     }
 
     .event-form {
-      width: min(90vw, 560px) !important;
-      max-width: min(90vw, 560px) !important;
+      width: min(100%, 560px) !important;
+      max-width: min(100%, 560px) !important;
       margin: auto;
-      padding: 1rem !important;
+      padding: 0 !important;
       border-radius: 16px;
-      max-height: min(88vh, 720px);
+      max-height: calc(100dvh - 1.5rem) !important;
     }
 
     .book-button-secondary {

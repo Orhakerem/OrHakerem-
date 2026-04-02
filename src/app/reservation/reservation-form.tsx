@@ -1,36 +1,86 @@
 'use client';
 
-import { Calendar, Mail, MessageSquare, Phone, ArrowLeft, Home } from 'lucide-react';
+import { Mail, MessageSquare, Phone, ArrowLeft, Home } from 'lucide-react';
 import toast from 'react-hot-toast';
 
-import React, { useState, useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
 
 import { sendEmail } from '@/actions/email';
+import BookingRangeCalendar from '@/components/BookingRangeCalendar';
+import {
+  type BookingDateRange,
+  getNightCount,
+  getTodayIsoInTimeZone,
+  isValidBookingRange,
+  sanitizeBookingDateRange,
+} from '@/lib/booking-dates';
 
 interface ReservationFormProps {
   initialSearchParams: { [key: string]: string | string[] | undefined };
 }
 
+const PROPERTY_OPTIONS = ['Luxury Penthouse', 'Spacious & Cosy Apartment'] as const;
+
+const LEGACY_PROPERTY_LABELS: Record<string, string> = {
+  Penthouse: 'Luxury Penthouse',
+  Studio: 'Spacious & Cosy Apartment',
+};
+
+function getSingleSearchParam(value: string | string[] | undefined) {
+  return typeof value === 'string' ? value : value?.[0];
+}
+
+function normalizePropertyLabel(value: string | undefined) {
+  if (!value) {
+    return '';
+  }
+
+  return LEGACY_PROPERTY_LABELS[value] ?? value;
+}
+
 export default function ReservationForm({ initialSearchParams }: ReservationFormProps) {
   const router = useRouter();
-  const [propertyTitle, setPropertyTitle] = useState('');
+  const todayIso = getTodayIsoInTimeZone();
+  const [propertyTitle, setPropertyTitle] = useState(() =>
+    normalizePropertyLabel(getSingleSearchParam(initialSearchParams?.property)),
+  );
+  const [dateRange, setDateRange] = useState<BookingDateRange>(() =>
+    sanitizeBookingDateRange(
+      getSingleSearchParam(initialSearchParams?.checkIn),
+      getSingleSearchParam(initialSearchParams?.checkOut),
+      todayIso,
+      true,
+    ),
+  );
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSuccess, setIsSuccess] = useState(false);
   const [contactMethod, setContactMethod] = useState('email');
 
-  // Get property from initial search parameters
   useEffect(() => {
-    const property = initialSearchParams?.property;
-    if (property && typeof property === 'string') {
-      setPropertyTitle(property);
-    }
-  }, [initialSearchParams]);
+    setPropertyTitle(
+      normalizePropertyLabel(getSingleSearchParam(initialSearchParams?.property)),
+    );
+    setDateRange(
+      sanitizeBookingDateRange(
+        getSingleSearchParam(initialSearchParams?.checkIn),
+        getSingleSearchParam(initialSearchParams?.checkOut),
+        todayIso,
+        true,
+      ),
+    );
+  }, [initialSearchParams, todayIso]);
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+
+    if (!isValidBookingRange(dateRange, todayIso)) {
+      toast.error('Please choose a valid stay with a future check-in and a later check-out.');
+      return;
+    }
+
     setIsSubmitting(true);
 
     try {
@@ -72,6 +122,8 @@ export default function ReservationForm({ initialSearchParams }: ReservationForm
     );
   }
 
+  const nights = getNightCount(dateRange);
+
   return (
     <div className="min-h-screen pt-24 pb-20 bg-cream">
       <div className="reservation-container max-w-2xl mx-auto px-4">
@@ -101,6 +153,9 @@ export default function ReservationForm({ initialSearchParams }: ReservationForm
           </p>
 
           <form onSubmit={handleSubmit} className="reservation-form space-y-6" data-animate="fade-up" data-delay="2">
+            <input type="hidden" name="checkIn" value={dateRange.checkIn ?? ''} />
+            <input type="hidden" name="checkOut" value={dateRange.checkOut ?? ''} />
+
             <div>
               <label htmlFor="property" className="block text-sm font-medium text-primary/80 mb-1">
                 Property
@@ -114,47 +169,21 @@ export default function ReservationForm({ initialSearchParams }: ReservationForm
                 className="w-full px-4 py-2 border border-gray-300 rounded-md bg-white cursor-pointer focus:outline-none focus:ring-2 focus:ring-secondary/50 focus:border-secondary"
               >
                 <option value="" disabled>Select a property</option>
-                <option value="Studio">Studio</option>
-                <option value="Penthouse">Penthouse</option>
+                {PROPERTY_OPTIONS.map((propertyOption) => (
+                  <option key={propertyOption} value={propertyOption}>
+                    {propertyOption}
+                  </option>
+                ))}
               </select>
             </div>
 
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-              <div>
-                <label htmlFor="checkIn" className="block text-sm font-medium text-primary/80 mb-1">
-                  Check-in Date
-                </label>
-                <div className="relative">
-                  <Calendar className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-primary/60" />
-                  <input
-                    type="date"
-                    id="checkIn"
-                    name="checkIn"
-                    required
-                    className="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-md"
-                  />
-                </div>
-              </div>
+            <BookingRangeCalendar value={dateRange} onChange={setDateRange} />
 
-              <div>
-                <label
-                  htmlFor="checkOut"
-                  className="block text-sm font-medium text-primary/80 mb-1"
-                >
-                  Check-out Date
-                </label>
-                <div className="relative">
-                  <Calendar className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-primary/60" />
-                  <input
-                    type="date"
-                    id="checkOut"
-                    name="checkOut"
-                    required
-                    className="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-md"
-                  />
-                </div>
+            {nights > 0 ? (
+              <div className="rounded-xl border border-secondary/20 bg-secondary/10 px-4 py-3 text-sm text-primary">
+                {nights} night{nights === 1 ? '' : 's'} selected.
               </div>
-            </div>
+            ) : null}
 
             <div>
               <label htmlFor="name" className="block text-sm font-medium text-primary/80 mb-1">

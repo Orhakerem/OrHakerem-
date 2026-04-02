@@ -5,6 +5,12 @@ import { useRouter } from 'next/navigation';
 import { Calendar, MapPin, Users, BedDouble, Bath, ArrowRight } from 'lucide-react';
 import Image from 'next/image';
 
+const nearbyLandmarks = [
+  { name: 'Carmel Market', distance: '400m' },
+  { name: 'Banana Beach', distance: '600m' },
+  { name: 'Nachalat Binyamin', distance: '450m' },
+];
+
 const properties = {
   'penthouse-jacuzzi': {
     id: 'penthouse-jacuzzi',
@@ -158,6 +164,39 @@ export default function Properties() {
             <PropertyCard key={property.id} property={property} />
           ))}
         </div>
+
+        <section className="max-w-4xl mx-auto mb-16" data-animate="fade-up">
+          <div className="bg-white rounded-3xl p-8 md:p-10 shadow-xl border border-primary/10">
+            <div className="text-center mb-8">
+              <span className="text-secondary font-semibold text-sm md:text-base tracking-[0.2em] uppercase block mb-3">
+                Prime Location in Tel Aviv
+              </span>
+              <h2 className="font-playfair text-3xl md:text-4xl font-bold text-primary mb-4">
+                Prime Location in Tel Aviv
+              </h2>
+              <p className="text-primary/80 text-lg leading-relaxed max-w-2xl mx-auto">
+                Our apartments are ideal for travelers looking for a luxury stay in Tel Aviv close to the beach and cultural landmarks.
+              </p>
+            </div>
+
+            <div className="grid gap-4 md:grid-cols-3">
+              {nearbyLandmarks.map((landmark) => (
+                <div
+                  key={landmark.name}
+                  className="rounded-2xl bg-cream border border-primary/10 px-5 py-6 text-center"
+                >
+                  <div className="w-10 h-10 mx-auto mb-4 rounded-full bg-secondary/20 text-primary flex items-center justify-center">
+                    <MapPin className="w-5 h-5" />
+                  </div>
+                  <h3 className="font-playfair text-xl font-semibold text-primary mb-2">
+                    {landmark.name}
+                  </h3>
+                  <p className="text-primary/70 font-medium">{landmark.distance}</p>
+                </div>
+              ))}
+            </div>
+          </div>
+        </section>
 
         {/* Call to Action Section */}
         <div className="properties-cta-section text-center bg-gradient-to-br from-primary via-primary to-primary-light rounded-3xl p-12 relative overflow-hidden" data-animate="fade-up">
