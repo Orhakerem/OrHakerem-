@@ -1,7 +1,6 @@
 'use client';
 
 import React from 'react';
-import { useRouter } from 'next/navigation';
 import {
   ArrowRight,
   Bath,
@@ -17,6 +16,7 @@ import {
   Wifi,
 } from 'lucide-react';
 import Image from 'next/image';
+import Link from 'next/link';
 
 import ReservationForm from '@/app/reservation/reservation-form';
 
@@ -88,19 +88,25 @@ const properties = {
 };
 
 function PropertyCard({ property }: { property: (typeof properties)[keyof typeof properties] }) {
-  const router = useRouter();
+  const propertyHref = `/properties/${property.id}`;
+  const reservationHref = `/reservation?property=${encodeURIComponent(property.title)}`;
 
   return (
-    <div 
+    <article
       data-animate="scale"
-      className="property-card group relative bg-white rounded-2xl overflow-hidden shadow-xl hover:shadow-2xl transition-all duration-700 hover:scale-[1.02] aspect-square cursor-pointer"
-      onClick={() => router.push(`/properties/${property.id}`)}
+      className="property-card group relative bg-white rounded-2xl overflow-hidden shadow-xl hover:shadow-2xl transition-all duration-700 hover:scale-[1.02] aspect-square"
     >
+      <Link
+        href={propertyHref}
+        aria-label={`View ${property.title}`}
+        className="absolute inset-0 z-10 rounded-2xl"
+      />
+
       {/* Gradient overlay on hover */}
       <div className="absolute inset-0 bg-gradient-to-br from-secondary/5 to-tertiary/5 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-500 z-10"></div>
       
       {/* Image Section - Square format - Clean without price and heart */}
-      <div className="property-card-image relative h-1/2 overflow-hidden" data-animate="zoom">
+      <div className="property-card-image relative h-1/2 overflow-hidden pointer-events-none" data-animate="zoom">
         <Image 
           src={property.image} 
           alt={property.title} 
@@ -117,7 +123,7 @@ function PropertyCard({ property }: { property: (typeof properties)[keyof typeof
       {/* Content Section - Bottom half */}
       <div className="property-card-content p-6 h-1/2 flex flex-col justify-between relative z-20">
         {/* Title and Location */}
-        <div className="property-card-copy mb-4">
+        <div className="property-card-copy mb-4 pointer-events-none">
           <h3 className="font-playfair text-xl font-bold text-primary mb-1 group-hover:text-secondary transition-colors duration-300 line-clamp-2">
             {property.title}
           </h3>
@@ -129,7 +135,7 @@ function PropertyCard({ property }: { property: (typeof properties)[keyof typeof
         </div>
 
         {/* Property Stats - Compact */}
-        <div className="property-card-stats grid grid-cols-3 gap-2 mb-4 p-3 bg-cream rounded-xl">
+        <div className="property-card-stats grid grid-cols-3 gap-2 mb-4 p-3 bg-cream rounded-xl pointer-events-none">
           <div className="text-center">
             <div className="w-6 h-6 bg-primary/10 rounded-full flex items-center justify-center mx-auto mb-1">
               <Users className="w-3 h-3 text-primary" />
@@ -153,37 +159,31 @@ function PropertyCard({ property }: { property: (typeof properties)[keyof typeof
         {/* Price and Action Buttons */}
         <div className="property-card-footer space-y-3">
           {/* Price Display */}
-          <div className="text-center">
+          <div className="text-center pointer-events-none">
             <span className="font-bold text-xl text-primary">{property.price}₪</span>
             <span className="text-primary/70 text-sm ml-1">/night</span>
           </div>
 
           {/* Action Buttons - Compact */}
-          <div className="property-card-actions flex gap-2">
-            <button
-              onClick={(e) => {
-                e.stopPropagation();
-                router.push(`/properties/${property.id}`);
-              }}
+          <div className="property-card-actions relative z-20 flex gap-2">
+            <Link
+              href={propertyHref}
               className="property-card-button property-card-button-primary flex-1 bg-gradient-to-r from-primary to-primary-light text-white py-2 px-3 rounded-full font-semibold hover:from-primary-light hover:to-primary transition-all duration-300 shadow-lg hover:shadow-xl transform hover:scale-105 flex items-center justify-center text-sm"
             >
               <span>Details</span>
               <ArrowRight className="w-3 h-3 ml-1" />
-            </button>
-            <button
-              onClick={(e) => {
-                e.stopPropagation();
-                router.push('/reservation');
-              }}
+            </Link>
+            <Link
+              href={reservationHref}
               className="property-card-button property-card-button-secondary bg-gradient-to-r from-secondary to-secondary-light text-primary py-2 px-3 rounded-full font-semibold hover:from-secondary-light hover:to-secondary transition-all duration-300 shadow-lg hover:shadow-xl transform hover:scale-105 flex items-center justify-center text-sm"
             >
               <Calendar className="w-3 h-3 mr-1" />
               <span>Book</span>
-            </button>
+            </Link>
           </div>
         </div>
       </div>
-    </div>
+    </article>
   );
 }
 
