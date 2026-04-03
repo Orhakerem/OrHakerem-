@@ -199,7 +199,7 @@ export default function AboutPage() {
 
             <div className="mt-8 flex flex-col justify-center gap-4 sm:flex-row">
               <Link
-                href="/properties"
+                href="/properties#properties-listing"
                 className="inline-flex items-center justify-center rounded-full bg-gradient-to-r from-secondary to-secondary-light px-8 py-4 font-semibold text-primary transition-all duration-300 hover:scale-[1.02] hover:shadow-xl"
               >
                 View Properties

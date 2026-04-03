@@ -9,10 +9,13 @@ import { Menu, X } from 'lucide-react';
 function Navbar() {
   const pathname = usePathname();
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const propertiesHref = '/properties#properties-listing';
 
   const isActive = (path: string) => {
     return pathname === path;
   };
+
+  const isPropertiesActive = pathname === '/properties' || pathname.startsWith('/properties/');
 
   const toggleMobileMenu = () => {
     setIsMobileMenuOpen(!isMobileMenuOpen);
@@ -59,9 +62,9 @@ function Navbar() {
             </Link>
 
             <Link
-              href="/properties"
-              className={`nav-item-floating ${isActive('/properties') ? 'active' : ''}`}
-              aria-current={isActive('/properties') ? 'page' : undefined}
+              href={propertiesHref}
+              className={`nav-item-floating ${isPropertiesActive ? 'active' : ''}`}
+              aria-current={isPropertiesActive ? 'page' : undefined}
             >
               
               <span>Properties</span>
@@ -152,10 +155,10 @@ function Navbar() {
                 </Link>
                 
                 <Link
-                  href="/properties"
+                  href={propertiesHref}
                   onClick={closeMobileMenu}
-                  className={`mobile-nav-item-floating ${isActive('/properties') ? 'active' : ''}`}
-                  aria-current={isActive('/properties') ? 'page' : undefined}
+                  className={`mobile-nav-item-floating ${isPropertiesActive ? 'active' : ''}`}
+                  aria-current={isPropertiesActive ? 'page' : undefined}
                 >
                   
                   <span>Properties</span>

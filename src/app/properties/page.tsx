@@ -204,7 +204,7 @@ export default function Properties() {
         </div>
 
         {/* Properties Grid - Square Cards */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-4xl mx-auto mb-16" data-animate-group="cards">
+        <div id="properties-listing" className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-4xl mx-auto mb-16 scroll-mt-32" data-animate-group="cards">
           {Object.values(properties).map((property) => (
             <PropertyCard key={property.id} property={property} />
           ))}

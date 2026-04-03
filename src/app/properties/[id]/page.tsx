@@ -294,7 +294,7 @@ export default function PropertyDetails() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           {propertyPageHeading}
           <button
-            onClick={() => router.push('/properties')}
+            onClick={() => router.push('/properties#properties-listing')}
             className="bg-gold text-navy px-6 py-2 rounded-md hover:bg-gold/90 transition"
           >
             Back to Properties
@@ -336,7 +336,7 @@ export default function PropertyDetails() {
           <div className="inline-block relative group">
             <div className="absolute inset-0 bg-gradient-to-r from-primary/20 to-secondary/20 rounded-full blur-lg opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
             <Link
-              href="/properties"
+              href="/properties#properties-listing"
               className="relative inline-flex items-center bg-white/80 backdrop-blur-sm text-primary px-6 py-3 rounded-full font-semibold text-lg hover:bg-white hover:text-secondary transition-all duration-300 shadow-lg hover:shadow-xl transform hover:scale-105 border border-primary/20"
             >
               <div className="relative mr-3">
