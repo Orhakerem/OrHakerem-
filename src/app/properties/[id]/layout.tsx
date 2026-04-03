@@ -1,6 +1,8 @@
 import type { Metadata } from 'next';
 import type { ReactNode } from 'react';
 
+import { createCanonicalUrl } from '@/app/seo';
+
 export function generateMetadata({
   params,
 }: {
@@ -8,7 +10,7 @@ export function generateMetadata({
 }): Metadata {
   return {
     alternates: {
-      canonical: `/properties/${params.id}`,
+      canonical: createCanonicalUrl(`/properties/${params.id}`),
     },
   };
 }

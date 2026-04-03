@@ -5,7 +5,7 @@ import Toast from '@/components/Toast';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
 import GoogleAnalytics from '@/components/GoogleAnalytics';
-import { SITE_URL } from '@/app/seo';
+import { SITE_URL, createCanonicalUrl } from '@/app/seo';
 import { crimson, inter, lato, montserrat, playfair } from '@/app/fonts';
 
 import './globals.css';
@@ -28,12 +28,12 @@ export const metadata: Metadata = {
   },
   metadataBase: new URL(SITE_URL),
   alternates: {
-    canonical: '/',
+    canonical: createCanonicalUrl('/'),
   },
   openGraph: {
     title: 'Luxury Rental Tel Aviv | Or Hakerem | Kerem HaTeimanim',
     description: 'Premium short term rental in Tel Aviv. Luxury apartments in Kerem HaTeimanim. Property management & events Tel Aviv. Book your stay at Or Hakerem.',
-    url: SITE_URL,
+    url: createCanonicalUrl('/'),
     siteName: 'Or Hakerem',
     images: [
       {

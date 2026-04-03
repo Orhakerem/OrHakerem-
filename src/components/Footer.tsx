@@ -5,6 +5,8 @@ import Link from 'next/link';
 import { Mail, Linkedin, Facebook } from 'lucide-react';
 import Image from 'next/image';
 
+import { SITE_URL } from '@/app/seo';
+
 export default function Footer() {
   const handleContactClick = (e: React.MouseEvent<HTMLAnchorElement>) => {
     e.preventDefault();
@@ -21,7 +23,7 @@ export default function Footer() {
       }
     } else if (typeof window !== 'undefined') {
       // Navigate to homepage with hash
-      window.location.href = '/#contact';
+      window.location.href = `${SITE_URL}/#contact`;
     }
   };
 
@@ -377,7 +379,7 @@ export default function Footer() {
             "@type": "LocalBusiness",
             "name": "Or Hakerem",
             "description": "Luxury properties in Tel Aviv",
-            "url": "https://orhakerem.com",
+            "url": SITE_URL,
             "telephone": ["+33651179925", "+972526869791"],
             "email": "keremliving@gmail.com",
             "address": {

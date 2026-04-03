@@ -39,6 +39,22 @@ const nextConfig = {
     ignoreDuringBuilds: false,
   },
 
+  async redirects() {
+    return [
+      {
+        source: '/:path*',
+        has: [
+          {
+            type: 'host',
+            value: 'www.orhakerem.com',
+          },
+        ],
+        destination: 'https://orhakerem.com/:path*',
+        permanent: true,
+      },
+    ];
+  },
+
   // Configure headers for better performance
   async headers() {
     return [

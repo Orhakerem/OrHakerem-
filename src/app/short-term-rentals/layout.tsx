@@ -1,5 +1,5 @@
 import type { Metadata } from 'next';
-import { SITE_URL } from '@/app/seo';
+import { createCanonicalUrl } from '@/app/seo';
 
 export const metadata: Metadata = {
   title: 'Short Term Rental Tel Aviv | Luxury Apartment Tel Aviv | Or Hakerem',
@@ -8,7 +8,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: 'Short Term Rental Tel Aviv | Luxury Apartment Tel Aviv | Or Hakerem',
     description: 'Premium short term rental in Tel Aviv. Discover luxury apartments in Kerem HaTeimanim, steps from the beach.',
-    url: `${SITE_URL}/short-term-rentals`,
+    url: createCanonicalUrl('/short-term-rentals'),
     siteName: 'Or Hakerem',
     images: [
       {
@@ -28,7 +28,7 @@ export const metadata: Metadata = {
     images: ['/favicon/web-app-manifest-512x512.png'],
   },
   alternates: {
-    canonical: '/short-term-rentals',
+    canonical: createCanonicalUrl('/short-term-rentals'),
   },
   robots: {
     index: true,

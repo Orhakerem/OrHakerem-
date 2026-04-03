@@ -1,7 +1,7 @@
 import type { Metadata } from 'next';
 import type { ReactNode } from 'react';
 
-import { SITE_URL } from '@/app/seo';
+import { createCanonicalUrl } from '@/app/seo';
 
 export const metadata: Metadata = {
   title: 'Boutique Events Tel Aviv | Jewish Celebrations & Kosher Services | Or Hakerem',
@@ -13,7 +13,7 @@ export const metadata: Metadata = {
     title: 'Boutique Events Tel Aviv | Jewish Celebrations & Kosher Services | Or Hakerem',
     description:
       'Discover a premium private venue in Tel Aviv for boutique events, Jewish celebrations, and intimate gatherings with optional kosher services.',
-    url: `${SITE_URL}/events`,
+    url: createCanonicalUrl('/events'),
     siteName: 'Or Hakerem',
     images: [
       {
@@ -34,7 +34,7 @@ export const metadata: Metadata = {
     images: ['/favicon/web-app-manifest-512x512.png'],
   },
   alternates: {
-    canonical: '/events',
+    canonical: createCanonicalUrl('/events'),
   },
   robots: {
     index: true,
