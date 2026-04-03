@@ -174,7 +174,7 @@ The main feature of this apartment is the terrace, with amenities such as BBQ, j
     title: 'Spacious & Cosy Apartment',
     location: 'Kerem HaTeimanim, Tel Aviv',
     description: 'Completely renovated studio perfect for short to long term stays.',
-    longDescription: `This renovated apartment is perfect for short, medium, and long-term rentals. Fully equipped and located 2 minutes walk from the beach, the Shouk Hacarmel and the entrance of Kerem Hateimanim, live a unique experience.
+    longDescription: `This renovated apartment is perfect for short, medium, and long-term stays. Fully equipped and located 2 minutes walk from the beach, the Shouk Hacarmel and the entrance of Kerem Hateimanim, live a unique experience.
 
 Enjoy the comfort of this cosy studio apartment in the heart of Tel Aviv ☀️ 
 

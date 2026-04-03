@@ -2,13 +2,58 @@
 
 import React from 'react';
 import { useRouter } from 'next/navigation';
-import { Calendar, MapPin, Users, BedDouble, Bath, ArrowRight } from 'lucide-react';
+import {
+  ArrowRight,
+  Bath,
+  BedDouble,
+  Calendar,
+  CheckCircle,
+  Clock,
+  MapPin,
+  Shield,
+  Star,
+  Users,
+  UtensilsCrossed,
+  Wifi,
+} from 'lucide-react';
 import Image from 'next/image';
+
+import ReservationForm from '@/app/reservation/reservation-form';
 
 const nearbyLandmarks = [
   { name: 'Carmel Market', distance: '400m' },
   { name: 'Banana Beach', distance: '600m' },
   { name: 'Nachalat Binyamin', distance: '450m' },
+];
+
+const stayHighlights = [
+  {
+    icon: Wifi,
+    title: 'High-speed WiFi',
+    description: 'Reliable connectivity for work, planning, and longer stays in the city.',
+  },
+  {
+    icon: UtensilsCrossed,
+    title: 'Fully equipped kitchens',
+    description: 'Thoughtful essentials for breakfast at home, relaxed evenings, or extended visits.',
+  },
+  {
+    icon: Shield,
+    title: 'Secure, private setting',
+    description: 'A calm and well-kept address in one of central Tel Aviv’s most characterful neighborhoods.',
+  },
+  {
+    icon: Clock,
+    title: 'Responsive hosting',
+    description: 'Fast communication before arrival and attentive support throughout the stay.',
+  },
+];
+
+const neighborhoodHighlights = [
+  'Carmel Market for local produce, cafes, and everyday Tel Aviv energy',
+  'Banana Beach and the shoreline for morning walks and sunset swims',
+  'Nachalat Binyamin for galleries, design, and a lively cultural scene',
+  'Rothschild Boulevard and central Tel Aviv within easy reach',
 ];
 
 const properties = {
@@ -30,7 +75,7 @@ const properties = {
     id: 'cozy-studio',
     title: 'Spacious & Cosy Apartment',
     location: 'Kerem HaTeimanim, Tel Aviv',
-    description: 'This renovated apartment is perfect for short and medium term rentals. Fully equipped and located 2 minutes walk from the beach, the Shouk Hacarmel and the entrance of Kerem Hateimanim, live a unique experience.',
+    description: 'This renovated apartment is perfect for short and medium term stays. Fully equipped and located a short walk from the beach, Carmel Market, and the entrance to Kerem HaTeimanim.',
     price: 600,
     rating: 4.8,
     reviewCount: 96,
@@ -165,18 +210,107 @@ export default function Properties() {
           ))}
         </div>
 
+        <section className="max-w-6xl mx-auto mb-16" data-animate="fade-up">
+          <div className="grid gap-8 lg:grid-cols-[1.05fr_0.95fr] lg:items-center">
+            <div className="rounded-3xl bg-white p-8 md:p-10 shadow-xl border border-primary/10">
+              <span className="text-secondary font-semibold text-sm md:text-base tracking-[0.2em] uppercase block mb-3">
+                Stay Experience
+              </span>
+              <h2 className="font-playfair text-3xl md:text-4xl font-bold text-primary mb-5">
+                A more local way to stay in Tel Aviv
+              </h2>
+              <p className="text-primary/80 text-lg leading-relaxed">
+                Located in Kerem HaTeimanim, our apartments combine modern comfort with the character of one of Tel Aviv&apos;s most established neighborhoods. The setting feels central and connected, yet calmer and more personal than a conventional hotel stay.
+              </p>
+              <p className="text-primary/80 text-lg leading-relaxed mt-5">
+                Whether you are visiting for a weekend by the sea, a longer city stay, or time between business meetings and local plans, Or HaKerem offers a polished base within easy reach of the beach, the market, and the cultural center of the city.
+              </p>
+
+              <div className="mt-8 rounded-2xl bg-cream border border-primary/10 px-6 py-6">
+                <h3 className="font-playfair text-2xl font-semibold text-primary mb-4">
+                  Best enjoyed on foot
+                </h3>
+                <ul className="space-y-3">
+                  {neighborhoodHighlights.map((highlight) => (
+                    <li key={highlight} className="flex items-start text-primary/80">
+                      <CheckCircle className="w-5 h-5 text-secondary mr-3 mt-0.5 flex-shrink-0" />
+                      <span>{highlight}</span>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            </div>
+
+            <div className="relative" data-animate="zoom">
+              <div className="relative h-[420px] md:h-[540px] overflow-hidden rounded-3xl shadow-2xl">
+                <Image
+                  src="/penthouse/7-vue-mer.jpg"
+                  alt="Or HaKerem apartment view in Tel Aviv"
+                  fill
+                  className="object-cover"
+                  sizes="(max-width: 1024px) 100vw, 45vw"
+                />
+              </div>
+
+              <div className="absolute -bottom-5 left-5 right-5 md:left-auto md:right-6 md:max-w-xs rounded-2xl bg-white p-5 shadow-xl border border-primary/10">
+                <div className="flex items-center gap-3 mb-2">
+                  <div className="w-12 h-12 rounded-full bg-secondary/20 flex items-center justify-center text-primary">
+                    <Star className="w-6 h-6 fill-current" />
+                  </div>
+                  <div>
+                    <div className="font-playfair text-2xl font-bold text-primary">4.9/5</div>
+                    <div className="text-sm text-primary/70">Verified guest rating</div>
+                  </div>
+                </div>
+                <p className="text-sm text-primary/75 leading-relaxed">
+                  A stay shaped by responsive hosting, strong reviews, and a location guests return to.
+                </p>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section className="max-w-6xl mx-auto mb-16" data-animate="fade-up">
+          <div className="bg-white rounded-3xl p-8 md:p-10 shadow-xl border border-primary/10">
+            <div className="text-center mb-8">
+              <span className="text-tertiary font-semibold text-sm md:text-base tracking-[0.2em] uppercase block mb-3">
+                Included in Every Stay
+              </span>
+              <h2 className="font-playfair text-3xl md:text-4xl font-bold text-primary">
+                Thoughtful essentials, consistently delivered
+              </h2>
+            </div>
+
+            <div className="grid gap-6 md:grid-cols-2 xl:grid-cols-4">
+              {stayHighlights.map((highlight) => (
+                <div
+                  key={highlight.title}
+                  className="rounded-2xl bg-cream border border-primary/10 p-6"
+                >
+                  <div className="w-12 h-12 rounded-full bg-secondary/20 text-primary flex items-center justify-center mb-4">
+                    <highlight.icon className="w-6 h-6" />
+                  </div>
+                  <h3 className="font-playfair text-2xl font-semibold text-primary mb-3">
+                    {highlight.title}
+                  </h3>
+                  <p className="text-primary/75 leading-relaxed">
+                    {highlight.description}
+                  </p>
+                </div>
+              ))}
+            </div>
+          </div>
+        </section>
+
         <section className="max-w-4xl mx-auto mb-16" data-animate="fade-up">
           <div className="bg-white rounded-3xl p-8 md:p-10 shadow-xl border border-primary/10">
             <div className="text-center mb-8">
               <span className="text-secondary font-semibold text-sm md:text-base tracking-[0.2em] uppercase block mb-3">
-                Prime Location in Tel Aviv
+                Nearby Landmarks
               </span>
-              <h2 className="font-playfair text-3xl md:text-4xl font-bold text-primary mb-4">
-                Prime Location in Tel Aviv
+              <h2 className="font-playfair text-3xl md:text-4xl font-bold text-primary">
+                Prime location in Tel Aviv
               </h2>
-              <p className="text-primary/80 text-lg leading-relaxed max-w-2xl mx-auto">
-                Our apartments are ideal for travelers looking for a luxury stay in Tel Aviv close to the beach and cultural landmarks.
-              </p>
             </div>
 
             <div className="grid gap-4 md:grid-cols-3">
@@ -198,48 +332,21 @@ export default function Properties() {
           </div>
         </section>
 
-        {/* Call to Action Section */}
-        <div className="properties-cta-section text-center bg-gradient-to-br from-primary via-primary to-primary-light rounded-3xl p-12 relative overflow-hidden" data-animate="fade-up">
-          {/* Background decorative elements */}
-          <div className="absolute inset-0">
-            <div className="absolute top-10 left-10 w-32 h-32 bg-secondary/10 rounded-full blur-3xl"></div>
-            <div className="absolute bottom-10 right-10 w-40 h-40 bg-tertiary/10 rounded-full blur-3xl"></div>
-          </div>
-          
-          <div className="relative z-10">
-            <h2 className="font-playfair text-3xl md:text-4xl font-bold text-white mb-4">
-              Ready to Experience Luxury?
+        <section className="max-w-4xl mx-auto" data-animate="fade-up">
+          <div className="text-center mb-8">
+            <span className="text-tertiary font-semibold text-sm md:text-base tracking-[0.2em] uppercase block mb-3">
+              Reservation
+            </span>
+            <h2 className="font-playfair text-3xl md:text-4xl font-bold text-primary mb-4">
+              Request your stay
             </h2>
-            <p className="text-white/90 text-lg mb-8 max-w-2xl mx-auto">
-              Book your stay today and discover the perfect blend of comfort, style, and location 
-              in the heart of Tel Aviv.
-            </p>
-            
-            <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <div className="inline-block relative group">
-                <button
-                  onClick={() => window.location.href = '/reservation'}
-                  className="book-button book-button-primary relative inline-flex items-center bg-gradient-to-r from-secondary to-secondary-light text-primary px-8 py-4 rounded-full font-semibold text-lg hover:from-secondary-light hover:to-secondary transition-all duration-300 shadow-xl hover:shadow-2xl transform hover:scale-105"
-                >
-                  <Calendar className="w-6 h-6 mr-3" />
-                  <span>Book Your Stay</span>
-                </button>
-              </div>
-              
-              <button
-                onClick={() => window.location.href = '/concierge-services'}
-                className="book-button book-button-secondary inline-flex items-center bg-white/20 text-white px-8 py-4 rounded-full font-semibold text-lg hover:bg-white/30 transition-all duration-300 border border-white/30"
-              >
-                <span>Explore Services</span>
-                <ArrowRight className="w-6 h-6 ml-3" />
-              </button>
-            </div>
-            
-            <p className="text-white/70 text-sm mt-6 font-medium">
-              Experience luxury in Tel Aviv&apos;s most charming neighborhood
+            <p className="text-primary/80 text-lg leading-relaxed max-w-2xl mx-auto">
+              Share your dates and preferred apartment, and our team will come back to you with availability and next steps.
             </p>
           </div>
-        </div>
+
+          <ReservationForm embedded showIntro={false} />
+        </section>
       </div>
     </div>
   );

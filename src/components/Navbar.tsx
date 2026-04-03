@@ -84,14 +84,6 @@ function Navbar() {
             </Link>
 
             <Link
-              href="/short-term-rentals"
-              className={`nav-item-floating ${isActive('/short-term-rentals') ? 'active' : ''}`}
-              aria-current={isActive('/short-term-rentals') ? 'page' : undefined}
-            >
-              <span>Rentals</span>
-            </Link>
-
-            <Link
               href="/about"
               className={`nav-item-floating ${isActive('/about') ? 'active' : ''}`}
               aria-current={isActive('/about') ? 'page' : undefined}
@@ -186,16 +178,6 @@ function Navbar() {
                 >
                   
                   <span>Events</span>
-                </Link>
-
-                <Link
-                  href="/short-term-rentals"
-                  onClick={closeMobileMenu}
-                  className={`mobile-nav-item-floating ${isActive('/short-term-rentals') ? 'active' : ''}`}
-                  aria-current={isActive('/short-term-rentals') ? 'page' : undefined}
-                >
-                  
-                  <span>Short Term Rentals</span>
                 </Link>
 
                 <Link

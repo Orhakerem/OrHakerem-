@@ -57,7 +57,7 @@ export default function ConciergeServicesPage() {
     {
       icon: Car,
       title: 'Transportation',
-      description: 'Vehicle rentals with professional drivers and private airport and city-to-city transfers.'
+      description: 'Private cars with professional drivers and airport or city-to-city transfers.'
     },
     {
       icon: Baby,

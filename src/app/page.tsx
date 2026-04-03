@@ -14,7 +14,7 @@ import PromotionalCarousel from '@/components/PromotionalCarousel';
 const Home: React.FC = () => {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const heroHeadline =
-    'Luxury Short-Term Rentals in Tel Aviv – Or HaKerem';
+    'Luxury Short-Term Stays in Tel Aviv – Or HaKerem';
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -129,7 +129,7 @@ const Home: React.FC = () => {
 
               <div className="max-w-4xl space-y-6 text-lg md:text-xl" data-animate="fade-up" data-delay="2">
                 <p className="text-primary/90 leading-relaxed font-light font-lato">
-                  Start your experience in a city that never stops, but differently. At Or Hakerem, we offer a refined approach to <span className="font-medium text-secondary">short-term rentals</span> for guests looking for a luxury apartment in Tel Aviv with character, comfort, and a real sense of place.
+                  Start your experience in a city that never stops, but differently. At Or Hakerem, we offer a refined approach to <span className="font-medium text-secondary">short-term stays</span> for guests looking for a luxury apartment in Tel Aviv with character, comfort, and a real sense of place.
                 </p>
 
                 <p className="text-primary/80 leading-relaxed font-light font-lato">

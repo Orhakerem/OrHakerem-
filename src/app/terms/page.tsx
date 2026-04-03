@@ -65,7 +65,7 @@ export default function TermsPage() {
               <FileText className="w-8 h-8 text-white" />
             </div>
             <h1 className="font-playfair text-4xl md:text-5xl font-bold text-primary mb-4" data-animate="text">
-              Rental Terms & Conditions
+              Stay Terms & Conditions
             </h1>
           </div>
 
@@ -255,7 +255,7 @@ export default function TermsPage() {
             
             <div className="bg-red-50 border border-red-200 rounded-lg p-6">
               <p className="text-red-800 leading-relaxed">
-                Rental terminates automatically at contract end. Unauthorized overstay incurs 2x daily rate penalty. 
+                Stay terminates automatically at contract end. Unauthorized overstay incurs 2x daily rate penalty. 
                 Breach of terms results in immediate eviction without reimbursement.
               </p>
             </div>

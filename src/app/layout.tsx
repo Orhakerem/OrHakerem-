@@ -15,9 +15,9 @@ const CustomCursor = dynamic(() => import('@/components/CustomCursor'), {
 });
 
 export const metadata: Metadata = {
-  title: 'Luxury Rental Tel Aviv | Or Hakerem | Kerem HaTeimanim',
-  description: 'Premium short term rental in Tel Aviv. Luxury apartments in Kerem HaTeimanim. Property management & events Tel Aviv. Book your stay at Or Hakerem.',
-  keywords: 'hakerem, luxury rental Tel Aviv, short term rental in Tel Aviv, luxury apartment in Tel Aviv, apartment Tel Aviv, events Tel Aviv, Kerem HaTeimanim, property management Tel Aviv, vacation rentals Israel',
+  title: 'Luxury Apartments in Tel Aviv | Or Hakerem | Kerem HaTeimanim',
+  description: 'Premium apartments and boutique stays in Tel Aviv. Discover Or Hakerem in Kerem HaTeimanim for luxury accommodations, events, and attentive hosting.',
+  keywords: 'or hakerem, luxury apartments Tel Aviv, boutique stays Tel Aviv, luxury apartment in Tel Aviv, apartment Tel Aviv, events Tel Aviv, Kerem HaTeimanim, property management Tel Aviv, Tel Aviv accommodations',
   authors: [{ name: 'Or Hakerem' }],
   creator: 'Or Hakerem',
   publisher: 'Or Hakerem',
@@ -31,8 +31,8 @@ export const metadata: Metadata = {
     canonical: createCanonicalUrl('/'),
   },
   openGraph: {
-    title: 'Luxury Rental Tel Aviv | Or Hakerem | Kerem HaTeimanim',
-    description: 'Premium short term rental in Tel Aviv. Luxury apartments in Kerem HaTeimanim. Property management & events Tel Aviv. Book your stay at Or Hakerem.',
+    title: 'Luxury Apartments in Tel Aviv | Or Hakerem | Kerem HaTeimanim',
+    description: 'Premium apartments and boutique stays in Tel Aviv. Discover Or Hakerem in Kerem HaTeimanim for luxury accommodations, events, and attentive hosting.',
     url: createCanonicalUrl('/'),
     siteName: 'Or Hakerem',
     images: [
@@ -48,8 +48,8 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Luxury Rental Tel Aviv | Or Hakerem | Kerem HaTeimanim',
-    description: 'Premium short term rental in Tel Aviv. Luxury apartments in Kerem HaTeimanim. Property management & events Tel Aviv.',
+    title: 'Luxury Apartments in Tel Aviv | Or Hakerem | Kerem HaTeimanim',
+    description: 'Premium apartments and boutique stays in Tel Aviv. Discover Or Hakerem in Kerem HaTeimanim for luxury accommodations and events.',
     images: ['/favicon/web-app-manifest-512x512.png'],
   },
   robots: {
