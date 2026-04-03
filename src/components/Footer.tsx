@@ -146,6 +146,12 @@ export default function Footer() {
               >
                 Events
               </Link>
+              <Link
+                href="/about"
+                className="text-white/90 hover:text-secondary transition-colors duration-300"
+              >
+                About
+              </Link>
               <a
                 href="/#contact"
                 onClick={handleContactClick}
@@ -315,6 +321,12 @@ export default function Footer() {
                   className="block text-white/90 hover:text-secondary hover:translate-x-2 transition-all duration-300 text-xl font-medium p-1 rounded-lg hover:bg-white/10 leading-none"
                 >
                   Events
+                </Link>
+                <Link
+                  href="/about"
+                  className="block text-white/90 hover:text-secondary hover:translate-x-2 transition-all duration-300 text-xl font-medium p-1 rounded-lg hover:bg-white/10 leading-none"
+                >
+                  About
                 </Link>
                 <a
                   href="/#contact"

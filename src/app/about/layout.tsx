@@ -1,0 +1,50 @@
+import type { Metadata } from 'next';
+
+import { createCanonicalUrl } from '@/app/seo';
+
+export const metadata: Metadata = {
+  title: 'About Or HaKerem – Luxury Rentals in Tel Aviv',
+  description:
+    'Learn about Or HaKerem, a boutique collection of luxury short-term rentals in Tel Aviv offering premium stays, Shabbat-friendly hospitality, and intimate event experiences in Kerem HaTeimanim.',
+  keywords:
+    'About Or HaKerem, luxury apartments Tel Aviv, boutique rentals Tel Aviv, Kerem HaTeimanim apartments, Shabbat friendly rentals Tel Aviv, Tel Aviv luxury stay, boutique event venue Tel Aviv',
+  openGraph: {
+    title: 'About Or HaKerem – Luxury Rentals in Tel Aviv',
+    description:
+      'Discover the story behind Or HaKerem, our premium apartments in Kerem HaTeimanim, and the hospitality approach that shapes every stay and event.',
+    url: createCanonicalUrl('/about'),
+    siteName: 'Or Hakerem',
+    images: [
+      {
+        url: '/favicon/web-app-manifest-512x512.png',
+        width: 1200,
+        height: 630,
+        alt: 'About Or HaKerem',
+      },
+    ],
+    locale: 'en_US',
+    type: 'website',
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'About Or HaKerem – Luxury Rentals in Tel Aviv',
+    description:
+      'A closer look at Or HaKerem, our boutique rental philosophy, and our location in Kerem HaTeimanim.',
+    images: ['/favicon/web-app-manifest-512x512.png'],
+  },
+  alternates: {
+    canonical: createCanonicalUrl('/about'),
+  },
+  robots: {
+    index: true,
+    follow: true,
+  },
+};
+
+export default function AboutLayout({
+  children,
+}: {
+  children: React.ReactNode;
+}) {
+  return <>{children}</>;
+}

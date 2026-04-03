@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { usePathname } from 'next/navigation';
@@ -89,6 +89,14 @@ function Navbar() {
               aria-current={isActive('/short-term-rentals') ? 'page' : undefined}
             >
               <span>Rentals</span>
+            </Link>
+
+            <Link
+              href="/about"
+              className={`nav-item-floating ${isActive('/about') ? 'active' : ''}`}
+              aria-current={isActive('/about') ? 'page' : undefined}
+            >
+              <span>About</span>
             </Link>
           </div>
 
@@ -180,6 +188,15 @@ function Navbar() {
                 >
                   
                   <span>Short Term Rentals</span>
+                </Link>
+
+                <Link
+                  href="/about"
+                  onClick={closeMobileMenu}
+                  className={`mobile-nav-item-floating ${isActive('/about') ? 'active' : ''}`}
+                  aria-current={isActive('/about') ? 'page' : undefined}
+                >
+                  <span>About</span>
                 </Link>
               </div>
             </div>
