@@ -129,15 +129,15 @@ const Home: React.FC = () => {
 
               <div className="max-w-4xl space-y-6 text-lg md:text-xl" data-animate="fade-up" data-delay="2">
                 <p className="text-primary/90 leading-relaxed font-light font-lato">
-                  Start your experience in a city that never stops, but differently. At Orhakerem, we offer a unique type of <span className="font-medium text-secondary">short term rental</span> accommodations where you feel at home. Nestled in the historic neighborhood of Kerem HaTeimanim, this unique building has a historical past, and his perfect location offers new apartments for short-term rental and events.
+                  Start your experience in a city that never stops, but differently. At Or Hakerem, we offer a refined approach to <span className="font-medium text-secondary">short-term rentals</span> for guests looking for a luxury apartment in Tel Aviv with character, comfort, and a real sense of place.
                 </p>
 
                 <p className="text-primary/80 leading-relaxed font-light font-lato">
-                  Located in the heart of Kerem HaTeimanim, Or Hakerem offers boutique apartments within walking distance of Carmel Market, Banana Beach, and Nachalat Binyamin.
+                  Located in Kerem HaTeimanim, near Carmel Market and within walking distance to the beach, Or Hakerem offers boutique apartments that place guests close to Banana Beach, Nachalat Binyamin, and the rhythm of central Tel Aviv.
                 </p>
 
                 <p className="text-primary/85 leading-relaxed font-light font-lato">
-                  Whether you&apos;re planning an intimate celebration, a family gathering, or simply desire a sophisticated urban retreat, our <span className="font-medium text-tertiary">unique place</span> offers the perfect sanctuary in Tel Aviv for all of your demands. Each property has been thoughtfully designed to combine modern design with the history of this building and of the Kerem Hateimanim.
+                  Whether you&apos;re planning an intimate celebration, a family gathering, or a short-term stay near the beach, our <span className="font-medium text-tertiary">unique place</span> offers a polished base in Tel Aviv. Each property is thoughtfully designed to blend contemporary comfort with the heritage of the building and the atmosphere of Kerem HaTeimanim.
                 </p>
               </div>
 
@@ -177,7 +177,7 @@ const Home: React.FC = () => {
 
             <div className="home-location-content max-w-4xl w-full mb-8" data-animate="fade-up" data-delay="2">
               <p className="text-primary/90 text-lg md:text-xl leading-relaxed font-light text-center mb-8">
-                Our building is located at <span className="font-medium text-secondary">35 Hakovshim Street</span>, in the Kerem HaTeimanim neighborhood, just steps away from the beach and the Carmel Market.
+                Our building is located at <span className="font-medium text-secondary">35 Hakovshim Street</span>, in Kerem HaTeimanim, just steps from the beach and near Carmel Market for guests who want a central, walkable stay in Tel Aviv.
               </p>
 
               <div className="w-full rounded-2xl overflow-hidden shadow-xl border border-primary/10" data-animate="zoom">
