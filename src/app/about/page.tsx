@@ -99,7 +99,7 @@ export default function AboutPage() {
               Hospitality built on repetition and care
             </h2>
             <p className="mt-6 text-lg leading-relaxed text-primary/80">
-              Or HaKerem hosts dozens of guests every week and has become a trusted choice for high-end short-term stays and boutique events in Tel Aviv.
+              Or HaKerem hosts dozens of guests every week across its boutique apartments and event spaces, making it a trusted choice for premium stays in Tel Aviv.
             </p>
             <p className="mt-5 text-lg leading-relaxed text-primary/80">
               That rhythm matters. It means every arrival, every request, and every detail is informed by real hosting experience, consistent guest expectations, and a hospitality standard shaped by repetition rather than promise alone.
@@ -141,7 +141,7 @@ export default function AboutPage() {
 
             <div className="mt-8 rounded-2xl border border-secondary/20 bg-secondary/10 px-6 py-5">
               <p className="text-lg leading-relaxed text-primary/80">
-                Our Kerem HaTeimanim apartments are especially valued by travelers who want a central stay without losing the texture of the neighborhood. For guests looking for Shabbat-friendly rentals in Tel Aviv, we combine practical support with a calm, premium atmosphere and tailored solutions for Jewish events, including optional kosher services.
+                Our Kerem HaTeimanim apartments are especially valued by travelers who want a central stay without losing the texture of the neighborhood. Or HaKerem is one of the few boutique properties in Tel Aviv offering Shabbat-friendly accommodations and tailored Jewish event experiences. For guests looking for Shabbat-friendly rentals in Tel Aviv, we combine practical support with a calm, premium atmosphere and tailored solutions for Jewish events, including optional kosher services.
               </p>
             </div>
           </div>
@@ -176,7 +176,7 @@ export default function AboutPage() {
               We are not simply offering a place to sleep. We are offering a more complete way to stay in Tel Aviv: central, design-led, neighborhood-rooted, and supported by responsive hosting.
             </p>
             <p className="mt-5 text-lg leading-relaxed text-primary/80">
-              Whether a guest is booking a short urban escape, a longer stay near the beach, or a private celebration, the goal remains the same: to deliver one of the more polished boutique rentals in Tel Aviv for guests seeking comfort, credibility, and a quietly memorable local experience.
+              Whether a guest is booking a short urban escape, a longer stay near the beach, or a private celebration, the goal remains the same: to deliver one of the more polished boutique rentals in Tel Aviv for guests seeking comfort, credibility, and a quietly memorable local experience. Whether you are visiting Tel Aviv for a short stay or planning a private event, Or HaKerem offers a unique and elevated experience.
             </p>
           </div>
         </div>
