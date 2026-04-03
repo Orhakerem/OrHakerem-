@@ -9,6 +9,31 @@ export default function FAQPage() {
 
   const faqs = [
     {
+      question: 'Where are the apartments located in Tel Aviv?',
+      answer:
+        'Or HaKerem apartments are located in the historic Kerem HaTeimanim neighborhood, within walking distance of Carmel Market, Banana Beach, and Nachalat Binyamin.',
+    },
+    {
+      question: 'How far is the beach from Or HaKerem?',
+      answer:
+        'The beach is just a few minutes away, with Banana Beach located approximately 600 meters from the property.',
+    },
+    {
+      question: 'Is Or HaKerem close to Carmel Market?',
+      answer:
+        'Yes, Carmel Market is located about 400 meters from the apartments, making it easily accessible by foot.',
+    },
+    {
+      question: 'What makes Or HaKerem unique in Tel Aviv?',
+      answer:
+        'Or HaKerem offers a unique combination of boutique luxury, Shabbat-friendly accommodations, and proximity to key landmarks in central Tel Aviv.',
+    },
+    {
+      question: 'Are the apartments located in central Tel Aviv?',
+      answer:
+        'Yes, Or HaKerem is located in central Tel Aviv, in the vibrant Kerem HaTeimanim neighborhood.',
+    },
+    {
       question: 'What are the check-in and check-out times?',
       answer:
         'Check-in is available from 3:00 PM, and check-out is until 11:00 AM. Early check-in or late check-out may be available upon request.',

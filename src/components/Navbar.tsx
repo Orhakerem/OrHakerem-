@@ -98,6 +98,14 @@ function Navbar() {
             >
               <span>About</span>
             </Link>
+
+            <Link
+              href="/faq"
+              className={`nav-item-floating ${isActive('/faq') ? 'active' : ''}`}
+              aria-current={isActive('/faq') ? 'page' : undefined}
+            >
+              <span>FAQ</span>
+            </Link>
           </div>
 
         </div>
@@ -197,6 +205,15 @@ function Navbar() {
                   aria-current={isActive('/about') ? 'page' : undefined}
                 >
                   <span>About</span>
+                </Link>
+
+                <Link
+                  href="/faq"
+                  onClick={closeMobileMenu}
+                  className={`mobile-nav-item-floating ${isActive('/faq') ? 'active' : ''}`}
+                  aria-current={isActive('/faq') ? 'page' : undefined}
+                >
+                  <span>FAQ</span>
                 </Link>
               </div>
             </div>
