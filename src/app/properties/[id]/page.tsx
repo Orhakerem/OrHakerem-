@@ -282,12 +282,17 @@ export default function PropertyDetails() {
     checkOut: null,
   });
   const property = properties[params.id as keyof typeof properties];
+  const propertyPageHeading = (
+    <h1 className={property ? 'font-playfair text-3xl font-bold text-navy mb-2' : 'text-2xl font-bold text-navy mb-4'}>
+      {property ? property.title : 'Property Not Found'}
+    </h1>
+  );
 
   if (!property) {
     return (
       <div className="min-h-screen pt-24 pb-20">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <h1 className="text-2xl font-bold text-navy mb-4">Property Not Found</h1>
+          {propertyPageHeading}
           <button
             onClick={() => router.push('/properties')}
             className="bg-gold text-navy px-6 py-2 rounded-md hover:bg-gold/90 transition"
@@ -378,9 +383,7 @@ export default function PropertyDetails() {
             <div className="max-w-4xl mx-auto">
               <div className="flex justify-between items-start mb-6">
                 <div>
-                  <h1 className="font-playfair text-3xl font-bold text-navy mb-2">
-                    {property.title}
-                  </h1>
+                  {propertyPageHeading}
                   <div className="flex items-center text-navy/60">
                     <MapPin className="w-5 h-5 mr-1" />
                     {property.location}

@@ -133,7 +133,7 @@ export default function Events() {
         <div className="absolute bottom-8 md:bottom-12 left-0 right-0 z-10">
           <div className="text-center px-4">
             <h1 className="font-playfair text-3xl md:text-4xl lg:text-5xl font-bold text-secondary animate-fadeInUp drop-shadow-lg" data-animate="text">
-              Boutique Events & Private Celebrations in Tel Aviv
+              Boutique Event Venue in Tel Aviv
             </h1>
             <p className="max-w-3xl mx-auto mt-4 text-base md:text-lg text-white/90 leading-relaxed" data-animate="fade-up">
               Or HaKerem hosts boutique events and celebrations in Tel Aviv, offering a unique venue with optional kosher services.

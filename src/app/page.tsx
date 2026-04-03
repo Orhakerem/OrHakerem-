@@ -14,7 +14,7 @@ import PromotionalCarousel from '@/components/PromotionalCarousel';
 const Home: React.FC = () => {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const heroHeadline =
-    "Luxury short-term rentals in Tel Aviv's Kerem HaTeimanim, within walking distance of the city's most iconic locations.";
+    'Luxury Short-Term Rentals in Tel Aviv – Or HaKerem';
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -77,9 +77,13 @@ const Home: React.FC = () => {
 
         <div className="hero-home-mobile-text">
           <div className="hero-home-mobile-text-inner">
-            <h1 className="hero-home-mobile-title font-montserrat font-bold" data-animate="text">
+            <div
+              aria-hidden="true"
+              className="hero-home-mobile-title font-montserrat font-bold"
+              data-animate="text"
+            >
               {heroHeadline}
-            </h1>
+            </div>
           </div>
         </div>
 
@@ -94,15 +98,6 @@ const Home: React.FC = () => {
             >
               <source src="/hero.mp4" type="video/mp4" />
             </video>
-
-            <div className="hero-home-mobile-video-cta">
-              <Link
-                href="/properties"
-                className="glass-cta hero-scroll-cta"
-              >
-                View Properties
-              </Link>
-            </div>
           </div>
         </div>
       </div>

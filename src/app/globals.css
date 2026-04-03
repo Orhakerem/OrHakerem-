@@ -916,9 +916,14 @@
       display: none;
     }
 
-    .hero-home-title,
-    .hero-home-cta-wrap {
+    .hero-home-title {
       display: none;
+    }
+
+    .hero-home-cta-wrap {
+      display: block;
+      bottom: 1rem;
+      z-index: 4;
     }
 
     .hero-home-mobile-strip {
@@ -968,7 +973,7 @@
       box-shadow: none;
     }
 
-    .hero-home-mobile-video-cta .glass-cta {
+    .hero-home-cta-wrap .glass-cta {
       padding: 13px 28px;
       font-size: 16px;
     }
@@ -1321,11 +1326,11 @@
       margin-bottom: 0;
     }
 
-    .hero-home-mobile-video-cta {
+    .hero-home-cta-wrap {
       bottom: 0.875rem;
     }
 
-    .hero-home-mobile-video-cta .glass-cta {
+    .hero-home-cta-wrap .glass-cta {
       padding: 10px 19px;
       font-size: 14px;
     }

@@ -42,9 +42,16 @@ export default function ContactPage() {
           </div>
           
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+            <div className="text-center mb-8" data-animate="fade-up">
+              <h1 className="font-playfair text-3xl md:text-4xl font-bold text-white mb-4 leading-tight" data-animate="text" data-delay="1">
+                Contact Or HaKerem
+              </h1>
+              <p className="text-white/90 text-lg max-w-2xl mx-auto leading-relaxed" data-animate="fade-up" data-delay="2">
+                Ready to experience luxury in Tel Aviv? Get in touch with us for reservations, inquiries, or to learn more about our premium accommodations and concierge services.
+              </p>
+            </div>
             <ContactForm 
-              title="Contact Or Hakerem"
-              subtitle="Ready to experience luxury in Tel Aviv? Get in touch with us for reservations, inquiries, or to learn more about our premium accommodations and concierge services."
+              showTitle={false}
               variant="default"
             />
           </div>

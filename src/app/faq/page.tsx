@@ -82,7 +82,7 @@ export default function FAQPage() {
         </div>
 
         <h1 className="text-center font-playfair text-4xl font-bold text-primary mb-12" data-animate="text">
-          Frequently Asked Questions
+          Frequently Asked Questions – Or HaKerem
         </h1>
 
         <div className="grid gap-6 max-w-3xl mx-auto" data-animate-group="cards">

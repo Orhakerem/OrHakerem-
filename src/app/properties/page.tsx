@@ -154,7 +154,7 @@ export default function Properties() {
             </span>
           </div>
           <h1 className="font-playfair text-5xl md:text-6xl font-bold text-primary mb-6 leading-tight" data-animate="text">
-            Properties
+            Luxury Apartments in Tel Aviv
           </h1>
         </div>
 
