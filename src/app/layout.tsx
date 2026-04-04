@@ -120,6 +120,10 @@ export default function RootLayout({
           </svg>
         </a>
         <Script src="/scrollAnimations.js" strategy="afterInteractive" />
+        <Script
+          src="https://cdn.enable.co.il/licenses/enable-L54226f2ujbqzlpp-0226-80099/init.js"
+          strategy="afterInteractive"
+        />
       </body>
     </html>
   );
