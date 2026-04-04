@@ -24,6 +24,8 @@ interface ReservationFormProps {
   showIntro?: boolean;
 }
 
+const EMPTY_SEARCH_PARAMS: { [key: string]: string | string[] | undefined } = {};
+
 const PROPERTY_OPTIONS = ['Luxury Penthouse', 'Spacious & Cosy Apartment'] as const;
 
 const LEGACY_PROPERTY_LABELS: Record<string, string> = {
@@ -44,19 +46,22 @@ function normalizePropertyLabel(value: string | undefined) {
 }
 
 export default function ReservationForm({
-  initialSearchParams = {},
+  initialSearchParams = EMPTY_SEARCH_PARAMS,
   embedded = false,
   showIntro = true,
 }: ReservationFormProps) {
   const router = useRouter();
   const todayIso = getTodayIsoInTimeZone();
+  const initialProperty = getSingleSearchParam(initialSearchParams?.property);
+  const initialCheckIn = getSingleSearchParam(initialSearchParams?.checkIn);
+  const initialCheckOut = getSingleSearchParam(initialSearchParams?.checkOut);
   const [propertyTitle, setPropertyTitle] = useState(() =>
-    normalizePropertyLabel(getSingleSearchParam(initialSearchParams?.property)),
+    normalizePropertyLabel(initialProperty),
   );
   const [dateRange, setDateRange] = useState<BookingDateRange>(() =>
     sanitizeBookingDateRange(
-      getSingleSearchParam(initialSearchParams?.checkIn),
-      getSingleSearchParam(initialSearchParams?.checkOut),
+      initialCheckIn,
+      initialCheckOut,
       todayIso,
       true,
     ),
@@ -67,17 +72,17 @@ export default function ReservationForm({
 
   useEffect(() => {
     setPropertyTitle(
-      normalizePropertyLabel(getSingleSearchParam(initialSearchParams?.property)),
+      normalizePropertyLabel(initialProperty),
     );
     setDateRange(
       sanitizeBookingDateRange(
-        getSingleSearchParam(initialSearchParams?.checkIn),
-        getSingleSearchParam(initialSearchParams?.checkOut),
+        initialCheckIn,
+        initialCheckOut,
         todayIso,
         true,
       ),
     );
-  }, [initialSearchParams, todayIso]);
+  }, [initialCheckIn, initialCheckOut, initialProperty, todayIso]);
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
