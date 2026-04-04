@@ -46,10 +46,10 @@ const nextConfig = {
         has: [
           {
             type: 'host',
-            value: 'www.orhakerem.com',
+            value: 'orhakerem.com',
           },
         ],
-        destination: 'https://orhakerem.com/:path*',
+        destination: 'https://www.orhakerem.com/:path*',
         permanent: true,
       },
     ];

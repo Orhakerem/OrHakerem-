@@ -1,6 +1,6 @@
 import type { Metadata } from 'next';
 
-export const SITE_URL = 'https://orhakerem.com';
+export const SITE_URL = 'https://www.orhakerem.com';
 
 export function createCanonicalUrl(path: string) {
   return new URL(path, `${SITE_URL}/`).toString();
