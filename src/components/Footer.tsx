@@ -132,7 +132,7 @@ export default function Footer() {
                 href="/properties"
                 className="text-white/90 hover:text-secondary transition-colors duration-300"
               >
-                Accommodations
+                Properties
               </Link>
               <Link
                 href="/concierge-services"
@@ -308,7 +308,7 @@ export default function Footer() {
                   href="/properties"
                   className="block text-white/90 hover:text-secondary hover:translate-x-2 transition-all duration-300 text-xl font-medium p-1 rounded-lg hover:bg-white/10 leading-none"
                 >
-                  Accommodations
+                  Properties
                 </Link>
                 <Link
                   href="/concierge-services"
