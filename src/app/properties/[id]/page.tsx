@@ -176,14 +176,12 @@ The main feature of this apartment is the terrace, with amenities such as BBQ, j
     description: 'Completely renovated studio perfect for short to long term stays.',
     longDescription: `This renovated apartment is perfect for short, medium, and long-term stays. Fully equipped and located 2 minutes walk from the beach, the Shouk Hacarmel and the entrance of Kerem Hateimanim, live a unique experience.
 
-Enjoy the comfort of this cosy studio apartment in the heart of Tel Aviv ☀️ 
+    Enjoy the comfort of this cosy studio apartment in the heart of Tel Aviv ☀️ 
 
-The apartment is a large room divided into two parts: on one side you'll find the entrance, equipped with an opening sofa, a table with chairs, a TV hanging on the wall and the bathroom just behind it. On the other side you'll find the bed, the wardrobe and the mini-kitchen with everything you need to prepare your meals.
+    The apartment is a large room divided into two parts: on one side you'll find the entrance, equipped with an opening sofa, a table with chairs, a TV hanging on the wall and the bathroom just behind it. On the other side you'll find the bed, the wardrobe and the mini-kitchen with everything you need to prepare your meals.
 
-*Please Note: The ceiling in the room where the bed is is quite low, so if you're taller than 1m85 this could be a problem.
-
-The studio is located on the 1st floor of a unique building that is described as a historical monument dating from the Ottoman Empire.`,
-    price: 400,
+    The studio is located on the 1st floor of a unique building that is described as a historical monument dating from the Ottoman Empire.`,
+    price: 450,
     cleaningFee: 200,
     images: [
       '/studio/Salon_angle_1.jpg',
@@ -502,7 +500,7 @@ export default function PropertyDetails() {
                       <div className="absolute inset-0 bg-gradient-to-r from-secondary to-tertiary rounded-full blur-lg opacity-50 group-hover:opacity-75 transition-opacity duration-300"></div>
                       <button
                         onClick={handleBookNow}
-                        className="relative inline-flex w-full items-center justify-center bg-gradient-to-r from-secondary to-secondary-light text-primary px-12 py-4 rounded-full font-semibold text-lg hover:from-secondary-light hover:to-secondary transition-all duration-300 shadow-xl hover:shadow-2xl transform hover:scale-[1.02]"
+                        className="button-hover-clean relative inline-flex w-full items-center justify-center bg-gradient-to-r from-secondary to-secondary-light text-primary px-12 py-4 rounded-full font-semibold text-lg transition-all duration-300 shadow-xl hover:shadow-2xl transform hover:scale-[1.02]"
                       >
                         <Calendar className="w-6 h-6 mr-3" />
                         <span>BOOK NOW</span>

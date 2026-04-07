@@ -325,7 +325,8 @@
   .whatsapp-float {
     position: fixed;
     right: 24px;
-    bottom: 24px;
+    top: 58%;
+    bottom: auto;
     z-index: 9999;
     display: flex;
     align-items: center;
@@ -335,12 +336,17 @@
     border-radius: 50%;
     background: #25d366;
     box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
+    transform: translateY(-50%);
     transition: all 0.3s ease;
   }
 
   .whatsapp-float:hover {
-    transform: scale(1.08);
+    transform: translateY(-50%) scale(1.05);
     box-shadow: 0 10px 30px rgba(0, 0, 0, 0.25);
+  }
+
+  .button-hover-clean:hover {
+    filter: saturate(0.94) brightness(0.98);
   }
 
   .hero-home {
@@ -536,7 +542,8 @@
       width: 50px;
       height: 50px;
       right: 18px;
-      bottom: 18px;
+      top: 64%;
+      bottom: auto;
     }
 
     .glass-cta::after {
@@ -752,11 +759,11 @@
 
   /* Hover effects épurés - sans effet shimmer */
   .nav-item-floating:hover {
-    background: linear-gradient(135deg, #e8c49a 0%, #d4a876 100%);
+    background: linear-gradient(135deg, #d8b084 0%, #c49a6a 100%);
     color: #8b2f23;
     transform: translateY(-2px) scale(1.02);
     box-shadow: 
-      0 8px 25px rgba(216, 176, 132, 0.4),
+      0 8px 25px rgba(165, 56, 43, 0.2),
       0 0 0 1px rgba(165, 56, 43, 0.1) inset;
   }
 
@@ -803,8 +810,11 @@
   }
 
   .mobile-menu-button-floating:hover {
-    color: #f4e4c1;
-    transition: color 0.3s ease;
+    color: #a5382b;
+    transform: translateY(-1px);
+    box-shadow:
+      0 8px 24px rgba(165, 56, 43, 0.18),
+      0 0 0 1px rgba(255, 255, 255, 0.1) inset;
   }
 
   .mobile-menu-floating {
@@ -846,11 +856,13 @@
   }
 
   .mobile-nav-item-floating:hover {
-    color: #f4e4c1;
+    color: #8b2f23;
+    background: rgba(216, 176, 132, 0.12);
   }
 
   .mobile-nav-item-floating.active {
-    color: #f4e4c1;
+    color: #8b2f23;
+    background: rgba(216, 176, 132, 0.18);
     font-weight: 700;
   }
 

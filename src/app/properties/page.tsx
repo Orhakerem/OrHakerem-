@@ -10,7 +10,6 @@ import {
   Clock,
   MapPin,
   Shield,
-  Star,
   Users,
   UtensilsCrossed,
   Wifi,
@@ -76,7 +75,7 @@ const properties = {
     title: 'Spacious & Cosy Apartment',
     location: 'Kerem HaTeimanim, Tel Aviv',
     description: 'This renovated apartment is perfect for short and medium term stays. Fully equipped and located a short walk from the beach, Carmel Market, and the entrance to Kerem HaTeimanim.',
-    price: 600,
+    price: 450,
     rating: 4.8,
     reviewCount: 96,
     image: '/studio/lit_angle_1.jpg',
@@ -175,7 +174,7 @@ function PropertyCard({ property }: { property: (typeof properties)[keyof typeof
             </Link>
             <Link
               href={reservationHref}
-              className="property-card-button property-card-button-secondary bg-gradient-to-r from-secondary to-secondary-light text-primary py-2 px-3 rounded-full font-semibold hover:from-secondary-light hover:to-secondary transition-all duration-300 shadow-lg hover:shadow-xl transform hover:scale-105 flex items-center justify-center text-sm"
+              className="button-hover-clean property-card-button property-card-button-secondary bg-gradient-to-r from-secondary to-secondary-light text-primary py-2 px-3 rounded-full font-semibold transition-all duration-300 shadow-lg hover:shadow-xl transform hover:scale-105 flex items-center justify-center text-sm"
             >
               <Calendar className="w-3 h-3 mr-1" />
               <span>Book</span>
@@ -255,7 +254,7 @@ export default function Properties() {
               <div className="absolute -bottom-5 left-5 right-5 md:left-auto md:right-6 md:max-w-xs rounded-2xl bg-white p-5 shadow-xl border border-primary/10">
                 <div className="flex items-center gap-3 mb-2">
                   <div className="w-12 h-12 rounded-full bg-secondary/20 flex items-center justify-center text-primary">
-                    <Star className="w-6 h-6 fill-current" />
+                    <CheckCircle className="w-6 h-6" />
                   </div>
                   <div>
                     <div className="font-playfair text-2xl font-bold text-primary">4.9/5</div>

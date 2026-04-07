@@ -54,14 +54,6 @@ function Navbar() {
           {/* Navigation Items - Centrés et épurés */}
           <div className="nav-items-floating">
             <Link
-              href="/"
-              className={`nav-item-floating ${isActive('/') ? 'active' : ''}`}
-              aria-current={isActive('/') ? 'page' : undefined}
-            >
-              <span>Home</span>
-            </Link>
-
-            <Link
               href={propertiesHref}
               className={`nav-item-floating ${isPropertiesActive ? 'active' : ''}`}
               aria-current={isPropertiesActive ? 'page' : undefined}
@@ -144,16 +136,6 @@ function Navbar() {
           {isMobileMenuOpen && (
             <div className="mobile-menu-floating">
               <div className="mobile-menu-items-floating">
-                <Link
-                  href="/"
-                  onClick={closeMobileMenu}
-                  className={`mobile-nav-item-floating ${isActive('/') ? 'active' : ''}`}
-                  aria-current={isActive('/') ? 'page' : undefined}
-                >
-          
-                  <span>Home</span>
-                </Link>
-                
                 <Link
                   href={propertiesHref}
                   onClick={closeMobileMenu}

@@ -166,22 +166,10 @@ export default function Footer() {
             <h3 className="font-playfair text-lg font-bold text-secondary mb-3 leading-none">Policies</h3>
             <div className="flex flex-wrap justify-center gap-x-4 gap-y-1 text-sm">
               <Link
-                href="/cancellation"
-                className="text-white/90 hover:text-secondary transition-colors duration-300"
-              >
-                Cancellation Policy
-              </Link>
-              <Link
                 href="/terms"
                 className="text-white/90 hover:text-secondary transition-colors duration-300"
               >
                 Terms & Conditions
-              </Link>
-              <Link
-                href="/privacy"
-                className="text-white/90 hover:text-secondary transition-colors duration-300"
-              >
-                Privacy Policy
               </Link>
             </div>
           </div>
@@ -344,22 +332,10 @@ export default function Footer() {
               
               <nav className="space-y-0.5">
                 <Link 
-                  href="/cancellation" 
-                  className="block text-white/90 hover:text-secondary hover:translate-x-2 transition-all duration-300 text-xl font-medium p-1 rounded-lg hover:bg-white/10 leading-none"
-                >
-                  Cancellation Policy
-                </Link>
-                <Link 
                   href="/terms" 
                   className="block text-white/90 hover:text-secondary hover:translate-x-2 transition-all duration-300 text-xl font-medium p-1 rounded-lg hover:bg-white/10 leading-none"
                 >
                   Terms & Conditions
-                </Link>
-                <Link 
-                  href="/privacy" 
-                  className="block text-white/90 hover:text-secondary hover:translate-x-2 transition-all duration-300 text-xl font-medium p-1 rounded-lg hover:bg-white/10 leading-none"
-                >
-                  Privacy Policy
                 </Link>
               </nav>
             </div>

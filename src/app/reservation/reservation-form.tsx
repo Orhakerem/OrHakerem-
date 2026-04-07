@@ -121,7 +121,7 @@ export default function ReservationForm({
         </p>
         <button
           onClick={() => router.push(embedded ? '/properties' : '/')}
-          className="bg-secondary text-primary px-6 py-2 rounded-md font-semibold hover:bg-secondary-light transition"
+          className="button-hover-clean bg-secondary text-primary px-6 py-2 rounded-md font-semibold transition"
         >
           {embedded ? 'Back to Properties' : 'Return to Home'}
         </button>
@@ -311,7 +311,7 @@ export default function ReservationForm({
         <button
           type="submit"
           disabled={isSubmitting}
-          className="w-full bg-secondary text-primary py-3 rounded-md font-semibold hover:bg-secondary-light transition disabled:opacity-50"
+          className="button-hover-clean w-full bg-secondary text-primary py-3 rounded-md font-semibold transition disabled:opacity-50"
         >
           <span className="transition-colors duration-300 hover:text-primary">
             {isSubmitting ? 'Sending...' : 'Send Request'}

@@ -4,36 +4,10 @@ import { useState } from 'react';
 import { ChevronDown, ChevronUp } from 'lucide-react';
 import Link from 'next/link';
 
+import { homeFaqEntries } from '@/lib/faq-data';
+
 export default function FAQ() {
   const [openIndex, setOpenIndex] = useState<number>();
-
-  const faqs = [
-    {
-      question: 'What are the check-in and check-out times?',
-      answer:
-        'Check-in is available from 3:00 PM, and check-out is until 11:00 AM. Early check-in or late check-out may be available upon request.',
-    },
-    {
-      question: 'Do you offer Shabbat-friendly accommodations?',
-      answer:
-        'Yes, we provide full Shabbat support including Shabbat keys, hot plates, timers, and can arrange kosher meals upon request.',
-    },
-    {
-      question: 'Is parking available?',
-      answer:
-        'Yes, secure parking is available for our guests. Please let us know in advance if you need parking during your stay.',
-    },
-    {
-      question: 'What amenities are included?',
-      answer:
-        'All apartments include fully equipped kitchens, high-speed WiFi, smart TVs, luxury linens, and premium toiletries. Additional amenities vary by apartment.',
-    },
-    {
-      question: 'Do you offer airport transfers?',
-      answer:
-        'Yes, we can arrange private airport transfers for our guests. Please request this service at least 48 hours before your arrival.',
-    },
-  ];
 
   return (
     <section className="home-faq-section py-20 bg-cream" data-animate="fade-up">
@@ -50,10 +24,10 @@ export default function FAQ() {
           </Link>
         </div>
         <div className="home-faq-grid grid gap-6 max-w-3xl mx-auto" data-animate-group="cards">
-          {faqs.map((faq, index) => (
+          {homeFaqEntries.map((faq, index) => (
             <div
               key={index}
-              className="home-faq-item bg-white p-6 rounded-lg shadow-md hover:shadow-lg transition-shadow cursor-pointer"
+              className="home-faq-item group bg-white p-6 rounded-lg shadow-md hover:shadow-lg transition-shadow cursor-pointer"
               data-delay={String((index % 3) + 1)}
               onClick={() => setOpenIndex(openIndex === index ? undefined : index)}
             >
@@ -69,7 +43,7 @@ export default function FAQ() {
               </div>
               <div
                 className={`mt-4 text-primary/80 transition-all duration-300 ease-in-out overflow-hidden ${
-                  openIndex === index ? 'max-h-40 opacity-100' : 'max-h-0 opacity-0'
+                  openIndex === index ? 'max-h-96 opacity-100' : 'max-h-0 opacity-0'
                 }`}
               >
                 {faq.answer}

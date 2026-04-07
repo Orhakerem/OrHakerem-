@@ -265,7 +265,7 @@ export default function Events() {
                   </p>
                   <button
                     onClick={() => setIsSuccess(false)}
-                    className="bg-gradient-to-r from-secondary to-secondary-light text-primary px-8 py-3 rounded-full font-semibold hover:from-secondary-light hover:to-secondary transition-all duration-300"
+                    className="button-hover-clean bg-gradient-to-r from-secondary to-secondary-light text-primary px-8 py-3 rounded-full font-semibold transition-all duration-300"
                   >
                     Plan Another Event
                   </button>
@@ -278,7 +278,7 @@ export default function Events() {
                     <div className="absolute inset-0 bg-gradient-to-r from-secondary to-tertiary rounded-full blur-lg opacity-50 group-hover:opacity-75 transition-opacity duration-300"></div>
                     <button
                       onClick={() => setShowForm(true)}
-                      className="relative inline-flex items-center bg-gradient-to-r from-secondary to-secondary-light text-primary px-10 py-3 rounded-full font-semibold text-base hover:from-secondary-light hover:to-secondary transition-all duration-300 shadow-xl hover:shadow-2xl transform hover:scale-105"
+                      className="button-hover-clean relative inline-flex items-center bg-gradient-to-r from-secondary to-secondary-light text-primary px-10 py-3 rounded-full font-semibold text-base transition-all duration-300 shadow-xl hover:shadow-2xl transform hover:scale-105"
                     >
                       <Calendar className="w-5 h-5 mr-2" />
                       <span>Inquire About Events</span>

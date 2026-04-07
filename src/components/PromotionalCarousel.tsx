@@ -9,7 +9,6 @@ interface Slide {
   id: number;
   src: string;
   alt: string;
-  title: string;
 }
 
 const PromotionalCarousel: React.FC = () => {
@@ -21,31 +20,26 @@ const PromotionalCarousel: React.FC = () => {
       id: 1,
       src: '/penthouse/ext_drone_3.jpg',
       alt: 'Property Aerial View',
-      title: 'Exclusive Aerial Views',
     },
     {
       id: 2,
       src: '/penthouse/chaises_hautes_angle_2.jpg',
       alt: 'Terrace Seating',
-      title: 'Premium Outdoor Seating',
     },
     {
       id: 3,
       src: '/penthouse/ext_drone_5.jpg',
       alt: 'Drone Property Overview',
-      title: 'Panoramic Property Views',
     },
     {
       id: 4,
       src: '/penthouse/ext_drone_13.jpg',
       alt: 'Stunning Aerial Perspective',
-      title: 'Spectacular Drone Perspectives',
     },
     {
       id: 5,
       src: '/img_5322.jpg',
       alt: 'Or Hakerem Property',
-      title: 'Luxury Living Experience',
     },
   ];
 
@@ -107,13 +101,6 @@ const PromotionalCarousel: React.FC = () => {
                 loading={index === 0 ? 'eager' : 'lazy'}
                 sizes="(max-width: 768px) 100vw, (max-width: 1280px) 90vw, 1200px"
               />
-              <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent"></div>
-
-              <div className="absolute inset-0 flex items-end justify-center pb-8">
-                <h3 className="text-white text-2xl md:text-3xl lg:text-4xl font-playfair font-light">
-                  {slide.title}
-                </h3>
-              </div>
             </div>
           ))}
 
@@ -161,7 +148,7 @@ const PromotionalCarousel: React.FC = () => {
           </p>
           <Link
             href="/events"
-            className="inline-flex items-center justify-center bg-gradient-to-r from-secondary to-secondary-light text-primary px-8 py-3 rounded-full font-semibold text-base hover:from-secondary-light hover:to-secondary transition-all duration-300 shadow-xl hover:shadow-2xl transform hover:scale-105"
+            className="button-hover-clean inline-flex items-center justify-center bg-gradient-to-r from-secondary to-secondary-light text-primary px-8 py-3 rounded-full font-semibold text-base transition-all duration-300 shadow-xl hover:shadow-2xl transform hover:scale-105"
           >
             <span className="mr-2">Explore Events</span>
             <div className="w-5 h-5 bg-primary/20 rounded-full flex items-center justify-center">

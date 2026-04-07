@@ -127,14 +127,14 @@ export default function ConciergeServicesPage() {
         {/* Animated Background Pattern */}
         <div className="absolute inset-0 opacity-20">
           <div className="absolute top-20 left-10 w-72 h-72 bg-secondary rounded-full blur-3xl animate-pulse"></div>
-          <div className="absolute bottom-20 right-10 w-96 h-96 bg-tertiary rounded-full blur-3xl animate-pulse" style={{ animationDelay: '1s' }}></div>
-          <div className="absolute top-1/2 left-1/3 w-64 h-64 bg-white rounded-full blur-3xl animate-pulse" style={{ animationDelay: '2s' }}></div>
+          <div className="absolute bottom-32 right-10 w-96 h-96 bg-tertiary rounded-full blur-3xl animate-pulse" style={{ animationDelay: '1s' }}></div>
+          <div className="absolute top-[42%] left-1/3 w-64 h-64 bg-white rounded-full blur-3xl animate-pulse" style={{ animationDelay: '2s' }}></div>
         </div>
 
         {/* Geometric Shapes */}
         <div className="absolute inset-0 overflow-hidden">
           <div className="absolute top-40 right-20 w-32 h-32 border-4 border-secondary/30 rounded-lg rotate-12 animate-spin-slow"></div>
-          <div className="absolute bottom-40 left-20 w-24 h-24 border-4 border-tertiary/30 rounded-full animate-bounce-slow"></div>
+          <div className="absolute bottom-52 left-20 w-24 h-24 border-4 border-tertiary/30 rounded-full animate-bounce-slow"></div>
         </div>
 
         {/* Content */}
@@ -222,8 +222,8 @@ export default function ConciergeServicesPage() {
         <section className="services-contact-section py-12 bg-gradient-to-br from-primary via-primary to-primary-light relative overflow-hidden rounded-2xl mb-20">
           {/* Background decorative elements */}
           <div className="absolute inset-0">
-            <div className="absolute top-10 left-5 w-24 h-24 bg-secondary/10 rounded-full blur-2xl"></div>
-            <div className="absolute bottom-10 right-5 w-32 h-32 bg-tertiary/10 rounded-full blur-2xl"></div>
+            <div className="absolute top-6 left-5 w-24 h-24 bg-secondary/10 rounded-full blur-2xl"></div>
+            <div className="absolute bottom-20 right-5 w-32 h-32 bg-tertiary/10 rounded-full blur-2xl"></div>
           </div>
 
           {/* Centered content container */}
@@ -305,7 +305,7 @@ export default function ConciergeServicesPage() {
                     <button
                       type="submit"
                       disabled={isSubmitting}
-                      className="inline-flex items-center bg-gradient-to-r from-secondary to-secondary-light text-primary px-8 py-2.5 rounded-full font-semibold text-sm hover:from-secondary-light hover:to-secondary transition-all duration-300 shadow-lg hover:shadow-xl transform hover:scale-105 disabled:opacity-50 disabled:cursor-not-allowed"
+                      className="button-hover-clean inline-flex items-center bg-gradient-to-r from-secondary to-secondary-light text-primary px-8 py-2.5 rounded-full font-semibold text-sm transition-all duration-300 shadow-lg hover:shadow-xl transform hover:scale-105 disabled:opacity-50 disabled:cursor-not-allowed"
                     >
                       <span className="mr-2">
                         {isSubmitting ? 'Sending...' : 'Submit Request'}

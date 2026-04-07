@@ -1,8 +1,83 @@
 'use client';
 
-import React, { useState, useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import Link from 'next/link';
-import { ArrowLeft, Printer, FileText, Clock, CreditCard, Shield, AlertTriangle, ArrowUp, Home } from 'lucide-react';
+import { ArrowLeft, ArrowUp, FileText, Home, Printer } from 'lucide-react';
+
+const standardCancellationPolicy = [
+  {
+    title: 'More than 30 days before check-in',
+    body: 'A 30% deposit will be charged.',
+  },
+  {
+    title: '15 to 30 days before check-in',
+    body: '30% of the total reservation amount will be charged and is non-refundable.',
+  },
+  {
+    title: '7 to 15 days before check-in',
+    body: '50% of the total reservation amount will be charged and is non-refundable.',
+  },
+  {
+    title: 'Less than 7 days before check-in, no-show, or early departure',
+    body: '100% of the reservation amount will be charged and is non-refundable.',
+  },
+];
+
+const nonRefundableSituations = [
+  'Theft or loss of personal belongings',
+  'Noise from neighbors, renovations, or construction',
+  'Building maintenance or cleanliness in shared areas',
+  'Insects, pests, or natural hazards',
+  'Internet issues not due to internal mismanagement',
+  'Event cancellations or postponements',
+  'Flight cancellations or general geopolitical instability without official restrictions',
+];
+
+const voucherPolicy = [
+  'Guests will receive a non-refundable, non-transferable voucher equal to the amount paid',
+  'Voucher is valid for 12 months from the original check-in date',
+  'No cash refunds will be issued under these conditions',
+];
+
+const paymentSchedule = [
+  '30% deposit at time of booking',
+  '20% due 15 days before arrival',
+  '50% due 7 days before arrival',
+  'Security deposit authorization taken 1 day before arrival, released 5 days after checkout',
+];
+
+const guestResponsibilities = [
+  'Present a valid passport and entry visa upon check-in',
+  'Take full responsibility for any damage caused during the stay',
+  'Turn off all lights, A/C, and appliances when leaving the property',
+  'Refrain from smoking, hosting events, or bringing animals',
+  'Use the property respectfully and responsibly',
+  'Follow local noise regulations and respect the neighbors',
+  'Immediately report any damage, malfunction, or issue to us',
+];
+
+const companyResponsibilities = [
+  'Ensuring the property is professionally cleaned prior to arrival',
+  'Providing linens and towels appropriate for the number of registered guests',
+  'Responding to maintenance issues in a timely manner',
+  'Relocating the guest to a similar or superior property, or offering a refund, if the property becomes uninhabitable',
+  'Cancelling a booking in cases where guest behavior or unpaid balances may pose a risk to the property or company',
+];
+
+const companyLimitations = [
+  'Theft or damage to personal belongings',
+  'Noise or disruptions from the building or surroundings',
+  'Insects, pests, or environmental disturbances',
+  'Events beyond its control (force majeure or third-party disruptions)',
+  'Cancellations or changes to third-party events that motivated the stay',
+];
+
+const insuranceCoverage = [
+  'Trip cancellation',
+  'Medical emergencies',
+  'Flight disruptions',
+  'Force majeure and geopolitical risks',
+];
 
 export default function TermsPage() {
   const [showBackToTop, setShowBackToTop] = useState(false);
@@ -15,278 +90,207 @@ export default function TermsPage() {
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
-  // Show/hide back to top button based on scroll position
   useEffect(() => {
     const handleScroll = () => {
       setShowBackToTop(window.scrollY > 400);
     };
 
     window.addEventListener('scroll', handleScroll);
+
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
+  const renderBulletList = (items: string[]) => (
+    <ul className="space-y-3">
+      {items.map((item) => (
+        <li key={item} className="flex items-start text-primary/80 leading-relaxed">
+          <span className="mt-2 mr-3 h-2 w-2 flex-shrink-0 rounded-full bg-secondary"></span>
+          <span>{item}</span>
+        </li>
+      ))}
+    </ul>
+  );
+
   return (
-    <div className="min-h-screen pt-24 pb-20 bg-cream">
-      <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-        {/* Enhanced Back Navigation */}
+    <div className="min-h-screen bg-cream pt-24 pb-20">
+      <div className="mx-auto max-w-5xl px-4 sm:px-6 lg:px-8">
         <div className="mb-8" data-animate="fade-right">
           <div className="inline-block relative group">
-            <div className="absolute inset-0 bg-gradient-to-r from-primary/20 to-secondary/20 rounded-full blur-lg opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+            <div className="absolute inset-0 rounded-full bg-gradient-to-r from-primary/20 to-secondary/20 blur-lg opacity-0 transition-opacity duration-300 group-hover:opacity-100"></div>
             <Link
               href="/"
-              className="relative inline-flex items-center bg-white/80 backdrop-blur-sm text-primary px-6 py-3 rounded-full font-semibold text-lg hover:bg-white hover:text-secondary transition-all duration-300 shadow-lg hover:shadow-xl transform hover:scale-105 border border-primary/20"
+              className="relative inline-flex items-center rounded-full border border-primary/20 bg-white/80 px-6 py-3 text-lg font-semibold text-primary shadow-lg transition-all duration-300 hover:bg-white hover:text-secondary hover:shadow-xl hover:scale-105"
             >
               <div className="relative mr-3">
                 <ArrowLeft className="w-5 h-5 transition-transform duration-300 group-hover:-translate-x-1" />
-                <div className="absolute inset-0 bg-secondary/20 rounded-full scale-0 group-hover:scale-150 transition-transform duration-300"></div>
+                <div className="absolute inset-0 rounded-full bg-secondary/20 scale-0 transition-transform duration-300 group-hover:scale-150"></div>
               </div>
-              <Home className="w-5 h-5 mr-2 opacity-70 group-hover:opacity-100 transition-opacity duration-300" />
+              <Home className="mr-2 w-5 h-5 opacity-70 transition-opacity duration-300 group-hover:opacity-100" />
               <span className="relative z-10">Back to Home</span>
             </Link>
           </div>
         </div>
 
-        {/* Header with Print Button */}
-        <div className="mb-8 flex items-center justify-end" data-animate="fade-left">
+        <div className="mb-8 flex justify-end" data-animate="fade-left">
           <button
             onClick={handlePrint}
-            className="flex items-center px-4 py-2 bg-primary text-white rounded-lg hover:bg-primary-light transition-colors"
+            className="inline-flex items-center rounded-full border border-primary/15 bg-white px-4 py-2 font-semibold text-primary shadow-sm transition-all duration-300 hover:shadow-md hover:-translate-y-0.5"
           >
-            <Printer className="w-4 h-4 mr-2" />
+            <Printer className="mr-2 h-4 w-4" />
             Print
           </button>
         </div>
 
-        {/* Main Content */}
-        <div className="bg-white rounded-2xl shadow-xl p-8 md:p-12 print:shadow-none print:p-0" data-animate="fade-up">
-          {/* Title Section */}
-          <div className="text-center mb-12" data-animate="fade-up">
-            <div className="inline-flex items-center justify-center w-16 h-16 bg-gradient-to-br from-primary to-primary-light rounded-full mb-6">
-              <FileText className="w-8 h-8 text-white" />
+        <div className="rounded-3xl border border-primary/10 bg-white p-8 shadow-xl md:p-12" data-animate="fade-up">
+          <div className="mb-12 text-center" data-animate="fade-up">
+            <div className="mb-6 inline-flex h-16 w-16 items-center justify-center rounded-full bg-gradient-to-br from-primary to-primary-light">
+              <FileText className="h-8 w-8 text-white" />
             </div>
-            <h1 className="font-playfair text-4xl md:text-5xl font-bold text-primary mb-4" data-animate="text">
-              Stay Terms & Conditions
+            <h1 className="font-playfair text-4xl font-bold text-primary md:text-5xl" data-animate="text">
+              Terms &amp; Conditions
             </h1>
+            <p className="mx-auto mt-4 max-w-3xl text-lg leading-relaxed text-primary/75">
+              Please review the following booking, payment, stay, and responsibility terms for Or Hakerem.
+            </p>
           </div>
 
-          {/* Section 1: Cancellation Policies */}
-          <section className="mb-12" data-animate="fade-up" data-delay="1">
-            <div className="flex items-center mb-6">
-              <div className="p-3 bg-gradient-to-br from-primary to-primary-light rounded-full mr-4">
-                <Clock className="w-6 h-6 text-white" />
-              </div>
-              <h2 className="font-playfair text-2xl font-bold text-primary">1. Cancellation Policies</h2>
-            </div>
-            <div className="w-full h-px bg-gradient-to-r from-secondary to-tertiary mb-6"></div>
-            
-            <div className="grid md:grid-cols-2 gap-6 mb-8">
-              <div className="space-y-4">
-                <div className="p-4 bg-gradient-to-r from-green-50 to-green-100 rounded-lg border-l-4 border-green-500">
-                  <span className="font-bold text-green-800">30+ days prior:</span>
-                  <span className="text-green-700 ml-2">30% deposit refunded</span>
-                </div>
-                <div className="p-4 bg-gradient-to-r from-yellow-50 to-yellow-100 rounded-lg border-l-4 border-yellow-500">
-                  <span className="font-bold text-yellow-800">30-15 days prior:</span>
-                  <span className="text-yellow-700 ml-2">30% of reservation kept</span>
-                </div>
-              </div>
-              <div className="space-y-4">
-                <div className="p-4 bg-gradient-to-r from-orange-50 to-orange-100 rounded-lg border-l-4 border-orange-500">
-                  <span className="font-bold text-orange-800">15-7 days prior:</span>
-                  <span className="text-orange-700 ml-2">50% of reservation kept</span>
-                </div>
-                <div className="p-4 bg-gradient-to-r from-red-50 to-red-100 rounded-lg border-l-4 border-red-500">
-                  <span className="font-bold text-red-800">Less than 7 days/no show:</span>
-                  <span className="text-red-700 ml-2">100% kept</span>
-                </div>
+          <section className="mb-10" data-animate="fade-up" data-delay="1">
+            <h2 className="font-playfair text-3xl font-bold text-primary">1. Cancellation &amp; Refund Policy</h2>
+            <div className="mt-3 h-px w-full bg-gradient-to-r from-secondary to-transparent"></div>
+
+            <div className="mt-8 rounded-2xl border border-primary/10 bg-cream/50 p-6 md:p-8">
+              <h3 className="font-playfair text-2xl font-semibold text-primary">1.1 Standard Cancellation Policy</h3>
+              <div className="mt-6 grid gap-4 md:grid-cols-2">
+                {standardCancellationPolicy.map((item) => (
+                  <div key={item.title} className="rounded-2xl border border-primary/10 bg-white p-5">
+                    <h4 className="font-semibold text-primary">{item.title}</h4>
+                    <p className="mt-2 text-primary/75 leading-relaxed">{item.body}</p>
+                  </div>
+                ))}
               </div>
             </div>
 
-            <div className="bg-red-50 border border-red-200 rounded-lg p-6">
-              <div className="flex items-center mb-4">
-                <AlertTriangle className="w-5 h-5 text-red-600 mr-2" />
-                <h3 className="font-bold text-red-800">Non-refundable circumstances:</h3>
+            <div className="mt-6 grid gap-6 lg:grid-cols-2">
+              <div className="rounded-2xl border border-primary/10 bg-white p-6">
+                <h3 className="font-playfair text-2xl font-semibold text-primary">1.2 Non-Refundable Situations</h3>
+                <p className="mt-4 text-primary/75 leading-relaxed">
+                  Refunds will not be provided for events beyond the company&apos;s control, including
+                  (but not limited to):
+                </p>
+                <div className="mt-5">{renderBulletList(nonRefundableSituations)}</div>
               </div>
-              <div className="grid md:grid-cols-2 gap-3 text-red-700">
-                <div>• Theft/damage to personal belongings</div>
-                <div>• External noises/construction</div>
-                <div>• Building maintenance issues</div>
-                <div>• Insects/natural hazards</div>
-                <div>• Internet service issues</div>
-                <div>• Pandemic policy changes</div>
+
+              <div className="rounded-2xl border border-primary/10 bg-white p-6">
+                <h3 className="font-playfair text-2xl font-semibold text-primary">
+                  1.3 Geopolitical Events &amp; Flight Disruptions – Voucher Policy
+                </h3>
+                <p className="mt-4 text-primary/75 leading-relaxed">
+                  In cases of official travel bans, airport closures, or flight suspensions declared by authorities:
+                </p>
+                <div className="mt-5">{renderBulletList(voucherPolicy)}</div>
               </div>
             </div>
           </section>
 
-          {/* Section 2: Payments & Schedule */}
-          <section className="mb-12" data-animate="fade-up" data-delay="2">
-            <div className="flex items-center mb-6">
-              <div className="p-3 bg-gradient-to-br from-secondary to-secondary-light rounded-full mr-4">
-                <CreditCard className="w-6 h-6 text-primary" />
-              </div>
-              <h2 className="font-playfair text-2xl font-bold text-primary">2. Payments & Schedule</h2>
-            </div>
-            <div className="w-full h-px bg-gradient-to-r from-secondary to-tertiary mb-6"></div>
-            
-            <p className="text-primary/80 text-lg leading-relaxed mb-8">
-              All prices exclude VAT (18%) and are due in NIS. Foreign travelers must provide proof of non-Israeli citizenship for VAT exemption.
-            </p>
+          <section className="mb-10" data-animate="fade-up" data-delay="2">
+            <h2 className="font-playfair text-3xl font-bold text-primary">2. Payment Schedule &amp; VAT Policy</h2>
+            <div className="mt-3 h-px w-full bg-gradient-to-r from-secondary to-transparent"></div>
 
-            <div className="bg-gradient-to-br from-cream to-white rounded-xl p-6 border border-secondary/20">
-              <h3 className="font-bold text-primary mb-6 text-lg">Payment Timeline</h3>
-              <div className="space-y-4">
-                <div className="flex items-center">
-                  <div className="w-8 h-8 bg-primary text-white rounded-full flex items-center justify-center font-bold mr-4">1</div>
-                  <div className="flex-1 p-3 bg-white rounded-lg shadow-sm">
-                    <span className="font-semibold text-primary">30% deposit at booking</span>
-                  </div>
-                </div>
-                <div className="flex items-center">
-                  <div className="w-8 h-8 bg-secondary text-primary rounded-full flex items-center justify-center font-bold mr-4">2</div>
-                  <div className="flex-1 p-3 bg-white rounded-lg shadow-sm">
-                    <span className="font-semibold text-primary">20% 15 days before arrival</span>
-                  </div>
-                </div>
-                <div className="flex items-center">
-                  <div className="w-8 h-8 bg-tertiary text-white rounded-full flex items-center justify-center font-bold mr-4">3</div>
-                  <div className="flex-1 p-3 bg-white rounded-lg shadow-sm">
-                    <span className="font-semibold text-primary">50% 7 days before arrival</span>
-                  </div>
-                </div>
-                <div className="flex items-center">
-                  <div className="w-8 h-8 bg-primary-light text-white rounded-full flex items-center justify-center font-bold mr-4">4</div>
-                  <div className="flex-1 p-3 bg-white rounded-lg shadow-sm">
-                    <span className="font-semibold text-primary">Security deposit released 5 days post-departure</span>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </section>
+            <div className="mt-8 rounded-2xl border border-primary/10 bg-white p-6 md:p-8">
+              <p className="text-primary/80 leading-relaxed">
+                All prices are quoted in foreign currency and are exclusive of VAT. Payments must be made in NIS.
+              </p>
 
-          {/* Section 3: Guest Responsibilities */}
-          <section className="mb-12" data-animate="fade-up" data-delay="3">
-            <div className="flex items-center mb-6">
-              <div className="p-3 bg-gradient-to-br from-tertiary to-tertiary-light rounded-full mr-4">
-                <Shield className="w-6 h-6 text-white" />
+              <div className="mt-6 rounded-2xl border border-secondary/20 bg-cream p-6">
+                <h3 className="font-playfair text-2xl font-semibold text-primary">Payment Schedule (Direct Bookings)</h3>
+                <div className="mt-5">{renderBulletList(paymentSchedule)}</div>
               </div>
-              <h2 className="font-playfair text-2xl font-bold text-primary">3. Guest Responsibilities</h2>
-            </div>
-            <div className="w-full h-px bg-gradient-to-r from-secondary to-tertiary mb-6"></div>
-            
-            <div className="grid md:grid-cols-2 gap-6">
-              <ul className="space-y-3">
-                <li className="flex items-start">
-                  <div className="w-2 h-2 bg-primary rounded-full mt-2 mr-3 flex-shrink-0"></div>
-                  <span className="text-primary/80">Provide valid passport/visa at arrival</span>
-                </li>
-                <li className="flex items-start">
-                  <div className="w-2 h-2 bg-primary rounded-full mt-2 mr-3 flex-shrink-0"></div>
-                  <span className="text-primary/80">Responsible for damages during stay</span>
-                </li>
-                <li className="flex items-start">
-                  <div className="w-2 h-2 bg-primary rounded-full mt-2 mr-3 flex-shrink-0"></div>
-                  <span className="text-primary/80">Turn off lights/AC when leaving</span>
-                </li>
-              </ul>
-              <ul className="space-y-3">
-                <li className="flex items-start">
-                  <div className="w-2 h-2 bg-primary rounded-full mt-2 mr-3 flex-shrink-0"></div>
-                  <span className="text-primary/80">Use property responsibly</span>
-                </li>
-                <li className="flex items-start">
-                  <div className="w-2 h-2 bg-primary rounded-full mt-2 mr-3 flex-shrink-0"></div>
-                  <span className="text-primary/80">Report damages immediately</span>
-                </li>
-              </ul>
-            </div>
-          </section>
 
-          {/* Section 4: Or Hakerem Responsibilities */}
-          <section className="mb-12" data-animate="fade-up" data-delay="1">
-            <div className="flex items-center mb-6">
-              <div className="p-3 bg-gradient-to-br from-primary to-primary-light rounded-full mr-4">
-                <Shield className="w-6 h-6 text-white" />
-              </div>
-              <h2 className="font-playfair text-2xl font-bold text-primary">4. Or Hakerem Responsibilities</h2>
-            </div>
-            <div className="w-full h-px bg-gradient-to-r from-secondary to-tertiary mb-6"></div>
-            
-            <div className="grid md:grid-cols-2 gap-6 mb-8">
-              <div className="bg-white rounded-xl p-6 shadow-lg border border-secondary/10">
-                <div className="text-4xl mb-4">🧹</div>
-                <h3 className="font-bold text-primary mb-2">Cleanliness</h3>
-                <p className="text-primary/80">Pre-arrival cleaning to company standards</p>
-              </div>
-              <div className="bg-white rounded-xl p-6 shadow-lg border border-secondary/10">
-                <div className="text-4xl mb-4">🛏️</div>
-                <h3 className="font-bold text-primary mb-2">Linen Provision</h3>
-                <p className="text-primary/80">Quality linens for registered guests</p>
-              </div>
-              <div className="bg-white rounded-xl p-6 shadow-lg border border-secondary/10">
-                <div className="text-4xl mb-4">🔧</div>
-                <h3 className="font-bold text-primary mb-2">Maintenance</h3>
-                <p className="text-primary/80">Timely resolution of issues</p>
-              </div>
-              <div className="bg-white rounded-xl p-6 shadow-lg border border-secondary/10">
-                <div className="text-4xl mb-4">🔄</div>
-                <h3 className="font-bold text-primary mb-2">Relocation</h3>
-                <p className="text-primary/80">Alternative arrangements if needed</p>
-              </div>
-            </div>
-
-            <div className="bg-yellow-50 border border-yellow-200 rounded-lg p-6">
-              <h3 className="font-bold text-yellow-800 mb-3">Limitations of responsibility:</h3>
-              <p className="text-yellow-700">
-                Or Hakerem is not responsible for theft/damage to personal belongings, external noises/construction, 
-                building maintenance issues, insects/natural hazards, internet service issues, or pandemic policy changes.
+              <p className="mt-6 text-primary/80 leading-relaxed">
+                The company reserves the right to cancel or relocate reservations not fully paid before arrival.
               </p>
             </div>
           </section>
 
-          {/* Section 5: Penalties & Termination */}
-          <section className="mb-12">
-            <div className="flex items-center mb-6">
-              <div className="p-3 bg-gradient-to-br from-red-500 to-red-600 rounded-full mr-4">
-                <AlertTriangle className="w-6 h-6 text-white" />
-              </div>
-              <h2 className="font-playfair text-2xl font-bold text-primary">5. Penalties & Termination</h2>
-            </div>
-            <div className="w-full h-px bg-gradient-to-r from-secondary to-tertiary mb-6"></div>
-            
-            <div className="bg-red-50 border border-red-200 rounded-lg p-6">
-              <p className="text-red-800 leading-relaxed">
-                Stay terminates automatically at contract end. Unauthorized overstay incurs 2x daily rate penalty. 
-                Breach of terms results in immediate eviction without reimbursement.
-              </p>
+          <section className="mb-10" data-animate="fade-up" data-delay="3">
+            <h2 className="font-playfair text-3xl font-bold text-primary">3. Guest Responsibilities</h2>
+            <div className="mt-3 h-px w-full bg-gradient-to-r from-secondary to-transparent"></div>
+
+            <div className="mt-8 rounded-2xl border border-primary/10 bg-white p-6 md:p-8">
+              {renderBulletList(guestResponsibilities)}
             </div>
           </section>
 
-          {/* Or Hakerem Signature Section */}
-          <section className="text-center pt-8 border-t border-gray-200">
-            <div className="mb-6">
-              <p className="text-primary/70 text-sm mb-4">
-                Authorized Representative
-              </p>
-              <div className="flex justify-center items-center">
-                <span className="font-playfair text-4xl font-bold text-secondary">
-                  Or Hakerem
-                </span>
+          <section className="mb-10" data-animate="fade-up">
+            <h2 className="font-playfair text-3xl font-bold text-primary">4. Responsibilities of Or Hakerem</h2>
+            <div className="mt-3 h-px w-full bg-gradient-to-r from-secondary to-transparent"></div>
+
+            <div className="mt-8 grid gap-6 lg:grid-cols-2">
+              <div className="rounded-2xl border border-primary/10 bg-white p-6">
+                <h3 className="font-playfair text-2xl font-semibold text-primary">Or Hakerem is committed to</h3>
+                <div className="mt-5">{renderBulletList(companyResponsibilities)}</div>
               </div>
-              <p className="font-playfair text-lg text-primary mt-2">
-                Luxury Properties
+
+              <div className="rounded-2xl border border-primary/10 bg-white p-6">
+                <h3 className="font-playfair text-2xl font-semibold text-primary">Or Hakerem is not liable for</h3>
+                <div className="mt-5">{renderBulletList(companyLimitations)}</div>
+              </div>
+            </div>
+          </section>
+
+          <section className="mb-10" data-animate="fade-up">
+            <h2 className="font-playfair text-3xl font-bold text-primary">5. Travel Insurance &amp; Geopolitical Disclaimer</h2>
+            <div className="mt-3 h-px w-full bg-gradient-to-r from-secondary to-transparent"></div>
+
+            <div className="mt-8 rounded-2xl border border-primary/10 bg-white p-6 md:p-8">
+              <p className="text-primary/80 leading-relaxed">
+                Guests are strongly advised to purchase travel insurance covering:
               </p>
+              <div className="mt-5">{renderBulletList(insuranceCoverage)}</div>
+
+              <div className="mt-6 space-y-4 text-primary/80 leading-relaxed">
+                <p>
+                  Geopolitical tensions or security situations in Israel are not considered force majeure unless
+                  officially declared by authorities (for example: airport closure or travel ban).
+                </p>
+                <p>In such cases, guests will receive a credit voucher as outlined in section 1.3.</p>
+                <p>
+                  Or Hakerem is not responsible for cancellations based on personal concerns unless official
+                  restrictions apply.
+                </p>
+              </div>
+            </div>
+          </section>
+
+          <section data-animate="fade-up">
+            <h2 className="font-playfair text-3xl font-bold text-primary">6. Termination, Penalties &amp; Overstay</h2>
+            <div className="mt-3 h-px w-full bg-gradient-to-r from-secondary to-transparent"></div>
+
+            <div className="mt-8 rounded-2xl border border-primary/10 bg-white p-6 md:p-8">
+              <div className="space-y-4 text-primary/80 leading-relaxed">
+                <p>
+                  The rental period terminates automatically on the agreed check-out date, without notice.
+                </p>
+                <p>
+                  Failure to vacate the property on time will result in a penalty of 2× the daily rate per extra
+                  day, until the property is fully vacated and keys returned.
+                </p>
+                <p>
+                  Any breach of the Terms &amp; Conditions entitles Or Hakerem to terminate the stay immediately,
+                  without refund or compensation.
+                </p>
+              </div>
             </div>
           </section>
         </div>
 
-        {/* Back to Top Button */}
         {showBackToTop && (
           <button
             onClick={scrollToTop}
-            className="fixed bottom-8 right-8 bg-gradient-to-r from-secondary to-secondary-light text-primary p-4 rounded-full shadow-lg hover:shadow-xl transition-all duration-300 z-40 hover:scale-110"
+            className="fixed bottom-8 right-8 z-40 rounded-full bg-gradient-to-r from-secondary to-secondary-light p-4 text-primary shadow-lg transition-all duration-300 hover:shadow-xl hover:scale-110"
             aria-label="Back to top"
           >
-            <ArrowUp className="w-6 h-6" />
+            <ArrowUp className="h-6 w-6" />
           </button>
         )}
       </div>

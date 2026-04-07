@@ -1,5 +1,5 @@
 import Link from 'next/link';
-import { ArrowRight, Home, MapPin, MoonStar, UtensilsCrossed } from 'lucide-react';
+import { ArrowRight, Home, MapPin, Shield, UtensilsCrossed } from 'lucide-react';
 
 import { createCanonicalUrl } from '@/app/seo';
 
@@ -11,7 +11,7 @@ const valuePoints = [
       'A short walk from Carmel Market, Banana Beach, Nachalat Binyamin, and the energy of central Tel Aviv.',
   },
   {
-    icon: MoonStar,
+    icon: Shield,
     title: 'Jewish-friendly stays',
     description:
       'Our apartments are designed for guests seeking thoughtful, Shabbat-friendly comfort in a refined and well-appointed setting.',
