@@ -181,7 +181,7 @@ The main feature of this apartment is the terrace, with amenities such as BBQ, j
     The apartment is a large room divided into two parts: on one side you'll find the entrance, equipped with an opening sofa, a table with chairs, a TV hanging on the wall and the bathroom just behind it. On the other side you'll find the bed, the wardrobe and the mini-kitchen with everything you need to prepare your meals.
 
     The studio is located on the 1st floor of a unique building that is described as a historical monument dating from the Ottoman Empire.`,
-    price: 450,
+    price: 500,
     cleaningFee: 200,
     images: [
       '/studio/Salon_angle_1.jpg',

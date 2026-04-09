@@ -75,7 +75,7 @@ const properties = {
     title: 'Spacious & Cosy Apartment',
     location: 'Kerem HaTeimanim, Tel Aviv',
     description: 'This renovated apartment is perfect for short and medium term stays. Fully equipped and located a short walk from the beach, Carmel Market, and the entrance to Kerem HaTeimanim.',
-    price: 450,
+    price: 500,
     rating: 4.8,
     reviewCount: 96,
     image: '/studio/lit_angle_1.jpg',
