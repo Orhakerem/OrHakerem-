@@ -181,6 +181,20 @@
   opacity: 0.55;
 }
 
+.booking-calendar-root .booking-calendar-unavailable .booking-calendar-day-button {
+  background: rgba(165, 56, 43, 0.06);
+  color: rgba(165, 56, 43, 0.55);
+  text-decoration: line-through;
+  text-decoration-color: rgba(165, 56, 43, 0.4);
+  text-decoration-thickness: 1.5px;
+}
+
+.booking-calendar-root
+  .booking-calendar-unavailable:not(.booking-calendar-disabled)
+  .booking-calendar-day-button {
+  cursor: pointer;
+}
+
 .booking-calendar-root .booking-calendar-outside .booking-calendar-day-button {
   color: rgba(165, 56, 43, 0.35);
 }

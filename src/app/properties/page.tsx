@@ -1,5 +1,3 @@
-'use client';
-
 import React from 'react';
 import {
   ArrowRight,
@@ -18,6 +16,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 
 import ReservationForm from '@/app/reservation/reservation-form';
+import { getBookablePropertyCalendarSnapshot } from '@/lib/airbnb-calendar';
 
 const nearbyLandmarks = [
   { name: 'Carmel Market', distance: '400m' },
@@ -186,7 +185,10 @@ function PropertyCard({ property }: { property: (typeof properties)[keyof typeof
   );
 }
 
-export default function Properties() {
+export default async function Properties() {
+  const { blockedDatesByProperty, availabilityStatusByProperty } =
+    await getBookablePropertyCalendarSnapshot();
+
   return (
     <div className="min-h-screen pt-24 pb-20 bg-cream">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -344,7 +346,12 @@ export default function Properties() {
             </p>
           </div>
 
-          <ReservationForm embedded showIntro={false} />
+          <ReservationForm
+            embedded
+            showIntro={false}
+            availabilityByProperty={blockedDatesByProperty}
+            availabilityStatusByProperty={availabilityStatusByProperty}
+          />
         </section>
       </div>
     </div>

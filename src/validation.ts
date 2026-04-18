@@ -6,6 +6,7 @@ import {
   ISO_DATE_REGEX,
   isIsoDateString,
 } from '@/lib/booking-dates';
+import { BOOKABLE_PROPERTY_TITLES } from '@/lib/bookable-properties';
 
 const isoDateSchema = z
   .string()
@@ -13,7 +14,9 @@ const isoDateSchema = z
   .refine((value) => isIsoDateString(value), 'Invalid calendar date');
 
 export const reservationSchema = z.object({
-  property: z.string().min(1, 'Property is required'),
+  property: z.enum(BOOKABLE_PROPERTY_TITLES, {
+    errorMap: () => ({ message: 'Please select a valid property' }),
+  }),
   checkIn: isoDateSchema,
   checkOut: isoDateSchema,
   name: z.string().min(1, 'Name is required'),

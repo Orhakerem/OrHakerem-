@@ -1,7 +1,11 @@
 'use server';
 
 import { Resend } from 'resend';
+
 import { reservationSchema, eventSchema, type ReservationData, type EventData } from '@/validation';
+import { getPropertyAvailability } from '@/lib/airbnb-calendar';
+import { isValidBookingRange } from '@/lib/booking-dates';
+import { getBookablePropertyIdFromLabel } from '@/lib/bookable-properties';
 
 // Helper function to sanitize strings for HTTP headers
 function sanitizeForHeader(str: string): string {
@@ -111,6 +115,40 @@ export async function sendEmail(formData: FormData) {
       };
 
       validatedData = reservationSchema.parse(reservationData) as ReservationData;
+
+      const propertyId = getBookablePropertyIdFromLabel(validatedData.property);
+
+      if (!propertyId) {
+        return {
+          success: false,
+          error: 'Please select a valid property',
+        };
+      }
+
+      const availability = await getPropertyAvailability(propertyId);
+
+      if (availability.status === 'error') {
+        return {
+          success: false,
+          error: 'Airbnb availability is temporarily unavailable. Please try again in a moment.',
+        };
+      }
+
+      if (
+        !isValidBookingRange(
+          {
+            checkIn: validatedData.checkIn,
+            checkOut: validatedData.checkOut,
+          },
+          undefined,
+          availability.blockedDates,
+        )
+      ) {
+        return {
+          success: false,
+          error: 'Those dates are no longer available. Please choose different dates.',
+        };
+      }
 
       // Sanitize validated data for use in headers
       const sanitizedEmail = sanitizeForHeader(validatedData.email);

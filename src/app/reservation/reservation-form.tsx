@@ -17,78 +17,122 @@ import {
   isValidBookingRange,
   sanitizeBookingDateRange,
 } from '@/lib/booking-dates';
+import {
+  BOOKABLE_PROPERTY_OPTIONS,
+  type BookablePropertyId,
+  type PropertyAvailabilityStatusMap,
+  type PropertyBlockedDatesMap,
+  getBookablePropertyIdFromLabel,
+  getBookablePropertyTitle,
+} from '@/lib/bookable-properties';
 
 interface ReservationFormProps {
   initialSearchParams?: { [key: string]: string | string[] | undefined };
   embedded?: boolean;
   showIntro?: boolean;
+  availabilityByProperty?: PropertyBlockedDatesMap;
+  availabilityStatusByProperty?: PropertyAvailabilityStatusMap;
 }
 
 const EMPTY_SEARCH_PARAMS: { [key: string]: string | string[] | undefined } = {};
-
-const PROPERTY_OPTIONS = ['Luxury Penthouse', 'Spacious & Cosy Apartment'] as const;
-
-const LEGACY_PROPERTY_LABELS: Record<string, string> = {
-  Penthouse: 'Luxury Penthouse',
-  Studio: 'Spacious & Cosy Apartment',
-};
+const EMPTY_BLOCKED_DATES: string[] = [];
+const EMPTY_AVAILABILITY_BY_PROPERTY = {
+  'penthouse-jacuzzi': EMPTY_BLOCKED_DATES,
+  'cozy-studio': EMPTY_BLOCKED_DATES,
+} as PropertyBlockedDatesMap;
+const EMPTY_AVAILABILITY_STATUS_BY_PROPERTY = {
+  'penthouse-jacuzzi': 'ready',
+  'cozy-studio': 'ready',
+} as PropertyAvailabilityStatusMap;
 
 function getSingleSearchParam(value: string | string[] | undefined) {
   return typeof value === 'string' ? value : value?.[0];
 }
 
-function normalizePropertyLabel(value: string | undefined) {
-  if (!value) {
-    return '';
-  }
-
-  return LEGACY_PROPERTY_LABELS[value] ?? value;
+function areDateRangesEqual(left: BookingDateRange, right: BookingDateRange) {
+  return left.checkIn === right.checkIn && left.checkOut === right.checkOut;
 }
 
 export default function ReservationForm({
   initialSearchParams = EMPTY_SEARCH_PARAMS,
   embedded = false,
   showIntro = true,
+  availabilityByProperty = EMPTY_AVAILABILITY_BY_PROPERTY,
+  availabilityStatusByProperty = EMPTY_AVAILABILITY_STATUS_BY_PROPERTY,
 }: ReservationFormProps) {
   const router = useRouter();
   const todayIso = getTodayIsoInTimeZone();
   const initialProperty = getSingleSearchParam(initialSearchParams?.property);
   const initialCheckIn = getSingleSearchParam(initialSearchParams?.checkIn);
   const initialCheckOut = getSingleSearchParam(initialSearchParams?.checkOut);
-  const [propertyTitle, setPropertyTitle] = useState(() =>
-    normalizePropertyLabel(initialProperty),
-  );
+  const initialPropertyId = getBookablePropertyIdFromLabel(initialProperty) ?? '';
+  const initialBlockedDates =
+    initialPropertyId === ''
+      ? EMPTY_BLOCKED_DATES
+      : availabilityByProperty[initialPropertyId as BookablePropertyId] ?? EMPTY_BLOCKED_DATES;
+  const [propertyId, setPropertyId] = useState<BookablePropertyId | ''>(initialPropertyId);
   const [dateRange, setDateRange] = useState<BookingDateRange>(() =>
     sanitizeBookingDateRange(
       initialCheckIn,
       initialCheckOut,
       todayIso,
       true,
+      initialBlockedDates,
     ),
   );
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSuccess, setIsSuccess] = useState(false);
   const [contactMethod, setContactMethod] = useState('email');
+  const selectedBlockedDates =
+    propertyId === ''
+      ? EMPTY_BLOCKED_DATES
+      : availabilityByProperty[propertyId] ?? EMPTY_BLOCKED_DATES;
+  const selectedAvailabilityStatus =
+    propertyId === '' ? 'ready' : availabilityStatusByProperty[propertyId] ?? 'ready';
+  const propertyTitle = propertyId === '' ? '' : getBookablePropertyTitle(propertyId);
 
   useEffect(() => {
-    setPropertyTitle(
-      normalizePropertyLabel(initialProperty),
-    );
     setDateRange(
       sanitizeBookingDateRange(
         initialCheckIn,
         initialCheckOut,
         todayIso,
         true,
+        initialBlockedDates,
       ),
     );
-  }, [initialCheckIn, initialCheckOut, initialProperty, todayIso]);
+    setPropertyId(initialPropertyId);
+  }, [initialBlockedDates, initialCheckIn, initialCheckOut, initialPropertyId, todayIso]);
+
+  useEffect(() => {
+    setDateRange((currentRange) => {
+      const nextRange = sanitizeBookingDateRange(
+        currentRange.checkIn,
+        currentRange.checkOut,
+        todayIso,
+        true,
+        selectedBlockedDates,
+      );
+
+      return areDateRangesEqual(currentRange, nextRange) ? currentRange : nextRange;
+    });
+  }, [selectedBlockedDates, todayIso]);
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
-    if (!isValidBookingRange(dateRange, todayIso)) {
-      toast.error('Please choose a valid stay with a future check-in and a later check-out.');
+    if (!propertyId) {
+      toast.error('Please select a property before choosing your stay.');
+      return;
+    }
+
+    if (selectedAvailabilityStatus === 'error') {
+      toast.error('Airbnb availability is temporarily unavailable. Please try again shortly.');
+      return;
+    }
+
+    if (!isValidBookingRange(dateRange, todayIso, selectedBlockedDates)) {
+      toast.error('Please choose available dates with a future check-in and later check-out.');
       return;
     }
 
@@ -166,6 +210,7 @@ export default function ReservationForm({
       ) : null}
 
       <form onSubmit={handleSubmit} className="reservation-form space-y-6" data-animate="fade-up" data-delay="2">
+        <input type="hidden" name="property" value={propertyTitle} />
         <input type="hidden" name="checkIn" value={dateRange.checkIn ?? ''} />
         <input type="hidden" name="checkOut" value={dateRange.checkOut ?? ''} />
 
@@ -175,22 +220,26 @@ export default function ReservationForm({
           </label>
           <select
             id="property"
-            name="property"
-            value={propertyTitle}
-            onChange={(e) => setPropertyTitle(e.target.value)}
+            value={propertyId}
+            onChange={(e) => setPropertyId(e.target.value as BookablePropertyId | '')}
             required
             className="w-full px-4 py-2 border border-gray-300 rounded-md bg-white cursor-pointer focus:outline-none focus:ring-2 focus:ring-secondary/50 focus:border-secondary"
           >
             <option value="" disabled>Select a property</option>
-            {PROPERTY_OPTIONS.map((propertyOption) => (
-              <option key={propertyOption} value={propertyOption}>
-                {propertyOption}
+            {BOOKABLE_PROPERTY_OPTIONS.map((propertyOption) => (
+              <option key={propertyOption.id} value={propertyOption.id}>
+                {propertyOption.title}
               </option>
             ))}
           </select>
         </div>
 
-        <BookingRangeCalendar value={dateRange} onChange={setDateRange} />
+        <BookingRangeCalendar
+          value={dateRange}
+          onChange={setDateRange}
+          blockedDates={selectedBlockedDates}
+          availabilityStatus={selectedAvailabilityStatus}
+        />
 
         {nights > 0 ? (
           <div className="rounded-xl border border-secondary/20 bg-secondary/10 px-4 py-3 text-sm text-primary">
