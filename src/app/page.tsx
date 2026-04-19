@@ -241,13 +241,13 @@ const Home: React.FC = () => {
           </div>
 
           <div className="max-w-2xl mx-auto" data-animate="scale" data-delay="2">
-            <div className="home-contact-card group relative bg-white/10 backdrop-blur-sm rounded-3xl p-6 transition-all duration-500 hover:bg-white/20 hover:shadow-2xl border border-white/20">
+            <div className="home-contact-card group relative rounded-3xl border border-white/20 bg-white/10 p-6 backdrop-blur-sm transition-all duration-500 hover:bg-white/16 hover:shadow-2xl">
               <form onSubmit={handleSubmit} className="home-contact-form space-y-6 relative z-10">
                 <div className="grid md:grid-cols-2 gap-6">
                   <div className="group/input">
                     <label
                       htmlFor="name"
-                      className="block text-sm font-medium text-white/90 mb-2 group-hover/input:text-secondary transition-colors duration-300"
+                      className="mb-2 block text-sm font-medium text-white/90 transition-colors duration-300 group-hover/input:text-white"
                     >
                       Your Name
                     </label>
@@ -257,14 +257,14 @@ const Home: React.FC = () => {
                       name="name"
                       placeholder="Enter your name"
                       required
-                      className="w-full h-12 px-4 bg-white/10 backdrop-blur-sm border-2 border-white/20 hover:border-secondary/50 focus:border-secondary focus:ring-2 focus:ring-secondary/20 rounded-xl transition-all duration-300 outline-none text-base text-white placeholder-white/60 group-hover/input:bg-white/20"
+                      className="h-12 w-full rounded-xl border-2 border-white/20 bg-white/10 px-4 text-base text-white placeholder-white/60 outline-none transition-all duration-300 hover:border-white/30 focus:border-white/35 focus:ring-2 focus:ring-white/15 group-hover/input:bg-white/15"
                     />
                   </div>
 
                   <div className="group/input">
                     <label
                       htmlFor="email"
-                      className="block text-sm font-medium text-white/90 mb-2 group-hover/input:text-secondary transition-colors duration-300"
+                      className="mb-2 block text-sm font-medium text-white/90 transition-colors duration-300 group-hover/input:text-white"
                     >
                       Email Address
                     </label>
@@ -274,7 +274,7 @@ const Home: React.FC = () => {
                       name="email"
                       placeholder="your@email.com"
                       required
-                      className="w-full h-12 px-4 bg-white/10 backdrop-blur-sm border-2 border-white/20 hover:border-secondary/50 focus:border-secondary focus:ring-2 focus:ring-secondary/20 rounded-xl transition-all duration-300 outline-none text-base text-white placeholder-white/60 group-hover/input:bg-white/20"
+                      className="h-12 w-full rounded-xl border-2 border-white/20 bg-white/10 px-4 text-base text-white placeholder-white/60 outline-none transition-all duration-300 hover:border-white/30 focus:border-white/35 focus:ring-2 focus:ring-white/15 group-hover/input:bg-white/15"
                     />
                   </div>
                 </div>
@@ -282,7 +282,7 @@ const Home: React.FC = () => {
                 <div className="group/input">
                   <label
                     htmlFor="message"
-                    className="block text-sm font-medium text-white/90 mb-2 group-hover/input:text-secondary transition-colors duration-300"
+                    className="mb-2 block text-sm font-medium text-white/90 transition-colors duration-300 group-hover/input:text-white"
                   >
                     Your Message
                   </label>
@@ -292,7 +292,7 @@ const Home: React.FC = () => {
                     placeholder="Write your message here..."
                     rows={4}
                     required
-                    className="w-full px-4 py-3 bg-white/10 backdrop-blur-sm border-2 border-white/20 hover:border-secondary/50 focus:border-secondary focus:ring-2 focus:ring-secondary/20 rounded-xl transition-all duration-300 outline-none resize-none text-base text-white placeholder-white/60 group-hover/input:bg-white/20"
+                    className="w-full resize-none rounded-xl border-2 border-white/20 bg-white/10 px-4 py-3 text-base text-white placeholder-white/60 outline-none transition-all duration-300 hover:border-white/30 focus:border-white/35 focus:ring-2 focus:ring-white/15 group-hover/input:bg-white/15"
                   ></textarea>
                 </div>
 

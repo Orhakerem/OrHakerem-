@@ -124,7 +124,7 @@ export default function AboutPage() {
               {valuePoints.map((point) => (
                 <div
                   key={point.title}
-                  className="rounded-2xl border border-primary/10 bg-cream p-6 transition-all duration-300 hover:border-secondary/30 hover:shadow-lg"
+                  className="rounded-2xl border border-primary/10 bg-cream p-6 transition-all duration-300 hover:border-black/10 hover:shadow-lg"
                 >
                   <div className="mb-4 inline-flex rounded-2xl bg-primary/10 p-3 text-primary">
                     <point.icon className="h-5 w-5" />

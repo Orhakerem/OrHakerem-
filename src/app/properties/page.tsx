@@ -61,8 +61,6 @@ const properties = {
     location: 'Kerem HaTeimanim, Tel Aviv',
     description: 'This unique penthouse is perfect for both friendly or family stays equipped with amenities like the jacuzzi and barbecue, and live an unforgettable experience in a special place.',
     price: 2500,
-    rating: 4.9,
-    reviewCount: 128,
     image: '/penthouse/1-jacuzzi-angle.JPEG',
     maxGuests: 6,
     bedrooms: 3,
@@ -75,8 +73,6 @@ const properties = {
     location: 'Kerem HaTeimanim, Tel Aviv',
     description: 'This renovated apartment is perfect for short and medium term stays. Fully equipped and located a short walk from the beach, Carmel Market, and the entrance to Kerem HaTeimanim.',
     price: 500,
-    rating: 4.8,
-    reviewCount: 96,
     image: '/studio/lit_angle_1.jpg',
     maxGuests: 3,
     bedrooms: 1,
@@ -101,7 +97,7 @@ function PropertyCard({ property }: { property: (typeof properties)[keyof typeof
       />
 
       {/* Gradient overlay on hover */}
-      <div className="pointer-events-none absolute inset-0 z-10 rounded-2xl bg-gradient-to-br from-secondary/5 to-tertiary/5 opacity-0 transition-opacity duration-500 group-hover:opacity-100"></div>
+      <div className="pointer-events-none absolute inset-0 z-10 rounded-2xl bg-gradient-to-br from-black/[0.02] to-black/[0.05] opacity-0 transition-opacity duration-500 group-hover:opacity-100"></div>
       
       {/* Image Section - Square format - Clean without price and heart */}
       <div className="property-card-image relative h-1/2 overflow-hidden pointer-events-none" data-animate="zoom">
@@ -122,7 +118,7 @@ function PropertyCard({ property }: { property: (typeof properties)[keyof typeof
       <div className="property-card-content pointer-events-none p-6 h-1/2 flex flex-col justify-between relative z-20">
         {/* Title and Location */}
         <div className="property-card-copy mb-4 pointer-events-none">
-          <h3 className="font-playfair text-xl font-bold text-primary mb-1 group-hover:text-secondary transition-colors duration-300 line-clamp-2">
+          <h3 className="mb-1 line-clamp-2 font-playfair text-xl font-bold text-primary transition-opacity duration-300 group-hover:opacity-80">
             {property.title}
           </h3>
           <div className="flex items-center text-primary/60 mb-2">
@@ -166,7 +162,7 @@ function PropertyCard({ property }: { property: (typeof properties)[keyof typeof
           <div className="property-card-actions pointer-events-auto relative z-20 flex gap-2">
             <Link
               href={propertyHref}
-              className="property-card-button property-card-button-primary flex-1 bg-gradient-to-r from-primary to-primary-light text-white py-2 px-3 rounded-full font-semibold hover:from-primary-light hover:to-primary transition-all duration-300 shadow-lg hover:shadow-xl transform hover:scale-105 flex items-center justify-center text-sm"
+              className="property-card-button property-card-button-primary button-hover-clean flex flex-1 items-center justify-center rounded-full bg-gradient-to-r from-primary to-primary-light px-3 py-2 text-sm font-semibold text-white shadow-lg transition-all duration-300 hover:shadow-xl hover:scale-105"
             >
               <span>Details</span>
               <ArrowRight className="w-3 h-3 ml-1" />

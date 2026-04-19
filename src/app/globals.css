@@ -24,6 +24,31 @@
   }
 }
 
+@layer base {
+  a,
+  button,
+  input,
+  textarea,
+  select,
+  [role='button'],
+  summary {
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  a:focus-visible,
+  button:focus-visible,
+  input:focus-visible,
+  textarea:focus-visible,
+  select:focus-visible,
+  [role='button']:focus-visible,
+  summary:focus-visible {
+    outline: none;
+    box-shadow:
+      0 0 0 3px rgba(255, 255, 255, 0.88),
+      0 0 0 6px rgba(15, 23, 42, 0.14);
+  }
+}
+
 /* Fade in up animation */
 @keyframes fadeInUp {
   from {
@@ -200,12 +225,12 @@
 }
 
 .booking-calendar-root .booking-calendar-today .booking-calendar-day-button {
-  border: 1px solid rgba(216, 176, 132, 0.8);
-  box-shadow: inset 0 0 0 1px rgba(216, 176, 132, 0.2);
+  border: 1px solid rgba(15, 23, 42, 0.18);
+  box-shadow: inset 0 0 0 1px rgba(15, 23, 42, 0.06);
 }
 
 .booking-calendar-root .booking-calendar-range-middle {
-  background: rgba(216, 176, 132, 0.2);
+  background: rgba(15, 23, 42, 0.06);
 }
 
 .booking-calendar-root .booking-calendar-range-middle .booking-calendar-day-button {
@@ -222,14 +247,14 @@
   background: linear-gradient(
     to right,
     transparent 50%,
-    rgba(216, 176, 132, 0.2) 50%
+    rgba(15, 23, 42, 0.06) 50%
   );
 }
 
 .booking-calendar-root .booking-calendar-range-end {
   background: linear-gradient(
     to right,
-    rgba(216, 176, 132, 0.2) 50%,
+    rgba(15, 23, 42, 0.06) 50%,
     transparent 50%
   );
 }
@@ -241,9 +266,9 @@
 .booking-calendar-root .booking-calendar-selected .booking-calendar-day-button,
 .booking-calendar-root .booking-calendar-range-start .booking-calendar-day-button,
 .booking-calendar-root .booking-calendar-range-end .booking-calendar-day-button {
-  background: var(--color-primary);
+  background: #1f2937;
   color: #fff;
-  box-shadow: 0 12px 24px rgba(165, 56, 43, 0.2);
+  box-shadow: 0 12px 24px rgba(15, 23, 42, 0.16);
 }
 
 .event-modal {
@@ -320,16 +345,6 @@
     letter-spacing: 0.01em;
   }
 
-  .font-switzer {
-    font-family: var(--font-inter), -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-  }
-
-  .font-crimson {
-    font-family: var(--font-crimson), serif;
-    font-weight: 400;
-    letter-spacing: 0.02em;
-  }
-
   .font-montserrat {
     font-family: var(--font-montserrat), sans-serif;
   }
@@ -360,7 +375,13 @@
   }
 
   .button-hover-clean:hover {
-    filter: saturate(0.94) brightness(0.98);
+    filter: saturate(0.96) brightness(0.99);
+    box-shadow: 0 14px 30px rgba(15, 23, 42, 0.12);
+  }
+
+  .button-hover-clean:active {
+    transform: translateY(0) scale(0.99);
+    box-shadow: 0 8px 18px rgba(15, 23, 42, 0.12);
   }
 
   .hero-home {
@@ -730,7 +751,8 @@
   }
 
   .logo-text-floating:hover {
-    color: #f4e4c1;
+    color: #d8b084;
+    opacity: 0.86;
   }
 
   .logo-text-floating.mobile {
@@ -774,11 +796,11 @@
   /* Hover effects épurés - sans effet shimmer */
   .nav-item-floating:hover {
     background: linear-gradient(135deg, #d8b084 0%, #c49a6a 100%);
-    color: #8b2f23;
+    color: #a5382b;
     transform: translateY(-2px) scale(1.02);
     box-shadow: 
-      0 8px 25px rgba(165, 56, 43, 0.2),
-      0 0 0 1px rgba(165, 56, 43, 0.1) inset;
+      0 8px 25px rgba(15, 23, 42, 0.14),
+      0 0 0 1px rgba(255, 255, 255, 0.12) inset;
   }
 
   /* État actif */
@@ -870,13 +892,13 @@
   }
 
   .mobile-nav-item-floating:hover {
-    color: #8b2f23;
-    background: rgba(216, 176, 132, 0.12);
+    color: #a5382b;
+    background: rgba(15, 23, 42, 0.04);
   }
 
   .mobile-nav-item-floating.active {
     color: #8b2f23;
-    background: rgba(216, 176, 132, 0.18);
+    background: rgba(15, 23, 42, 0.08);
     font-weight: 700;
   }
 
@@ -1061,10 +1083,6 @@
       padding-bottom: 0 !important;
     }
 
-    .rentals-hero-section {
-      min-height: 60vh !important;
-    }
-
     .services-hero-inner {
       min-height: calc(38vh - 4rem) !important;
       padding-top: 0.25rem !important;
@@ -1072,8 +1090,7 @@
       align-items: flex-start !important;
     }
 
-    .services-hero-content,
-    .rentals-hero-content {
+    .services-hero-content {
       padding-top: 0;
       padding-bottom: 1.25rem;
     }
@@ -1088,25 +1105,16 @@
       margin-bottom: 0.875rem !important;
     }
 
-    .rentals-hero-content h1 {
-      font-size: 3rem;
-      margin-bottom: 1rem !important;
-    }
-
-    .services-hero-content p,
-    .rentals-hero-content p {
+    .services-hero-content p {
       font-size: 0.98rem;
       margin-bottom: 0.875rem !important;
     }
 
-    .services-hero-pills,
-    .rentals-hero-pills {
+    .services-hero-pills {
       gap: 0.5rem;
     }
 
-    .services-hero-pills > div,
-    .rentals-hero-pills > div,
-    .rentals-hero-badge {
+    .services-hero-pills > div {
       padding: 0.5rem 0.85rem;
       font-size: 0.82rem;
     }
@@ -1122,9 +1130,7 @@
     .properties-cta-section,
     .services-grid-section,
     .services-contact-section,
-    .events-plan-section,
-    .rentals-amenities-section,
-    .rentals-journey-section {
+    .events-plan-section {
       padding-top: 3rem !important;
       padding-bottom: 3rem !important;
     }
@@ -1169,9 +1175,7 @@
     .properties-cta-section,
     .services-contact-card,
     .events-venues-card,
-    .events-plan-success,
-    .rentals-amenity-card,
-    .rentals-journey-section {
+    .events-plan-success {
       padding: 1.5rem !important;
     }
 
@@ -1235,15 +1239,13 @@
     .services-grid-header p,
     .services-contact-header p,
     .events-plan-header p,
-    .properties-cta-section p,
-    .rentals-journey-section p {
+    .properties-cta-section p {
       font-size: 1rem;
       margin-bottom: 0.875rem !important;
     }
 
     .home-faq-grid,
-    .services-grid,
-    .rentals-amenities-grid {
+    .services-grid {
       gap: 1rem !important;
     }
 
@@ -1422,10 +1424,6 @@
       padding-bottom: 0 !important;
     }
 
-    .rentals-hero-section {
-      min-height: 54vh !important;
-    }
-
     .services-hero-inner {
       min-height: calc(34vh - 3.75rem) !important;
       padding-top: 0 !important;
@@ -1433,8 +1431,7 @@
       align-items: flex-start !important;
     }
 
-    .services-hero-content,
-    .rentals-hero-content {
+    .services-hero-content {
       padding-bottom: 0.75rem;
     }
 
@@ -1448,13 +1445,7 @@
       margin-bottom: 0.75rem !important;
     }
 
-    .rentals-hero-content h1 {
-      font-size: 2.15rem;
-      margin-bottom: 0.75rem !important;
-    }
-
-    .services-hero-content p,
-    .rentals-hero-content p {
+    .services-hero-content p {
       font-size: 0.9rem;
       margin-bottom: 0.75rem !important;
     }
@@ -1600,9 +1591,7 @@
     .properties-cta-section,
     .services-grid-section,
     .services-contact-section,
-    .events-plan-section,
-    .rentals-amenities-section,
-    .rentals-journey-section {
+    .events-plan-section {
       padding-top: 2.5rem !important;
       padding-bottom: 2.5rem !important;
     }
@@ -1634,8 +1623,7 @@
     .home-contact-header h2,
     .home-testimonials-header h2,
     .services-grid-header h2,
-    .events-plan-header h2,
-    .rentals-journey-section h2 {
+    .events-plan-header h2 {
       font-size: 2rem !important;
       margin-bottom: 0.75rem !important;
     }
@@ -1652,8 +1640,7 @@
     .services-grid-header p,
     .services-contact-header p,
     .events-plan-header p,
-    .properties-cta-section p,
-    .rentals-journey-section p {
+    .properties-cta-section p {
       font-size: 0.95rem !important;
       margin-bottom: 0.75rem !important;
     }
@@ -1666,9 +1653,7 @@
     .properties-cta-section,
     .services-contact-card,
     .events-venues-card,
-    .events-plan-success,
-    .rentals-amenity-card,
-    .rentals-journey-section {
+    .events-plan-success {
       padding: 1rem !important;
     }
 

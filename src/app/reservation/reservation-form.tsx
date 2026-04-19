@@ -223,7 +223,7 @@ export default function ReservationForm({
             value={propertyId}
             onChange={(e) => setPropertyId(e.target.value as BookablePropertyId | '')}
             required
-            className="w-full px-4 py-2 border border-gray-300 rounded-md bg-white cursor-pointer focus:outline-none focus:ring-2 focus:ring-secondary/50 focus:border-secondary"
+            className="w-full cursor-pointer rounded-md border border-gray-300 bg-white px-4 py-2 transition-colors focus:outline-none focus:ring-2 focus:ring-black/10 focus:border-black/15 hover:border-black/10"
           >
             <option value="" disabled>Select a property</option>
             {BOOKABLE_PROPERTY_OPTIONS.map((propertyOption) => (
@@ -293,12 +293,12 @@ export default function ReservationForm({
         </div>
         <div>
           <label className="block text-sm font-medium text-primary/80 mb-3">
-            <span className="transition-colors duration-300 hover:text-secondary">
+            <span className="transition-opacity duration-300 hover:opacity-80">
               Preferred Contact Method
             </span>
           </label>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-            <label className="relative flex items-center justify-center p-4 border rounded-md cursor-pointer transition-colors hover:border-secondary hover:bg-secondary/5 group">
+            <label className={`group relative flex cursor-pointer items-center justify-center rounded-md border p-4 transition-all ${contactMethod === 'email' ? 'border-black/10 bg-black/[0.03] shadow-sm' : 'border-gray-200 bg-white hover:border-black/10 hover:bg-black/[0.02]'}`}>
               <input
                 type="radio"
                 name="contactMethod"
@@ -308,16 +308,16 @@ export default function ReservationForm({
                 className="absolute opacity-0"
               />
               <Mail
-                className={`w-5 h-5 ${contactMethod === 'email' ? 'text-secondary' : 'text-primary'} transition-colors duration-300 group-hover:text-secondary`}
+                className="h-5 w-5 text-primary transition-opacity duration-300 group-hover:opacity-80"
               />
               <span
-                className={`ml-2 ${contactMethod === 'email' ? 'text-secondary' : 'text-primary'} transition-colors duration-300 group-hover:text-secondary`}
+                className="ml-2 text-primary transition-opacity duration-300 group-hover:opacity-80"
               >
                 Email
               </span>
             </label>
 
-            <label className="relative flex items-center justify-center p-4 border rounded-md cursor-pointer transition-colors hover:border-secondary hover:bg-secondary/5 group">
+            <label className={`group relative flex cursor-pointer items-center justify-center rounded-md border p-4 transition-all ${contactMethod === 'phone' ? 'border-black/10 bg-black/[0.03] shadow-sm' : 'border-gray-200 bg-white hover:border-black/10 hover:bg-black/[0.02]'}`}>
               <input
                 type="radio"
                 name="contactMethod"
@@ -327,16 +327,16 @@ export default function ReservationForm({
                 className="absolute opacity-0"
               />
               <Phone
-                className={`w-5 h-5 ${contactMethod === 'phone' ? 'text-secondary' : 'text-primary'} transition-colors duration-300 group-hover:text-secondary`}
+                className="h-5 w-5 text-primary transition-opacity duration-300 group-hover:opacity-80"
               />
               <span
-                className={`ml-2 ${contactMethod === 'phone' ? 'text-secondary' : 'text-primary'} transition-colors duration-300 group-hover:text-secondary`}
+                className="ml-2 text-primary transition-opacity duration-300 group-hover:opacity-80"
               >
                 Phone
               </span>
             </label>
 
-            <label className="relative flex items-center justify-center p-4 border rounded-md cursor-pointer transition-colors hover:border-secondary hover:bg-secondary/5 group">
+            <label className={`group relative flex cursor-pointer items-center justify-center rounded-md border p-4 transition-all ${contactMethod === 'whatsapp' ? 'border-black/10 bg-black/[0.03] shadow-sm' : 'border-gray-200 bg-white hover:border-black/10 hover:bg-black/[0.02]'}`}>
               <input
                 type="radio"
                 name="contactMethod"
@@ -346,10 +346,10 @@ export default function ReservationForm({
                 className="absolute opacity-0"
               />
               <MessageSquare
-                className={`w-5 h-5 ${contactMethod === 'whatsapp' ? 'text-secondary' : 'text-primary'} transition-colors duration-300 group-hover:text-secondary`}
+                className="h-5 w-5 text-primary transition-opacity duration-300 group-hover:opacity-80"
               />
               <span
-                className={`ml-2 ${contactMethod === 'whatsapp' ? 'text-secondary' : 'text-primary'} transition-colors duration-300 group-hover:text-secondary`}
+                className="ml-2 text-primary transition-opacity duration-300 group-hover:opacity-80"
               >
                 WhatsApp
               </span>
@@ -362,7 +362,7 @@ export default function ReservationForm({
           disabled={isSubmitting}
           className="button-hover-clean w-full bg-secondary text-primary py-3 rounded-md font-semibold transition disabled:opacity-50"
         >
-          <span className="transition-colors duration-300 hover:text-primary">
+          <span>
             {isSubmitting ? 'Sending...' : 'Send Request'}
           </span>
         </button>
@@ -380,14 +380,14 @@ export default function ReservationForm({
         {/* Enhanced Back Navigation */}
         <div className="mb-8" data-animate="fade-right">
           <div className="inline-block relative group">
-            <div className="absolute inset-0 bg-gradient-to-r from-primary/20 to-secondary/20 rounded-full blur-lg opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+            <div className="absolute inset-0 rounded-full bg-gradient-to-r from-black/[0.08] to-black/[0.04] blur-lg opacity-0 transition-opacity duration-300 group-hover:opacity-100"></div>
             <Link
               href="/"
-              className="relative inline-flex items-center bg-white/80 backdrop-blur-sm text-primary px-6 py-3 rounded-full font-semibold text-lg hover:bg-white hover:text-secondary transition-all duration-300 shadow-lg hover:shadow-xl transform hover:scale-105 border border-primary/20"
+              className="relative inline-flex items-center rounded-full border border-primary/20 bg-white/80 px-6 py-3 text-lg font-semibold text-primary shadow-lg transition-all duration-300 hover:-translate-y-0.5 hover:bg-white hover:shadow-xl"
             >
               <div className="relative mr-3">
                 <ArrowLeft className="w-5 h-5 transition-transform duration-300 group-hover:-translate-x-1" />
-                <div className="absolute inset-0 bg-secondary/20 rounded-full scale-0 group-hover:scale-150 transition-transform duration-300"></div>
+                <div className="absolute inset-0 rounded-full bg-black/[0.05] scale-0 transition-transform duration-300 group-hover:scale-150"></div>
               </div>
               <Home className="w-5 h-5 mr-2 opacity-70 group-hover:opacity-100 transition-opacity duration-300" />
               <span className="relative z-10">Back to Home</span>

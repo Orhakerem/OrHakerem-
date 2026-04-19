@@ -321,7 +321,7 @@ export default function PropertyDetailsClient({
           {propertyPageHeading}
           <button
             onClick={() => router.push('/properties#properties-listing')}
-            className="bg-gold text-navy px-6 py-2 rounded-md hover:bg-gold/90 transition"
+            className="button-hover-clean rounded-md bg-gold px-6 py-2 text-navy transition"
           >
             Back to Properties
           </button>
@@ -359,14 +359,14 @@ export default function PropertyDetailsClient({
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="mb-6">
           <div className="inline-block relative group">
-            <div className="absolute inset-0 bg-gradient-to-r from-primary/20 to-secondary/20 rounded-full blur-lg opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+            <div className="absolute inset-0 rounded-full bg-gradient-to-r from-black/[0.08] to-black/[0.04] blur-lg opacity-0 transition-opacity duration-300 group-hover:opacity-100"></div>
             <Link
               href="/properties#properties-listing"
-              className="relative inline-flex items-center bg-white/80 backdrop-blur-sm text-primary px-6 py-3 rounded-full font-semibold text-lg hover:bg-white hover:text-secondary transition-all duration-300 shadow-lg hover:shadow-xl transform hover:scale-105 border border-primary/20"
+              className="relative inline-flex items-center rounded-full border border-primary/20 bg-white/80 px-6 py-3 text-lg font-semibold text-primary shadow-lg transition-all duration-300 hover:-translate-y-0.5 hover:bg-white hover:shadow-xl"
             >
               <div className="relative mr-3">
                 <ArrowLeft className="w-5 h-5 transition-transform duration-300 group-hover:-translate-x-1" />
-                <div className="absolute inset-0 bg-secondary/20 rounded-full scale-0 group-hover:scale-150 transition-transform duration-300"></div>
+                <div className="absolute inset-0 rounded-full bg-black/[0.05] scale-0 transition-transform duration-300 group-hover:scale-150"></div>
               </div>
               <Home className="w-5 h-5 mr-2 opacity-70 group-hover:opacity-100 transition-opacity duration-300" />
               <span className="relative z-10">Back to Properties</span>
@@ -527,10 +527,10 @@ export default function PropertyDetailsClient({
                     </div>
 
                     <div className="relative group md:col-span-2 xl:col-span-1">
-                      <div className="absolute inset-0 bg-gradient-to-r from-secondary to-tertiary rounded-full blur-lg opacity-50 group-hover:opacity-75 transition-opacity duration-300"></div>
+                      <div className="absolute inset-0 rounded-full bg-gradient-to-r from-black/10 to-black/[0.03] blur-lg opacity-0 transition-opacity duration-300 group-hover:opacity-100"></div>
                       <button
                         onClick={handleBookNow}
-                        className="button-hover-clean relative inline-flex w-full items-center justify-center bg-gradient-to-r from-secondary to-secondary-light text-primary px-12 py-4 rounded-full font-semibold text-lg transition-all duration-300 shadow-xl hover:shadow-2xl transform hover:scale-[1.02]"
+                        className="button-hover-clean relative inline-flex w-full items-center justify-center rounded-full bg-gradient-to-r from-secondary to-secondary-light px-12 py-4 text-lg font-semibold text-primary shadow-xl transition-all duration-300 hover:shadow-2xl hover:scale-[1.02]"
                       >
                         <Calendar className="w-6 h-6 mr-3" />
                         <span>BOOK NOW</span>

@@ -15,14 +15,14 @@ export default function FAQPage() {
         {/* Enhanced Back Navigation */}
         <div className="mb-8" data-animate="fade-right">
           <div className="inline-block relative group">
-            <div className="absolute inset-0 bg-gradient-to-r from-primary/20 to-secondary/20 rounded-full blur-lg opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+            <div className="absolute inset-0 rounded-full bg-gradient-to-r from-black/[0.08] to-black/[0.04] blur-lg opacity-0 transition-opacity duration-300 group-hover:opacity-100"></div>
             <Link
               href="/"
-              className="relative inline-flex items-center bg-white/80 backdrop-blur-sm text-primary px-6 py-3 rounded-full font-semibold text-lg hover:bg-white hover:text-secondary transition-all duration-300 shadow-lg hover:shadow-xl transform hover:scale-105 border border-primary/20"
+              className="relative inline-flex items-center rounded-full border border-primary/20 bg-white/80 px-6 py-3 text-lg font-semibold text-primary shadow-lg transition-all duration-300 hover:-translate-y-0.5 hover:bg-white hover:shadow-xl"
             >
               <div className="relative mr-3">
                 <ArrowLeft className="w-5 h-5 transition-transform duration-300 group-hover:-translate-x-1" />
-                <div className="absolute inset-0 bg-secondary/20 rounded-full scale-0 group-hover:scale-150 transition-transform duration-300"></div>
+                <div className="absolute inset-0 rounded-full bg-black/[0.05] scale-0 transition-transform duration-300 group-hover:scale-150"></div>
               </div>
               <Home className="w-5 h-5 mr-2 opacity-70 group-hover:opacity-100 transition-opacity duration-300" />
               <span className="relative z-10">Back to Home</span>
@@ -38,18 +38,18 @@ export default function FAQPage() {
           {faqEntries.map((faq, index) => (
             <div
               key={index}
-              className="group bg-white p-6 rounded-lg shadow-md hover:shadow-lg transition-shadow cursor-pointer"
+              className="group cursor-pointer rounded-lg bg-white p-6 shadow-md transition-all hover:-translate-y-0.5 hover:shadow-lg"
               data-delay={String((index % 3) + 1)}
               onClick={() => setOpenIndex(openIndex === index ? undefined : index)}
             >
               <div className="flex justify-between items-center">
-                <h3 className="font-playfair text-xl font-bold text-primary transition-colors duration-300 hover:text-[#D8B084] group-hover:text-[#D8B084]">
+                <h3 className="font-playfair text-xl font-bold text-primary transition-opacity duration-300 group-hover:opacity-80">
                   {faq.question}
                 </h3>
                 {openIndex === index ? (
-                  <ChevronUp className="w-6 h-6 text-primary transition-colors duration-300 hover:text-[#D8B084] group-hover:text-[#D8B084]" />
+                  <ChevronUp className="h-6 w-6 text-primary transition-opacity duration-300 group-hover:opacity-80" />
                 ) : (
-                  <ChevronDown className="w-6 h-6 text-primary transition-colors duration-300 hover:text-[#D8B084] group-hover:text-[#D8B084]" />
+                  <ChevronDown className="h-6 w-6 text-primary transition-opacity duration-300 group-hover:opacity-80" />
                 )}
               </div>
               <div

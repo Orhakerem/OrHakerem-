@@ -90,7 +90,7 @@ export default function RoomGallery({ rooms }: RoomGalleryProps) {
           {/* Close Button */}
           <button
             onClick={closeRoom}
-            className="absolute top-4 right-4 text-white hover:text-secondary transition z-10"
+            className="absolute top-4 right-4 z-10 text-white transition-opacity duration-300 hover:opacity-80"
           >
             <X className="w-8 h-8" />
           </button>
@@ -143,7 +143,7 @@ export default function RoomGallery({ rooms }: RoomGalleryProps) {
                   key={index}
                   onClick={() => setCurrentImageIndex(index)}
                   className={`relative w-16 h-12 rounded overflow-hidden transition ${
-                    index === currentImageIndex ? 'ring-2 ring-secondary' : 'opacity-60 hover:opacity-100'
+                    index === currentImageIndex ? 'ring-2 ring-white/80' : 'opacity-60 hover:opacity-100'
                   }`}
                 >
                   <Image

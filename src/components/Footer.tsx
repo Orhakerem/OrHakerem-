@@ -65,7 +65,7 @@ export default function Footer() {
             <div className="site-footer-mobile-contact-content flex flex-col items-center space-y-2">
               <a 
                 href="mailto:keremliving@gmail.com" 
-                className="flex items-center text-white/90 hover:text-secondary transition-colors duration-300 text-sm"
+                className="flex items-center text-sm text-white/90 transition-all duration-300 hover:text-white hover:opacity-80"
               >
                 <Mail className="w-4 h-4 mr-2" />
                 keremliving@gmail.com
@@ -74,13 +74,13 @@ export default function Footer() {
               <div className="site-footer-mobile-phone-row flex space-x-4 text-sm">
                 <a 
                   href="tel:+33651179925" 
-                  className="text-white/90 hover:text-secondary transition-colors duration-300"
+                  className="text-white/90 transition-all duration-300 hover:text-white hover:opacity-80"
                 >
                   +33 6 51 17 99 25
                 </a>
                 <a 
                   href="tel:+972526869791"
-                  className="text-white/90 hover:text-secondary transition-colors duration-300"
+                  className="text-white/90 transition-all duration-300 hover:text-white hover:opacity-80"
                 >
                   +972 52 686 9791
                 </a>
@@ -96,7 +96,7 @@ export default function Footer() {
                   aria-label="Or Hakerem Instagram"
                 >
                   <svg
-                    className="w-4 h-4 text-white hover:text-secondary transition-colors duration-300"
+                    className="h-4 w-4 text-white transition-opacity duration-300 hover:opacity-80"
                     fill="currentColor"
                     viewBox="0 0 24 24"
                   >
@@ -110,7 +110,7 @@ export default function Footer() {
                   className="inline-flex items-center justify-center w-8 h-8 bg-white/10 hover:bg-white/20 rounded-lg transition-all duration-300 border border-white/20"
                   aria-label="Or Hakerem LinkedIn"
                 >
-                  <Linkedin className="w-4 h-4 text-white hover:text-secondary transition-colors duration-300" />
+                  <Linkedin className="h-4 w-4 text-white transition-opacity duration-300 hover:opacity-80" />
                 </a>
                 <a
                   href="https://www.facebook.com/profile.php?id=61583829025542"
@@ -119,7 +119,7 @@ export default function Footer() {
                   className="inline-flex items-center justify-center w-8 h-8 bg-white/10 hover:bg-white/20 rounded-lg transition-all duration-300 border border-white/20"
                   aria-label="Or Hakerem Facebook"
                 >
-                  <Facebook className="w-4 h-4 text-white hover:text-secondary transition-colors duration-300" />
+                  <Facebook className="h-4 w-4 text-white transition-opacity duration-300 hover:opacity-80" />
                 </a>
               </div>
             </div>
@@ -130,32 +130,32 @@ export default function Footer() {
             <div className="flex flex-wrap justify-center gap-x-4 gap-y-1 text-sm">
               <Link
                 href="/properties"
-                className="text-white/90 hover:text-secondary transition-colors duration-300"
+                className="text-white/90 transition-all duration-300 hover:text-white hover:opacity-80"
               >
                 Properties
               </Link>
               <Link
                 href="/concierge-services"
-                className="text-white/90 hover:text-secondary transition-colors duration-300"
+                className="text-white/90 transition-all duration-300 hover:text-white hover:opacity-80"
               >
                 Concierge Services
               </Link>
               <Link
                 href="/events"
-                className="text-white/90 hover:text-secondary transition-colors duration-300"
+                className="text-white/90 transition-all duration-300 hover:text-white hover:opacity-80"
               >
                 Events
               </Link>
               <Link
                 href="/about"
-                className="text-white/90 hover:text-secondary transition-colors duration-300"
+                className="text-white/90 transition-all duration-300 hover:text-white hover:opacity-80"
               >
                 About
               </Link>
               <a
                 href="/#contact"
                 onClick={handleContactClick}
-                className="text-white/90 hover:text-secondary transition-colors duration-300"
+                className="text-white/90 transition-all duration-300 hover:text-white hover:opacity-80"
               >
                 Contact
               </a>
@@ -167,7 +167,7 @@ export default function Footer() {
             <div className="flex flex-wrap justify-center gap-x-4 gap-y-1 text-sm">
               <Link
                 href="/terms"
-                className="text-white/90 hover:text-secondary transition-colors duration-300"
+                className="text-white/90 transition-all duration-300 hover:text-white hover:opacity-80"
               >
                 Terms & Conditions
               </Link>
@@ -196,11 +196,11 @@ export default function Footer() {
                     src="/orhakerem_logo_original.jpg"
                     alt="Or Hakerem Logo"
                     fill
-                    className="object-contain rounded-xl shadow-lg group-hover:scale-105 transition-transform duration-300"
-                    loading="lazy"
-                    sizes="160px"
-                  />
-                  <div className="absolute inset-0 rounded-xl bg-gradient-to-br from-secondary/20 to-tertiary/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                  className="object-contain rounded-xl shadow-lg group-hover:scale-105 transition-transform duration-300"
+                  loading="lazy"
+                  sizes="160px"
+                />
+                  <div className="absolute inset-0 rounded-xl bg-gradient-to-br from-white/12 to-transparent opacity-0 transition-opacity duration-300 group-hover:opacity-100"></div>
                 </div>
                 <div>
                   <span className="font-playfair text-4xl font-bold text-secondary block leading-none">
@@ -221,7 +221,7 @@ export default function Footer() {
                     <Mail className="w-5 h-5 text-secondary mr-2 flex-shrink-0 group-hover:scale-110 transition-transform duration-300" />
                     <a 
                       href="mailto:keremliving@gmail.com" 
-                      className="text-white/90 hover:text-secondary transition-colors duration-300 text-base font-medium leading-none"
+                      className="text-base font-medium leading-none text-white/90 transition-all duration-300 hover:text-white hover:opacity-80"
                     >
                       keremliving@gmail.com
                     </a>
@@ -234,13 +234,13 @@ export default function Footer() {
                     <div className="flex flex-col">
                       <a 
                         href="tel:+33651179925" 
-                        className="text-white/90 hover:text-secondary transition-colors duration-300 text-base font-medium leading-none"
+                        className="text-base font-medium leading-none text-white/90 transition-all duration-300 hover:text-white hover:opacity-80"
                       >
                         +33 6 51 17 99 25
                       </a>
                       <a 
                         href="tel:+972526869791"
-                        className="text-white/90 hover:text-secondary transition-colors duration-300 text-base font-medium leading-none mt-1"
+                        className="mt-1 text-base font-medium leading-none text-white/90 transition-all duration-300 hover:text-white hover:opacity-80"
                       >
                         +972 52 686 9791
                       </a>
@@ -258,7 +258,7 @@ export default function Footer() {
                     aria-label="Or Hakerem Instagram"
                   >
                     <svg
-                      className="w-6 h-6 text-white group-hover:text-secondary transition-colors duration-300 group-hover:scale-110"
+                      className="w-6 h-6 text-white transition-all duration-300 group-hover:scale-110 group-hover:opacity-80"
                       fill="currentColor"
                       viewBox="0 0 24 24"
                     >
@@ -269,20 +269,20 @@ export default function Footer() {
                     href="https://www.linkedin.com/company/orhakerem/"
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="inline-flex items-center justify-center w-12 h-12 bg-white/10 hover:bg-white/20 rounded-lg transition-all duration-300 group border border-white/20"
-                    aria-label="Or Hakerem LinkedIn"
-                  >
-                    <Linkedin className="w-6 h-6 text-white group-hover:text-secondary transition-colors duration-300 group-hover:scale-110" />
-                  </a>
+                  className="inline-flex items-center justify-center w-12 h-12 bg-white/10 hover:bg-white/20 rounded-lg transition-all duration-300 group border border-white/20"
+                  aria-label="Or Hakerem LinkedIn"
+                >
+                    <Linkedin className="w-6 h-6 text-white transition-all duration-300 group-hover:scale-110 group-hover:opacity-80" />
+                </a>
                   <a
                     href="https://www.facebook.com/profile.php?id=61583829025542"
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="inline-flex items-center justify-center w-12 h-12 bg-white/10 hover:bg-white/20 rounded-lg transition-all duration-300 group border border-white/20"
-                    aria-label="Or Hakerem Facebook"
-                  >
-                    <Facebook className="w-6 h-6 text-white group-hover:text-secondary transition-colors duration-300 group-hover:scale-110" />
-                  </a>
+                  className="inline-flex items-center justify-center w-12 h-12 bg-white/10 hover:bg-white/20 rounded-lg transition-all duration-300 group border border-white/20"
+                  aria-label="Or Hakerem Facebook"
+                >
+                    <Facebook className="w-6 h-6 text-white transition-all duration-300 group-hover:scale-110 group-hover:opacity-80" />
+                </a>
                 </div>
               </div>
             </div>
@@ -294,32 +294,32 @@ export default function Footer() {
               <nav className="space-y-0.5">
                 <Link
                   href="/properties"
-                  className="block text-white/90 hover:text-secondary hover:translate-x-2 transition-all duration-300 text-xl font-medium p-1 rounded-lg hover:bg-white/10 leading-none"
+                  className="block rounded-lg p-1 text-xl font-medium leading-none text-white/90 transition-all duration-300 hover:translate-x-2 hover:bg-white/10 hover:text-white"
                 >
                   Properties
                 </Link>
                 <Link
                   href="/concierge-services"
-                  className="block text-white/90 hover:text-secondary hover:translate-x-2 transition-all duration-300 text-xl font-medium p-1 rounded-lg hover:bg-white/10 leading-none"
+                  className="block rounded-lg p-1 text-xl font-medium leading-none text-white/90 transition-all duration-300 hover:translate-x-2 hover:bg-white/10 hover:text-white"
                 >
                   Concierge Services
                 </Link>
                 <Link
                   href="/events"
-                  className="block text-white/90 hover:text-secondary hover:translate-x-2 transition-all duration-300 text-xl font-medium p-1 rounded-lg hover:bg-white/10 leading-none"
+                  className="block rounded-lg p-1 text-xl font-medium leading-none text-white/90 transition-all duration-300 hover:translate-x-2 hover:bg-white/10 hover:text-white"
                 >
                   Events
                 </Link>
                 <Link
                   href="/about"
-                  className="block text-white/90 hover:text-secondary hover:translate-x-2 transition-all duration-300 text-xl font-medium p-1 rounded-lg hover:bg-white/10 leading-none"
+                  className="block rounded-lg p-1 text-xl font-medium leading-none text-white/90 transition-all duration-300 hover:translate-x-2 hover:bg-white/10 hover:text-white"
                 >
                   About
                 </Link>
                 <a
                   href="/#contact"
                   onClick={handleContactClick}
-                  className="block text-white/90 hover:text-secondary hover:translate-x-2 transition-all duration-300 text-xl font-medium p-1 rounded-lg hover:bg-white/10 leading-none"
+                  className="block rounded-lg p-1 text-xl font-medium leading-none text-white/90 transition-all duration-300 hover:translate-x-2 hover:bg-white/10 hover:text-white"
                 >
                   Contact
                 </a>
@@ -333,7 +333,7 @@ export default function Footer() {
               <nav className="space-y-0.5">
                 <Link 
                   href="/terms" 
-                  className="block text-white/90 hover:text-secondary hover:translate-x-2 transition-all duration-300 text-xl font-medium p-1 rounded-lg hover:bg-white/10 leading-none"
+                  className="block rounded-lg p-1 text-xl font-medium leading-none text-white/90 transition-all duration-300 hover:translate-x-2 hover:bg-white/10 hover:text-white"
                 >
                   Terms & Conditions
                 </Link>

@@ -20,24 +20,24 @@ function ServiceCard({ icon: Icon, title, description, delay }: ServiceCardProps
       style={{ animationDelay: `${delay}ms` }}
     >
       {/* Gradient overlay on hover */}
-      <div className="absolute inset-0 bg-gradient-to-br from-secondary/10 to-tertiary/10 rounded-xl opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+      <div className="absolute inset-0 rounded-xl bg-gradient-to-br from-black/[0.02] to-black/[0.05] opacity-0 transition-opacity duration-300 group-hover:opacity-100"></div>
 
       {/* Floating icon container - Reduced size */}
       <div className="relative inline-block mb-4">
         <div className="relative p-3 bg-gradient-to-br from-secondary to-secondary-light rounded-full shadow-lg group-hover:shadow-xl transition-all duration-300 group-hover:scale-110">
           <div className="absolute inset-0 rounded-full bg-white/20 group-hover:bg-white/30 transition-colors duration-300"></div>
-          <Icon className="w-6 h-6 text-primary relative z-10 group-hover:text-primary/90 transition-colors duration-300" />
+          <Icon className="relative z-10 h-6 w-6 text-primary transition-opacity duration-300 group-hover:opacity-90" />
         </div>
         {/* Floating animation ring */}
-        <div className="absolute inset-0 rounded-full border-2 border-secondary/30 animate-pulse group-hover:border-secondary/50 transition-colors duration-300"></div>
+        <div className="absolute inset-0 rounded-full border-2 border-white/35 animate-pulse transition-colors duration-300 group-hover:border-black/10"></div>
       </div>
 
       {/* Reduced heading size */}
-      <h3 className="font-playfair text-xl font-bold text-primary mb-3 group-hover:text-secondary transition-colors duration-300 relative z-10">
+      <h3 className="relative z-10 mb-3 font-playfair text-xl font-bold text-primary transition-opacity duration-300 group-hover:opacity-80">
         {title}
       </h3>
       {/* Reduced text size and spacing */}
-      <p className="text-primary/80 leading-relaxed text-sm group-hover:text-primary transition-colors duration-300 relative z-10">
+      <p className="relative z-10 text-sm leading-relaxed text-primary/80 transition-opacity duration-300 group-hover:opacity-85">
         {description}
       </p>
     </div>
@@ -262,7 +262,7 @@ export default function ConciergeServicesPage() {
                         name="name"
                         placeholder="Enter your name"
                         required
-                        className="w-full h-11 px-4 bg-white/10 backdrop-blur-sm border border-white/20 focus:border-secondary focus:ring-1 focus:ring-secondary/20 rounded-lg transition-all duration-300 outline-none text-sm text-white placeholder-white/60"
+                        className="h-11 w-full rounded-lg border border-white/20 bg-white/10 px-4 text-sm text-white placeholder-white/60 outline-none transition-all duration-300 focus:border-white/35 focus:ring-1 focus:ring-white/15"
                       />
                     </div>
 
@@ -279,7 +279,7 @@ export default function ConciergeServicesPage() {
                         name="email"
                         placeholder="your@email.com"
                         required
-                        className="w-full h-11 px-4 bg-white/10 backdrop-blur-sm border border-white/20 focus:border-secondary focus:ring-1 focus:ring-secondary/20 rounded-lg transition-all duration-300 outline-none text-sm text-white placeholder-white/60"
+                        className="h-11 w-full rounded-lg border border-white/20 bg-white/10 px-4 text-sm text-white placeholder-white/60 outline-none transition-all duration-300 focus:border-white/35 focus:ring-1 focus:ring-white/15"
                       />
                     </div>
                   </div>
@@ -297,7 +297,7 @@ export default function ConciergeServicesPage() {
                       placeholder="Please describe the concierge service you need..."
                       rows={4}
                       required
-                      className="w-full px-4 py-3 bg-white/10 backdrop-blur-sm border border-white/20 focus:border-secondary focus:ring-1 focus:ring-secondary/20 rounded-lg transition-all duration-300 outline-none resize-none text-sm text-white placeholder-white/60"
+                      className="w-full resize-none rounded-lg border border-white/20 bg-white/10 px-4 py-3 text-sm text-white placeholder-white/60 outline-none transition-all duration-300 focus:border-white/35 focus:ring-1 focus:ring-white/15"
                     ></textarea>
                   </div>
 

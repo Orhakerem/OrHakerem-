@@ -15,9 +15,9 @@ export default function FAQ() {
         <div className="home-faq-header text-center mb-12">
         <Link
             href="/faq"
-            className="text-primary hover:text-[#D8B084] transition-colors duration-300 inline-flex items-center"
+            className="inline-flex items-center text-primary transition-opacity duration-300 hover:opacity-80"
           >
-          <h2 className="font-playfair text-3xl font-bold text-primary mb-4 transition-colors duration-300 hover:text-[#D8B084]" data-animate="text">
+          <h2 className="mb-4 font-playfair text-3xl font-bold text-primary" data-animate="text">
             Frequently Asked Questions
           </h2>
      
@@ -27,18 +27,18 @@ export default function FAQ() {
           {homeFaqEntries.map((faq, index) => (
             <div
               key={index}
-              className="home-faq-item group bg-white p-6 rounded-lg shadow-md hover:shadow-lg transition-shadow cursor-pointer"
+              className="home-faq-item group cursor-pointer rounded-lg bg-white p-6 shadow-md transition-all hover:-translate-y-0.5 hover:shadow-lg"
               data-delay={String((index % 3) + 1)}
               onClick={() => setOpenIndex(openIndex === index ? undefined : index)}
             >
               <div className="flex justify-between items-center">
-                <h3 className="font-playfair text-xl font-bold text-primary transition-colors duration-300 hover:text-[#D8B084] group-hover:text-[#D8B084]">
+                <h3 className="font-playfair text-xl font-bold text-primary transition-opacity duration-300 group-hover:opacity-80">
                   {faq.question}
                 </h3>
                 {openIndex === index ? (
-                  <ChevronUp className="w-6 h-6 text-primary transition-colors duration-300 hover:text-[#D8B084] group-hover:text-[#D8B084]" />
+                  <ChevronUp className="h-6 w-6 text-primary transition-opacity duration-300 group-hover:opacity-80" />
                 ) : (
-                  <ChevronDown className="w-6 h-6 text-primary transition-colors duration-300 hover:text-[#D8B084] group-hover:text-[#D8B084]" />
+                  <ChevronDown className="h-6 w-6 text-primary transition-opacity duration-300 group-hover:opacity-80" />
                 )}
               </div>
               <div
