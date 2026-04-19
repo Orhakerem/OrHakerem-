@@ -27,11 +27,16 @@ export default function FAQ() {
           {homeFaqEntries.map((faq, index) => (
             <div
               key={index}
-              className="home-faq-item cursor-pointer rounded-lg bg-white p-6 shadow-md"
+              className="home-faq-item rounded-lg bg-white shadow-md"
               data-delay={String((index % 3) + 1)}
-              onClick={() => setOpenIndex(openIndex === index ? undefined : index)}
             >
-              <div className="flex justify-between items-center">
+              <button
+                type="button"
+                className="tap-reset flex w-full items-center justify-between p-6 text-left"
+                onClick={() => setOpenIndex(openIndex === index ? undefined : index)}
+                aria-expanded={openIndex === index}
+                aria-controls={`home-faq-answer-${index}`}
+              >
                 <h3 className="font-playfair text-xl font-bold text-primary">
                   {faq.question}
                 </h3>
@@ -40,13 +45,16 @@ export default function FAQ() {
                 ) : (
                   <ChevronDown className="h-6 w-6 text-primary" />
                 )}
-              </div>
+              </button>
               <div
-                className={`mt-4 text-primary/80 transition-all duration-300 ease-in-out overflow-hidden ${
+                id={`home-faq-answer-${index}`}
+                className={`overflow-hidden text-primary/80 transition-all duration-300 ease-in-out ${
                   openIndex === index ? 'max-h-96 opacity-100' : 'max-h-0 opacity-0'
                 }`}
               >
-                {faq.answer}
+                <div className="px-6 pb-6">
+                  {faq.answer}
+                </div>
               </div>
             </div>
           ))}

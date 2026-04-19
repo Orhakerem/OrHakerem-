@@ -296,7 +296,7 @@ export default function Events() {
 
       {showForm && (
         <div
-          className="event-modal fixed inset-0 z-50 bg-black/55 backdrop-blur-sm p-3 sm:p-6"
+          className="event-modal tap-reset fixed inset-0 z-50 bg-black/55 backdrop-blur-sm p-3 sm:p-6"
           role="dialog"
           aria-modal="true"
           aria-labelledby="event-inquiry-title"
@@ -442,7 +442,7 @@ export default function Events() {
                       Preferred Contact Method
                     </label>
                     <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-                      <label className={`relative flex cursor-pointer items-center justify-center rounded-lg border p-4 ${contactMethod === 'email' ? 'border-black/10 bg-black/[0.03] shadow-sm' : 'border-gray-200 bg-white'}`}>
+                      <label className={`tap-reset relative flex cursor-pointer items-center justify-center rounded-lg border p-4 ${contactMethod === 'email' ? 'border-black/10 bg-black/[0.03] shadow-sm' : 'border-gray-200 bg-white'}`}>
                         <input
                           type="radio"
                           name="contactMethod"
@@ -457,7 +457,7 @@ export default function Events() {
                         </span>
                       </label>
 
-                      <label className={`relative flex cursor-pointer items-center justify-center rounded-lg border p-4 ${contactMethod === 'phone' ? 'border-black/10 bg-black/[0.03] shadow-sm' : 'border-gray-200 bg-white'}`}>
+                      <label className={`tap-reset relative flex cursor-pointer items-center justify-center rounded-lg border p-4 ${contactMethod === 'phone' ? 'border-black/10 bg-black/[0.03] shadow-sm' : 'border-gray-200 bg-white'}`}>
                         <input
                           type="radio"
                           name="contactMethod"
@@ -472,7 +472,7 @@ export default function Events() {
                         </span>
                       </label>
 
-                      <label className={`relative flex cursor-pointer items-center justify-center rounded-lg border p-4 ${contactMethod === 'whatsapp' ? 'border-black/10 bg-black/[0.03] shadow-sm' : 'border-gray-200 bg-white'}`}>
+                      <label className={`tap-reset relative flex cursor-pointer items-center justify-center rounded-lg border p-4 ${contactMethod === 'whatsapp' ? 'border-black/10 bg-black/[0.03] shadow-sm' : 'border-gray-200 bg-white'}`}>
                         <input
                           type="radio"
                           name="contactMethod"

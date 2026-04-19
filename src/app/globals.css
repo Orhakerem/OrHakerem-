@@ -27,25 +27,44 @@
 @layer base {
   a,
   button,
+  label,
   input,
   textarea,
   select,
   [role='button'],
-  summary {
+  summary,
+  .cursor-pointer,
+  .tap-reset,
+  [tabindex]:not([tabindex='-1']) {
     -webkit-tap-highlight-color: transparent;
+    touch-action: manipulation;
   }
 
   a:focus-visible,
   button:focus-visible,
+  label:focus-visible,
   input:focus-visible,
   textarea:focus-visible,
   select:focus-visible,
   [role='button']:focus-visible,
-  summary:focus-visible {
+  summary:focus-visible,
+  .tap-reset:focus-visible,
+  [tabindex]:not([tabindex='-1']):focus-visible {
     outline: none;
     box-shadow:
       0 0 0 3px rgba(255, 255, 255, 0.88),
       0 0 0 6px rgba(15, 23, 42, 0.14);
+  }
+
+  a:focus:not(:focus-visible),
+  button:focus:not(:focus-visible),
+  label:focus:not(:focus-visible),
+  [role='button']:focus:not(:focus-visible),
+  summary:focus:not(:focus-visible),
+  .tap-reset:focus:not(:focus-visible),
+  [tabindex]:not([tabindex='-1']):focus:not(:focus-visible) {
+    outline: none !important;
+    box-shadow: none !important;
   }
 }
 
@@ -351,6 +370,21 @@
 }
 
 @layer components {
+  .tap-reset,
+  .button-hover-clean,
+  .glass-cta,
+  .whatsapp-float,
+  .property-card-button,
+  .booking-calendar-day-button,
+  .nav-item-floating,
+  .nav-item-floating span,
+  .mobile-menu-button-floating,
+  .mobile-nav-item-floating,
+  .mobile-nav-item-floating span,
+  .logo-text-floating {
+    transition: none !important;
+  }
+
   .whatsapp-float {
     position: fixed;
     right: 24px;
@@ -731,9 +765,7 @@
   /* État actif */
   .nav-item-floating.active {
     color: #8b2f23;
-    box-shadow:
-      0 4px 15px rgba(216, 176, 132, 0.25),
-      0 0 0 1px rgba(139, 47, 35, 0.18) inset;
+    box-shadow: 0 4px 15px rgba(216, 176, 132, 0.25);
   }
 
   .nav-item-floating span {
@@ -804,7 +836,7 @@
 
   .mobile-nav-item-floating.active {
     color: #8b2f23;
-    background: rgba(15, 23, 42, 0.04);
+    background: transparent;
     font-weight: 600;
   }
 

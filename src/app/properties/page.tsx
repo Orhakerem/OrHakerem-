@@ -88,7 +88,7 @@ function PropertyCard({ property }: { property: (typeof properties)[keyof typeof
   return (
     <article
       data-animate="scale"
-      className="property-card relative aspect-square cursor-pointer overflow-hidden rounded-2xl bg-white shadow-xl"
+      className="property-card relative aspect-square overflow-hidden rounded-2xl bg-white shadow-xl"
     >
       <Link
         href={propertyHref}
@@ -183,7 +183,7 @@ export default async function Properties() {
     await getBookablePropertyCalendarSnapshot();
 
   return (
-    <div className="min-h-screen pt-24 pb-20 bg-cream">
+    <div className="min-h-screen bg-cream pt-28 pb-20 md:pt-32">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Hero Section */}
         <div className="text-center mb-16" data-animate="fade-up">

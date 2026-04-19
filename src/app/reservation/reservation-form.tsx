@@ -296,7 +296,7 @@ export default function ReservationForm({
             <span>Preferred Contact Method</span>
           </label>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-            <label className={`relative flex cursor-pointer items-center justify-center rounded-md border p-4 transition-all ${contactMethod === 'email' ? 'border-black/10 bg-black/[0.03] shadow-sm' : 'border-gray-200 bg-white'}`}>
+            <label className={`tap-reset relative flex cursor-pointer items-center justify-center rounded-md border p-4 ${contactMethod === 'email' ? 'border-black/10 bg-black/[0.03] shadow-sm' : 'border-gray-200 bg-white'}`}>
               <input
                 type="radio"
                 name="contactMethod"
@@ -309,7 +309,7 @@ export default function ReservationForm({
               <span className="ml-2 text-primary">Email</span>
             </label>
 
-            <label className={`relative flex cursor-pointer items-center justify-center rounded-md border p-4 transition-all ${contactMethod === 'phone' ? 'border-black/10 bg-black/[0.03] shadow-sm' : 'border-gray-200 bg-white'}`}>
+            <label className={`tap-reset relative flex cursor-pointer items-center justify-center rounded-md border p-4 ${contactMethod === 'phone' ? 'border-black/10 bg-black/[0.03] shadow-sm' : 'border-gray-200 bg-white'}`}>
               <input
                 type="radio"
                 name="contactMethod"
@@ -322,7 +322,7 @@ export default function ReservationForm({
               <span className="ml-2 text-primary">Phone</span>
             </label>
 
-            <label className={`relative flex cursor-pointer items-center justify-center rounded-md border p-4 transition-all ${contactMethod === 'whatsapp' ? 'border-black/10 bg-black/[0.03] shadow-sm' : 'border-gray-200 bg-white'}`}>
+            <label className={`tap-reset relative flex cursor-pointer items-center justify-center rounded-md border p-4 ${contactMethod === 'whatsapp' ? 'border-black/10 bg-black/[0.03] shadow-sm' : 'border-gray-200 bg-white'}`}>
               <input
                 type="radio"
                 name="contactMethod"

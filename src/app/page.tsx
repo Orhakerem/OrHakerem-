@@ -65,7 +65,7 @@ const Home: React.FC = () => {
 
         <div className="glass-cta-wrap hero-home-cta-wrap">
           <Link
-            href="/properties#properties-listing"
+            href="/properties"
             className="glass-cta"
           >
             View Properties

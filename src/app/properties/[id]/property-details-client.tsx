@@ -320,7 +320,7 @@ export default function PropertyDetailsClient({
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           {propertyPageHeading}
           <button
-            onClick={() => router.push('/properties#properties-listing')}
+            onClick={() => router.push('/properties')}
             className="button-hover-clean rounded-md bg-gold px-6 py-2 text-navy transition"
           >
             Back to Properties
@@ -359,7 +359,7 @@ export default function PropertyDetailsClient({
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="mb-6">
           <Link
-            href="/properties#properties-listing"
+            href="/properties"
             className="inline-flex items-center rounded-full border border-primary/20 bg-white/80 px-6 py-3 text-lg font-semibold text-primary shadow-lg transition-all duration-300"
           >
             <div className="relative mr-3">

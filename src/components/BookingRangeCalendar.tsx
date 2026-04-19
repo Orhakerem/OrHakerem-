@@ -291,7 +291,7 @@ export default function BookingRangeCalendar({
             <button
               type="button"
               onClick={() => handleFieldFocus('checkIn')}
-              className={`rounded-2xl border px-4 py-4 text-left transition ${
+              className={`tap-reset rounded-2xl border px-4 py-4 text-left ${
                 activeField === 'checkIn'
                   ? 'border-black/10 bg-slate-900 text-white shadow-lg shadow-black/10'
                   : 'border-primary/10 bg-white text-primary'
@@ -316,7 +316,7 @@ export default function BookingRangeCalendar({
             <button
               type="button"
               onClick={() => handleFieldFocus('checkOut')}
-              className={`rounded-2xl border px-4 py-4 text-left transition ${
+              className={`tap-reset rounded-2xl border px-4 py-4 text-left ${
                 activeField === 'checkOut'
                   ? 'border-black/10 bg-slate-900 text-white shadow-lg shadow-black/10'
                   : 'border-primary/10 bg-white text-primary'
@@ -359,7 +359,7 @@ export default function BookingRangeCalendar({
             <button
               type="button"
               onClick={clearDates}
-              className="inline-flex items-center justify-center gap-2 rounded-full border border-primary/15 bg-white px-4 py-2 text-sm font-semibold text-primary transition"
+              className="tap-reset inline-flex items-center justify-center gap-2 rounded-full border border-primary/15 bg-white px-4 py-2 text-sm font-semibold text-primary"
             >
               <X className="h-4 w-4" />
               Clear dates
@@ -388,7 +388,7 @@ export default function BookingRangeCalendar({
                   type="button"
                   onClick={goToPreviousMonth}
                   disabled={!canGoToPreviousMonth}
-                  className="inline-flex h-10 w-10 items-center justify-center rounded-full border border-primary/10 bg-white text-primary transition disabled:cursor-not-allowed disabled:opacity-30"
+                  className="tap-reset inline-flex h-10 w-10 items-center justify-center rounded-full border border-primary/10 bg-white text-primary disabled:cursor-not-allowed disabled:opacity-30"
                   aria-label="Show previous month"
                 >
                   <ChevronLeft className="h-4 w-4" />
@@ -396,7 +396,7 @@ export default function BookingRangeCalendar({
                 <button
                   type="button"
                   onClick={goToNextMonth}
-                  className="inline-flex h-10 w-10 items-center justify-center rounded-full border border-primary/10 bg-white text-primary transition"
+                  className="tap-reset inline-flex h-10 w-10 items-center justify-center rounded-full border border-primary/10 bg-white text-primary"
                   aria-label="Show next month"
                 >
                   <ChevronRight className="h-4 w-4" />
@@ -438,7 +438,7 @@ export default function BookingRangeCalendar({
               week: 'grid grid-cols-7 gap-1',
               day: 'booking-calendar-day',
               day_button:
-                'booking-calendar-day-button flex h-11 w-11 items-center justify-center rounded-2xl text-sm font-medium text-primary transition focus:outline-none focus:ring-2 focus:ring-black/10',
+                'booking-calendar-day-button tap-reset flex h-11 w-11 items-center justify-center rounded-2xl text-sm font-medium text-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-black/10',
               disabled: 'booking-calendar-disabled',
               outside: 'booking-calendar-outside',
               today: 'booking-calendar-today',
