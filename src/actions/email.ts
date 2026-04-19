@@ -81,7 +81,7 @@ export async function sendEmail(formData: FormData) {
       const resend = new Resend(apiKey);
 
       // Send email using Resend API
-      const { data, error } = await resend.emails.send({
+      const { error } = await resend.emails.send({
         from: 'Or Hakerem <onboarding@resend.dev>',
         to: recipientEmail,
         subject,
@@ -97,7 +97,6 @@ export async function sendEmail(formData: FormData) {
         };
       }
 
-      console.log('Email sent successfully:', data?.id);
       return { 
         success: true,
         message: 'Email sent successfully!'
@@ -169,7 +168,7 @@ export async function sendEmail(formData: FormData) {
       const resend = new Resend(apiKey);
 
       // Send email using Resend API
-      const { data, error } = await resend.emails.send({
+      const { error } = await resend.emails.send({
         from: 'Or Hakerem <onboarding@resend.dev>',
         to: recipientEmail,
         subject,
@@ -185,7 +184,6 @@ export async function sendEmail(formData: FormData) {
         };
       }
 
-      console.log('Email sent successfully:', data?.id);
       return { 
         success: true,
         message: 'Email sent successfully!'
