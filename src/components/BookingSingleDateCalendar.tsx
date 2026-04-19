@@ -157,11 +157,11 @@ export default function BookingSingleDateCalendar({
           </div>
 
           {hasSelection ? (
-            <button
-              type="button"
-              onClick={clearDate}
-              className="inline-flex items-center justify-center gap-2 rounded-full border border-primary/15 bg-white px-4 py-2 text-sm font-semibold text-primary transition hover:border-black/10 hover:bg-black/[0.02]"
-            >
+          <button
+            type="button"
+            onClick={clearDate}
+            className="inline-flex items-center justify-center gap-2 rounded-full border border-primary/15 bg-white px-4 py-2 text-sm font-semibold text-primary transition"
+          >
               <X className="h-4 w-4" />
               Clear date
             </button>
@@ -184,7 +184,7 @@ export default function BookingSingleDateCalendar({
                 <button
                   type="button"
                   onClick={goToPreviousMonth}
-                  className="inline-flex h-10 w-10 items-center justify-center rounded-full border border-primary/10 bg-white text-primary transition hover:border-black/10 hover:bg-black/[0.02]"
+                  className="inline-flex h-10 w-10 items-center justify-center rounded-full border border-primary/10 bg-white text-primary transition"
                   aria-label="Show previous month"
                 >
                   <ChevronLeft className="h-4 w-4" />
@@ -192,7 +192,7 @@ export default function BookingSingleDateCalendar({
                 <button
                   type="button"
                   onClick={goToNextMonth}
-                  className="inline-flex h-10 w-10 items-center justify-center rounded-full border border-primary/10 bg-white text-primary transition hover:border-black/10 hover:bg-black/[0.02]"
+                  className="inline-flex h-10 w-10 items-center justify-center rounded-full border border-primary/10 bg-white text-primary transition"
                   aria-label="Show next month"
                 >
                   <ChevronRight className="h-4 w-4" />
@@ -227,7 +227,7 @@ export default function BookingSingleDateCalendar({
               week: 'grid grid-cols-7 gap-1',
               day: 'booking-calendar-day',
               day_button:
-                'booking-calendar-day-button flex h-11 w-11 items-center justify-center rounded-2xl text-sm font-medium text-primary transition hover:bg-black/[0.06] focus:outline-none focus:ring-2 focus:ring-black/10',
+                'booking-calendar-day-button flex h-11 w-11 items-center justify-center rounded-2xl text-sm font-medium text-primary transition focus:outline-none focus:ring-2 focus:ring-black/10',
               outside: 'booking-calendar-outside',
               today: 'booking-calendar-today',
               selected: 'booking-calendar-selected',

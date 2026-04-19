@@ -11,20 +11,16 @@ export default function ContactPage() {
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Enhanced Back Navigation */}
         <div className="mb-8" data-animate="fade-right">
-          <div className="inline-block relative group">
-            <div className="absolute inset-0 rounded-full bg-gradient-to-r from-black/[0.08] to-black/[0.04] blur-lg opacity-0 transition-opacity duration-300 group-hover:opacity-100"></div>
-            <Link
-              href="/"
-              className="relative inline-flex items-center rounded-full border border-primary/20 bg-white/80 px-6 py-3 text-lg font-semibold text-primary shadow-lg transition-all duration-300 hover:-translate-y-0.5 hover:bg-white hover:shadow-xl"
-            >
-              <div className="relative mr-3">
-                <ArrowLeft className="w-5 h-5 transition-transform duration-300 group-hover:-translate-x-1" />
-                <div className="absolute inset-0 rounded-full bg-black/[0.05] scale-0 transition-transform duration-300 group-hover:scale-150"></div>
-              </div>
-              <Home className="w-5 h-5 mr-2 opacity-70 group-hover:opacity-100 transition-opacity duration-300" />
-              <span className="relative z-10">Back to Home</span>
-            </Link>
-          </div>
+          <Link
+            href="/"
+            className="inline-flex items-center rounded-full border border-primary/20 bg-white/80 px-6 py-3 text-lg font-semibold text-primary shadow-lg transition-all duration-300"
+          >
+            <div className="relative mr-3">
+              <ArrowLeft className="w-5 h-5" />
+            </div>
+            <Home className="w-5 h-5 mr-2 opacity-70" />
+            <span className="relative z-10">Back to Home</span>
+          </Link>
         </div>
 
         {/* Contact Section */}
@@ -77,7 +73,7 @@ export default function ContactPage() {
               <h3 className="font-playfair text-xl font-bold text-primary mb-2">Email</h3>
               <a 
                 href="mailto:keremliving@gmail.com"
-                className="font-medium text-primary/80 transition-opacity duration-300 hover:opacity-80"
+                className="font-medium text-primary/80"
               >
                 keremliving@gmail.com
               </a>
@@ -92,7 +88,7 @@ export default function ContactPage() {
               <div className="space-y-3">
                 <a 
                   href="tel:+33651179925"
-                  className="block font-medium text-primary/80 transition-opacity duration-300 hover:opacity-80"
+                  className="block font-medium text-primary/80"
                 >
                   +33 6 51 17 99 25
                 </a>
@@ -100,7 +96,7 @@ export default function ContactPage() {
                   href="https://wa.me/972526869791"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="inline-flex items-center justify-center rounded-full bg-gradient-to-r from-secondary to-secondary-light px-5 py-2.5 font-semibold text-primary shadow-lg transition-all duration-300 hover:scale-[1.02] hover:shadow-xl"
+                  className="inline-flex items-center justify-center rounded-full bg-gradient-to-r from-secondary to-secondary-light px-5 py-2.5 font-semibold text-primary shadow-lg transition-all duration-300"
                 >
                   WhatsApp: +972 52 686 9791
                 </a>
@@ -117,7 +113,7 @@ export default function ContactPage() {
                 href="https://www.instagram.com/or_hakerem/"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="font-medium text-primary/80 transition-opacity duration-300 hover:opacity-80"
+                className="font-medium text-primary/80"
               >
                 @or_hakerem
               </a>

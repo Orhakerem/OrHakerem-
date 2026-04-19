@@ -56,7 +56,7 @@ export default function RoomGallery({ rooms }: RoomGalleryProps) {
         {rooms.map((room, roomIndex) => (
           <div
             key={roomIndex}
-            className="bg-white rounded-xl shadow-lg overflow-hidden cursor-pointer transform transition-all hover:scale-105 hover:shadow-xl"
+            className="cursor-pointer overflow-hidden rounded-xl bg-white shadow-lg"
             onClick={() => openRoom(room)}
           >
             {/* Room Cover Image */}
@@ -90,7 +90,7 @@ export default function RoomGallery({ rooms }: RoomGalleryProps) {
           {/* Close Button */}
           <button
             onClick={closeRoom}
-            className="absolute top-4 right-4 z-10 text-white transition-opacity duration-300 hover:opacity-80"
+            className="absolute right-4 top-4 z-10 text-white"
           >
             <X className="w-8 h-8" />
           </button>
@@ -108,13 +108,13 @@ export default function RoomGallery({ rooms }: RoomGalleryProps) {
             <>
               <button
                 onClick={prevImage}
-                className="absolute left-4 top-1/2 -translate-y-1/2 p-2 bg-white/20 rounded-full text-white hover:bg-white/30 transition z-10"
+                className="absolute left-4 top-1/2 z-10 -translate-y-1/2 rounded-full bg-white/20 p-2 text-white"
               >
                 <ChevronLeft className="w-6 h-6" />
               </button>
               <button
                 onClick={nextImage}
-                className="absolute right-4 top-1/2 -translate-y-1/2 p-2 bg-white/20 rounded-full text-white hover:bg-white/30 transition z-10"
+                className="absolute right-4 top-1/2 z-10 -translate-y-1/2 rounded-full bg-white/20 p-2 text-white"
               >
                 <ChevronRight className="w-6 h-6" />
               </button>
@@ -142,8 +142,8 @@ export default function RoomGallery({ rooms }: RoomGalleryProps) {
                 <button
                   key={index}
                   onClick={() => setCurrentImageIndex(index)}
-                  className={`relative w-16 h-12 rounded overflow-hidden transition ${
-                    index === currentImageIndex ? 'ring-2 ring-white/80' : 'opacity-60 hover:opacity-100'
+                  className={`relative h-12 w-16 overflow-hidden rounded ${
+                    index === currentImageIndex ? 'ring-2 ring-white/80' : 'opacity-60'
                   }`}
                 >
                   <Image

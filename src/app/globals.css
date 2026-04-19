@@ -369,21 +369,6 @@
     transition: all 0.3s ease;
   }
 
-  .whatsapp-float:hover {
-    transform: translateY(-50%) scale(1.05);
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.25);
-  }
-
-  .button-hover-clean:hover {
-    filter: saturate(0.96) brightness(0.99);
-    box-shadow: 0 14px 30px rgba(15, 23, 42, 0.12);
-  }
-
-  .button-hover-clean:active {
-    transform: translateY(0) scale(0.99);
-    box-shadow: 0 8px 18px rgba(15, 23, 42, 0.12);
-  }
-
   .hero-home {
     opacity: 1;
     filter: none;
@@ -507,16 +492,6 @@
     pointer-events: none;
   }
 
-  .glass-cta:hover {
-    background: rgba(255, 255, 255, 0.18);
-    border-color: rgba(255, 255, 255, 0.6);
-    transform: translateY(0) scale(1.02);
-  }
-
-  .glass-cta:hover::after {
-    animation: shine 1.4s ease forwards;
-  }
-
   @keyframes shine {
     from {
       left: -120%;
@@ -587,11 +562,6 @@
     box-shadow: 0 8px 32px rgba(0, 0, 0, 0.05);
   }
 
-  .modern-card:hover {
-    transform: translateY(-8px);
-    box-shadow: 0 16px 48px rgba(0, 0, 0, 0.1);
-  }
-
   .organic-shape {
     border-radius: 24px 48px 24px 64px;
   }
@@ -620,11 +590,6 @@
   .btn-modern {
     @apply rounded-full px-8 py-3 transition-all duration-300 ease-in-out;
     background: linear-gradient(15deg, #a5382b 0%, #d8b084 100%);
-  }
-
-  .btn-modern:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 8px 24px rgba(165, 56, 43, 0.2);
   }
 
   .custom-cursor {
@@ -725,11 +690,6 @@
     transition: all 0.3s ease;
   }
 
-  .logo-text-floating:hover {
-    color: #d8b084;
-    opacity: 0.86;
-  }
-
   .logo-text-floating.mobile {
     font-size: 1.4rem;
   }
@@ -768,24 +728,12 @@
     white-space: nowrap;
   }
 
-  /* Hover effects épurés - sans effet shimmer */
-  .nav-item-floating:hover {
-    background: linear-gradient(135deg, #d8b084 0%, #c49a6a 100%);
-    color: #a5382b;
-    transform: translateY(-2px) scale(1.02);
-    box-shadow: 
-      0 8px 25px rgba(15, 23, 42, 0.14),
-      0 0 0 1px rgba(255, 255, 255, 0.12) inset;
-  }
-
   /* État actif */
   .nav-item-floating.active {
-    background: linear-gradient(135deg, #e8c49a 0%, #d4a876 100%);
     color: #8b2f23;
-    box-shadow: 
-      0 6px 20px rgba(216, 176, 132, 0.4),
-      0 0 0 2px rgba(165, 56, 43, 0.2) inset;
-    transform: translateY(-1px);
+    box-shadow:
+      0 4px 15px rgba(216, 176, 132, 0.25),
+      0 0 0 1px rgba(139, 47, 35, 0.18) inset;
   }
 
   .nav-item-floating span {
@@ -793,10 +741,6 @@
     z-index: 2;
     transition: all 0.3s ease;
     white-space: nowrap;
-  }
-
-  .nav-item-floating:hover span {
-    font-weight: 700;
   }
 
   /* Mobile Menu Button - Design épuré */
@@ -818,14 +762,6 @@
     display: flex;
     align-items: center;
     justify-content: center;
-  }
-
-  .mobile-menu-button-floating:hover {
-    color: #a5382b;
-    transform: translateY(-1px);
-    box-shadow:
-      0 8px 24px rgba(165, 56, 43, 0.18),
-      0 0 0 1px rgba(255, 255, 255, 0.1) inset;
   }
 
   .mobile-menu-floating {
@@ -866,15 +802,10 @@
     overflow: hidden;
   }
 
-  .mobile-nav-item-floating:hover {
-    color: #a5382b;
-    background: rgba(15, 23, 42, 0.04);
-  }
-
   .mobile-nav-item-floating.active {
     color: #8b2f23;
-    background: rgba(15, 23, 42, 0.08);
-    font-weight: 700;
+    background: rgba(15, 23, 42, 0.04);
+    font-weight: 600;
   }
 
   .mobile-nav-item-floating span {
@@ -1723,10 +1654,6 @@
       -webkit-backdrop-filter: none !important;
       background: rgba(255, 255, 255, 0.08) !important;
       box-shadow: none;
-    }
-
-    .book-button-secondary:hover {
-      background: rgba(255, 255, 255, 0.14) !important;
     }
 
     .book-button-primary {

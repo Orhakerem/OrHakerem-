@@ -15,7 +15,7 @@ export default function FAQ() {
         <div className="home-faq-header text-center mb-12">
         <Link
             href="/faq"
-            className="inline-flex items-center text-primary transition-opacity duration-300 hover:opacity-80"
+            className="inline-flex items-center text-primary"
           >
           <h2 className="mb-4 font-playfair text-3xl font-bold text-primary" data-animate="text">
             Frequently Asked Questions
@@ -27,18 +27,18 @@ export default function FAQ() {
           {homeFaqEntries.map((faq, index) => (
             <div
               key={index}
-              className="home-faq-item group cursor-pointer rounded-lg bg-white p-6 shadow-md transition-all hover:-translate-y-0.5 hover:shadow-lg"
+              className="home-faq-item cursor-pointer rounded-lg bg-white p-6 shadow-md"
               data-delay={String((index % 3) + 1)}
               onClick={() => setOpenIndex(openIndex === index ? undefined : index)}
             >
               <div className="flex justify-between items-center">
-                <h3 className="font-playfair text-xl font-bold text-primary transition-opacity duration-300 group-hover:opacity-80">
+                <h3 className="font-playfair text-xl font-bold text-primary">
                   {faq.question}
                 </h3>
                 {openIndex === index ? (
-                  <ChevronUp className="h-6 w-6 text-primary transition-opacity duration-300 group-hover:opacity-80" />
+                  <ChevronUp className="h-6 w-6 text-primary" />
                 ) : (
-                  <ChevronDown className="h-6 w-6 text-primary transition-opacity duration-300 group-hover:opacity-80" />
+                  <ChevronDown className="h-6 w-6 text-primary" />
                 )}
               </div>
               <div

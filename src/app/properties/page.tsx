@@ -88,7 +88,7 @@ function PropertyCard({ property }: { property: (typeof properties)[keyof typeof
   return (
     <article
       data-animate="scale"
-      className="property-card group relative bg-white rounded-2xl overflow-hidden shadow-xl hover:shadow-2xl transition-all duration-700 hover:scale-[1.02] aspect-square cursor-pointer"
+      className="property-card relative aspect-square cursor-pointer overflow-hidden rounded-2xl bg-white shadow-xl"
     >
       <Link
         href={propertyHref}
@@ -96,16 +96,13 @@ function PropertyCard({ property }: { property: (typeof properties)[keyof typeof
         className="absolute inset-0 z-10 rounded-2xl"
       />
 
-      {/* Gradient overlay on hover */}
-      <div className="pointer-events-none absolute inset-0 z-10 rounded-2xl bg-gradient-to-br from-black/[0.02] to-black/[0.05] opacity-0 transition-opacity duration-500 group-hover:opacity-100"></div>
-      
       {/* Image Section - Square format - Clean without price and heart */}
       <div className="property-card-image relative h-1/2 overflow-hidden pointer-events-none" data-animate="zoom">
         <Image 
           src={property.image} 
           alt={property.title} 
           fill 
-          className="object-cover group-hover:scale-110 transition-transform duration-700" 
+          className="object-cover" 
           loading="lazy"
           sizes="(max-width: 768px) 100vw, (max-width: 1024px) 90vw, 40vw"
         />
@@ -118,7 +115,7 @@ function PropertyCard({ property }: { property: (typeof properties)[keyof typeof
       <div className="property-card-content pointer-events-none p-6 h-1/2 flex flex-col justify-between relative z-20">
         {/* Title and Location */}
         <div className="property-card-copy mb-4 pointer-events-none">
-          <h3 className="mb-1 line-clamp-2 font-playfair text-xl font-bold text-primary transition-opacity duration-300 group-hover:opacity-80">
+          <h3 className="mb-1 line-clamp-2 font-playfair text-xl font-bold text-primary">
             {property.title}
           </h3>
           <div className="flex items-center text-primary/60 mb-2">
@@ -162,14 +159,14 @@ function PropertyCard({ property }: { property: (typeof properties)[keyof typeof
           <div className="property-card-actions pointer-events-auto relative z-20 flex gap-2">
             <Link
               href={propertyHref}
-              className="property-card-button property-card-button-primary button-hover-clean flex flex-1 items-center justify-center rounded-full bg-gradient-to-r from-primary to-primary-light px-3 py-2 text-sm font-semibold text-white shadow-lg transition-all duration-300 hover:shadow-xl hover:scale-105"
+              className="property-card-button property-card-button-primary button-hover-clean flex flex-1 items-center justify-center rounded-full bg-gradient-to-r from-primary to-primary-light px-3 py-2 text-sm font-semibold text-white shadow-lg"
             >
               <span>Details</span>
               <ArrowRight className="w-3 h-3 ml-1" />
             </Link>
             <Link
               href={reservationHref}
-              className="button-hover-clean property-card-button property-card-button-secondary bg-gradient-to-r from-secondary to-secondary-light text-primary py-2 px-3 rounded-full font-semibold transition-all duration-300 shadow-lg hover:shadow-xl transform hover:scale-105 flex items-center justify-center text-sm"
+              className="button-hover-clean property-card-button property-card-button-secondary flex items-center justify-center rounded-full bg-gradient-to-r from-secondary to-secondary-light px-3 py-2 text-sm font-semibold text-primary shadow-lg"
             >
               <Calendar className="w-3 h-3 mr-1" />
               <span>Book</span>

@@ -80,7 +80,7 @@ const PromotionalCarousel: React.FC = () => {
     <section className="w-full bg-white py-16 md:py-20 overflow-hidden" data-animate="fade-up">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div
-          className="relative w-full h-96 md:h-[500px] lg:h-[600px] rounded-3xl overflow-hidden group"
+          className="relative h-96 w-full overflow-hidden rounded-3xl md:h-[500px] lg:h-[600px]"
           data-animate="zoom"
           onMouseEnter={handleMouseEnter}
           onMouseLeave={handleMouseLeave}
@@ -106,7 +106,7 @@ const PromotionalCarousel: React.FC = () => {
 
           <button
             onClick={goToPrevious}
-            className="absolute left-4 top-1/2 -translate-y-1/2 z-10 p-3 rounded-full bg-white/20 backdrop-blur-sm hover:bg-white/40 transition-all duration-300 opacity-0 group-hover:opacity-100 transform hover:scale-110"
+            className="absolute left-4 top-1/2 z-10 -translate-y-1/2 rounded-full bg-white/20 p-3 backdrop-blur-sm"
             aria-label="Previous slide"
           >
             <ChevronLeft className="w-6 h-6 text-white" />
@@ -114,7 +114,7 @@ const PromotionalCarousel: React.FC = () => {
 
           <button
             onClick={goToNext}
-            className="absolute right-4 top-1/2 -translate-y-1/2 z-10 p-3 rounded-full bg-white/20 backdrop-blur-sm hover:bg-white/40 transition-all duration-300 opacity-0 group-hover:opacity-100 transform hover:scale-110"
+            className="absolute right-4 top-1/2 z-10 -translate-y-1/2 rounded-full bg-white/20 p-3 backdrop-blur-sm"
             aria-label="Next slide"
           >
             <ChevronRight className="w-6 h-6 text-white" />
@@ -125,10 +125,10 @@ const PromotionalCarousel: React.FC = () => {
               <button
                 key={index}
                 onClick={() => goToSlide(index)}
-                className={`rounded-full transition-all duration-300 ${
+                className={`rounded-full ${
                   index === currentSlide
                     ? 'bg-white w-8 h-3'
-                    : 'bg-white/40 hover:bg-white/60 w-3 h-3'
+                    : 'bg-white/40 w-3 h-3'
                 }`}
                 aria-label={`Go to slide ${index + 1}`}
               />
@@ -148,7 +148,7 @@ const PromotionalCarousel: React.FC = () => {
           </p>
           <Link
             href="/events"
-            className="button-hover-clean inline-flex items-center justify-center bg-gradient-to-r from-secondary to-secondary-light text-primary px-8 py-3 rounded-full font-semibold text-base transition-all duration-300 shadow-xl hover:shadow-2xl transform hover:scale-105"
+            className="button-hover-clean inline-flex items-center justify-center rounded-full bg-gradient-to-r from-secondary to-secondary-light px-8 py-3 text-base font-semibold text-primary shadow-xl"
           >
             <span className="mr-2">Explore Events</span>
             <div className="w-5 h-5 bg-primary/20 rounded-full flex items-center justify-center">

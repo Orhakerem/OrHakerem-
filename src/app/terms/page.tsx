@@ -115,26 +115,22 @@ export default function TermsPage() {
     <div className="min-h-screen bg-cream pt-24 pb-20">
       <div className="mx-auto max-w-5xl px-4 sm:px-6 lg:px-8">
         <div className="mb-8" data-animate="fade-right">
-          <div className="inline-block relative group">
-            <div className="absolute inset-0 rounded-full bg-gradient-to-r from-black/[0.08] to-black/[0.04] blur-lg opacity-0 transition-opacity duration-300 group-hover:opacity-100"></div>
-            <Link
-              href="/"
-              className="relative inline-flex items-center rounded-full border border-primary/20 bg-white/80 px-6 py-3 text-lg font-semibold text-primary shadow-lg transition-all duration-300 hover:-translate-y-0.5 hover:bg-white hover:shadow-xl"
-            >
-              <div className="relative mr-3">
-                <ArrowLeft className="w-5 h-5 transition-transform duration-300 group-hover:-translate-x-1" />
-                <div className="absolute inset-0 rounded-full bg-black/[0.05] scale-0 transition-transform duration-300 group-hover:scale-150"></div>
-              </div>
-              <Home className="mr-2 w-5 h-5 opacity-70 transition-opacity duration-300 group-hover:opacity-100" />
-              <span className="relative z-10">Back to Home</span>
-            </Link>
-          </div>
+          <Link
+            href="/"
+            className="inline-flex items-center rounded-full border border-primary/20 bg-white/80 px-6 py-3 text-lg font-semibold text-primary shadow-lg transition-all duration-300"
+          >
+            <div className="relative mr-3">
+              <ArrowLeft className="w-5 h-5" />
+            </div>
+            <Home className="mr-2 w-5 h-5 opacity-70" />
+            <span className="relative z-10">Back to Home</span>
+          </Link>
         </div>
 
         <div className="mb-8 flex justify-end" data-animate="fade-left">
           <button
             onClick={handlePrint}
-            className="inline-flex items-center rounded-full border border-primary/15 bg-white px-4 py-2 font-semibold text-primary shadow-sm transition-all duration-300 hover:shadow-md hover:-translate-y-0.5"
+            className="inline-flex items-center rounded-full border border-primary/15 bg-white px-4 py-2 font-semibold text-primary shadow-sm transition-all duration-300"
           >
             <Printer className="mr-2 h-4 w-4" />
             Print
@@ -287,7 +283,7 @@ export default function TermsPage() {
         {showBackToTop && (
           <button
             onClick={scrollToTop}
-            className="fixed bottom-8 right-8 z-40 rounded-full bg-gradient-to-r from-secondary to-secondary-light p-4 text-primary shadow-lg transition-all duration-300 hover:shadow-xl hover:scale-110"
+            className="fixed bottom-8 right-8 z-40 rounded-full bg-gradient-to-r from-secondary to-secondary-light p-4 text-primary shadow-lg transition-all duration-300"
             aria-label="Back to top"
           >
             <ArrowUp className="h-6 w-6" />

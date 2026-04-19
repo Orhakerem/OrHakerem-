@@ -204,7 +204,7 @@ const Home: React.FC = () => {
                   href="https://www.google.com/maps?q=Hakovshim+35+Tel+Aviv"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="button-hover-clean inline-flex items-center bg-gradient-to-r from-secondary to-secondary-light text-primary px-8 py-4 rounded-full font-semibold text-lg transition-all duration-300 shadow-xl hover:shadow-2xl transform hover:scale-105"
+                  className="button-hover-clean inline-flex items-center rounded-full bg-gradient-to-r from-secondary to-secondary-light px-8 py-4 text-lg font-semibold text-primary shadow-xl transition-all duration-300"
                 >
                   <span className="mr-2">Open in Google Maps</span>
                   <div className="w-5 h-5 bg-primary/20 rounded-full flex items-center justify-center">
@@ -241,13 +241,13 @@ const Home: React.FC = () => {
           </div>
 
           <div className="max-w-2xl mx-auto" data-animate="scale" data-delay="2">
-            <div className="home-contact-card group relative rounded-3xl border border-white/20 bg-white/10 p-6 backdrop-blur-sm transition-all duration-500 hover:bg-white/16 hover:shadow-2xl">
+            <div className="home-contact-card relative rounded-3xl border border-white/20 bg-white/10 p-6 backdrop-blur-sm">
               <form onSubmit={handleSubmit} className="home-contact-form space-y-6 relative z-10">
                 <div className="grid md:grid-cols-2 gap-6">
-                  <div className="group/input">
+                  <div>
                     <label
                       htmlFor="name"
-                      className="mb-2 block text-sm font-medium text-white/90 transition-colors duration-300 group-hover/input:text-white"
+                      className="mb-2 block text-sm font-medium text-white/90"
                     >
                       Your Name
                     </label>
@@ -257,14 +257,14 @@ const Home: React.FC = () => {
                       name="name"
                       placeholder="Enter your name"
                       required
-                      className="h-12 w-full rounded-xl border-2 border-white/20 bg-white/10 px-4 text-base text-white placeholder-white/60 outline-none transition-all duration-300 hover:border-white/30 focus:border-white/35 focus:ring-2 focus:ring-white/15 group-hover/input:bg-white/15"
+                      className="h-12 w-full rounded-xl border-2 border-white/20 bg-white/10 px-4 text-base text-white placeholder-white/60 outline-none transition-colors duration-300 focus:border-white/35 focus:ring-2 focus:ring-white/15"
                     />
                   </div>
 
-                  <div className="group/input">
+                  <div>
                     <label
                       htmlFor="email"
-                      className="mb-2 block text-sm font-medium text-white/90 transition-colors duration-300 group-hover/input:text-white"
+                      className="mb-2 block text-sm font-medium text-white/90"
                     >
                       Email Address
                     </label>
@@ -274,15 +274,15 @@ const Home: React.FC = () => {
                       name="email"
                       placeholder="your@email.com"
                       required
-                      className="h-12 w-full rounded-xl border-2 border-white/20 bg-white/10 px-4 text-base text-white placeholder-white/60 outline-none transition-all duration-300 hover:border-white/30 focus:border-white/35 focus:ring-2 focus:ring-white/15 group-hover/input:bg-white/15"
+                      className="h-12 w-full rounded-xl border-2 border-white/20 bg-white/10 px-4 text-base text-white placeholder-white/60 outline-none transition-colors duration-300 focus:border-white/35 focus:ring-2 focus:ring-white/15"
                     />
                   </div>
                 </div>
 
-                <div className="group/input">
+                <div>
                   <label
                     htmlFor="message"
-                    className="mb-2 block text-sm font-medium text-white/90 transition-colors duration-300 group-hover/input:text-white"
+                    className="mb-2 block text-sm font-medium text-white/90"
                   >
                     Your Message
                   </label>
@@ -292,7 +292,7 @@ const Home: React.FC = () => {
                     placeholder="Write your message here..."
                     rows={4}
                     required
-                    className="w-full resize-none rounded-xl border-2 border-white/20 bg-white/10 px-4 py-3 text-base text-white placeholder-white/60 outline-none transition-all duration-300 hover:border-white/30 focus:border-white/35 focus:ring-2 focus:ring-white/15 group-hover/input:bg-white/15"
+                    className="w-full resize-none rounded-xl border-2 border-white/20 bg-white/10 px-4 py-3 text-base text-white placeholder-white/60 outline-none transition-colors duration-300 focus:border-white/35 focus:ring-2 focus:ring-white/15"
                   ></textarea>
                 </div>
 
@@ -300,7 +300,7 @@ const Home: React.FC = () => {
                   <button
                     type="submit"
                     disabled={isSubmitting}
-                    className="button-hover-clean inline-flex items-center bg-gradient-to-r from-secondary to-secondary-light text-primary px-8 py-3 rounded-full font-semibold text-lg transition-all duration-300 shadow-xl hover:shadow-2xl transform hover:scale-105 disabled:opacity-50 disabled:cursor-not-allowed"
+                    className="button-hover-clean inline-flex items-center rounded-full bg-gradient-to-r from-secondary to-secondary-light px-8 py-3 text-lg font-semibold text-primary shadow-xl transition-all duration-300 disabled:cursor-not-allowed disabled:opacity-50"
                   >
                     <span className="mr-2">
                       {isSubmitting ? 'Sending...' : 'Send Message'}

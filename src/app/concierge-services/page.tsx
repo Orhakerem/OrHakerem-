@@ -16,28 +16,25 @@ function ServiceCard({ icon: Icon, title, description, delay }: ServiceCardProps
   return (
     <div
       data-animate="scale"
-      className="service-card group relative bg-white rounded-xl p-5 transition-all duration-500 hover:scale-105 hover:shadow-2xl border border-gray-100"
+      className="service-card relative rounded-xl border border-gray-100 bg-white p-5"
       style={{ animationDelay: `${delay}ms` }}
     >
-      {/* Gradient overlay on hover */}
-      <div className="absolute inset-0 rounded-xl bg-gradient-to-br from-black/[0.02] to-black/[0.05] opacity-0 transition-opacity duration-300 group-hover:opacity-100"></div>
-
       {/* Floating icon container - Reduced size */}
       <div className="relative inline-block mb-4">
-        <div className="relative p-3 bg-gradient-to-br from-secondary to-secondary-light rounded-full shadow-lg group-hover:shadow-xl transition-all duration-300 group-hover:scale-110">
-          <div className="absolute inset-0 rounded-full bg-white/20 group-hover:bg-white/30 transition-colors duration-300"></div>
-          <Icon className="relative z-10 h-6 w-6 text-primary transition-opacity duration-300 group-hover:opacity-90" />
+        <div className="relative rounded-full bg-gradient-to-br from-secondary to-secondary-light p-3 shadow-lg">
+          <div className="absolute inset-0 rounded-full bg-white/20"></div>
+          <Icon className="relative z-10 h-6 w-6 text-primary" />
         </div>
         {/* Floating animation ring */}
-        <div className="absolute inset-0 rounded-full border-2 border-white/35 animate-pulse transition-colors duration-300 group-hover:border-black/10"></div>
+        <div className="absolute inset-0 rounded-full border-2 border-white/35 animate-pulse"></div>
       </div>
 
       {/* Reduced heading size */}
-      <h3 className="relative z-10 mb-3 font-playfair text-xl font-bold text-primary transition-opacity duration-300 group-hover:opacity-80">
+      <h3 className="relative z-10 mb-3 font-playfair text-xl font-bold text-primary">
         {title}
       </h3>
       {/* Reduced text size and spacing */}
-      <p className="relative z-10 text-sm leading-relaxed text-primary/80 transition-opacity duration-300 group-hover:opacity-85">
+      <p className="relative z-10 text-sm leading-relaxed text-primary/80">
         {description}
       </p>
     </div>
@@ -305,7 +302,7 @@ export default function ConciergeServicesPage() {
                     <button
                       type="submit"
                       disabled={isSubmitting}
-                      className="button-hover-clean inline-flex items-center bg-gradient-to-r from-secondary to-secondary-light text-primary px-8 py-2.5 rounded-full font-semibold text-sm transition-all duration-300 shadow-lg hover:shadow-xl transform hover:scale-105 disabled:opacity-50 disabled:cursor-not-allowed"
+                      className="button-hover-clean inline-flex items-center rounded-full bg-gradient-to-r from-secondary to-secondary-light px-8 py-2.5 text-sm font-semibold text-primary shadow-lg disabled:cursor-not-allowed disabled:opacity-50"
                     >
                       <span className="mr-2">
                         {isSubmitting ? 'Sending...' : 'Submit Request'}
@@ -328,7 +325,7 @@ export default function ConciergeServicesPage() {
       {showBackToTop && (
         <button
           onClick={scrollToTop}
-          className="fixed bottom-8 right-8 bg-gradient-to-r from-secondary to-secondary-light text-primary p-4 rounded-full shadow-lg hover:shadow-xl transition-all duration-300 z-40 hover:scale-110"
+          className="fixed bottom-8 right-8 z-40 rounded-full bg-gradient-to-r from-secondary to-secondary-light p-4 text-primary shadow-lg"
           aria-label="Back to top"
         >
           <ArrowUp className="w-6 h-6" />

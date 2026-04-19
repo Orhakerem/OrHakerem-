@@ -194,7 +194,7 @@ export default function Events() {
                   {eventTypes.map((event, index) => (
                     <div
                       key={index}
-                      className="flex items-center justify-center rounded-xl bg-gradient-to-br from-secondary/10 to-tertiary/10 p-4 transition-all duration-300 hover:bg-black/[0.03] hover:shadow-sm"
+                      className="flex items-center justify-center rounded-xl bg-gradient-to-br from-secondary/10 to-tertiary/10 p-4"
                     >
                       <span className="text-primary font-medium text-sm">{event}</span>
                     </div>
@@ -211,9 +211,9 @@ export default function Events() {
                   {venueFeatures.map((feature, index) => (
                     <div
                       key={index}
-                      className="group"
+                      className=""
                     >
-                      <span className="text-primary/80 transition-opacity duration-300 group-hover:opacity-80">{feature}</span>
+                      <span className="text-primary/80">{feature}</span>
                     </div>
                   ))}
                 </div>
@@ -274,11 +274,10 @@ export default function Events() {
             ) : (
               <>
                 <div className="events-plan-cta text-center mb-8">
-                  <div className="inline-block relative group">
-                    <div className="absolute inset-0 rounded-full bg-gradient-to-r from-black/10 to-black/[0.03] blur-lg opacity-0 transition-opacity duration-300 group-hover:opacity-100"></div>
+                  <div className="inline-block relative">
                     <button
                       onClick={() => setShowForm(true)}
-                      className="button-hover-clean relative inline-flex items-center rounded-full bg-gradient-to-r from-secondary to-secondary-light px-10 py-3 text-base font-semibold text-primary shadow-xl transition-all duration-300 hover:shadow-2xl hover:scale-105"
+                      className="button-hover-clean relative inline-flex items-center rounded-full bg-gradient-to-r from-secondary to-secondary-light px-10 py-3 text-base font-semibold text-primary shadow-xl"
                     >
                       <Calendar className="w-5 h-5 mr-2" />
                       <span>Inquire About Events</span>
@@ -320,7 +319,7 @@ export default function Events() {
                 <button
                   type="button"
                   onClick={() => setShowForm(false)}
-                  className="shrink-0 rounded-full border border-primary/10 p-2 text-primary/60 transition-all duration-300 hover:bg-black/[0.03] hover:opacity-80"
+                  className="shrink-0 rounded-full border border-primary/10 p-2 text-primary/60"
                 >
                   <span className="sr-only">Close</span>
                   ✕
@@ -340,7 +339,7 @@ export default function Events() {
                       id="eventType"
                       name="eventType"
                       required
-                      className="w-full rounded-lg border border-gray-300 px-4 py-3 transition-colors hover:border-black/10 focus:border-black/15 focus:ring-2 focus:ring-black/10"
+                      className="w-full rounded-lg border border-gray-300 px-4 py-3 focus:border-black/15 focus:ring-2 focus:ring-black/10"
                     >
                       <option value="">Select event type</option>
                       <option value="wedding">Wedding</option>
@@ -378,7 +377,7 @@ export default function Events() {
                       required
                       min="1"
                       max="80"
-                      className="w-full rounded-lg border border-gray-300 px-4 py-3 transition-colors hover:border-black/10 focus:border-black/15 focus:ring-2 focus:ring-black/10"
+                      className="w-full rounded-lg border border-gray-300 px-4 py-3 focus:border-black/15 focus:ring-2 focus:ring-black/10"
                     />
                   </div>
 
@@ -395,7 +394,7 @@ export default function Events() {
                         id="name"
                         name="name"
                         required
-                        className="w-full rounded-lg border border-gray-300 px-4 py-3 transition-colors hover:border-black/10 focus:border-black/15 focus:ring-2 focus:ring-black/10"
+                        className="w-full rounded-lg border border-gray-300 px-4 py-3 focus:border-black/15 focus:ring-2 focus:ring-black/10"
                       />
                     </div>
 
@@ -413,7 +412,7 @@ export default function Events() {
                           id="email"
                           name="email"
                           required
-                          className="w-full rounded-lg border border-gray-300 py-3 pl-10 pr-4 transition-colors hover:border-black/10 focus:border-black/15 focus:ring-2 focus:ring-black/10"
+                          className="w-full rounded-lg border border-gray-300 py-3 pl-10 pr-4 focus:border-black/15 focus:ring-2 focus:ring-black/10"
                         />
                       </div>
                     </div>
@@ -433,7 +432,7 @@ export default function Events() {
                           id="phone"
                           name="phone"
                           required
-                          className="w-full rounded-lg border border-gray-300 py-3 pl-10 pr-4 transition-colors hover:border-black/10 focus:border-black/15 focus:ring-2 focus:ring-black/10"
+                          className="w-full rounded-lg border border-gray-300 py-3 pl-10 pr-4 focus:border-black/15 focus:ring-2 focus:ring-black/10"
                         />
                     </div>
                   </div>
@@ -443,7 +442,7 @@ export default function Events() {
                       Preferred Contact Method
                     </label>
                     <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-                      <label className={`group relative flex cursor-pointer items-center justify-center rounded-lg border p-4 transition-all ${contactMethod === 'email' ? 'border-black/10 bg-black/[0.03] shadow-sm' : 'border-gray-200 bg-white hover:border-black/10 hover:bg-black/[0.02]'}`}>
+                      <label className={`relative flex cursor-pointer items-center justify-center rounded-lg border p-4 ${contactMethod === 'email' ? 'border-black/10 bg-black/[0.03] shadow-sm' : 'border-gray-200 bg-white'}`}>
                         <input
                           type="radio"
                           name="contactMethod"
@@ -452,17 +451,13 @@ export default function Events() {
                           onChange={(e) => setContactMethod(e.target.value)}
                           className="absolute opacity-0"
                         />
-                        <Mail
-                          className="h-5 w-5 text-primary transition-opacity duration-300 group-hover:opacity-80"
-                        />
-                        <span
-                          className="ml-2 text-primary transition-opacity duration-300 group-hover:opacity-80"
-                        >
+                        <Mail className="h-5 w-5 text-primary" />
+                        <span className="ml-2 text-primary">
                           Email
                         </span>
                       </label>
 
-                      <label className={`group relative flex cursor-pointer items-center justify-center rounded-lg border p-4 transition-all ${contactMethod === 'phone' ? 'border-black/10 bg-black/[0.03] shadow-sm' : 'border-gray-200 bg-white hover:border-black/10 hover:bg-black/[0.02]'}`}>
+                      <label className={`relative flex cursor-pointer items-center justify-center rounded-lg border p-4 ${contactMethod === 'phone' ? 'border-black/10 bg-black/[0.03] shadow-sm' : 'border-gray-200 bg-white'}`}>
                         <input
                           type="radio"
                           name="contactMethod"
@@ -471,17 +466,13 @@ export default function Events() {
                           onChange={(e) => setContactMethod(e.target.value)}
                           className="absolute opacity-0"
                         />
-                        <Phone
-                          className="h-5 w-5 text-primary transition-opacity duration-300 group-hover:opacity-80"
-                        />
-                        <span
-                          className="ml-2 text-primary transition-opacity duration-300 group-hover:opacity-80"
-                        >
+                        <Phone className="h-5 w-5 text-primary" />
+                        <span className="ml-2 text-primary">
                           Phone
                         </span>
                       </label>
 
-                      <label className={`group relative flex cursor-pointer items-center justify-center rounded-lg border p-4 transition-all ${contactMethod === 'whatsapp' ? 'border-black/10 bg-black/[0.03] shadow-sm' : 'border-gray-200 bg-white hover:border-black/10 hover:bg-black/[0.02]'}`}>
+                      <label className={`relative flex cursor-pointer items-center justify-center rounded-lg border p-4 ${contactMethod === 'whatsapp' ? 'border-black/10 bg-black/[0.03] shadow-sm' : 'border-gray-200 bg-white'}`}>
                         <input
                           type="radio"
                           name="contactMethod"
@@ -490,12 +481,8 @@ export default function Events() {
                           onChange={(e) => setContactMethod(e.target.value)}
                           className="absolute opacity-0"
                         />
-                        <MessageSquare
-                          className="h-5 w-5 text-primary transition-opacity duration-300 group-hover:opacity-80"
-                        />
-                        <span
-                          className="ml-2 text-primary transition-opacity duration-300 group-hover:opacity-80"
-                        >
+                        <MessageSquare className="h-5 w-5 text-primary" />
+                        <span className="ml-2 text-primary">
                           WhatsApp
                         </span>
                       </label>
@@ -513,7 +500,7 @@ export default function Events() {
                       id="message"
                       name="message"
                       rows={4}
-                      className="w-full rounded-lg border border-gray-300 px-4 py-3 transition-colors hover:border-black/10 focus:border-black/15 focus:ring-2 focus:ring-black/10"
+                      className="w-full rounded-lg border border-gray-300 px-4 py-3 focus:border-black/15 focus:ring-2 focus:ring-black/10"
                       placeholder="Please share any specific requirements, dietary restrictions, special arrangements, or questions about your event..."
                     ></textarea>
                   </div>
@@ -522,7 +509,7 @@ export default function Events() {
                     <button
                       type="button"
                       onClick={() => setShowForm(false)}
-                      className="flex-1 px-6 py-3 border border-gray-300 rounded-lg text-primary hover:bg-gray-50 transition"
+                      className="flex-1 rounded-lg border border-gray-300 px-6 py-3 text-primary"
                     >
                       Cancel
                     </button>
@@ -545,7 +532,7 @@ export default function Events() {
       {showBackToTop && (
         <button
           onClick={scrollToTop}
-          className="fixed bottom-8 right-8 bg-gradient-to-r from-secondary to-secondary-light text-primary p-4 rounded-full shadow-lg hover:shadow-xl transition-all duration-300 z-40 hover:scale-110"
+          className="fixed bottom-8 right-8 z-40 rounded-full bg-gradient-to-r from-secondary to-secondary-light p-4 text-primary shadow-lg"
           aria-label="Back to top"
         >
           <ArrowUp className="w-6 h-6" />
