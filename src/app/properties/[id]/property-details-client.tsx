@@ -1,0 +1,547 @@
+'use client';
+
+import {
+  ArrowLeft,
+  Baby,
+  Bath,
+  BedDouble,
+  Calendar,
+  Chrome as Home,
+  Coffee,
+  Dumbbell,
+  Laptop,
+  MapPin,
+  Shirt,
+  Sofa,
+  Tv,
+  Users,
+  Utensils,
+  UtensilsCrossed,
+  Waves,
+  Wifi,
+  Wind,
+} from 'lucide-react';
+
+import React, { useState } from 'react';
+
+import Image from 'next/image';
+import { useRouter } from 'next/navigation';
+import Link from 'next/link';
+
+import BookingRangeCalendar from '@/components/BookingRangeCalendar';
+import RoomGallery from '@/components/RoomGallery';
+import {
+  type BookingDateRange,
+  getNightCount,
+  isValidBookingRange,
+} from '@/lib/booking-dates';
+import type { CalendarSyncStatus } from '@/lib/bookable-properties';
+
+interface PropertyDetailsClientProps {
+  propertyId: string;
+  blockedDates?: readonly string[];
+  availabilityStatus?: CalendarSyncStatus;
+}
+
+const properties = {
+  'penthouse-jacuzzi': {
+    title: 'Luxury Penthouse',
+    location: 'Kerem HaTeimanim, Tel Aviv',
+    description:
+      'Luxurious penthouse featuring a private jacuzzi, BBQ area, and breathtaking sea views.',
+    longDescription: `This unique penthouse located in the heart of Tel Aviv, just steps from the beach and the Carmel Market.
+
+Perfect for both friendly or family stays equipped with amenities like the jacuzzi and barbecue, and live a unforgettable experience in a special place.
+
+All bedrooms are equipped with a queen size bed, storage cupboards and curtains for total darkness if desired, the large bedroom is equipped with a baby bed. The kitchen is fully equipped; coffee machine, microwave, oven…
+
+The outdoor dining area is perfect for BBQ evenings.
+
+The main feature of this apartment is the terrace, with amenities such as BBQ, jacuzzi and sea views you can be sure to have an unforgettable experience and leave with wonderful memories!`,
+    price: 2500,
+    cleaningFee: 650,
+    images: [
+      '/penthouse/1-jacuzzi-angle.JPEG',
+      '/penthouse/salon_angle_1.JPG',
+      '/penthouse/3-chambre-master-angle-1.jpg',
+      '/penthouse/4-terrasse-ext-coucher-soleil.png',
+      '/penthouse/5-cuisine-angle-1.jpg',
+      '/penthouse/6-salle-de-bain-douche-angle-2.jpg',
+      '/penthouse/7-vue-mer.jpg',
+      '/penthouse/salon_angle_2.JPG',
+      '/penthouse/8-ext-drone-13.jpg',
+      '/penthouse/9-ext-drone-3.jpg',
+      '/penthouse/11-espace-repas-angle.JPEG',
+      '/penthouse/12-chambre-entre-angle-2.jpg',
+      '/penthouse/13-chambre-entrée-angle-1.jpg',
+      '/penthouse/14-espace-laverie.jpg',
+      '/penthouse/15-douche.jpg',
+      '/penthouse/salon_angle_3.JPG',
+      '/penthouse/17-chambre-master-angle-2.jpg',
+      '/penthouse/18-chambre-master-angle-3.jpg',
+      '/penthouse/19-toilette-lavabo-angle-2.jpg',
+      '/penthouse/20-toilette-lavabo-angle-1.jpg',
+      '/penthouse/21-chambre-fenêtre-angle-3.jpg',
+      '/penthouse/22-chambre-fenêtre-angle-1.jpg',
+      '/penthouse/23-ext-drone-12.jpg',
+      '/penthouse/24-ext-drone-4.jpg',
+      '/penthouse/25-ext-drone-10.jpg',
+      '/penthouse/26-jacuzzi-angle-2.JPEG',
+      '/penthouse/27-chambre-fenêtre-angle-2.jpg',
+      '/penthouse/chaises_hautes_angle 1.JPG',
+      '/penthouse/chaises_hautes_angle 2.JPG',
+    ],
+    rooms: [
+      {
+        name: 'Master Bedroom',
+        description: 'Spacious master bedroom with queen size bed and sea views',
+        images: [
+          { src: '/penthouse/3-chambre-master-angle-1.jpg', alt: 'Master bedroom view 1' },
+          { src: '/penthouse/17-chambre-master-angle-2.jpg', alt: 'Master bedroom view 2' },
+          { src: '/penthouse/18-chambre-master-angle-3.jpg', alt: 'Master bedroom view 3' },
+        ],
+      },
+      {
+        name: 'Second Bedroom',
+        description: 'Comfortable bedroom with queen size bed and storage',
+        images: [
+          { src: '/penthouse/12-chambre-entre-angle-2.jpg', alt: 'Second bedroom view 1' },
+          { src: '/penthouse/13-chambre-entrée-angle-1.jpg', alt: 'Second bedroom view 2' },
+        ],
+      },
+      {
+        name: 'Third Bedroom',
+        description: 'Cozy bedroom with queen size bed and blackout curtains',
+        images: [
+          { src: '/penthouse/21-chambre-fenêtre-angle-3.jpg', alt: 'Third bedroom view 1' },
+          { src: '/penthouse/22-chambre-fenêtre-angle-1.jpg', alt: 'Third bedroom view 2' },
+          { src: '/penthouse/27-chambre-fenêtre-angle-2.jpg', alt: 'Third bedroom view 3' },
+        ],
+      },
+      {
+        name: 'Living Areas',
+        description: 'Bright and spacious living room and dining area',
+        images: [
+          { src: '/penthouse/salon_angle_1.JPG', alt: 'Living room angle 1' },
+          { src: '/penthouse/salon_angle_2.JPG', alt: 'Living room angle 2' },
+          { src: '/penthouse/salon_angle_3.JPG', alt: 'Living room angle 3' },
+          { src: '/penthouse/11-espace-repas-angle.JPEG', alt: 'Dining area' },
+        ],
+      },
+      {
+        name: 'Kitchen',
+        description: 'Fully equipped modern kitchen with all amenities',
+        images: [{ src: '/penthouse/5-cuisine-angle-1.jpg', alt: 'Kitchen view' }],
+      },
+      {
+        name: 'Bathrooms',
+        description: 'Three modern bathrooms with shower and toilet facilities',
+        images: [
+          { src: '/penthouse/6-salle-de-bain-douche-angle-2.jpg', alt: 'Main bathroom' },
+          { src: '/penthouse/15-douche.jpg', alt: 'Shower area' },
+          { src: '/penthouse/19-toilette-lavabo-angle-2.jpg', alt: 'Toilet and sink 1' },
+          { src: '/penthouse/20-toilette-lavabo-angle-1.jpg', alt: 'Toilet and sink 2' },
+          { src: '/penthouse/28-toilette-lavabo-angle-1.jpg', alt: 'Additional toilet 1' },
+          { src: '/penthouse/29-toilette-lavabo-angle-2.jpg', alt: 'Additional toilet 2' },
+        ],
+      },
+      {
+        name: 'Terrace & Jacuzzi',
+        description: 'Private terrace with jacuzzi, BBQ area and sea views',
+        images: [
+          { src: '/penthouse/1-jacuzzi-angle.JPEG', alt: 'Jacuzzi main view' },
+          { src: '/penthouse/26-jacuzzi-angle-2.JPEG', alt: 'Jacuzzi alternative view' },
+          { src: '/penthouse/4-terrasse-ext-coucher-soleil.png', alt: 'Terrace sunset view' },
+          { src: '/penthouse/7-vue-mer.jpg', alt: 'Sea view from terrace' },
+          { src: '/penthouse/chaises_hautes_angle 1.JPG', alt: 'Terrace high chairs angle 1' },
+          { src: '/penthouse/chaises_hautes_angle 2.JPG', alt: 'Terrace high chairs angle 2' },
+        ],
+      },
+      {
+        name: 'Building & Exterior',
+        description: 'Historic building and stunning aerial views',
+        images: [
+          { src: '/penthouse/8-ext-drone-13.jpg', alt: 'Aerial view 1' },
+          { src: '/penthouse/9-ext-drone-3.jpg', alt: 'Aerial view 2' },
+          { src: '/penthouse/23-ext-drone-12.jpg', alt: 'Aerial view 3' },
+          { src: '/penthouse/24-ext-drone-4.jpg', alt: 'Aerial view 4' },
+          { src: '/penthouse/25-ext-drone-10.jpg', alt: 'Aerial view 5' },
+        ],
+      },
+      {
+        name: 'Utilities',
+        description: 'Laundry area and additional facilities',
+        images: [{ src: '/penthouse/14-espace-laverie.jpg', alt: 'Laundry area' }],
+      },
+    ],
+    amenities: [
+      { icon: Waves, name: 'Beach Access', description: '2 minutes walk to the beach' },
+      { icon: UtensilsCrossed, name: 'BBQ Area', description: 'Outdoor BBQ with all utensils' },
+      { icon: Bath, name: 'Jacuzzi', description: 'Private rooftop jacuzzi' },
+      { icon: Wind, name: 'Air Conditioning', description: 'Central air throughout' },
+      { icon: Coffee, name: 'Coffee Station', description: 'Espresso machine & coffee maker' },
+      { icon: Baby, name: 'Family Friendly', description: 'Baby cot and high chair available' },
+      { icon: Dumbbell, name: 'Fitness Equipment', description: 'Basic exercise equipment' },
+      { icon: Shirt, name: 'Laundry', description: 'Washer/dryer in unit' },
+      { icon: Laptop, name: 'Work Space', description: 'Dedicated desk and chair' },
+      { icon: Wifi, name: 'High-speed WiFi', description: 'Throughout the property' },
+    ],
+    maxGuests: 7,
+    bedrooms: 3,
+    beds: 3,
+    baths: 3,
+  },
+  'cozy-studio': {
+    title: 'Spacious & Cosy Apartment',
+    location: 'Kerem HaTeimanim, Tel Aviv',
+    description: 'Completely renovated studio perfect for short to long term stays.',
+    longDescription: `This renovated apartment is perfect for short, medium, and long-term stays. Fully equipped and located 2 minutes walk from the beach, the Shouk Hacarmel and the entrance of Kerem Hateimanim, live a unique experience.
+
+    Enjoy the comfort of this cosy studio apartment in the heart of Tel Aviv ☀️ 
+
+    The apartment is a large room divided into two parts: on one side you'll find the entrance, equipped with an opening sofa, a table with chairs, a TV hanging on the wall and the bathroom just behind it. On the other side you'll find the bed, the wardrobe and the mini-kitchen with everything you need to prepare your meals.
+
+    The studio is located on the 1st floor of a unique building that is described as a historical monument dating from the Ottoman Empire.`,
+    price: 500,
+    cleaningFee: 200,
+    images: [
+      '/studio/Salon_angle_1.jpg',
+      '/studio/lit_angle_1.jpg',
+      '/studio/Salon_angle_1_Zoom.jpg',
+      '/studio/cuisine_angle_2.jpg',
+      '/studio/Salle_de_bain_angle_1.jpg',
+      '/studio/Chambre_angle_3.jpg',
+      '/studio/Salon_angle_3.jpg',
+      '/studio/Salon_angle_2.jpg',
+      '/studio/Salle_de_bain_angle_2.jpg',
+      '/studio/Chambre_angle_2.jpg',
+      '/studio/Chambre_angle_1.jpg',
+      '/studio/Cuisine_angle_1.jpg',
+      '/studio/Salon_angle_3_Zoom.jpg',
+      '/studio/Salle_de_bain_angle_3.jpg',
+      '/studio/Salon_angle_4.jpg',
+      '/studio/Canape_ouvert_angle_1.jpg',
+      '/studio/Canape_ouvert_angle_2.jpg',
+    ],
+    rooms: [
+      {
+        name: 'Bedroom',
+        description: 'Comfortable sleeping area with storage',
+        images: [
+          { src: '/studio/Chambre_angle_1.jpg', alt: 'Chambre angle 1' },
+          { src: '/studio/Chambre_angle_2.jpg', alt: 'Chambre angle 2' },
+          { src: '/studio/Chambre_angle_3.jpg', alt: 'Chambre angle 3' },
+          { src: '/studio/lit_angle_1.jpg', alt: 'Lit angle 1' },
+        ],
+      },
+      {
+        name: 'Kitchen',
+        description: 'Compact kitchen fully equipped for everyday cooking',
+        images: [
+          { src: '/studio/Cuisine_angle_1.jpg', alt: 'Cuisine angle 1' },
+          { src: '/studio/cuisine_angle_2.jpg', alt: 'Cuisine angle 2' },
+        ],
+      },
+      {
+        name: 'Living Area',
+        description: 'Open plan living space with dining area and lounge seating',
+        images: [
+          { src: '/studio/Salon_angle_1.jpg', alt: 'Salon angle 1' },
+          { src: '/studio/Salon_angle_1_Zoom.jpg', alt: 'Salon angle 1 zoom' },
+          { src: '/studio/Salon_angle_2.jpg', alt: 'Salon angle 2' },
+          { src: '/studio/Salon_angle_3.jpg', alt: 'Salon angle 3' },
+          { src: '/studio/Salon_angle_3_Zoom.jpg', alt: 'Salon angle 3 zoom' },
+          { src: '/studio/Salon_angle_4.jpg', alt: 'Salon angle 4' },
+        ],
+      },
+      {
+        name: 'Sofa Bed Area',
+        description: 'Convertible sofa area near the entrance for additional sleeping space',
+        images: [
+          { src: '/studio/Canape_ouvert_angle_1.jpg', alt: 'Canape ouvert angle 1' },
+          { src: '/studio/Canape_ouvert_angle_2.jpg', alt: 'Canape ouvert angle 2' },
+        ],
+      },
+      {
+        name: 'Bathroom',
+        description: 'Private bathroom with shower and vanity',
+        images: [
+          { src: '/studio/Salle_de_bain_angle_1.jpg', alt: 'Salle de bain angle 1' },
+          { src: '/studio/Salle_de_bain_angle_2.jpg', alt: 'Salle de bain angle 2' },
+          { src: '/studio/Salle_de_bain_angle_3.jpg', alt: 'Salle de bain angle 3' },
+        ],
+      },
+    ],
+    amenities: [
+      { icon: Waves, name: 'Beach Access', description: '2 minutes to beach' },
+      { icon: Wind, name: 'Air Conditioning', description: 'Central air conditioning' },
+      { icon: Coffee, name: 'Coffee Setup', description: 'Electric kettle & coffee maker' },
+      { icon: UtensilsCrossed, name: 'Mini Kitchen', description: 'Equipped for meal prep' },
+      { icon: Tv, name: 'Smart TV', description: 'Wall-mounted TV' },
+      { icon: Sofa, name: 'Convertible Sofa', description: 'Additional sleeping space' },
+      { icon: BedDouble, name: 'Comfortable Bed', description: 'Quality bedding provided' },
+      { icon: Utensils, name: 'Full Amenities', description: 'All essentials provided' },
+      { icon: Wifi, name: 'High-speed WiFi', description: 'Throughout the studio' },
+    ],
+    maxGuests: 4,
+    bedrooms: 1,
+    beds: 1,
+    baths: 1,
+  },
+};
+
+export default function PropertyDetailsClient({
+  propertyId,
+  blockedDates = [],
+  availabilityStatus = 'ready',
+}: PropertyDetailsClientProps) {
+  const router = useRouter();
+  const [currentImageIndex, setCurrentImageIndex] = useState(0);
+  const [dateRange, setDateRange] = useState<BookingDateRange>({
+    checkIn: null,
+    checkOut: null,
+  });
+  const property = properties[propertyId as keyof typeof properties];
+  const propertyPageHeading = (
+    <h1
+      className={
+        property
+          ? 'font-playfair text-3xl font-bold text-navy mb-2'
+          : 'text-2xl font-bold text-navy mb-4'
+      }
+    >
+      {property ? property.title : 'Property Not Found'}
+    </h1>
+  );
+
+  if (!property) {
+    return (
+      <div className="min-h-screen pt-24 pb-20">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+          {propertyPageHeading}
+          <button
+            onClick={() => router.push('/properties')}
+            className="button-hover-clean rounded-md bg-gold px-6 py-2 text-navy transition"
+          >
+            Back to Properties
+          </button>
+        </div>
+      </div>
+    );
+  }
+
+  const nextImage = () => {
+    setCurrentImageIndex((prev) => (prev + 1) % property.images.length);
+  };
+
+  const prevImage = () => {
+    setCurrentImageIndex((prev) => (prev - 1 + property.images.length) % property.images.length);
+  };
+
+  const selectedNights = getNightCount(dateRange);
+  const hasValidDateRange = isValidBookingRange(dateRange, undefined, blockedDates);
+
+  const handleBookNow = () => {
+    const searchParams = new URLSearchParams({
+      property: property.title,
+    });
+
+    if (hasValidDateRange && dateRange.checkIn && dateRange.checkOut) {
+      searchParams.set('checkIn', dateRange.checkIn);
+      searchParams.set('checkOut', dateRange.checkOut);
+    }
+
+    router.push(`/reservation?${searchParams.toString()}`);
+  };
+
+  return (
+    <div className="min-h-screen pt-24 pb-20">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="mb-6">
+          <Link
+            href="/properties"
+            className="inline-flex items-center rounded-full border border-primary/20 bg-white/80 px-6 py-3 text-lg font-semibold text-primary shadow-lg transition-all duration-300"
+          >
+            <div className="relative mr-3">
+              <ArrowLeft className="w-5 h-5" />
+            </div>
+            <Home className="w-5 h-5 mr-2 opacity-70" />
+            <span className="relative z-10">Back to Properties</span>
+          </Link>
+        </div>
+
+        <div className="bg-white rounded-xl shadow-lg overflow-hidden">
+          <div className="relative">
+            <div className="relative h-[60vh]">
+              <Image
+                src={property.images[currentImageIndex]}
+                alt={property.title}
+                fill
+                className="object-cover"
+                priority={currentImageIndex === 0}
+                loading={currentImageIndex === 0 ? 'eager' : 'lazy'}
+                sizes="(max-width: 768px) 100vw, 1200px"
+              />
+              <div className="absolute bottom-4 right-4 bg-black/50 px-3 py-1 rounded-full text-white text-sm">
+                {currentImageIndex + 1} / {property.images.length}
+              </div>
+              <button
+                onClick={prevImage}
+                className="absolute left-4 top-1/2 -translate-y-1/2 rounded-full bg-white p-2 shadow-lg"
+              >
+                ←
+              </button>
+              <button
+                onClick={nextImage}
+                className="absolute right-4 top-1/2 -translate-y-1/2 rounded-full bg-white p-2 shadow-lg"
+              >
+                →
+              </button>
+            </div>
+          </div>
+
+          <div className="p-8">
+            <div className="max-w-4xl mx-auto">
+              <div className="flex justify-between items-start mb-6">
+                <div>
+                  {propertyPageHeading}
+                  <div className="flex items-center text-navy/60">
+                    <MapPin className="w-5 h-5 mr-1" />
+                    {property.location}
+                  </div>
+                </div>
+                <div className="text-right">
+                  <div className="text-navy">
+                    <span className="font-bold text-2xl">{property.price}₪</span>
+                    <span className="text-navy/60"> / night</span>
+                  </div>
+                </div>
+              </div>
+
+              <div className="flex items-center justify-between p-4 border-y border-gray-200 mb-8">
+                <div className="text-center">
+                  <BedDouble className="w-6 h-6 mx-auto mb-1 text-navy" />
+                  <div className="text-sm text-navy/80">{property.bedrooms} bedroom</div>
+                </div>
+                <div className="text-center">
+                  <BedDouble className="w-6 h-6 mx-auto mb-1 text-navy" />
+                  <div className="text-sm text-navy/80">{property.beds} bed</div>
+                </div>
+                <div className="text-center">
+                  <Bath className="w-6 h-6 mx-auto mb-1 text-navy" />
+                  <div className="text-sm text-navy/80">{property.baths} bath</div>
+                </div>
+                <div className="text-center">
+                  <Users className="w-6 h-6 mx-auto mb-1 text-navy" />
+                  <div className="text-sm text-navy/80">Up to {property.maxGuests} guests</div>
+                </div>
+              </div>
+
+              <div className="prose prose-navy max-w-none mb-8">
+                <h2 className="font-playfair text-2xl font-bold text-navy mb-4">
+                  About this space
+                </h2>
+                {property.longDescription.split('\n\n').map((paragraph, index) => (
+                  <p key={index} className="text-navy/80 mb-4">
+                    {paragraph}
+                  </p>
+                ))}
+              </div>
+
+              <div className="mb-8">
+                <h2 className="font-playfair text-2xl font-bold text-navy mb-6">
+                  What this place offers
+                </h2>
+                <div className="grid md:grid-cols-2 gap-4">
+                  {property.amenities.map((amenity, index) => (
+                    <div key={index} className="flex items-start p-4 bg-cream rounded-lg">
+                      <amenity.icon className="w-6 h-6 text-navy mr-3 shrink-0" />
+                      <div>
+                        <h3 className="font-semibold text-navy">{amenity.name}</h3>
+                        <p className="text-sm text-navy/60">{amenity.description}</p>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </div>
+
+              <div className="mb-8">
+                <h2 className="font-playfair text-2xl font-bold text-primary mb-6">
+                  Room Gallery
+                </h2>
+                <p className="text-primary/80 mb-6">
+                  Explore each room and area of the property with our organized photo collections.
+                </p>
+                <RoomGallery rooms={property.rooms || []} />
+              </div>
+
+              <div className="bg-gradient-to-br from-cream to-white rounded-2xl p-8 border border-secondary/20 shadow-lg">
+                <div className="mb-6">
+                  <h3 className="font-playfair text-2xl font-bold text-primary mb-3">
+                    Book your stay
+                  </h3>
+                  <p className="text-primary/75 max-w-2xl">
+                    Choose your dates directly here, then continue to the reservation request
+                    form with your stay already filled in.
+                  </p>
+                </div>
+
+                <div className="space-y-6">
+                  <BookingRangeCalendar
+                    value={dateRange}
+                    onChange={setDateRange}
+                    blockedDates={blockedDates}
+                    availabilityStatus={availabilityStatus}
+                  />
+
+                  <div className="grid gap-5 md:grid-cols-2 xl:grid-cols-3">
+                    <div className="bg-white rounded-xl p-6 border border-primary/10 shadow-sm">
+                      <div className="flex justify-between items-center mb-4">
+                        <span className="text-primary/80 text-lg">Price per night :</span>
+                        <span className="font-bold text-2xl text-primary">{property.price}₪</span>
+                      </div>
+                      <div className="flex justify-between items-center text-primary/70">
+                        <span>Cleaning fees:</span>
+                        <span className="font-semibold">{property.cleaningFee}₪</span>
+                      </div>
+                    </div>
+
+                    <div className="bg-white rounded-xl p-5 border border-secondary/20 shadow-sm text-left">
+                      <p className="text-xs font-semibold uppercase tracking-[0.22em] text-primary/45 mb-3">
+                        Reservation status
+                      </p>
+                      {hasValidDateRange ? (
+                        <p className="text-primary font-semibold">
+                          {selectedNights} night{selectedNights === 1 ? '' : 's'} selected. Your
+                          dates will be transferred to the reservation form.
+                        </p>
+                      ) : (
+                        <p className="text-primary/70">
+                          Select a valid, available check-in and check-out to prepare your request.
+                        </p>
+                      )}
+                    </div>
+
+                    <div className="relative md:col-span-2 xl:col-span-1">
+                      <button
+                        onClick={handleBookNow}
+                        className="button-hover-clean inline-flex w-full items-center justify-center rounded-full bg-gradient-to-r from-secondary to-secondary-light px-12 py-4 text-lg font-semibold text-primary shadow-xl transition-all duration-300"
+                      >
+                        <Calendar className="w-6 h-6 mr-3" />
+                        <span>BOOK NOW</span>
+                      </button>
+
+                      <p className="mt-4 text-primary/70 text-sm font-medium text-center">
+                        Response within 24 hours garanteed
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}

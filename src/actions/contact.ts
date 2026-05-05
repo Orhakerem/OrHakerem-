@@ -40,7 +40,7 @@ export async function sendContactEmail(formData: FormData) {
 
     const resend = new Resend(apiKey);
 
-    const { data: emailData, error } = await resend.emails.send({
+    const { error } = await resend.emails.send({
       from: 'Or Hakerem <onboarding@resend.dev>',
       to: recipientEmail,
       subject: sanitizeForHeader(`New message from ${validatedData.name}`),
@@ -61,7 +61,6 @@ export async function sendContactEmail(formData: FormData) {
       };
     }
 
-    console.log('Contact email sent successfully:', emailData?.id);
     return { 
       success: true,
       message: 'Message sent successfully!'

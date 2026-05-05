@@ -17,78 +17,122 @@ import {
   isValidBookingRange,
   sanitizeBookingDateRange,
 } from '@/lib/booking-dates';
+import {
+  BOOKABLE_PROPERTY_OPTIONS,
+  type BookablePropertyId,
+  type PropertyAvailabilityStatusMap,
+  type PropertyBlockedDatesMap,
+  getBookablePropertyIdFromLabel,
+  getBookablePropertyTitle,
+} from '@/lib/bookable-properties';
 
 interface ReservationFormProps {
   initialSearchParams?: { [key: string]: string | string[] | undefined };
   embedded?: boolean;
   showIntro?: boolean;
+  availabilityByProperty?: PropertyBlockedDatesMap;
+  availabilityStatusByProperty?: PropertyAvailabilityStatusMap;
 }
 
 const EMPTY_SEARCH_PARAMS: { [key: string]: string | string[] | undefined } = {};
-
-const PROPERTY_OPTIONS = ['Luxury Penthouse', 'Spacious & Cosy Apartment'] as const;
-
-const LEGACY_PROPERTY_LABELS: Record<string, string> = {
-  Penthouse: 'Luxury Penthouse',
-  Studio: 'Spacious & Cosy Apartment',
-};
+const EMPTY_BLOCKED_DATES: string[] = [];
+const EMPTY_AVAILABILITY_BY_PROPERTY = {
+  'penthouse-jacuzzi': EMPTY_BLOCKED_DATES,
+  'cozy-studio': EMPTY_BLOCKED_DATES,
+} as PropertyBlockedDatesMap;
+const EMPTY_AVAILABILITY_STATUS_BY_PROPERTY = {
+  'penthouse-jacuzzi': 'ready',
+  'cozy-studio': 'ready',
+} as PropertyAvailabilityStatusMap;
 
 function getSingleSearchParam(value: string | string[] | undefined) {
   return typeof value === 'string' ? value : value?.[0];
 }
 
-function normalizePropertyLabel(value: string | undefined) {
-  if (!value) {
-    return '';
-  }
-
-  return LEGACY_PROPERTY_LABELS[value] ?? value;
+function areDateRangesEqual(left: BookingDateRange, right: BookingDateRange) {
+  return left.checkIn === right.checkIn && left.checkOut === right.checkOut;
 }
 
 export default function ReservationForm({
   initialSearchParams = EMPTY_SEARCH_PARAMS,
   embedded = false,
   showIntro = true,
+  availabilityByProperty = EMPTY_AVAILABILITY_BY_PROPERTY,
+  availabilityStatusByProperty = EMPTY_AVAILABILITY_STATUS_BY_PROPERTY,
 }: ReservationFormProps) {
   const router = useRouter();
   const todayIso = getTodayIsoInTimeZone();
   const initialProperty = getSingleSearchParam(initialSearchParams?.property);
   const initialCheckIn = getSingleSearchParam(initialSearchParams?.checkIn);
   const initialCheckOut = getSingleSearchParam(initialSearchParams?.checkOut);
-  const [propertyTitle, setPropertyTitle] = useState(() =>
-    normalizePropertyLabel(initialProperty),
-  );
+  const initialPropertyId = getBookablePropertyIdFromLabel(initialProperty) ?? '';
+  const initialBlockedDates =
+    initialPropertyId === ''
+      ? EMPTY_BLOCKED_DATES
+      : availabilityByProperty[initialPropertyId as BookablePropertyId] ?? EMPTY_BLOCKED_DATES;
+  const [propertyId, setPropertyId] = useState<BookablePropertyId | ''>(initialPropertyId);
   const [dateRange, setDateRange] = useState<BookingDateRange>(() =>
     sanitizeBookingDateRange(
       initialCheckIn,
       initialCheckOut,
       todayIso,
       true,
+      initialBlockedDates,
     ),
   );
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSuccess, setIsSuccess] = useState(false);
   const [contactMethod, setContactMethod] = useState('email');
+  const selectedBlockedDates =
+    propertyId === ''
+      ? EMPTY_BLOCKED_DATES
+      : availabilityByProperty[propertyId] ?? EMPTY_BLOCKED_DATES;
+  const selectedAvailabilityStatus =
+    propertyId === '' ? 'ready' : availabilityStatusByProperty[propertyId] ?? 'ready';
+  const propertyTitle = propertyId === '' ? '' : getBookablePropertyTitle(propertyId);
 
   useEffect(() => {
-    setPropertyTitle(
-      normalizePropertyLabel(initialProperty),
-    );
     setDateRange(
       sanitizeBookingDateRange(
         initialCheckIn,
         initialCheckOut,
         todayIso,
         true,
+        initialBlockedDates,
       ),
     );
-  }, [initialCheckIn, initialCheckOut, initialProperty, todayIso]);
+    setPropertyId(initialPropertyId);
+  }, [initialBlockedDates, initialCheckIn, initialCheckOut, initialPropertyId, todayIso]);
+
+  useEffect(() => {
+    setDateRange((currentRange) => {
+      const nextRange = sanitizeBookingDateRange(
+        currentRange.checkIn,
+        currentRange.checkOut,
+        todayIso,
+        true,
+        selectedBlockedDates,
+      );
+
+      return areDateRangesEqual(currentRange, nextRange) ? currentRange : nextRange;
+    });
+  }, [selectedBlockedDates, todayIso]);
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
-    if (!isValidBookingRange(dateRange, todayIso)) {
-      toast.error('Please choose a valid stay with a future check-in and a later check-out.');
+    if (!propertyId) {
+      toast.error('Please select a property before choosing your stay.');
+      return;
+    }
+
+    if (selectedAvailabilityStatus === 'error') {
+      toast.error('Airbnb availability is temporarily unavailable. Please try again shortly.');
+      return;
+    }
+
+    if (!isValidBookingRange(dateRange, todayIso, selectedBlockedDates)) {
+      toast.error('Please choose available dates with a future check-in and later check-out.');
       return;
     }
 
@@ -121,7 +165,7 @@ export default function ReservationForm({
         </p>
         <button
           onClick={() => router.push(embedded ? '/properties' : '/')}
-          className="bg-secondary text-primary px-6 py-2 rounded-md font-semibold hover:bg-secondary-light transition"
+          className="button-hover-clean bg-secondary text-primary px-6 py-2 rounded-md font-semibold transition"
         >
           {embedded ? 'Back to Properties' : 'Return to Home'}
         </button>
@@ -166,6 +210,7 @@ export default function ReservationForm({
       ) : null}
 
       <form onSubmit={handleSubmit} className="reservation-form space-y-6" data-animate="fade-up" data-delay="2">
+        <input type="hidden" name="property" value={propertyTitle} />
         <input type="hidden" name="checkIn" value={dateRange.checkIn ?? ''} />
         <input type="hidden" name="checkOut" value={dateRange.checkOut ?? ''} />
 
@@ -175,22 +220,26 @@ export default function ReservationForm({
           </label>
           <select
             id="property"
-            name="property"
-            value={propertyTitle}
-            onChange={(e) => setPropertyTitle(e.target.value)}
+            value={propertyId}
+            onChange={(e) => setPropertyId(e.target.value as BookablePropertyId | '')}
             required
-            className="w-full px-4 py-2 border border-gray-300 rounded-md bg-white cursor-pointer focus:outline-none focus:ring-2 focus:ring-secondary/50 focus:border-secondary"
+            className="w-full cursor-pointer rounded-md border border-gray-300 bg-white px-4 py-2 transition-colors focus:border-black/15 focus:outline-none focus:ring-2 focus:ring-black/10"
           >
             <option value="" disabled>Select a property</option>
-            {PROPERTY_OPTIONS.map((propertyOption) => (
-              <option key={propertyOption} value={propertyOption}>
-                {propertyOption}
+            {BOOKABLE_PROPERTY_OPTIONS.map((propertyOption) => (
+              <option key={propertyOption.id} value={propertyOption.id}>
+                {propertyOption.title}
               </option>
             ))}
           </select>
         </div>
 
-        <BookingRangeCalendar value={dateRange} onChange={setDateRange} />
+        <BookingRangeCalendar
+          value={dateRange}
+          onChange={setDateRange}
+          blockedDates={selectedBlockedDates}
+          availabilityStatus={selectedAvailabilityStatus}
+        />
 
         {nights > 0 ? (
           <div className="rounded-xl border border-secondary/20 bg-secondary/10 px-4 py-3 text-sm text-primary">
@@ -244,12 +293,10 @@ export default function ReservationForm({
         </div>
         <div>
           <label className="block text-sm font-medium text-primary/80 mb-3">
-            <span className="transition-colors duration-300 hover:text-secondary">
-              Preferred Contact Method
-            </span>
+            <span>Preferred Contact Method</span>
           </label>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-            <label className="relative flex items-center justify-center p-4 border rounded-md cursor-pointer transition-colors hover:border-secondary hover:bg-secondary/5 group">
+            <label className={`tap-reset relative flex cursor-pointer items-center justify-center rounded-md border p-4 ${contactMethod === 'email' ? 'border-black/10 bg-black/[0.03] shadow-sm' : 'border-gray-200 bg-white'}`}>
               <input
                 type="radio"
                 name="contactMethod"
@@ -258,17 +305,11 @@ export default function ReservationForm({
                 onChange={(e) => setContactMethod(e.target.value)}
                 className="absolute opacity-0"
               />
-              <Mail
-                className={`w-5 h-5 ${contactMethod === 'email' ? 'text-secondary' : 'text-primary'} transition-colors duration-300 group-hover:text-secondary`}
-              />
-              <span
-                className={`ml-2 ${contactMethod === 'email' ? 'text-secondary' : 'text-primary'} transition-colors duration-300 group-hover:text-secondary`}
-              >
-                Email
-              </span>
+              <Mail className="h-5 w-5 text-primary" />
+              <span className="ml-2 text-primary">Email</span>
             </label>
 
-            <label className="relative flex items-center justify-center p-4 border rounded-md cursor-pointer transition-colors hover:border-secondary hover:bg-secondary/5 group">
+            <label className={`tap-reset relative flex cursor-pointer items-center justify-center rounded-md border p-4 ${contactMethod === 'phone' ? 'border-black/10 bg-black/[0.03] shadow-sm' : 'border-gray-200 bg-white'}`}>
               <input
                 type="radio"
                 name="contactMethod"
@@ -277,17 +318,11 @@ export default function ReservationForm({
                 onChange={(e) => setContactMethod(e.target.value)}
                 className="absolute opacity-0"
               />
-              <Phone
-                className={`w-5 h-5 ${contactMethod === 'phone' ? 'text-secondary' : 'text-primary'} transition-colors duration-300 group-hover:text-secondary`}
-              />
-              <span
-                className={`ml-2 ${contactMethod === 'phone' ? 'text-secondary' : 'text-primary'} transition-colors duration-300 group-hover:text-secondary`}
-              >
-                Phone
-              </span>
+              <Phone className="h-5 w-5 text-primary" />
+              <span className="ml-2 text-primary">Phone</span>
             </label>
 
-            <label className="relative flex items-center justify-center p-4 border rounded-md cursor-pointer transition-colors hover:border-secondary hover:bg-secondary/5 group">
+            <label className={`tap-reset relative flex cursor-pointer items-center justify-center rounded-md border p-4 ${contactMethod === 'whatsapp' ? 'border-black/10 bg-black/[0.03] shadow-sm' : 'border-gray-200 bg-white'}`}>
               <input
                 type="radio"
                 name="contactMethod"
@@ -296,14 +331,8 @@ export default function ReservationForm({
                 onChange={(e) => setContactMethod(e.target.value)}
                 className="absolute opacity-0"
               />
-              <MessageSquare
-                className={`w-5 h-5 ${contactMethod === 'whatsapp' ? 'text-secondary' : 'text-primary'} transition-colors duration-300 group-hover:text-secondary`}
-              />
-              <span
-                className={`ml-2 ${contactMethod === 'whatsapp' ? 'text-secondary' : 'text-primary'} transition-colors duration-300 group-hover:text-secondary`}
-              >
-                WhatsApp
-              </span>
+              <MessageSquare className="h-5 w-5 text-primary" />
+              <span className="ml-2 text-primary">WhatsApp</span>
             </label>
           </div>
         </div>
@@ -311,9 +340,9 @@ export default function ReservationForm({
         <button
           type="submit"
           disabled={isSubmitting}
-          className="w-full bg-secondary text-primary py-3 rounded-md font-semibold hover:bg-secondary-light transition disabled:opacity-50"
+          className="button-hover-clean w-full bg-secondary text-primary py-3 rounded-md font-semibold transition disabled:opacity-50"
         >
-          <span className="transition-colors duration-300 hover:text-primary">
+          <span>
             {isSubmitting ? 'Sending...' : 'Send Request'}
           </span>
         </button>
@@ -330,20 +359,16 @@ export default function ReservationForm({
       <div className="reservation-container max-w-2xl mx-auto px-4">
         {/* Enhanced Back Navigation */}
         <div className="mb-8" data-animate="fade-right">
-          <div className="inline-block relative group">
-            <div className="absolute inset-0 bg-gradient-to-r from-primary/20 to-secondary/20 rounded-full blur-lg opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
-            <Link
-              href="/"
-              className="relative inline-flex items-center bg-white/80 backdrop-blur-sm text-primary px-6 py-3 rounded-full font-semibold text-lg hover:bg-white hover:text-secondary transition-all duration-300 shadow-lg hover:shadow-xl transform hover:scale-105 border border-primary/20"
-            >
-              <div className="relative mr-3">
-                <ArrowLeft className="w-5 h-5 transition-transform duration-300 group-hover:-translate-x-1" />
-                <div className="absolute inset-0 bg-secondary/20 rounded-full scale-0 group-hover:scale-150 transition-transform duration-300"></div>
-              </div>
-              <Home className="w-5 h-5 mr-2 opacity-70 group-hover:opacity-100 transition-opacity duration-300" />
-              <span className="relative z-10">Back to Home</span>
-            </Link>
-          </div>
+          <Link
+            href="/"
+            className="inline-flex items-center rounded-full border border-primary/20 bg-white/80 px-6 py-3 text-lg font-semibold text-primary shadow-lg transition-all duration-300"
+          >
+            <div className="relative mr-3">
+              <ArrowLeft className="w-5 h-5" />
+            </div>
+            <Home className="w-5 h-5 mr-2 opacity-70" />
+            <span className="relative z-10">Back to Home</span>
+          </Link>
         </div>
 
         {formCard}

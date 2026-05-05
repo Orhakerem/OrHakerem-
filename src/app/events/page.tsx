@@ -194,7 +194,7 @@ export default function Events() {
                   {eventTypes.map((event, index) => (
                     <div
                       key={index}
-                      className="flex items-center justify-center p-4 bg-gradient-to-br from-secondary/10 to-tertiary/10 rounded-xl hover:from-secondary/20 hover:to-tertiary/20 transition-all duration-300"
+                      className="flex items-center justify-center rounded-xl bg-gradient-to-br from-secondary/10 to-tertiary/10 p-4"
                     >
                       <span className="text-primary font-medium text-sm">{event}</span>
                     </div>
@@ -211,9 +211,9 @@ export default function Events() {
                   {venueFeatures.map((feature, index) => (
                     <div
                       key={index}
-                      className="group"
+                      className=""
                     >
-                      <span className="text-primary/80 group-hover:text-primary transition-colors duration-300">{feature}</span>
+                      <span className="text-primary/80">{feature}</span>
                     </div>
                   ))}
                 </div>
@@ -265,7 +265,7 @@ export default function Events() {
                   </p>
                   <button
                     onClick={() => setIsSuccess(false)}
-                    className="bg-gradient-to-r from-secondary to-secondary-light text-primary px-8 py-3 rounded-full font-semibold hover:from-secondary-light hover:to-secondary transition-all duration-300"
+                    className="button-hover-clean bg-gradient-to-r from-secondary to-secondary-light text-primary px-8 py-3 rounded-full font-semibold transition-all duration-300"
                   >
                     Plan Another Event
                   </button>
@@ -274,11 +274,10 @@ export default function Events() {
             ) : (
               <>
                 <div className="events-plan-cta text-center mb-8">
-                  <div className="inline-block relative group">
-                    <div className="absolute inset-0 bg-gradient-to-r from-secondary to-tertiary rounded-full blur-lg opacity-50 group-hover:opacity-75 transition-opacity duration-300"></div>
+                  <div className="inline-block relative">
                     <button
                       onClick={() => setShowForm(true)}
-                      className="relative inline-flex items-center bg-gradient-to-r from-secondary to-secondary-light text-primary px-10 py-3 rounded-full font-semibold text-base hover:from-secondary-light hover:to-secondary transition-all duration-300 shadow-xl hover:shadow-2xl transform hover:scale-105"
+                      className="button-hover-clean relative inline-flex items-center rounded-full bg-gradient-to-r from-secondary to-secondary-light px-10 py-3 text-base font-semibold text-primary shadow-xl"
                     >
                       <Calendar className="w-5 h-5 mr-2" />
                       <span>Inquire About Events</span>
@@ -297,7 +296,7 @@ export default function Events() {
 
       {showForm && (
         <div
-          className="event-modal fixed inset-0 z-50 bg-black/55 backdrop-blur-sm p-3 sm:p-6"
+          className="event-modal tap-reset fixed inset-0 z-50 bg-black/55 backdrop-blur-sm p-3 sm:p-6"
           role="dialog"
           aria-modal="true"
           aria-labelledby="event-inquiry-title"
@@ -320,7 +319,7 @@ export default function Events() {
                 <button
                   type="button"
                   onClick={() => setShowForm(false)}
-                  className="shrink-0 rounded-full border border-primary/10 p-2 text-primary/60 transition-colors hover:text-primary"
+                  className="shrink-0 rounded-full border border-primary/10 p-2 text-primary/60"
                 >
                   <span className="sr-only">Close</span>
                   ✕
@@ -340,7 +339,7 @@ export default function Events() {
                       id="eventType"
                       name="eventType"
                       required
-                      className="w-full px-4 py-3 border border-gray-300 rounded-lg hover:border-primary focus:border-primary focus:ring-2 focus:ring-primary/20 transition-colors"
+                      className="w-full rounded-lg border border-gray-300 px-4 py-3 focus:border-black/15 focus:ring-2 focus:ring-black/10"
                     >
                       <option value="">Select event type</option>
                       <option value="wedding">Wedding</option>
@@ -378,7 +377,7 @@ export default function Events() {
                       required
                       min="1"
                       max="80"
-                      className="w-full px-4 py-3 border border-gray-300 rounded-lg hover:border-primary focus:border-primary focus:ring-2 focus:ring-primary/20 transition-colors"
+                      className="w-full rounded-lg border border-gray-300 px-4 py-3 focus:border-black/15 focus:ring-2 focus:ring-black/10"
                     />
                   </div>
 
@@ -395,7 +394,7 @@ export default function Events() {
                         id="name"
                         name="name"
                         required
-                        className="w-full px-4 py-3 border border-gray-300 rounded-lg hover:border-primary focus:border-primary focus:ring-2 focus:ring-primary/20 transition-colors"
+                        className="w-full rounded-lg border border-gray-300 px-4 py-3 focus:border-black/15 focus:ring-2 focus:ring-black/10"
                       />
                     </div>
 
@@ -413,7 +412,7 @@ export default function Events() {
                           id="email"
                           name="email"
                           required
-                          className="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-lg hover:border-primary focus:border-primary focus:ring-2 focus:ring-primary/20 transition-colors"
+                          className="w-full rounded-lg border border-gray-300 py-3 pl-10 pr-4 focus:border-black/15 focus:ring-2 focus:ring-black/10"
                         />
                       </div>
                     </div>
@@ -428,13 +427,13 @@ export default function Events() {
                     </label>
                     <div className="relative">
                       <Phone className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-primary/60" />
-                      <input
-                        type="tel"
-                        id="phone"
-                        name="phone"
-                        required
-                        className="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-lg hover:border-primary focus:border-primary focus:ring-2 focus:ring-primary/20 transition-colors"
-                      />
+                        <input
+                          type="tel"
+                          id="phone"
+                          name="phone"
+                          required
+                          className="w-full rounded-lg border border-gray-300 py-3 pl-10 pr-4 focus:border-black/15 focus:ring-2 focus:ring-black/10"
+                        />
                     </div>
                   </div>
 
@@ -443,7 +442,7 @@ export default function Events() {
                       Preferred Contact Method
                     </label>
                     <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-                      <label className="relative flex items-center justify-center p-4 border rounded-lg cursor-pointer transition-colors hover:border-secondary hover:bg-secondary/5 group">
+                      <label className={`tap-reset relative flex cursor-pointer items-center justify-center rounded-lg border p-4 ${contactMethod === 'email' ? 'border-black/10 bg-black/[0.03] shadow-sm' : 'border-gray-200 bg-white'}`}>
                         <input
                           type="radio"
                           name="contactMethod"
@@ -452,17 +451,13 @@ export default function Events() {
                           onChange={(e) => setContactMethod(e.target.value)}
                           className="absolute opacity-0"
                         />
-                        <Mail
-                          className={`w-5 h-5 ${contactMethod === 'email' ? 'text-secondary' : 'text-primary'} transition-colors duration-300 group-hover:text-secondary`}
-                        />
-                        <span
-                          className={`ml-2 ${contactMethod === 'email' ? 'text-secondary' : 'text-primary'} transition-colors duration-300 group-hover:text-secondary`}
-                        >
+                        <Mail className="h-5 w-5 text-primary" />
+                        <span className="ml-2 text-primary">
                           Email
                         </span>
                       </label>
 
-                      <label className="relative flex items-center justify-center p-4 border rounded-lg cursor-pointer transition-colors hover:border-secondary hover:bg-secondary/5 group">
+                      <label className={`tap-reset relative flex cursor-pointer items-center justify-center rounded-lg border p-4 ${contactMethod === 'phone' ? 'border-black/10 bg-black/[0.03] shadow-sm' : 'border-gray-200 bg-white'}`}>
                         <input
                           type="radio"
                           name="contactMethod"
@@ -471,17 +466,13 @@ export default function Events() {
                           onChange={(e) => setContactMethod(e.target.value)}
                           className="absolute opacity-0"
                         />
-                        <Phone
-                          className={`w-5 h-5 ${contactMethod === 'phone' ? 'text-secondary' : 'text-primary'} transition-colors duration-300 group-hover:text-secondary`}
-                        />
-                        <span
-                          className={`ml-2 ${contactMethod === 'phone' ? 'text-secondary' : 'text-primary'} transition-colors duration-300 group-hover:text-secondary`}
-                        >
+                        <Phone className="h-5 w-5 text-primary" />
+                        <span className="ml-2 text-primary">
                           Phone
                         </span>
                       </label>
 
-                      <label className="relative flex items-center justify-center p-4 border rounded-lg cursor-pointer transition-colors hover:border-secondary hover:bg-secondary/5 group">
+                      <label className={`tap-reset relative flex cursor-pointer items-center justify-center rounded-lg border p-4 ${contactMethod === 'whatsapp' ? 'border-black/10 bg-black/[0.03] shadow-sm' : 'border-gray-200 bg-white'}`}>
                         <input
                           type="radio"
                           name="contactMethod"
@@ -490,12 +481,8 @@ export default function Events() {
                           onChange={(e) => setContactMethod(e.target.value)}
                           className="absolute opacity-0"
                         />
-                        <MessageSquare
-                          className={`w-5 h-5 ${contactMethod === 'whatsapp' ? 'text-secondary' : 'text-primary'} transition-colors duration-300 group-hover:text-secondary`}
-                        />
-                        <span
-                          className={`ml-2 ${contactMethod === 'whatsapp' ? 'text-secondary' : 'text-primary'} transition-colors duration-300 group-hover:text-secondary`}
-                        >
+                        <MessageSquare className="h-5 w-5 text-primary" />
+                        <span className="ml-2 text-primary">
                           WhatsApp
                         </span>
                       </label>
@@ -513,7 +500,7 @@ export default function Events() {
                       id="message"
                       name="message"
                       rows={4}
-                      className="w-full px-4 py-3 border border-gray-300 rounded-lg hover:border-primary focus:border-primary focus:ring-2 focus:ring-primary/20 transition-colors"
+                      className="w-full rounded-lg border border-gray-300 px-4 py-3 focus:border-black/15 focus:ring-2 focus:ring-black/10"
                       placeholder="Please share any specific requirements, dietary restrictions, special arrangements, or questions about your event..."
                     ></textarea>
                   </div>
@@ -522,14 +509,14 @@ export default function Events() {
                     <button
                       type="button"
                       onClick={() => setShowForm(false)}
-                      className="flex-1 px-6 py-3 border border-gray-300 rounded-lg text-primary hover:bg-gray-50 transition"
+                      className="flex-1 rounded-lg border border-gray-300 px-6 py-3 text-primary"
                     >
                       Cancel
                     </button>
                     <button
                       type="submit"
                       disabled={isSubmitting}
-                      className="flex-1 bg-gradient-to-r from-primary to-primary-light text-white px-6 py-3 rounded-lg font-semibold hover:from-primary-light hover:to-primary transition disabled:opacity-50"
+                      className="button-hover-clean flex-1 rounded-lg bg-gradient-to-r from-primary to-primary-light px-6 py-3 font-semibold text-white transition disabled:opacity-50"
                     >
                       {isSubmitting ? 'Sending...' : 'Submit Inquiry'}
                     </button>
@@ -545,7 +532,7 @@ export default function Events() {
       {showBackToTop && (
         <button
           onClick={scrollToTop}
-          className="fixed bottom-8 right-8 bg-gradient-to-r from-secondary to-secondary-light text-primary p-4 rounded-full shadow-lg hover:shadow-xl transition-all duration-300 z-40 hover:scale-110"
+          className="fixed bottom-8 right-8 z-40 rounded-full bg-gradient-to-r from-secondary to-secondary-light p-4 text-primary shadow-lg"
           aria-label="Back to top"
         >
           <ArrowUp className="w-6 h-6" />

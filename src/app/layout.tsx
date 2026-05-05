@@ -6,7 +6,7 @@ import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
 import GoogleAnalytics from '@/components/GoogleAnalytics';
 import { SITE_URL, createCanonicalUrl } from '@/app/seo';
-import { crimson, inter, lato, montserrat, playfair } from '@/app/fonts';
+import { inter, lato, montserrat, playfair } from '@/app/fonts';
 
 import './globals.css';
 
@@ -99,7 +99,7 @@ export default function RootLayout({
         <meta name="msapplication-config" content="/favicon/browserconfig.xml" />
         <meta name="apple-mobile-web-app-title" content="MyWebSite" />
       </head>
-      <body className={`${inter.variable} ${playfair.variable} ${lato.variable} ${crimson.variable} ${montserrat.variable} min-h-screen bg-cream antialiased`}>
+      <body className={`${inter.variable} ${playfair.variable} ${lato.variable} ${montserrat.variable} min-h-screen bg-cream antialiased`}>
         <GoogleAnalytics />
         <CustomCursor />
         <Toast />

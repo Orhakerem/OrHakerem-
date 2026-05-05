@@ -9,7 +9,7 @@ import { Menu, X } from 'lucide-react';
 function Navbar() {
   const pathname = usePathname();
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
-  const propertiesHref = '/properties#properties-listing';
+  const propertiesHref = '/properties';
 
   const isActive = (path: string) => {
     return pathname === path;
@@ -53,14 +53,6 @@ function Navbar() {
 
           {/* Navigation Items - Centrés et épurés */}
           <div className="nav-items-floating">
-            <Link
-              href="/"
-              className={`nav-item-floating ${isActive('/') ? 'active' : ''}`}
-              aria-current={isActive('/') ? 'page' : undefined}
-            >
-              <span>Home</span>
-            </Link>
-
             <Link
               href={propertiesHref}
               className={`nav-item-floating ${isPropertiesActive ? 'active' : ''}`}
@@ -145,16 +137,6 @@ function Navbar() {
             <div className="mobile-menu-floating">
               <div className="mobile-menu-items-floating">
                 <Link
-                  href="/"
-                  onClick={closeMobileMenu}
-                  className={`mobile-nav-item-floating ${isActive('/') ? 'active' : ''}`}
-                  aria-current={isActive('/') ? 'page' : undefined}
-                >
-          
-                  <span>Home</span>
-                </Link>
-                
-                <Link
                   href={propertiesHref}
                   onClick={closeMobileMenu}
                   className={`mobile-nav-item-floating ${isPropertiesActive ? 'active' : ''}`}
@@ -208,7 +190,7 @@ function Navbar() {
 
       {isMobileMenuOpen && (
         <div 
-          className="mobile-overlay-floating"
+          className="mobile-overlay-floating tap-reset"
           onClick={closeMobileMenu}
         />
       )}

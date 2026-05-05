@@ -65,39 +65,6 @@ const observeAnimations = (root = document) => {
 const initScrollAnimations = () => {
   observeAnimations(document);
 
-  const initHeroCtaObserver = () => {
-    const hero = document.querySelector(".hero-home");
-    const ctas = document.querySelectorAll(".hero-scroll-cta");
-
-    if (!hero || !ctas.length) {
-      return;
-    }
-
-    const syncVisibility = (isVisible) => {
-      ctas.forEach((cta) => {
-        cta.classList.toggle("visible", isVisible);
-      });
-    };
-
-    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
-      syncVisibility(true);
-      return;
-    }
-
-    const heroCtaObserver = new IntersectionObserver(
-      ([entry]) => {
-        syncVisibility(entry.intersectionRatio < 0.92);
-      },
-      {
-        threshold: [0, 0.92],
-      },
-    );
-
-    heroCtaObserver.observe(hero);
-  };
-
-  initHeroCtaObserver();
-
   const mutationObserver = new MutationObserver((mutations) => {
     mutations.forEach((mutation) => {
       mutation.addedNodes.forEach((node) => {
@@ -107,14 +74,6 @@ const initScrollAnimations = () => {
 
         if (node.matches("[data-animate]") || node.querySelector("[data-animate]") || node.matches("[data-animate-group]") || node.querySelector("[data-animate-group]")) {
           observeAnimations(node);
-        }
-
-        if (node.matches(".hero-scroll-cta") || node.querySelector(".hero-scroll-cta")) {
-          initHeroCtaObserver();
-        }
-
-        if (node.matches(".hero-home") || node.querySelector(".hero-home")) {
-          initHeroCtaObserver();
         }
       });
     });

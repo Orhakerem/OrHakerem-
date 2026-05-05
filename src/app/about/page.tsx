@@ -1,5 +1,5 @@
 import Link from 'next/link';
-import { ArrowRight, Home, MapPin, MoonStar, UtensilsCrossed } from 'lucide-react';
+import { ArrowRight, Home, MapPin, Shield, UtensilsCrossed } from 'lucide-react';
 
 import { createCanonicalUrl } from '@/app/seo';
 
@@ -11,7 +11,7 @@ const valuePoints = [
       'A short walk from Carmel Market, Banana Beach, Nachalat Binyamin, and the energy of central Tel Aviv.',
   },
   {
-    icon: MoonStar,
+    icon: Shield,
     title: 'Jewish-friendly stays',
     description:
       'Our apartments are designed for guests seeking thoughtful, Shabbat-friendly comfort in a refined and well-appointed setting.',
@@ -124,7 +124,7 @@ export default function AboutPage() {
               {valuePoints.map((point) => (
                 <div
                   key={point.title}
-                  className="rounded-2xl border border-primary/10 bg-cream p-6 transition-all duration-300 hover:border-secondary/30 hover:shadow-lg"
+                  className="rounded-2xl border border-primary/10 bg-cream p-6"
                 >
                   <div className="mb-4 inline-flex rounded-2xl bg-primary/10 p-3 text-primary">
                     <point.icon className="h-5 w-5" />
@@ -199,15 +199,15 @@ export default function AboutPage() {
 
             <div className="mt-8 flex flex-col justify-center gap-4 sm:flex-row">
               <Link
-                href="/properties#properties-listing"
-                className="inline-flex items-center justify-center rounded-full bg-gradient-to-r from-secondary to-secondary-light px-8 py-4 font-semibold text-primary transition-all duration-300 hover:scale-[1.02] hover:shadow-xl"
+                href="/properties"
+                className="inline-flex items-center justify-center rounded-full bg-gradient-to-r from-secondary to-secondary-light px-8 py-4 font-semibold text-primary"
               >
                 View Properties
                 <ArrowRight className="ml-2 h-5 w-5" />
               </Link>
               <Link
                 href="/contact"
-                className="inline-flex items-center justify-center rounded-full border border-white/25 bg-white/10 px-8 py-4 font-semibold text-white transition-all duration-300 hover:bg-white/15"
+                className="inline-flex items-center justify-center rounded-full border border-white/25 bg-white/10 px-8 py-4 font-semibold text-white"
               >
                 Contact Us
                 <Home className="ml-2 h-5 w-5" />

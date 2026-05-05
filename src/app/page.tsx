@@ -65,8 +65,8 @@ const Home: React.FC = () => {
 
         <div className="glass-cta-wrap hero-home-cta-wrap">
           <Link
-            href="/properties#properties-listing"
-            className="glass-cta hero-scroll-cta"
+            href="/properties"
+            className="glass-cta"
           >
             View Properties
           </Link>
@@ -129,15 +129,19 @@ const Home: React.FC = () => {
 
               <div className="max-w-4xl space-y-6 text-lg md:text-xl" data-animate="fade-up" data-delay="2">
                 <p className="text-primary/90 leading-relaxed font-light font-lato">
-                  Start your experience in a city that never stops, but differently. At Or Hakerem, we offer a refined approach to <span className="font-medium text-secondary">short-term stays</span> for guests looking for a luxury apartment in Tel Aviv with character, comfort, and a real sense of place.
+                  Or Hakerem is a unique building offering premium apartments for short-term stays in the heart of Tel Aviv.
                 </p>
 
                 <p className="text-primary/80 leading-relaxed font-light font-lato">
-                  Located in Kerem HaTeimanim, near Carmel Market and within walking distance to the beach, Or Hakerem offers boutique apartments that place guests close to Banana Beach, Nachalat Binyamin, and the rhythm of central Tel Aviv.
+                  Located in Kerem HaTeimanim, near Carmel Market and within walking distance to the beach, the property places you right in the center of it all — just moments from Banana Beach, Nachalat Binyamin, and the vibrant energy of the city.
                 </p>
 
                 <p className="text-primary/85 leading-relaxed font-light font-lato">
-                  Whether you&apos;re planning an intimate celebration, a family gathering, or a short-term stay near the beach, our <span className="font-medium text-tertiary">unique place</span> offers a polished base in Tel Aviv. Each property is thoughtfully designed to blend contemporary comfort with the heritage of the building and the atmosphere of Kerem HaTeimanim.
+                  Each apartment comes in a different format, designed to suit everything from short city stays to family trips, private gatherings, and special events. What they all share is the same standard: carefully designed spaces, comfort, and a location that makes everything feel easy.
+                </p>
+
+                <p className="text-primary/85 leading-relaxed font-light font-lato">
+                  Whether you’re coming for a few days by the sea or planning a more private moment, Or Hakerem offers a flexible and elevated way to experience Tel Aviv.
                 </p>
               </div>
 
@@ -200,7 +204,7 @@ const Home: React.FC = () => {
                   href="https://www.google.com/maps?q=Hakovshim+35+Tel+Aviv"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="inline-flex items-center bg-gradient-to-r from-secondary to-secondary-light text-primary px-8 py-4 rounded-full font-semibold text-lg hover:from-secondary-light hover:to-secondary transition-all duration-300 shadow-xl hover:shadow-2xl transform hover:scale-105"
+                  className="button-hover-clean inline-flex items-center rounded-full bg-gradient-to-r from-secondary to-secondary-light px-8 py-4 text-lg font-semibold text-primary shadow-xl transition-all duration-300"
                 >
                   <span className="mr-2">Open in Google Maps</span>
                   <div className="w-5 h-5 bg-primary/20 rounded-full flex items-center justify-center">
@@ -237,13 +241,13 @@ const Home: React.FC = () => {
           </div>
 
           <div className="max-w-2xl mx-auto" data-animate="scale" data-delay="2">
-            <div className="home-contact-card group relative bg-white/10 backdrop-blur-sm rounded-3xl p-6 transition-all duration-500 hover:bg-white/20 hover:shadow-2xl border border-white/20">
+            <div className="home-contact-card relative rounded-3xl border border-white/20 bg-white/10 p-6 backdrop-blur-sm">
               <form onSubmit={handleSubmit} className="home-contact-form space-y-6 relative z-10">
                 <div className="grid md:grid-cols-2 gap-6">
-                  <div className="group/input">
+                  <div>
                     <label
                       htmlFor="name"
-                      className="block text-sm font-medium text-white/90 mb-2 group-hover/input:text-secondary transition-colors duration-300"
+                      className="mb-2 block text-sm font-medium text-white/90"
                     >
                       Your Name
                     </label>
@@ -253,14 +257,14 @@ const Home: React.FC = () => {
                       name="name"
                       placeholder="Enter your name"
                       required
-                      className="w-full h-12 px-4 bg-white/10 backdrop-blur-sm border-2 border-white/20 hover:border-secondary/50 focus:border-secondary focus:ring-2 focus:ring-secondary/20 rounded-xl transition-all duration-300 outline-none text-base text-white placeholder-white/60 group-hover/input:bg-white/20"
+                      className="h-12 w-full rounded-xl border-2 border-white/20 bg-white/10 px-4 text-base text-white placeholder-white/60 outline-none transition-colors duration-300 focus:border-white/35 focus:ring-2 focus:ring-white/15"
                     />
                   </div>
 
-                  <div className="group/input">
+                  <div>
                     <label
                       htmlFor="email"
-                      className="block text-sm font-medium text-white/90 mb-2 group-hover/input:text-secondary transition-colors duration-300"
+                      className="mb-2 block text-sm font-medium text-white/90"
                     >
                       Email Address
                     </label>
@@ -270,15 +274,15 @@ const Home: React.FC = () => {
                       name="email"
                       placeholder="your@email.com"
                       required
-                      className="w-full h-12 px-4 bg-white/10 backdrop-blur-sm border-2 border-white/20 hover:border-secondary/50 focus:border-secondary focus:ring-2 focus:ring-secondary/20 rounded-xl transition-all duration-300 outline-none text-base text-white placeholder-white/60 group-hover/input:bg-white/20"
+                      className="h-12 w-full rounded-xl border-2 border-white/20 bg-white/10 px-4 text-base text-white placeholder-white/60 outline-none transition-colors duration-300 focus:border-white/35 focus:ring-2 focus:ring-white/15"
                     />
                   </div>
                 </div>
 
-                <div className="group/input">
+                <div>
                   <label
                     htmlFor="message"
-                    className="block text-sm font-medium text-white/90 mb-2 group-hover/input:text-secondary transition-colors duration-300"
+                    className="mb-2 block text-sm font-medium text-white/90"
                   >
                     Your Message
                   </label>
@@ -288,7 +292,7 @@ const Home: React.FC = () => {
                     placeholder="Write your message here..."
                     rows={4}
                     required
-                    className="w-full px-4 py-3 bg-white/10 backdrop-blur-sm border-2 border-white/20 hover:border-secondary/50 focus:border-secondary focus:ring-2 focus:ring-secondary/20 rounded-xl transition-all duration-300 outline-none resize-none text-base text-white placeholder-white/60 group-hover/input:bg-white/20"
+                    className="w-full resize-none rounded-xl border-2 border-white/20 bg-white/10 px-4 py-3 text-base text-white placeholder-white/60 outline-none transition-colors duration-300 focus:border-white/35 focus:ring-2 focus:ring-white/15"
                   ></textarea>
                 </div>
 
@@ -296,7 +300,7 @@ const Home: React.FC = () => {
                   <button
                     type="submit"
                     disabled={isSubmitting}
-                    className="inline-flex items-center bg-gradient-to-r from-secondary to-secondary-light text-primary px-8 py-3 rounded-full font-semibold text-lg hover:from-secondary-light hover:to-secondary transition-all duration-300 shadow-xl hover:shadow-2xl transform hover:scale-105 disabled:opacity-50 disabled:cursor-not-allowed"
+                    className="button-hover-clean inline-flex items-center rounded-full bg-gradient-to-r from-secondary to-secondary-light px-8 py-3 text-lg font-semibold text-primary shadow-xl transition-all duration-300 disabled:cursor-not-allowed disabled:opacity-50"
                   >
                     <span className="mr-2">
                       {isSubmitting ? 'Sending...' : 'Send Message'}

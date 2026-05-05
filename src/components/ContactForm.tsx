@@ -126,9 +126,9 @@ export default function ContactForm({
   };
 
   const getInputClasses = (fieldName: keyof FormErrors) => {
-    const baseClasses = "w-full px-4 py-3 bg-white/10 backdrop-blur-sm border-2 rounded-xl transition-all duration-300 outline-none text-base text-white placeholder-white/60";
-    const errorClasses = errors[fieldName] ? "border-red-400 focus:border-red-500" : "border-white/20 hover:border-secondary/50 focus:border-secondary";
-    const focusClasses = "focus:ring-2 focus:ring-secondary/20";
+    const baseClasses = "w-full px-4 py-3 bg-white/10 backdrop-blur-sm border-2 rounded-xl transition-colors duration-300 outline-none text-base text-white placeholder-white/60";
+    const errorClasses = errors[fieldName] ? "border-red-400 focus:border-red-400 focus:ring-2 focus:ring-red-200/40" : "border-white/20 focus:border-white/35";
+    const focusClasses = errors[fieldName] ? "" : "focus:ring-2 focus:ring-white/15";
     
     return `${baseClasses} ${errorClasses} ${focusClasses}`;
   };
@@ -147,22 +147,19 @@ export default function ContactForm({
       )}
 
       <div className="max-w-2xl mx-auto" data-animate="scale" data-delay="1">
-        <div className={`group relative bg-white/10 backdrop-blur-sm rounded-3xl transition-all duration-500 hover:bg-white/20 hover:shadow-2xl border border-white/20 ${getVariantClasses()}`}>
-          {/* Gradient overlay on hover */}
-          <div className="absolute inset-0 bg-gradient-to-br from-secondary/20 to-tertiary/20 rounded-3xl opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
-          
+        <div className={`relative rounded-3xl border border-white/20 bg-white/10 backdrop-blur-sm ${getVariantClasses()}`}>
           <form onSubmit={handleSubmit} className="space-y-6 relative z-10">
             {/* Name and Email Row */}
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-              <div className="group/input">
+              <div>
                 <label
                   htmlFor="contact-name"
-                  className="block text-sm font-medium text-white/90 mb-2 group-hover/input:text-secondary transition-colors duration-300"
+                  className="mb-2 block text-sm font-medium text-white/90"
                 >
                   Your Name *
                 </label>
                 <div className="relative">
-                  <User className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-white/60 group-hover/input:text-secondary transition-colors duration-300" />
+                  <User className="absolute left-3 top-1/2 h-5 w-5 -translate-y-1/2 text-white/60" />
                   <input
                     type="text"
                     id="contact-name"
@@ -173,9 +170,8 @@ export default function ContactForm({
                     required
                     aria-invalid={!!errors.name}
                     aria-describedby={errors.name ? "name-error" : undefined}
-                    className={`${getInputClasses('name')} pl-10 pr-4 group-hover/input:bg-white/20`}
+                    className={`${getInputClasses('name')} pl-10 pr-4`}
                   />
-                  <div className="absolute inset-0 rounded-xl bg-gradient-to-r from-secondary/10 to-tertiary/10 opacity-0 group-hover/input:opacity-100 transition-opacity duration-300 pointer-events-none"></div>
                 </div>
                 {errors.name && (
                   <p id="name-error" className="mt-1 text-sm text-red-300" role="alert">
@@ -184,15 +180,15 @@ export default function ContactForm({
                 )}
               </div>
 
-              <div className="group/input">
+              <div>
                 <label
                   htmlFor="contact-email"
-                  className="block text-sm font-medium text-white/90 mb-2 group-hover/input:text-secondary transition-colors duration-300"
+                  className="mb-2 block text-sm font-medium text-white/90"
                 >
                   Email Address *
                 </label>
                 <div className="relative">
-                  <Mail className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-white/60 group-hover/input:text-secondary transition-colors duration-300" />
+                  <Mail className="absolute left-3 top-1/2 h-5 w-5 -translate-y-1/2 text-white/60" />
                   <input
                     type="email"
                     id="contact-email"
@@ -203,9 +199,8 @@ export default function ContactForm({
                     required
                     aria-invalid={!!errors.email}
                     aria-describedby={errors.email ? "email-error" : undefined}
-                    className={`${getInputClasses('email')} pl-10 pr-4 group-hover/input:bg-white/20`}
+                    className={`${getInputClasses('email')} pl-10 pr-4`}
                   />
-                  <div className="absolute inset-0 rounded-xl bg-gradient-to-r from-secondary/10 to-tertiary/10 opacity-0 group-hover/input:opacity-100 transition-opacity duration-300 pointer-events-none"></div>
                 </div>
                 {errors.email && (
                   <p id="email-error" className="mt-1 text-sm text-red-300" role="alert">
@@ -216,15 +211,15 @@ export default function ContactForm({
             </div>
 
             {/* Phone Field (Optional) */}
-            <div className="group/input">
+            <div>
               <label
                 htmlFor="contact-phone"
-                className="block text-sm font-medium text-white/90 mb-2 group-hover/input:text-secondary transition-colors duration-300"
+                className="mb-2 block text-sm font-medium text-white/90"
               >
                 Phone Number (Optional)
               </label>
               <div className="relative">
-                <Phone className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-white/60 group-hover/input:text-secondary transition-colors duration-300" />
+                <Phone className="absolute left-3 top-1/2 h-5 w-5 -translate-y-1/2 text-white/60" />
                 <input
                   type="tel"
                   id="contact-phone"
@@ -234,9 +229,8 @@ export default function ContactForm({
                   placeholder="+1 (555) 123-4567"
                   aria-invalid={!!errors.phone}
                   aria-describedby={errors.phone ? "phone-error" : undefined}
-                  className={`${getInputClasses('phone')} pl-10 pr-4 group-hover/input:bg-white/20`}
+                  className={`${getInputClasses('phone')} pl-10 pr-4`}
                 />
-                <div className="absolute inset-0 rounded-xl bg-gradient-to-r from-secondary/10 to-tertiary/10 opacity-0 group-hover/input:opacity-100 transition-opacity duration-300 pointer-events-none"></div>
               </div>
               {errors.phone && (
                 <p id="phone-error" className="mt-1 text-sm text-red-300" role="alert">
@@ -246,15 +240,15 @@ export default function ContactForm({
             </div>
 
             {/* Message Field */}
-            <div className="group/input">
+            <div>
               <label
                 htmlFor="contact-message"
-                className="block text-sm font-medium text-white/90 mb-2 group-hover/input:text-secondary transition-colors duration-300"
+                className="mb-2 block text-sm font-medium text-white/90"
               >
                 Your Message *
               </label>
               <div className="relative">
-                <MessageSquare className="absolute left-3 top-4 w-5 h-5 text-white/60 group-hover/input:text-secondary transition-colors duration-300" />
+                <MessageSquare className="absolute left-3 top-4 h-5 w-5 text-white/60" />
                 <textarea
                   id="contact-message"
                   name="message"
@@ -265,9 +259,8 @@ export default function ContactForm({
                   required
                   aria-invalid={!!errors.message}
                   aria-describedby={errors.message ? "message-error" : undefined}
-                  className={`${getInputClasses('message')} pl-10 pr-4 py-3 resize-none group-hover/input:bg-white/20`}
+                  className={`${getInputClasses('message')} pl-10 pr-4 py-3 resize-none`}
                 />
-                <div className="absolute inset-0 rounded-xl bg-gradient-to-r from-secondary/10 to-tertiary/10 opacity-0 group-hover/input:opacity-100 transition-opacity duration-300 pointer-events-none"></div>
               </div>
               {errors.message && (
                 <p id="message-error" className="mt-1 text-sm text-red-300" role="alert">
@@ -278,22 +271,19 @@ export default function ContactForm({
 
             {/* Submit Button */}
             <div className="text-center">
-              <div className="inline-block relative group/button">
-                <div className="absolute inset-0 bg-gradient-to-r from-secondary to-tertiary rounded-full blur-lg opacity-50 group-hover/button:opacity-75 transition-opacity duration-300"></div>
-                <button
-                  type="submit"
-                  disabled={isSubmitting}
-                  className="relative inline-flex items-center bg-gradient-to-r from-secondary to-secondary-light text-primary px-8 py-3 rounded-full font-semibold text-lg hover:from-secondary-light hover:to-secondary transition-all duration-300 shadow-xl hover:shadow-2xl transform hover:scale-105 disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none focus:outline-none focus:ring-2 focus:ring-secondary/50 focus:ring-offset-2 focus:ring-offset-transparent"
-                  aria-describedby="submit-status"
-                >
-                  <span className="mr-2">
-                    {isSubmitting ? 'Sending...' : 'Send Message'}
-                  </span>
-                  <div className="w-5 h-5 bg-primary/20 rounded-full flex items-center justify-center">
-                    <Send className="w-3 h-3 text-primary" />
-                  </div>
-                </button>
-              </div>
+              <button
+                type="submit"
+                disabled={isSubmitting}
+                  className="button-hover-clean inline-flex items-center rounded-full bg-gradient-to-r from-secondary to-secondary-light px-8 py-3 text-lg font-semibold text-primary shadow-xl transition-all duration-300 disabled:cursor-not-allowed disabled:opacity-50 disabled:transform-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/20 focus-visible:ring-offset-2 focus-visible:ring-offset-transparent"
+                aria-describedby="submit-status"
+              >
+                <span className="mr-2">
+                  {isSubmitting ? 'Sending...' : 'Send Message'}
+                </span>
+                <div className="w-5 h-5 bg-primary/20 rounded-full flex items-center justify-center">
+                  <Send className="w-3 h-3 text-primary" />
+                </div>
+              </button>
               
               {/* Subtitle under button */}
               <p id="submit-status" className="text-white/70 text-sm mt-4 font-medium">

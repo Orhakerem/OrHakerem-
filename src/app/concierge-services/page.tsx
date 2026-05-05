@@ -16,28 +16,25 @@ function ServiceCard({ icon: Icon, title, description, delay }: ServiceCardProps
   return (
     <div
       data-animate="scale"
-      className="service-card group relative bg-white rounded-xl p-5 transition-all duration-500 hover:scale-105 hover:shadow-2xl border border-gray-100"
+      className="service-card relative rounded-xl border border-gray-100 bg-white p-5"
       style={{ animationDelay: `${delay}ms` }}
     >
-      {/* Gradient overlay on hover */}
-      <div className="absolute inset-0 bg-gradient-to-br from-secondary/10 to-tertiary/10 rounded-xl opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
-
       {/* Floating icon container - Reduced size */}
       <div className="relative inline-block mb-4">
-        <div className="relative p-3 bg-gradient-to-br from-secondary to-secondary-light rounded-full shadow-lg group-hover:shadow-xl transition-all duration-300 group-hover:scale-110">
-          <div className="absolute inset-0 rounded-full bg-white/20 group-hover:bg-white/30 transition-colors duration-300"></div>
-          <Icon className="w-6 h-6 text-primary relative z-10 group-hover:text-primary/90 transition-colors duration-300" />
+        <div className="relative rounded-full bg-gradient-to-br from-secondary to-secondary-light p-3 shadow-lg">
+          <div className="absolute inset-0 rounded-full bg-white/20"></div>
+          <Icon className="relative z-10 h-6 w-6 text-primary" />
         </div>
         {/* Floating animation ring */}
-        <div className="absolute inset-0 rounded-full border-2 border-secondary/30 animate-pulse group-hover:border-secondary/50 transition-colors duration-300"></div>
+        <div className="absolute inset-0 rounded-full border-2 border-white/35 animate-pulse"></div>
       </div>
 
       {/* Reduced heading size */}
-      <h3 className="font-playfair text-xl font-bold text-primary mb-3 group-hover:text-secondary transition-colors duration-300 relative z-10">
+      <h3 className="relative z-10 mb-3 font-playfair text-xl font-bold text-primary">
         {title}
       </h3>
       {/* Reduced text size and spacing */}
-      <p className="text-primary/80 leading-relaxed text-sm group-hover:text-primary transition-colors duration-300 relative z-10">
+      <p className="relative z-10 text-sm leading-relaxed text-primary/80">
         {description}
       </p>
     </div>
@@ -127,14 +124,14 @@ export default function ConciergeServicesPage() {
         {/* Animated Background Pattern */}
         <div className="absolute inset-0 opacity-20">
           <div className="absolute top-20 left-10 w-72 h-72 bg-secondary rounded-full blur-3xl animate-pulse"></div>
-          <div className="absolute bottom-20 right-10 w-96 h-96 bg-tertiary rounded-full blur-3xl animate-pulse" style={{ animationDelay: '1s' }}></div>
-          <div className="absolute top-1/2 left-1/3 w-64 h-64 bg-white rounded-full blur-3xl animate-pulse" style={{ animationDelay: '2s' }}></div>
+          <div className="absolute bottom-32 right-10 w-96 h-96 bg-tertiary rounded-full blur-3xl animate-pulse" style={{ animationDelay: '1s' }}></div>
+          <div className="absolute top-[42%] left-1/3 w-64 h-64 bg-white rounded-full blur-3xl animate-pulse" style={{ animationDelay: '2s' }}></div>
         </div>
 
         {/* Geometric Shapes */}
         <div className="absolute inset-0 overflow-hidden">
           <div className="absolute top-40 right-20 w-32 h-32 border-4 border-secondary/30 rounded-lg rotate-12 animate-spin-slow"></div>
-          <div className="absolute bottom-40 left-20 w-24 h-24 border-4 border-tertiary/30 rounded-full animate-bounce-slow"></div>
+          <div className="absolute bottom-52 left-20 w-24 h-24 border-4 border-tertiary/30 rounded-full animate-bounce-slow"></div>
         </div>
 
         {/* Content */}
@@ -222,8 +219,8 @@ export default function ConciergeServicesPage() {
         <section className="services-contact-section py-12 bg-gradient-to-br from-primary via-primary to-primary-light relative overflow-hidden rounded-2xl mb-20">
           {/* Background decorative elements */}
           <div className="absolute inset-0">
-            <div className="absolute top-10 left-5 w-24 h-24 bg-secondary/10 rounded-full blur-2xl"></div>
-            <div className="absolute bottom-10 right-5 w-32 h-32 bg-tertiary/10 rounded-full blur-2xl"></div>
+            <div className="absolute top-6 left-5 w-24 h-24 bg-secondary/10 rounded-full blur-2xl"></div>
+            <div className="absolute bottom-20 right-5 w-32 h-32 bg-tertiary/10 rounded-full blur-2xl"></div>
           </div>
 
           {/* Centered content container */}
@@ -262,7 +259,7 @@ export default function ConciergeServicesPage() {
                         name="name"
                         placeholder="Enter your name"
                         required
-                        className="w-full h-11 px-4 bg-white/10 backdrop-blur-sm border border-white/20 focus:border-secondary focus:ring-1 focus:ring-secondary/20 rounded-lg transition-all duration-300 outline-none text-sm text-white placeholder-white/60"
+                        className="h-11 w-full rounded-lg border border-white/20 bg-white/10 px-4 text-sm text-white placeholder-white/60 outline-none transition-all duration-300 focus:border-white/35 focus:ring-1 focus:ring-white/15"
                       />
                     </div>
 
@@ -279,7 +276,7 @@ export default function ConciergeServicesPage() {
                         name="email"
                         placeholder="your@email.com"
                         required
-                        className="w-full h-11 px-4 bg-white/10 backdrop-blur-sm border border-white/20 focus:border-secondary focus:ring-1 focus:ring-secondary/20 rounded-lg transition-all duration-300 outline-none text-sm text-white placeholder-white/60"
+                        className="h-11 w-full rounded-lg border border-white/20 bg-white/10 px-4 text-sm text-white placeholder-white/60 outline-none transition-all duration-300 focus:border-white/35 focus:ring-1 focus:ring-white/15"
                       />
                     </div>
                   </div>
@@ -297,7 +294,7 @@ export default function ConciergeServicesPage() {
                       placeholder="Please describe the concierge service you need..."
                       rows={4}
                       required
-                      className="w-full px-4 py-3 bg-white/10 backdrop-blur-sm border border-white/20 focus:border-secondary focus:ring-1 focus:ring-secondary/20 rounded-lg transition-all duration-300 outline-none resize-none text-sm text-white placeholder-white/60"
+                      className="w-full resize-none rounded-lg border border-white/20 bg-white/10 px-4 py-3 text-sm text-white placeholder-white/60 outline-none transition-all duration-300 focus:border-white/35 focus:ring-1 focus:ring-white/15"
                     ></textarea>
                   </div>
 
@@ -305,7 +302,7 @@ export default function ConciergeServicesPage() {
                     <button
                       type="submit"
                       disabled={isSubmitting}
-                      className="inline-flex items-center bg-gradient-to-r from-secondary to-secondary-light text-primary px-8 py-2.5 rounded-full font-semibold text-sm hover:from-secondary-light hover:to-secondary transition-all duration-300 shadow-lg hover:shadow-xl transform hover:scale-105 disabled:opacity-50 disabled:cursor-not-allowed"
+                      className="button-hover-clean inline-flex items-center rounded-full bg-gradient-to-r from-secondary to-secondary-light px-8 py-2.5 text-sm font-semibold text-primary shadow-lg disabled:cursor-not-allowed disabled:opacity-50"
                     >
                       <span className="mr-2">
                         {isSubmitting ? 'Sending...' : 'Submit Request'}
@@ -328,7 +325,7 @@ export default function ConciergeServicesPage() {
       {showBackToTop && (
         <button
           onClick={scrollToTop}
-          className="fixed bottom-8 right-8 bg-gradient-to-r from-secondary to-secondary-light text-primary p-4 rounded-full shadow-lg hover:shadow-xl transition-all duration-300 z-40 hover:scale-110"
+          className="fixed bottom-8 right-8 z-40 rounded-full bg-gradient-to-r from-secondary to-secondary-light p-4 text-primary shadow-lg"
           aria-label="Back to top"
         >
           <ArrowUp className="w-6 h-6" />

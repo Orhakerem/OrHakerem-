@@ -12,15 +12,19 @@ import {
   compareIsoDates,
   createDateFromIso,
   formatIsoDate,
+  getFirstBlockedDateAfter,
   getNightCount,
   getTodayIsoInTimeZone,
   sanitizeBookingDateRange,
   toIsoDateString,
 } from '@/lib/booking-dates';
+import type { CalendarSyncStatus } from '@/lib/bookable-properties';
 
 interface BookingRangeCalendarProps {
   value: BookingDateRange;
   onChange: (range: BookingDateRange) => void;
+  blockedDates?: readonly string[];
+  availabilityStatus?: CalendarSyncStatus;
 }
 
 type ActiveField = 'checkIn' | 'checkOut';
@@ -43,6 +47,8 @@ function isSameMonthUtc(left: Date, right: Date) {
 export default function BookingRangeCalendar({
   value,
   onChange,
+  blockedDates = [],
+  availabilityStatus = 'ready',
 }: BookingRangeCalendarProps) {
   const rootRef = useRef<HTMLDivElement | null>(null);
   const todayIso = getTodayIsoInTimeZone();
@@ -50,9 +56,10 @@ export default function BookingRangeCalendar({
     () => startOfMonthUtc(createDateFromIso(todayIso)),
     [todayIso],
   );
+  const blockedDateSet = useMemo(() => new Set(blockedDates), [blockedDates]);
   const displayValue = useMemo(
-    () => sanitizeBookingDateRange(value.checkIn, value.checkOut, todayIso, false),
-    [todayIso, value.checkIn, value.checkOut],
+    () => sanitizeBookingDateRange(value.checkIn, value.checkOut, todayIso, false, blockedDates),
+    [blockedDates, todayIso, value.checkIn, value.checkOut],
   );
   const [activeField, setActiveField] = useState<ActiveField>(() =>
     value.checkIn ? 'checkOut' : 'checkIn',
@@ -97,6 +104,15 @@ export default function BookingRangeCalendar({
   }, [displayValue.checkIn, todayIso]);
 
   useEffect(() => {
+    if (
+      value.checkIn !== displayValue.checkIn ||
+      value.checkOut !== displayValue.checkOut
+    ) {
+      onChange(displayValue);
+    }
+  }, [displayValue, onChange, value.checkIn, value.checkOut]);
+
+  useEffect(() => {
     if (!displayValue.checkIn) {
       setActiveField('checkIn');
       return;
@@ -117,6 +133,13 @@ export default function BookingRangeCalendar({
       to: createDateFromIso(displayValue.checkOut ?? displayValue.checkIn),
     };
   }, [displayValue.checkIn, displayValue.checkOut]);
+  const maxCheckOutIso = useMemo(() => {
+    if (!displayValue.checkIn) {
+      return null;
+    }
+
+    return getFirstBlockedDateAfter(displayValue.checkIn, blockedDates);
+  }, [blockedDates, displayValue.checkIn]);
 
   const handleFieldFocus = (field: ActiveField) => {
     if (field === 'checkOut' && !displayValue.checkIn) {
@@ -195,6 +218,34 @@ export default function BookingRangeCalendar({
   const nights = getNightCount(displayValue);
   const hasSelection = Boolean(displayValue.checkIn && displayValue.checkOut);
   const canGoToPreviousMonth = !isSameMonthUtc(month, todayMonth);
+  const canUseBlockedBoundaryAsCheckout = Boolean(
+    displayValue.checkIn &&
+      activeField === 'checkOut' &&
+      maxCheckOutIso &&
+      blockedDateSet.has(maxCheckOutIso),
+  );
+  const disabledDays = (date: Date) => {
+    const isoDate = toIsoDateString(date);
+
+    if (compareIsoDates(isoDate, todayIso) < 0) {
+      return true;
+    }
+
+    if (!displayValue.checkIn || activeField === 'checkIn') {
+      return blockedDateSet.has(isoDate);
+    }
+
+    if (compareIsoDates(isoDate, displayValue.checkIn) <= 0) {
+      return true;
+    }
+
+    if (maxCheckOutIso && compareIsoDates(isoDate, maxCheckOutIso) > 0) {
+      return true;
+    }
+
+    return false;
+  };
+  const unavailableDays = (date: Date) => blockedDateSet.has(toIsoDateString(date));
 
   return (
     <div
@@ -223,14 +274,27 @@ export default function BookingRangeCalendar({
             </div>
           </div>
 
+          {canUseBlockedBoundaryAsCheckout ? (
+            <div className="rounded-2xl border border-primary/10 bg-white px-4 py-3 text-sm text-primary/75">
+              Airbnb-blocked nights stay unavailable. You can still check out on the first blocked
+              day.
+            </div>
+          ) : null}
+
+          {availabilityStatus === 'error' ? (
+            <div className="rounded-2xl border border-amber-200 bg-amber-50 px-4 py-3 text-sm text-amber-900">
+              Airbnb availability is temporarily unavailable. Refresh before submitting your stay.
+            </div>
+          ) : null}
+
           <div className={showSidePanel ? 'grid gap-3' : 'grid gap-3 sm:grid-cols-2'}>
             <button
               type="button"
               onClick={() => handleFieldFocus('checkIn')}
-              className={`rounded-2xl border px-4 py-4 text-left transition ${
+              className={`tap-reset rounded-2xl border px-4 py-4 text-left ${
                 activeField === 'checkIn'
-                  ? 'border-primary bg-primary text-white shadow-lg shadow-primary/10'
-                  : 'border-primary/10 bg-white text-primary hover:border-secondary/40 hover:bg-secondary/10'
+                  ? 'border-black/10 bg-slate-900 text-white shadow-lg shadow-black/10'
+                  : 'border-primary/10 bg-white text-primary'
               }`}
             >
               <span
@@ -252,10 +316,10 @@ export default function BookingRangeCalendar({
             <button
               type="button"
               onClick={() => handleFieldFocus('checkOut')}
-              className={`rounded-2xl border px-4 py-4 text-left transition ${
+              className={`tap-reset rounded-2xl border px-4 py-4 text-left ${
                 activeField === 'checkOut'
-                  ? 'border-primary bg-primary text-white shadow-lg shadow-primary/10'
-                  : 'border-primary/10 bg-white text-primary hover:border-secondary/40 hover:bg-secondary/10'
+                  ? 'border-black/10 bg-slate-900 text-white shadow-lg shadow-black/10'
+                  : 'border-primary/10 bg-white text-primary'
               }`}
             >
               <span
@@ -295,7 +359,7 @@ export default function BookingRangeCalendar({
             <button
               type="button"
               onClick={clearDates}
-              className="inline-flex items-center justify-center gap-2 rounded-full border border-primary/15 bg-white px-4 py-2 text-sm font-semibold text-primary transition hover:border-primary/30 hover:bg-white/80"
+              className="tap-reset inline-flex items-center justify-center gap-2 rounded-full border border-primary/15 bg-white px-4 py-2 text-sm font-semibold text-primary"
             >
               <X className="h-4 w-4" />
               Clear dates
@@ -324,7 +388,7 @@ export default function BookingRangeCalendar({
                   type="button"
                   onClick={goToPreviousMonth}
                   disabled={!canGoToPreviousMonth}
-                  className="inline-flex h-10 w-10 items-center justify-center rounded-full border border-primary/10 bg-white text-primary transition hover:border-secondary/40 hover:bg-secondary/10 disabled:cursor-not-allowed disabled:opacity-30"
+                  className="tap-reset inline-flex h-10 w-10 items-center justify-center rounded-full border border-primary/10 bg-white text-primary disabled:cursor-not-allowed disabled:opacity-30"
                   aria-label="Show previous month"
                 >
                   <ChevronLeft className="h-4 w-4" />
@@ -332,7 +396,7 @@ export default function BookingRangeCalendar({
                 <button
                   type="button"
                   onClick={goToNextMonth}
-                  className="inline-flex h-10 w-10 items-center justify-center rounded-full border border-primary/10 bg-white text-primary transition hover:border-secondary/40 hover:bg-secondary/10"
+                  className="tap-reset inline-flex h-10 w-10 items-center justify-center rounded-full border border-primary/10 bg-white text-primary"
                   aria-label="Show next month"
                 >
                   <ChevronRight className="h-4 w-4" />
@@ -353,7 +417,13 @@ export default function BookingRangeCalendar({
             defaultMonth={todayMonth}
             startMonth={todayMonth}
             hideNavigation
-            disabled={{ before: createDateFromIso(todayIso) }}
+            disabled={disabledDays}
+            modifiers={{
+              unavailable: unavailableDays,
+            }}
+            modifiersClassNames={{
+              unavailable: 'booking-calendar-unavailable',
+            }}
             className="booking-calendar-root mt-5 w-full"
             classNames={{
               months: showTwoMonths
@@ -368,7 +438,7 @@ export default function BookingRangeCalendar({
               week: 'grid grid-cols-7 gap-1',
               day: 'booking-calendar-day',
               day_button:
-                'booking-calendar-day-button flex h-11 w-11 items-center justify-center rounded-2xl text-sm font-medium text-primary transition hover:bg-secondary/20 hover:text-primary focus:outline-none focus:ring-2 focus:ring-secondary/40',
+                'booking-calendar-day-button tap-reset flex h-11 w-11 items-center justify-center rounded-2xl text-sm font-medium text-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-black/10',
               disabled: 'booking-calendar-disabled',
               outside: 'booking-calendar-outside',
               today: 'booking-calendar-today',

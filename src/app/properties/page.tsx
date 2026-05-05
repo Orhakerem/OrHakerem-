@@ -1,5 +1,3 @@
-'use client';
-
 import React from 'react';
 import {
   ArrowRight,
@@ -10,7 +8,6 @@ import {
   Clock,
   MapPin,
   Shield,
-  Star,
   Users,
   UtensilsCrossed,
   Wifi,
@@ -19,6 +16,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 
 import ReservationForm from '@/app/reservation/reservation-form';
+import { getBookablePropertyCalendarSnapshot } from '@/lib/airbnb-calendar';
 
 const nearbyLandmarks = [
   { name: 'Carmel Market', distance: '400m' },
@@ -63,8 +61,6 @@ const properties = {
     location: 'Kerem HaTeimanim, Tel Aviv',
     description: 'This unique penthouse is perfect for both friendly or family stays equipped with amenities like the jacuzzi and barbecue, and live an unforgettable experience in a special place.',
     price: 2500,
-    rating: 4.9,
-    reviewCount: 128,
     image: '/penthouse/1-jacuzzi-angle.JPEG',
     maxGuests: 6,
     bedrooms: 3,
@@ -76,9 +72,7 @@ const properties = {
     title: 'Spacious & Cosy Apartment',
     location: 'Kerem HaTeimanim, Tel Aviv',
     description: 'This renovated apartment is perfect for short and medium term stays. Fully equipped and located a short walk from the beach, Carmel Market, and the entrance to Kerem HaTeimanim.',
-    price: 600,
-    rating: 4.8,
-    reviewCount: 96,
+    price: 500,
     image: '/studio/lit_angle_1.jpg',
     maxGuests: 3,
     bedrooms: 1,
@@ -94,7 +88,7 @@ function PropertyCard({ property }: { property: (typeof properties)[keyof typeof
   return (
     <article
       data-animate="scale"
-      className="property-card group relative bg-white rounded-2xl overflow-hidden shadow-xl hover:shadow-2xl transition-all duration-700 hover:scale-[1.02] aspect-square cursor-pointer"
+      className="property-card relative aspect-square overflow-hidden rounded-2xl bg-white shadow-xl"
     >
       <Link
         href={propertyHref}
@@ -102,16 +96,13 @@ function PropertyCard({ property }: { property: (typeof properties)[keyof typeof
         className="absolute inset-0 z-10 rounded-2xl"
       />
 
-      {/* Gradient overlay on hover */}
-      <div className="pointer-events-none absolute inset-0 z-10 rounded-2xl bg-gradient-to-br from-secondary/5 to-tertiary/5 opacity-0 transition-opacity duration-500 group-hover:opacity-100"></div>
-      
       {/* Image Section - Square format - Clean without price and heart */}
       <div className="property-card-image relative h-1/2 overflow-hidden pointer-events-none" data-animate="zoom">
         <Image 
           src={property.image} 
           alt={property.title} 
           fill 
-          className="object-cover group-hover:scale-110 transition-transform duration-700" 
+          className="object-cover" 
           loading="lazy"
           sizes="(max-width: 768px) 100vw, (max-width: 1024px) 90vw, 40vw"
         />
@@ -124,7 +115,7 @@ function PropertyCard({ property }: { property: (typeof properties)[keyof typeof
       <div className="property-card-content pointer-events-none p-6 h-1/2 flex flex-col justify-between relative z-20">
         {/* Title and Location */}
         <div className="property-card-copy mb-4 pointer-events-none">
-          <h3 className="font-playfair text-xl font-bold text-primary mb-1 group-hover:text-secondary transition-colors duration-300 line-clamp-2">
+          <h3 className="mb-1 line-clamp-2 font-playfair text-xl font-bold text-primary">
             {property.title}
           </h3>
           <div className="flex items-center text-primary/60 mb-2">
@@ -168,14 +159,14 @@ function PropertyCard({ property }: { property: (typeof properties)[keyof typeof
           <div className="property-card-actions pointer-events-auto relative z-20 flex gap-2">
             <Link
               href={propertyHref}
-              className="property-card-button property-card-button-primary flex-1 bg-gradient-to-r from-primary to-primary-light text-white py-2 px-3 rounded-full font-semibold hover:from-primary-light hover:to-primary transition-all duration-300 shadow-lg hover:shadow-xl transform hover:scale-105 flex items-center justify-center text-sm"
+              className="property-card-button property-card-button-primary button-hover-clean flex flex-1 items-center justify-center rounded-full bg-gradient-to-r from-primary to-primary-light px-3 py-2 text-sm font-semibold text-white shadow-lg"
             >
               <span>Details</span>
               <ArrowRight className="w-3 h-3 ml-1" />
             </Link>
             <Link
               href={reservationHref}
-              className="property-card-button property-card-button-secondary bg-gradient-to-r from-secondary to-secondary-light text-primary py-2 px-3 rounded-full font-semibold hover:from-secondary-light hover:to-secondary transition-all duration-300 shadow-lg hover:shadow-xl transform hover:scale-105 flex items-center justify-center text-sm"
+              className="button-hover-clean property-card-button property-card-button-secondary flex items-center justify-center rounded-full bg-gradient-to-r from-secondary to-secondary-light px-3 py-2 text-sm font-semibold text-primary shadow-lg"
             >
               <Calendar className="w-3 h-3 mr-1" />
               <span>Book</span>
@@ -187,9 +178,12 @@ function PropertyCard({ property }: { property: (typeof properties)[keyof typeof
   );
 }
 
-export default function Properties() {
+export default async function Properties() {
+  const { blockedDatesByProperty, availabilityStatusByProperty } =
+    await getBookablePropertyCalendarSnapshot();
+
   return (
-    <div className="min-h-screen pt-24 pb-20 bg-cream">
+    <div className="min-h-screen bg-cream pt-28 pb-20 md:pt-32">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Hero Section */}
         <div className="text-center mb-16" data-animate="fade-up">
@@ -255,7 +249,7 @@ export default function Properties() {
               <div className="absolute -bottom-5 left-5 right-5 md:left-auto md:right-6 md:max-w-xs rounded-2xl bg-white p-5 shadow-xl border border-primary/10">
                 <div className="flex items-center gap-3 mb-2">
                   <div className="w-12 h-12 rounded-full bg-secondary/20 flex items-center justify-center text-primary">
-                    <Star className="w-6 h-6 fill-current" />
+                    <CheckCircle className="w-6 h-6" />
                   </div>
                   <div>
                     <div className="font-playfair text-2xl font-bold text-primary">4.9/5</div>
@@ -345,7 +339,12 @@ export default function Properties() {
             </p>
           </div>
 
-          <ReservationForm embedded showIntro={false} />
+          <ReservationForm
+            embedded
+            showIntro={false}
+            availabilityByProperty={blockedDatesByProperty}
+            availabilityStatusByProperty={availabilityStatusByProperty}
+          />
         </section>
       </div>
     </div>

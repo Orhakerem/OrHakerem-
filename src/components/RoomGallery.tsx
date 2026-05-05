@@ -54,13 +54,14 @@ export default function RoomGallery({ rooms }: RoomGalleryProps) {
       {/* Room Albums Grid */}
       <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
         {rooms.map((room, roomIndex) => (
-          <div
+          <button
+            type="button"
             key={roomIndex}
-            className="bg-white rounded-xl shadow-lg overflow-hidden cursor-pointer transform transition-all hover:scale-105 hover:shadow-xl"
+            className="tap-reset overflow-hidden rounded-xl bg-white text-left shadow-lg"
             onClick={() => openRoom(room)}
           >
             {/* Room Cover Image */}
-            <div className="relative h-48">
+            <span className="relative block h-48">
               <Image
                 src={room.images[0]?.src || '/placeholder.jpg'}
                 alt={room.images[0]?.alt || room.name}
@@ -70,17 +71,17 @@ export default function RoomGallery({ rooms }: RoomGalleryProps) {
                 sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
               />
               <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent"></div>
-              <div className="absolute bottom-4 left-4 text-white">
-                <h3 className="font-playfair text-xl font-bold">{room.name}</h3>
-                <p className="text-sm opacity-90">{room.images.length} photos</p>
-              </div>
-            </div>
+              <span className="absolute bottom-4 left-4 text-white">
+                <span className="block font-playfair text-xl font-bold">{room.name}</span>
+                <span className="text-sm opacity-90">{room.images.length} photos</span>
+              </span>
+            </span>
             
             {/* Room Info */}
-            <div className="p-4">
-              <p className="text-primary/80 text-sm">{room.description}</p>
-            </div>
-          </div>
+            <span className="block p-4">
+              <span className="text-sm text-primary/80">{room.description}</span>
+            </span>
+          </button>
         ))}
       </div>
 
@@ -90,7 +91,7 @@ export default function RoomGallery({ rooms }: RoomGalleryProps) {
           {/* Close Button */}
           <button
             onClick={closeRoom}
-            className="absolute top-4 right-4 text-white hover:text-secondary transition z-10"
+            className="tap-reset absolute right-4 top-4 z-10 text-white"
           >
             <X className="w-8 h-8" />
           </button>
@@ -108,13 +109,13 @@ export default function RoomGallery({ rooms }: RoomGalleryProps) {
             <>
               <button
                 onClick={prevImage}
-                className="absolute left-4 top-1/2 -translate-y-1/2 p-2 bg-white/20 rounded-full text-white hover:bg-white/30 transition z-10"
+                className="tap-reset absolute left-4 top-1/2 z-10 -translate-y-1/2 rounded-full bg-white/20 p-2 text-white"
               >
                 <ChevronLeft className="w-6 h-6" />
               </button>
               <button
                 onClick={nextImage}
-                className="absolute right-4 top-1/2 -translate-y-1/2 p-2 bg-white/20 rounded-full text-white hover:bg-white/30 transition z-10"
+                className="tap-reset absolute right-4 top-1/2 z-10 -translate-y-1/2 rounded-full bg-white/20 p-2 text-white"
               >
                 <ChevronRight className="w-6 h-6" />
               </button>
@@ -142,8 +143,9 @@ export default function RoomGallery({ rooms }: RoomGalleryProps) {
                 <button
                   key={index}
                   onClick={() => setCurrentImageIndex(index)}
-                  className={`relative w-16 h-12 rounded overflow-hidden transition ${
-                    index === currentImageIndex ? 'ring-2 ring-secondary' : 'opacity-60 hover:opacity-100'
+                  type="button"
+                  className={`relative h-12 w-16 overflow-hidden rounded ${
+                    index === currentImageIndex ? 'tap-reset ring-2 ring-white/80' : 'tap-reset opacity-60'
                   }`}
                 >
                   <Image

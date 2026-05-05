@@ -24,6 +24,50 @@
   }
 }
 
+@layer base {
+  a,
+  button,
+  label,
+  input,
+  textarea,
+  select,
+  [role='button'],
+  summary,
+  .cursor-pointer,
+  .tap-reset,
+  [tabindex]:not([tabindex='-1']) {
+    -webkit-tap-highlight-color: transparent;
+    touch-action: manipulation;
+  }
+
+  a:focus-visible,
+  button:focus-visible,
+  label:focus-visible,
+  input:focus-visible,
+  textarea:focus-visible,
+  select:focus-visible,
+  [role='button']:focus-visible,
+  summary:focus-visible,
+  .tap-reset:focus-visible,
+  [tabindex]:not([tabindex='-1']):focus-visible {
+    outline: none;
+    box-shadow:
+      0 0 0 3px rgba(255, 255, 255, 0.88),
+      0 0 0 6px rgba(15, 23, 42, 0.14);
+  }
+
+  a:focus:not(:focus-visible),
+  button:focus:not(:focus-visible),
+  label:focus:not(:focus-visible),
+  [role='button']:focus:not(:focus-visible),
+  summary:focus:not(:focus-visible),
+  .tap-reset:focus:not(:focus-visible),
+  [tabindex]:not([tabindex='-1']):focus:not(:focus-visible) {
+    outline: none !important;
+    box-shadow: none !important;
+  }
+}
+
 /* Fade in up animation */
 @keyframes fadeInUp {
   from {
@@ -181,17 +225,31 @@
   opacity: 0.55;
 }
 
+.booking-calendar-root .booking-calendar-unavailable .booking-calendar-day-button {
+  background: rgba(165, 56, 43, 0.06);
+  color: rgba(165, 56, 43, 0.55);
+  text-decoration: line-through;
+  text-decoration-color: rgba(165, 56, 43, 0.4);
+  text-decoration-thickness: 1.5px;
+}
+
+.booking-calendar-root
+  .booking-calendar-unavailable:not(.booking-calendar-disabled)
+  .booking-calendar-day-button {
+  cursor: pointer;
+}
+
 .booking-calendar-root .booking-calendar-outside .booking-calendar-day-button {
   color: rgba(165, 56, 43, 0.35);
 }
 
 .booking-calendar-root .booking-calendar-today .booking-calendar-day-button {
-  border: 1px solid rgba(216, 176, 132, 0.8);
-  box-shadow: inset 0 0 0 1px rgba(216, 176, 132, 0.2);
+  border: 1px solid rgba(15, 23, 42, 0.18);
+  box-shadow: inset 0 0 0 1px rgba(15, 23, 42, 0.06);
 }
 
 .booking-calendar-root .booking-calendar-range-middle {
-  background: rgba(216, 176, 132, 0.2);
+  background: rgba(15, 23, 42, 0.06);
 }
 
 .booking-calendar-root .booking-calendar-range-middle .booking-calendar-day-button {
@@ -208,14 +266,14 @@
   background: linear-gradient(
     to right,
     transparent 50%,
-    rgba(216, 176, 132, 0.2) 50%
+    rgba(15, 23, 42, 0.06) 50%
   );
 }
 
 .booking-calendar-root .booking-calendar-range-end {
   background: linear-gradient(
     to right,
-    rgba(216, 176, 132, 0.2) 50%,
+    rgba(15, 23, 42, 0.06) 50%,
     transparent 50%
   );
 }
@@ -227,9 +285,9 @@
 .booking-calendar-root .booking-calendar-selected .booking-calendar-day-button,
 .booking-calendar-root .booking-calendar-range-start .booking-calendar-day-button,
 .booking-calendar-root .booking-calendar-range-end .booking-calendar-day-button {
-  background: var(--color-primary);
+  background: #1f2937;
   color: #fff;
-  box-shadow: 0 12px 24px rgba(165, 56, 43, 0.2);
+  box-shadow: 0 12px 24px rgba(15, 23, 42, 0.16);
 }
 
 .event-modal {
@@ -306,26 +364,32 @@
     letter-spacing: 0.01em;
   }
 
-  .font-switzer {
-    font-family: var(--font-inter), -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-  }
-
-  .font-crimson {
-    font-family: var(--font-crimson), serif;
-    font-weight: 400;
-    letter-spacing: 0.02em;
-  }
-
   .font-montserrat {
     font-family: var(--font-montserrat), sans-serif;
   }
 }
 
 @layer components {
+  .tap-reset,
+  .button-hover-clean,
+  .glass-cta,
+  .whatsapp-float,
+  .property-card-button,
+  .booking-calendar-day-button,
+  .nav-item-floating,
+  .nav-item-floating span,
+  .mobile-menu-button-floating,
+  .mobile-nav-item-floating,
+  .mobile-nav-item-floating span,
+  .logo-text-floating {
+    transition: none !important;
+  }
+
   .whatsapp-float {
     position: fixed;
     right: 24px;
-    bottom: 24px;
+    top: 58%;
+    bottom: auto;
     z-index: 9999;
     display: flex;
     align-items: center;
@@ -335,12 +399,8 @@
     border-radius: 50%;
     background: #25d366;
     box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
+    transform: translateY(-50%);
     transition: all 0.3s ease;
-  }
-
-  .whatsapp-float:hover {
-    transform: scale(1.08);
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.25);
   }
 
   .hero-home {
@@ -434,22 +494,6 @@
     transition: all 0.3s ease;
   }
 
-  .glass-cta.hero-scroll-cta {
-    opacity: 0;
-    transform: translateY(10px);
-    transition:
-      opacity 0.7s cubic-bezier(0.22, 1, 0.36, 1),
-      transform 0.7s cubic-bezier(0.22, 1, 0.36, 1),
-      background-color 0.3s ease,
-      border-color 0.3s ease;
-  }
-
-  .glass-cta.hero-scroll-cta.visible {
-    opacity: 1;
-    transform: translateY(0);
-    will-change: opacity, transform;
-  }
-
   .glass-cta::before {
     content: '';
     position: absolute;
@@ -480,16 +524,6 @@
     transform: skewX(-20deg);
     z-index: 2;
     pointer-events: none;
-  }
-
-  .glass-cta:hover {
-    background: rgba(255, 255, 255, 0.18);
-    border-color: rgba(255, 255, 255, 0.6);
-    transform: translateY(0) scale(1.02);
-  }
-
-  .glass-cta:hover::after {
-    animation: shine 1.4s ease forwards;
   }
 
   @keyframes shine {
@@ -536,20 +570,12 @@
       width: 50px;
       height: 50px;
       right: 18px;
-      bottom: 18px;
+      top: 64%;
+      bottom: auto;
     }
 
     .glass-cta::after {
       display: none;
-    }
-
-    .glass-cta.hero-scroll-cta {
-      transform: translateY(6px);
-      transition:
-        opacity 0.6s ease,
-        transform 0.6s ease,
-        background-color 0.3s ease,
-        border-color 0.3s ease;
     }
 
     .glass-cta-wrap {
@@ -568,11 +594,6 @@
   .modern-card {
     @apply rounded-[24px] bg-white p-8 transition-all duration-300 ease-in-out;
     box-shadow: 0 8px 32px rgba(0, 0, 0, 0.05);
-  }
-
-  .modern-card:hover {
-    transform: translateY(-8px);
-    box-shadow: 0 16px 48px rgba(0, 0, 0, 0.1);
   }
 
   .organic-shape {
@@ -603,11 +624,6 @@
   .btn-modern {
     @apply rounded-full px-8 py-3 transition-all duration-300 ease-in-out;
     background: linear-gradient(15deg, #a5382b 0%, #d8b084 100%);
-  }
-
-  .btn-modern:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 8px 24px rgba(165, 56, 43, 0.2);
   }
 
   .custom-cursor {
@@ -708,10 +724,6 @@
     transition: all 0.3s ease;
   }
 
-  .logo-text-floating:hover {
-    color: #f4e4c1;
-  }
-
   .logo-text-floating.mobile {
     font-size: 1.4rem;
   }
@@ -750,24 +762,10 @@
     white-space: nowrap;
   }
 
-  /* Hover effects épurés - sans effet shimmer */
-  .nav-item-floating:hover {
-    background: linear-gradient(135deg, #e8c49a 0%, #d4a876 100%);
-    color: #8b2f23;
-    transform: translateY(-2px) scale(1.02);
-    box-shadow: 
-      0 8px 25px rgba(216, 176, 132, 0.4),
-      0 0 0 1px rgba(165, 56, 43, 0.1) inset;
-  }
-
   /* État actif */
   .nav-item-floating.active {
-    background: linear-gradient(135deg, #e8c49a 0%, #d4a876 100%);
     color: #8b2f23;
-    box-shadow: 
-      0 6px 20px rgba(216, 176, 132, 0.4),
-      0 0 0 2px rgba(165, 56, 43, 0.2) inset;
-    transform: translateY(-1px);
+    box-shadow: 0 4px 15px rgba(216, 176, 132, 0.25);
   }
 
   .nav-item-floating span {
@@ -775,10 +773,6 @@
     z-index: 2;
     transition: all 0.3s ease;
     white-space: nowrap;
-  }
-
-  .nav-item-floating:hover span {
-    font-weight: 700;
   }
 
   /* Mobile Menu Button - Design épuré */
@@ -800,11 +794,6 @@
     display: flex;
     align-items: center;
     justify-content: center;
-  }
-
-  .mobile-menu-button-floating:hover {
-    color: #f4e4c1;
-    transition: color 0.3s ease;
   }
 
   .mobile-menu-floating {
@@ -845,13 +834,10 @@
     overflow: hidden;
   }
 
-  .mobile-nav-item-floating:hover {
-    color: #f4e4c1;
-  }
-
   .mobile-nav-item-floating.active {
-    color: #f4e4c1;
-    font-weight: 700;
+    color: #8b2f23;
+    background: transparent;
+    font-weight: 600;
   }
 
   .mobile-nav-item-floating span {
@@ -1035,10 +1021,6 @@
       padding-bottom: 0 !important;
     }
 
-    .rentals-hero-section {
-      min-height: 60vh !important;
-    }
-
     .services-hero-inner {
       min-height: calc(38vh - 4rem) !important;
       padding-top: 0.25rem !important;
@@ -1046,8 +1028,7 @@
       align-items: flex-start !important;
     }
 
-    .services-hero-content,
-    .rentals-hero-content {
+    .services-hero-content {
       padding-top: 0;
       padding-bottom: 1.25rem;
     }
@@ -1062,25 +1043,16 @@
       margin-bottom: 0.875rem !important;
     }
 
-    .rentals-hero-content h1 {
-      font-size: 3rem;
-      margin-bottom: 1rem !important;
-    }
-
-    .services-hero-content p,
-    .rentals-hero-content p {
+    .services-hero-content p {
       font-size: 0.98rem;
       margin-bottom: 0.875rem !important;
     }
 
-    .services-hero-pills,
-    .rentals-hero-pills {
+    .services-hero-pills {
       gap: 0.5rem;
     }
 
-    .services-hero-pills > div,
-    .rentals-hero-pills > div,
-    .rentals-hero-badge {
+    .services-hero-pills > div {
       padding: 0.5rem 0.85rem;
       font-size: 0.82rem;
     }
@@ -1096,9 +1068,7 @@
     .properties-cta-section,
     .services-grid-section,
     .services-contact-section,
-    .events-plan-section,
-    .rentals-amenities-section,
-    .rentals-journey-section {
+    .events-plan-section {
       padding-top: 3rem !important;
       padding-bottom: 3rem !important;
     }
@@ -1143,9 +1113,7 @@
     .properties-cta-section,
     .services-contact-card,
     .events-venues-card,
-    .events-plan-success,
-    .rentals-amenity-card,
-    .rentals-journey-section {
+    .events-plan-success {
       padding: 1.5rem !important;
     }
 
@@ -1209,15 +1177,13 @@
     .services-grid-header p,
     .services-contact-header p,
     .events-plan-header p,
-    .properties-cta-section p,
-    .rentals-journey-section p {
+    .properties-cta-section p {
       font-size: 1rem;
       margin-bottom: 0.875rem !important;
     }
 
     .home-faq-grid,
-    .services-grid,
-    .rentals-amenities-grid {
+    .services-grid {
       gap: 1rem !important;
     }
 
@@ -1396,10 +1362,6 @@
       padding-bottom: 0 !important;
     }
 
-    .rentals-hero-section {
-      min-height: 54vh !important;
-    }
-
     .services-hero-inner {
       min-height: calc(34vh - 3.75rem) !important;
       padding-top: 0 !important;
@@ -1407,8 +1369,7 @@
       align-items: flex-start !important;
     }
 
-    .services-hero-content,
-    .rentals-hero-content {
+    .services-hero-content {
       padding-bottom: 0.75rem;
     }
 
@@ -1422,13 +1383,7 @@
       margin-bottom: 0.75rem !important;
     }
 
-    .rentals-hero-content h1 {
-      font-size: 2.15rem;
-      margin-bottom: 0.75rem !important;
-    }
-
-    .services-hero-content p,
-    .rentals-hero-content p {
+    .services-hero-content p {
       font-size: 0.9rem;
       margin-bottom: 0.75rem !important;
     }
@@ -1574,9 +1529,7 @@
     .properties-cta-section,
     .services-grid-section,
     .services-contact-section,
-    .events-plan-section,
-    .rentals-amenities-section,
-    .rentals-journey-section {
+    .events-plan-section {
       padding-top: 2.5rem !important;
       padding-bottom: 2.5rem !important;
     }
@@ -1608,8 +1561,7 @@
     .home-contact-header h2,
     .home-testimonials-header h2,
     .services-grid-header h2,
-    .events-plan-header h2,
-    .rentals-journey-section h2 {
+    .events-plan-header h2 {
       font-size: 2rem !important;
       margin-bottom: 0.75rem !important;
     }
@@ -1626,8 +1578,7 @@
     .services-grid-header p,
     .services-contact-header p,
     .events-plan-header p,
-    .properties-cta-section p,
-    .rentals-journey-section p {
+    .properties-cta-section p {
       font-size: 0.95rem !important;
       margin-bottom: 0.75rem !important;
     }
@@ -1640,9 +1591,7 @@
     .properties-cta-section,
     .services-contact-card,
     .events-venues-card,
-    .events-plan-success,
-    .rentals-amenity-card,
-    .rentals-journey-section {
+    .events-plan-success {
       padding: 1rem !important;
     }
 
@@ -1737,10 +1686,6 @@
       -webkit-backdrop-filter: none !important;
       background: rgba(255, 255, 255, 0.08) !important;
       box-shadow: none;
-    }
-
-    .book-button-secondary:hover {
-      background: rgba(255, 255, 255, 0.14) !important;
     }
 
     .book-button-primary {

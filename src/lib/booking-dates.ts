@@ -2,6 +2,7 @@ export const BUSINESS_TIME_ZONE = 'Asia/Jerusalem';
 export const ISO_DATE_REGEX = /^\d{4}-\d{2}-\d{2}$/;
 
 const DAY_IN_MS = 24 * 60 * 60 * 1000;
+const EMPTY_BLOCKED_DATES: readonly string[] = [];
 
 export interface BookingDateRange {
   checkIn: string | null;
@@ -110,11 +111,63 @@ export function normalizeCheckOut(value: string | null | undefined, checkIn: str
   return compareIsoDates(value, checkIn) > 0 ? value : null;
 }
 
+export function isCheckInBlocked(
+  value: string,
+  blockedDates: readonly string[] = EMPTY_BLOCKED_DATES,
+) {
+  return blockedDates.includes(value);
+}
+
+export function getFirstBlockedDateAfter(
+  value: string,
+  blockedDates: readonly string[] = EMPTY_BLOCKED_DATES,
+) {
+  for (const blockedDate of blockedDates) {
+    if (compareIsoDates(blockedDate, value) > 0) {
+      return blockedDate;
+    }
+  }
+
+  return null;
+}
+
+export function clampCheckOutToAvailability(
+  checkIn: string,
+  checkOut: string | null | undefined,
+  blockedDates: readonly string[] = EMPTY_BLOCKED_DATES,
+) {
+  if (!checkOut || compareIsoDates(checkOut, checkIn) <= 0) {
+    return null;
+  }
+
+  const firstBlockedDate = getFirstBlockedDateAfter(checkIn, blockedDates);
+
+  if (firstBlockedDate && compareIsoDates(checkOut, firstBlockedDate) > 0) {
+    return firstBlockedDate;
+  }
+
+  return checkOut;
+}
+
+export function isBookingRangeAvailable(
+  range: BookingDateRange,
+  blockedDates: readonly string[] = EMPTY_BLOCKED_DATES,
+) {
+  if (!range.checkIn || !range.checkOut || isCheckInBlocked(range.checkIn, blockedDates)) {
+    return false;
+  }
+
+  const firstBlockedDate = getFirstBlockedDateAfter(range.checkIn, blockedDates);
+
+  return firstBlockedDate === null || compareIsoDates(range.checkOut, firstBlockedDate) <= 0;
+}
+
 export function sanitizeBookingDateRange(
   checkInValue: string | null | undefined,
   checkOutValue: string | null | undefined,
   todayIso = getTodayIsoInTimeZone(),
   autoSelectCheckOut = false,
+  blockedDates: readonly string[] = EMPTY_BLOCKED_DATES,
 ): BookingDateRange {
   const checkIn = normalizeCheckIn(checkInValue, todayIso);
   const checkOut = normalizeCheckOut(checkOutValue, checkIn);
@@ -123,8 +176,14 @@ export function sanitizeBookingDateRange(
     return { checkIn: null, checkOut: null };
   }
 
-  if (checkOut) {
-    return { checkIn, checkOut };
+  if (isCheckInBlocked(checkIn, blockedDates)) {
+    return { checkIn: null, checkOut: null };
+  }
+
+  const availableCheckOut = clampCheckOutToAvailability(checkIn, checkOut, blockedDates);
+
+  if (availableCheckOut) {
+    return { checkIn, checkOut: availableCheckOut };
   }
 
   return {
@@ -136,6 +195,7 @@ export function sanitizeBookingDateRange(
 export function isValidBookingRange(
   range: BookingDateRange,
   todayIso = getTodayIsoInTimeZone(),
+  blockedDates: readonly string[] = EMPTY_BLOCKED_DATES,
 ) {
   const checkIn = normalizeCheckIn(range.checkIn, todayIso);
 
@@ -143,5 +203,17 @@ export function isValidBookingRange(
     return false;
   }
 
-  return normalizeCheckOut(range.checkOut, checkIn) !== null;
+  const checkOut = normalizeCheckOut(range.checkOut, checkIn);
+
+  if (!checkOut) {
+    return false;
+  }
+
+  return isBookingRangeAvailable(
+    {
+      checkIn,
+      checkOut,
+    },
+    blockedDates,
+  );
 }
