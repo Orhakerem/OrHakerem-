@@ -1,6 +1,7 @@
 import type { Metadata } from 'next';
 import dynamic from 'next/dynamic';
 import Script from 'next/script';
+import { SpeedInsights } from '@vercel/speed-insights/next';
 import Toast from '@/components/Toast';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
@@ -108,6 +109,7 @@ export default function RootLayout({
           {children}
         </main>
         <Footer />
+        <SpeedInsights />
         <a
           href="https://wa.me/972526869791?text=Hi%20I%20am%20interested%20in%20your%20properties"
           target="_blank"
