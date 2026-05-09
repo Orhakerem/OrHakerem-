@@ -1,9 +1,10 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { ArrowUp, Car, Baby, Calendar, ShoppingBasket, Sparkle, UtensilsCrossed } from 'lucide-react';
 import toast from 'react-hot-toast';
 import { sendContactEmail } from '@/actions/contact';
+import { useBackToTopVisibility } from '@/hooks/useBackToTopVisibility';
 
 interface ServiceCardProps {
   icon: React.ComponentType<{ className?: string }>;
@@ -43,7 +44,7 @@ function ServiceCard({ icon: Icon, title, description, delay }: ServiceCardProps
 
 export default function ConciergeServicesPage() {
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const [showBackToTop, setShowBackToTop] = useState(false);
+  const showBackToTop = useBackToTopVisibility();
 
   const services = [
     {
@@ -106,16 +107,6 @@ export default function ConciergeServicesPage() {
   const scrollToTop = () => {
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
-
-  // Show/hide back to top button based on scroll position
-  useEffect(() => {
-    const handleScroll = () => {
-      setShowBackToTop(window.scrollY > 400);
-    };
-
-    window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
 
   return (
     <div className="min-h-screen bg-cream">

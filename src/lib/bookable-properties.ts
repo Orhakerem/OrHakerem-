@@ -14,7 +14,6 @@ export const BOOKABLE_PROPERTIES = {
 } as const;
 
 export type BookablePropertyId = keyof typeof BOOKABLE_PROPERTIES;
-export type BookableProperty = (typeof BOOKABLE_PROPERTIES)[BookablePropertyId];
 export type BookablePropertyTitle = (typeof BOOKABLE_PROPERTIES)[BookablePropertyId]['title'];
 export type CalendarSyncStatus = 'ready' | 'stale' | 'error';
 export type PropertyBlockedDatesMap = Record<BookablePropertyId, string[]>;

@@ -1,6 +1,6 @@
 # Or Hakerem - Luxury Properties in Tel Aviv
 
-A premium luxury accommodation website featuring properties in Tel Aviv's vibrant Kerem HaTeimanim neighborhood. Built with Next.js 15, TypeScript, and Tailwind CSS.
+A premium luxury accommodation website featuring properties in Tel Aviv's vibrant Kerem HaTeimanim neighborhood. Built with Next.js 14, TypeScript, and Tailwind CSS.
 
 ## 🏨 Features
 
@@ -13,9 +13,9 @@ A premium luxury accommodation website featuring properties in Tel Aviv's vibran
 
 ## 🚀 Tech Stack
 
-- **Framework**: Next.js 15 with App Router
+- **Framework**: Next.js 14 with App Router
 - **Language**: TypeScript
-- **Styling**: Tailwind CSS v4
+- **Styling**: Tailwind CSS v3
 - **Icons**: Lucide React
 - **Email**: Resend API
 - **Validation**: Zod
@@ -32,7 +32,7 @@ cd orhakerem
 
 2. Install dependencies:
 ```bash
-npm install
+pnpm install
 ```
 
 3. Set up environment variables:
@@ -48,7 +48,7 @@ RECIPIENT_EMAIL=your_email@example.com
 
 4. Run the development server:
 ```bash
-npm run dev
+pnpm dev
 ```
 
 Open [http://localhost:3000](http://localhost:3000) to view the website.
@@ -94,7 +94,7 @@ All forms use server actions with Zod validation and Resend for email delivery.
 The site is configured for deployment on Vercel:
 
 ```bash
-npm run build
+pnpm build
 ```
 
 Environment variables needed for production:
@@ -125,16 +125,14 @@ Environment variables needed for production:
 
 ### Available Scripts
 
-- `npm run dev` - Start development server
-- `npm run build` - Build for production
-- `npm run start` - Start production server
-- `npm run lint` - Run ESLint
-- `npm run format` - Format code with Prettier
+- `pnpm dev` - Start development server
+- `pnpm build` - Build for production
+- `pnpm start` - Start production server
+- `pnpm lint` - Run ESLint
 
 ### Code Quality
 
-- ESLint configuration for Next.js and TypeScript
-- Prettier for code formatting
+- Flat ESLint configuration for JavaScript and TypeScript
 - TypeScript for type safety
 - Responsive design with Tailwind CSS
 

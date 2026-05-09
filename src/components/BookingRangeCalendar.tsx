@@ -3,8 +3,9 @@
 import { CalendarDays, ChevronLeft, ChevronRight, X } from 'lucide-react';
 import { DayPicker, type Modifiers } from 'react-day-picker';
 
-import React, { useEffect, useMemo, useRef, useState } from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 
+import { useResponsiveCalendarLayout } from '@/hooks/useResponsiveCalendarLayout';
 import {
   addNights,
   BUSINESS_TIME_ZONE,
@@ -18,6 +19,7 @@ import {
   sanitizeBookingDateRange,
   toIsoDateString,
 } from '@/lib/booking-dates';
+import { addMonthsUtc, isSameMonthUtc, startOfMonthUtc } from '@/lib/calendar-months';
 import type { CalendarSyncStatus } from '@/lib/bookable-properties';
 
 interface BookingRangeCalendarProps {
@@ -29,28 +31,13 @@ interface BookingRangeCalendarProps {
 
 type ActiveField = 'checkIn' | 'checkOut';
 
-function startOfMonthUtc(date: Date) {
-  return new Date(Date.UTC(date.getUTCFullYear(), date.getUTCMonth(), 1, 12));
-}
-
-function addMonthsUtc(date: Date, months: number) {
-  return new Date(Date.UTC(date.getUTCFullYear(), date.getUTCMonth() + months, 1, 12));
-}
-
-function isSameMonthUtc(left: Date, right: Date) {
-  return (
-    left.getUTCFullYear() === right.getUTCFullYear() &&
-    left.getUTCMonth() === right.getUTCMonth()
-  );
-}
-
 export default function BookingRangeCalendar({
   value,
   onChange,
   blockedDates = [],
   availabilityStatus = 'ready',
 }: BookingRangeCalendarProps) {
-  const rootRef = useRef<HTMLDivElement | null>(null);
+  const { rootRef, showSidePanel, showTwoMonths } = useResponsiveCalendarLayout();
   const todayIso = getTodayIsoInTimeZone();
   const todayMonth = useMemo(
     () => startOfMonthUtc(createDateFromIso(todayIso)),
@@ -64,40 +51,9 @@ export default function BookingRangeCalendar({
   const [activeField, setActiveField] = useState<ActiveField>(() =>
     value.checkIn ? 'checkOut' : 'checkIn',
   );
-  const [showSidePanel, setShowSidePanel] = useState(false);
-  const [showTwoMonths, setShowTwoMonths] = useState(false);
   const [month, setMonth] = useState<Date>(() =>
     startOfMonthUtc(createDateFromIso(value.checkIn ?? todayIso)),
   );
-
-  useEffect(() => {
-    const rootElement = rootRef.current;
-
-    if (!rootElement) {
-      return;
-    }
-
-    const syncLayout = (width: number) => {
-      setShowSidePanel(width >= 960);
-      setShowTwoMonths(width >= 860);
-    };
-
-    syncLayout(rootElement.getBoundingClientRect().width);
-
-    const observer = new ResizeObserver((entries) => {
-      const entry = entries[0];
-
-      if (!entry) {
-        return;
-      }
-
-      syncLayout(entry.contentRect.width);
-    });
-
-    observer.observe(rootElement);
-
-    return () => observer.disconnect();
-  }, []);
 
   useEffect(() => {
     setMonth(startOfMonthUtc(createDateFromIso(displayValue.checkIn ?? todayIso)));

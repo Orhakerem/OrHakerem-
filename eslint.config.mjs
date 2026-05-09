@@ -46,6 +46,9 @@ const eslintConfig = [
         HTMLTextAreaElement: 'readonly',
         HTMLFormElement: 'readonly',
         HTMLButtonElement: 'readonly',
+        IntersectionObserver: 'readonly',
+        MutationObserver: 'readonly',
+        ResizeObserver: 'readonly',
         Element: 'readonly',
         Node: 'readonly',
         NodeList: 'readonly',
@@ -63,7 +66,7 @@ const eslintConfig = [
       // Disable problematic rules that cause build issues
       'react/no-unescaped-entities': 'off',
       'no-unused-vars': 'warn',
-      'no-console': 'warn',
+      'no-console': ['warn', { allow: ['warn', 'error'] }],
       'prefer-const': 'error',
       'no-undef': 'error'
     }
@@ -98,6 +101,9 @@ const eslintConfig = [
         HTMLTextAreaElement: 'readonly',
         HTMLFormElement: 'readonly',
         HTMLButtonElement: 'readonly',
+        IntersectionObserver: 'readonly',
+        MutationObserver: 'readonly',
+        ResizeObserver: 'readonly',
         Element: 'readonly',
         Node: 'readonly',
         NodeList: 'readonly',
@@ -121,7 +127,7 @@ const eslintConfig = [
       'react/no-unescaped-entities': 'off',
       '@typescript-eslint/no-unused-vars': 'warn',
       'no-unused-vars': 'off', // Turn off base rule as it can report incorrect errors
-      'no-console': 'warn',
+      'no-console': ['warn', { allow: ['warn', 'error'] }],
       'prefer-const': 'error',
       'no-undef': 'off' // TypeScript handles this
     }

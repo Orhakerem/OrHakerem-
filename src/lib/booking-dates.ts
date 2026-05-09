@@ -92,7 +92,7 @@ export function getNightCount(range: BookingDateRange) {
   return Math.max(0, Math.round(diff / DAY_IN_MS));
 }
 
-export function normalizeCheckIn(
+function normalizeCheckIn(
   value: string | null | undefined,
   todayIso = getTodayIsoInTimeZone(),
 ) {
@@ -103,7 +103,7 @@ export function normalizeCheckIn(
   return compareIsoDates(value, todayIso) >= 0 ? value : null;
 }
 
-export function normalizeCheckOut(value: string | null | undefined, checkIn: string | null) {
+function normalizeCheckOut(value: string | null | undefined, checkIn: string | null) {
   if (!value || !checkIn || !isIsoDateString(value)) {
     return null;
   }
@@ -111,7 +111,7 @@ export function normalizeCheckOut(value: string | null | undefined, checkIn: str
   return compareIsoDates(value, checkIn) > 0 ? value : null;
 }
 
-export function isCheckInBlocked(
+function isCheckInBlocked(
   value: string,
   blockedDates: readonly string[] = EMPTY_BLOCKED_DATES,
 ) {
@@ -131,7 +131,7 @@ export function getFirstBlockedDateAfter(
   return null;
 }
 
-export function clampCheckOutToAvailability(
+function clampCheckOutToAvailability(
   checkIn: string,
   checkOut: string | null | undefined,
   blockedDates: readonly string[] = EMPTY_BLOCKED_DATES,
@@ -149,7 +149,7 @@ export function clampCheckOutToAvailability(
   return checkOut;
 }
 
-export function isBookingRangeAvailable(
+function isBookingRangeAvailable(
   range: BookingDateRange,
   blockedDates: readonly string[] = EMPTY_BLOCKED_DATES,
 ) {

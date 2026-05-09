@@ -184,7 +184,7 @@ export async function getPropertyAvailability(
   return request;
 }
 
-export async function getAllPropertyAvailability() {
+async function getAllPropertyAvailability() {
   const availabilityEntries = await Promise.all(
     BOOKABLE_PROPERTY_IDS.map(async (propertyId) => {
       const availability = await getPropertyAvailability(propertyId);

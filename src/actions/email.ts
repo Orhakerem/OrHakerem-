@@ -1,34 +1,19 @@
 'use server';
 
-import { Resend } from 'resend';
-
 import { reservationSchema, eventSchema, type ReservationData, type EventData } from '@/validation';
 import { getPropertyAvailability } from '@/lib/airbnb-calendar';
 import { isValidBookingRange } from '@/lib/booking-dates';
 import { getBookablePropertyIdFromLabel } from '@/lib/bookable-properties';
-
-// Helper function to sanitize strings for HTTP headers
-function sanitizeForHeader(str: string): string {
-  return str.replace(/[^\x00-\x7F]/g, '?');
-}
+import { getEmailConfig, sanitizeForHeader, sendResendEmail } from '@/lib/email-service';
 
 export async function sendEmail(formData: FormData) {
   try {
-    // Get and validate environment variables
-    const apiKey = process.env.RESEND_API_KEY?.trim();
-    const recipientEmail = process.env.RECIPIENT_EMAIL?.trim();
+    const { config, error: configError } = getEmailConfig();
 
-    if (!apiKey) {
+    if (!config) {
       return {
         success: false,
-        error: 'Missing Resend API key'
-      };
-    }
-
-    if (!recipientEmail) {
-      return {
-        success: false,
-        error: 'Missing recipient email'
+        error: configError,
       };
     }
 
@@ -77,13 +62,7 @@ export async function sendEmail(formData: FormData) {
         ${validatedData.message ? `<p><strong>Additional Details:</strong> ${validatedData.message}</p>` : ''}
       `.trim();
 
-      // Initialize Resend with API key
-      const resend = new Resend(apiKey);
-
-      // Send email using Resend API
-      const { error } = await resend.emails.send({
-        from: 'Or Hakerem <onboarding@resend.dev>',
-        to: recipientEmail,
+      const { error } = await sendResendEmail(config, {
         subject,
         html: emailContent,
         replyTo: sanitizedEmail,
@@ -164,13 +143,7 @@ export async function sendEmail(formData: FormData) {
         <p><strong>Preferred Contact Method:</strong> ${validatedData.contactMethod}</p>
       `.trim();
 
-      // Initialize Resend with API key
-      const resend = new Resend(apiKey);
-
-      // Send email using Resend API
-      const { error } = await resend.emails.send({
-        from: 'Or Hakerem <onboarding@resend.dev>',
-        to: recipientEmail,
+      const { error } = await sendResendEmail(config, {
         subject,
         html: emailContent,
         replyTo: sanitizedEmail,

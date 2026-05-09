@@ -194,21 +194,6 @@
   }
 }
 
-.auto-gallery {
-  --primary-color: #a5382b;
-  --accent-color: #d8b084;
-  --tertiary-color: #115814;
-  border-radius: 12px;
-  overflow: hidden;
-  padding: 1.2rem;
-}
-
-.gallery-item {
-  box-shadow:
-    0 4px 6px -1px rgb(0 0 0 / 0.1),
-    0 2px 4px -2px rgb(0 0 0 / 0.1);
-}
-
 .booking-calendar-root .booking-calendar-day {
   position: relative;
   display: flex;
@@ -311,18 +296,6 @@
 @supports not (height: 100dvh) {
   .event-form {
     max-height: calc(100vh - 1.5rem);
-  }
-}
-
-@media (max-width: 600px) {
-  .auto-gallery {
-    padding: 0.8rem;
-  }
-}
-
-@media (max-width: 1024px) {
-  .auto-gallery {
-    padding: 1rem;
   }
 }
 
@@ -460,14 +433,6 @@
     opacity: 1 !important;
   }
 
-  .hero-home-mobile-video-cta {
-    position: absolute;
-    left: 50%;
-    bottom: 1rem;
-    z-index: 3;
-    transform: translateX(-50%);
-  }
-
   .glass-cta-wrap {
     position: absolute;
     bottom: 40px;
@@ -535,22 +500,6 @@
     }
   }
 
-  .book-button {
-    backdrop-filter: none !important;
-    -webkit-backdrop-filter: none !important;
-  }
-
-  .book-button-primary {
-    background: linear-gradient(to right, #d8b084, rgba(216, 176, 132, 0.9));
-    color: #a5382b;
-  }
-
-  .book-button-secondary {
-    background: rgba(255, 255, 255, 0.2);
-    color: #fff;
-    border: 1px solid rgba(255, 255, 255, 0.3);
-  }
-
   .property-card {
     display: flex;
     flex-direction: column;
@@ -591,72 +540,12 @@
     }
   }
 
-  .modern-card {
-    @apply rounded-[24px] bg-white p-8 transition-all duration-300 ease-in-out;
-    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.05);
-  }
-
-  .organic-shape {
-    border-radius: 24px 48px 24px 64px;
-  }
-
-  .gradient-overlay {
-    @apply absolute inset-0;
-    background: linear-gradient(15deg, rgba(165, 56, 43, 0.9) 0%, rgba(216, 176, 132, 0.8) 100%);
-  }
-
-  .wave-divider {
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    width: 100%;
-    overflow: hidden;
-    line-height: 0;
-  }
-
-  .wave-divider svg {
-    position: relative;
-    display: block;
-    width: calc(100% + 1.3px);
-    height: 120px;
-  }
-
-  .btn-modern {
-    @apply rounded-full px-8 py-3 transition-all duration-300 ease-in-out;
-    background: linear-gradient(15deg, #a5382b 0%, #d8b084 100%);
-  }
-
   .custom-cursor {
     @apply pointer-events-none fixed z-50 h-6 w-6 mix-blend-difference;
     border: 2px solid #d8b084;
     border-radius: 50%;
     transform: translate(-50%, -50%);
     transition: all 0.1s ease-out;
-  }
-
-  .loader {
-    @apply relative h-16 w-16;
-  }
-
-  .loader::before,
-  .loader::after {
-    content: '';
-    @apply absolute inset-0 rounded-full;
-    background: linear-gradient(15deg, #a5382b 0%, #d8b084 100%);
-    animation: pulse 2s ease-in-out infinite;
-  }
-
-  .loader::after {
-    animation-delay: -1s;
-  }
-
-  /* Custom border widths */
-  .border-l-16 {
-    border-left-width: 64px;
-  }
-
-  .border-r-16 {
-    border-right-width: 64px;
   }
 
   /* Floating Navbar Styles - Amélioré et épuré */
@@ -1065,7 +954,6 @@
     .home-contact-section,
     .home-testimonials-section,
     .home-faq-section,
-    .properties-cta-section,
     .services-grid-section,
     .services-contact-section,
     .events-plan-section {
@@ -1110,7 +998,6 @@
     .home-testimonials-card,
     .home-testimonials-guest,
     .home-faq-item,
-    .properties-cta-section,
     .services-contact-card,
     .events-venues-card,
     .events-plan-success {
@@ -1176,8 +1063,7 @@
     .home-contact-header p,
     .services-grid-header p,
     .services-contact-header p,
-    .events-plan-header p,
-    .properties-cta-section p {
+    .events-plan-header p {
       font-size: 1rem;
       margin-bottom: 0.875rem !important;
     }
@@ -1244,14 +1130,6 @@
       max-height: calc(100dvh - 3rem) !important;
     }
 
-    .book-button-primary {
-      background: linear-gradient(to right, #d8b084, rgba(216, 176, 132, 0.9)) !important;
-      color: #a5382b !important;
-      border: none !important;
-      box-shadow:
-        0 12px 24px rgba(216, 176, 132, 0.2),
-        0 0 0 1px rgba(255, 255, 255, 0.08) inset;
-    }
   }
 
   /* Mobile styles */
@@ -1526,7 +1404,6 @@
     .home-contact-section,
     .home-testimonials-section,
     .home-faq-section,
-    .properties-cta-section,
     .services-grid-section,
     .services-contact-section,
     .events-plan-section {
@@ -1577,8 +1454,7 @@
     .home-testimonials-header p,
     .services-grid-header p,
     .services-contact-header p,
-    .events-plan-header p,
-    .properties-cta-section p {
+    .events-plan-header p {
       font-size: 0.95rem !important;
       margin-bottom: 0.75rem !important;
     }
@@ -1588,7 +1464,6 @@
     .home-testimonials-card,
     .home-testimonials-guest,
     .home-faq-item,
-    .properties-cta-section,
     .services-contact-card,
     .events-venues-card,
     .events-plan-success {
@@ -1681,18 +1556,6 @@
       max-height: calc(100dvh - 1.5rem) !important;
     }
 
-    .book-button-secondary {
-      backdrop-filter: none !important;
-      -webkit-backdrop-filter: none !important;
-      background: rgba(255, 255, 255, 0.08) !important;
-      box-shadow: none;
-    }
-
-    .book-button-primary {
-      background: linear-gradient(to right, #d8b084, rgba(216, 176, 132, 0.9)) !important;
-      color: #a5382b !important;
-    }
-
     .max-w-4xl,
     .max-w-5xl,
     .max-w-6xl,
@@ -1702,12 +1565,6 @@
 
     .gap-8 {
       gap: 1.25rem;
-    }
-
-    .gap-12,
-    .gap-16,
-    .gap-20 {
-      gap: 1.5rem;
     }
 
     .site-footer-mobile {
@@ -1890,71 +1747,4 @@
     animation: fadeInUp 1s ease;
   }
 
-  @keyframes float-drift {
-    0%, 100% {
-      transform: translate(0, 0) rotate(0deg);
-    }
-    25% {
-      transform: translate(10px, -15px) rotate(5deg);
-    }
-    50% {
-      transform: translate(-5px, -25px) rotate(-3deg);
-    }
-    75% {
-      transform: translate(-15px, -10px) rotate(2deg);
-    }
-  }
-
-  @keyframes shimmer-glow {
-    0%, 100% {
-      opacity: 0.3;
-      transform: scale(1);
-    }
-    50% {
-      opacity: 0.6;
-      transform: scale(1.1);
-    }
-  }
-
-  @keyframes gentle-wave {
-    0%, 100% {
-      transform: translateY(0) scaleX(1);
-    }
-    50% {
-      transform: translateY(-10px) scaleX(1.02);
-    }
-  }
-
-  @keyframes float-up {
-    0% {
-      transform: translateY(100%) rotate(0deg);
-      opacity: 0;
-    }
-    10% {
-      opacity: 0.8;
-    }
-    90% {
-      opacity: 0.8;
-    }
-    100% {
-      transform: translateY(-100vh) rotate(360deg);
-      opacity: 0;
-    }
-  }
-
-  .animate-float-drift {
-    animation: float-drift 8s ease-in-out infinite;
-  }
-
-  .animate-shimmer-glow {
-    animation: shimmer-glow 4s ease-in-out infinite;
-  }
-
-  .animate-gentle-wave {
-    animation: gentle-wave 6s ease-in-out infinite;
-  }
-
-  .animate-float-up {
-    animation: float-up 15s linear infinite;
-  }
 }

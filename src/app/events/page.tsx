@@ -7,6 +7,7 @@ import React, { useState, useEffect, useRef } from 'react';
 
 import { sendEmail } from '@/actions/email';
 import BookingSingleDateCalendar from '@/components/BookingSingleDateCalendar';
+import { useBackToTopVisibility } from '@/hooks/useBackToTopVisibility';
 
 const eventTypes = [
   'Wedding',
@@ -42,7 +43,7 @@ export default function Events() {
   const [isSuccess, setIsSuccess] = useState(false);
   const [contactMethod, setContactMethod] = useState('email');
   const [eventDate, setEventDate] = useState<string | null>(null);
-  const [showBackToTop, setShowBackToTop] = useState(false);
+  const showBackToTop = useBackToTopVisibility();
   const videoRef = useRef<HTMLVideoElement>(null);
 
   useEffect(() => {
@@ -87,15 +88,6 @@ export default function Events() {
   const scrollToTop = () => {
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
-
-  useEffect(() => {
-    const handleScroll = () => {
-      setShowBackToTop(window.scrollY > 400);
-    };
-
-    window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
 
   useEffect(() => {
     const originalOverflow = document.body.style.overflow;

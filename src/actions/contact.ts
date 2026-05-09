@@ -1,29 +1,16 @@
 'use server';
 
-import { Resend } from 'resend';
 import { contactSchema, type ContactData } from '@/validation';
-
-// Helper function to sanitize strings for HTTP headers
-function sanitizeForHeader(str: string): string {
-  return str.replace(/[^\x00-\x7F]/g, '?');
-}
+import { getEmailConfig, sanitizeForHeader, sendResendEmail } from '@/lib/email-service';
 
 export async function sendContactEmail(formData: FormData) {
   try {
-    const apiKey = process.env.RESEND_API_KEY?.trim();
-    const recipientEmail = process.env.RECIPIENT_EMAIL?.trim();
+    const { config, error: configError } = getEmailConfig();
 
-    if (!apiKey) {
+    if (!config) {
       return {
         success: false,
-        error: 'Missing Resend API key'
-      };
-    }
-
-    if (!recipientEmail) {
-      return {
-        success: false,
-        error: 'Missing recipient email'
+        error: configError,
       };
     }
 
@@ -38,11 +25,7 @@ export async function sendContactEmail(formData: FormData) {
     // Sanitize validated data for use in headers
     const sanitizedEmail = sanitizeForHeader(validatedData.email);
 
-    const resend = new Resend(apiKey);
-
-    const { error } = await resend.emails.send({
-      from: 'Or Hakerem <onboarding@resend.dev>',
-      to: recipientEmail,
+    const { error } = await sendResendEmail(config, {
       subject: sanitizeForHeader(`New message from ${validatedData.name}`),
       html: `
         <h2>New Contact Form Submission</h2>
