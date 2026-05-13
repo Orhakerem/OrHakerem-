@@ -1,10 +1,24 @@
 'use server';
 
+import { ZodError } from 'zod';
+
 import { reservationSchema, eventSchema, type ReservationData, type EventData } from '@/validation';
 import { getPropertyAvailability } from '@/lib/airbnb-calendar';
-import { isValidBookingRange } from '@/lib/booking-dates';
-import { getBookablePropertyIdFromLabel } from '@/lib/bookable-properties';
+import { getBookingDateRangeValidationMessage } from '@/lib/booking-dates';
+import {
+  getBookablePropertyIdFromLabel,
+  getBookablePropertyListingId,
+} from '@/lib/bookable-properties';
 import { getEmailConfig, sanitizeForHeader, sendResendEmail } from '@/lib/email-service';
+import { savePendingReservationRequest } from '@/lib/reservation-requests';
+
+function getSafeValidationErrorMessage(error: ZodError) {
+  return error.issues[0]?.message ?? 'Please check the reservation details and try again.';
+}
+
+function isReservationInsertError(error: unknown) {
+  return error instanceof Error && error.message.startsWith('Failed to save reservation request:');
+}
 
 export async function sendEmail(formData: FormData) {
   try {
@@ -84,8 +98,10 @@ export async function sendEmail(formData: FormData) {
       // Validate reservation data
       const reservationData = {
         property,
+        listingId: formData.get('listing_id')?.toString().trim() || '',
         checkIn: formData.get('checkIn')?.toString().trim() || '',
         checkOut: formData.get('checkOut')?.toString().trim() || '',
+        guestsCount: formData.get('guestsCount')?.toString().trim() || undefined,
         name,
         email,
         phone,
@@ -103,6 +119,15 @@ export async function sendEmail(formData: FormData) {
         };
       }
 
+      const listingId = getBookablePropertyListingId(propertyId);
+
+      if (validatedData.listingId !== listingId) {
+        return {
+          success: false,
+          error: 'Please select a valid property before sending your request.',
+        };
+      }
+
       const availability = await getPropertyAvailability(propertyId);
 
       if (availability.status === 'error') {
@@ -112,19 +137,40 @@ export async function sendEmail(formData: FormData) {
         };
       }
 
-      if (
-        !isValidBookingRange(
-          {
-            checkIn: validatedData.checkIn,
-            checkOut: validatedData.checkOut,
-          },
-          undefined,
-          availability.blockedDates,
-        )
-      ) {
+      const dateValidationMessage = getBookingDateRangeValidationMessage(
+        {
+          checkIn: validatedData.checkIn,
+          checkOut: validatedData.checkOut,
+        },
+        undefined,
+        availability.blockedDates,
+      );
+
+      if (dateValidationMessage) {
         return {
           success: false,
-          error: 'Those dates are no longer available. Please choose different dates.',
+          error: dateValidationMessage,
+        };
+      }
+
+      try {
+        await savePendingReservationRequest({
+          listingId,
+          checkIn: validatedData.checkIn,
+          checkOut: validatedData.checkOut,
+          guestName: validatedData.name,
+          guestEmail: validatedData.email,
+          guestPhone: validatedData.phone,
+          guestsCount: validatedData.guestsCount,
+        });
+      } catch (error) {
+        console.error('Reservation persistence failed:', error);
+
+        return {
+          success: false,
+          error: isReservationInsertError(error)
+            ? 'Unable to save reservation request. Please try again.'
+            : 'Unable to calculate the price for those dates. Please try again.',
         };
       }
 
@@ -164,7 +210,10 @@ export async function sendEmail(formData: FormData) {
     }
   } catch (error) {
     console.error('Email sending failed:', error);
-    const errorMessage = error instanceof Error ? error.message : 'Failed to send email';
+    const errorMessage =
+      error instanceof ZodError
+        ? getSafeValidationErrorMessage(error)
+        : 'Failed to send email. Please try again.';
     return {
       success: false,
       error: errorMessage

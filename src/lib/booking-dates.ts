@@ -197,23 +197,33 @@ export function isValidBookingRange(
   todayIso = getTodayIsoInTimeZone(),
   blockedDates: readonly string[] = EMPTY_BLOCKED_DATES,
 ) {
-  const checkIn = normalizeCheckIn(range.checkIn, todayIso);
+  return getBookingDateRangeValidationMessage(range, todayIso, blockedDates) === null;
+}
 
-  if (!checkIn) {
-    return false;
+export function getBookingDateRangeValidationMessage(
+  range: BookingDateRange,
+  todayIso = getTodayIsoInTimeZone(),
+  blockedDates: readonly string[] = EMPTY_BLOCKED_DATES,
+) {
+  if (!range.checkIn || !range.checkOut) {
+    return 'Please choose both check-in and check-out dates.';
   }
 
-  const checkOut = normalizeCheckOut(range.checkOut, checkIn);
-
-  if (!checkOut) {
-    return false;
+  if (!isIsoDateString(range.checkIn) || !isIsoDateString(range.checkOut)) {
+    return 'Please choose valid check-in and check-out dates.';
   }
 
-  return isBookingRangeAvailable(
-    {
-      checkIn,
-      checkOut,
-    },
-    blockedDates,
-  );
+  if (compareIsoDates(range.checkIn, todayIso) < 0) {
+    return 'Please choose a current or future check-in date.';
+  }
+
+  if (compareIsoDates(range.checkOut, range.checkIn) <= 0) {
+    return 'Check-out must be after check-in.';
+  }
+
+  if (!isBookingRangeAvailable(range, blockedDates)) {
+    return 'Those dates are unavailable on Airbnb. Please choose different dates.';
+  }
+
+  return null;
 }

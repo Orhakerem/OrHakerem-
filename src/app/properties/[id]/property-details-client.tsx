@@ -22,7 +22,7 @@ import {
   Wind,
 } from 'lucide-react';
 
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 
 import Image from 'next/image';
 import { useRouter } from 'next/navigation';
@@ -35,7 +35,10 @@ import {
   getNightCount,
   isValidBookingRange,
 } from '@/lib/booking-dates';
-import type { CalendarSyncStatus } from '@/lib/bookable-properties';
+import {
+  getBookablePropertyListingId,
+  type CalendarSyncStatus,
+} from '@/lib/bookable-properties';
 
 interface PropertyDetailsClientProps {
   propertyId: string;
@@ -290,6 +293,69 @@ The main feature of this apartment is the terrace, with amenities such as BBQ, j
   },
 };
 
+type PropertyId = keyof typeof properties;
+
+interface PriceQuote {
+  available: true;
+  listing_id: string;
+  nights: number;
+  night_total: number;
+  cleaning_fee: number;
+  total_price: number;
+  currency: string;
+}
+
+interface PriceQuoteResult {
+  key: string;
+  quote: PriceQuote;
+}
+
+function isPropertyId(value: string): value is PropertyId {
+  return value in properties;
+}
+
+function isRecord(value: unknown): value is Record<string, unknown> {
+  return typeof value === 'object' && value !== null;
+}
+
+function isPriceQuote(value: unknown): value is PriceQuote {
+  if (!isRecord(value)) {
+    return false;
+  }
+
+  return (
+    value.available === true &&
+    typeof value.listing_id === 'string' &&
+    typeof value.nights === 'number' &&
+    typeof value.night_total === 'number' &&
+    typeof value.cleaning_fee === 'number' &&
+    typeof value.total_price === 'number' &&
+    typeof value.currency === 'string'
+  );
+}
+
+function getPriceErrorMessage(value: unknown) {
+  if (!isRecord(value) || !isRecord(value.error)) {
+    return 'Unable to calculate price';
+  }
+
+  return typeof value.error.message === 'string'
+    ? value.error.message
+    : 'Unable to calculate price';
+}
+
+function formatMoney(value: number, currency: string) {
+  try {
+    return new Intl.NumberFormat('en-US', {
+      style: 'currency',
+      currency,
+      maximumFractionDigits: Number.isInteger(value) ? 0 : 2,
+    }).format(value);
+  } catch {
+    return `${value.toLocaleString('en-US')} ${currency}`;
+  }
+}
+
 export default function PropertyDetailsClient({
   propertyId,
   blockedDates = [],
@@ -301,7 +367,24 @@ export default function PropertyDetailsClient({
     checkIn: null,
     checkOut: null,
   });
-  const property = properties[propertyId as keyof typeof properties];
+  const [priceQuoteResult, setPriceQuoteResult] = useState<PriceQuoteResult | null>(null);
+  const [priceError, setPriceError] = useState<string | null>(null);
+  const [isPriceLoading, setIsPriceLoading] = useState(false);
+  const propertyKey = isPropertyId(propertyId) ? propertyId : null;
+  const property = propertyKey ? properties[propertyKey] : null;
+  const selectedListingId = propertyKey ? getBookablePropertyListingId(propertyKey) : '';
+  const selectedNights = getNightCount(dateRange);
+  const hasValidDateRange = isValidBookingRange(dateRange, undefined, blockedDates);
+  const priceRequestKey =
+    selectedListingId && dateRange.checkIn && dateRange.checkOut && hasValidDateRange
+      ? `${selectedListingId}|${dateRange.checkIn}|${dateRange.checkOut}`
+      : '';
+  const activePriceQuote =
+    priceQuoteResult?.key === priceRequestKey &&
+    priceQuoteResult.quote.listing_id === selectedListingId &&
+    priceQuoteResult.quote.nights === selectedNights
+      ? priceQuoteResult.quote
+      : null;
   const propertyPageHeading = (
     <h1
       className={
@@ -313,6 +396,83 @@ export default function PropertyDetailsClient({
       {property ? property.title : 'Property Not Found'}
     </h1>
   );
+
+  useEffect(() => {
+    if (!priceRequestKey || !dateRange.checkIn || !dateRange.checkOut || !selectedListingId) {
+      setPriceQuoteResult(null);
+      setPriceError(null);
+      setIsPriceLoading(false);
+      return;
+    }
+
+    const controller = new AbortController();
+    const checkIn = dateRange.checkIn;
+    const checkOut = dateRange.checkOut;
+
+    setPriceQuoteResult(null);
+    setPriceError(null);
+    setIsPriceLoading(true);
+
+    async function calculatePrice() {
+      try {
+        const response = await fetch('/api/calculate-price', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            listing_id: selectedListingId,
+            check_in: checkIn,
+            check_out: checkOut,
+          }),
+          signal: controller.signal,
+        });
+        const payload: unknown = await response.json().catch(() => null);
+
+        if (!response.ok) {
+          throw new Error(getPriceErrorMessage(payload));
+        }
+
+        if (!isPriceQuote(payload)) {
+          throw new Error('Unexpected price response');
+        }
+
+        if (
+          `${payload.listing_id}|${checkIn}|${checkOut}` !== priceRequestKey ||
+          payload.nights !== selectedNights
+        ) {
+          throw new Error('Unexpected price response');
+        }
+
+        setPriceQuoteResult({
+          key: priceRequestKey,
+          quote: payload,
+        });
+      } catch (error) {
+        if (controller.signal.aborted || (error instanceof Error && error.name === 'AbortError')) {
+          return;
+        }
+
+        console.error('Property price calculation error:', error);
+        setPriceQuoteResult(null);
+        setPriceError('Dynamic price is temporarily unavailable.');
+      } finally {
+        if (!controller.signal.aborted) {
+          setIsPriceLoading(false);
+        }
+      }
+    }
+
+    calculatePrice();
+
+    return () => controller.abort();
+  }, [
+    dateRange.checkIn,
+    dateRange.checkOut,
+    priceRequestKey,
+    selectedListingId,
+    selectedNights,
+  ]);
 
   if (!property) {
     return (
@@ -338,8 +498,10 @@ export default function PropertyDetailsClient({
     setCurrentImageIndex((prev) => (prev - 1 + property.images.length) % property.images.length);
   };
 
-  const selectedNights = getNightCount(dateRange);
-  const hasValidDateRange = isValidBookingRange(dateRange, undefined, blockedDates);
+  const baseNightlySubtotal = property.price * selectedNights;
+  const dynamicStayDiscount = activePriceQuote
+    ? Math.max(0, baseNightlySubtotal - activePriceQuote.night_total)
+    : 0;
 
   const handleBookNow = () => {
     const searchParams = new URLSearchParams({
@@ -495,16 +657,69 @@ export default function PropertyDetailsClient({
                   />
 
                   <div className="grid gap-5 md:grid-cols-2 xl:grid-cols-3">
-                    <div className="bg-white rounded-xl p-6 border border-primary/10 shadow-sm">
-                      <div className="flex justify-between items-center mb-4">
-                        <span className="text-primary/80 text-lg">Price per night :</span>
-                        <span className="font-bold text-2xl text-primary">{property.price}₪</span>
+                    {hasValidDateRange ? (
+                      <div className="bg-white rounded-xl p-6 border border-primary/10 shadow-sm">
+                        <div className="flex justify-between items-center gap-4">
+                          <span className="text-primary/70">Nights</span>
+                          <span className="font-semibold text-primary">
+                            {selectedNights} night{selectedNights === 1 ? '' : 's'}
+                          </span>
+                        </div>
+
+                        {isPriceLoading ? (
+                          <p className="mt-3 border-t border-primary/10 pt-3 text-sm text-primary/70">
+                            Calculating price...
+                          </p>
+                        ) : null}
+
+                        {activePriceQuote ? (
+                          <div className="mt-3 space-y-2 border-t border-primary/10 pt-3 text-sm">
+                            <div className="flex justify-between items-center gap-4 text-primary/70">
+                              <span>Base nightly subtotal</span>
+                              <span className="font-semibold text-primary">
+                                {formatMoney(baseNightlySubtotal, activePriceQuote.currency)}
+                              </span>
+                            </div>
+
+                            {dynamicStayDiscount > 0 ? (
+                              <div className="flex justify-between items-center gap-4 text-primary/70">
+                                <span>Stay discount for {selectedNights} nights</span>
+                                <span className="font-semibold text-primary">
+                                  -{formatMoney(dynamicStayDiscount, activePriceQuote.currency)}
+                                </span>
+                              </div>
+                            ) : null}
+
+                            <div className="flex justify-between items-center gap-4 text-primary/70">
+                              <span>Nightly total</span>
+                              <span className="font-semibold text-primary">
+                                {formatMoney(activePriceQuote.night_total, activePriceQuote.currency)}
+                              </span>
+                            </div>
+
+                            <div className="flex justify-between items-center gap-4 text-primary/70">
+                              <span>Cleaning fee</span>
+                              <span className="font-semibold text-primary">
+                                {formatMoney(activePriceQuote.cleaning_fee, activePriceQuote.currency)}
+                              </span>
+                            </div>
+
+                            <div className="flex justify-between items-center gap-4 border-t border-primary/10 pt-2 text-base text-primary">
+                              <span className="font-semibold">Final total</span>
+                              <span className="font-playfair text-xl font-bold">
+                                {formatMoney(activePriceQuote.total_price, activePriceQuote.currency)}
+                              </span>
+                            </div>
+                          </div>
+                        ) : null}
+
+                        {priceError && !isPriceLoading ? (
+                          <p className="mt-3 border-t border-primary/10 pt-3 text-sm text-primary/70">
+                            {priceError}
+                          </p>
+                        ) : null}
                       </div>
-                      <div className="flex justify-between items-center text-primary/70">
-                        <span>Cleaning fees:</span>
-                        <span className="font-semibold">{property.cleaningFee}₪</span>
-                      </div>
-                    </div>
+                    ) : null}
 
                     <div className="bg-white rounded-xl p-5 border border-secondary/20 shadow-sm text-left">
                       <p className="text-xs font-semibold uppercase tracking-[0.22em] text-primary/45 mb-3">

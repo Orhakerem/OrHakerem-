@@ -6,7 +6,7 @@ import Toast from '@/components/Toast';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
 import GoogleAnalytics from '@/components/GoogleAnalytics';
-import { SITE_URL, createCanonicalUrl } from '@/app/seo';
+import { DEFAULT_OG_IMAGE, DEFAULT_OPEN_GRAPH_IMAGE, SITE_URL, createCanonicalUrl } from '@/app/seo';
 import { inter, lato, montserrat, playfair } from '@/app/fonts';
 
 import './globals.css';
@@ -36,14 +36,7 @@ export const metadata: Metadata = {
     description: 'Premium apartments and boutique stays in Tel Aviv. Discover Or Hakerem in Kerem HaTeimanim for luxury accommodations, events, and attentive hosting.',
     url: createCanonicalUrl('/'),
     siteName: 'Or Hakerem',
-    images: [
-      {
-        url: '/favicon/web-app-manifest-512x512.png',
-        width: 1200,
-        height: 630,
-        alt: 'Or Hakerem - Luxury Properties in Tel Aviv',
-      },
-    ],
+    images: [DEFAULT_OPEN_GRAPH_IMAGE],
     locale: 'en_US',
     type: 'website',
   },
@@ -51,7 +44,7 @@ export const metadata: Metadata = {
     card: 'summary_large_image',
     title: 'Luxury Apartments in Tel Aviv | Or Hakerem | Kerem HaTeimanim',
     description: 'Premium apartments and boutique stays in Tel Aviv. Discover Or Hakerem in Kerem HaTeimanim for luxury accommodations and events.',
-    images: ['/favicon/web-app-manifest-512x512.png'],
+    images: [DEFAULT_OG_IMAGE],
   },
   robots: {
     index: true,
@@ -98,7 +91,7 @@ export default function RootLayout({
         <meta name="msapplication-TileColor" content="#a5382b" />
         <meta name="msapplication-TileImage" content="/favicon/web-app-manifest-512x512.png" />
         <meta name="msapplication-config" content="/favicon/browserconfig.xml" />
-        <meta name="apple-mobile-web-app-title" content="MyWebSite" />
+        <meta name="apple-mobile-web-app-title" content="Or Hakerem" />
       </head>
       <body className={`${inter.variable} ${playfair.variable} ${lato.variable} ${montserrat.variable} min-h-screen bg-cream antialiased`}>
         <GoogleAnalytics />

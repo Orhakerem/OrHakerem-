@@ -18,6 +18,8 @@ import Link from 'next/link';
 import ReservationForm from '@/app/reservation/reservation-form';
 import { getBookablePropertyCalendarSnapshot } from '@/lib/airbnb-calendar';
 
+export const dynamic = 'force-dynamic';
+
 const nearbyLandmarks = [
   { name: 'Carmel Market', distance: '400m' },
   { name: 'Banana Beach', distance: '600m' },

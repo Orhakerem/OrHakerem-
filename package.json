@@ -14,6 +14,7 @@
     "reinstall": "export LANG=en_US.UTF-8 && export LC_ALL=en_US.UTF-8 && pnpm run clean && pnpm install"
   },
   "dependencies": {
+    "@supabase/supabase-js": "^2.105.4",
     "@vercel/speed-insights": "^2.0.0",
     "lucide-react": "^0.460.0",
     "next": "14.2.35",

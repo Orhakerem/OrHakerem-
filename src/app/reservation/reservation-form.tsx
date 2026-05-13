@@ -12,9 +12,9 @@ import { sendEmail } from '@/actions/email';
 import BookingRangeCalendar from '@/components/BookingRangeCalendar';
 import {
   type BookingDateRange,
+  getBookingDateRangeValidationMessage,
   getNightCount,
   getTodayIsoInTimeZone,
-  isValidBookingRange,
   sanitizeBookingDateRange,
 } from '@/lib/booking-dates';
 import {
@@ -22,6 +22,7 @@ import {
   type BookablePropertyId,
   type PropertyAvailabilityStatusMap,
   type PropertyBlockedDatesMap,
+  getBookablePropertyListingId,
   getBookablePropertyIdFromLabel,
   getBookablePropertyTitle,
 } from '@/lib/bookable-properties';
@@ -51,6 +52,58 @@ function getSingleSearchParam(value: string | string[] | undefined) {
 
 function areDateRangesEqual(left: BookingDateRange, right: BookingDateRange) {
   return left.checkIn === right.checkIn && left.checkOut === right.checkOut;
+}
+
+interface PriceQuote {
+  available: true;
+  listing_id: string;
+  nights: number;
+  night_total: number;
+  cleaning_fee: number;
+  total_price: number;
+  currency: string;
+}
+
+function isRecord(value: unknown): value is Record<string, unknown> {
+  return typeof value === 'object' && value !== null;
+}
+
+function isPriceQuote(value: unknown): value is PriceQuote {
+  if (!isRecord(value)) {
+    return false;
+  }
+
+  return (
+    value.available === true &&
+    typeof value.listing_id === 'string' &&
+    typeof value.nights === 'number' &&
+    typeof value.night_total === 'number' &&
+    typeof value.cleaning_fee === 'number' &&
+    typeof value.total_price === 'number' &&
+    typeof value.currency === 'string'
+  );
+}
+
+function getPriceErrorMessage(value: unknown) {
+  if (!isRecord(value) || !isRecord(value.error)) {
+    return 'Unable to calculate price';
+  }
+
+  return typeof value.error.message === 'string'
+    ? value.error.message
+    : 'Unable to calculate price';
+}
+
+function formatMoney(value: number, currency: string) {
+  try {
+    return new Intl.NumberFormat('en-US', {
+      style: 'currency',
+      currency,
+      maximumFractionDigits: Number.isInteger(value) ? 0 : 2,
+    }).format(value);
+  } catch {
+    return `${value.toLocaleString('en-US')} ${currency}`;
+  }
 }
 
 export default function ReservationForm({
@@ -83,6 +136,9 @@ export default function ReservationForm({
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSuccess, setIsSuccess] = useState(false);
   const [contactMethod, setContactMethod] = useState('email');
+  const [priceQuote, setPriceQuote] = useState<PriceQuote | null>(null);
+  const [priceError, setPriceError] = useState<string | null>(null);
+  const [isPriceLoading, setIsPriceLoading] = useState(false);
   const selectedBlockedDates =
     propertyId === ''
       ? EMPTY_BLOCKED_DATES
@@ -90,6 +146,19 @@ export default function ReservationForm({
   const selectedAvailabilityStatus =
     propertyId === '' ? 'ready' : availabilityStatusByProperty[propertyId] ?? 'ready';
   const propertyTitle = propertyId === '' ? '' : getBookablePropertyTitle(propertyId);
+  const selectedListingId =
+    propertyId === '' ? '' : getBookablePropertyListingId(propertyId);
+  const nights = getNightCount(dateRange);
+  const dateValidationMessage = getBookingDateRangeValidationMessage(
+    dateRange,
+    todayIso,
+    selectedBlockedDates,
+  );
+  const hasValidDateSelection = dateValidationMessage === null;
+  const activePriceQuote =
+    priceQuote && priceQuote.listing_id === selectedListingId && priceQuote.nights === nights
+      ? priceQuote
+      : null;
 
   useEffect(() => {
     setDateRange(
@@ -118,6 +187,80 @@ export default function ReservationForm({
     });
   }, [selectedBlockedDates, todayIso]);
 
+  useEffect(() => {
+    if (
+      !selectedListingId ||
+      !dateRange.checkIn ||
+      !dateRange.checkOut ||
+      !hasValidDateSelection
+    ) {
+      setPriceQuote(null);
+      setPriceError(null);
+      setIsPriceLoading(false);
+      return;
+    }
+
+    const controller = new AbortController();
+
+    setPriceQuote(null);
+    setPriceError(null);
+    setIsPriceLoading(true);
+
+    async function calculatePrice() {
+      try {
+        const response = await fetch('/api/calculate-price', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            listing_id: selectedListingId,
+            check_in: dateRange.checkIn,
+            check_out: dateRange.checkOut,
+          }),
+          signal: controller.signal,
+        });
+        const payload: unknown = await response.json().catch(() => null);
+
+        if (!response.ok) {
+          throw new Error(getPriceErrorMessage(payload));
+        }
+
+        if (!isPriceQuote(payload)) {
+          throw new Error('Unexpected price response');
+        }
+
+        if (payload.listing_id !== selectedListingId || payload.nights !== nights) {
+          throw new Error('Unexpected price response');
+        }
+
+        setPriceQuote(payload);
+      } catch (error) {
+        if (controller.signal.aborted || (error instanceof Error && error.name === 'AbortError')) {
+          return;
+        }
+
+        console.error('Price calculation error:', error);
+        setPriceQuote(null);
+        setPriceError('Price estimate is temporarily unavailable. Please try again before sending your request.');
+      } finally {
+        if (!controller.signal.aborted) {
+          setIsPriceLoading(false);
+        }
+      }
+    }
+
+    calculatePrice();
+
+    return () => controller.abort();
+  }, [
+    dateRange.checkIn,
+    dateRange.checkOut,
+    hasValidDateSelection,
+    nights,
+    selectedListingId,
+  ]);
+
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
@@ -131,8 +274,28 @@ export default function ReservationForm({
       return;
     }
 
-    if (!isValidBookingRange(dateRange, todayIso, selectedBlockedDates)) {
-      toast.error('Please choose available dates with a future check-in and later check-out.');
+    if (!selectedListingId) {
+      toast.error('Please select a valid property before sending your request.');
+      return;
+    }
+
+    if (dateValidationMessage) {
+      toast.error(dateValidationMessage);
+      return;
+    }
+
+    if (isPriceLoading) {
+      toast.error('Please wait for the price estimate to finish.');
+      return;
+    }
+
+    if (priceError) {
+      toast.error(priceError);
+      return;
+    }
+
+    if (!activePriceQuote) {
+      toast.error('Please wait for the price estimate before sending your request.');
       return;
     }
 
@@ -185,7 +348,7 @@ export default function ReservationForm({
     );
   }
 
-  const nights = getNightCount(dateRange);
+  const displayedNights = activePriceQuote?.nights ?? nights;
   const formCard = (
     <div
       className={`bg-white rounded-3xl shadow-xl border border-primary/10 ${embedded ? 'p-6 md:p-8' : 'p-8 rounded-lg border-0 shadow-lg'}`}
@@ -211,8 +374,10 @@ export default function ReservationForm({
 
       <form onSubmit={handleSubmit} className="reservation-form space-y-6" data-animate="fade-up" data-delay="2">
         <input type="hidden" name="property" value={propertyTitle} />
+        <input type="hidden" name="listing_id" value={selectedListingId} />
         <input type="hidden" name="checkIn" value={dateRange.checkIn ?? ''} />
         <input type="hidden" name="checkOut" value={dateRange.checkOut ?? ''} />
+        <input type="hidden" name="guestsCount" value="1" />
 
         <div>
           <label htmlFor="property" className="block text-sm font-medium text-primary/80 mb-1">
@@ -243,7 +408,47 @@ export default function ReservationForm({
 
         {nights > 0 ? (
           <div className="rounded-xl border border-secondary/20 bg-secondary/10 px-4 py-3 text-sm text-primary">
-            {nights} night{nights === 1 ? '' : 's'} selected.
+            <div className="flex items-center justify-between gap-4">
+              <span className="text-primary/70">Nights</span>
+              <span className="font-semibold">
+                {displayedNights} night{displayedNights === 1 ? '' : 's'}
+              </span>
+            </div>
+
+            {isPriceLoading ? (
+              <p className="mt-3 border-t border-primary/10 pt-3 text-primary/70">
+                Calculating price...
+              </p>
+            ) : null}
+
+            {activePriceQuote ? (
+              <div className="mt-3 space-y-2 border-t border-primary/10 pt-3">
+                <div className="flex items-center justify-between gap-4">
+                  <span className="text-primary/70">Nightly total</span>
+                  <span className="font-semibold">
+                    {formatMoney(activePriceQuote.night_total, activePriceQuote.currency)}
+                  </span>
+                </div>
+                <div className="flex items-center justify-between gap-4">
+                  <span className="text-primary/70">Cleaning fee</span>
+                  <span className="font-semibold">
+                    {formatMoney(activePriceQuote.cleaning_fee, activePriceQuote.currency)}
+                  </span>
+                </div>
+                <div className="flex items-center justify-between gap-4 border-t border-primary/10 pt-2 text-base">
+                  <span className="font-semibold">Final total</span>
+                  <span className="font-playfair text-lg font-bold">
+                    {formatMoney(activePriceQuote.total_price, activePriceQuote.currency)}
+                  </span>
+                </div>
+              </div>
+            ) : null}
+
+            {priceError && !isPriceLoading ? (
+              <p className="mt-3 border-t border-primary/10 pt-3 text-primary/70">
+                {priceError}
+              </p>
+            ) : null}
           </div>
         ) : null}
 

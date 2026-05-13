@@ -1,12 +1,14 @@
 export const BOOKABLE_PROPERTIES = {
   'penthouse-jacuzzi': {
     id: 'penthouse-jacuzzi',
+    listingId: 'penthouse',
     title: 'Luxury Penthouse',
     airbnbIcalUrl:
       'https://www.airbnb.fr/calendar/ical/1247678225456455722.ics?t=183619b2f1764ec89198da07de1de912',
   },
   'cozy-studio': {
     id: 'cozy-studio',
+    listingId: 'studio',
     title: 'Spacious & Cosy Apartment',
     airbnbIcalUrl:
       'https://www.airbnb.fr/calendar/ical/1273005083237819919.ics?t=510782b0f337456babc7c59e9c087978',
@@ -59,4 +61,8 @@ export function getBookablePropertyIdFromLabel(value: string | null | undefined)
 
 export function getBookablePropertyTitle(propertyId: BookablePropertyId) {
   return BOOKABLE_PROPERTIES[propertyId].title;
+}
+
+export function getBookablePropertyListingId(propertyId: BookablePropertyId) {
+  return BOOKABLE_PROPERTIES[propertyId].listingId;
 }

@@ -78,7 +78,9 @@ function parseBlockedDatesFromCalendar(calendarText: string) {
   const unfoldedLines = unfoldIcalLines(calendarText);
   let currentEventLines: string[] | null = null;
 
-  for (const line of unfoldedLines) {
+  for (const rawLine of unfoldedLines) {
+    const line = rawLine.trimEnd();
+
     if (line === 'BEGIN:VEVENT') {
       currentEventLines = [];
       continue;
@@ -119,6 +121,8 @@ async function refreshPropertyAvailability(propertyId: BookablePropertyId): Prom
     cache: 'no-store',
     headers: {
       Accept: 'text/calendar, text/plain;q=0.9, */*;q=0.1',
+      'Accept-Language': 'en-US,en;q=0.9',
+      'User-Agent': 'OrHakeremCalendarSync/1.0 (+https://www.orhakerem.com)',
     },
     signal: AbortSignal.timeout(FETCH_TIMEOUT_MS),
   });
@@ -128,6 +132,10 @@ async function refreshPropertyAvailability(propertyId: BookablePropertyId): Prom
   }
 
   const calendarText = await response.text();
+
+  if (!calendarText.includes('BEGIN:VCALENDAR')) {
+    throw new Error('Airbnb iCal response did not contain a VCALENDAR payload');
+  }
 
   return {
     blockedDates: parseBlockedDatesFromCalendar(calendarText),
@@ -161,7 +169,9 @@ export async function getPropertyAvailability(
 
       return availability;
     })
-    .catch(() => {
+    .catch((error) => {
+      console.warn(`Airbnb iCal sync failed for ${propertyId}:`, error);
+
       if (cachedAvailability) {
         return {
           ...cachedAvailability.data,

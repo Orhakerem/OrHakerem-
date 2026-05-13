@@ -2,6 +2,8 @@ import PropertyDetailsClient from './property-details-client';
 import { getPropertyAvailability } from '@/lib/airbnb-calendar';
 import { isBookablePropertyId } from '@/lib/bookable-properties';
 
+export const dynamic = 'force-dynamic';
+
 export default async function PropertyDetailsPage({
   params,
 }: {

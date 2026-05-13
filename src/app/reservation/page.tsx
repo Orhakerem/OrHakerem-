@@ -1,6 +1,8 @@
 import ReservationForm from './reservation-form';
 import { getBookablePropertyCalendarSnapshot } from '@/lib/airbnb-calendar';
 
+export const dynamic = 'force-dynamic';
+
 export default async function Reservation({ 
   searchParams 
 }: { 
