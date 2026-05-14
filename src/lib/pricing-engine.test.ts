@@ -143,10 +143,58 @@ test('builds a detailed nightly breakdown with day type, season priority, and to
   );
   assert.equal(breakdown.available, true);
   assert.equal(breakdown.nights, 3);
+  assert.equal(breakdown.nightly_subtotal, 510);
+  assert.equal(breakdown.discount_amount, 0);
+  assert.equal(breakdown.discount_label, null);
   assert.equal(breakdown.night_total, 510);
   assert.equal(breakdown.cleaning_fee, 50);
   assert.equal(breakdown.total_price, 560);
   assert.equal(breakdown.currency, 'ILS');
+});
+
+test('infers a long stay discount from the baseline nightly tier', () => {
+  const breakdown = buildPricingBreakdown(
+    {
+      listingId: LISTING_ID,
+      checkIn: '2026-05-16',
+      checkOut: '2026-05-20',
+    },
+    {
+      id: LISTING_ID,
+      cleaningFee: 50,
+      currency: 'ILS',
+    },
+    [
+      {
+        listingId: LISTING_ID,
+        seasonType: 'current',
+        dayType: 'weekday',
+        minNights: 1,
+        maxNights: null,
+        targetPrice: 120,
+      },
+      {
+        listingId: LISTING_ID,
+        seasonType: 'current',
+        dayType: 'weekday',
+        minNights: 4,
+        maxNights: null,
+        targetPrice: 90,
+      },
+    ],
+    {
+      dateOverrides: [],
+      periods: [],
+    },
+  );
+
+  assert.equal(breakdown.nights, 4);
+  assert.equal(breakdown.nightly_subtotal, 480);
+  assert.equal(breakdown.discount_amount, 120);
+  assert.equal(breakdown.discount_label, 'Long stay discount for 4 nights');
+  assert.equal(breakdown.night_total, 360);
+  assert.equal(breakdown.cleaning_fee, 50);
+  assert.equal(breakdown.total_price, 410);
 });
 
 test('fetches listing, pricing tiers, and season rules from Supabase before pricing', async () => {
@@ -195,6 +243,9 @@ test('fetches listing, pricing tiers, and season rules from Supabase before pric
   ]);
   assert.equal(breakdown.listing_id, LISTING_ID);
   assert.equal(breakdown.nights, 2);
+  assert.equal(breakdown.nightly_subtotal, 600);
+  assert.equal(breakdown.discount_amount, 0);
+  assert.equal(breakdown.discount_label, null);
   assert.equal(breakdown.night_total, 600);
   assert.equal(breakdown.cleaning_fee, 75);
   assert.equal(breakdown.total_price, 675);
