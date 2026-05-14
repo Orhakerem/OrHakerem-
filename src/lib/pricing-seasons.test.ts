@@ -2,10 +2,12 @@ import assert from 'node:assert/strict';
 import test from 'node:test';
 
 import {
+  fetchActiveSeasonPeriods,
   getSeasonTypeForDate,
   resolveSeasonTypeForDate,
   type SeasonRules,
 } from './pricing-seasons';
+import { PricingDataFetchError } from './pricing-errors';
 
 const validationRules = {
   dateOverrides: [
@@ -114,4 +116,39 @@ test('fetches reusable Supabase season rules before resolving a date', async () 
     'season_date_overrides.is_active.true',
     'season_periods.is_active.true',
   ]);
+});
+
+test('reports season period fetch failures as typed pricing errors', async () => {
+  const client = {
+    from(tableName: string) {
+      return {
+        select() {
+          return {
+            eq() {
+              return {
+                order() {
+                  return Promise.resolve({
+                    data: [],
+                    error: {
+                      message: `permission denied for table ${tableName}`,
+                    },
+                  });
+                },
+              };
+            },
+          };
+        },
+      };
+    },
+  };
+
+  await assert.rejects(
+    () => fetchActiveSeasonPeriods(client as never),
+    (error: unknown) => {
+      assert.ok(error instanceof PricingDataFetchError);
+      assert.equal(error.tableName, 'season_periods');
+      assert.match(error.message, /permission denied/);
+      return true;
+    },
+  );
 });

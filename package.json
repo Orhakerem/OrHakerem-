@@ -7,6 +7,7 @@
     "dev": "export LANG=en_US.UTF-8 && export LC_ALL=en_US.UTF-8 && next dev",
     "build": "export LANG=en_US.UTF-8 && export LC_ALL=en_US.UTF-8 && next build && pnpm run prepare-standalone",
     "start": "export LANG=en_US.UTF-8 && export LC_ALL=en_US.UTF-8 && pnpm run prepare-standalone && node .next/standalone/server.js",
+    "test": "export LANG=en_US.UTF-8 && export LC_ALL=en_US.UTF-8 && tsx --test \"src/**/*.test.ts\"",
     "lint": "export LANG=en_US.UTF-8 && export LC_ALL=en_US.UTF-8 && eslint .",
     "prepare-standalone": "rm -rf .next/standalone/public .next/standalone/.next/static && mkdir -p .next/standalone/.next && cp -R public .next/standalone/public && cp -R .next/static .next/standalone/.next/static",
     "vercel-build": "export LANG=en_US.UTF-8 && export LC_ALL=en_US.UTF-8 && pnpm run build",
@@ -38,6 +39,7 @@
     "eslint": "^8.57.1",
     "postcss": "^8.4.49",
     "tailwindcss": "^3.4.14",
+    "tsx": "^4.22.0",
     "typescript": "^5.6.3"
   },
   "engines": {

@@ -9,6 +9,7 @@ import {
 } from '@/lib/booking-dates';
 import {
   getPricingErrorCode,
+  getPriceCalculationFailureError,
   MissingSupabaseEnvError,
   PricingDataFetchError,
   PricingListingNotFoundError,
@@ -219,7 +220,8 @@ export async function POST(request: Request) {
     }
 
     logPriceCalculationFailure(error, result.data);
+    const failureError = getPriceCalculationFailureError(error);
 
-    return jsonError(500, 'price_calculation_failed', 'Unable to calculate price');
+    return jsonError(500, failureError.code, failureError.message);
   }
 }

@@ -1,6 +1,7 @@
 import type { SupabaseClient } from '@supabase/supabase-js';
 
 import { compareIsoDates, isIsoDateString } from './booking-dates';
+import { PricingDataFetchError } from './pricing-errors';
 
 export type SeasonType = 'current' | 'low' | 'high';
 
@@ -81,7 +82,7 @@ async function getSupabaseClient() {
 }
 
 function createFetchError(tableName: string, message: string) {
-  return new Error(`Failed to fetch active ${tableName}: ${message}`);
+  return new PricingDataFetchError(tableName, message);
 }
 
 export async function fetchActiveSeasonDateOverrides(

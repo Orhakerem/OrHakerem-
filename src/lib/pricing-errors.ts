@@ -1,14 +1,16 @@
 import type { PricingNightKind } from './pricing-date-helpers';
 import type { SeasonType } from './pricing-seasons';
 
-export type SupabasePublicEnvName =
+export type SupabaseEnvName =
+  | 'SUPABASE_URL'
+  | 'SUPABASE_ANON_KEY'
   | 'NEXT_PUBLIC_SUPABASE_URL'
   | 'NEXT_PUBLIC_SUPABASE_ANON_KEY';
 
 export class MissingSupabaseEnvError extends Error {
   readonly code = 'missing_supabase_env';
 
-  constructor(readonly envName: SupabasePublicEnvName) {
+  constructor(readonly envName: SupabaseEnvName) {
     super(`Missing ${envName}`);
     this.name = 'MissingSupabaseEnvError';
   }
@@ -64,4 +66,13 @@ export function getPricingErrorCode(error: unknown) {
     error instanceof PricingTierNotFoundError
     ? error.code
     : 'unknown_pricing_error';
+}
+
+export function getPriceCalculationFailureError(error: unknown) {
+  const errorCode = getPricingErrorCode(error);
+
+  return {
+    code: errorCode === 'unknown_pricing_error' ? 'price_calculation_failed' : errorCode,
+    message: 'Unable to calculate price',
+  };
 }
