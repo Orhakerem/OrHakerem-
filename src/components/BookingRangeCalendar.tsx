@@ -1,7 +1,12 @@
 'use client';
 
 import { CalendarDays, ChevronLeft, ChevronRight, X } from 'lucide-react';
-import { DayPicker, type Modifiers } from 'react-day-picker';
+import {
+  DayPicker,
+  type DateRange,
+  type Modifiers,
+  type OnSelectHandler,
+} from 'react-day-picker';
 
 import React, { useEffect, useMemo, useState } from 'react';
 
@@ -25,6 +30,7 @@ import type { CalendarSyncStatus } from '@/lib/bookable-properties';
 interface BookingRangeCalendarProps {
   value: BookingDateRange;
   onChange: (range: BookingDateRange) => void;
+  onClearDates?: () => void;
   blockedDates?: readonly string[];
   availabilityStatus?: CalendarSyncStatus;
 }
@@ -34,6 +40,7 @@ type ActiveField = 'checkIn' | 'checkOut';
 export default function BookingRangeCalendar({
   value,
   onChange,
+  onClearDates,
   blockedDates = [],
   availabilityStatus = 'ready',
 }: BookingRangeCalendarProps) {
@@ -97,6 +104,10 @@ export default function BookingRangeCalendar({
     return getFirstBlockedDateAfter(displayValue.checkIn, blockedDates);
   }, [blockedDates, displayValue.checkIn]);
 
+  // DayPicker only treats selected range as controlled when onSelect is defined.
+  const keepDayPickerSelectionControlled: OnSelectHandler<DateRange | undefined> = () =>
+    undefined;
+
   const handleFieldFocus = (field: ActiveField) => {
     if (field === 'checkOut' && !displayValue.checkIn) {
       setActiveField('checkIn');
@@ -115,11 +126,47 @@ export default function BookingRangeCalendar({
   };
 
   const handleDayClick = (date: Date, modifiers: Modifiers) => {
-    if (modifiers.disabled) {
+    const clickedIso = toIsoDateString(date);
+    const clickedMonth = startOfMonthUtc(createDateFromIso(clickedIso));
+    const isSelectedCheckIn = clickedIso === displayValue.checkIn;
+    const isSelectedCheckOut = clickedIso === displayValue.checkOut;
+    const isInsideSelectedRange = Boolean(
+      displayValue.checkIn &&
+        displayValue.checkOut &&
+        compareIsoDates(clickedIso, displayValue.checkIn) > 0 &&
+        compareIsoDates(clickedIso, displayValue.checkOut) < 0,
+    );
+
+    if (isSelectedCheckIn) {
+      onChange({ checkIn: null, checkOut: null });
+      onClearDates?.();
+      setActiveField('checkIn');
+      setMonth(clickedMonth);
+
       return;
     }
 
-    const clickedIso = toIsoDateString(date);
+    if (isSelectedCheckOut && displayValue.checkIn) {
+      onChange({ checkIn: displayValue.checkIn, checkOut: null });
+      onClearDates?.();
+      setActiveField('checkOut');
+      setMonth(clickedMonth);
+
+      return;
+    }
+
+    if (isInsideSelectedRange) {
+      onChange({ checkIn: clickedIso, checkOut: null });
+      onClearDates?.();
+      setActiveField('checkOut');
+      setMonth(clickedMonth);
+
+      return;
+    }
+
+    if (modifiers.disabled) {
+      return;
+    }
 
     if (!displayValue.checkIn || activeField === 'checkIn') {
       const nextCheckOut =
@@ -156,6 +203,7 @@ export default function BookingRangeCalendar({
 
   const clearDates = () => {
     onChange({ checkIn: null, checkOut: null });
+    onClearDates?.();
     setActiveField('checkIn');
     setMonth(todayMonth);
   };
@@ -182,9 +230,23 @@ export default function BookingRangeCalendar({
   );
   const disabledDays = (date: Date) => {
     const isoDate = toIsoDateString(date);
+    const isSelectedDate = Boolean(
+      isoDate === displayValue.checkIn ||
+        isoDate === displayValue.checkOut ||
+        (
+          displayValue.checkIn &&
+          displayValue.checkOut &&
+          compareIsoDates(isoDate, displayValue.checkIn) > 0 &&
+          compareIsoDates(isoDate, displayValue.checkOut) < 0
+        ),
+    );
 
     if (compareIsoDates(isoDate, todayIso) < 0) {
       return true;
+    }
+
+    if (isSelectedDate) {
+      return false;
     }
 
     if (!displayValue.checkIn || activeField === 'checkIn') {
@@ -365,6 +427,7 @@ export default function BookingRangeCalendar({
             month={month}
             onMonthChange={(nextMonth) => setMonth(startOfMonthUtc(nextMonth))}
             onDayClick={handleDayClick}
+            onSelect={keepDayPickerSelectionControlled}
             selected={selectedRange}
             numberOfMonths={showTwoMonths ? 2 : 1}
             pagedNavigation={showTwoMonths}
