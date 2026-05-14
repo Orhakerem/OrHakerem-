@@ -9,6 +9,10 @@ import { useRouter } from 'next/navigation';
 import Link from 'next/link';
 
 import { sendEmail } from '@/actions/email';
+import AccommodationPriceSummary, {
+  isAccommodationPriceQuote,
+  type AccommodationPriceQuote,
+} from '@/components/AccommodationPriceSummary';
 import BookingRangeCalendar from '@/components/BookingRangeCalendar';
 import {
   type BookingDateRange,
@@ -54,34 +58,10 @@ function areDateRangesEqual(left: BookingDateRange, right: BookingDateRange) {
   return left.checkIn === right.checkIn && left.checkOut === right.checkOut;
 }
 
-interface PriceQuote {
-  available: true;
-  listing_id: string;
-  nights: number;
-  night_total: number;
-  cleaning_fee: number;
-  total_price: number;
-  currency: string;
-}
+type PriceQuote = AccommodationPriceQuote;
 
 function isRecord(value: unknown): value is Record<string, unknown> {
   return typeof value === 'object' && value !== null;
-}
-
-function isPriceQuote(value: unknown): value is PriceQuote {
-  if (!isRecord(value)) {
-    return false;
-  }
-
-  return (
-    value.available === true &&
-    typeof value.listing_id === 'string' &&
-    typeof value.nights === 'number' &&
-    typeof value.night_total === 'number' &&
-    typeof value.cleaning_fee === 'number' &&
-    typeof value.total_price === 'number' &&
-    typeof value.currency === 'string'
-  );
 }
 
 function getPriceErrorMessage(value: unknown) {
@@ -92,18 +72,6 @@ function getPriceErrorMessage(value: unknown) {
   return typeof value.error.message === 'string'
     ? value.error.message
     : 'Unable to calculate price';
-}
-
-function formatMoney(value: number, currency: string) {
-  try {
-    return new Intl.NumberFormat('en-US', {
-      style: 'currency',
-      currency,
-      maximumFractionDigits: Number.isInteger(value) ? 0 : 2,
-    }).format(value);
-  } catch {
-    return `${value.toLocaleString('en-US')} ${currency}`;
-  }
 }
 
 export default function ReservationForm({
@@ -226,7 +194,7 @@ export default function ReservationForm({
           throw new Error(getPriceErrorMessage(payload));
         }
 
-        if (!isPriceQuote(payload)) {
+        if (!isAccommodationPriceQuote(payload)) {
           throw new Error('Unexpected price response');
         }
 
@@ -260,6 +228,12 @@ export default function ReservationForm({
     nights,
     selectedListingId,
   ]);
+
+  const clearPriceEstimate = () => {
+    setPriceQuote(null);
+    setPriceError(null);
+    setIsPriceLoading(false);
+  };
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -348,7 +322,6 @@ export default function ReservationForm({
     );
   }
 
-  const displayedNights = activePriceQuote?.nights ?? nights;
   const formCard = (
     <div
       className={`bg-white rounded-3xl shadow-xl border border-primary/10 ${embedded ? 'p-6 md:p-8' : 'p-8 rounded-lg border-0 shadow-lg'}`}
@@ -402,55 +375,18 @@ export default function ReservationForm({
         <BookingRangeCalendar
           value={dateRange}
           onChange={setDateRange}
+          onClearDates={clearPriceEstimate}
           blockedDates={selectedBlockedDates}
           availabilityStatus={selectedAvailabilityStatus}
         />
 
-        {nights > 0 ? (
-          <div className="rounded-xl border border-secondary/20 bg-secondary/10 px-4 py-3 text-sm text-primary">
-            <div className="flex items-center justify-between gap-4">
-              <span className="text-primary/70">Nights</span>
-              <span className="font-semibold">
-                {displayedNights} night{displayedNights === 1 ? '' : 's'}
-              </span>
-            </div>
-
-            {isPriceLoading ? (
-              <p className="mt-3 border-t border-primary/10 pt-3 text-primary/70">
-                Calculating price...
-              </p>
-            ) : null}
-
-            {activePriceQuote ? (
-              <div className="mt-3 space-y-2 border-t border-primary/10 pt-3">
-                <div className="flex items-center justify-between gap-4">
-                  <span className="text-primary/70">Nightly total</span>
-                  <span className="font-semibold">
-                    {formatMoney(activePriceQuote.night_total, activePriceQuote.currency)}
-                  </span>
-                </div>
-                <div className="flex items-center justify-between gap-4">
-                  <span className="text-primary/70">Cleaning fee</span>
-                  <span className="font-semibold">
-                    {formatMoney(activePriceQuote.cleaning_fee, activePriceQuote.currency)}
-                  </span>
-                </div>
-                <div className="flex items-center justify-between gap-4 border-t border-primary/10 pt-2 text-base">
-                  <span className="font-semibold">Final total</span>
-                  <span className="font-playfair text-lg font-bold">
-                    {formatMoney(activePriceQuote.total_price, activePriceQuote.currency)}
-                  </span>
-                </div>
-              </div>
-            ) : null}
-
-            {priceError && !isPriceLoading ? (
-              <p className="mt-3 border-t border-primary/10 pt-3 text-primary/70">
-                {priceError}
-              </p>
-            ) : null}
-          </div>
-        ) : null}
+        <AccommodationPriceSummary
+          nights={nights}
+          quote={activePriceQuote}
+          isLoading={isPriceLoading}
+          priceError={priceError}
+          className="rounded-xl border border-secondary/20 bg-secondary/10 px-4 py-3 text-sm text-primary"
+        />
 
         <div>
           <label htmlFor="name" className="block text-sm font-medium text-primary/80 mb-1">
