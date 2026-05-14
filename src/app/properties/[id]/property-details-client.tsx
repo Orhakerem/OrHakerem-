@@ -10,7 +10,10 @@ import {
   Coffee,
   Dumbbell,
   Laptop,
+  Mail,
   MapPin,
+  MessageSquare,
+  Phone,
   Shirt,
   Sofa,
   Tv,
@@ -27,13 +30,20 @@ import React, { useEffect, useState } from 'react';
 import Image from 'next/image';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
+import toast from 'react-hot-toast';
 
+import { sendEmail } from '@/actions/email';
+import AccommodationPriceSummary, {
+  isAccommodationPriceQuote,
+  type AccommodationPriceQuote,
+} from '@/components/AccommodationPriceSummary';
 import BookingRangeCalendar from '@/components/BookingRangeCalendar';
 import RoomGallery from '@/components/RoomGallery';
 import {
   type BookingDateRange,
+  getBookingDateRangeValidationMessage,
   getNightCount,
-  isValidBookingRange,
+  getTodayIsoInTimeZone,
 } from '@/lib/booking-dates';
 import {
   getBookablePropertyListingId,
@@ -61,7 +71,6 @@ All bedrooms are equipped with a queen size bed, storage cupboards and curtains 
 The outdoor dining area is perfect for BBQ evenings.
 
 The main feature of this apartment is the terrace, with amenities such as BBQ, jacuzzi and sea views you can be sure to have an unforgettable experience and leave with wonderful memories!`,
-    price: 2500,
     cleaningFee: 650,
     images: [
       '/penthouse/1-jacuzzi-angle.JPEG',
@@ -205,7 +214,6 @@ The main feature of this apartment is the terrace, with amenities such as BBQ, j
     The apartment is a large room divided into two parts: on one side you'll find the entrance, equipped with an opening sofa, a table with chairs, a TV hanging on the wall and the bathroom just behind it. On the other side you'll find the bed, the wardrobe and the mini-kitchen with everything you need to prepare your meals.
 
     The studio is located on the 1st floor of a unique building that is described as a historical monument dating from the Ottoman Empire.`,
-    price: 500,
     cleaningFee: 200,
     images: [
       '/studio/Salon_angle_1.jpg',
@@ -295,19 +303,23 @@ The main feature of this apartment is the terrace, with amenities such as BBQ, j
 
 type PropertyId = keyof typeof properties;
 
-interface PriceQuote {
-  available: true;
-  listing_id: string;
-  nights: number;
-  night_total: number;
-  cleaning_fee: number;
-  total_price: number;
-  currency: string;
-}
+type PriceQuote = AccommodationPriceQuote;
 
 interface PriceQuoteResult {
   key: string;
   quote: PriceQuote;
+}
+
+type ContactMethod = 'email' | 'phone' | 'whatsapp';
+
+interface ReservationFormErrors {
+  dates?: string;
+  price?: string;
+  name?: string;
+  email?: string;
+  phone?: string;
+  guestsCount?: string;
+  form?: string;
 }
 
 function isPropertyId(value: string): value is PropertyId {
@@ -316,22 +328,6 @@ function isPropertyId(value: string): value is PropertyId {
 
 function isRecord(value: unknown): value is Record<string, unknown> {
   return typeof value === 'object' && value !== null;
-}
-
-function isPriceQuote(value: unknown): value is PriceQuote {
-  if (!isRecord(value)) {
-    return false;
-  }
-
-  return (
-    value.available === true &&
-    typeof value.listing_id === 'string' &&
-    typeof value.nights === 'number' &&
-    typeof value.night_total === 'number' &&
-    typeof value.cleaning_fee === 'number' &&
-    typeof value.total_price === 'number' &&
-    typeof value.currency === 'string'
-  );
 }
 
 function getPriceErrorMessage(value: unknown) {
@@ -344,16 +340,21 @@ function getPriceErrorMessage(value: unknown) {
     : 'Unable to calculate price';
 }
 
-function formatMoney(value: number, currency: string) {
-  try {
-    return new Intl.NumberFormat('en-US', {
-      style: 'currency',
-      currency,
-      maximumFractionDigits: Number.isInteger(value) ? 0 : 2,
-    }).format(value);
-  } catch {
-    return `${value.toLocaleString('en-US')} ${currency}`;
-  }
+function getFormFieldValue(formData: FormData, name: string) {
+  return formData.get(name)?.toString().trim() ?? '';
+}
+
+function getFirstValidationError(errors: ReservationFormErrors) {
+  return (
+    errors.form ??
+    errors.dates ??
+    errors.price ??
+    errors.name ??
+    errors.email ??
+    errors.phone ??
+    errors.guestsCount ??
+    null
+  );
 }
 
 export default function PropertyDetailsClient({
@@ -370,11 +371,21 @@ export default function PropertyDetailsClient({
   const [priceQuoteResult, setPriceQuoteResult] = useState<PriceQuoteResult | null>(null);
   const [priceError, setPriceError] = useState<string | null>(null);
   const [isPriceLoading, setIsPriceLoading] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [isSubmitSuccess, setIsSubmitSuccess] = useState(false);
+  const [contactMethod, setContactMethod] = useState<ContactMethod>('email');
+  const [formErrors, setFormErrors] = useState<ReservationFormErrors>({});
   const propertyKey = isPropertyId(propertyId) ? propertyId : null;
   const property = propertyKey ? properties[propertyKey] : null;
   const selectedListingId = propertyKey ? getBookablePropertyListingId(propertyKey) : '';
   const selectedNights = getNightCount(dateRange);
-  const hasValidDateRange = isValidBookingRange(dateRange, undefined, blockedDates);
+  const todayIso = getTodayIsoInTimeZone();
+  const dateValidationMessage = getBookingDateRangeValidationMessage(
+    dateRange,
+    todayIso,
+    blockedDates,
+  );
+  const hasValidDateRange = dateValidationMessage === null;
   const priceRequestKey =
     selectedListingId && dateRange.checkIn && dateRange.checkOut && hasValidDateRange
       ? `${selectedListingId}|${dateRange.checkIn}|${dateRange.checkOut}`
@@ -433,7 +444,7 @@ export default function PropertyDetailsClient({
           throw new Error(getPriceErrorMessage(payload));
         }
 
-        if (!isPriceQuote(payload)) {
+        if (!isAccommodationPriceQuote(payload)) {
           throw new Error('Unexpected price response');
         }
 
@@ -498,23 +509,130 @@ export default function PropertyDetailsClient({
     setCurrentImageIndex((prev) => (prev - 1 + property.images.length) % property.images.length);
   };
 
-  const baseNightlySubtotal = property.price * selectedNights;
-  const dynamicStayDiscount = activePriceQuote
-    ? Math.max(0, baseNightlySubtotal - activePriceQuote.night_total)
-    : 0;
+  const clearFormError = (field: keyof ReservationFormErrors) => {
+    setFormErrors((currentErrors) => {
+      if (!currentErrors[field]) {
+        return currentErrors;
+      }
 
-  const handleBookNow = () => {
-    const searchParams = new URLSearchParams({
-      property: property.title,
+      const nextErrors = { ...currentErrors };
+      delete nextErrors[field];
+      delete nextErrors.form;
+      return nextErrors;
     });
+    setIsSubmitSuccess(false);
+  };
 
-    if (hasValidDateRange && dateRange.checkIn && dateRange.checkOut) {
-      searchParams.set('checkIn', dateRange.checkIn);
-      searchParams.set('checkOut', dateRange.checkOut);
+  const handleDateRangeChange = (nextDateRange: BookingDateRange) => {
+    setDateRange(nextDateRange);
+    clearFormError('dates');
+    clearFormError('price');
+  };
+
+  const validateReservationForm = (formData: FormData) => {
+    const nextErrors: ReservationFormErrors = {};
+    const guestName = getFormFieldValue(formData, 'name');
+    const guestEmail = getFormFieldValue(formData, 'email');
+    const guestPhone = getFormFieldValue(formData, 'phone');
+    const guestsCountValue = getFormFieldValue(formData, 'guestsCount');
+    const guestsCount = Number.parseInt(guestsCountValue, 10);
+
+    if (!selectedListingId) {
+      nextErrors.form = 'Please select a valid property before sending your request.';
     }
 
-    router.push(`/reservation?${searchParams.toString()}`);
+    if (availabilityStatus === 'error') {
+      nextErrors.dates = 'Airbnb availability is temporarily unavailable. Please try again shortly.';
+    } else if (dateValidationMessage) {
+      nextErrors.dates = dateValidationMessage;
+    }
+
+    if (!nextErrors.dates) {
+      if (isPriceLoading) {
+        nextErrors.price = 'Please wait for the price estimate to finish.';
+      } else if (priceError) {
+        nextErrors.price = priceError;
+      } else if (!activePriceQuote) {
+        nextErrors.price = 'Please wait for a valid price estimate before sending your request.';
+      }
+    }
+
+    if (!guestName) {
+      nextErrors.name = 'Please enter your full name.';
+    }
+
+    if (!guestEmail) {
+      nextErrors.email = 'Please enter your email address.';
+    } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(guestEmail)) {
+      nextErrors.email = 'Please enter a valid email address.';
+    }
+
+    if (!guestPhone) {
+      nextErrors.phone = 'Please enter your phone number.';
+    }
+
+    if (!guestsCountValue) {
+      nextErrors.guestsCount = 'Please enter the number of guests.';
+    } else if (!Number.isInteger(guestsCount) || guestsCount < 1) {
+      nextErrors.guestsCount = 'Please enter at least 1 guest.';
+    } else if (guestsCount > property.maxGuests) {
+      nextErrors.guestsCount = `This property can host up to ${property.maxGuests} guests.`;
+    }
+
+    return nextErrors;
   };
+
+  const clearPriceEstimate = () => {
+    setPriceQuoteResult(null);
+    setPriceError(null);
+    setIsPriceLoading(false);
+  };
+
+  const handleBookNowSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+
+    const form = e.currentTarget;
+    const formData = new FormData(form);
+    const nextErrors = validateReservationForm(formData);
+    const firstError = getFirstValidationError(nextErrors);
+
+    setFormErrors(nextErrors);
+    setIsSubmitSuccess(false);
+
+    if (firstError) {
+      toast.error(firstError);
+      return;
+    }
+
+    setIsSubmitting(true);
+
+    try {
+      const result = await sendEmail(formData);
+
+      if (result.success) {
+        toast.success(result.message || 'Reservation request sent successfully!');
+        setIsSubmitSuccess(true);
+        form.reset();
+        setContactMethod('email');
+        setFormErrors({});
+      } else {
+        const errorMessage = result.error || 'Failed to send reservation request.';
+        setFormErrors({ form: errorMessage });
+        toast.error(errorMessage);
+      }
+    } catch (error) {
+      console.error('Property reservation submission error:', error);
+      const errorMessage = 'Failed to submit reservation. Please try again.';
+      setFormErrors({ form: errorMessage });
+      toast.error(errorMessage);
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
+
+  const visibleFormErrors = Object.values(formErrors).filter(
+    (errorMessage): errorMessage is string => Boolean(errorMessage),
+  );
 
   return (
     <div className="min-h-screen pt-24 pb-20">
@@ -564,18 +682,12 @@ export default function PropertyDetailsClient({
 
           <div className="p-8">
             <div className="max-w-4xl mx-auto">
-              <div className="flex justify-between items-start mb-6">
+              <div className="mb-6">
                 <div>
                   {propertyPageHeading}
                   <div className="flex items-center text-navy/60">
                     <MapPin className="w-5 h-5 mr-1" />
                     {property.location}
-                  </div>
-                </div>
-                <div className="text-right">
-                  <div className="text-navy">
-                    <span className="font-bold text-2xl">{property.price}₪</span>
-                    <span className="text-navy/60"> / night</span>
                   </div>
                 </div>
               </div>
@@ -643,92 +755,79 @@ export default function PropertyDetailsClient({
                     Book your stay
                   </h3>
                   <p className="text-primary/75 max-w-2xl">
-                    Choose your dates directly here, then continue to the reservation request
-                    form with your stay already filled in.
+                    Choose your dates, enter your contact details, and send the reservation request
+                    directly from this page.
                   </p>
                 </div>
 
-                <div className="space-y-6">
+                <form onSubmit={handleBookNowSubmit} noValidate className="space-y-6">
+                  <input type="hidden" name="property" value={property.title} />
+                  <input type="hidden" name="listing_id" value={selectedListingId} />
+                  <input type="hidden" name="checkIn" value={dateRange.checkIn ?? ''} />
+                  <input type="hidden" name="checkOut" value={dateRange.checkOut ?? ''} />
+
                   <BookingRangeCalendar
                     value={dateRange}
-                    onChange={setDateRange}
+                    onChange={handleDateRangeChange}
+                    onClearDates={clearPriceEstimate}
                     blockedDates={blockedDates}
                     availabilityStatus={availabilityStatus}
                   />
 
-                  <div className="grid gap-5 md:grid-cols-2 xl:grid-cols-3">
+                  {formErrors.dates ? (
+                    <p className="rounded-md border border-red-200 bg-red-50 px-4 py-3 text-sm font-medium text-red-700">
+                      {formErrors.dates}
+                    </p>
+                  ) : null}
+
+                  {visibleFormErrors.length > 0 ? (
+                    <div
+                      role="alert"
+                      className="rounded-xl border border-red-200 bg-red-50 px-4 py-3 text-sm text-red-700"
+                    >
+                      <p className="font-semibold">Please fix the highlighted details before sending.</p>
+                      <ul className="mt-2 list-disc space-y-1 pl-5">
+                        {visibleFormErrors.map((errorMessage) => (
+                          <li key={errorMessage}>{errorMessage}</li>
+                        ))}
+                      </ul>
+                    </div>
+                  ) : null}
+
+                  {isSubmitSuccess ? (
+                    <div
+                      role="status"
+                      className="rounded-xl border border-green-200 bg-green-50 px-4 py-3 text-sm font-medium text-green-700"
+                    >
+                      Thank you. Your reservation request was sent and our team will contact you within 24 hours.
+                    </div>
+                  ) : null}
+
+                  <div className="grid gap-5 md:grid-cols-2">
                     {hasValidDateRange ? (
-                      <div className="bg-white rounded-xl p-6 border border-primary/10 shadow-sm">
-                        <div className="flex justify-between items-center gap-4">
-                          <span className="text-primary/70">Nights</span>
-                          <span className="font-semibold text-primary">
-                            {selectedNights} night{selectedNights === 1 ? '' : 's'}
-                          </span>
-                        </div>
-
-                        {isPriceLoading ? (
-                          <p className="mt-3 border-t border-primary/10 pt-3 text-sm text-primary/70">
-                            Calculating price...
-                          </p>
-                        ) : null}
-
-                        {activePriceQuote ? (
-                          <div className="mt-3 space-y-2 border-t border-primary/10 pt-3 text-sm">
-                            <div className="flex justify-between items-center gap-4 text-primary/70">
-                              <span>Base nightly subtotal</span>
-                              <span className="font-semibold text-primary">
-                                {formatMoney(baseNightlySubtotal, activePriceQuote.currency)}
-                              </span>
-                            </div>
-
-                            {dynamicStayDiscount > 0 ? (
-                              <div className="flex justify-between items-center gap-4 text-primary/70">
-                                <span>Stay discount for {selectedNights} nights</span>
-                                <span className="font-semibold text-primary">
-                                  -{formatMoney(dynamicStayDiscount, activePriceQuote.currency)}
-                                </span>
-                              </div>
-                            ) : null}
-
-                            <div className="flex justify-between items-center gap-4 text-primary/70">
-                              <span>Nightly total</span>
-                              <span className="font-semibold text-primary">
-                                {formatMoney(activePriceQuote.night_total, activePriceQuote.currency)}
-                              </span>
-                            </div>
-
-                            <div className="flex justify-between items-center gap-4 text-primary/70">
-                              <span>Cleaning fee</span>
-                              <span className="font-semibold text-primary">
-                                {formatMoney(activePriceQuote.cleaning_fee, activePriceQuote.currency)}
-                              </span>
-                            </div>
-
-                            <div className="flex justify-between items-center gap-4 border-t border-primary/10 pt-2 text-base text-primary">
-                              <span className="font-semibold">Final total</span>
-                              <span className="font-playfair text-xl font-bold">
-                                {formatMoney(activePriceQuote.total_price, activePriceQuote.currency)}
-                              </span>
-                            </div>
-                          </div>
-                        ) : null}
-
-                        {priceError && !isPriceLoading ? (
-                          <p className="mt-3 border-t border-primary/10 pt-3 text-sm text-primary/70">
-                            {priceError}
-                          </p>
-                        ) : null}
-                      </div>
+                      <AccommodationPriceSummary
+                        nights={selectedNights}
+                        quote={activePriceQuote}
+                        isLoading={isPriceLoading}
+                        priceError={priceError}
+                        validationError={formErrors.price}
+                        className="bg-white rounded-xl p-6 border border-primary/10 shadow-sm"
+                        totalValueClassName="font-playfair text-xl font-bold"
+                      />
                     ) : null}
 
                     <div className="bg-white rounded-xl p-5 border border-secondary/20 shadow-sm text-left">
                       <p className="text-xs font-semibold uppercase tracking-[0.22em] text-primary/45 mb-3">
                         Reservation status
                       </p>
-                      {hasValidDateRange ? (
+                      {isSubmitSuccess ? (
+                        <p className="text-primary font-semibold">
+                          Request sent. We&apos;ll contact you within 24 hours.
+                        </p>
+                      ) : hasValidDateRange ? (
                         <p className="text-primary font-semibold">
                           {selectedNights} night{selectedNights === 1 ? '' : 's'} selected. Your
-                          dates will be transferred to the reservation form.
+                          request is ready once your contact details are complete.
                         </p>
                       ) : (
                         <p className="text-primary/70">
@@ -736,22 +835,163 @@ export default function PropertyDetailsClient({
                         </p>
                       )}
                     </div>
+                  </div>
 
-                    <div className="relative md:col-span-2 xl:col-span-1">
-                      <button
-                        onClick={handleBookNow}
-                        className="button-hover-clean inline-flex w-full items-center justify-center rounded-full bg-gradient-to-r from-secondary to-secondary-light px-12 py-4 text-lg font-semibold text-primary shadow-xl transition-all duration-300"
-                      >
-                        <Calendar className="w-6 h-6 mr-3" />
-                        <span>BOOK NOW</span>
-                      </button>
+                  <div className="grid gap-4 md:grid-cols-2">
+                    <div>
+                      <label htmlFor="property-reservation-name" className="block text-sm font-medium text-primary/80 mb-1">
+                        Full Name
+                      </label>
+                      <input
+                        type="text"
+                        id="property-reservation-name"
+                        name="name"
+                        autoComplete="name"
+                        aria-invalid={Boolean(formErrors.name)}
+                        aria-describedby={formErrors.name ? 'property-reservation-name-error' : undefined}
+                        onChange={() => clearFormError('name')}
+                        className="w-full rounded-md border border-gray-300 px-4 py-2"
+                      />
+                      {formErrors.name ? (
+                        <p id="property-reservation-name-error" className="mt-2 text-sm font-medium text-red-700">
+                          {formErrors.name}
+                        </p>
+                      ) : null}
+                    </div>
 
-                      <p className="mt-4 text-primary/70 text-sm font-medium text-center">
-                        Response within 24 hours garanteed
-                      </p>
+                    <div>
+                      <label htmlFor="property-reservation-email" className="block text-sm font-medium text-primary/80 mb-1">
+                        Email Address
+                      </label>
+                      <div className="relative">
+                        <Mail className="absolute left-3 top-1/2 h-5 w-5 -translate-y-1/2 text-primary/60" />
+                        <input
+                          type="email"
+                          id="property-reservation-email"
+                          name="email"
+                          autoComplete="email"
+                          aria-invalid={Boolean(formErrors.email)}
+                          aria-describedby={formErrors.email ? 'property-reservation-email-error' : undefined}
+                          onChange={() => clearFormError('email')}
+                          className="w-full rounded-md border border-gray-300 py-2 pl-10 pr-4"
+                        />
+                      </div>
+                      {formErrors.email ? (
+                        <p id="property-reservation-email-error" className="mt-2 text-sm font-medium text-red-700">
+                          {formErrors.email}
+                        </p>
+                      ) : null}
+                    </div>
+
+                    <div>
+                      <label htmlFor="property-reservation-phone" className="block text-sm font-medium text-primary/80 mb-1">
+                        Phone Number
+                      </label>
+                      <div className="relative">
+                        <Phone className="absolute left-3 top-1/2 h-5 w-5 -translate-y-1/2 text-primary/60" />
+                        <input
+                          type="tel"
+                          id="property-reservation-phone"
+                          name="phone"
+                          autoComplete="tel"
+                          aria-invalid={Boolean(formErrors.phone)}
+                          aria-describedby={formErrors.phone ? 'property-reservation-phone-error' : undefined}
+                          onChange={() => clearFormError('phone')}
+                          className="w-full rounded-md border border-gray-300 py-2 pl-10 pr-4"
+                        />
+                      </div>
+                      {formErrors.phone ? (
+                        <p id="property-reservation-phone-error" className="mt-2 text-sm font-medium text-red-700">
+                          {formErrors.phone}
+                        </p>
+                      ) : null}
+                    </div>
+
+                    <div>
+                      <label htmlFor="property-reservation-guests" className="block text-sm font-medium text-primary/80 mb-1">
+                        Guests
+                      </label>
+                      <input
+                        type="number"
+                        id="property-reservation-guests"
+                        name="guestsCount"
+                        min={1}
+                        max={property.maxGuests}
+                        defaultValue={1}
+                        aria-invalid={Boolean(formErrors.guestsCount)}
+                        aria-describedby={formErrors.guestsCount ? 'property-reservation-guests-error' : undefined}
+                        onChange={() => clearFormError('guestsCount')}
+                        className="w-full rounded-md border border-gray-300 px-4 py-2"
+                      />
+                      {formErrors.guestsCount ? (
+                        <p id="property-reservation-guests-error" className="mt-2 text-sm font-medium text-red-700">
+                          {formErrors.guestsCount}
+                        </p>
+                      ) : null}
                     </div>
                   </div>
-                </div>
+
+                  <div>
+                    <label className="block text-sm font-medium text-primary/80 mb-3">
+                      <span>Preferred Contact Method</span>
+                    </label>
+                    <div className="grid grid-cols-1 gap-4 md:grid-cols-3">
+                      <label className={`tap-reset relative flex cursor-pointer items-center justify-center rounded-md border p-4 ${contactMethod === 'email' ? 'border-black/10 bg-black/[0.03] shadow-sm' : 'border-gray-200 bg-white'}`}>
+                        <input
+                          type="radio"
+                          name="contactMethod"
+                          value="email"
+                          checked={contactMethod === 'email'}
+                          onChange={(e) => setContactMethod(e.target.value as ContactMethod)}
+                          className="absolute opacity-0"
+                        />
+                        <Mail className="h-5 w-5 text-primary" />
+                        <span className="ml-2 text-primary">Email</span>
+                      </label>
+
+                      <label className={`tap-reset relative flex cursor-pointer items-center justify-center rounded-md border p-4 ${contactMethod === 'phone' ? 'border-black/10 bg-black/[0.03] shadow-sm' : 'border-gray-200 bg-white'}`}>
+                        <input
+                          type="radio"
+                          name="contactMethod"
+                          value="phone"
+                          checked={contactMethod === 'phone'}
+                          onChange={(e) => setContactMethod(e.target.value as ContactMethod)}
+                          className="absolute opacity-0"
+                        />
+                        <Phone className="h-5 w-5 text-primary" />
+                        <span className="ml-2 text-primary">Phone</span>
+                      </label>
+
+                      <label className={`tap-reset relative flex cursor-pointer items-center justify-center rounded-md border p-4 ${contactMethod === 'whatsapp' ? 'border-black/10 bg-black/[0.03] shadow-sm' : 'border-gray-200 bg-white'}`}>
+                        <input
+                          type="radio"
+                          name="contactMethod"
+                          value="whatsapp"
+                          checked={contactMethod === 'whatsapp'}
+                          onChange={(e) => setContactMethod(e.target.value as ContactMethod)}
+                          className="absolute opacity-0"
+                        />
+                        <MessageSquare className="h-5 w-5 text-primary" />
+                        <span className="ml-2 text-primary">WhatsApp</span>
+                      </label>
+                    </div>
+                  </div>
+
+                  <div className="relative">
+                    <button
+                      type="submit"
+                      disabled={isSubmitting}
+                      className="button-hover-clean inline-flex w-full items-center justify-center rounded-full bg-gradient-to-r from-secondary to-secondary-light px-12 py-4 text-lg font-semibold text-primary shadow-xl transition-all duration-300 disabled:cursor-not-allowed disabled:opacity-60"
+                    >
+                      <Calendar className="w-6 h-6 mr-3" />
+                      <span>{isSubmitting ? 'SENDING...' : 'BOOK NOW'}</span>
+                    </button>
+
+                    <p className="mt-4 text-primary/70 text-sm font-medium text-center">
+                      Response within 24 hours guaranteed
+                    </p>
+                  </div>
+                </form>
               </div>
             </div>
           </div>
