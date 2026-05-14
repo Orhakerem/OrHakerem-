@@ -3,10 +3,17 @@ import test from 'node:test';
 
 import {
   buildPricingBreakdown,
+  fetchPricingListing,
+  fetchPricingTiers,
   getPricingBreakdown,
   selectPricingTier,
   type PricingTier,
 } from './pricing-engine';
+import {
+  PricingDataFetchError,
+  PricingListingNotFoundError,
+  PricingTierNotFoundError,
+} from './pricing-errors';
 import type { SeasonRules } from './pricing-seasons';
 
 const LISTING_ID = 'listing-1';
@@ -53,6 +60,26 @@ test('selects the matching pricing tier for the stay length and most specific ra
   assert.equal(selectedTier.targetPrice, 90);
   assert.equal(selectedTier.minNights, 4);
   assert.equal(selectedTier.maxNights, 10);
+});
+
+test('reports missing pricing tiers with lookup context', () => {
+  assert.throws(
+    () =>
+      selectPricingTier([], {
+        listingId: LISTING_ID,
+        seasonType: 'high',
+        dayType: 'weekend',
+        totalNights: 6,
+      }),
+    (error: unknown) => {
+      assert.ok(error instanceof PricingTierNotFoundError);
+      assert.equal(error.listingId, LISTING_ID);
+      assert.equal(error.seasonType, 'high');
+      assert.equal(error.dayType, 'weekend');
+      assert.equal(error.totalNights, 6);
+      return true;
+    },
+  );
 });
 
 test('builds a detailed nightly breakdown with day type, season priority, and totals', () => {
@@ -252,11 +279,51 @@ test('fetches listing, pricing tiers, and season rules from Supabase before pric
   assert.equal(breakdown.currency, 'ILS');
 });
 
+test('reports missing listings as a typed pricing error', async () => {
+  const { client } = createMockSupabase({
+    listings: [],
+  });
+
+  await assert.rejects(
+    () => fetchPricingListing(LISTING_ID, client as never),
+    (error: unknown) => {
+      assert.ok(error instanceof PricingListingNotFoundError);
+      assert.equal(error.listingId, LISTING_ID);
+      return true;
+    },
+  );
+});
+
+test('reports Supabase fetch failures as typed pricing errors', async () => {
+  const { client } = createMockSupabase(
+    {
+      pricing_tiers: [],
+    },
+    {
+      pricing_tiers: 'permission denied for table pricing_tiers',
+    },
+  );
+
+  await assert.rejects(
+    () => fetchPricingTiers(LISTING_ID, client as never),
+    (error: unknown) => {
+      assert.ok(error instanceof PricingDataFetchError);
+      assert.equal(error.tableName, 'pricing_tiers');
+      assert.match(error.message, /permission denied/);
+      return true;
+    },
+  );
+});
+
 type TableRows = Record<string, Array<Record<string, unknown>>>;
+
+interface SupabaseMockError {
+  message: string;
+}
 
 interface QueryResult {
   data: Array<Record<string, unknown>>;
-  error: null;
+  error: SupabaseMockError | null;
 }
 
 class MockSupabaseQuery {
@@ -266,6 +333,7 @@ class MockSupabaseQuery {
     private readonly tableName: string,
     rows: Array<Record<string, unknown>>,
     private readonly filters: string[],
+    private readonly tableErrors: Record<string, string>,
   ) {
     this.rows = [...rows];
   }
@@ -290,9 +358,11 @@ class MockSupabaseQuery {
   }
 
   maybeSingle() {
+    const tableError = this.tableErrors[this.tableName];
+
     return Promise.resolve({
-      data: this.rows[0] ?? null,
-      error: null,
+      data: tableError ? null : this.rows[0] ?? null,
+      error: tableError ? { message: tableError } : null,
     });
   }
 
@@ -304,14 +374,19 @@ class MockSupabaseQuery {
   }
 
   private result(): QueryResult {
+    const tableError = this.tableErrors[this.tableName];
+
     return {
-      data: this.rows,
-      error: null,
+      data: tableError ? [] : this.rows,
+      error: tableError ? { message: tableError } : null,
     };
   }
 }
 
-function createMockSupabase(tables: TableRows) {
+function createMockSupabase(
+  tables: TableRows,
+  tableErrors: Record<string, string> = {},
+) {
   const selectedTables: string[] = [];
   const filters: string[] = [];
 
@@ -322,7 +397,12 @@ function createMockSupabase(tables: TableRows) {
       from(tableName: string) {
         selectedTables.push(tableName);
 
-        return new MockSupabaseQuery(tableName, tables[tableName] ?? [], filters);
+        return new MockSupabaseQuery(
+          tableName,
+          tables[tableName] ?? [],
+          filters,
+          tableErrors,
+        );
       },
     },
   };

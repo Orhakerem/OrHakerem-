@@ -12,6 +12,11 @@ import {
   type SeasonRules,
   type SeasonType,
 } from './pricing-seasons';
+import {
+  PricingDataFetchError,
+  PricingListingNotFoundError,
+  PricingTierNotFoundError,
+} from './pricing-errors';
 
 export type PricingDayType = PricingNightKind;
 
@@ -89,7 +94,7 @@ async function getSupabaseClient() {
 }
 
 function createFetchError(tableName: string, message: string) {
-  return new Error(`Failed to fetch ${tableName}: ${message}`);
+  return new PricingDataFetchError(tableName, message);
 }
 
 function normalizeCurrency(value: string | null) {
@@ -214,8 +219,11 @@ export function selectPricingTier(
   const selectedTier = [...matches].sort(compareTierSpecificity)[0];
 
   if (!selectedTier) {
-    throw new Error(
-      `No pricing tier found for listing ${options.listingId}, ${options.seasonType} season, ${options.dayType}, ${options.totalNights} nights.`,
+    throw new PricingTierNotFoundError(
+      options.listingId,
+      options.seasonType,
+      options.dayType,
+      options.totalNights,
     );
   }
 
@@ -329,7 +337,7 @@ export async function fetchPricingListing(
   }
 
   if (!data) {
-    throw new Error(`Listing not found: ${listingId}`);
+    throw new PricingListingNotFoundError(listingId);
   }
 
   return mapListing(data as ListingRow);

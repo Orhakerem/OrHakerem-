@@ -1,14 +1,15 @@
 import { createClient } from '@supabase/supabase-js';
 
-type SupabasePublicEnvName =
-  | 'NEXT_PUBLIC_SUPABASE_URL'
-  | 'NEXT_PUBLIC_SUPABASE_ANON_KEY';
+import {
+  MissingSupabaseEnvError,
+  type SupabasePublicEnvName,
+} from './pricing-errors';
 
 function getRequiredPublicEnv(name: SupabasePublicEnvName) {
   const value = process.env[name]?.trim();
 
   if (!value) {
-    throw new Error(`Missing ${name}`);
+    throw new MissingSupabaseEnvError(name);
   }
 
   return value;

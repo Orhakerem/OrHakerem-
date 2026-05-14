@@ -7,6 +7,13 @@ import {
   ISO_DATE_REGEX,
   isIsoDateString,
 } from '@/lib/booking-dates';
+import {
+  getPricingErrorCode,
+  MissingSupabaseEnvError,
+  PricingDataFetchError,
+  PricingListingNotFoundError,
+  PricingTierNotFoundError,
+} from '@/lib/pricing-errors';
 import { getPricingBreakdown } from '@/lib/pricing-engine';
 
 export const dynamic = 'force-dynamic';
@@ -106,8 +113,46 @@ async function readJsonBody(request: Request) {
   }
 }
 
-function isListingNotFoundError(error: unknown) {
-  return error instanceof Error && error.message.startsWith('Listing not found:');
+function logPriceCalculationFailure(
+  error: unknown,
+  requestData: z.infer<typeof calculatePriceRequestSchema>,
+) {
+  const baseContext = {
+    endpoint: '/api/calculate-price',
+    listing_id: requestData.listing_id,
+    check_in: requestData.check_in,
+    check_out: requestData.check_out,
+    error_code: getPricingErrorCode(error),
+  };
+
+  if (error instanceof MissingSupabaseEnvError) {
+    console.error('Price calculation configuration failed:', {
+      ...baseContext,
+      missing_env: error.envName,
+    });
+    return;
+  }
+
+  if (error instanceof PricingDataFetchError) {
+    console.error('Price calculation Supabase fetch failed:', {
+      ...baseContext,
+      table: error.tableName,
+      message: error.message,
+    });
+    return;
+  }
+
+  if (error instanceof PricingTierNotFoundError) {
+    console.error('Price calculation tier lookup failed:', {
+      ...baseContext,
+      season_type: error.seasonType,
+      day_type: error.dayType,
+      total_nights: error.totalNights,
+    });
+    return;
+  }
+
+  console.error('Price calculation failed:', baseContext, error);
 }
 
 export function GET() {
@@ -169,11 +214,11 @@ export async function POST(request: Request) {
 
     return NextResponse.json(quote);
   } catch (error) {
-    if (isListingNotFoundError(error)) {
+    if (error instanceof PricingListingNotFoundError) {
       return jsonError(404, 'listing_not_found', 'Invalid listing_id');
     }
 
-    console.error('Price calculation failed:', error);
+    logPriceCalculationFailure(error, result.data);
 
     return jsonError(500, 'price_calculation_failed', 'Unable to calculate price');
   }
