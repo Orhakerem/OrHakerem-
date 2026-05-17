@@ -1,9 +1,9 @@
 import FAQ from '@/components/FAQ';
+import Image from 'next/image';
 import HeroAnimatedTitle from '@/components/HeroAnimatedTitle';
 import LiquidGlassCTA from '@/components/LiquidGlassCTA';
 import HomeContactForm from '@/components/HomeContactForm';
 import TestimonialsCarousel from '@/components/TestimonialsCarousel';
-import PromotionalCarousel from '@/components/PromotionalCarousel';
 
 export default function Home() {
   return (
@@ -37,31 +37,25 @@ export default function Home() {
       </div>
 
       {/* Welcome Section */}
-      <section className="py-16 bg-cream relative overflow-hidden" data-animate="fade-up">
+      <section className="py-16 bg-cream relative overflow-hidden">
         <div className="absolute inset-0">
           <div className="absolute top-6 left-6 w-16 h-16 bg-secondary/10 rounded-full blur-2xl"></div>
           <div className="absolute bottom-6 right-6 w-20 h-20 bg-tertiary/10 rounded-full blur-2xl"></div>
         </div>
 
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-          <div className="flex flex-col items-center">
-            <div className="flex-1 text-center">
-              <div className="mb-6" data-animate="fade-up">
+          <div className="grid grid-cols-[minmax(0,0.9fr)_minmax(152px,1fr)] items-center gap-4 sm:gap-8 lg:gap-16">
+            <div className="min-w-0 text-left">
+              <div className="mb-5 sm:mb-6">
                 <span className="text-secondary font-semibold text-lg tracking-[0.2em] uppercase block mb-3">
                   Welcome to
                 </span>
-                <h2 className="font-playfair text-4xl md:text-5xl lg:text-6xl font-bold text-primary leading-tight mb-6" data-animate="text" data-delay="1">
+                <h2 className="font-playfair text-4xl md:text-5xl lg:text-6xl font-bold text-primary leading-tight mb-6">
                   Or Hakerem
                 </h2>
               </div>
 
-              <div className="flex items-center justify-center mb-8">
-                <div className="w-12 h-px bg-gradient-to-r from-secondary to-tertiary"></div>
-                <div className="w-2 h-2 bg-secondary rounded-full mx-3 shadow-lg"></div>
-                <div className="w-12 h-px bg-gradient-to-l from-secondary to-tertiary"></div>
-              </div>
-
-              <div className="max-w-4xl space-y-6 text-lg md:text-xl" data-animate="fade-up" data-delay="2">
+              <div className="max-w-3xl space-y-4 sm:space-y-6 text-sm sm:text-lg md:text-xl">
                 <p className="text-primary/90 leading-relaxed font-light font-lato">
                   Or Hakerem is a unique building offering premium apartments for short-term stays in the heart of Tel Aviv.
                 </p>
@@ -78,7 +72,16 @@ export default function Home() {
                   Whether you’re coming for a few days by the sea or planning a more private moment, Or Hakerem offers a flexible and elevated way to experience Tel Aviv.
                 </p>
               </div>
+            </div>
 
+            <div className="relative min-h-[300px] sm:min-h-[440px] lg:min-h-[620px] overflow-hidden rounded-2xl border border-primary/10 shadow-2xl" data-animate="slide-in-right">
+              <Image
+                src="/penthouse/chaises_hautes_angle_2.jpg"
+                alt="Terrace seating at Or Hakerem"
+                fill
+                className="object-cover"
+                sizes="(max-width: 640px) 46vw, (max-width: 1024px) 50vw, 620px"
+              />
             </div>
           </div>
         </div>
@@ -86,14 +89,6 @@ export default function Home() {
 
       {/* White Separator */}
       <div className="home-section-divider h-12 bg-white"></div>
-
-      {/* Promotional Carousel with Events CTA */}
-      <div data-animate="fade-up">
-        <PromotionalCarousel/>
-      </div>
-
-      {/* White Separator */}
-      <div className="h-12 bg-white"></div>
 
       {/* Location Section */}
       <section className="home-location-section py-16 bg-cream relative overflow-hidden" data-animate="fade-up">
