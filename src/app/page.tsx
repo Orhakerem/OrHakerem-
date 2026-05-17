@@ -1,14 +1,11 @@
-import Link from 'next/link';
-
 import FAQ from '@/components/FAQ';
+import HeroAnimatedTitle from '@/components/HeroAnimatedTitle';
+import LiquidGlassCTA from '@/components/LiquidGlassCTA';
 import HomeContactForm from '@/components/HomeContactForm';
 import TestimonialsCarousel from '@/components/TestimonialsCarousel';
 import PromotionalCarousel from '@/components/PromotionalCarousel';
 
 export default function Home() {
-  const heroHeadline =
-    'Luxury Short-Term Stays in Tel Aviv – Or HaKerem';
-
   return (
     <div className="min-h-screen">
       {/* Hero Section with Video Background - No Margin Top */}
@@ -30,48 +27,12 @@ export default function Home() {
         </div>
 
         {/* Desktop / large tablet overlay */}
-        <div className="hero-title hero-home-title" data-animate="text">
-          <h1 className="font-playfair font-bold hero-subtitle">
-            {heroHeadline}
-          </h1>
+        <div className="hero-title hero-home-title">
+          <HeroAnimatedTitle />
         </div>
 
         <div className="glass-cta-wrap hero-home-cta-wrap">
-          <Link
-            href="/properties"
-            className="glass-cta"
-          >
-            View Properties
-          </Link>
-        </div>
-
-        {/* Mobile / tablet hero */}
-        <div className="hero-home-mobile-strip"></div>
-
-        <div className="hero-home-mobile-text">
-          <div className="hero-home-mobile-text-inner">
-            <div
-              aria-hidden="true"
-              className="hero-home-mobile-title font-montserrat font-bold"
-              data-animate="text"
-            >
-              {heroHeadline}
-            </div>
-          </div>
-        </div>
-
-        <div className="hero-home-mobile-video-section">
-          <div className="hero-home-mobile-video-wrap">
-            <video
-              autoPlay
-              muted
-              loop
-              playsInline
-              className="hero-home-mobile-video"
-            >
-              <source src="/hero.mp4" type="video/mp4" />
-            </video>
-          </div>
+          <LiquidGlassCTA href="/properties">View Properties</LiquidGlassCTA>
         </div>
       </div>
 
