@@ -348,13 +348,7 @@
   .glass-cta,
   .whatsapp-float,
   .property-card-button,
-  .booking-calendar-day-button,
-  .nav-item-floating,
-  .nav-item-floating span,
-  .mobile-menu-button-floating,
-  .mobile-nav-item-floating,
-  .mobile-nav-item-floating span,
-  .logo-text-floating {
+  .booking-calendar-day-button {
     transition: none !important;
   }
 
@@ -548,36 +542,35 @@
     transition: all 0.1s ease-out;
   }
 
-  /* Floating Navbar Styles - Amélioré et épuré */
+  /* Floating Navbar Styles */
   .navbar-floating {
-    height: 78px;
-    padding: 11px 22px;
+    height: 76px;
+    padding: 12px clamp(18px, 4vw, 56px);
     display: flex;
     align-items: center;
     justify-content: center;
     position: fixed;
-    top: 15px;
+    top: 18px;
     left: 50%;
     transform: translateX(-50%);
-    width: max-content;
-    max-width: 95%;
-    background: rgba(165, 56, 43, 0.85);
-    backdrop-filter: blur(20px);
-    border-radius: 35px;
-    box-shadow: 
-      0 8px 32px rgba(165, 56, 43, 0.25),
-      0 0 0 1px rgba(255, 255, 255, 0.1) inset;
+    width: min(100% - 32px, 1180px);
+    max-width: calc(100% - 32px);
+    background: transparent;
+    border: 0;
+    border-radius: 0;
+    box-shadow: none;
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
     z-index: 1500;
-    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-    border: 1px solid rgba(255, 255, 255, 0.1);
+    transition: color 0.25s ease, border-color 0.25s ease;
   }
 
   .navbar-container-floating {
-    width: fit-content;
+    width: 100%;
     display: flex;
     align-items: center;
     justify-content: space-between;
-    gap: 22px;
+    gap: clamp(24px, 5vw, 72px);
     padding: 0;
     height: 100%;
   }
@@ -592,92 +585,80 @@
   .nav-brand-floating {
     display: flex;
     align-items: center;
-    gap: 12px;
     text-decoration: none;
+    min-height: 52px;
   }
 
-  .nav-logo-floating {
-    height: 64px;
-    width: auto;
-    object-fit: contain;
+  .nav-logo-slot-floating {
+    display: block;
+    width: clamp(86px, 12vw, 150px);
+    height: 52px;
     flex-shrink: 0;
-    border-radius: 8px;
-  }
-
-  .logo-text-floating {
-    color: #d8b084;
-    font-size: 1.8rem;
-    font-weight: 700;
-    font-family: 'Playfair Display', serif;
-    margin-left: 2px;
-    transition: all 0.3s ease;
-  }
-
-  .logo-text-floating.mobile {
-    font-size: 1.4rem;
   }
 
   .nav-items-floating {
     display: flex;
-    gap: 16px;
+    gap: 10px;
     align-items: center;
-    justify-content: center;
+    justify-content: flex-end;
     padding: 0;
     height: 100%;
   }
 
-  /* Navigation buttons - Design épuré sans effet de brillance */
   .nav-item-floating {
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    color: #a5382b;
+    color: #ffffff;
     text-decoration: none;
     font-family: 'Inter', sans-serif;
-    font-weight: 600;
-    font-size: 15px;
-    padding: 13px 16px;
-    height: 48px;
-    border-radius: 25px;
-    background: linear-gradient(135deg, #d8b084 0%, #c49a6a 100%);
-    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    font-weight: 700;
+    font-size: 14px;
+    letter-spacing: 0;
+    padding: 11px 14px;
+    min-height: 44px;
+    border-radius: 0;
+    background: transparent;
+    border: 1px solid transparent;
+    text-shadow: 0 1px 10px rgba(0, 0, 0, 0.35);
+    transition:
+      border-color 0.25s ease,
+      color 0.25s ease,
+      text-shadow 0.25s ease,
+      transform 0.25s ease;
     position: relative;
-    overflow: hidden;
-    box-shadow:
-      0 4px 15px rgba(216, 176, 132, 0.25),
-      0 0 0 1px rgba(255, 255, 255, 0.1) inset;
-    border: 1px solid rgba(255, 255, 255, 0.1);
     flex-shrink: 0;
     white-space: nowrap;
   }
 
-  /* État actif */
+  .nav-item-floating:hover,
+  .nav-item-floating:focus-visible,
   .nav-item-floating.active {
-    color: #8b2f23;
-    box-shadow: 0 4px 15px rgba(216, 176, 132, 0.25);
+    color: var(--color-primary);
+    border-color: #ffffff;
+    text-shadow: none;
   }
 
   .nav-item-floating span {
     position: relative;
     z-index: 2;
-    transition: all 0.3s ease;
     white-space: nowrap;
   }
 
-  /* Mobile Menu Button - Design épuré */
   .mobile-menu-button-floating {
-    background: linear-gradient(135deg, #d8b084 0%, #c49a6a 100%);
-    border: none;
-    color: #a5382b;
+    background: transparent;
+    border: 1px solid transparent;
+    color: #ffffff;
     cursor: pointer;
-    padding: 12px;
-    border-radius: 20px;
-    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-    box-shadow: 
-      0 4px 15px rgba(216, 176, 132, 0.3),
-      0 0 0 1px rgba(255, 255, 255, 0.1) inset;
+    padding: 10px;
+    border-radius: 0;
+    transition:
+      border-color 0.25s ease,
+      color 0.25s ease,
+      text-shadow 0.25s ease;
+    box-shadow: none;
+    text-shadow: 0 1px 10px rgba(0, 0, 0, 0.35);
     position: relative;
-    overflow: hidden;
     height: 45px;
     width: 45px;
     display: flex;
@@ -685,54 +666,71 @@
     justify-content: center;
   }
 
+  .mobile-menu-button-floating:hover,
+  .mobile-menu-button-floating:focus-visible {
+    color: var(--color-primary);
+    border-color: #ffffff;
+    text-shadow: none;
+  }
+
   .mobile-menu-floating {
     position: absolute;
-    top: 75px;
+    top: 68px;
     left: 0;
     right: 0;
-    background: linear-gradient(135deg, #ffffff 0%, #fafafa 100%);
-    border-radius: 20px;
-    box-shadow: 
-      0 20px 60px rgba(165, 56, 43, 0.2),
-      0 0 0 1px rgba(216, 176, 132, 0.1) inset;
+    background: transparent;
+    border-radius: 0;
+    box-shadow: none;
     z-index: 999;
-    backdrop-filter: blur(20px);
-    border: 1px solid rgba(216, 176, 132, 0.2);
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
+    border: 0;
     overflow: hidden;
-    margin: 0 10px;
+    margin: 0;
   }
 
   .mobile-menu-items-floating {
     display: flex;
     flex-direction: column;
-    padding: 20px 0;
+    align-items: flex-end;
+    gap: 6px;
+    padding: 8px 0;
   }
 
-  /* Mobile nav items - Design épuré */
   .mobile-nav-item-floating {
     display: flex;
     align-items: center;
-    color: #a5382b;
+    justify-content: flex-end;
+    width: fit-content;
+    color: #ffffff;
     text-decoration: none;
     font-family: 'Inter', sans-serif;
-    font-weight: 600;
-    font-size: 15px;
-    padding: 15px 25px;
-    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    font-weight: 700;
+    font-size: 14px;
+    letter-spacing: 0;
+    padding: 11px 14px;
+    border: 1px solid transparent;
+    border-radius: 0;
+    text-shadow: 0 1px 10px rgba(0, 0, 0, 0.35);
+    transition:
+      border-color 0.25s ease,
+      color 0.25s ease,
+      text-shadow 0.25s ease;
     position: relative;
-    overflow: hidden;
   }
 
+  .mobile-nav-item-floating:hover,
+  .mobile-nav-item-floating:focus-visible,
   .mobile-nav-item-floating.active {
-    color: #8b2f23;
+    color: var(--color-primary);
+    border-color: #ffffff;
     background: transparent;
-    font-weight: 600;
+    text-shadow: none;
   }
 
   .mobile-nav-item-floating span {
     position: relative;
     z-index: 2;
-    transition: all 0.3s ease;
   }
 
   .mobile-overlay-floating {
@@ -741,8 +739,9 @@
     left: 0;
     right: 0;
     bottom: 0;
-    background: rgba(0,0,0,0.3);
-    backdrop-filter: blur(8px);
+    background: transparent;
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
     z-index: 998;
     animation: fadeInUp 0.3s ease;
   }
@@ -1309,7 +1308,7 @@
     .navbar-floating {
       height: 64px;
       padding: 8px 14px;
-      border-radius: 30px;
+      border-radius: 0;
       top: 10px;
       width: calc(100% - 16px);
       max-width: calc(100% - 16px);
@@ -1330,28 +1329,18 @@
       justify-content: flex-start;
     }
 
-    .logo-text-floating.mobile {
-      font-size: 1.55rem;
-      white-space: nowrap;
-      overflow: hidden;
-      text-overflow: ellipsis;
-    }
-
     .nav-brand-floating {
-      gap: 8px;
+      min-height: 44px;
     }
 
-    .nav-logo-floating {
-      height: 44.8px;
+    .nav-logo-slot-floating {
+      width: clamp(72px, 24vw, 112px);
+      height: 44px;
     }
 
     .mobile-menu-button-floating {
       margin-left: auto;
       flex: 0 0 auto;
-    }
-
-    .logo-text-floating.mobile {
-      font-size: 1.55rem;
     }
 
     .nav-items-floating {
@@ -1373,13 +1362,13 @@
       width: 100%;
       max-width: 100%;
       box-sizing: border-box;
-      border-radius: 18px;
+      border-radius: 0;
       backdrop-filter: none;
       -webkit-backdrop-filter: none;
     }
 
     .mobile-menu-items-floating {
-      padding: 12px 0;
+      padding: 10px 0;
     }
 
     .mobile-nav-item-floating {
