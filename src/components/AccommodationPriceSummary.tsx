@@ -6,9 +6,6 @@ export interface AccommodationPriceQuote {
   cleaning_fee: number;
   total_price: number;
   currency: string;
-  nightly_subtotal?: number;
-  discount_amount?: number;
-  discount_label?: string | null;
 }
 
 interface AccommodationPriceSummaryProps {
@@ -37,14 +34,7 @@ export function isAccommodationPriceQuote(value: unknown): value is Accommodatio
     typeof value.night_total === 'number' &&
     typeof value.cleaning_fee === 'number' &&
     typeof value.total_price === 'number' &&
-    typeof value.currency === 'string' &&
-    (value.nightly_subtotal === undefined || typeof value.nightly_subtotal === 'number') &&
-    (value.discount_amount === undefined || typeof value.discount_amount === 'number') &&
-    (
-      value.discount_label === undefined ||
-      value.discount_label === null ||
-      typeof value.discount_label === 'string'
-    )
+    typeof value.currency === 'string'
   );
 }
 
@@ -58,12 +48,6 @@ function formatMoney(value: number, currency: string) {
   } catch {
     return `${value.toLocaleString('en-US')} ${currency}`;
   }
-}
-
-function getNightlySubtotal(quote: AccommodationPriceQuote) {
-  const discountAmount = Math.max(0, quote.discount_amount ?? 0);
-
-  return quote.nightly_subtotal ?? quote.night_total + discountAmount;
 }
 
 export default function AccommodationPriceSummary({
@@ -80,11 +64,6 @@ export default function AccommodationPriceSummary({
   }
 
   const displayedNights = quote?.nights ?? nights;
-  const discountAmount = quote ? Math.max(0, quote.discount_amount ?? 0) : 0;
-  const discountLabel =
-    discountAmount > 0
-      ? quote?.discount_label ?? `Long stay discount for ${displayedNights} nights`
-      : 'Long stay discount';
 
   return (
     <div className={className}>
@@ -104,21 +83,10 @@ export default function AccommodationPriceSummary({
       {quote ? (
         <div className="mt-3 space-y-2 border-t border-primary/10 pt-3 text-sm">
           <div className="flex items-center justify-between gap-4 text-primary/70">
-            <span>Nightly subtotal</span>
+            <span>Night total</span>
             <span className="font-semibold text-primary">
-              {formatMoney(getNightlySubtotal(quote), quote.currency)}
+              {formatMoney(quote.night_total, quote.currency)}
             </span>
-          </div>
-
-          <div className="flex items-center justify-between gap-4 text-primary/70">
-            <span>{discountLabel}</span>
-            {discountAmount > 0 ? (
-              <span className="font-semibold text-primary">
-                -{formatMoney(discountAmount, quote.currency)}
-              </span>
-            ) : (
-              <span className="font-medium text-primary/60">Not applied</span>
-            )}
           </div>
 
           <div className="flex items-center justify-between gap-4 text-primary/70">

@@ -60,9 +60,6 @@ export interface PricingBreakdown {
   listing_id: string;
   nights: number;
   nightly_breakdown: NightlyPricingBreakdown[];
-  nightly_subtotal: number;
-  discount_amount: number;
-  discount_label: string | null;
   night_total: number;
   cleaning_fee: number;
   total_price: number;
@@ -230,26 +227,6 @@ export function selectPricingTier(
   return selectedTier;
 }
 
-function selectBaselinePricingTier(
-  tiers: readonly PricingTier[],
-  options: {
-    listingId: string;
-    seasonType: SeasonType;
-    dayType: PricingDayType;
-    fallbackTier: PricingTier;
-  },
-) {
-  const matches = tiers.filter(
-    (tier) =>
-      tier.listingId === options.listingId &&
-      tier.seasonType === options.seasonType &&
-      tier.dayType === options.dayType &&
-      matchesStayLength(tier, 1),
-  );
-
-  return [...matches].sort(compareTierSpecificity)[0] ?? options.fallbackTier;
-}
-
 export function buildPricingBreakdown(
   input: PricingQuoteInput,
   listing: PricingListing,
@@ -262,7 +239,6 @@ export function buildPricingBreakdown(
     throw new RangeError('checkOut must be after checkIn.');
   }
 
-  let baselineNightTotal = 0;
   const nightlyBreakdown = nights.map<NightlyPricingBreakdown>((date) => {
     const dayType = getPricingNightKind(date);
     const seasonType = resolveSeasonTypeForDate(date, seasonRules);
@@ -272,14 +248,6 @@ export function buildPricingBreakdown(
       dayType,
       totalNights: nights.length,
     });
-    const baselinePricingTier = selectBaselinePricingTier(pricingTiers, {
-      listingId: listing.id,
-      seasonType,
-      dayType,
-      fallbackTier: pricingTier,
-    });
-
-    baselineNightTotal += baselinePricingTier.targetPrice;
 
     return {
       date,
@@ -299,10 +267,6 @@ export function buildPricingBreakdown(
   const nightTotal = roundCurrencyAmount(
     nightlyBreakdown.reduce((total, night) => total + night.nightly_price, 0),
   );
-  const discountAmount = roundCurrencyAmount(
-    Math.max(0, roundCurrencyAmount(baselineNightTotal) - nightTotal),
-  );
-  const nightlySubtotal = roundCurrencyAmount(nightTotal + discountAmount);
   const cleaningFee = roundCurrencyAmount(listing.cleaningFee);
 
   return {
@@ -310,10 +274,6 @@ export function buildPricingBreakdown(
     listing_id: listing.id,
     nights: nights.length,
     nightly_breakdown: nightlyBreakdown,
-    nightly_subtotal: nightlySubtotal,
-    discount_amount: discountAmount,
-    discount_label:
-      discountAmount > 0 ? `Long stay discount for ${nights.length} nights` : null,
     night_total: nightTotal,
     cleaning_fee: cleaningFee,
     total_price: roundCurrencyAmount(nightTotal + cleaningFee),
