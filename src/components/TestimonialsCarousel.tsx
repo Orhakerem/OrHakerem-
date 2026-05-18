@@ -1,7 +1,14 @@
 'use client';
 
 import React, { useState, useEffect } from 'react';
+import Image from 'next/image';
 import { Star, Quote } from 'lucide-react';
+
+const reviewPlatforms = [
+  { name: 'Airbnb', src: '/logo/airbnb.svg' },
+  { name: 'Booking.com', src: '/logo/booking.svg' },
+  { name: 'Google', src: '/logo/google.svg' },
+];
 
 interface Testimonial {
   name: string;
@@ -130,6 +137,24 @@ export default function TestimonialsCarousel() {
           <p className="text-primary/80 text-xl max-w-3xl mx-auto leading-relaxed">
             Discover why our guests choose Or Hakerem for their luxury stays in Tel Aviv
           </p>
+
+          <div className="home-testimonials-platforms mt-10 flex flex-col items-center gap-4">
+            <span className="text-primary/60 text-sm tracking-[0.2em] uppercase">
+              Reviewed on
+            </span>
+            <div className="flex flex-wrap items-center justify-center gap-x-10 gap-y-6 md:gap-x-14">
+              {reviewPlatforms.map((platform) => (
+                <Image
+                  key={platform.name}
+                  src={platform.src}
+                  alt={`${platform.name} reviews`}
+                  width={140}
+                  height={42}
+                  className="h-7 md:h-9 w-auto opacity-80 hover:opacity-100 transition-opacity"
+                />
+              ))}
+            </div>
+          </div>
         </div>
 
         {/* Carousel Container */}

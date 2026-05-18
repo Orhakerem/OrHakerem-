@@ -41,14 +41,14 @@ export default function Footer() {
         <div className="site-footer-mobile md:hidden py-6">
           <div className="site-footer-mobile-brand text-center mb-4">
             <div className="flex items-center justify-center mb-3">
-              <div className="relative w-32 h-32">
+              <div className="relative w-48 h-48">
                 <Image
                   src="/logo/Logo_beige_h1.png"
                   alt="Or Hakerem Logo"
                   fill
                   className="object-contain"
                   loading="lazy"
-                  sizes="128px"
+                  sizes="192px"
                 />
               </div>
             </div>
@@ -185,14 +185,14 @@ export default function Footer() {
             {/* Column 1: Logo & Brand */}
             <div className="text-center md:text-left md:col-span-1">
               <div className="flex items-center justify-center md:justify-start">
-                <div className="relative w-56 h-56">
+                <div className="relative w-80 h-80">
                   <Image
                     src="/logo/Logo_beige_h1.png"
                     alt="Or Hakerem Logo"
                     fill
                     className="object-contain"
                   loading="lazy"
-                  sizes="288px"
+                  sizes="320px"
                 />
                 </div>
               </div>

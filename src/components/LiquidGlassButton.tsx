@@ -1,32 +1,36 @@
 'use client';
 
-import Link from 'next/link';
-import type { ReactNode } from 'react';
+import type { ButtonHTMLAttributes, ReactNode } from 'react';
 
-interface LiquidGlassCTAProps {
-  href: string;
+interface LiquidGlassButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   children: ReactNode;
-  target?: string;
-  rel?: string;
 }
 
-export default function LiquidGlassCTA({ href, children, target, rel }: LiquidGlassCTAProps) {
+export default function LiquidGlassButton({
+  children,
+  className = '',
+  ...props
+}: LiquidGlassButtonProps) {
   return (
     <>
-      <Link href={href} className="liquid-cta" data-slot="button" target={target} rel={rel}>
-        <span className="liquid-cta-shadow" aria-hidden="true" />
+      <button
+        {...props}
+        data-slot="button"
+        className={`liquid-glass-btn ${className}`}
+      >
+        <span className="liquid-glass-btn-shadow" aria-hidden="true" />
         <span
-          className="liquid-cta-distort"
+          className="liquid-glass-btn-distort"
           aria-hidden="true"
-          style={{ backdropFilter: 'url("#liquid-cta-glass")' }}
+          style={{ backdropFilter: 'url("#liquid-glass-btn-filter")' }}
         />
-        <span className="liquid-cta-label">{children}</span>
-      </Link>
+        <span className="liquid-glass-btn-label">{children}</span>
+      </button>
 
-      <svg className="liquid-cta-svg" aria-hidden="true" focusable="false">
+      <svg className="liquid-glass-btn-svg" aria-hidden="true" focusable="false">
         <defs>
           <filter
-            id="liquid-cta-glass"
+            id="liquid-glass-btn-filter"
             x="0%"
             y="0%"
             width="100%"

@@ -548,6 +548,84 @@
     pointer-events: none;
   }
 
+  .liquid-glass-btn-svg {
+    position: absolute;
+    width: 0;
+    height: 0;
+    pointer-events: none;
+  }
+
+  .liquid-glass-btn {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    padding: 14px 36px;
+    border-radius: 999px;
+    color: #a5382b;
+    font-size: 1.05rem;
+    font-weight: 600;
+    letter-spacing: 0.3px;
+    background: linear-gradient(180deg, rgba(216, 176, 132, 0.55), rgba(216, 176, 132, 0.35));
+    border: none;
+    cursor: pointer;
+    transition: transform 0.3s ease, filter 0.3s ease;
+    isolation: isolate;
+  }
+
+  .liquid-glass-btn:hover:not(:disabled) {
+    transform: scale(1.04);
+    filter: brightness(1.05);
+  }
+
+  .liquid-glass-btn:active:not(:disabled) {
+    transform: scale(0.98);
+  }
+
+  .liquid-glass-btn:disabled {
+    opacity: 0.55;
+    cursor: not-allowed;
+  }
+
+  .liquid-glass-btn-shadow {
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    pointer-events: none;
+    z-index: 0;
+    box-shadow:
+      0 0 6px rgba(0, 0, 0, 0.03),
+      0 2px 6px rgba(0, 0, 0, 0.08),
+      inset 3px 3px 0.5px -3px rgba(255, 255, 255, 0.9),
+      inset -3px -3px 0.5px -3px rgba(165, 56, 43, 0.25),
+      inset 1px 1px 1px -0.5px rgba(255, 255, 255, 0.6),
+      inset -1px -1px 1px -0.5px rgba(165, 56, 43, 0.2),
+      inset 0 0 6px 6px rgba(255, 255, 255, 0.18),
+      inset 0 0 2px 2px rgba(255, 255, 255, 0.08),
+      0 0 12px rgba(165, 56, 43, 0.08);
+  }
+
+  .liquid-glass-btn-distort {
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    overflow: hidden;
+    pointer-events: none;
+    z-index: -1;
+    -webkit-backdrop-filter: blur(2px);
+    backdrop-filter: blur(2px);
+  }
+
+  .liquid-glass-btn-label {
+    position: relative;
+    z-index: 1;
+    pointer-events: none;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+
   .liquid-glass-icon {
     position: relative;
     display: inline-flex;
