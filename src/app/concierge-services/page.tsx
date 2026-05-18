@@ -1,41 +1,28 @@
 'use client';
 
 import { useState } from 'react';
-import { ArrowUp, Car, Baby, Calendar, ShoppingBasket, Sparkle, UtensilsCrossed } from 'lucide-react';
+import { ArrowUp } from 'lucide-react';
 import { motion } from 'framer-motion';
 import toast from 'react-hot-toast';
 import { sendContactEmail } from '@/actions/contact';
 import { useBackToTopVisibility } from '@/hooks/useBackToTopVisibility';
 
 interface ServiceCardProps {
-  icon: React.ComponentType<{ className?: string }>;
   title: string;
   description: string;
   delay: number;
 }
 
-function ServiceCard({ icon: Icon, title, description, delay }: ServiceCardProps) {
+function ServiceCard({ title, description, delay }: ServiceCardProps) {
   return (
     <div
       data-animate="scale"
       className="service-card relative rounded-xl border border-gray-100 bg-white p-5"
       style={{ animationDelay: `${delay}ms` }}
     >
-      {/* Floating icon container - Reduced size */}
-      <div className="relative inline-block mb-4">
-        <div className="relative rounded-full bg-gradient-to-br from-secondary to-secondary-light p-3 shadow-lg">
-          <div className="absolute inset-0 rounded-full bg-white/20"></div>
-          <Icon className="relative z-10 h-6 w-6 text-primary" />
-        </div>
-        {/* Floating animation ring */}
-        <div className="absolute inset-0 rounded-full border-2 border-white/35 animate-pulse"></div>
-      </div>
-
-      {/* Reduced heading size */}
       <h3 className="relative z-10 mb-3 font-playfair text-xl font-bold text-primary">
         {title}
       </h3>
-      {/* Reduced text size and spacing */}
       <p className="relative z-10 text-sm leading-relaxed text-primary/80">
         {description}
       </p>
@@ -49,32 +36,26 @@ export default function ConciergeServicesPage() {
 
   const services = [
     {
-      icon: ShoppingBasket,
       title: 'Grocery Delivery',
       description: 'We offer delivery during your stay on demand and even before check-in.'
     },
     {
-      icon: Car,
       title: 'Transportation',
       description: 'Private cars with professional drivers and airport or city-to-city transfers.'
     },
     {
-      icon: Baby,
       title: 'Baby Sitting',
       description: 'Certified childcare professionals available 24/7 for your complete peace of mind.'
     },
     {
-      icon: Calendar,
       title: 'Event Planning',
       description: 'Access to events and private celebrations with meticulous attention to every detail.'
     },
     {
-      icon: Sparkle,
       title: 'Cleaning on Demand',
       description: 'We offer cleaning services during your stay, provided by a professional team that will not interfere with your time in the apartment.'
     },
     {
-      icon: UtensilsCrossed,
       title: 'Dining Reservation',
       description: 'Experience the finest culinary destinations with our restaurant reservation service. We secure tables at the most sought-after establishments.'
     }
@@ -230,7 +211,6 @@ export default function ConciergeServicesPage() {
             {services.map((service, index) => (
               <ServiceCard
                 key={index}
-                icon={service.icon}
                 title={service.title}
                 description={service.description}
                 delay={index * 100}

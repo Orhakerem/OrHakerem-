@@ -62,3 +62,9 @@ App Router pages in `src/app/*`. Mostly server components; client-only pieces (c
 - **Property identity has three layers** (`BookablePropertyId`, `listingId`, display title). When adding a property, update `BOOKABLE_PROPERTIES` once — the derived maps/arrays flow from it.
 - **Tests use `node:test` + `tsx`**, not Jest. Use `describe`/`it` from `node:test` and `node:assert/strict`.
 - Lint config is flat ESLint (`eslint.config.mjs`); Prettier config is in `.prettierrc`.
+
+## Branch policy
+- **Always develop on the `dev` branch.** Never commit directly to `main`.
+- Before starting any task, ensure you are on `dev` (checkout if needed).
+- All pushes go to `origin/dev`, which triggers a Vercel **preview** deployment only.
+- `main` is the production branch; only merge `dev` → `main` when the user explicitly asks to publish to production.
