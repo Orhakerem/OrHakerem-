@@ -8,25 +8,6 @@ import Image from 'next/image';
 import { SITE_URL } from '@/app/seo';
 
 export default function Footer() {
-  const handleContactClick = (e: React.MouseEvent<HTMLAnchorElement>) => {
-    e.preventDefault();
-    
-    // Check if we're on the homepage
-    if (typeof window !== 'undefined' && window.location.pathname === '/') {
-      // Scroll to the contact section
-      const contactSection = document.querySelector('#contact');
-      if (contactSection) {
-        contactSection.scrollIntoView({ 
-          behavior: 'smooth',
-          block: 'start'
-        });
-      }
-    } else if (typeof window !== 'undefined') {
-      // Navigate to homepage with hash
-      window.location.href = `${SITE_URL}/#contact`;
-    }
-  };
-
   return (
     <footer className="site-footer bg-primary text-white relative overflow-hidden rounded-t-3xl">
       {/* Background decorative elements - Minimal */}
@@ -146,13 +127,12 @@ export default function Footer() {
               >
                 About
               </Link>
-              <a
+              <Link
                 href="/#contact"
-                onClick={handleContactClick}
                 className="text-white/90 transition-all duration-300"
               >
                 Contact
-              </a>
+              </Link>
             </div>
           </div>
 
@@ -327,13 +307,12 @@ export default function Footer() {
                 >
                   About
                 </Link>
-                <a
+                <Link
                   href="/#contact"
-                  onClick={handleContactClick}
                   className="block text-base font-medium leading-tight text-white/90 transition-all duration-300"
                 >
                   Contact
-                </a>
+                </Link>
               </nav>
             </div>
 

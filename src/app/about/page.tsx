@@ -206,7 +206,7 @@ export default function AboutPage() {
                 <ArrowRight className="ml-2 h-5 w-5" />
               </Link>
               <Link
-                href="/contact"
+                href="/#contact"
                 className="inline-flex items-center justify-center rounded-full border border-white/25 bg-white/10 px-8 py-4 font-semibold text-white"
               >
                 Contact Us

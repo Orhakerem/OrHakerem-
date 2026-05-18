@@ -1,11 +1,10 @@
 'use client';
 
-import { Mail, MessageSquare, Phone, ArrowLeft, Home } from 'lucide-react';
+import { Mail, MessageSquare, Phone } from 'lucide-react';
 import toast from 'react-hot-toast';
 
 import React, { useEffect, useState } from 'react';
 
-import { useRouter } from 'next/navigation';
 import Link from 'next/link';
 
 import { sendEmail } from '@/actions/email';
@@ -81,7 +80,6 @@ export default function ReservationForm({
   availabilityByProperty = EMPTY_AVAILABILITY_BY_PROPERTY,
   availabilityStatusByProperty = EMPTY_AVAILABILITY_STATUS_BY_PROPERTY,
 }: ReservationFormProps) {
-  const router = useRouter();
   const todayIso = getTodayIsoInTimeZone();
   const initialProperty = getSingleSearchParam(initialSearchParams?.property);
   const initialCheckIn = getSingleSearchParam(initialSearchParams?.checkIn);
@@ -300,12 +298,14 @@ export default function ReservationForm({
         <p className="text-primary/80 mb-6">
           We&apos;ll contact you via your chosen method within 24 hours.
         </p>
-        <button
-          onClick={() => router.push(embedded ? '/properties' : '/')}
-          className="button-hover-clean bg-secondary text-primary px-6 py-2 rounded-md font-semibold transition"
-        >
-          {embedded ? 'Back to Properties' : 'Return to Home'}
-        </button>
+        {embedded && (
+          <Link
+            href="/properties"
+            className="button-hover-clean inline-block bg-secondary text-primary px-6 py-2 rounded-md font-semibold transition"
+          >
+            Back to Properties
+          </Link>
+        )}
       </div>
     );
 
@@ -498,20 +498,6 @@ export default function ReservationForm({
   return (
     <div className="min-h-screen pt-24 pb-20 bg-cream">
       <div className="reservation-container max-w-2xl mx-auto px-4">
-        {/* Enhanced Back Navigation */}
-        <div className="mb-8" data-animate="fade-right">
-          <Link
-            href="/"
-            className="inline-flex items-center rounded-full border border-primary/20 bg-white/80 px-6 py-3 text-lg font-semibold text-primary shadow-lg transition-all duration-300"
-          >
-            <div className="relative mr-3">
-              <ArrowLeft className="w-5 h-5" />
-            </div>
-            <Home className="w-5 h-5 mr-2 opacity-70" />
-            <span className="relative z-10">Back to Home</span>
-          </Link>
-        </div>
-
         {formCard}
       </div>
     </div>

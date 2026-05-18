@@ -6,14 +6,21 @@ import type { ReactNode } from 'react';
 interface LiquidGlassCTAProps {
   href: string;
   children: ReactNode;
+  className?: string;
   target?: string;
   rel?: string;
 }
 
-export default function LiquidGlassCTA({ href, children, target, rel }: LiquidGlassCTAProps) {
+export default function LiquidGlassCTA({ href, children, className = '', target, rel }: LiquidGlassCTAProps) {
   return (
     <>
-      <Link href={href} className="liquid-cta" data-slot="button" target={target} rel={rel}>
+      <Link
+        href={href}
+        className={`liquid-cta ${className}`}
+        data-slot="button"
+        target={target}
+        rel={rel}
+      >
         <span className="liquid-cta-shadow" aria-hidden="true" />
         <span
           className="liquid-cta-distort"

@@ -1,8 +1,7 @@
 'use client';
 
 import React, { useEffect, useState } from 'react';
-import Link from 'next/link';
-import { ArrowLeft, ArrowUp, FileText, Home, Printer } from 'lucide-react';
+import { ArrowUp, FileText, Printer } from 'lucide-react';
 
 const standardCancellationPolicy = [
   {
@@ -114,19 +113,6 @@ export default function TermsPage() {
   return (
     <div className="min-h-screen bg-cream pt-24 pb-20">
       <div className="mx-auto max-w-5xl px-4 sm:px-6 lg:px-8">
-        <div className="mb-8" data-animate="fade-right">
-          <Link
-            href="/"
-            className="inline-flex items-center rounded-full border border-primary/20 bg-white/80 px-6 py-3 text-lg font-semibold text-primary shadow-lg transition-all duration-300"
-          >
-            <div className="relative mr-3">
-              <ArrowLeft className="w-5 h-5" />
-            </div>
-            <Home className="mr-2 w-5 h-5 opacity-70" />
-            <span className="relative z-10">Back to Home</span>
-          </Link>
-        </div>
-
         <div className="mb-8 flex justify-end" data-animate="fade-left">
           <button
             onClick={handlePrint}

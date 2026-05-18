@@ -1,5 +1,4 @@
 import type { Metadata } from 'next';
-import dynamic from 'next/dynamic';
 import Script from 'next/script';
 import { SpeedInsights } from '@vercel/speed-insights/next';
 import Toast from '@/components/Toast';
@@ -10,10 +9,6 @@ import { DEFAULT_OG_IMAGE, DEFAULT_OPEN_GRAPH_IMAGE, SITE_URL, createCanonicalUr
 import { inter, lato, montserrat, playfair } from '@/app/fonts';
 
 import './globals.css';
-
-const CustomCursor = dynamic(() => import('@/components/CustomCursor'), {
-  ssr: false,
-});
 
 export const metadata: Metadata = {
   title: 'Luxury Apartments in Tel Aviv | Or Hakerem | Kerem HaTeimanim',
@@ -95,7 +90,6 @@ export default function RootLayout({
       </head>
       <body className={`${inter.variable} ${playfair.variable} ${lato.variable} ${montserrat.variable} min-h-screen bg-cream antialiased`}>
         <GoogleAnalytics />
-        <CustomCursor />
         <Toast />
         <Navbar />
         <main>
