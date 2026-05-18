@@ -2,6 +2,7 @@
 
 import { useState } from 'react';
 import { ArrowUp, Car, Baby, Calendar, ShoppingBasket, Sparkle, UtensilsCrossed } from 'lucide-react';
+import { motion } from 'framer-motion';
 import toast from 'react-hot-toast';
 import { sendContactEmail } from '@/actions/contact';
 import { useBackToTopVisibility } from '@/hooks/useBackToTopVisibility';
@@ -110,39 +111,64 @@ export default function ConciergeServicesPage() {
 
   return (
     <div className="min-h-screen bg-cream">
-      {/* Modern Hero Section - No Image */}
-      <section className="hero-section services-hero-section relative min-h-[85vh] w-full overflow-hidden bg-gradient-to-br from-primary via-primary-light to-primary pt-24" data-animate="fade-up">
-        {/* Animated Background Pattern */}
-        <div className="absolute inset-0 opacity-20">
-          <div className="absolute top-20 left-10 w-72 h-72 bg-secondary rounded-full blur-3xl animate-pulse"></div>
-          <div className="absolute bottom-32 right-10 w-96 h-96 bg-tertiary rounded-full blur-3xl animate-pulse" style={{ animationDelay: '1s' }}></div>
-          <div className="absolute top-[42%] left-1/3 w-64 h-64 bg-white rounded-full blur-3xl animate-pulse" style={{ animationDelay: '2s' }}></div>
-        </div>
-
-        {/* Geometric Shapes */}
-        <div className="absolute inset-0 overflow-hidden">
-          <div className="absolute top-40 right-20 w-32 h-32 border-4 border-secondary/30 rounded-lg rotate-12 animate-spin-slow"></div>
-          <div className="absolute bottom-52 left-20 w-24 h-24 border-4 border-tertiary/30 rounded-full animate-bounce-slow"></div>
-        </div>
-
-        {/* Content */}
-        <div className="services-hero-inner relative z-10 flex items-start justify-center min-h-[calc(85vh-6rem)] px-4 pt-16">
-          <div className="services-hero-content max-w-5xl mx-auto text-center">
-            {/* Main Heading with Animation */}
-            <h1 className="font-playfair text-5xl md:text-7xl lg:text-8xl font-bold text-white mb-8 leading-tight animate-fade-in" data-animate="text">
+      {/* Hero Section - Split layout with image */}
+      <motion.section
+        className="hero-section services-hero-section relative flex w-full flex-col overflow-hidden bg-gradient-to-br from-primary via-primary-light to-primary pt-24 md:flex-row"
+        initial="hidden"
+        animate="visible"
+        variants={{
+          hidden: { opacity: 0 },
+          visible: { opacity: 1, transition: { staggerChildren: 0.15, delayChildren: 0.2 } },
+        }}
+        data-animate="fade-up"
+      >
+        {/* Left: Content */}
+        <div className="flex w-full flex-col justify-center p-8 md:w-1/2 md:p-12 lg:w-3/5 lg:p-16">
+          <motion.main
+            variants={{
+              hidden: { opacity: 0 },
+              visible: { opacity: 1, transition: { staggerChildren: 0.15 } },
+            }}
+          >
+            <motion.h1
+              className="font-playfair text-5xl md:text-6xl lg:text-7xl font-bold leading-tight text-white"
+              variants={{
+                hidden: { y: 20, opacity: 0 },
+                visible: { y: 0, opacity: 1, transition: { duration: 0.5, ease: 'easeOut' } },
+              }}
+              data-animate="text"
+            >
               Premium Concierge
               <br />
               <span className="text-secondary">Services</span>
-            </h1>
+            </motion.h1>
 
-            {/* Subtitle */}
-            <p className="text-xl md:text-2xl text-white/90 max-w-3xl mx-auto leading-relaxed mb-12">
+            <motion.div
+              className="my-6 h-1 w-20 bg-secondary"
+              variants={{
+                hidden: { y: 20, opacity: 0 },
+                visible: { y: 0, opacity: 1, transition: { duration: 0.5, ease: 'easeOut' } },
+              }}
+            ></motion.div>
+
+            <motion.p
+              className="mb-10 max-w-xl text-lg md:text-xl text-white/90 leading-relaxed"
+              variants={{
+                hidden: { y: 20, opacity: 0 },
+                visible: { y: 0, opacity: 1, transition: { duration: 0.5, ease: 'easeOut' } },
+              }}
+            >
               Our dedicated concierge team provides impeccable service tailored to your every need.
               Experience the ultimate in personalized luxury during your stay.
-            </p>
+            </motion.p>
 
-            {/* Feature Pills */}
-            <div className="services-hero-pills flex flex-wrap justify-center gap-4">
+            <motion.div
+              className="services-hero-pills flex flex-wrap gap-4"
+              variants={{
+                hidden: { y: 20, opacity: 0 },
+                visible: { y: 0, opacity: 1, transition: { duration: 0.5, ease: 'easeOut' } },
+              }}
+            >
               <div className="px-6 py-3 bg-white/10 backdrop-blur-sm rounded-full border border-white/20 text-white/90">
                 24/7 Available
               </div>
@@ -152,17 +178,29 @@ export default function ConciergeServicesPage() {
               <div className="px-6 py-3 bg-white/10 backdrop-blur-sm rounded-full border border-white/20 text-white/90">
                 Expert Team
               </div>
-            </div>
-          </div>
+            </motion.div>
+          </motion.main>
         </div>
 
+        {/* Right: Image with clip-path reveal */}
+        <motion.div
+          className="w-full min-h-[300px] bg-cover bg-center md:w-1/2 md:min-h-[85vh] lg:w-2/5"
+          style={{
+            backgroundImage: 'url(/Service_page_Hero.png)',
+            backgroundColor: '#1f1612',
+          }}
+          initial={{ clipPath: 'polygon(100% 0, 100% 0, 100% 100%, 100% 100%)' }}
+          animate={{ clipPath: 'polygon(25% 0, 100% 0, 100% 100%, 0% 100%)' }}
+          transition={{ duration: 1.2, ease: 'circOut' }}
+        ></motion.div>
+
         {/* Bottom Wave Divider */}
-        <div className="absolute bottom-0 left-0 right-0">
+        <div className="absolute bottom-0 left-0 right-0 pointer-events-none">
           <svg viewBox="0 0 1440 100" fill="none" xmlns="http://www.w3.org/2000/svg" className="w-full h-auto">
             <path d="M0 0L60 8.33333C120 16.6667 240 33.3333 360 41.6667C480 50 600 50 720 41.6667C840 33.3333 960 16.6667 1080 16.6667C1200 16.6667 1320 33.3333 1380 41.6667L1440 50V100H1380C1320 100 1200 100 1080 100C960 100 840 100 720 100C600 100 480 100 360 100C240 100 120 100 60 100H0V0Z" fill="#FAF7F2"/>
           </svg>
         </div>
-      </section>
+      </motion.section>
 
       {/* Services Section - Redesigned */}
       <section className="services-grid-section relative py-24 bg-cream" data-animate="fade-up">

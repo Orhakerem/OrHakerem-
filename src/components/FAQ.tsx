@@ -1,7 +1,7 @@
 'use client';
 
 import { useState } from 'react';
-import { ArrowUpRight, ChevronDown, CircleHelp } from 'lucide-react';
+import { ArrowUpRight, ChevronDown } from 'lucide-react';
 
 import LiquidGlassCTA from '@/components/LiquidGlassCTA';
 import { homeFaqEntries } from '@/lib/faq-data';
@@ -12,20 +12,16 @@ export default function FAQ() {
   return (
     <section className="home-faq-section bg-cream py-12 sm:py-14" data-animate="fade-up">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="home-faq-shell grid items-start gap-6 rounded-[1.75rem] border border-primary/10 bg-white/80 p-5 shadow-[0_18px_60px_rgba(83,45,36,0.09)] backdrop-blur md:grid-cols-[0.82fr_1.18fr] md:p-7 lg:p-8">
+        <div className="home-faq-shell grid items-start gap-6 rounded-[1.75rem] border border-white/10 bg-primary p-5 shadow-[0_18px_60px_rgba(83,45,36,0.25)] md:grid-cols-[0.82fr_1.18fr] md:p-7 lg:p-8">
           <div className="home-faq-header text-left">
-            <div className="mb-4 inline-flex items-center gap-2 rounded-full bg-primary/10 px-3 py-1.5 text-sm font-semibold text-primary">
-              <CircleHelp className="h-4 w-4" />
-              Guest notes
-            </div>
-            <h2 className="font-playfair text-3xl font-bold leading-tight text-primary sm:text-4xl">
+            <h2 className="font-playfair text-3xl font-bold leading-tight text-white sm:text-4xl lg:text-5xl">
               Fast answers before you book
             </h2>
-            <p className="mt-3 max-w-md text-sm leading-6 text-primary/70 sm:text-base">
+            <p className="mt-4 max-w-md text-sm leading-6 text-white/80 sm:text-base">
               The key details guests usually check first. The full FAQ keeps every policy and service answer in one place.
             </p>
-            <div className="mt-5">
-              <LiquidGlassCTA href="/faq">
+            <div className="mt-6 text-center">
+              <LiquidGlassCTA href="/faq" className="liquid-cta--sm">
                 View all questions
                 <ArrowUpRight className="h-4 w-4" />
               </LiquidGlassCTA>
@@ -36,7 +32,7 @@ export default function FAQ() {
             {homeFaqEntries.map((faq, index) => (
               <article
                 key={faq.question}
-                className="home-faq-item overflow-hidden rounded-2xl border border-primary/10 bg-cream/70 transition duration-300 hover:border-primary/25 hover:bg-white"
+                className="home-faq-item overflow-hidden rounded-2xl border border-white/15 bg-white/10 transition duration-300 hover:border-white/30 hover:bg-white/15"
                 data-delay={String((index % 3) + 1)}
               >
                 <button
@@ -46,18 +42,18 @@ export default function FAQ() {
                   aria-expanded={openIndex === index}
                   aria-controls={`home-faq-answer-${index}`}
                 >
-                  <h3 className="font-playfair text-base font-bold leading-snug text-primary sm:text-lg">
+                  <h3 className="font-playfair text-base font-bold leading-snug text-white sm:text-lg">
                     {faq.question}
                   </h3>
                   <ChevronDown
-                    className={`h-5 w-5 shrink-0 text-primary transition duration-300 ${
+                    className={`h-5 w-5 shrink-0 text-white transition duration-300 ${
                       openIndex === index ? 'rotate-180' : ''
                     }`}
                   />
                 </button>
                 <div
                   id={`home-faq-answer-${index}`}
-                  className={`overflow-hidden text-sm leading-6 text-primary/75 transition-all duration-300 ease-in-out ${
+                  className={`overflow-hidden text-sm leading-6 text-white/85 transition-all duration-300 ease-in-out ${
                     openIndex === index ? 'max-h-40 opacity-100' : 'max-h-0 opacity-0'
                   }`}
                 >
