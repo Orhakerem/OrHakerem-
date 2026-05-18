@@ -126,11 +126,6 @@ export default function TestimonialsCarousel() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         {/* Header section */}
         <div className="home-testimonials-header text-center mb-16">
-          <div className="inline-block mb-4">
-            <span className="text-tertiary font-semibold text-lg tracking-wider uppercase">
-              Guest Reviews
-            </span>
-          </div>
           <h2 className="font-playfair text-5xl md:text-6xl font-bold text-primary mb-6 leading-tight">
             What Our Guests Say
           </h2>

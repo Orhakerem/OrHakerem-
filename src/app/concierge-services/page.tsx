@@ -94,7 +94,7 @@ export default function ConciergeServicesPage() {
     <div className="min-h-screen bg-cream">
       {/* Hero Section - Split layout with image */}
       <motion.section
-        className="hero-section services-hero-section relative flex w-full flex-col overflow-hidden bg-gradient-to-br from-primary via-primary-light to-primary pt-24 md:flex-row"
+        className="hero-section services-hero-section relative flex w-full flex-col overflow-hidden bg-gradient-to-br from-primary via-primary-light to-primary pt-20 md:flex-row"
         initial="hidden"
         animate="visible"
         variants={{
@@ -104,7 +104,7 @@ export default function ConciergeServicesPage() {
         data-animate="fade-up"
       >
         {/* Left: Content */}
-        <div className="flex w-full flex-col justify-center p-8 md:w-1/2 md:p-12 lg:w-3/5 lg:p-16">
+        <div className="flex w-full flex-col justify-center p-7 md:w-1/2 md:p-10 lg:w-3/5 lg:p-12">
           <motion.main
             variants={{
               hidden: { opacity: 0 },
@@ -112,7 +112,7 @@ export default function ConciergeServicesPage() {
             }}
           >
             <motion.h1
-              className="font-playfair text-5xl md:text-6xl lg:text-7xl font-bold leading-tight text-white"
+              className="font-playfair text-5xl md:text-5xl lg:text-[4rem] font-bold leading-tight text-white"
               variants={{
                 hidden: { y: 20, opacity: 0 },
                 visible: { y: 0, opacity: 1, transition: { duration: 0.5, ease: 'easeOut' } },
@@ -133,7 +133,7 @@ export default function ConciergeServicesPage() {
             ></motion.div>
 
             <motion.p
-              className="mb-10 max-w-xl text-lg md:text-xl text-white/90 leading-relaxed"
+              className="mb-8 max-w-xl text-lg md:text-xl text-white/90 leading-relaxed"
               variants={{
                 hidden: { y: 20, opacity: 0 },
                 visible: { y: 0, opacity: 1, transition: { duration: 0.5, ease: 'easeOut' } },
@@ -165,7 +165,7 @@ export default function ConciergeServicesPage() {
 
         {/* Right: Image with clip-path reveal */}
         <motion.div
-          className="w-full min-h-[300px] bg-cover bg-center md:w-1/2 md:min-h-[85vh] lg:w-2/5"
+          className="w-full min-h-[260px] bg-cover bg-center md:w-1/2 md:min-h-[72vh] lg:w-2/5"
           style={{
             backgroundImage: 'url(/Service_page_Hero.png)',
             backgroundColor: '#1f1612',
