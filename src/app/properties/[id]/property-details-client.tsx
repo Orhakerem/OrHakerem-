@@ -1023,11 +1023,7 @@ export default function PropertyDetailsClient({
         <div className="min-w-0">
           {/* 2. Title + property type subtitle */}
           <header>
-            <p className="flex items-center gap-2 text-xs font-semibold uppercase tracking-[0.22em] text-secondary">
-              <MapPin className="h-3.5 w-3.5" />
-              {property.location}
-            </p>
-            <h1 className="mt-3 font-playfair text-3xl md:text-4xl font-bold text-navy leading-tight">
+            <h1 className="font-playfair text-3xl md:text-4xl font-bold text-navy leading-tight">
               {property.title}
             </h1>
             <p className="mt-3 text-navy/70">

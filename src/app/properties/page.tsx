@@ -6,6 +6,7 @@ import {
   Calendar,
   CheckCircle,
   Clock,
+  ExternalLink,
   MapPin,
   Shield,
   Users,
@@ -177,11 +178,6 @@ export default function Properties() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Hero Section */}
         <div className="text-center mb-16" data-animate="fade-up">
-          <div className="inline-block mb-4">
-            <span className="text-tertiary font-semibold text-lg tracking-wider uppercase">
-              Our Accommodations
-            </span>
-          </div>
           <h1 className="font-playfair text-5xl md:text-6xl font-bold text-primary mb-6 leading-tight" data-animate="text">
             Luxury Apartments in Tel Aviv
           </h1>
@@ -254,64 +250,119 @@ export default function Properties() {
           </div>
         </section>
 
-        <section className="max-w-6xl mx-auto mb-16" data-animate="fade-up">
-          <div className="bg-white rounded-3xl p-8 md:p-10 shadow-xl border border-primary/10">
-            <div className="text-center mb-8">
-              <span className="text-tertiary font-semibold text-sm md:text-base tracking-[0.2em] uppercase block mb-3">
-                Included in Every Stay
-              </span>
-              <h2 className="font-playfair text-3xl md:text-4xl font-bold text-primary">
-                Thoughtful essentials, consistently delivered
-              </h2>
-            </div>
+        <div className="max-w-6xl mx-auto mb-16" data-animate="fade-up">
+          <div className="rounded-2xl bg-gradient-to-r from-secondary/20 via-tertiary/15 to-secondary/20 border border-tertiary/30 px-6 py-5 md:px-8 md:py-6 text-center shadow-md">
+            <p className="font-playfair text-xl md:text-2xl font-semibold text-primary">
+              Booking directly with us is up to 15% cheaper than platforms!
+            </p>
+          </div>
+        </div>
 
-            <div className="grid gap-6 md:grid-cols-2 xl:grid-cols-4">
-              {stayHighlights.map((highlight) => (
-                <div
-                  key={highlight.title}
-                  className="rounded-2xl bg-cream border border-primary/10 p-6"
-                >
-                  <div className="w-12 h-12 rounded-full bg-secondary/20 text-primary flex items-center justify-center mb-4">
-                    <highlight.icon className="w-6 h-6" />
-                  </div>
-                  <h3 className="font-playfair text-2xl font-semibold text-primary mb-3">
-                    {highlight.title}
-                  </h3>
-                  <p className="text-primary/75 leading-relaxed">
-                    {highlight.description}
-                  </p>
-                </div>
-              ))}
-            </div>
+        <section className="max-w-6xl mx-auto mb-16" data-animate="fade-up">
+          <div className="text-center mb-10">
+            <span className="text-tertiary font-semibold text-sm md:text-base tracking-[0.2em] uppercase block mb-3">
+              Included in Every Stay
+            </span>
+            <h2 className="font-playfair text-3xl md:text-4xl font-bold text-primary">
+              Thoughtful essentials, consistently delivered
+            </h2>
+          </div>
+
+          <div className="grid gap-10 md:grid-cols-2 xl:grid-cols-4">
+            {stayHighlights.map((highlight) => (
+              <div key={highlight.title}>
+                <highlight.icon className="w-7 h-7 text-tertiary mb-4" />
+                <h3 className="font-playfair text-2xl font-semibold text-primary mb-3">
+                  {highlight.title}
+                </h3>
+                <p className="text-primary/75 leading-relaxed">
+                  {highlight.description}
+                </p>
+              </div>
+            ))}
           </div>
         </section>
 
         <section className="max-w-4xl mx-auto mb-16" data-animate="fade-up">
-          <div className="bg-white rounded-3xl p-8 md:p-10 shadow-xl border border-primary/10">
-            <div className="text-center mb-8">
-              <span className="text-secondary font-semibold text-sm md:text-base tracking-[0.2em] uppercase block mb-3">
-                Nearby Landmarks
-              </span>
-              <h2 className="font-playfair text-3xl md:text-4xl font-bold text-primary">
-                Prime location in Tel Aviv
-              </h2>
+          <div className="text-center mb-10">
+            <span className="text-tertiary font-semibold text-sm md:text-base tracking-[0.2em] uppercase block mb-3">
+              Nearby Landmarks
+            </span>
+            <h2 className="font-playfair text-3xl md:text-4xl font-bold text-primary">
+              Prime location in Tel Aviv
+            </h2>
+          </div>
+
+          <div className="grid gap-8 md:grid-cols-3">
+            {nearbyLandmarks.map((landmark) => (
+              <div key={landmark.name} className="text-center">
+                <MapPin className="w-5 h-5 mx-auto mb-3 text-tertiary" />
+                <h3 className="font-playfair text-xl font-semibold text-primary mb-1">
+                  {landmark.name}
+                </h3>
+                <p className="text-primary/70 font-medium">{landmark.distance}</p>
+              </div>
+            ))}
+          </div>
+        </section>
+
+        <section className="max-w-6xl mx-auto mb-16" data-animate="fade-up">
+          <div className="text-center mb-10">
+            <span className="text-tertiary font-semibold text-sm md:text-base tracking-[0.2em] uppercase block mb-3">
+              Also Available On
+            </span>
+            <h2 className="font-playfair text-3xl md:text-4xl font-bold text-primary">
+              Our listings on different platforms
+            </h2>
+            <p className="text-primary/70 mt-4 max-w-2xl mx-auto">
+              Find us on the platforms you trust. Remember, booking directly with us is up to 15% cheaper.
+            </p>
+          </div>
+
+          <div className="grid gap-6 md:grid-cols-2">
+            <div className="rounded-2xl bg-white p-6 md:p-8 shadow-xl border border-primary/10">
+              <h3 className="font-playfair text-2xl font-semibold text-primary mb-2">
+                Luxury Penthouse
+              </h3>
+              <p className="text-primary/70 text-sm mb-5">Available on Airbnb and Booking.com</p>
+              <div className="flex flex-col sm:flex-row gap-3 items-center">
+                <LiquidGlassCTA
+                  href="https://www.airbnb.com/rooms/1247678225456455722"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="liquid-cta--sm liquid-cta--light"
+                >
+                  <span>View on Airbnb</span>
+                  <ExternalLink className="w-4 h-4 ml-2" />
+                </LiquidGlassCTA>
+                <LiquidGlassCTA
+                  href="https://www.booking.com/hotel/il/penthouse-with-jacuzzi-bbq-2mn-from-sea-or-hakerem.fr.html?label=gen173bo-10CAsoakIycGVudGhvdXNlLXdpdGgtamFjdXp6aS1iYnEtMm1uLWZyb20tc2VhLW9yLWhha2VyZW1IM1gDaGqIAQGYATO4AQfIAQzYAQPoAQH4AQGIAgGYAgaoAgG4ArzUsNAGwAIB0gIkODQ1YTJkYmItOWI2NS00YWUwLTg4ZGEtNGUwMGJiNTAyMjZl2AIB4AIB&sid=d76cf1f6818f7b442a6ed091d7429070&dist=0&keep_landing=1&sb_price_type=total&type=total&"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="liquid-cta--sm liquid-cta--light"
+                >
+                  <span>View on Booking.com</span>
+                  <ExternalLink className="w-4 h-4 ml-2" />
+                </LiquidGlassCTA>
+              </div>
             </div>
 
-            <div className="grid gap-4 md:grid-cols-3">
-              {nearbyLandmarks.map((landmark) => (
-                <div
-                  key={landmark.name}
-                  className="rounded-2xl bg-cream border border-primary/10 px-5 py-6 text-center"
+            <div className="rounded-2xl bg-white p-6 md:p-8 shadow-xl border border-primary/10">
+              <h3 className="font-playfair text-2xl font-semibold text-primary mb-2">
+                Spacious & Cosy Apartment
+              </h3>
+              <p className="text-primary/70 text-sm mb-5">Available on Airbnb</p>
+              <div className="flex flex-col sm:flex-row gap-3 items-center">
+                <LiquidGlassCTA
+                  href="https://www.airbnb.com/rooms/1273005083237819919"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="liquid-cta--sm liquid-cta--light"
                 >
-                  <div className="w-10 h-10 mx-auto mb-4 rounded-full bg-secondary/20 text-primary flex items-center justify-center">
-                    <MapPin className="w-5 h-5" />
-                  </div>
-                  <h3 className="font-playfair text-xl font-semibold text-primary mb-2">
-                    {landmark.name}
-                  </h3>
-                  <p className="text-primary/70 font-medium">{landmark.distance}</p>
-                </div>
-              ))}
+                  <span>View on Airbnb</span>
+                  <ExternalLink className="w-4 h-4 ml-2" />
+                </LiquidGlassCTA>
+              </div>
             </div>
           </div>
         </section>
