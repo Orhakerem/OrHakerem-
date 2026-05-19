@@ -8,21 +8,27 @@ import React, { useEffect, useMemo, useState } from 'react';
 import { useResponsiveCalendarLayout } from '@/hooks/useResponsiveCalendarLayout';
 import {
   BUSINESS_TIME_ZONE,
+  compareIsoDates,
   createDateFromIso,
   formatIsoDate,
   getTodayIsoInTimeZone,
   toIsoDateString,
 } from '@/lib/booking-dates';
 import { addMonthsUtc, startOfMonthUtc } from '@/lib/calendar-months';
+import type { CalendarSyncStatus } from '@/lib/bookable-properties';
 
 interface BookingSingleDateCalendarProps {
   value: string | null;
   onChange: (date: string | null) => void;
+  blockedDates?: readonly string[];
+  availabilityStatus?: CalendarSyncStatus;
 }
 
 export default function BookingSingleDateCalendar({
   value,
   onChange,
+  blockedDates = [],
+  availabilityStatus = 'ready',
 }: BookingSingleDateCalendarProps) {
   const { rootRef, showSidePanel, showTwoMonths } = useResponsiveCalendarLayout();
   const todayIso = getTodayIsoInTimeZone();
@@ -42,6 +48,7 @@ export default function BookingSingleDateCalendar({
     () => (value ? createDateFromIso(value) : undefined),
     [value],
   );
+  const blockedDateSet = useMemo(() => new Set(blockedDates), [blockedDates]);
 
   const handleSelect = (date: Date | undefined) => {
     if (!date) {
@@ -49,7 +56,13 @@ export default function BookingSingleDateCalendar({
       return;
     }
 
-    onChange(toIsoDateString(date));
+    const selectedIso = toIsoDateString(date);
+
+    if (compareIsoDates(selectedIso, todayIso) < 0 || blockedDateSet.has(selectedIso)) {
+      return;
+    }
+
+    onChange(selectedIso);
     setMonth(startOfMonthUtc(date));
   };
 
@@ -67,6 +80,12 @@ export default function BookingSingleDateCalendar({
   };
 
   const hasSelection = Boolean(value);
+  const disabledDays = (date: Date) => {
+    const isoDate = toIsoDateString(date);
+
+    return compareIsoDates(isoDate, todayIso) < 0 || blockedDateSet.has(isoDate);
+  };
+  const unavailableDays = (date: Date) => blockedDateSet.has(toIsoDateString(date));
 
   return (
     <div
@@ -120,14 +139,21 @@ export default function BookingSingleDateCalendar({
           </div>
 
           {hasSelection ? (
-          <button
-            type="button"
-            onClick={clearDate}
+            <button
+              type="button"
+              onClick={clearDate}
               className="tap-reset inline-flex items-center justify-center gap-2 rounded-full border border-primary/15 bg-white px-4 py-2 text-sm font-semibold text-primary"
-          >
+            >
               <X className="h-4 w-4" />
               Clear date
             </button>
+          ) : null}
+
+          {availabilityStatus === 'error' ? (
+            <div className="rounded-2xl border border-amber-200 bg-amber-50 px-4 py-3 text-sm text-amber-900">
+              Airbnb availability is temporarily unavailable. Refresh before submitting your
+              event.
+            </div>
           ) : null}
         </div>
 
@@ -176,6 +202,13 @@ export default function BookingSingleDateCalendar({
             timeZone={BUSINESS_TIME_ZONE}
             defaultMonth={todayMonth}
             hideNavigation
+            disabled={disabledDays}
+            modifiers={{
+              unavailable: unavailableDays,
+            }}
+            modifiersClassNames={{
+              unavailable: 'booking-calendar-unavailable',
+            }}
             className="booking-calendar-root mt-5 w-full"
             classNames={{
               months: showTwoMonths
@@ -191,6 +224,7 @@ export default function BookingSingleDateCalendar({
               day: 'booking-calendar-day',
               day_button:
                 'booking-calendar-day-button tap-reset flex h-11 w-11 items-center justify-center rounded-2xl text-sm font-medium text-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-black/10',
+              disabled: 'booking-calendar-disabled',
               outside: 'booking-calendar-outside',
               today: 'booking-calendar-today',
               selected: 'booking-calendar-selected',

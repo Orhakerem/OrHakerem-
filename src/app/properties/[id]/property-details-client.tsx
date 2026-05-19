@@ -1,12 +1,10 @@
 'use client';
 
 import {
-  ArrowLeft,
   Baby,
   Bath,
   BedDouble,
   Calendar,
-  Chrome as Home,
   Coffee,
   Dumbbell,
   Laptop,
@@ -29,7 +27,6 @@ import React, { useEffect, useState } from 'react';
 
 import Image from 'next/image';
 import { useRouter } from 'next/navigation';
-import Link from 'next/link';
 import toast from 'react-hot-toast';
 
 import { sendEmail } from '@/actions/email';
@@ -637,20 +634,7 @@ export default function PropertyDetailsClient({
   return (
     <div className="min-h-screen pt-24 pb-20">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="mb-6">
-          <Link
-            href="/properties"
-            className="inline-flex items-center rounded-full border border-primary/20 bg-white/80 px-6 py-3 text-lg font-semibold text-primary shadow-lg transition-all duration-300"
-          >
-            <div className="relative mr-3">
-              <ArrowLeft className="w-5 h-5" />
-            </div>
-            <Home className="w-5 h-5 mr-2 opacity-70" />
-            <span className="relative z-10">Back to Properties</span>
-          </Link>
-        </div>
-
-        <div className="bg-white rounded-xl shadow-lg overflow-hidden">
+<div className="bg-white rounded-xl shadow-lg overflow-hidden">
           <div className="relative">
             <div className="relative h-[60vh]">
               <Image

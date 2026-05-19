@@ -1,7 +1,7 @@
 'use client';
 
-import { useState } from 'react';
-import { ArrowUp } from 'lucide-react';
+import { useEffect, useState } from 'react';
+import { ArrowUp, Mail } from 'lucide-react';
 import { motion } from 'framer-motion';
 import toast from 'react-hot-toast';
 import { sendContactEmail } from '@/actions/contact';
@@ -32,7 +32,19 @@ function ServiceCard({ title, description, delay }: ServiceCardProps) {
 
 export default function ConciergeServicesPage() {
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [showForm, setShowForm] = useState(false);
+  const [isSuccess, setIsSuccess] = useState(false);
   const showBackToTop = useBackToTopVisibility();
+
+  useEffect(() => {
+    const originalOverflow = document.body.style.overflow;
+    if (showForm) {
+      document.body.style.overflow = 'hidden';
+    }
+    return () => {
+      document.body.style.overflow = originalOverflow;
+    };
+  }, [showForm]);
 
   const services = [
     {
@@ -75,6 +87,8 @@ export default function ConciergeServicesPage() {
       if (result.success) {
         toast.success(result.message || 'Your concierge request has been sent successfully!');
         (e.target as HTMLFormElement).reset();
+        setIsSuccess(true);
+        setShowForm(false);
       } else {
         toast.error(result.error || 'Failed to send request');
       }
@@ -111,7 +125,7 @@ export default function ConciergeServicesPage() {
               visible: { opacity: 1, transition: { staggerChildren: 0.15 } },
             }}
           >
-            <motion.h1
+            <motion.h2
               className="font-playfair text-5xl md:text-5xl lg:text-[4rem] font-bold leading-tight text-white"
               variants={{
                 hidden: { y: 20, opacity: 0 },
@@ -122,7 +136,7 @@ export default function ConciergeServicesPage() {
               Premium Concierge
               <br />
               <span className="text-secondary">Services</span>
-            </motion.h1>
+            </motion.h2>
 
             <motion.div
               className="my-6 h-1 w-20 bg-secondary"
@@ -188,19 +202,13 @@ export default function ConciergeServicesPage() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           {/* Header section with modern design */}
           <div className="services-grid-header text-center mb-20" data-animate="fade-up">
-            <div className="inline-flex items-center gap-2 mb-6 px-5 py-2 bg-tertiary/10 rounded-full">
-              <div className="w-2 h-2 bg-tertiary rounded-full animate-pulse"></div>
-              <span className="text-tertiary font-semibold text-sm tracking-wider uppercase">
-                Our Services
-              </span>
-            </div>
-            <h2 className="font-playfair text-4xl md:text-6xl font-bold text-primary mb-6 leading-tight" data-animate="text">
+            <h1 className="font-playfair text-4xl md:text-6xl font-bold text-primary mb-6 leading-tight" data-animate="text">
               Tailored to Your
               <br />
               <span className="text-transparent bg-clip-text bg-gradient-to-r from-secondary to-tertiary">
                 Every Need
               </span>
-            </h2>
+            </h1>
             <p className="text-primary/70 text-lg md:text-xl max-w-2xl mx-auto leading-relaxed">
               Discover our comprehensive range of luxury services designed to exceed your expectations
             </p>
@@ -237,11 +245,6 @@ export default function ConciergeServicesPage() {
             <div className="w-full">
             {/* Compact Header */}
             <div className="services-contact-header text-center mb-10">
-              <div className="inline-flex items-center gap-2 mb-3 px-4 py-1.5 bg-secondary/20 backdrop-blur-sm rounded-full">
-                <span className="text-secondary font-semibold text-xs tracking-wider uppercase">
-                  Get In Touch
-                </span>
-              </div>
               <h2 className="font-playfair text-3xl md:text-4xl font-bold text-white mb-3 leading-tight">
                 Request Concierge Services
               </h2>
@@ -250,16 +253,84 @@ export default function ConciergeServicesPage() {
               </p>
             </div>
 
-            {/* Compact Contact Form */}
-            <div className="max-w-2xl mx-auto">
-              <div className="services-contact-card relative bg-white/10 backdrop-blur-sm rounded-2xl p-6 border border-white/20">
-                <form onSubmit={handleSubmit} className="services-contact-form space-y-5 relative z-10">
-                  <div className="services-contact-grid grid md:grid-cols-2 gap-5">
+            {isSuccess ? (
+              <div className="max-w-2xl mx-auto">
+                <div className="services-contact-success bg-white/10 backdrop-blur-sm rounded-3xl p-10 text-center border border-white/20">
+                  <div className="inline-block p-4 bg-gradient-to-br from-secondary to-secondary-light rounded-full mb-6">
+                    <Mail className="w-8 h-8 text-primary" />
+                  </div>
+                  <h3 className="font-playfair text-3xl font-bold text-white mb-4">
+                    Thank you for your inquiry!
+                  </h3>
+                  <p className="text-white/90 text-lg mb-8">
+                    Our concierge team will get back to you within 2 hours.
+                  </p>
+                  <button
+                    onClick={() => setIsSuccess(false)}
+                    className="button-hover-clean bg-gradient-to-r from-secondary to-secondary-light text-primary px-8 py-3 rounded-full font-semibold transition-all duration-300"
+                  >
+                    Send Another Request
+                  </button>
+                </div>
+              </div>
+            ) : (
+              <div className="services-contact-cta text-center mb-8">
+                <div className="inline-block relative">
+                  <button
+                    onClick={() => setShowForm(true)}
+                    className="button-hover-clean inline-flex items-center rounded-full bg-gradient-to-r from-secondary to-secondary-light px-8 py-3 text-lg font-semibold text-primary shadow-xl transition-all duration-300"
+                  >
+                    <span className="mr-2">Inquire about services</span>
+                    <div className="w-5 h-5 bg-primary/20 rounded-full flex items-center justify-center">
+                      <span className="text-primary text-sm">→</span>
+                    </div>
+                  </button>
+                </div>
+              </div>
+            )}
+            </div>
+          </div>
+        </section>
+      </div>
+
+      {showForm && (
+        <div
+          className="services-modal tap-reset fixed inset-0 z-50 bg-black/55 backdrop-blur-sm p-3 sm:p-6"
+          role="dialog"
+          aria-modal="true"
+          aria-labelledby="services-inquiry-title"
+          onClick={() => setShowForm(false)}
+        >
+          <div
+            className="services-form-wrap w-full min-h-full flex items-start justify-center sm:items-center"
+            onClick={(e) => e.stopPropagation()}
+          >
+            <div className="services-form w-full max-w-2xl overflow-y-auto rounded-2xl border border-primary/10 bg-white shadow-2xl sm:rounded-3xl">
+              <div className="sticky top-0 z-10 flex items-start justify-between gap-4 border-b border-primary/10 bg-white/95 px-5 py-4 backdrop-blur-sm sm:px-8 sm:py-5">
+                <div>
+                  <h3 id="services-inquiry-title" className="font-playfair text-2xl sm:text-3xl font-bold text-primary">
+                    Concierge Service Inquiry
+                  </h3>
+                  <p className="mt-2 text-sm sm:text-base text-primary/70">
+                    Tell us what you need and we&apos;ll arrange it for your stay.
+                  </p>
+                </div>
+                <button
+                  type="button"
+                  onClick={() => setShowForm(false)}
+                  className="shrink-0 rounded-full border border-primary/10 p-2 text-primary/60"
+                  aria-label="Close"
+                >
+                  <span className="sr-only">Close</span>
+                  ✕
+                </button>
+              </div>
+
+              <div className="px-5 py-5 sm:px-8 sm:py-6">
+                <form onSubmit={handleSubmit} className="space-y-5">
+                  <div className="grid md:grid-cols-2 gap-5">
                     <div>
-                      <label
-                        htmlFor="name"
-                        className="block text-xs font-medium text-white/90 mb-2"
-                      >
+                      <label htmlFor="name" className="block text-sm font-medium text-primary/80 mb-2">
                         Your Name
                       </label>
                       <input
@@ -268,15 +339,11 @@ export default function ConciergeServicesPage() {
                         name="name"
                         placeholder="Enter your name"
                         required
-                        className="h-11 w-full rounded-lg border border-white/20 bg-white/10 px-4 text-sm text-white placeholder-white/60 outline-none transition-all duration-300 focus:border-white/35 focus:ring-1 focus:ring-white/15"
+                        className="h-11 w-full rounded-lg border border-primary/15 bg-white px-4 text-sm text-primary placeholder-primary/40 outline-none transition-all duration-300 focus:border-primary/40 focus:ring-1 focus:ring-primary/20"
                       />
                     </div>
-
                     <div>
-                      <label
-                        htmlFor="email"
-                        className="block text-xs font-medium text-white/90 mb-2"
-                      >
+                      <label htmlFor="email" className="block text-sm font-medium text-primary/80 mb-2">
                         Email Address
                       </label>
                       <input
@@ -285,29 +352,33 @@ export default function ConciergeServicesPage() {
                         name="email"
                         placeholder="your@email.com"
                         required
-                        className="h-11 w-full rounded-lg border border-white/20 bg-white/10 px-4 text-sm text-white placeholder-white/60 outline-none transition-all duration-300 focus:border-white/35 focus:ring-1 focus:ring-white/15"
+                        className="h-11 w-full rounded-lg border border-primary/15 bg-white px-4 text-sm text-primary placeholder-primary/40 outline-none transition-all duration-300 focus:border-primary/40 focus:ring-1 focus:ring-primary/20"
                       />
                     </div>
                   </div>
 
                   <div>
-                    <label
-                      htmlFor="message"
-                      className="block text-xs font-medium text-white/90 mb-2"
-                    >
+                    <label htmlFor="message" className="block text-sm font-medium text-primary/80 mb-2">
                       Service Request Details
                     </label>
                     <textarea
                       id="message"
                       name="message"
                       placeholder="Please describe the concierge service you need..."
-                      rows={4}
+                      rows={5}
                       required
-                      className="w-full resize-none rounded-lg border border-white/20 bg-white/10 px-4 py-3 text-sm text-white placeholder-white/60 outline-none transition-all duration-300 focus:border-white/35 focus:ring-1 focus:ring-white/15"
+                      className="w-full resize-none rounded-lg border border-primary/15 bg-white px-4 py-3 text-sm text-primary placeholder-primary/40 outline-none transition-all duration-300 focus:border-primary/40 focus:ring-1 focus:ring-primary/20"
                     ></textarea>
                   </div>
 
-                  <div className="text-center pt-2">
+                  <div className="flex items-center justify-end gap-3 pt-2">
+                    <button
+                      type="button"
+                      onClick={() => setShowForm(false)}
+                      className="rounded-full border border-primary/20 px-6 py-2.5 text-sm font-medium text-primary/80 hover:bg-primary/5 transition"
+                    >
+                      Cancel
+                    </button>
                     <button
                       type="submit"
                       disabled={isSubmitting}
@@ -318,17 +389,13 @@ export default function ConciergeServicesPage() {
                       </span>
                       <span>→</span>
                     </button>
-                    <p className="text-white/60 text-xs mt-3">
-                      We&apos;ll respond within 2 hours
-                    </p>
                   </div>
                 </form>
               </div>
             </div>
-            </div>
           </div>
-        </section>
-      </div>
+        </div>
+      )}
 
       {/* Back to Top Button */}
       {showBackToTop && (
