@@ -7,6 +7,7 @@ import React, { useState, useEffect, useRef } from 'react';
 
 import { sendEmail } from '@/actions/email';
 import BookingSingleDateCalendar from '@/components/BookingSingleDateCalendar';
+import EventPricing from '@/components/EventPricing';
 import { useBackToTopVisibility } from '@/hooks/useBackToTopVisibility';
 
 const eventTypes = [
@@ -213,6 +214,8 @@ export default function Events() {
             </div>
           </div>
         </section>
+
+        <EventPricing />
 
         {/* Contact Section - Compact */}
         <section className="events-plan-section py-12 bg-gradient-to-br from-primary via-primary to-primary-light relative overflow-hidden rounded-3xl" data-animate="fade-up">
