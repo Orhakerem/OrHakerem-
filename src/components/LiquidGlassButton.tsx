@@ -4,19 +4,25 @@ import type { ButtonHTMLAttributes, ReactNode } from 'react';
 
 interface LiquidGlassButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   children: ReactNode;
+  variant?: 'default' | 'dark';
+  size?: 'default' | 'sm';
 }
 
 export default function LiquidGlassButton({
   children,
   className = '',
+  variant = 'default',
+  size = 'default',
   ...props
 }: LiquidGlassButtonProps) {
+  const variantClass = variant === 'dark' ? 'liquid-glass-btn--dark' : '';
+  const sizeClass = size === 'sm' ? 'liquid-glass-btn--sm' : '';
   return (
     <>
       <button
         {...props}
         data-slot="button"
-        className={`liquid-glass-btn ${className}`}
+        className={`liquid-glass-btn ${variantClass} ${sizeClass} ${className}`.replace(/\s+/g, ' ').trim()}
       >
         <span className="liquid-glass-btn-shadow" aria-hidden="true" />
         <span

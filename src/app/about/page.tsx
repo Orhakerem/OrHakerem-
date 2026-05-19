@@ -1,7 +1,8 @@
 import Link from 'next/link';
-import { ArrowRight, Home, MapPin, Shield, UtensilsCrossed } from 'lucide-react';
+import { MapPin, Shield, UtensilsCrossed } from 'lucide-react';
 
 import { createCanonicalUrl } from '@/app/seo';
+import LiquidGlassCTA from '@/components/LiquidGlassCTA';
 
 const valuePoints = [
   {
@@ -197,21 +198,13 @@ export default function AboutPage() {
               </p>
             </div>
 
-            <div className="mt-8 flex flex-col justify-center gap-4 sm:flex-row">
-              <Link
-                href="/properties"
-                className="inline-flex items-center justify-center rounded-full bg-gradient-to-r from-secondary to-secondary-light px-8 py-4 font-semibold text-primary"
-              >
+            <div className="mt-8 flex flex-col items-center justify-center gap-4 sm:flex-row">
+              <LiquidGlassCTA href="/properties" className="liquid-cta--sm">
                 View Properties
-                <ArrowRight className="ml-2 h-5 w-5" />
-              </Link>
-              <Link
-                href="/#contact"
-                className="inline-flex items-center justify-center rounded-full border border-white/25 bg-white/10 px-8 py-4 font-semibold text-white"
-              >
+              </LiquidGlassCTA>
+              <LiquidGlassCTA href="/#contact" className="liquid-cta--sm">
                 Contact Us
-                <Home className="ml-2 h-5 w-5" />
-              </Link>
+              </LiquidGlassCTA>
             </div>
           </div>
         </div>

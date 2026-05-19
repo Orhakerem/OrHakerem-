@@ -13,6 +13,7 @@ import AccommodationPriceSummary, {
   type AccommodationPriceQuote,
 } from '@/components/AccommodationPriceSummary';
 import BookingRangeCalendar from '@/components/BookingRangeCalendar';
+import LiquidGlassButton from '@/components/LiquidGlassButton';
 import {
   type BookingDateRange,
   getBookingDateRangeValidationMessage,
@@ -478,15 +479,11 @@ export default function ReservationForm({
           </div>
         </div>
 
-        <button
-          type="submit"
-          disabled={isSubmitting}
-          className="button-hover-clean w-full bg-secondary text-primary py-3 rounded-md font-semibold transition disabled:opacity-50"
-        >
+        <LiquidGlassButton type="submit" className="w-full" disabled={isSubmitting}>
           <span>
             {isSubmitting ? 'Sending...' : 'Send Request'}
           </span>
-        </button>
+        </LiquidGlassButton>
       </form>
     </div>
   );

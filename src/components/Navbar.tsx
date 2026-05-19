@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
@@ -18,6 +18,51 @@ const navItems = [
 function Navbar() {
   const pathname = usePathname();
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [isFaded, setIsFaded] = useState(false);
+  const lastScrollYRef = useRef(0);
+  const inactivityTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+
+  useEffect(() => {
+    const prefersReducedMotion = window.matchMedia(
+      '(prefers-reduced-motion: reduce)'
+    ).matches;
+    if (prefersReducedMotion) {
+      return;
+    }
+
+    lastScrollYRef.current = window.scrollY;
+
+    const handleScroll = () => {
+      const current = window.scrollY;
+      const last = lastScrollYRef.current;
+
+      if (current > last && current > 80) {
+        setIsFaded(true);
+      } else if (current < last) {
+        setIsFaded(false);
+      }
+
+      lastScrollYRef.current = current;
+
+      if (inactivityTimerRef.current) {
+        clearTimeout(inactivityTimerRef.current);
+      }
+      inactivityTimerRef.current = setTimeout(() => {
+        setIsFaded(false);
+      }, 1500);
+    };
+
+    window.addEventListener('scroll', handleScroll, { passive: true });
+
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+      if (inactivityTimerRef.current) {
+        clearTimeout(inactivityTimerRef.current);
+      }
+    };
+  }, []);
+
+  const fadedClass = isFaded && !isMobileMenuOpen ? ' is-faded' : '';
 
   const isActive = (match: string | null) => {
     if (!match) {
@@ -39,7 +84,7 @@ function Navbar() {
     <>
       {/* Desktop Navbar */}
       <nav
-        className="navbar-floating hidden md:block"
+        className={`navbar-floating hidden md:block${fadedClass}`}
         role="navigation"
         aria-label="Main navigation"
       >
@@ -91,7 +136,7 @@ function Navbar() {
 
       {/* Mobile Navbar */}
       <nav
-        className="navbar-floating md:hidden"
+        className={`navbar-floating md:hidden${fadedClass}`}
         role="navigation"
         aria-label="Main navigation"
       >

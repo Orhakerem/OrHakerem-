@@ -7,6 +7,7 @@ import React, { useState, useEffect, useRef } from 'react';
 
 import { sendEmail } from '@/actions/email';
 import BookingSingleDateCalendar from '@/components/BookingSingleDateCalendar';
+import LiquidGlassButton from '@/components/LiquidGlassButton';
 import { useBackToTopVisibility } from '@/hooks/useBackToTopVisibility';
 import { formatIsoDate } from '@/lib/booking-dates';
 import type { CalendarSyncStatus } from '@/lib/bookable-properties';
@@ -267,25 +268,19 @@ export default function EventsClient({
                   <p className="text-white/90 text-lg mb-8">
                     Our events team will contact you within 24 hours to discuss your special event.
                   </p>
-                  <button
-                    onClick={() => setIsSuccess(false)}
-                    className="button-hover-clean bg-gradient-to-r from-secondary to-secondary-light text-primary px-8 py-3 rounded-full font-semibold transition-all duration-300"
-                  >
+                  <LiquidGlassButton onClick={() => setIsSuccess(false)}>
                     Plan Another Event
-                  </button>
+                  </LiquidGlassButton>
                 </div>
               </div>
             ) : (
               <>
                 <div className="events-plan-cta text-center mb-8">
                   <div className="inline-block relative">
-                    <button
-                      onClick={() => setShowForm(true)}
-                      className="button-hover-clean relative inline-flex items-center rounded-full bg-gradient-to-r from-secondary to-secondary-light px-10 py-3 text-base font-semibold text-primary shadow-xl"
-                    >
+                    <LiquidGlassButton onClick={() => setShowForm(true)}>
                       <Calendar className="w-5 h-5 mr-2" />
                       <span>Inquire About Events</span>
-                    </button>
+                    </LiquidGlassButton>
                   </div>
                   <p className="text-white/70 text-xs mt-4 font-medium">
                     Private consultation • Tailored planning • Kosher options on request
@@ -496,23 +491,26 @@ export default function EventsClient({
                   </div>
 
                   <div className="sticky bottom-0 -mx-4 -mb-4 flex flex-col-reverse gap-2 border-t border-primary/10 bg-white/95 px-4 py-3 backdrop-blur-sm sm:-mx-5 sm:-mb-4 sm:flex-row">
-                    <button
+                    <LiquidGlassButton
                       type="button"
+                      variant="dark"
+                      size="sm"
+                      className="flex-1"
                       onClick={() => {
                         setShowForm(false);
                         setIsDatePickerOpen(false);
                       }}
-                      className="h-11 flex-1 rounded-lg border border-primary/15 px-5 text-sm font-semibold text-primary"
                     >
                       Cancel
-                    </button>
-                    <button
+                    </LiquidGlassButton>
+                    <LiquidGlassButton
                       type="submit"
+                      size="sm"
+                      className="flex-1"
                       disabled={isSubmitting}
-                      className="button-hover-clean h-11 flex-1 rounded-lg bg-gradient-to-r from-primary to-primary-light px-5 text-sm font-semibold text-white transition disabled:opacity-50"
                     >
                       {isSubmitting ? 'Sending...' : 'Send inquiry'}
-                    </button>
+                    </LiquidGlassButton>
                   </div>
                 </form>
               </div>

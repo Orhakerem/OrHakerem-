@@ -5,6 +5,7 @@ import { ArrowUp, Mail } from 'lucide-react';
 import { motion } from 'framer-motion';
 import toast from 'react-hot-toast';
 import { sendContactEmail } from '@/actions/contact';
+import LiquidGlassButton from '@/components/LiquidGlassButton';
 import { useBackToTopVisibility } from '@/hooks/useBackToTopVisibility';
 
 interface ServiceCardProps {
@@ -265,26 +266,20 @@ export default function ConciergeServicesPage() {
                   <p className="text-white/90 text-lg mb-8">
                     Our concierge team will get back to you within 2 hours.
                   </p>
-                  <button
-                    onClick={() => setIsSuccess(false)}
-                    className="button-hover-clean bg-gradient-to-r from-secondary to-secondary-light text-primary px-8 py-3 rounded-full font-semibold transition-all duration-300"
-                  >
+                  <LiquidGlassButton onClick={() => setIsSuccess(false)}>
                     Send Another Request
-                  </button>
+                  </LiquidGlassButton>
                 </div>
               </div>
             ) : (
               <div className="services-contact-cta text-center mb-8">
                 <div className="inline-block relative">
-                  <button
-                    onClick={() => setShowForm(true)}
-                    className="button-hover-clean inline-flex items-center rounded-full bg-gradient-to-r from-secondary to-secondary-light px-8 py-3 text-lg font-semibold text-primary shadow-xl transition-all duration-300"
-                  >
+                  <LiquidGlassButton onClick={() => setShowForm(true)}>
                     <span className="mr-2">Inquire about services</span>
                     <div className="w-5 h-5 bg-primary/20 rounded-full flex items-center justify-center">
                       <span className="text-primary text-sm">→</span>
                     </div>
-                  </button>
+                  </LiquidGlassButton>
                 </div>
               </div>
             )}
@@ -372,23 +367,20 @@ export default function ConciergeServicesPage() {
                   </div>
 
                   <div className="flex items-center justify-end gap-3 pt-2">
-                    <button
+                    <LiquidGlassButton
                       type="button"
+                      variant="dark"
+                      size="sm"
                       onClick={() => setShowForm(false)}
-                      className="rounded-full border border-primary/20 px-6 py-2.5 text-sm font-medium text-primary/80 hover:bg-primary/5 transition"
                     >
                       Cancel
-                    </button>
-                    <button
-                      type="submit"
-                      disabled={isSubmitting}
-                      className="button-hover-clean inline-flex items-center rounded-full bg-gradient-to-r from-secondary to-secondary-light px-8 py-2.5 text-sm font-semibold text-primary shadow-lg disabled:cursor-not-allowed disabled:opacity-50"
-                    >
+                    </LiquidGlassButton>
+                    <LiquidGlassButton type="submit" size="sm" disabled={isSubmitting}>
                       <span className="mr-2">
                         {isSubmitting ? 'Sending...' : 'Submit Request'}
                       </span>
                       <span>→</span>
-                    </button>
+                    </LiquidGlassButton>
                   </div>
                 </form>
               </div>

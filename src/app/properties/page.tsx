@@ -15,8 +15,7 @@ import {
 import Image from 'next/image';
 import Link from 'next/link';
 
-import ReservationForm from '@/app/reservation/reservation-form';
-import { getBookablePropertyCalendarSnapshot } from '@/lib/airbnb-calendar';
+import LiquidGlassCTA from '@/components/LiquidGlassCTA';
 
 export const dynamic = 'force-dynamic';
 
@@ -158,13 +157,13 @@ function PropertyCard({ property }: { property: (typeof properties)[keyof typeof
               <span>Details</span>
               <ArrowRight className="w-3 h-3 ml-1" />
             </Link>
-            <Link
+            <LiquidGlassCTA
               href={reservationHref}
-              className="button-hover-clean property-card-button property-card-button-secondary flex items-center justify-center rounded-full bg-gradient-to-r from-secondary to-secondary-light px-3 py-2 text-sm font-semibold text-primary shadow-lg"
+              className="liquid-cta--sm liquid-cta--light property-card-button property-card-button-secondary"
             >
               <Calendar className="w-3 h-3 mr-1" />
               <span>Book</span>
-            </Link>
+            </LiquidGlassCTA>
           </div>
         </div>
       </div>
@@ -172,10 +171,7 @@ function PropertyCard({ property }: { property: (typeof properties)[keyof typeof
   );
 }
 
-export default async function Properties() {
-  const { blockedDatesByProperty, availabilityStatusByProperty } =
-    await getBookablePropertyCalendarSnapshot();
-
+export default function Properties() {
   return (
     <div className="min-h-screen bg-cream pt-28 pb-20 md:pt-32">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -320,26 +316,6 @@ export default async function Properties() {
           </div>
         </section>
 
-        <section className="max-w-4xl mx-auto" data-animate="fade-up">
-          <div className="text-center mb-8">
-            <span className="text-tertiary font-semibold text-sm md:text-base tracking-[0.2em] uppercase block mb-3">
-              Reservation
-            </span>
-            <h2 className="font-playfair text-3xl md:text-4xl font-bold text-primary mb-4">
-              Request your stay
-            </h2>
-            <p className="text-primary/80 text-lg leading-relaxed max-w-2xl mx-auto">
-              Share your dates and preferred apartment, and our team will come back to you with availability and next steps.
-            </p>
-          </div>
-
-          <ReservationForm
-            embedded
-            showIntro={false}
-            availabilityByProperty={blockedDatesByProperty}
-            availabilityStatusByProperty={availabilityStatusByProperty}
-          />
-        </section>
       </div>
     </div>
   );
