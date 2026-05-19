@@ -5,6 +5,8 @@ import {
   Bath,
   BedDouble,
   Calendar,
+  ChevronLeft,
+  ChevronRight,
   Coffee,
   Dumbbell,
   Laptop,
@@ -35,6 +37,7 @@ import AccommodationPriceSummary, {
   type AccommodationPriceQuote,
 } from '@/components/AccommodationPriceSummary';
 import BookingRangeCalendar from '@/components/BookingRangeCalendar';
+import LiquidGlassButton from '@/components/LiquidGlassButton';
 import RoomGallery from '@/components/RoomGallery';
 import {
   type BookingDateRange,
@@ -487,12 +490,9 @@ export default function PropertyDetailsClient({
       <div className="min-h-screen pt-24 pb-20">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           {propertyPageHeading}
-          <button
-            onClick={() => router.push('/properties')}
-            className="button-hover-clean rounded-md bg-gold px-6 py-2 text-navy transition"
-          >
+          <LiquidGlassButton onClick={() => router.push('/properties')}>
             Back to Properties
-          </button>
+          </LiquidGlassButton>
         </div>
       </div>
     );
@@ -631,120 +631,9 @@ export default function PropertyDetailsClient({
     (errorMessage): errorMessage is string => Boolean(errorMessage),
   );
 
-  return (
-    <div className="min-h-screen pt-24 pb-20">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-<div className="bg-white rounded-xl shadow-lg overflow-hidden">
-          <div className="relative">
-            <div className="relative h-[60vh]">
-              <Image
-                src={property.images[currentImageIndex]}
-                alt={property.title}
-                fill
-                className="object-cover"
-                priority={currentImageIndex === 0}
-                loading={currentImageIndex === 0 ? 'eager' : 'lazy'}
-                sizes="(max-width: 768px) 100vw, 1200px"
-              />
-              <div className="absolute bottom-4 right-4 bg-black/50 px-3 py-1 rounded-full text-white text-sm">
-                {currentImageIndex + 1} / {property.images.length}
-              </div>
-              <button
-                onClick={prevImage}
-                className="absolute left-4 top-1/2 -translate-y-1/2 rounded-full bg-white p-2 shadow-lg"
-              >
-                ←
-              </button>
-              <button
-                onClick={nextImage}
-                className="absolute right-4 top-1/2 -translate-y-1/2 rounded-full bg-white p-2 shadow-lg"
-              >
-                →
-              </button>
-            </div>
-          </div>
-
-          <div className="p-8">
-            <div className="max-w-4xl mx-auto">
-              <div className="mb-6">
-                <div>
-                  {propertyPageHeading}
-                  <div className="flex items-center text-navy/60">
-                    <MapPin className="w-5 h-5 mr-1" />
-                    {property.location}
-                  </div>
-                </div>
-              </div>
-
-              <div className="flex items-center justify-between p-4 border-y border-gray-200 mb-8">
-                <div className="text-center">
-                  <BedDouble className="w-6 h-6 mx-auto mb-1 text-navy" />
-                  <div className="text-sm text-navy/80">{property.bedrooms} bedroom</div>
-                </div>
-                <div className="text-center">
-                  <BedDouble className="w-6 h-6 mx-auto mb-1 text-navy" />
-                  <div className="text-sm text-navy/80">{property.beds} bed</div>
-                </div>
-                <div className="text-center">
-                  <Bath className="w-6 h-6 mx-auto mb-1 text-navy" />
-                  <div className="text-sm text-navy/80">{property.baths} bath</div>
-                </div>
-                <div className="text-center">
-                  <Users className="w-6 h-6 mx-auto mb-1 text-navy" />
-                  <div className="text-sm text-navy/80">Up to {property.maxGuests} guests</div>
-                </div>
-              </div>
-
-              <div className="prose prose-navy max-w-none mb-8">
-                <h2 className="font-playfair text-2xl font-bold text-navy mb-4">
-                  About this space
-                </h2>
-                {property.longDescription.split('\n\n').map((paragraph, index) => (
-                  <p key={index} className="text-navy/80 mb-4">
-                    {paragraph}
-                  </p>
-                ))}
-              </div>
-
-              <div className="mb-8">
-                <h2 className="font-playfair text-2xl font-bold text-navy mb-6">
-                  What this place offers
-                </h2>
-                <div className="grid md:grid-cols-2 gap-4">
-                  {property.amenities.map((amenity, index) => (
-                    <div key={index} className="flex items-start p-4 bg-cream rounded-lg">
-                      <amenity.icon className="w-6 h-6 text-navy mr-3 shrink-0" />
-                      <div>
-                        <h3 className="font-semibold text-navy">{amenity.name}</h3>
-                        <p className="text-sm text-navy/60">{amenity.description}</p>
-                      </div>
-                    </div>
-                  ))}
-                </div>
-              </div>
-
-              <div className="mb-8">
-                <h2 className="font-playfair text-2xl font-bold text-primary mb-6">
-                  Room Gallery
-                </h2>
-                <p className="text-primary/80 mb-6">
-                  Explore each room and area of the property with our organized photo collections.
-                </p>
-                <RoomGallery rooms={property.rooms || []} />
-              </div>
-
-              <div className="bg-gradient-to-br from-cream to-white rounded-2xl p-8 border border-secondary/20 shadow-lg">
-                <div className="mb-6">
-                  <h3 className="font-playfair text-2xl font-bold text-primary mb-3">
-                    Book your stay
-                  </h3>
-                  <p className="text-primary/75 max-w-2xl">
-                    Choose your dates, enter your contact details, and send the reservation request
-                    directly from this page.
-                  </p>
-                </div>
-
-                <form onSubmit={handleBookNowSubmit} noValidate className="space-y-6">
+  const featuredAmenities = property.amenities.slice(0, 4);
+  const reservationForm = (
+    <form onSubmit={handleBookNowSubmit} noValidate className="space-y-6">
                   <input type="hidden" name="property" value={property.title} />
                   <input type="hidden" name="listing_id" value={selectedListingId} />
                   <input type="hidden" name="checkIn" value={dateRange.checkIn ?? ''} />
@@ -962,25 +851,195 @@ export default function PropertyDetailsClient({
                   </div>
 
                   <div className="relative">
-                    <button
-                      type="submit"
-                      disabled={isSubmitting}
-                      className="button-hover-clean inline-flex w-full items-center justify-center rounded-full bg-gradient-to-r from-secondary to-secondary-light px-12 py-4 text-lg font-semibold text-primary shadow-xl transition-all duration-300 disabled:cursor-not-allowed disabled:opacity-60"
-                    >
+                    <LiquidGlassButton type="submit" className="w-full" disabled={isSubmitting}>
                       <Calendar className="w-6 h-6 mr-3" />
                       <span>{isSubmitting ? 'SENDING...' : 'BOOK NOW'}</span>
-                    </button>
+                    </LiquidGlassButton>
 
                     <p className="mt-4 text-primary/70 text-sm font-medium text-center">
                       Response within 24 hours guaranteed
                     </p>
                   </div>
                 </form>
+  );
+
+  return (
+    <div className="min-h-screen bg-cream pt-24 pb-20">
+      {/* 1. Hero carousel */}
+      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mt-4 md:mt-6">
+        <div className="relative h-[55vh] md:h-[65vh] overflow-hidden rounded-2xl md:rounded-[2rem] shadow-xl">
+          <Image
+            src={property.images[currentImageIndex]}
+            alt={property.title}
+            fill
+            className="object-cover"
+            priority={currentImageIndex === 0}
+            loading={currentImageIndex === 0 ? 'eager' : 'lazy'}
+            sizes="(max-width: 768px) 100vw, 1280px"
+          />
+          <div className="pointer-events-none absolute inset-x-0 bottom-0 h-32 bg-gradient-to-t from-black/40 to-transparent" />
+          <div className="absolute bottom-5 right-5 rounded-full bg-black/55 px-3.5 py-1 text-xs font-medium tracking-wide text-white backdrop-blur-sm">
+            {currentImageIndex + 1} / {property.images.length}
+          </div>
+          <button
+            type="button"
+            onClick={prevImage}
+            aria-label="Previous photo"
+            className="absolute left-4 top-1/2 -translate-y-1/2 rounded-full bg-white/95 p-2.5 text-primary shadow-lg transition hover:bg-white"
+          >
+            <ChevronLeft className="h-5 w-5" />
+          </button>
+          <button
+            type="button"
+            onClick={nextImage}
+            aria-label="Next photo"
+            className="absolute right-4 top-1/2 -translate-y-1/2 rounded-full bg-white/95 p-2.5 text-primary shadow-lg transition hover:bg-white"
+          >
+            <ChevronRight className="h-5 w-5" />
+          </button>
+        </div>
+      </section>
+
+      {/* 2. Title block */}
+      <section className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 pt-10 md:pt-14">
+        <p className="flex items-center gap-2 text-xs font-semibold uppercase tracking-[0.22em] text-secondary">
+          <MapPin className="h-3.5 w-3.5" />
+          {property.location}
+        </p>
+        <h1 className="mt-3 font-playfair text-4xl md:text-5xl font-bold text-navy leading-tight">
+          {property.title}
+        </h1>
+        <p className="mt-4 max-w-2xl text-navy/70 leading-relaxed">
+          {property.description}
+        </p>
+      </section>
+
+      {/* 3. Metadata strip */}
+      <section className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 pt-8">
+        <div className="flex flex-wrap items-stretch gap-y-3 rounded-2xl border border-primary/10 bg-white/60 backdrop-blur-sm px-2 py-3 md:px-4">
+          {[
+            { icon: BedDouble, label: `${property.bedrooms} bedroom${property.bedrooms === 1 ? '' : 's'}` },
+            { icon: BedDouble, label: `${property.beds} bed${property.beds === 1 ? '' : 's'}` },
+            { icon: Bath, label: `${property.baths} bath${property.baths === 1 ? '' : 's'}` },
+            { icon: Users, label: `Up to ${property.maxGuests} guests` },
+          ].map(({ icon: Icon, label }, index, arr) => (
+            <div
+              key={label}
+              className={`flex flex-1 min-w-[140px] items-center justify-center gap-2.5 px-4 py-2 text-sm text-navy ${
+                index < arr.length - 1 ? 'md:border-r md:border-primary/10' : ''
+              }`}
+            >
+              <Icon className="h-5 w-5 text-primary" />
+              <span className="font-medium">{label}</span>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      {/* 4. Booking + Description split */}
+      <section className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 pt-12 md:pt-16">
+        <div className="grid gap-8 lg:gap-10 lg:grid-cols-[0.9fr_1.1fr]">
+          {/* Booking — first on mobile, sticky on lg */}
+          <div className="order-1 lg:order-1 lg:sticky lg:top-32 self-start">
+            <div className="rounded-3xl border border-primary/10 bg-white/85 backdrop-blur-sm shadow-xl p-5 md:p-6">
+              <p className="text-xs font-semibold uppercase tracking-[0.22em] text-secondary">
+                Reservation
+              </p>
+              <h2 className="mt-2 font-playfair text-2xl md:text-3xl font-bold text-primary">
+                Book your stay
+              </h2>
+              <p className="mt-2 text-sm text-primary/75">
+                Pick your dates and send your request — we reply within 24 hours.
+              </p>
+              <div className="mt-5">
+                {reservationForm}
               </div>
             </div>
           </div>
+
+          {/* Description + featured amenities */}
+          <div className="order-2 lg:order-2">
+            <p className="text-xs font-semibold uppercase tracking-[0.22em] text-secondary">
+              About this space
+            </p>
+            <h2 className="mt-2 font-playfair text-3xl md:text-4xl font-bold text-navy">
+              A home for your Tel Aviv stay
+            </h2>
+            <div className="mt-5 space-y-4 text-navy/80 leading-relaxed">
+              {property.longDescription.split('\n\n').map((paragraph, index) => (
+                <p key={index}>{paragraph.trim()}</p>
+              ))}
+            </div>
+
+            {featuredAmenities.length > 0 ? (
+              <div className="mt-8 grid grid-cols-2 gap-3">
+                {featuredAmenities.map((amenity) => (
+                  <div
+                    key={amenity.name}
+                    className="flex items-center gap-3 rounded-2xl border border-primary/10 bg-white/70 px-4 py-3"
+                  >
+                    <amenity.icon className="h-5 w-5 shrink-0 text-primary" />
+                    <span className="text-sm font-medium text-navy">{amenity.name}</span>
+                  </div>
+                ))}
+              </div>
+            ) : null}
+          </div>
         </div>
-      </div>
+      </section>
+
+      {/* 5. Room gallery */}
+      <section className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 pt-16 md:pt-20">
+        <div className="max-w-2xl">
+          <p className="text-xs font-semibold uppercase tracking-[0.22em] text-secondary">
+            Photo tour
+          </p>
+          <h2 className="mt-2 font-playfair text-3xl md:text-4xl font-bold text-navy">
+            Room gallery
+          </h2>
+          <p className="mt-3 text-navy/70 leading-relaxed">
+            Step through each space — tap any room to open the full set of photos.
+          </p>
+        </div>
+        <div className="mt-8 [&>div>button:first-child]:lg:col-span-2 [&>div>button:first-child>span:first-child]:lg:!h-72">
+          <RoomGallery rooms={property.rooms || []} />
+        </div>
+      </section>
+
+      {/* 6. Amenities & facilities */}
+      <section className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 pt-16 md:pt-20">
+        <div className="max-w-2xl">
+          <p className="text-xs font-semibold uppercase tracking-[0.22em] text-secondary">
+            Comforts
+          </p>
+          <h2 className="mt-2 font-playfair text-3xl md:text-4xl font-bold text-navy">
+            Amenities &amp; facilities
+          </h2>
+          <p className="mt-3 text-navy/70 leading-relaxed">
+            Everything provided for a smooth, comfortable stay.
+          </p>
+        </div>
+        <div className="mt-8 grid gap-x-8 gap-y-5 sm:grid-cols-2">
+          {property.amenities.map((amenity, index) => (
+            <div
+              key={amenity.name}
+              className={`flex items-start gap-4 py-4 ${
+                index < property.amenities.length - (property.amenities.length % 2 === 0 ? 2 : 1)
+                  ? 'border-b border-primary/10'
+                  : ''
+              }`}
+            >
+              <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-primary/5 text-primary">
+                <amenity.icon className="h-5 w-5" />
+              </div>
+              <div>
+                <h3 className="font-semibold text-navy">{amenity.name}</h3>
+                <p className="mt-0.5 text-sm text-navy/65">{amenity.description}</p>
+              </div>
+            </div>
+          ))}
+        </div>
+      </section>
     </div>
   );
 }
