@@ -5,7 +5,6 @@ import {
   Bath,
   BedDouble,
   Calendar,
-  ChevronLeft,
   ChevronRight,
   Coffee,
   Dumbbell,
@@ -17,12 +16,12 @@ import {
   Shirt,
   Sofa,
   Tv,
-  Users,
   Utensils,
   UtensilsCrossed,
   Waves,
   Wifi,
   Wind,
+  X,
 } from 'lucide-react';
 
 import React, { useEffect, useState } from 'react';
@@ -198,6 +197,24 @@ The main feature of this apartment is the terrace, with amenities such as BBQ, j
       { icon: Laptop, name: 'Work Space', description: 'Dedicated desk and chair' },
       { icon: Wifi, name: 'High-speed WiFi', description: 'Throughout the property' },
     ],
+    propertyType: 'Entire penthouse',
+    highlights: [
+      {
+        icon: Waves,
+        title: 'Panoramic sea views',
+        description: 'A full Tel Aviv coastline panorama from the private rooftop.',
+      },
+      {
+        icon: Bath,
+        title: 'Private rooftop jacuzzi',
+        description: 'Soak under the stars on your own terrace, no shared space.',
+      },
+      {
+        icon: MapPin,
+        title: 'Heart of Kerem HaTeimanim',
+        description: 'Steps from the beach, the Carmel Market, and the city center.',
+      },
+    ],
     maxGuests: 7,
     bedrooms: 3,
     beds: 3,
@@ -294,6 +311,24 @@ The main feature of this apartment is the terrace, with amenities such as BBQ, j
       { icon: Utensils, name: 'Full Amenities', description: 'All essentials provided' },
       { icon: Wifi, name: 'High-speed WiFi', description: 'Throughout the studio' },
     ],
+    propertyType: 'Entire studio apartment',
+    highlights: [
+      {
+        icon: MapPin,
+        title: 'Steps from everything',
+        description: '2 minutes to the beach, the Shouk HaCarmel, and the Kerem entrance.',
+      },
+      {
+        icon: BedDouble,
+        title: 'Sleeps four comfortably',
+        description: 'Queen bed plus a convertible sofa near the entrance.',
+      },
+      {
+        icon: Wifi,
+        title: 'Set up to work',
+        description: 'Fully renovated and equipped — ideal for medium and long stays.',
+      },
+    ],
     maxGuests: 4,
     bedrooms: 1,
     beds: 1,
@@ -363,7 +398,6 @@ export default function PropertyDetailsClient({
   availabilityStatus = 'ready',
 }: PropertyDetailsClientProps) {
   const router = useRouter();
-  const [currentImageIndex, setCurrentImageIndex] = useState(0);
   const [dateRange, setDateRange] = useState<BookingDateRange>({
     checkIn: null,
     checkOut: null,
@@ -375,6 +409,10 @@ export default function PropertyDetailsClient({
   const [isSubmitSuccess, setIsSubmitSuccess] = useState(false);
   const [contactMethod, setContactMethod] = useState<ContactMethod>('email');
   const [formErrors, setFormErrors] = useState<ReservationFormErrors>({});
+  const [isPhotosModalOpen, setIsPhotosModalOpen] = useState(false);
+  const [isAmenitiesModalOpen, setIsAmenitiesModalOpen] = useState(false);
+  const [isDescriptionExpanded, setIsDescriptionExpanded] = useState(false);
+  const [isBookingSheetOpen, setIsBookingSheetOpen] = useState(false);
   const propertyKey = isPropertyId(propertyId) ? propertyId : null;
   const property = propertyKey ? properties[propertyKey] : null;
   const selectedListingId = propertyKey ? getBookablePropertyListingId(propertyKey) : '';
@@ -485,6 +523,26 @@ export default function PropertyDetailsClient({
     selectedNights,
   ]);
 
+  const anyOverlayOpen =
+    isPhotosModalOpen || isAmenitiesModalOpen || isBookingSheetOpen;
+
+  useEffect(() => {
+    if (!anyOverlayOpen) return;
+    const onKey = (event: KeyboardEvent) => {
+      if (event.key !== 'Escape') return;
+      setIsPhotosModalOpen(false);
+      setIsAmenitiesModalOpen(false);
+      setIsBookingSheetOpen(false);
+    };
+    const previousOverflow = document.body.style.overflow;
+    document.body.style.overflow = 'hidden';
+    window.addEventListener('keydown', onKey);
+    return () => {
+      document.body.style.overflow = previousOverflow;
+      window.removeEventListener('keydown', onKey);
+    };
+  }, [anyOverlayOpen]);
+
   if (!property) {
     return (
       <div className="min-h-screen pt-24 pb-20">
@@ -497,14 +555,6 @@ export default function PropertyDetailsClient({
       </div>
     );
   }
-
-  const nextImage = () => {
-    setCurrentImageIndex((prev) => (prev + 1) % property.images.length);
-  };
-
-  const prevImage = () => {
-    setCurrentImageIndex((prev) => (prev - 1 + property.images.length) % property.images.length);
-  };
 
   const clearFormError = (field: keyof ReservationFormErrors) => {
     setFormErrors((currentErrors) => {
@@ -631,7 +681,6 @@ export default function PropertyDetailsClient({
     (errorMessage): errorMessage is string => Boolean(errorMessage),
   );
 
-  const featuredAmenities = property.amenities.slice(0, 4);
   const reservationForm = (
     <form onSubmit={handleBookNowSubmit} noValidate className="space-y-6">
                   <input type="hidden" name="property" value={property.title} />
@@ -639,13 +688,46 @@ export default function PropertyDetailsClient({
                   <input type="hidden" name="checkIn" value={dateRange.checkIn ?? ''} />
                   <input type="hidden" name="checkOut" value={dateRange.checkOut ?? ''} />
 
-                  <BookingRangeCalendar
-                    value={dateRange}
-                    onChange={handleDateRangeChange}
-                    onClearDates={clearPriceEstimate}
-                    blockedDates={blockedDates}
-                    availabilityStatus={availabilityStatus}
-                  />
+                  <div className="grid grid-cols-2 overflow-hidden rounded-xl border border-primary/15">
+                    <button
+                      type="button"
+                      onClick={() => {
+                        setIsBookingSheetOpen(false);
+                        setTimeout(() => {
+                          document
+                            .getElementById('select-checkin-date')
+                            ?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                        }, 0);
+                      }}
+                      className="tap-reset border-r border-primary/15 px-4 py-3 text-left transition hover:bg-primary/5"
+                    >
+                      <p className="text-[10px] font-semibold uppercase tracking-[0.18em] text-primary/55">
+                        Check-in
+                      </p>
+                      <p className="mt-1 text-sm font-semibold text-navy">
+                        {dateRange.checkIn ?? 'Add date'}
+                      </p>
+                    </button>
+                    <button
+                      type="button"
+                      onClick={() => {
+                        setIsBookingSheetOpen(false);
+                        setTimeout(() => {
+                          document
+                            .getElementById('select-checkin-date')
+                            ?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                        }, 0);
+                      }}
+                      className="tap-reset px-4 py-3 text-left transition hover:bg-primary/5"
+                    >
+                      <p className="text-[10px] font-semibold uppercase tracking-[0.18em] text-primary/55">
+                        Checkout
+                      </p>
+                      <p className="mt-1 text-sm font-semibold text-navy">
+                        {dateRange.checkOut ?? 'Add date'}
+                      </p>
+                    </button>
+                  </div>
 
                   {formErrors.dates ? (
                     <p className="rounded-md border border-red-200 bg-red-50 px-4 py-3 text-sm font-medium text-red-700">
@@ -863,89 +945,209 @@ export default function PropertyDetailsClient({
                 </form>
   );
 
+  const heroPhotos = property.images.slice(0, 5);
+  const amenitiesPreview = property.amenities.slice(0, 10);
+  const quickFacts = [
+    `${property.maxGuests} guest${property.maxGuests === 1 ? '' : 's'}`,
+    `${property.bedrooms} bedroom${property.bedrooms === 1 ? '' : 's'}`,
+    `${property.beds} bed${property.beds === 1 ? '' : 's'}`,
+    `${property.baths} bath${property.baths === 1 ? '' : 's'}`,
+  ];
+  const bookingCtaLabel = activePriceQuote
+    ? `€${Math.round(activePriceQuote.total_price)} total · ${activePriceQuote.nights} night${activePriceQuote.nights === 1 ? '' : 's'}`
+    : 'Add dates for pricing';
+
   return (
-    <div className="min-h-screen bg-cream pt-24 pb-20">
-      {/* 1. Hero carousel */}
+    <div className="min-h-screen bg-cream pt-24 pb-32 lg:pb-20">
+      {/* 1. Photo grid hero */}
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mt-4 md:mt-6">
-        <div className="relative h-[55vh] md:h-[65vh] overflow-hidden rounded-2xl md:rounded-[2rem] shadow-xl">
-          <Image
-            src={property.images[currentImageIndex]}
-            alt={property.title}
-            fill
-            className="object-cover"
-            priority={currentImageIndex === 0}
-            loading={currentImageIndex === 0 ? 'eager' : 'lazy'}
-            sizes="(max-width: 768px) 100vw, 1280px"
-          />
-          <div className="pointer-events-none absolute inset-x-0 bottom-0 h-32 bg-gradient-to-t from-black/40 to-transparent" />
-          <div className="absolute bottom-5 right-5 rounded-full bg-black/55 px-3.5 py-1 text-xs font-medium tracking-wide text-white backdrop-blur-sm">
-            {currentImageIndex + 1} / {property.images.length}
-          </div>
-          <button
-            type="button"
-            onClick={prevImage}
-            aria-label="Previous photo"
-            className="absolute left-4 top-1/2 -translate-y-1/2 rounded-full bg-white/95 p-2.5 text-primary shadow-lg transition hover:bg-white"
-          >
-            <ChevronLeft className="h-5 w-5" />
-          </button>
-          <button
-            type="button"
-            onClick={nextImage}
-            aria-label="Next photo"
-            className="absolute right-4 top-1/2 -translate-y-1/2 rounded-full bg-white/95 p-2.5 text-primary shadow-lg transition hover:bg-white"
-          >
-            <ChevronRight className="h-5 w-5" />
-          </button>
-        </div>
-      </section>
-
-      {/* 2. Title block */}
-      <section className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 pt-10 md:pt-14">
-        <p className="flex items-center gap-2 text-xs font-semibold uppercase tracking-[0.22em] text-secondary">
-          <MapPin className="h-3.5 w-3.5" />
-          {property.location}
-        </p>
-        <h1 className="mt-3 font-playfair text-4xl md:text-5xl font-bold text-navy leading-tight">
-          {property.title}
-        </h1>
-        <p className="mt-4 max-w-2xl text-navy/70 leading-relaxed">
-          {property.description}
-        </p>
-      </section>
-
-      {/* 3. Metadata strip */}
-      <section className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 pt-8">
-        <div className="flex flex-wrap items-stretch gap-y-3 rounded-2xl border border-primary/10 bg-white/60 backdrop-blur-sm px-2 py-3 md:px-4">
-          {[
-            { icon: BedDouble, label: `${property.bedrooms} bedroom${property.bedrooms === 1 ? '' : 's'}` },
-            { icon: BedDouble, label: `${property.beds} bed${property.beds === 1 ? '' : 's'}` },
-            { icon: Bath, label: `${property.baths} bath${property.baths === 1 ? '' : 's'}` },
-            { icon: Users, label: `Up to ${property.maxGuests} guests` },
-          ].map(({ icon: Icon, label }, index, arr) => (
-            <div
-              key={label}
-              className={`flex flex-1 min-w-[140px] items-center justify-center gap-2.5 px-4 py-2 text-sm text-navy ${
-                index < arr.length - 1 ? 'md:border-r md:border-primary/10' : ''
+        {/* Desktop / tablet: Airbnb 5-up grid */}
+        <div className="relative hidden md:grid aspect-[2/1] grid-cols-4 grid-rows-2 gap-2 overflow-hidden rounded-2xl">
+          {heroPhotos.map((src, index) => (
+            <button
+              key={src}
+              type="button"
+              onClick={() => setIsPhotosModalOpen(true)}
+              aria-label={`Open photo gallery (photo ${index + 1})`}
+              className={`tap-reset relative overflow-hidden bg-cream transition hover:brightness-95 ${
+                index === 0 ? 'col-span-2 row-span-2' : ''
               }`}
             >
-              <Icon className="h-5 w-5 text-primary" />
-              <span className="font-medium">{label}</span>
-            </div>
+              <Image
+                src={src}
+                alt={`${property.title} — photo ${index + 1}`}
+                fill
+                className="object-cover"
+                priority={index === 0}
+                loading={index === 0 ? 'eager' : 'lazy'}
+                sizes={index === 0 ? '(max-width: 1280px) 50vw, 640px' : '(max-width: 1280px) 25vw, 320px'}
+              />
+            </button>
           ))}
+          <button
+            type="button"
+            onClick={() => setIsPhotosModalOpen(true)}
+            aria-haspopup="dialog"
+            aria-expanded={isPhotosModalOpen}
+            className="absolute bottom-4 right-4 rounded-full bg-white px-4 py-2 text-sm font-semibold text-navy shadow-md transition hover:bg-cream"
+          >
+            Show all {property.images.length} photos
+          </button>
         </div>
+
+        {/* Mobile: single hero with overlay button */}
+        <button
+          type="button"
+          onClick={() => setIsPhotosModalOpen(true)}
+          aria-haspopup="dialog"
+          aria-expanded={isPhotosModalOpen}
+          className="tap-reset md:hidden relative block h-[55vh] w-full overflow-hidden rounded-2xl"
+        >
+          <Image
+            src={property.images[0]}
+            alt={`${property.title} — photo 1`}
+            fill
+            priority
+            className="object-cover"
+            sizes="100vw"
+          />
+          <span className="absolute bottom-4 right-4 rounded-full bg-white px-4 py-2 text-sm font-semibold text-navy shadow-md">
+            View all {property.images.length} photos
+          </span>
+        </button>
       </section>
 
-      {/* 4. Booking + Description split */}
-      <section className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 pt-12 md:pt-16">
-        <div className="grid gap-8 lg:gap-10 lg:grid-cols-[0.9fr_1.1fr]">
-          {/* Booking — first on mobile, sticky on lg */}
-          <div className="order-1 lg:order-1 lg:sticky lg:top-32 self-start">
-            <div className="rounded-3xl border border-primary/10 bg-white/85 backdrop-blur-sm shadow-xl p-5 md:p-6">
+      {/* Main content + sticky booking */}
+      <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 pt-10 md:pt-14 grid gap-10 lg:gap-14 lg:grid-cols-[1.55fr_1fr]">
+        {/* Left content column */}
+        <div className="min-w-0">
+          {/* 2. Title + property type subtitle */}
+          <header>
+            <p className="flex items-center gap-2 text-xs font-semibold uppercase tracking-[0.22em] text-secondary">
+              <MapPin className="h-3.5 w-3.5" />
+              {property.location}
+            </p>
+            <h1 className="mt-3 font-playfair text-3xl md:text-4xl font-bold text-navy leading-tight">
+              {property.title}
+            </h1>
+            <p className="mt-3 text-navy/70">
+              {property.propertyType} in {property.location}
+            </p>
+
+            {/* 3. Quick facts */}
+            <p className="mt-2 text-sm text-navy/65">
+              {quickFacts.join(' · ')}
+            </p>
+          </header>
+
+          {/* Divider */}
+          <hr className="my-10 border-t border-primary/10" />
+
+          {/* 5. Feature highlights */}
+          <section className="space-y-6">
+            {property.highlights.map((highlight) => (
+              <div key={highlight.title} className="flex items-start gap-4">
+                <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-primary/5 text-primary">
+                  <highlight.icon className="h-5 w-5" />
+                </div>
+                <div>
+                  <h3 className="font-semibold text-navy">{highlight.title}</h3>
+                  <p className="mt-1 text-sm text-navy/65 leading-relaxed">
+                    {highlight.description}
+                  </p>
+                </div>
+              </div>
+            ))}
+          </section>
+
+          <hr className="my-10 border-t border-primary/10" />
+
+          {/* 7. About this space */}
+          <section>
+            <h2 className="font-playfair text-2xl md:text-3xl font-bold text-navy">
+              About this space
+            </h2>
+            <div
+              className={`mt-5 space-y-4 text-navy/80 leading-relaxed ${
+                isDescriptionExpanded
+                  ? ''
+                  : 'relative max-h-44 overflow-hidden after:pointer-events-none after:absolute after:inset-x-0 after:bottom-0 after:h-16 after:bg-gradient-to-t after:from-cream after:to-transparent'
+              }`}
+            >
+              {property.longDescription.split('\n\n').map((paragraph, index) => (
+                <p key={index}>{paragraph.trim()}</p>
+              ))}
+            </div>
+            <button
+              type="button"
+              onClick={() => setIsDescriptionExpanded((value) => !value)}
+              className="tap-reset mt-4 inline-flex items-center gap-1 text-sm font-semibold text-navy underline underline-offset-4 decoration-navy/40 hover:decoration-navy"
+            >
+              {isDescriptionExpanded ? 'Show less' : 'Show more'}
+              <ChevronRight
+                className={`h-4 w-4 transition-transform ${
+                  isDescriptionExpanded ? '-rotate-90' : 'rotate-90'
+                }`}
+              />
+            </button>
+          </section>
+
+          <hr className="my-10 border-t border-primary/10" />
+
+          {/* 9. What this place offers */}
+          <section>
+            <h2 className="font-playfair text-2xl md:text-3xl font-bold text-navy">
+              What this place offers
+            </h2>
+            <div className="mt-6 grid gap-y-4 sm:grid-cols-2 sm:gap-x-8">
+              {amenitiesPreview.map((amenity) => (
+                <div key={amenity.name} className="flex items-center gap-4">
+                  <amenity.icon className="h-5 w-5 shrink-0 text-primary" />
+                  <span className="text-sm text-navy">{amenity.name}</span>
+                </div>
+              ))}
+            </div>
+            <button
+              type="button"
+              onClick={() => setIsAmenitiesModalOpen(true)}
+              aria-haspopup="dialog"
+              aria-expanded={isAmenitiesModalOpen}
+              className="tap-reset mt-8 rounded-lg border border-navy/30 px-5 py-2.5 text-sm font-semibold text-navy transition hover:bg-navy/5"
+            >
+              Show all {property.amenities.length} amenities
+            </button>
+          </section>
+
+          <hr className="my-10 border-t border-primary/10" />
+
+          {/* 11. Select check-in date — inline calendar */}
+          <section id="select-checkin-date">
+            <h2 className="font-playfair text-2xl md:text-3xl font-bold text-navy">
+              Select check-in date
+            </h2>
+            <p className="mt-2 text-navy/70">
+              Add your travel dates for exact pricing.
+            </p>
+            <div className="mt-6">
+              <BookingRangeCalendar
+                value={dateRange}
+                onChange={handleDateRangeChange}
+                onClearDates={clearPriceEstimate}
+                blockedDates={blockedDates}
+                availabilityStatus={availabilityStatus}
+              />
+            </div>
+          </section>
+        </div>
+
+        {/* Right sticky booking column (lg+) */}
+        <aside className="hidden lg:block self-start lg:sticky lg:top-32">
+          <div>
+            <div className="rounded-3xl border border-primary/10 bg-white shadow-xl p-6">
               <p className="text-xs font-semibold uppercase tracking-[0.22em] text-secondary">
                 Reservation
               </p>
-              <h2 className="mt-2 font-playfair text-2xl md:text-3xl font-bold text-primary">
+              <h2 className="mt-2 font-playfair text-2xl font-bold text-primary">
                 Book your stay
               </h2>
               <p className="mt-2 text-sm text-primary/75">
@@ -956,90 +1158,136 @@ export default function PropertyDetailsClient({
               </div>
             </div>
           </div>
+        </aside>
+      </div>
 
-          {/* Description + featured amenities */}
-          <div className="order-2 lg:order-2">
-            <p className="text-xs font-semibold uppercase tracking-[0.22em] text-secondary">
-              About this space
+      {/* Mobile fixed booking bar (<lg) */}
+      <div className="lg:hidden fixed inset-x-0 bottom-0 z-40 border-t border-primary/10 bg-white/95 backdrop-blur-sm px-4 py-3 shadow-[0_-8px_24px_-12px_rgba(0,0,0,0.18)]">
+        <div className="flex items-center justify-between gap-4 max-w-3xl mx-auto">
+          <div className="min-w-0">
+            <p className="text-sm font-semibold text-navy truncate">{bookingCtaLabel}</p>
+            <p className="text-xs text-navy/60 truncate">
+              {dateRange.checkIn && dateRange.checkOut
+                ? `${dateRange.checkIn} → ${dateRange.checkOut}`
+                : 'Tap reserve to choose dates'}
             </p>
-            <h2 className="mt-2 font-playfair text-3xl md:text-4xl font-bold text-navy">
-              A home for your Tel Aviv stay
-            </h2>
-            <div className="mt-5 space-y-4 text-navy/80 leading-relaxed">
-              {property.longDescription.split('\n\n').map((paragraph, index) => (
-                <p key={index}>{paragraph.trim()}</p>
-              ))}
-            </div>
+          </div>
+          <button
+            type="button"
+            onClick={() => setIsBookingSheetOpen(true)}
+            aria-controls="booking-sheet"
+            aria-expanded={isBookingSheetOpen}
+            className="tap-reset shrink-0 rounded-full bg-primary px-6 py-3 text-sm font-semibold text-white shadow-md transition hover:bg-primary/90"
+          >
+            Reserve
+          </button>
+        </div>
+      </div>
 
-            {featuredAmenities.length > 0 ? (
-              <div className="mt-8 grid grid-cols-2 gap-3">
-                {featuredAmenities.map((amenity) => (
-                  <div
-                    key={amenity.name}
-                    className="flex items-center gap-3 rounded-2xl border border-primary/10 bg-white/70 px-4 py-3"
-                  >
-                    <amenity.icon className="h-5 w-5 shrink-0 text-primary" />
-                    <span className="text-sm font-medium text-navy">{amenity.name}</span>
-                  </div>
-                ))}
-              </div>
-            ) : null}
+      {/* Photos modal */}
+      {isPhotosModalOpen ? (
+        <div
+          role="dialog"
+          aria-modal="true"
+          aria-label="All photos"
+          className="fixed inset-0 z-50 overflow-y-auto bg-cream"
+        >
+          <div className="sticky top-0 z-10 flex items-center justify-between border-b border-primary/10 bg-cream/95 backdrop-blur-sm px-4 sm:px-6 py-4">
+            <p className="font-playfair text-lg font-bold text-navy">
+              {property.title} — All photos
+            </p>
+            <button
+              type="button"
+              onClick={() => setIsPhotosModalOpen(false)}
+              aria-label="Close photos"
+              className="tap-reset rounded-full bg-white p-2 text-navy shadow-md transition hover:bg-cream"
+            >
+              <X className="h-5 w-5" />
+            </button>
+          </div>
+          <div className="max-w-6xl mx-auto px-4 sm:px-6 py-8">
+            <RoomGallery rooms={property.rooms || []} />
           </div>
         </div>
-      </section>
+      ) : null}
 
-      {/* 5. Room gallery */}
-      <section className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 pt-16 md:pt-20">
-        <div className="max-w-2xl">
-          <p className="text-xs font-semibold uppercase tracking-[0.22em] text-secondary">
-            Photo tour
-          </p>
-          <h2 className="mt-2 font-playfair text-3xl md:text-4xl font-bold text-navy">
-            Room gallery
-          </h2>
-          <p className="mt-3 text-navy/70 leading-relaxed">
-            Step through each space — tap any room to open the full set of photos.
-          </p>
-        </div>
-        <div className="mt-8 [&>div>button:first-child]:lg:col-span-2 [&>div>button:first-child>span:first-child]:lg:!h-72">
-          <RoomGallery rooms={property.rooms || []} />
-        </div>
-      </section>
-
-      {/* 6. Amenities & facilities */}
-      <section className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 pt-16 md:pt-20">
-        <div className="max-w-2xl">
-          <p className="text-xs font-semibold uppercase tracking-[0.22em] text-secondary">
-            Comforts
-          </p>
-          <h2 className="mt-2 font-playfair text-3xl md:text-4xl font-bold text-navy">
-            Amenities &amp; facilities
-          </h2>
-          <p className="mt-3 text-navy/70 leading-relaxed">
-            Everything provided for a smooth, comfortable stay.
-          </p>
-        </div>
-        <div className="mt-8 grid gap-x-8 gap-y-5 sm:grid-cols-2">
-          {property.amenities.map((amenity, index) => (
-            <div
-              key={amenity.name}
-              className={`flex items-start gap-4 py-4 ${
-                index < property.amenities.length - (property.amenities.length % 2 === 0 ? 2 : 1)
-                  ? 'border-b border-primary/10'
-                  : ''
-              }`}
-            >
-              <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-primary/5 text-primary">
-                <amenity.icon className="h-5 w-5" />
-              </div>
-              <div>
-                <h3 className="font-semibold text-navy">{amenity.name}</h3>
-                <p className="mt-0.5 text-sm text-navy/65">{amenity.description}</p>
-              </div>
+      {/* Amenities modal */}
+      {isAmenitiesModalOpen ? (
+        <div
+          role="dialog"
+          aria-modal="true"
+          aria-label="All amenities"
+          className="fixed inset-0 z-50 grid place-items-end sm:place-items-center bg-black/50 px-0 sm:px-4"
+          onClick={(event) => {
+            if (event.target === event.currentTarget) {
+              setIsAmenitiesModalOpen(false);
+            }
+          }}
+        >
+          <div className="w-full sm:max-w-lg max-h-[85vh] overflow-y-auto rounded-t-3xl sm:rounded-3xl bg-cream shadow-2xl">
+            <div className="sticky top-0 z-10 flex items-center justify-between border-b border-primary/10 bg-cream/95 backdrop-blur-sm px-6 py-4">
+              <p className="font-playfair text-lg font-bold text-navy">
+                What this place offers
+              </p>
+              <button
+                type="button"
+                onClick={() => setIsAmenitiesModalOpen(false)}
+                aria-label="Close amenities"
+                className="tap-reset rounded-full bg-white p-2 text-navy shadow-md transition hover:bg-cream"
+              >
+                <X className="h-4 w-4" />
+              </button>
             </div>
-          ))}
+            <div className="px-6 py-6 space-y-5">
+              {property.amenities.map((amenity, index) => (
+                <div
+                  key={amenity.name}
+                  className={`flex items-start gap-4 pb-5 ${
+                    index < property.amenities.length - 1 ? 'border-b border-primary/10' : ''
+                  }`}
+                >
+                  <amenity.icon className="h-5 w-5 shrink-0 text-primary mt-0.5" />
+                  <div>
+                    <h3 className="font-semibold text-navy">{amenity.name}</h3>
+                    <p className="mt-0.5 text-sm text-navy/65">{amenity.description}</p>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
         </div>
-      </section>
+      ) : null}
+
+      {/* Mobile booking sheet */}
+      {isBookingSheetOpen ? (
+        <div
+          id="booking-sheet"
+          role="dialog"
+          aria-modal="true"
+          aria-label="Reservation"
+          className="lg:hidden fixed inset-x-0 bottom-0 top-12 z-50 overflow-y-auto rounded-t-3xl bg-cream shadow-2xl"
+        >
+          <div className="sticky top-0 z-10 flex items-center justify-between border-b border-primary/10 bg-cream/95 backdrop-blur-sm px-5 py-4">
+            <div>
+              <p className="text-xs font-semibold uppercase tracking-[0.22em] text-secondary">
+                Reservation
+              </p>
+              <p className="mt-0.5 font-playfair text-lg font-bold text-primary">Book your stay</p>
+            </div>
+            <button
+              type="button"
+              onClick={() => setIsBookingSheetOpen(false)}
+              aria-label="Close reservation"
+              className="tap-reset rounded-full bg-white p-2 text-navy shadow-md transition hover:bg-cream"
+            >
+              <X className="h-5 w-5" />
+            </button>
+          </div>
+          <div className="px-5 py-6 pb-12">
+            {reservationForm}
+          </div>
+        </div>
+      ) : null}
     </div>
   );
 }
