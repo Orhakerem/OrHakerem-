@@ -7,6 +7,7 @@ import React, { useState, useEffect, useRef } from 'react';
 
 import { sendEmail } from '@/actions/email';
 import BookingSingleDateCalendar from '@/components/BookingSingleDateCalendar';
+import EventPricing from '@/components/EventPricing';
 import LiquidGlassButton from '@/components/LiquidGlassButton';
 import { useBackToTopVisibility } from '@/hooks/useBackToTopVisibility';
 import { formatIsoDate } from '@/lib/booking-dates';
@@ -226,6 +227,8 @@ export default function EventsClient({
             </div>
           </div>
         </section>
+
+        <EventPricing />
 
         {/* Contact Section - Compact */}
         <section className="events-plan-section py-12 bg-gradient-to-br from-primary via-primary to-primary-light relative overflow-hidden rounded-3xl" data-animate="fade-up">
