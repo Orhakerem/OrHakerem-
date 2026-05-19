@@ -193,6 +193,7 @@ export default function BookingSingleDateCalendar({
             selected={selectedDate}
             onSelect={handleSelect}
             numberOfMonths={1}
+            pagedNavigation={false}
             showOutsideDays
             timeZone={BUSINESS_TIME_ZONE}
             defaultMonth={todayMonth}
