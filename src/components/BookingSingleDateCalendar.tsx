@@ -30,7 +30,7 @@ export default function BookingSingleDateCalendar({
   blockedDates = [],
   availabilityStatus = 'ready',
 }: BookingSingleDateCalendarProps) {
-  const { rootRef, showSidePanel, showTwoMonths } = useResponsiveCalendarLayout();
+  const { rootRef } = useResponsiveCalendarLayout();
   const todayIso = getTodayIsoInTimeZone();
   const todayMonth = useMemo(
     () => startOfMonthUtc(createDateFromIso(todayIso)),
@@ -92,11 +92,7 @@ export default function BookingSingleDateCalendar({
       ref={rootRef}
       className="w-full rounded-3xl border border-primary/10 bg-white p-4 shadow-sm md:p-6"
     >
-      <div
-        className={
-          showSidePanel ? 'grid gap-6 grid-cols-[280px_minmax(0,1fr)]' : 'space-y-6'
-        }
-      >
+      <div className="space-y-6">
         <div className="space-y-4 rounded-2xl border border-primary/10 bg-gradient-to-br from-cream to-white p-4">
           <div className="flex items-start gap-3">
             <div className="rounded-2xl bg-primary/10 p-3 text-primary">
@@ -196,8 +192,7 @@ export default function BookingSingleDateCalendar({
             onMonthChange={(nextMonth) => setMonth(startOfMonthUtc(nextMonth))}
             selected={selectedDate}
             onSelect={handleSelect}
-            numberOfMonths={showTwoMonths ? 2 : 1}
-            pagedNavigation={showTwoMonths}
+            numberOfMonths={1}
             showOutsideDays
             timeZone={BUSINESS_TIME_ZONE}
             defaultMonth={todayMonth}
@@ -211,9 +206,7 @@ export default function BookingSingleDateCalendar({
             }}
             className="booking-calendar-root mt-5 w-full"
             classNames={{
-              months: showTwoMonths
-                ? 'flex flex-col gap-6 md:flex-row md:gap-8'
-                : 'flex flex-col gap-6',
+              months: 'flex flex-col gap-6',
               month: 'w-full max-w-[22rem] space-y-4',
               month_caption: 'flex h-10 items-center justify-center',
               caption_label: 'font-playfair text-lg font-semibold text-primary',

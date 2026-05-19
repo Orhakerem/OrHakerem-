@@ -24,21 +24,36 @@ const eventTypes = [
   'Cocktail Reception',
 ];
 
-const venueFeatures = [
-  'Panoramic sea and city views',
-  'Capacity: up to 80 guests',
-  'Rooftop terrace with jacuzzi',
-  'BBQ facilities',
-  'Fully equipped professional kitchen',
-  'Elegant dining setup',
-  'Professional catering available upon request',
-  'Flexible space configuration',
-  'Tailored planning for intimate events',
-  'Optional kosher services and meal arrangements',
-  'Perfect for sunset events',
-  'Indoor and outdoor spaces',
-  'Premium audio system',
-  'Stunning photo opportunities',
+const venueAmenityGroups: { title: string; items: string[] }[] = [
+  {
+    title: 'Setting',
+    items: [
+      'Panoramic sea and city views',
+      'Rooftop terrace with jacuzzi',
+      'Indoor and outdoor spaces',
+      'Perfect for sunset events',
+      'Stunning photo opportunities',
+    ],
+  },
+  {
+    title: 'Hosting',
+    items: [
+      'Capacity: up to 80 guests',
+      'Tailored planning for intimate events',
+      'Optional kosher services and meal arrangements',
+      'Flexible space configuration',
+      'Elegant dining setup',
+    ],
+  },
+  {
+    title: 'Amenities',
+    items: [
+      'Fully equipped professional kitchen',
+      'BBQ facilities',
+      'Professional catering available upon request',
+      'Premium audio system',
+    ],
+  },
 ];
 
 interface EventsClientProps {
@@ -150,79 +165,85 @@ export default function EventsClient({
 
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
 
-        {/* Event Spaces Section - Redesigned */}
-        <section id="venues" className="events-venues-section py-20 bg-cream mb-20" data-animate="fade-up">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            {/* Header section */}
-            <div className="events-venues-header text-center mb-16" data-animate="fade-up">
-              <div className="inline-block mb-4">
-                <span className="text-tertiary font-semibold text-lg tracking-wider uppercase">
-                  Our Venues
-                </span>
-              </div>
-              <h2 className="font-playfair text-5xl font-bold text-primary mb-6 leading-tight" data-animate="text">
+        {/* Event Spaces Section - Flat editorial */}
+        <section id="venues" className="events-venues-section py-20 md:py-24 bg-cream mb-20" data-animate="fade-up">
+          <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+            {/* Header */}
+            <div className="text-center" data-animate="fade-up">
+              <span className="text-primary font-semibold text-sm md:text-base tracking-[0.2em] uppercase block mb-3">
+                Our Venues
+              </span>
+              <h2 className="font-playfair text-3xl md:text-4xl lg:text-5xl font-bold text-primary leading-tight" data-animate="text">
                 Available Event Spaces
               </h2>
+              <p className="mt-6 text-primary/85 text-lg md:text-xl leading-relaxed max-w-3xl mx-auto">
+                Set in the heart of Tel Aviv, our penthouse offers a refined setting for private celebrations, with panoramic sea and city views, elegant indoor spaces, and a rooftop terrace designed for intimate gatherings that feel both elevated and personal.
+              </p>
             </div>
 
-            {/* Unified venue description */}
-            <div className="events-venues-card bg-white rounded-3xl p-12 shadow-xl border border-gray-100 max-w-5xl mx-auto" data-animate="scale">
-              <p className="text-primary/90 text-xl leading-relaxed mb-10 text-center">
-                Set in the heart of Tel Aviv, our penthouse offers a refined setting for private celebrations, with panoramic sea and city views,
-                elegant indoor spaces, and a rooftop terrace designed for intimate gatherings that feel both elevated and personal.
-              </p>
-
-              <div className="grid md:grid-cols-2 gap-6 mb-10">
-                <div className="rounded-2xl border border-secondary/20 bg-gradient-to-br from-secondary/10 to-white p-6">
-                  <span className="text-secondary font-semibold text-sm tracking-[0.18em] uppercase block mb-3">
-                    Jewish Events
-                  </span>
-                  <p className="text-primary/80 leading-relaxed">
-                    From Bar and Bat Mitzvahs to Brit Milah, Sheva Brachot, and elegant family gatherings, each event is hosted with care and attention to detail, with kosher services available on request.
-                  </p>
-                </div>
-                <div className="rounded-2xl border border-tertiary/20 bg-gradient-to-br from-tertiary/10 to-white p-6">
-                  <span className="text-tertiary font-semibold text-sm tracking-[0.18em] uppercase block mb-3">
-                    Trusted Hosting
-                  </span>
-                  <p className="text-primary/80 leading-relaxed">
-                    Hosting dozens of guests weekly, Or HaKerem is one of the few venues in Tel Aviv offering a fully tailored experience for intimate events.
-                  </p>
-                </div>
+            {/* Pillars — flat 2-col split, hairline divider */}
+            <div className="mt-16 grid gap-10 md:grid-cols-2 md:gap-12" data-animate="fade-up">
+              <div>
+                <span className="text-secondary font-semibold text-xs tracking-[0.22em] uppercase block mb-3">
+                  Jewish Events
+                </span>
+                <p className="text-primary/80 leading-relaxed">
+                  From Bar and Bat Mitzvahs to Brit Milah, Sheva Brachot, and elegant family gatherings, each event is hosted with care and attention to detail, with kosher services available on request.
+                </p>
               </div>
-
-              {/* Event Types */}
-              <div className="mb-10">
-                <h3 className="font-playfair text-2xl font-bold text-primary mb-6 text-center">
-                  Perfect For These Special Events
-                </h3>
-                <div className="grid grid-cols-2 md:grid-cols-4 gap-4" data-animate-group="cards">
-                  {eventTypes.map((event, index) => (
-                    <div
-                      key={index}
-                      className="flex items-center justify-center rounded-xl bg-gradient-to-br from-secondary/10 to-tertiary/10 p-4"
-                    >
-                      <span className="text-primary font-medium text-sm">{event}</span>
-                    </div>
-                  ))}
-                </div>
+              <div className="md:border-l md:border-primary/15 md:pl-12">
+                <span className="text-tertiary font-semibold text-xs tracking-[0.22em] uppercase block mb-3">
+                  Trusted Hosting
+                </span>
+                <p className="text-primary/80 leading-relaxed">
+                  Hosting dozens of guests weekly, Or HaKerem is one of the few venues in Tel Aviv offering a fully tailored experience for intimate events.
+                </p>
               </div>
+            </div>
 
-              {/* Venue Features */}
-              <div className="mb-8">
-                <h3 className="font-playfair text-2xl font-bold text-primary mb-6 text-center">
-                  Venue Features & Amenities
+            {/* Event types — flat chips */}
+            <div className="mt-20 text-center" data-animate="fade-up">
+              <span className="text-primary font-semibold text-sm tracking-[0.2em] uppercase block mb-6">
+                Perfect For
+              </span>
+              <div className="flex flex-wrap justify-center gap-2 max-w-3xl mx-auto" data-animate-group="cards">
+                {eventTypes.map((event) => (
+                  <span
+                    key={event}
+                    className="rounded-full border border-primary/20 px-4 py-1.5 text-sm text-primary/80"
+                  >
+                    {event}
+                  </span>
+                ))}
+              </div>
+            </div>
+
+            {/* Features & amenities — 3 clusters */}
+            <div className="mt-20" data-animate="fade-up">
+              <div className="text-center mb-10">
+                <span className="text-primary font-semibold text-sm tracking-[0.2em] uppercase block mb-3">
+                  Features &amp; Amenities
+                </span>
+                <h3 className="font-playfair text-2xl md:text-3xl font-bold text-primary">
+                  Everything in place for your event
                 </h3>
-                <div className="grid md:grid-cols-2 gap-x-8 gap-y-4">
-                  {venueFeatures.map((feature, index) => (
-                    <div
-                      key={index}
-                      className=""
-                    >
-                      <span className="text-primary/80">{feature}</span>
-                    </div>
-                  ))}
-                </div>
+              </div>
+              <div className="grid gap-10 md:grid-cols-2 lg:grid-cols-3 md:gap-12">
+                {venueAmenityGroups.map((group) => (
+                  <div key={group.title}>
+                    <h4 className="font-playfair text-lg font-semibold text-primary mb-4">
+                      {group.title}
+                    </h4>
+                    <ul className="space-y-2.5">
+                      {group.items.map((item) => (
+                        <li key={item} className="flex gap-3 text-primary/80 leading-relaxed">
+                          <span aria-hidden className="mt-2.5 h-px w-3 shrink-0 bg-primary/40" />
+                          <span>{item}</span>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                ))}
               </div>
             </div>
           </div>
