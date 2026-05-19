@@ -115,6 +115,29 @@ export const faqEntries: FAQEntry[] = [
     answer:
       'Of course! We offer reduced rates and special discounts for guests looking to stay for longer periods of time.',
   },
+  {
+    question: 'Is early check-in possible?',
+    category: 'Booking',
+    answer:
+      'Early check-in may be possible, but it cannot be guaranteed as it depends on the previous booking and cleaning schedule. We will keep you updated closer to your arrival and notify you as soon as the apartment is ready.',
+  },
+  {
+    question: 'Is there a safe room (mamad) in the apartment?',
+    category: 'Stay',
+    answer:
+      'There is no mamad (safe room) inside the apartment, but there is a public shelter nearby. We share a video with every guest showing exactly how to reach it in case of an alarm.',
+  },
+  {
+    question: 'Can we play music or have gatherings?',
+    category: 'Stay',
+    answer:
+      'Music and gatherings are welcome. We simply ask that guests respect quiet hours and be considerate of neighbors.',
+  },
+  {
+    question: 'What are the sleeping arrangements?',
+    category: 'Stay',
+    answer: 'The apartments feature a wide double bed and a convertible sofa bed.',
+  },
 ];
 
 const homeFaqQuestions = new Set([
