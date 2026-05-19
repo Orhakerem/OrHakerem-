@@ -106,7 +106,7 @@ export default function ConciergeServicesPage() {
   };
 
   return (
-    <div className="min-h-screen bg-cream">
+    <div className="min-h-screen" style={{ backgroundColor: '#e8e4dc' }}>
       {/* Hero Section - Split layout with image */}
       <motion.section
         className="hero-section services-hero-section relative flex w-full flex-col overflow-hidden bg-gradient-to-br from-primary via-primary-light to-primary pt-20 md:flex-row"

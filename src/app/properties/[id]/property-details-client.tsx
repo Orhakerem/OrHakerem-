@@ -438,8 +438,8 @@ export default function PropertyDetailsClient({
     <h1
       className={
         property
-          ? 'font-playfair text-3xl font-bold text-navy mb-2'
-          : 'text-2xl font-bold text-navy mb-4'
+          ? 'font-playfair text-3xl font-bold text-black mb-2'
+          : 'text-2xl font-bold text-black mb-4'
       }
     >
       {property ? property.title : 'Property Not Found'}
@@ -688,7 +688,7 @@ export default function PropertyDetailsClient({
                   <input type="hidden" name="checkIn" value={dateRange.checkIn ?? ''} />
                   <input type="hidden" name="checkOut" value={dateRange.checkOut ?? ''} />
 
-                  <div className="grid grid-cols-2 overflow-hidden rounded-xl border border-primary/15">
+                  <div className="grid grid-cols-2 overflow-hidden rounded-[10px] border border-primary/15">
                     <button
                       type="button"
                       onClick={() => {
@@ -701,10 +701,10 @@ export default function PropertyDetailsClient({
                       }}
                       className="tap-reset border-r border-primary/15 px-4 py-3 text-left transition hover:bg-primary/5"
                     >
-                      <p className="text-[10px] font-semibold uppercase tracking-[0.18em] text-primary/55">
+                      <p className="text-[10px] font-semibold uppercase tracking-[0.18em] text-black/55">
                         Check-in
                       </p>
-                      <p className="mt-1 text-sm font-semibold text-navy">
+                      <p className="mt-1 text-sm font-semibold text-black">
                         {dateRange.checkIn ?? 'Add date'}
                       </p>
                     </button>
@@ -720,17 +720,17 @@ export default function PropertyDetailsClient({
                       }}
                       className="tap-reset px-4 py-3 text-left transition hover:bg-primary/5"
                     >
-                      <p className="text-[10px] font-semibold uppercase tracking-[0.18em] text-primary/55">
+                      <p className="text-[10px] font-semibold uppercase tracking-[0.18em] text-black/55">
                         Checkout
                       </p>
-                      <p className="mt-1 text-sm font-semibold text-navy">
+                      <p className="mt-1 text-sm font-semibold text-black">
                         {dateRange.checkOut ?? 'Add date'}
                       </p>
                     </button>
                   </div>
 
                   {formErrors.dates ? (
-                    <p className="rounded-md border border-red-200 bg-red-50 px-4 py-3 text-sm font-medium text-red-700">
+                    <p className="rounded-[10px] border border-red-200 bg-red-50 px-4 py-3 text-sm font-medium text-red-700">
                       {formErrors.dates}
                     </p>
                   ) : null}
@@ -738,7 +738,7 @@ export default function PropertyDetailsClient({
                   {visibleFormErrors.length > 0 ? (
                     <div
                       role="alert"
-                      className="rounded-xl border border-red-200 bg-red-50 px-4 py-3 text-sm text-red-700"
+                      className="rounded-[10px] border border-red-200 bg-red-50 px-4 py-3 text-sm text-red-700"
                     >
                       <p className="font-semibold">Please fix the highlighted details before sending.</p>
                       <ul className="mt-2 list-disc space-y-1 pl-5">
@@ -752,49 +752,27 @@ export default function PropertyDetailsClient({
                   {isSubmitSuccess ? (
                     <div
                       role="status"
-                      className="rounded-xl border border-green-200 bg-green-50 px-4 py-3 text-sm font-medium text-green-700"
+                      className="rounded-[10px] border border-green-200 bg-green-50 px-4 py-3 text-sm font-medium text-green-700"
                     >
                       Thank you. Your reservation request was sent and our team will contact you within 24 hours.
                     </div>
                   ) : null}
 
-                  <div className="grid gap-5 md:grid-cols-2">
-                    {hasValidDateRange ? (
-                      <AccommodationPriceSummary
-                        nights={selectedNights}
-                        quote={activePriceQuote}
-                        isLoading={isPriceLoading}
-                        priceError={priceError}
-                        validationError={formErrors.price}
-                        className="bg-white rounded-xl p-6 border border-primary/10 shadow-sm"
-                        totalValueClassName="font-playfair text-xl font-bold"
-                      />
-                    ) : null}
-
-                    <div className="bg-white rounded-xl p-5 border border-secondary/20 shadow-sm text-left">
-                      <p className="text-xs font-semibold uppercase tracking-[0.22em] text-primary/45 mb-3">
-                        Reservation status
-                      </p>
-                      {isSubmitSuccess ? (
-                        <p className="text-primary font-semibold">
-                          Request sent. We&apos;ll contact you within 24 hours.
-                        </p>
-                      ) : hasValidDateRange ? (
-                        <p className="text-primary font-semibold">
-                          {selectedNights} night{selectedNights === 1 ? '' : 's'} selected. Your
-                          request is ready once your contact details are complete.
-                        </p>
-                      ) : (
-                        <p className="text-primary/70">
-                          Select a valid, available check-in and check-out to prepare your request.
-                        </p>
-                      )}
-                    </div>
-                  </div>
+                  {hasValidDateRange ? (
+                    <AccommodationPriceSummary
+                      nights={selectedNights}
+                      quote={activePriceQuote}
+                      isLoading={isPriceLoading}
+                      priceError={priceError}
+                      validationError={formErrors.price}
+                      className="bg-white rounded-[10px] p-6 border border-primary/10 shadow-sm"
+                      totalValueClassName="font-playfair text-xl font-bold"
+                    />
+                  ) : null}
 
                   <div className="grid gap-4 md:grid-cols-2">
                     <div>
-                      <label htmlFor="property-reservation-name" className="block text-sm font-medium text-primary/80 mb-1">
+                      <label htmlFor="property-reservation-name" className="block text-sm font-medium text-black/80 mb-1">
                         Full Name
                       </label>
                       <input
@@ -805,7 +783,7 @@ export default function PropertyDetailsClient({
                         aria-invalid={Boolean(formErrors.name)}
                         aria-describedby={formErrors.name ? 'property-reservation-name-error' : undefined}
                         onChange={() => clearFormError('name')}
-                        className="w-full rounded-md border border-gray-300 px-4 py-2"
+                        className="w-full rounded-[10px] border border-gray-300 px-4 py-2"
                       />
                       {formErrors.name ? (
                         <p id="property-reservation-name-error" className="mt-2 text-sm font-medium text-red-700">
@@ -815,11 +793,11 @@ export default function PropertyDetailsClient({
                     </div>
 
                     <div>
-                      <label htmlFor="property-reservation-email" className="block text-sm font-medium text-primary/80 mb-1">
+                      <label htmlFor="property-reservation-email" className="block text-sm font-medium text-black/80 mb-1">
                         Email Address
                       </label>
                       <div className="relative">
-                        <Mail className="absolute left-3 top-1/2 h-5 w-5 -translate-y-1/2 text-primary/60" />
+                        <Mail className="absolute left-3 top-1/2 h-5 w-5 -translate-y-1/2 text-black/60" />
                         <input
                           type="email"
                           id="property-reservation-email"
@@ -828,7 +806,7 @@ export default function PropertyDetailsClient({
                           aria-invalid={Boolean(formErrors.email)}
                           aria-describedby={formErrors.email ? 'property-reservation-email-error' : undefined}
                           onChange={() => clearFormError('email')}
-                          className="w-full rounded-md border border-gray-300 py-2 pl-10 pr-4"
+                          className="w-full rounded-[10px] border border-gray-300 py-2 pl-10 pr-4"
                         />
                       </div>
                       {formErrors.email ? (
@@ -839,11 +817,11 @@ export default function PropertyDetailsClient({
                     </div>
 
                     <div>
-                      <label htmlFor="property-reservation-phone" className="block text-sm font-medium text-primary/80 mb-1">
+                      <label htmlFor="property-reservation-phone" className="block text-sm font-medium text-black/80 mb-1">
                         Phone Number
                       </label>
                       <div className="relative">
-                        <Phone className="absolute left-3 top-1/2 h-5 w-5 -translate-y-1/2 text-primary/60" />
+                        <Phone className="absolute left-3 top-1/2 h-5 w-5 -translate-y-1/2 text-black/60" />
                         <input
                           type="tel"
                           id="property-reservation-phone"
@@ -852,7 +830,7 @@ export default function PropertyDetailsClient({
                           aria-invalid={Boolean(formErrors.phone)}
                           aria-describedby={formErrors.phone ? 'property-reservation-phone-error' : undefined}
                           onChange={() => clearFormError('phone')}
-                          className="w-full rounded-md border border-gray-300 py-2 pl-10 pr-4"
+                          className="w-full rounded-[10px] border border-gray-300 py-2 pl-10 pr-4"
                         />
                       </div>
                       {formErrors.phone ? (
@@ -863,7 +841,7 @@ export default function PropertyDetailsClient({
                     </div>
 
                     <div>
-                      <label htmlFor="property-reservation-guests" className="block text-sm font-medium text-primary/80 mb-1">
+                      <label htmlFor="property-reservation-guests" className="block text-sm font-medium text-black/80 mb-1">
                         Guests
                       </label>
                       <input
@@ -876,7 +854,7 @@ export default function PropertyDetailsClient({
                         aria-invalid={Boolean(formErrors.guestsCount)}
                         aria-describedby={formErrors.guestsCount ? 'property-reservation-guests-error' : undefined}
                         onChange={() => clearFormError('guestsCount')}
-                        className="w-full rounded-md border border-gray-300 px-4 py-2"
+                        className="w-full rounded-[10px] border border-gray-300 px-4 py-2"
                       />
                       {formErrors.guestsCount ? (
                         <p id="property-reservation-guests-error" className="mt-2 text-sm font-medium text-red-700">
@@ -887,11 +865,11 @@ export default function PropertyDetailsClient({
                   </div>
 
                   <div>
-                    <label className="block text-sm font-medium text-primary/80 mb-3">
+                    <label className="block text-sm font-medium text-black/80 mb-3">
                       <span>Preferred Contact Method</span>
                     </label>
                     <div className="grid grid-cols-1 gap-4 md:grid-cols-3">
-                      <label className={`tap-reset relative flex cursor-pointer items-center justify-center rounded-md border p-4 ${contactMethod === 'email' ? 'border-black/10 bg-black/[0.03] shadow-sm' : 'border-gray-200 bg-white'}`}>
+                      <label className={`tap-reset relative flex cursor-pointer items-center justify-center rounded-[10px] border p-4 ${contactMethod === 'email' ? 'border-black/10 bg-black/[0.03] shadow-sm' : 'border-gray-200 bg-white'}`}>
                         <input
                           type="radio"
                           name="contactMethod"
@@ -900,11 +878,11 @@ export default function PropertyDetailsClient({
                           onChange={(e) => setContactMethod(e.target.value as ContactMethod)}
                           className="absolute opacity-0"
                         />
-                        <Mail className="h-5 w-5 text-primary" />
-                        <span className="ml-2 text-primary">Email</span>
+                        <Mail className="h-5 w-5 text-black" />
+                        <span className="ml-2 text-black">Email</span>
                       </label>
 
-                      <label className={`tap-reset relative flex cursor-pointer items-center justify-center rounded-md border p-4 ${contactMethod === 'phone' ? 'border-black/10 bg-black/[0.03] shadow-sm' : 'border-gray-200 bg-white'}`}>
+                      <label className={`tap-reset relative flex cursor-pointer items-center justify-center rounded-[10px] border p-4 ${contactMethod === 'phone' ? 'border-black/10 bg-black/[0.03] shadow-sm' : 'border-gray-200 bg-white'}`}>
                         <input
                           type="radio"
                           name="contactMethod"
@@ -913,11 +891,11 @@ export default function PropertyDetailsClient({
                           onChange={(e) => setContactMethod(e.target.value as ContactMethod)}
                           className="absolute opacity-0"
                         />
-                        <Phone className="h-5 w-5 text-primary" />
-                        <span className="ml-2 text-primary">Phone</span>
+                        <Phone className="h-5 w-5 text-black" />
+                        <span className="ml-2 text-black">Phone</span>
                       </label>
 
-                      <label className={`tap-reset relative flex cursor-pointer items-center justify-center rounded-md border p-4 ${contactMethod === 'whatsapp' ? 'border-black/10 bg-black/[0.03] shadow-sm' : 'border-gray-200 bg-white'}`}>
+                      <label className={`tap-reset relative flex cursor-pointer items-center justify-center rounded-[10px] border p-4 ${contactMethod === 'whatsapp' ? 'border-black/10 bg-black/[0.03] shadow-sm' : 'border-gray-200 bg-white'}`}>
                         <input
                           type="radio"
                           name="contactMethod"
@@ -926,8 +904,8 @@ export default function PropertyDetailsClient({
                           onChange={(e) => setContactMethod(e.target.value as ContactMethod)}
                           className="absolute opacity-0"
                         />
-                        <MessageSquare className="h-5 w-5 text-primary" />
-                        <span className="ml-2 text-primary">WhatsApp</span>
+                        <MessageSquare className="h-5 w-5 text-black" />
+                        <span className="ml-2 text-black">WhatsApp</span>
                       </label>
                     </div>
                   </div>
@@ -938,7 +916,7 @@ export default function PropertyDetailsClient({
                       <span>{isSubmitting ? 'SENDING...' : 'BOOK NOW'}</span>
                     </LiquidGlassButton>
 
-                    <p className="mt-4 text-primary/70 text-sm font-medium text-center">
+                    <p className="mt-4 text-black/70 text-sm font-medium text-center">
                       Response within 24 hours guaranteed
                     </p>
                   </div>
@@ -958,11 +936,11 @@ export default function PropertyDetailsClient({
     : 'Add dates for pricing';
 
   return (
-    <div className="min-h-screen bg-cream pt-24 pb-32 lg:pb-20">
+    <div className="min-h-screen pt-24 pb-32 lg:pb-20" style={{ backgroundColor: '#e8e4dc' }}>
       {/* 1. Photo grid hero */}
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mt-4 md:mt-6">
         {/* Desktop / tablet: Airbnb 5-up grid */}
-        <div className="relative hidden md:grid aspect-[2/1] grid-cols-4 grid-rows-2 gap-2 overflow-hidden rounded-2xl">
+        <div className="relative hidden md:grid aspect-[2/1] grid-cols-4 grid-rows-2 gap-2 overflow-hidden rounded-[6px]">
           {heroPhotos.map((src, index) => (
             <button
               key={src}
@@ -989,7 +967,7 @@ export default function PropertyDetailsClient({
             onClick={() => setIsPhotosModalOpen(true)}
             aria-haspopup="dialog"
             aria-expanded={isPhotosModalOpen}
-            className="absolute bottom-4 right-4 rounded-full bg-white px-4 py-2 text-sm font-semibold text-navy shadow-md transition hover:bg-cream"
+            className="absolute bottom-4 right-4 rounded-full bg-white px-4 py-2 text-sm font-semibold text-black shadow-md transition hover:bg-cream"
           >
             Show all {property.images.length} photos
           </button>
@@ -1001,7 +979,7 @@ export default function PropertyDetailsClient({
           onClick={() => setIsPhotosModalOpen(true)}
           aria-haspopup="dialog"
           aria-expanded={isPhotosModalOpen}
-          className="tap-reset md:hidden relative block h-[55vh] w-full overflow-hidden rounded-2xl"
+          className="tap-reset md:hidden relative block h-[55vh] w-full overflow-hidden rounded-[6px]"
         >
           <Image
             src={property.images[0]}
@@ -1011,7 +989,7 @@ export default function PropertyDetailsClient({
             className="object-cover"
             sizes="100vw"
           />
-          <span className="absolute bottom-4 right-4 rounded-full bg-white px-4 py-2 text-sm font-semibold text-navy shadow-md">
+          <span className="absolute bottom-4 right-4 rounded-full bg-white px-4 py-2 text-sm font-semibold text-black shadow-md">
             View all {property.images.length} photos
           </span>
         </button>
@@ -1023,48 +1001,64 @@ export default function PropertyDetailsClient({
         <div className="min-w-0">
           {/* 2. Title + property type subtitle */}
           <header>
-            <h1 className="font-playfair text-3xl md:text-4xl font-bold text-navy leading-tight">
+            <h1 className="font-playfair text-3xl md:text-4xl font-bold text-black leading-tight">
               {property.title}
             </h1>
-            <p className="mt-3 text-navy/70">
+            <p className="mt-3 text-black/70">
               {property.propertyType} in {property.location}
             </p>
 
             {/* 3. Quick facts */}
-            <p className="mt-2 text-sm text-navy/65">
+            <p className="mt-2 text-sm text-black/65">
               {quickFacts.join(' · ')}
             </p>
           </header>
 
           {/* Divider */}
-          <hr className="my-10 border-t border-primary/10" />
+          <hr className="mt-10 mb-5 border-t border-primary/10" />
 
           {/* 5. Feature highlights */}
-          <section className="space-y-6">
+          <section className="grid grid-cols-3 gap-3 py-1">
             {property.highlights.map((highlight) => (
-              <div key={highlight.title} className="flex items-start gap-4">
-                <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-primary/5 text-primary">
-                  <highlight.icon className="h-5 w-5" />
+              <div key={highlight.title} className="flex flex-col gap-2">
+                <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-[10px] bg-primary/5 text-black">
+                  <highlight.icon className="h-4 w-4" />
                 </div>
-                <div>
-                  <h3 className="font-semibold text-navy">{highlight.title}</h3>
-                  <p className="mt-1 text-sm text-navy/65 leading-relaxed">
-                    {highlight.description}
-                  </p>
-                </div>
+                <h3 className="text-sm font-semibold text-black leading-snug">{highlight.title}</h3>
               </div>
             ))}
+          </section>
+
+          <hr className="mt-5 mb-10 border-t border-primary/10" />
+
+          {/* 6. Select check-in date — inline calendar (moved above About this space) */}
+          <section id="select-checkin-date">
+            <h2 className="font-playfair text-2xl md:text-3xl font-bold text-black">
+              Plan your stay
+            </h2>
+            <p className="mt-2 text-black/70">
+              Add your travel dates for exact pricing.
+            </p>
+            <div className="mt-6">
+              <BookingRangeCalendar
+                value={dateRange}
+                onChange={handleDateRangeChange}
+                onClearDates={clearPriceEstimate}
+                blockedDates={blockedDates}
+                availabilityStatus={availabilityStatus}
+              />
+            </div>
           </section>
 
           <hr className="my-10 border-t border-primary/10" />
 
           {/* 7. About this space */}
           <section>
-            <h2 className="font-playfair text-2xl md:text-3xl font-bold text-navy">
+            <h2 className="font-playfair text-2xl md:text-3xl font-bold text-black">
               About this space
             </h2>
             <div
-              className={`mt-5 space-y-4 text-navy/80 leading-relaxed ${
+              className={`mt-5 space-y-4 text-black/80 leading-relaxed ${
                 isDescriptionExpanded
                   ? ''
                   : 'relative max-h-44 overflow-hidden after:pointer-events-none after:absolute after:inset-x-0 after:bottom-0 after:h-16 after:bg-gradient-to-t after:from-cream after:to-transparent'
@@ -1077,7 +1071,7 @@ export default function PropertyDetailsClient({
             <button
               type="button"
               onClick={() => setIsDescriptionExpanded((value) => !value)}
-              className="tap-reset mt-4 inline-flex items-center gap-1 text-sm font-semibold text-navy underline underline-offset-4 decoration-navy/40 hover:decoration-navy"
+              className="tap-reset mt-4 inline-flex items-center gap-1 text-sm font-semibold text-black underline underline-offset-4 decoration-navy/40 hover:decoration-navy"
             >
               {isDescriptionExpanded ? 'Show less' : 'Show more'}
               <ChevronRight
@@ -1092,14 +1086,14 @@ export default function PropertyDetailsClient({
 
           {/* 9. What this place offers */}
           <section>
-            <h2 className="font-playfair text-2xl md:text-3xl font-bold text-navy">
+            <h2 className="font-playfair text-2xl md:text-3xl font-bold text-black">
               What this place offers
             </h2>
             <div className="mt-6 grid gap-y-4 sm:grid-cols-2 sm:gap-x-8">
               {amenitiesPreview.map((amenity) => (
                 <div key={amenity.name} className="flex items-center gap-4">
-                  <amenity.icon className="h-5 w-5 shrink-0 text-primary" />
-                  <span className="text-sm text-navy">{amenity.name}</span>
+                  <amenity.icon className="h-5 w-5 shrink-0 text-black" />
+                  <span className="text-sm text-black">{amenity.name}</span>
                 </div>
               ))}
             </div>
@@ -1108,48 +1102,27 @@ export default function PropertyDetailsClient({
               onClick={() => setIsAmenitiesModalOpen(true)}
               aria-haspopup="dialog"
               aria-expanded={isAmenitiesModalOpen}
-              className="tap-reset mt-8 rounded-lg border border-navy/30 px-5 py-2.5 text-sm font-semibold text-navy transition hover:bg-navy/5"
+              className="tap-reset mt-8 rounded-full border border-navy/30 px-5 py-2.5 text-sm font-semibold text-black transition hover:bg-navy/5"
             >
               Show all {property.amenities.length} amenities
             </button>
           </section>
-
-          <hr className="my-10 border-t border-primary/10" />
-
-          {/* 11. Select check-in date — inline calendar */}
-          <section id="select-checkin-date">
-            <h2 className="font-playfair text-2xl md:text-3xl font-bold text-navy">
-              Select check-in date
-            </h2>
-            <p className="mt-2 text-navy/70">
-              Add your travel dates for exact pricing.
-            </p>
-            <div className="mt-6">
-              <BookingRangeCalendar
-                value={dateRange}
-                onChange={handleDateRangeChange}
-                onClearDates={clearPriceEstimate}
-                blockedDates={blockedDates}
-                availabilityStatus={availabilityStatus}
-              />
-            </div>
-          </section>
         </div>
 
         {/* Right sticky booking column (lg+) */}
-        <aside className="hidden lg:block self-start lg:sticky lg:top-32">
+        <aside className="hidden lg:block self-start lg:sticky lg:top-28">
           <div>
-            <div className="rounded-3xl border border-primary/10 bg-white shadow-xl p-6">
-              <p className="text-xs font-semibold uppercase tracking-[0.22em] text-secondary">
+            <div className="rounded-[10px] border border-primary/10 bg-white shadow-xl p-5 lg:max-h-[calc(100vh-8rem)] lg:overflow-y-auto">
+              <p className="text-[11px] font-semibold uppercase tracking-[0.22em] text-secondary">
                 Reservation
               </p>
-              <h2 className="mt-2 font-playfair text-2xl font-bold text-primary">
+              <h2 className="mt-1 font-playfair text-xl font-bold text-black">
                 Book your stay
               </h2>
-              <p className="mt-2 text-sm text-primary/75">
+              <p className="mt-1 text-xs text-black/75">
                 Pick your dates and send your request — we reply within 24 hours.
               </p>
-              <div className="mt-5">
+              <div className="mt-4">
                 {reservationForm}
               </div>
             </div>
@@ -1161,8 +1134,8 @@ export default function PropertyDetailsClient({
       <div className="lg:hidden fixed inset-x-0 bottom-0 z-40 border-t border-primary/10 bg-white/95 backdrop-blur-sm px-4 py-3 shadow-[0_-8px_24px_-12px_rgba(0,0,0,0.18)]">
         <div className="flex items-center justify-between gap-4 max-w-3xl mx-auto">
           <div className="min-w-0">
-            <p className="text-sm font-semibold text-navy truncate">{bookingCtaLabel}</p>
-            <p className="text-xs text-navy/60 truncate">
+            <p className="text-sm font-semibold text-black truncate">{bookingCtaLabel}</p>
+            <p className="text-xs text-black/60 truncate">
               {dateRange.checkIn && dateRange.checkOut
                 ? `${dateRange.checkIn} → ${dateRange.checkOut}`
                 : 'Tap reserve to choose dates'}
@@ -1189,14 +1162,14 @@ export default function PropertyDetailsClient({
           className="fixed inset-0 z-50 overflow-y-auto bg-cream"
         >
           <div className="sticky top-0 z-10 flex items-center justify-between border-b border-primary/10 bg-cream/95 backdrop-blur-sm px-4 sm:px-6 py-4">
-            <p className="font-playfair text-lg font-bold text-navy">
+            <p className="font-playfair text-lg font-bold text-black">
               {property.title} — All photos
             </p>
             <button
               type="button"
               onClick={() => setIsPhotosModalOpen(false)}
               aria-label="Close photos"
-              className="tap-reset rounded-full bg-white p-2 text-navy shadow-md transition hover:bg-cream"
+              className="tap-reset rounded-full bg-white p-2 text-black shadow-md transition hover:bg-cream"
             >
               <X className="h-5 w-5" />
             </button>
@@ -1213,7 +1186,7 @@ export default function PropertyDetailsClient({
           role="dialog"
           aria-modal="true"
           aria-label="All amenities"
-          className="fixed inset-0 z-50 grid place-items-end sm:place-items-center bg-black/50 px-0 sm:px-4"
+          className="fixed inset-0 z-[2000] grid place-items-end sm:place-items-center bg-black/50 px-0 sm:px-4"
           onClick={(event) => {
             if (event.target === event.currentTarget) {
               setIsAmenitiesModalOpen(false);
@@ -1222,14 +1195,14 @@ export default function PropertyDetailsClient({
         >
           <div className="w-full sm:max-w-lg max-h-[85vh] overflow-y-auto rounded-t-3xl sm:rounded-3xl bg-cream shadow-2xl">
             <div className="sticky top-0 z-10 flex items-center justify-between border-b border-primary/10 bg-cream/95 backdrop-blur-sm px-6 py-4">
-              <p className="font-playfair text-lg font-bold text-navy">
+              <p className="font-playfair text-lg font-bold text-black">
                 What this place offers
               </p>
               <button
                 type="button"
                 onClick={() => setIsAmenitiesModalOpen(false)}
                 aria-label="Close amenities"
-                className="tap-reset rounded-full bg-white p-2 text-navy shadow-md transition hover:bg-cream"
+                className="tap-reset rounded-full bg-white p-2 text-black shadow-md transition hover:bg-cream"
               >
                 <X className="h-4 w-4" />
               </button>
@@ -1242,10 +1215,10 @@ export default function PropertyDetailsClient({
                     index < property.amenities.length - 1 ? 'border-b border-primary/10' : ''
                   }`}
                 >
-                  <amenity.icon className="h-5 w-5 shrink-0 text-primary mt-0.5" />
+                  <amenity.icon className="h-5 w-5 shrink-0 text-black mt-0.5" />
                   <div>
-                    <h3 className="font-semibold text-navy">{amenity.name}</h3>
-                    <p className="mt-0.5 text-sm text-navy/65">{amenity.description}</p>
+                    <h3 className="font-semibold text-black">{amenity.name}</h3>
+                    <p className="mt-0.5 text-sm text-black/65">{amenity.description}</p>
                   </div>
                 </div>
               ))}
@@ -1268,13 +1241,13 @@ export default function PropertyDetailsClient({
               <p className="text-xs font-semibold uppercase tracking-[0.22em] text-secondary">
                 Reservation
               </p>
-              <p className="mt-0.5 font-playfair text-lg font-bold text-primary">Book your stay</p>
+              <p className="mt-0.5 font-playfair text-lg font-bold text-black">Book your stay</p>
             </div>
             <button
               type="button"
               onClick={() => setIsBookingSheetOpen(false)}
               aria-label="Close reservation"
-              className="tap-reset rounded-full bg-white p-2 text-navy shadow-md transition hover:bg-cream"
+              className="tap-reset rounded-full bg-white p-2 text-black shadow-md transition hover:bg-cream"
             >
               <X className="h-5 w-5" />
             </button>

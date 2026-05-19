@@ -175,15 +175,11 @@ export default function TermsPage() {
           </section>
 
           <section className="mb-10" data-animate="fade-up" data-delay="2">
-            <h2 className="font-playfair text-3xl font-bold text-primary">2. Payment Schedule &amp; VAT Policy</h2>
+            <h2 className="font-playfair text-3xl font-bold text-primary">2. Payment Schedule</h2>
             <div className="mt-3 h-px w-full bg-gradient-to-r from-secondary to-transparent"></div>
 
             <div className="mt-8 rounded-2xl border border-primary/10 bg-white p-6 md:p-8">
-              <p className="text-primary/80 leading-relaxed">
-                All prices are quoted in foreign currency and are exclusive of VAT. Payments must be made in NIS.
-              </p>
-
-              <div className="mt-6 rounded-2xl border border-secondary/20 bg-cream p-6">
+              <div className="rounded-2xl border border-secondary/20 bg-cream p-6">
                 <h3 className="font-playfair text-2xl font-semibold text-primary">Payment Schedule (Direct Bookings)</h3>
                 <div className="mt-5">{renderBulletList(paymentSchedule)}</div>
               </div>

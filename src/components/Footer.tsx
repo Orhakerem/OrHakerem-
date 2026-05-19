@@ -155,6 +155,17 @@ export default function Footer() {
             <p className="text-white/60 text-xs mt-1 leading-none">
               Luxury accommodations in the heart of Tel Aviv
             </p>
+            <p className="text-white/40 text-xs mt-1 leading-none">
+              Made by{' '}
+              <a
+                href="https://sitekept.com"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-white/60 hover:text-white/80 transition-colors duration-200"
+              >
+                Sitekept
+              </a>
+            </p>
           </div>
         </div>
 
@@ -352,6 +363,17 @@ export default function Footer() {
             </p>
             <p className="text-white/60 text-xs mt-1 leading-none">
               Luxury accommodations in the heart of Tel Aviv
+            </p>
+            <p className="text-white/40 text-xs mt-1 leading-none">
+              Made by{' '}
+              <a
+                href="https://sitekept.com"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-white/60 hover:text-white/80 transition-colors duration-200"
+              >
+                Sitekept
+              </a>
             </p>
           </div>
         </div>

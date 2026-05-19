@@ -115,7 +115,7 @@ export default function EventsClient({
   }, [showForm]);
 
   return (
-    <div className="min-h-screen bg-cream">
+    <div className="min-h-screen" style={{ backgroundColor: '#e8e4dc' }}>
       {/* Video Section - Full Width */}
       <section className="hero-section relative w-full h-[75vh] min-h-[600px] pt-20 bg-primary" data-animate="fade-up">
         {/* Video Background */}
