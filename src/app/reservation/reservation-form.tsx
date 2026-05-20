@@ -293,16 +293,16 @@ export default function ReservationForm({
   if (isSuccess) {
     const successCard = (
       <div className="bg-white p-8 rounded-3xl shadow-xl border border-primary/10 text-center">
-        <h2 className="font-playfair text-2xl font-bold text-primary mb-4">
+        <h2 className="font-head text-2xl font-bold text-black mb-4">
           Thank you for your reservation request!
         </h2>
-        <p className="text-primary/80 mb-6">
+        <p className="text-black/80 mb-6">
           We&apos;ll contact you via your chosen method within 24 hours.
         </p>
         {embedded && (
           <Link
             href="/properties"
-            className="button-hover-clean inline-block bg-secondary text-primary px-6 py-2 rounded-md font-semibold transition"
+            className="button-hover-clean inline-block bg-secondary text-black px-6 py-2 rounded-md font-semibold transition"
           >
             Back to Properties
           </Link>
@@ -331,15 +331,15 @@ export default function ReservationForm({
       {showIntro ? (
         <>
           {embedded ? (
-            <h2 className="font-playfair text-3xl font-bold text-primary mb-2" data-animate="text">
+            <h2 className="font-head text-3xl font-bold text-black mb-2" data-animate="text">
               Reservation Request
             </h2>
           ) : (
-            <h1 className="font-playfair text-3xl font-bold text-primary mb-2" data-animate="text">
+            <h1 className="font-head text-3xl font-bold text-black mb-2" data-animate="text">
               Reservation Request
             </h1>
           )}
-          <p className="text-primary/80 mb-8" data-animate="fade-up" data-delay="1">
+          <p className="text-black/80 mb-8" data-animate="fade-up" data-delay="1">
             Your reservation request will be handled by our team. Please provide your contact
             preferences.
           </p>
@@ -354,7 +354,7 @@ export default function ReservationForm({
         <input type="hidden" name="guestsCount" value="1" />
 
         <div>
-          <label htmlFor="property" className="block text-sm font-medium text-primary/80 mb-1">
+          <label htmlFor="property" className="block text-sm font-medium text-black/80 mb-1">
             Property
           </label>
           <select
@@ -386,11 +386,11 @@ export default function ReservationForm({
           quote={activePriceQuote}
           isLoading={isPriceLoading}
           priceError={priceError}
-          className="rounded-xl border border-secondary/20 bg-secondary/10 px-4 py-3 text-sm text-primary"
+          className="rounded-xl border border-secondary/20 bg-secondary/10 px-4 py-3 text-sm text-black"
         />
 
         <div>
-          <label htmlFor="name" className="block text-sm font-medium text-primary/80 mb-1">
+          <label htmlFor="name" className="block text-sm font-medium text-black/80 mb-1">
             Full Name
           </label>
           <input
@@ -403,11 +403,11 @@ export default function ReservationForm({
         </div>
 
         <div>
-          <label htmlFor="email" className="block text-sm font-medium text-primary/80 mb-1">
+          <label htmlFor="email" className="block text-sm font-medium text-black/80 mb-1">
             Email Address
           </label>
           <div className="relative">
-            <Mail className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-primary/60" />
+            <Mail className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-black/60" />
             <input
               type="email"
               id="email"
@@ -419,11 +419,11 @@ export default function ReservationForm({
         </div>
 
         <div>
-          <label htmlFor="phone" className="block text-sm font-medium text-primary/80 mb-1">
+          <label htmlFor="phone" className="block text-sm font-medium text-black/80 mb-1">
             Phone Number
           </label>
           <div className="relative">
-            <Phone className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-primary/60" />
+            <Phone className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-black/60" />
             <input
               type="tel"
               id="phone"
@@ -434,7 +434,7 @@ export default function ReservationForm({
           </div>
         </div>
         <div>
-          <label className="block text-sm font-medium text-primary/80 mb-3">
+          <label className="block text-sm font-medium text-black/80 mb-3">
             <span>Preferred Contact Method</span>
           </label>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
@@ -447,8 +447,8 @@ export default function ReservationForm({
                 onChange={(e) => setContactMethod(e.target.value)}
                 className="absolute opacity-0"
               />
-              <Mail className="h-5 w-5 text-primary" />
-              <span className="ml-2 text-primary">Email</span>
+              <Mail className="h-5 w-5 text-black" />
+              <span className="ml-2 text-black">Email</span>
             </label>
 
             <label className={`tap-reset relative flex cursor-pointer items-center justify-center rounded-md border p-4 ${contactMethod === 'phone' ? 'border-black/10 bg-black/[0.03] shadow-sm' : 'border-gray-200 bg-white'}`}>
@@ -460,8 +460,8 @@ export default function ReservationForm({
                 onChange={(e) => setContactMethod(e.target.value)}
                 className="absolute opacity-0"
               />
-              <Phone className="h-5 w-5 text-primary" />
-              <span className="ml-2 text-primary">Phone</span>
+              <Phone className="h-5 w-5 text-black" />
+              <span className="ml-2 text-black">Phone</span>
             </label>
 
             <label className={`tap-reset relative flex cursor-pointer items-center justify-center rounded-md border p-4 ${contactMethod === 'whatsapp' ? 'border-black/10 bg-black/[0.03] shadow-sm' : 'border-gray-200 bg-white'}`}>
@@ -473,8 +473,8 @@ export default function ReservationForm({
                 onChange={(e) => setContactMethod(e.target.value)}
                 className="absolute opacity-0"
               />
-              <MessageSquare className="h-5 w-5 text-primary" />
-              <span className="ml-2 text-primary">WhatsApp</span>
+              <MessageSquare className="h-5 w-5 text-black" />
+              <span className="ml-2 text-black">WhatsApp</span>
             </label>
           </div>
         </div>

@@ -13,7 +13,7 @@ export default function ContactPage() {
         <div className="mb-8" data-animate="fade-right">
           <Link
             href="/"
-            className="inline-flex items-center rounded-full border border-primary/20 bg-white/80 px-6 py-3 text-lg font-semibold text-primary shadow-lg transition-all duration-300"
+            className="inline-flex items-center rounded-full border border-primary/20 bg-white/80 px-6 py-3 text-lg font-semibold text-black shadow-lg transition-all duration-300"
           >
             <div className="relative mr-3">
               <ArrowLeft className="w-5 h-5" />
@@ -39,7 +39,7 @@ export default function ContactPage() {
           
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
             <div className="text-center mb-8" data-animate="fade-up">
-              <h1 className="font-playfair text-3xl md:text-4xl font-bold text-white mb-4 leading-tight" data-animate="text" data-delay="1">
+              <h1 className="font-head text-3xl md:text-4xl font-bold text-white mb-4 leading-tight" data-animate="text" data-delay="1">
                 Contact Or HaKerem
               </h1>
               <p className="text-white/90 text-lg max-w-2xl mx-auto leading-relaxed" data-animate="fade-up" data-delay="2">
@@ -56,10 +56,10 @@ export default function ContactPage() {
         {/* Additional Contact Information */}
         <section className="mt-16 bg-white rounded-2xl shadow-xl p-8 md:p-12" data-animate="fade-up">
           <div className="text-center mb-8">
-            <h2 className="font-playfair text-3xl font-bold text-primary mb-4" data-animate="text">
+            <h2 className="font-head text-3xl font-bold text-black mb-4" data-animate="text">
               Other Ways to Reach Us
             </h2>
-            <p className="text-primary/80 text-lg">
+            <p className="text-black/80 text-lg">
               Choose the method that works best for you
             </p>
           </div>
@@ -70,10 +70,10 @@ export default function ContactPage() {
               <div className="inline-flex items-center justify-center w-16 h-16 bg-gradient-to-br from-secondary to-secondary-light rounded-full mb-4">
                 <span className="text-2xl">📧</span>
               </div>
-              <h3 className="font-playfair text-xl font-bold text-primary mb-2">Email</h3>
+              <h3 className="font-head text-xl font-bold text-black mb-2">Email</h3>
               <a 
                 href="mailto:keremliving@gmail.com"
-                className="font-medium text-primary/80"
+                className="font-medium text-black/80"
               >
                 keremliving@gmail.com
               </a>
@@ -84,11 +84,11 @@ export default function ContactPage() {
               <div className="inline-flex items-center justify-center w-16 h-16 bg-gradient-to-br from-tertiary to-tertiary-light rounded-full mb-4">
                 <span className="text-2xl text-white">📞</span>
               </div>
-              <h3 className="font-playfair text-xl font-bold text-primary mb-2">Phone & WhatsApp</h3>
+              <h3 className="font-head text-xl font-bold text-black mb-2">Phone & WhatsApp</h3>
               <div className="space-y-3">
                 <a 
                   href="tel:+33651179925"
-                  className="block font-medium text-primary/80"
+                  className="block font-medium text-black/80"
                 >
                   +33 6 51 17 99 25
                 </a>
@@ -96,7 +96,7 @@ export default function ContactPage() {
                   href="https://wa.me/972526869791"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="inline-flex items-center justify-center rounded-full bg-gradient-to-r from-secondary to-secondary-light px-5 py-2.5 font-semibold text-primary shadow-lg transition-all duration-300"
+                  className="inline-flex items-center justify-center rounded-full bg-gradient-to-r from-secondary to-secondary-light px-5 py-2.5 font-semibold text-black shadow-lg transition-all duration-300"
                 >
                   WhatsApp: +972 52 686 9791
                 </a>
@@ -108,12 +108,12 @@ export default function ContactPage() {
               <div className="inline-flex items-center justify-center w-16 h-16 bg-gradient-to-br from-primary to-primary-light rounded-full mb-4">
                 <span className="text-2xl text-white">📱</span>
               </div>
-              <h3 className="font-playfair text-xl font-bold text-primary mb-2">Social Media</h3>
+              <h3 className="font-head text-xl font-bold text-black mb-2">Social Media</h3>
               <a 
                 href="https://www.instagram.com/or_hakerem/"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="font-medium text-primary/80"
+                className="font-medium text-black/80"
               >
                 @or_hakerem
               </a>

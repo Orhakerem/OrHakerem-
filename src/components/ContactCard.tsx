@@ -32,12 +32,12 @@ export function ContactCard({
       <div className="flex flex-col justify-between lg:col-span-2">
         <div className="relative h-full space-y-4 px-4 py-8 md:p-8">
           {title && (
-            <h2 className="font-playfair text-3xl font-bold text-primary md:text-4xl lg:text-5xl">
+            <h2 className="font-head text-3xl font-bold text-black md:text-4xl lg:text-5xl">
               {title}
             </h2>
           )}
           {description && (
-            <p className="max-w-xl text-sm text-primary/70 md:text-base lg:text-lg">
+            <p className="max-w-xl text-sm text-black/70 md:text-base lg:text-lg">
               {description}
             </p>
           )}
@@ -69,11 +69,11 @@ function ContactInfo({
   const content = (
     <>
       <div className="rounded-lg bg-secondary-lighter p-3">
-        <Icon className="h-5 w-5 text-primary" />
+        <Icon className="h-5 w-5 text-black" />
       </div>
       <div>
-        <p className="font-medium text-primary">{label}</p>
-        <p className="text-xs text-primary/60">{value}</p>
+        <p className="font-medium text-black">{label}</p>
+        <p className="text-xs text-black/60">{value}</p>
       </div>
     </>
   );

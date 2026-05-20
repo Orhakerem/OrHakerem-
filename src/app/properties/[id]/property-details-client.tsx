@@ -438,7 +438,7 @@ export default function PropertyDetailsClient({
     <h1
       className={
         property
-          ? 'font-playfair text-3xl font-bold text-black mb-2'
+          ? 'font-head text-3xl font-bold text-black mb-2'
           : 'text-2xl font-bold text-black mb-4'
       }
     >
@@ -766,7 +766,7 @@ export default function PropertyDetailsClient({
                       priceError={priceError}
                       validationError={formErrors.price}
                       className="bg-white rounded-[10px] p-6 border border-primary/10 shadow-sm"
-                      totalValueClassName="font-playfair text-xl font-bold"
+                      totalValueClassName="font-head text-xl font-bold"
                     />
                   ) : null}
 
@@ -1001,7 +1001,7 @@ export default function PropertyDetailsClient({
         <div className="min-w-0">
           {/* 2. Title + property type subtitle */}
           <header>
-            <h1 className="font-playfair text-3xl md:text-4xl font-bold text-black leading-tight">
+            <h1 className="font-head text-3xl md:text-4xl font-bold text-black leading-tight">
               {property.title}
             </h1>
             <p className="mt-3 text-black/70">
@@ -1033,7 +1033,7 @@ export default function PropertyDetailsClient({
 
           {/* 6. Select check-in date — inline calendar (moved above About this space) */}
           <section id="select-checkin-date">
-            <h2 className="font-playfair text-2xl md:text-3xl font-bold text-black">
+            <h2 className="font-head text-2xl md:text-3xl font-bold text-black">
               Plan your stay
             </h2>
             <p className="mt-2 text-black/70">
@@ -1054,7 +1054,7 @@ export default function PropertyDetailsClient({
 
           {/* 7. About this space */}
           <section>
-            <h2 className="font-playfair text-2xl md:text-3xl font-bold text-black">
+            <h2 className="font-head text-2xl md:text-3xl font-bold text-black">
               About this space
             </h2>
             <div
@@ -1086,7 +1086,7 @@ export default function PropertyDetailsClient({
 
           {/* 9. What this place offers */}
           <section>
-            <h2 className="font-playfair text-2xl md:text-3xl font-bold text-black">
+            <h2 className="font-head text-2xl md:text-3xl font-bold text-black">
               What this place offers
             </h2>
             <div className="mt-6 grid gap-y-4 sm:grid-cols-2 sm:gap-x-8">
@@ -1116,7 +1116,7 @@ export default function PropertyDetailsClient({
               <p className="text-[11px] font-semibold uppercase tracking-[0.22em] text-secondary">
                 Reservation
               </p>
-              <h2 className="mt-1 font-playfair text-xl font-bold text-black">
+              <h2 className="mt-1 font-head text-xl font-bold text-black">
                 Book your stay
               </h2>
               <p className="mt-1 text-xs text-black/75">
@@ -1162,7 +1162,7 @@ export default function PropertyDetailsClient({
           className="fixed inset-0 z-50 overflow-y-auto bg-cream"
         >
           <div className="sticky top-0 z-10 flex items-center justify-between border-b border-primary/10 bg-cream/95 backdrop-blur-sm px-4 sm:px-6 py-4">
-            <p className="font-playfair text-lg font-bold text-black">
+            <p className="font-head text-lg font-bold text-black">
               {property.title} — All photos
             </p>
             <button
@@ -1195,7 +1195,7 @@ export default function PropertyDetailsClient({
         >
           <div className="w-full sm:max-w-lg max-h-[85vh] overflow-y-auto rounded-t-3xl sm:rounded-3xl bg-cream shadow-2xl">
             <div className="sticky top-0 z-10 flex items-center justify-between border-b border-primary/10 bg-cream/95 backdrop-blur-sm px-6 py-4">
-              <p className="font-playfair text-lg font-bold text-black">
+              <p className="font-head text-lg font-bold text-black">
                 What this place offers
               </p>
               <button
@@ -1241,7 +1241,7 @@ export default function PropertyDetailsClient({
               <p className="text-xs font-semibold uppercase tracking-[0.22em] text-secondary">
                 Reservation
               </p>
-              <p className="mt-0.5 font-playfair text-lg font-bold text-black">Book your stay</p>
+              <p className="mt-0.5 font-head text-lg font-bold text-black">Book your stay</p>
             </div>
             <button
               type="button"

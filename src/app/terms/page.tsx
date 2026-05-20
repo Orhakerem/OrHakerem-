@@ -102,7 +102,7 @@ export default function TermsPage() {
   const renderBulletList = (items: string[]) => (
     <ul className="space-y-3">
       {items.map((item) => (
-        <li key={item} className="flex items-start text-primary/80 leading-relaxed">
+        <li key={item} className="flex items-start text-black/80 leading-relaxed">
           <span className="mt-2 mr-3 h-2 w-2 flex-shrink-0 rounded-full bg-secondary"></span>
           <span>{item}</span>
         </li>
@@ -116,7 +116,7 @@ export default function TermsPage() {
         <div className="mb-8 flex justify-end" data-animate="fade-left">
           <button
             onClick={handlePrint}
-            className="inline-flex items-center rounded-full border border-primary/15 bg-white px-4 py-2 font-semibold text-primary shadow-sm transition-all duration-300"
+            className="inline-flex items-center rounded-full border border-primary/15 bg-white px-4 py-2 font-semibold text-black shadow-sm transition-all duration-300"
           >
             <Printer className="mr-2 h-4 w-4" />
             Print
@@ -128,25 +128,25 @@ export default function TermsPage() {
             <div className="mb-6 inline-flex h-16 w-16 items-center justify-center rounded-full bg-gradient-to-br from-primary to-primary-light">
               <FileText className="h-8 w-8 text-white" />
             </div>
-            <h1 className="font-playfair text-4xl font-bold text-primary md:text-5xl" data-animate="text">
+            <h1 className="font-head text-4xl font-bold text-black md:text-5xl" data-animate="text">
               Terms &amp; Conditions
             </h1>
-            <p className="mx-auto mt-4 max-w-3xl text-lg leading-relaxed text-primary/75">
+            <p className="mx-auto mt-4 max-w-3xl text-lg leading-relaxed text-black/75">
               Please review the following booking, payment, stay, and responsibility terms for Or Hakerem.
             </p>
           </div>
 
           <section className="mb-10" data-animate="fade-up" data-delay="1">
-            <h2 className="font-playfair text-3xl font-bold text-primary">1. Cancellation &amp; Refund Policy</h2>
+            <h2 className="font-head text-3xl font-bold text-black">1. Cancellation &amp; Refund Policy</h2>
             <div className="mt-3 h-px w-full bg-gradient-to-r from-secondary to-transparent"></div>
 
             <div className="mt-8 rounded-2xl border border-primary/10 bg-cream/50 p-6 md:p-8">
-              <h3 className="font-playfair text-2xl font-semibold text-primary">1.1 Standard Cancellation Policy</h3>
+              <h3 className="font-head text-2xl font-semibold text-black">1.1 Standard Cancellation Policy</h3>
               <div className="mt-6 grid gap-4 md:grid-cols-2">
                 {standardCancellationPolicy.map((item) => (
                   <div key={item.title} className="rounded-2xl border border-primary/10 bg-white p-5">
-                    <h4 className="font-semibold text-primary">{item.title}</h4>
-                    <p className="mt-2 text-primary/75 leading-relaxed">{item.body}</p>
+                    <h4 className="font-semibold text-black">{item.title}</h4>
+                    <p className="mt-2 text-black/75 leading-relaxed">{item.body}</p>
                   </div>
                 ))}
               </div>
@@ -154,8 +154,8 @@ export default function TermsPage() {
 
             <div className="mt-6 grid gap-6 lg:grid-cols-2">
               <div className="rounded-2xl border border-primary/10 bg-white p-6">
-                <h3 className="font-playfair text-2xl font-semibold text-primary">1.2 Non-Refundable Situations</h3>
-                <p className="mt-4 text-primary/75 leading-relaxed">
+                <h3 className="font-head text-2xl font-semibold text-black">1.2 Non-Refundable Situations</h3>
+                <p className="mt-4 text-black/75 leading-relaxed">
                   Refunds will not be provided for events beyond the company&apos;s control, including
                   (but not limited to):
                 </p>
@@ -163,10 +163,10 @@ export default function TermsPage() {
               </div>
 
               <div className="rounded-2xl border border-primary/10 bg-white p-6">
-                <h3 className="font-playfair text-2xl font-semibold text-primary">
+                <h3 className="font-head text-2xl font-semibold text-black">
                   1.3 Geopolitical Events &amp; Flight Disruptions – Voucher Policy
                 </h3>
-                <p className="mt-4 text-primary/75 leading-relaxed">
+                <p className="mt-4 text-black/75 leading-relaxed">
                   In cases of official travel bans, airport closures, or flight suspensions declared by authorities:
                 </p>
                 <div className="mt-5">{renderBulletList(voucherPolicy)}</div>
@@ -175,23 +175,23 @@ export default function TermsPage() {
           </section>
 
           <section className="mb-10" data-animate="fade-up" data-delay="2">
-            <h2 className="font-playfair text-3xl font-bold text-primary">2. Payment Schedule</h2>
+            <h2 className="font-head text-3xl font-bold text-black">2. Payment Schedule</h2>
             <div className="mt-3 h-px w-full bg-gradient-to-r from-secondary to-transparent"></div>
 
             <div className="mt-8 rounded-2xl border border-primary/10 bg-white p-6 md:p-8">
               <div className="rounded-2xl border border-secondary/20 bg-cream p-6">
-                <h3 className="font-playfair text-2xl font-semibold text-primary">Payment Schedule (Direct Bookings)</h3>
+                <h3 className="font-head text-2xl font-semibold text-black">Payment Schedule (Direct Bookings)</h3>
                 <div className="mt-5">{renderBulletList(paymentSchedule)}</div>
               </div>
 
-              <p className="mt-6 text-primary/80 leading-relaxed">
+              <p className="mt-6 text-black/80 leading-relaxed">
                 The company reserves the right to cancel or relocate reservations not fully paid before arrival.
               </p>
             </div>
           </section>
 
           <section className="mb-10" data-animate="fade-up" data-delay="3">
-            <h2 className="font-playfair text-3xl font-bold text-primary">3. Guest Responsibilities</h2>
+            <h2 className="font-head text-3xl font-bold text-black">3. Guest Responsibilities</h2>
             <div className="mt-3 h-px w-full bg-gradient-to-r from-secondary to-transparent"></div>
 
             <div className="mt-8 rounded-2xl border border-primary/10 bg-white p-6 md:p-8">
@@ -200,33 +200,33 @@ export default function TermsPage() {
           </section>
 
           <section className="mb-10" data-animate="fade-up">
-            <h2 className="font-playfair text-3xl font-bold text-primary">4. Responsibilities of Or Hakerem</h2>
+            <h2 className="font-head text-3xl font-bold text-black">4. Responsibilities of Or Hakerem</h2>
             <div className="mt-3 h-px w-full bg-gradient-to-r from-secondary to-transparent"></div>
 
             <div className="mt-8 grid gap-6 lg:grid-cols-2">
               <div className="rounded-2xl border border-primary/10 bg-white p-6">
-                <h3 className="font-playfair text-2xl font-semibold text-primary">Or Hakerem is committed to</h3>
+                <h3 className="font-head text-2xl font-semibold text-black">Or Hakerem is committed to</h3>
                 <div className="mt-5">{renderBulletList(companyResponsibilities)}</div>
               </div>
 
               <div className="rounded-2xl border border-primary/10 bg-white p-6">
-                <h3 className="font-playfair text-2xl font-semibold text-primary">Or Hakerem is not liable for</h3>
+                <h3 className="font-head text-2xl font-semibold text-black">Or Hakerem is not liable for</h3>
                 <div className="mt-5">{renderBulletList(companyLimitations)}</div>
               </div>
             </div>
           </section>
 
           <section className="mb-10" data-animate="fade-up">
-            <h2 className="font-playfair text-3xl font-bold text-primary">5. Travel Insurance &amp; Geopolitical Disclaimer</h2>
+            <h2 className="font-head text-3xl font-bold text-black">5. Travel Insurance &amp; Geopolitical Disclaimer</h2>
             <div className="mt-3 h-px w-full bg-gradient-to-r from-secondary to-transparent"></div>
 
             <div className="mt-8 rounded-2xl border border-primary/10 bg-white p-6 md:p-8">
-              <p className="text-primary/80 leading-relaxed">
+              <p className="text-black/80 leading-relaxed">
                 Guests are strongly advised to purchase travel insurance covering:
               </p>
               <div className="mt-5">{renderBulletList(insuranceCoverage)}</div>
 
-              <div className="mt-6 space-y-4 text-primary/80 leading-relaxed">
+              <div className="mt-6 space-y-4 text-black/80 leading-relaxed">
                 <p>
                   Geopolitical tensions or security situations in Israel are not considered force majeure unless
                   officially declared by authorities (for example: airport closure or travel ban).
@@ -241,11 +241,11 @@ export default function TermsPage() {
           </section>
 
           <section data-animate="fade-up">
-            <h2 className="font-playfair text-3xl font-bold text-primary">6. Termination, Penalties &amp; Overstay</h2>
+            <h2 className="font-head text-3xl font-bold text-black">6. Termination, Penalties &amp; Overstay</h2>
             <div className="mt-3 h-px w-full bg-gradient-to-r from-secondary to-transparent"></div>
 
             <div className="mt-8 rounded-2xl border border-primary/10 bg-white p-6 md:p-8">
-              <div className="space-y-4 text-primary/80 leading-relaxed">
+              <div className="space-y-4 text-black/80 leading-relaxed">
                 <p>
                   The rental period terminates automatically on the agreed check-out date, without notice.
                 </p>
@@ -265,7 +265,7 @@ export default function TermsPage() {
         {showBackToTop && (
           <button
             onClick={scrollToTop}
-            className="fixed bottom-8 right-8 z-40 rounded-full bg-gradient-to-r from-secondary to-secondary-light p-4 text-primary shadow-lg transition-all duration-300"
+            className="fixed bottom-8 right-8 z-40 rounded-full bg-gradient-to-r from-secondary to-secondary-light p-4 text-black shadow-lg transition-all duration-300"
             aria-label="Back to top"
           >
             <ArrowUp className="h-6 w-6" />

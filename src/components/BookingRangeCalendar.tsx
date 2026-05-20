@@ -298,7 +298,7 @@ export default function BookingRangeCalendar({
             <span className="block text-[10px] font-semibold uppercase tracking-[0.22em] text-black/50">
               Check-in
             </span>
-            <span className="mt-1.5 block font-playfair text-base font-semibold text-black sm:text-lg">
+            <span className="mt-1.5 block font-head text-base font-semibold text-black sm:text-lg">
               {checkInLabel}
             </span>
           </button>
@@ -314,7 +314,7 @@ export default function BookingRangeCalendar({
             <span className="block text-[10px] font-semibold uppercase tracking-[0.22em] text-black/50">
               Check-out
             </span>
-            <span className="mt-1.5 block font-playfair text-base font-semibold text-black sm:text-lg">
+            <span className="mt-1.5 block font-head text-base font-semibold text-black sm:text-lg">
               {checkOutLabel}
             </span>
           </button>
@@ -323,7 +323,7 @@ export default function BookingRangeCalendar({
             <span className="block text-[10px] font-semibold uppercase tracking-[0.22em] text-black/50">
               Stay
             </span>
-            <span className="mt-1.5 block font-playfair text-base font-semibold text-black sm:text-lg">
+            <span className="mt-1.5 block font-head text-base font-semibold text-black sm:text-lg">
               {stayLabel}
             </span>
           </div>
@@ -387,7 +387,7 @@ export default function BookingRangeCalendar({
               months: 'flex flex-col gap-6 md:flex-row md:gap-6',
               month: 'w-full max-w-[20rem] mx-auto space-y-3',
               month_caption: 'flex h-9 items-center justify-center',
-              caption_label: 'font-playfair text-base font-semibold text-black',
+              caption_label: 'font-head text-base font-semibold text-black',
               weekdays: 'grid grid-cols-7 gap-1',
               weekday:
                 'text-center text-[10px] font-semibold uppercase tracking-[0.22em] text-black/45',

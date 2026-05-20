@@ -23,7 +23,7 @@ export default function HeroAnimatedTitle({ className = '' }: HeroAnimatedTitleP
 
   return (
     <h1
-      className={`hero-animated-title font-playfair font-bold ${className}`}
+      className={`hero-animated-title font-head font-bold ${className}`}
     >
       <span className="hero-animated-title-stage">
         {titles.map((title, index) => (

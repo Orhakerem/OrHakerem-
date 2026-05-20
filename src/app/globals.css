@@ -5,7 +5,7 @@
 :root {
   --background: #ffffff;
   --foreground: #171717;
-  --color-cream: #f5f5f5;
+  --color-cream: #e8e4dc;
   --color-primary: #a5382b;
   --color-secondary: #d8b084;
   --color-tertiary: #115814;
@@ -15,6 +15,7 @@
   --color-secondary-lighter: rgba(216, 176, 132, 0.15);
   --color-tertiary-light: rgba(17, 88, 20, 0.9);
   --color-tertiary-lighter: rgba(17, 88, 20, 0.15);
+  --font-mono: ui-monospace, "SF Mono", Menlo, monospace;
   }
 
 @media (prefers-color-scheme: dark) {
@@ -337,8 +338,8 @@
   }
 
   body {
-    @apply bg-cream text-primary cursor-default;
-    font-family: var(--font-inter), -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    @apply bg-cream text-black cursor-default;
+    font-family: var(--font-body), -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
     margin: 0;
     padding: 0;
     overflow-x: clip;
@@ -356,19 +357,63 @@
     height: auto;
   }
 
-  /* Enhanced font families */
-  .font-playfair {
-    font-family: var(--font-playfair), serif;
+  /* Heading base styles */
+  h1, h2, h3, h4, h5, h6 {
+    font-family: var(--font-head), system-ui, sans-serif;
+    font-weight: 500;
   }
+  h1 { line-height: 0.96; letter-spacing: -0.04em; }
+  h1 em { font-style: italic; font-weight: 300; opacity: 0.78; }
+  h2 { line-height: 1.02; letter-spacing: -0.02em; }
+  h3 { line-height: 1.2;  letter-spacing: -0.01em; }
 
-  .font-lato {
-    font-family: var(--font-lato), sans-serif;
+  /* Font-family aliases */
+  .font-head { font-family: var(--font-head), system-ui, sans-serif; }
+  .font-body { font-family: var(--font-body), system-ui, sans-serif; }
+  .font-mono { font-family: var(--font-mono); }
+  .font-playfair { font-family: var(--font-head), system-ui, sans-serif; }
+
+  /* Typography utility classes */
+  .eyebrow {
+    font-family: var(--font-mono);
+    font-size: 11px;
     font-weight: 400;
-    letter-spacing: 0.01em;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
   }
-
-  .font-montserrat {
-    font-family: var(--font-montserrat), sans-serif;
+  .meta {
+    font-family: var(--font-mono);
+    font-size: 12px;
+    font-weight: 400;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+  }
+  .logo {
+    font-family: var(--font-head);
+    font-weight: 600;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+  }
+  .stat {
+    font-family: var(--font-head);
+    font-weight: 500;
+    font-size: 36px;
+    line-height: 1;
+    letter-spacing: -0.02em;
+  }
+  .link-cta {
+    font-family: var(--font-head);
+    font-weight: 500;
+    font-size: 14px;
+    letter-spacing: 0.02em;
+    text-transform: uppercase;
+  }
+  .field-label {
+    font-family: var(--font-body);
+    font-weight: 500;
+    font-size: 10.5px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
   }
 }
 
@@ -521,7 +566,7 @@
   }
 
   .liquid-cta--light {
-    color: #a5382b;
+    color: #171717;
     text-shadow: none;
   }
 
@@ -590,7 +635,7 @@
     gap: 0.5rem;
     padding: 14px 36px;
     border-radius: 999px;
-    color: #a5382b;
+    color: #171717;
     font-size: 1.05rem;
     font-weight: 600;
     letter-spacing: 0.3px;
@@ -950,7 +995,7 @@
     justify-content: center;
     color: #ffffff;
     text-decoration: none;
-    font-family: 'Inter', sans-serif;
+    font-family: var(--font-body), system-ui, sans-serif;
     font-weight: 700;
     font-size: 18px;
     letter-spacing: 0;
@@ -973,7 +1018,7 @@
   .nav-item-floating:hover,
   .nav-item-floating:focus-visible,
   .nav-item-floating.active {
-    color: var(--color-primary);
+    color: #171717;
     border-color: #ffffff;
     text-shadow: none;
   }
@@ -1007,7 +1052,7 @@
 
   .mobile-menu-button-floating:hover,
   .mobile-menu-button-floating:focus-visible {
-    color: var(--color-primary);
+    color: #171717;
     border-color: #ffffff;
     text-shadow: none;
   }
@@ -1043,7 +1088,7 @@
     width: fit-content;
     color: #ffffff;
     text-decoration: none;
-    font-family: 'Inter', sans-serif;
+    font-family: var(--font-body), system-ui, sans-serif;
     font-weight: 700;
     font-size: 18px;
     letter-spacing: 0;
@@ -1061,7 +1106,7 @@
   .mobile-nav-item-floating:hover,
   .mobile-nav-item-floating:focus-visible,
   .mobile-nav-item-floating.active {
-    color: var(--color-primary);
+    color: #171717;
     border-color: #ffffff;
     background: transparent;
     text-shadow: none;

@@ -112,7 +112,7 @@ function PropertyCard({ property }: { property: (typeof properties)[keyof typeof
       <div className="property-card-content pointer-events-none px-6 py-4 flex flex-col relative z-20">
         {/* Title */}
         <div className="property-card-copy mb-4 pointer-events-none">
-          <h3 className="line-clamp-2 font-playfair text-xl font-bold text-black">
+          <h3 className="line-clamp-2 font-head text-xl font-bold text-black">
             {property.title}
           </h3>
         </div>
@@ -149,7 +149,7 @@ export default function Properties() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Hero Section */}
         <div className="text-center mb-16" data-animate="fade-up">
-          <h1 className="font-playfair text-5xl md:text-6xl font-bold text-black mb-6 leading-tight" data-animate="text">
+          <h1 className="font-head text-5xl md:text-6xl font-bold text-black mb-6 leading-tight" data-animate="text">
             Luxury Apartments in Tel Aviv
           </h1>
         </div>
@@ -167,7 +167,7 @@ export default function Properties() {
               <span className="text-secondary font-semibold text-sm md:text-base tracking-[0.2em] uppercase block mb-3">
                 Stay Experience
               </span>
-              <h2 className="font-playfair text-3xl md:text-4xl font-bold text-black mb-5">
+              <h2 className="font-head text-3xl md:text-4xl font-bold text-black mb-5">
                 A more local way to stay in Tel Aviv
               </h2>
               <p className="text-black/80 text-lg leading-relaxed">
@@ -178,7 +178,7 @@ export default function Properties() {
               </p>
 
               <div className="mt-8 rounded-[10px] bg-cream border border-primary/10 px-6 py-6">
-                <h3 className="font-playfair text-2xl font-semibold text-black mb-4">
+                <h3 className="font-head text-2xl font-semibold text-black mb-4">
                   Best enjoyed on foot
                 </h3>
                 <ul className="space-y-3">
@@ -209,7 +209,7 @@ export default function Properties() {
                     <CheckCircle className="w-6 h-6" />
                   </div>
                   <div>
-                    <div className="font-playfair text-2xl font-bold text-black">4.9/5</div>
+                    <div className="font-head text-2xl font-bold text-black">4.9/5</div>
                     <div className="text-sm text-black/70">Verified guest rating</div>
                   </div>
                 </div>
@@ -223,7 +223,7 @@ export default function Properties() {
 
         <div className="max-w-6xl mx-auto mb-16" data-animate="fade-up">
           <div className="rounded-[10px] bg-gradient-to-r from-secondary/20 via-primary/15 to-secondary/20 border border-primary/30 px-6 py-5 md:px-8 md:py-6 text-center shadow-md">
-            <p className="font-playfair text-xl md:text-2xl font-semibold text-black">
+            <p className="font-head text-xl md:text-2xl font-semibold text-black">
               Booking directly with us is up to 15% cheaper than platforms!
             </p>
           </div>
@@ -231,10 +231,10 @@ export default function Properties() {
 
         <section className="max-w-6xl mx-auto mb-16" data-animate="fade-up">
           <div className="text-center mb-10">
-            <span className="text-primary font-semibold text-sm md:text-base tracking-[0.2em] uppercase block mb-3">
+            <span className="text-black font-semibold text-sm md:text-base tracking-[0.2em] uppercase block mb-3">
               Included in Every Stay
             </span>
-            <h2 className="font-playfair text-3xl md:text-4xl font-bold text-black">
+            <h2 className="font-head text-3xl md:text-4xl font-bold text-black">
               Thoughtful essentials, consistently delivered
             </h2>
           </div>
@@ -242,8 +242,8 @@ export default function Properties() {
           <div className="grid gap-10 md:grid-cols-2 xl:grid-cols-4">
             {stayHighlights.map((highlight) => (
               <div key={highlight.title}>
-                <highlight.icon className="w-7 h-7 text-primary mb-4" />
-                <h3 className="font-playfair text-2xl font-semibold text-black mb-3">
+                <highlight.icon className="w-7 h-7 text-black mb-4" />
+                <h3 className="font-head text-2xl font-semibold text-black mb-3">
                   {highlight.title}
                 </h3>
                 <p className="text-black/75 leading-relaxed">
@@ -260,10 +260,10 @@ export default function Properties() {
 
         <section className="max-w-4xl mx-auto mb-16" data-animate="fade-up">
           <div className="text-center mb-10">
-            <span className="text-primary font-semibold text-sm md:text-base tracking-[0.2em] uppercase block mb-3">
+            <span className="text-black font-semibold text-sm md:text-base tracking-[0.2em] uppercase block mb-3">
               Nearby Landmarks
             </span>
-            <h2 className="font-playfair text-3xl md:text-4xl font-bold text-black">
+            <h2 className="font-head text-3xl md:text-4xl font-bold text-black">
               Prime location in Tel Aviv
             </h2>
           </div>
@@ -271,8 +271,8 @@ export default function Properties() {
           <div className="grid gap-8 md:grid-cols-3">
             {nearbyLandmarks.map((landmark) => (
               <div key={landmark.name} className="text-center">
-                <MapPin className="w-5 h-5 mx-auto mb-3 text-primary" />
-                <h3 className="font-playfair text-xl font-semibold text-black mb-1">
+                <MapPin className="w-5 h-5 mx-auto mb-3 text-black" />
+                <h3 className="font-head text-xl font-semibold text-black mb-1">
                   {landmark.name}
                 </h3>
                 <p className="text-black/70 font-medium">{landmark.distance}</p>
@@ -287,10 +287,10 @@ export default function Properties() {
 
         <section className="max-w-6xl mx-auto mb-16" data-animate="fade-up">
           <div className="text-center mb-10">
-            <span className="text-primary font-semibold text-sm md:text-base tracking-[0.2em] uppercase block mb-3">
+            <span className="text-black font-semibold text-sm md:text-base tracking-[0.2em] uppercase block mb-3">
               Also Available On
             </span>
-            <h2 className="font-playfair text-3xl md:text-4xl font-bold text-black">
+            <h2 className="font-head text-3xl md:text-4xl font-bold text-black">
               Our listings on different platforms
             </h2>
             <p className="text-black/70 mt-4 max-w-2xl mx-auto">
@@ -300,7 +300,7 @@ export default function Properties() {
 
           <div className="grid gap-8 md:grid-cols-2">
             <div className="text-center">
-              <h3 className="font-playfair text-2xl font-semibold text-black mb-2">
+              <h3 className="font-head text-2xl font-semibold text-black mb-2">
                 Luxury Penthouse
               </h3>
               <p className="text-black/70 text-sm mb-5">Available on Airbnb and Booking.com</p>
@@ -327,7 +327,7 @@ export default function Properties() {
             </div>
 
             <div className="text-center">
-              <h3 className="font-playfair text-2xl font-semibold text-black mb-2">
+              <h3 className="font-head text-2xl font-semibold text-black mb-2">
                 Spacious & Cosy Apartment
               </h3>
               <p className="text-black/70 text-sm mb-5">Available on Airbnb</p>

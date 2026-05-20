@@ -1,28 +1,15 @@
-import { Inter, Lato, Montserrat, Playfair_Display } from 'next/font/google';
+import { Inter, Manrope } from 'next/font/google';
 
 export const inter = Inter({
   subsets: ['latin'],
-  variable: '--font-inter',
+  variable: '--font-body',
   display: 'swap',
+  weight: ['400', '500'],
 });
 
-export const playfair = Playfair_Display({
+export const manrope = Manrope({
   subsets: ['latin'],
-  variable: '--font-playfair',
+  variable: '--font-head',
   display: 'swap',
-  weight: ['400', '500', '600', '700', '800', '900'],
-});
-
-export const lato = Lato({
-  subsets: ['latin'],
-  variable: '--font-lato',
-  display: 'swap',
-  weight: ['300', '400', '700', '900'],
-});
-
-export const montserrat = Montserrat({
-  subsets: ['latin'],
-  variable: '--font-montserrat',
-  display: 'swap',
-  weight: ['400', '500', '600', '700', '800', '900'],
+  weight: ['300', '400', '500', '600'],
 });

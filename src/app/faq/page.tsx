@@ -57,7 +57,7 @@ export default function FAQPage() {
         />
 
         <div className="relative mx-auto max-w-4xl px-4 sm:px-6 lg:px-8 text-center">
-          <h1 className="font-playfair font-bold leading-[1.05] text-white text-3xl sm:text-4xl lg:text-5xl">
+          <h1 className="font-head font-bold leading-[1.05] text-white text-3xl sm:text-4xl lg:text-5xl">
             Frequently <span className="italic font-normal text-white/85">asked</span> questions
           </h1>
           <p className="mx-auto mt-4 max-w-2xl text-sm leading-6 text-white/80 sm:text-base">
@@ -77,10 +77,10 @@ export default function FAQPage() {
               >
                 <header className="flex items-start gap-4 border-b border-primary/10 px-6 py-6 sm:px-7">
                   <div className="flex-1">
-                    <h2 className="font-playfair text-2xl font-bold text-primary sm:text-[1.7rem]">
+                    <h2 className="font-head text-2xl font-bold text-black sm:text-[1.7rem]">
                       {group.category}
                     </h2>
-                    <p className="mt-1.5 text-sm leading-6 text-primary/65">
+                    <p className="mt-1.5 text-sm leading-6 text-black/65">
                       {CATEGORY_META[group.category].description}
                     </p>
                   </div>
@@ -99,11 +99,11 @@ export default function FAQPage() {
                           aria-expanded={isOpen}
                           aria-controls={`faq-${key}`}
                         >
-                          <span className="flex-1 font-playfair text-base font-semibold leading-snug text-primary sm:text-[17px]">
+                          <span className="flex-1 font-head text-base font-semibold leading-snug text-black sm:text-[17px]">
                             {faq.question}
                           </span>
                           <span
-                            className={`mt-1 flex shrink-0 items-center justify-center text-primary transition-transform duration-300 ${
+                            className={`mt-1 flex shrink-0 items-center justify-center text-black transition-transform duration-300 ${
                               isOpen ? 'rotate-180' : ''
                             }`}
                           >
@@ -117,7 +117,7 @@ export default function FAQPage() {
                           }`}
                         >
                           <div className="min-h-0">
-                            <div className="border-l-2 border-primary/15 pl-4 text-[15px] leading-7 text-primary/75">
+                            <div className="border-l-2 border-primary/15 pl-4 text-[15px] leading-7 text-black/75">
                               {faq.answer}
                             </div>
                           </div>
@@ -132,14 +132,14 @@ export default function FAQPage() {
         </div>
 
         <div className="mt-10 rounded-[1.75rem] border border-primary/10 bg-white px-6 py-8 text-center shadow-[0_18px_50px_rgba(83,45,36,0.08)] sm:px-10 sm:py-10">
-          <p className="font-playfair text-xl text-primary sm:text-2xl">
+          <p className="font-head text-xl text-black sm:text-2xl">
             Didn&apos;t find what you were looking for?
           </p>
-          <p className="mt-2 text-sm text-primary/65 sm:text-base">
+          <p className="mt-2 text-sm text-black/65 sm:text-base">
             Write to us at{' '}
             <a
               href="mailto:keremliving@gmail.com"
-              className="font-semibold text-primary underline-offset-4 hover:underline"
+              className="font-semibold text-black underline-offset-4 hover:underline"
             >
               keremliving@gmail.com
             </a>{' '}

@@ -40,15 +40,15 @@ export default function HomeContactForm({ theme = 'dark' }: HomeContactFormProps
     ? 'home-contact-card relative w-full rounded-2xl border border-secondary/30 bg-white p-6 shadow-sm'
     : 'home-contact-card relative rounded-3xl border border-white/20 bg-white/10 p-6 backdrop-blur-sm';
   const labelClass = isLight
-    ? 'mb-2 block text-sm font-medium text-primary/80'
+    ? 'mb-2 block text-sm font-medium text-black/80'
     : 'mb-2 block text-sm font-medium text-white/90';
   const inputClass = isLight
-    ? 'h-12 w-full rounded-xl border-2 border-secondary/40 bg-white px-4 text-base text-primary placeholder-primary/40 outline-none transition-colors duration-300 focus:border-primary/60 focus:ring-2 focus:ring-primary/15'
+    ? 'h-12 w-full rounded-xl border-2 border-secondary/40 bg-white px-4 text-base text-black placeholder-primary/40 outline-none transition-colors duration-300 focus:border-primary/60 focus:ring-2 focus:ring-primary/15'
     : 'h-12 w-full rounded-xl border-2 border-white/20 bg-white/10 px-4 text-base text-white placeholder-white/60 outline-none transition-colors duration-300 focus:border-white/35 focus:ring-2 focus:ring-white/15';
   const textareaClass = isLight
-    ? 'w-full resize-none rounded-xl border-2 border-secondary/40 bg-white px-4 py-3 text-base text-primary placeholder-primary/40 outline-none transition-colors duration-300 focus:border-primary/60 focus:ring-2 focus:ring-primary/15'
+    ? 'w-full resize-none rounded-xl border-2 border-secondary/40 bg-white px-4 py-3 text-base text-black placeholder-primary/40 outline-none transition-colors duration-300 focus:border-primary/60 focus:ring-2 focus:ring-primary/15'
     : 'w-full resize-none rounded-xl border-2 border-white/20 bg-white/10 px-4 py-3 text-base text-white placeholder-white/60 outline-none transition-colors duration-300 focus:border-white/35 focus:ring-2 focus:ring-white/15';
-  const helperClass = isLight ? 'text-primary/60 text-sm mt-4 font-medium' : 'text-white/70 text-sm mt-4 font-medium';
+  const helperClass = isLight ? 'text-black/60 text-sm mt-4 font-medium' : 'text-white/70 text-sm mt-4 font-medium';
 
   const containerWrap = isLight
     ? 'w-full'
@@ -112,13 +112,13 @@ export default function HomeContactForm({ theme = 'dark' }: HomeContactFormProps
               <button
                 type="submit"
                 disabled={isSubmitting}
-                className="button-hover-clean inline-flex items-center rounded-full bg-gradient-to-r from-secondary to-secondary-light px-8 py-3 text-lg font-semibold text-primary shadow-xl transition-all duration-300 disabled:cursor-not-allowed disabled:opacity-50"
+                className="button-hover-clean inline-flex items-center rounded-full bg-gradient-to-r from-secondary to-secondary-light px-8 py-3 text-lg font-semibold text-black shadow-xl transition-all duration-300 disabled:cursor-not-allowed disabled:opacity-50"
               >
                 <span className="mr-2">
                   {isSubmitting ? 'Sending...' : 'Send Message'}
                 </span>
                 <div className="w-5 h-5 bg-primary/20 rounded-full flex items-center justify-center">
-                  <span className="text-primary text-sm">→</span>
+                  <span className="text-black text-sm">→</span>
                 </div>
               </button>
             )}

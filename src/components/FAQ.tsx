@@ -14,7 +14,7 @@ export default function FAQ() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="home-faq-shell grid items-start gap-6 rounded-[1.75rem] border border-white/10 bg-primary p-5 shadow-[0_18px_60px_rgba(83,45,36,0.25)] md:grid-cols-[0.82fr_1.18fr] md:p-7 lg:p-8">
           <div className="home-faq-header text-left">
-            <h2 className="font-playfair text-3xl font-bold leading-tight text-white sm:text-4xl lg:text-5xl">
+            <h2 className="font-head text-3xl font-bold leading-tight text-white sm:text-4xl lg:text-5xl">
               Fast answers before you book
             </h2>
             <p className="mt-4 max-w-md text-sm leading-6 text-white/80 sm:text-base">
@@ -42,7 +42,7 @@ export default function FAQ() {
                   aria-expanded={openIndex === index}
                   aria-controls={`home-faq-answer-${index}`}
                 >
-                  <h3 className="font-playfair text-base font-bold leading-snug text-white sm:text-lg">
+                  <h3 className="font-head text-base font-bold leading-snug text-white sm:text-lg">
                     {faq.question}
                   </h3>
                   <ChevronDown

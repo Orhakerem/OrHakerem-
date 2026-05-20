@@ -73,7 +73,7 @@ export const faqEntries: FAQEntry[] = [
     answer: (
       <>
         You can review our cancellation terms in our{' '}
-        <Link href="/terms" className="font-medium text-primary underline underline-offset-4">
+        <Link href="/terms" className="font-medium text-black underline underline-offset-4">
           Terms &amp; Conditions page
         </Link>
         .

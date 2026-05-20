@@ -153,7 +153,7 @@ export default function EventsClient({
         {/* Hero Title - Positioned at bottom of video */}
         <div className="absolute bottom-8 md:bottom-12 left-0 right-0 z-10">
           <div className="text-center px-4">
-            <h1 className="font-playfair text-3xl md:text-4xl lg:text-5xl font-bold text-secondary animate-fadeInUp drop-shadow-lg" data-animate="text">
+            <h1 className="font-head text-3xl md:text-4xl lg:text-5xl font-bold text-secondary animate-fadeInUp drop-shadow-lg" data-animate="text">
               Boutique Event Venue in Tel Aviv
             </h1>
             <p className="max-w-3xl mx-auto mt-4 text-base md:text-lg text-white/90 leading-relaxed" data-animate="fade-up">
@@ -170,10 +170,10 @@ export default function EventsClient({
           <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
             {/* Header */}
             <div className="text-center" data-animate="fade-up">
-              <span className="text-primary font-semibold text-sm md:text-base tracking-[0.2em] uppercase block mb-3">
+              <span className="text-black font-semibold text-sm md:text-base tracking-[0.2em] uppercase block mb-3">
                 Our Venues
               </span>
-              <h2 className="font-playfair text-3xl md:text-4xl lg:text-5xl font-bold text-primary leading-tight" data-animate="text">
+              <h2 className="font-head text-3xl md:text-4xl lg:text-5xl font-bold text-black leading-tight" data-animate="text">
                 Available Event Spaces
               </h2>
               <p className="mt-6 text-black/80 text-lg md:text-xl leading-relaxed max-w-3xl mx-auto">
@@ -203,7 +203,7 @@ export default function EventsClient({
 
             {/* Event types — flat chips */}
             <div className="mt-20 text-center" data-animate="fade-up">
-              <span className="text-primary font-semibold text-sm tracking-[0.2em] uppercase block mb-6">
+              <span className="text-black font-semibold text-sm tracking-[0.2em] uppercase block mb-6">
                 Perfect For
               </span>
               <div className="flex flex-wrap justify-center gap-2 max-w-3xl mx-auto" data-animate-group="cards">
@@ -221,17 +221,17 @@ export default function EventsClient({
             {/* Features & amenities — 3 clusters */}
             <div className="mt-20" data-animate="fade-up">
               <div className="text-center mb-10">
-                <span className="text-primary font-semibold text-sm tracking-[0.2em] uppercase block mb-3">
+                <span className="text-black font-semibold text-sm tracking-[0.2em] uppercase block mb-3">
                   Features &amp; Amenities
                 </span>
-                <h3 className="font-playfair text-2xl md:text-3xl font-bold text-primary">
+                <h3 className="font-head text-2xl md:text-3xl font-bold text-black">
                   Everything in place for your event
                 </h3>
               </div>
               <div className="grid gap-10 md:grid-cols-2 lg:grid-cols-3 md:gap-12">
                 {venueAmenityGroups.map((group) => (
                   <div key={group.title}>
-                    <h4 className="font-playfair text-lg font-semibold text-primary mb-4">
+                    <h4 className="font-head text-lg font-semibold text-black mb-4">
                       {group.title}
                     </h4>
                     <ul className="space-y-2.5">
@@ -272,7 +272,7 @@ export default function EventsClient({
                   Plan Your Event
                 </span>
               </div>
-              <h2 className="font-playfair text-3xl md:text-4xl font-bold text-white mb-4 leading-tight">
+              <h2 className="font-head text-3xl md:text-4xl font-bold text-white mb-4 leading-tight">
                 Create Unforgettable Moments
               </h2>
               <p className="text-white/90 text-lg max-w-2xl mx-auto leading-relaxed">
@@ -284,9 +284,9 @@ export default function EventsClient({
               <div className="max-w-2xl mx-auto">
                 <div className="events-plan-success bg-white/10 backdrop-blur-sm rounded-3xl p-10 text-center border border-white/20">
                   <div className="inline-block p-4 bg-gradient-to-br from-secondary to-secondary-light rounded-full mb-6">
-                    <Calendar className="w-8 h-8 text-primary" />
+                    <Calendar className="w-8 h-8 text-black" />
                   </div>
-                  <h3 className="font-playfair text-3xl font-bold text-white mb-4">
+                  <h3 className="font-head text-3xl font-bold text-white mb-4">
                     Thank you for your inquiry!
                   </h3>
                   <p className="text-white/90 text-lg mb-8">
@@ -332,10 +332,10 @@ export default function EventsClient({
             <div className="event-form w-full max-w-xl overflow-y-auto rounded-2xl border border-primary/10 bg-white shadow-2xl">
               <div className="sticky top-0 z-10 flex items-start justify-between gap-4 border-b border-primary/10 bg-white/95 px-4 py-3 backdrop-blur-sm sm:px-5">
                 <div>
-                  <h3 id="event-inquiry-title" className="font-playfair text-2xl font-bold text-primary">
+                  <h3 id="event-inquiry-title" className="font-head text-2xl font-bold text-black">
                     Event inquiry
                   </h3>
-                  <p className="mt-1 text-sm text-primary/65">
+                  <p className="mt-1 text-sm text-black/65">
                     Send the essentials. We&apos;ll reply with a tailored proposal.
                   </p>
                 </div>
@@ -345,7 +345,7 @@ export default function EventsClient({
                     setShowForm(false);
                     setIsDatePickerOpen(false);
                   }}
-                  className="tap-reset -mr-1 shrink-0 p-2 text-primary/55 transition hover:text-primary"
+                  className="tap-reset -mr-1 shrink-0 p-2 text-black/55 transition hover:text-black"
                 >
                   <span className="sr-only">Close</span>
                   <X className="h-4 w-4" />
@@ -361,7 +361,7 @@ export default function EventsClient({
                     <div>
                       <label
                         htmlFor="eventType"
-                        className="mb-1.5 block text-sm font-medium text-primary/80"
+                        className="mb-1.5 block text-sm font-medium text-black/80"
                       >
                         Event type
                       </label>
@@ -369,7 +369,7 @@ export default function EventsClient({
                         id="eventType"
                         name="eventType"
                         required
-                        className="h-11 w-full rounded-lg border border-primary/15 bg-white px-3 text-sm text-primary focus:border-black/15 focus:ring-2 focus:ring-black/10"
+                        className="h-11 w-full rounded-lg border border-primary/15 bg-white px-3 text-sm text-black focus:border-black/15 focus:ring-2 focus:ring-black/10"
                       >
                         <option value="">Select type</option>
                         <option value="wedding">Wedding</option>
@@ -387,7 +387,7 @@ export default function EventsClient({
                     <div>
                       <label
                         htmlFor="guestCount"
-                        className="mb-1.5 block text-sm font-medium text-primary/80"
+                        className="mb-1.5 block text-sm font-medium text-black/80"
                       >
                         Guests
                       </label>
@@ -398,13 +398,13 @@ export default function EventsClient({
                         required
                         min="1"
                         max="80"
-                        className="h-11 w-full rounded-lg border border-primary/15 bg-white px-3 text-sm text-primary focus:border-black/15 focus:ring-2 focus:ring-black/10"
+                        className="h-11 w-full rounded-lg border border-primary/15 bg-white px-3 text-sm text-black focus:border-black/15 focus:ring-2 focus:ring-black/10"
                       />
                     </div>
                   </div>
 
                   <div>
-                    <span className="mb-1.5 block text-sm font-medium text-primary/80">
+                    <span className="mb-1.5 block text-sm font-medium text-black/80">
                       Event date
                     </span>
                     <button
@@ -414,10 +414,10 @@ export default function EventsClient({
                       aria-expanded={isDatePickerOpen}
                     >
                       <span>
-                        <span className="block text-[11px] font-semibold uppercase tracking-[0.2em] text-primary/45">
+                        <span className="block text-[11px] font-semibold uppercase tracking-[0.2em] text-black/45">
                           {eventDate ? 'Selected date' : 'Choose date'}
                         </span>
-                        <span className="mt-1 block font-playfair text-lg font-semibold text-primary">
+                        <span className="mt-1 block font-head text-lg font-semibold text-black">
                           {eventDate ? formatIsoDate(eventDate) : 'Add event date'}
                         </span>
                       </span>
@@ -446,7 +446,7 @@ export default function EventsClient({
                     <div>
                       <label
                         htmlFor="name"
-                        className="mb-1.5 block text-sm font-medium text-primary/80"
+                        className="mb-1.5 block text-sm font-medium text-black/80"
                       >
                         Name
                       </label>
@@ -455,25 +455,25 @@ export default function EventsClient({
                         id="name"
                         name="name"
                         required
-                        className="h-11 w-full rounded-lg border border-primary/15 bg-white px-3 text-sm text-primary focus:border-black/15 focus:ring-2 focus:ring-black/10"
+                        className="h-11 w-full rounded-lg border border-primary/15 bg-white px-3 text-sm text-black focus:border-black/15 focus:ring-2 focus:ring-black/10"
                       />
                     </div>
 
                     <div>
                       <label
                         htmlFor="email"
-                        className="mb-1.5 block text-sm font-medium text-primary/80"
+                        className="mb-1.5 block text-sm font-medium text-black/80"
                       >
                         Email
                       </label>
                       <div className="relative">
-                        <Mail className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-primary/55" />
+                        <Mail className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-black/55" />
                         <input
                           type="email"
                           id="email"
                           name="email"
                           required
-                          className="h-11 w-full rounded-lg border border-primary/15 bg-white py-2 pl-9 pr-3 text-sm text-primary focus:border-black/15 focus:ring-2 focus:ring-black/10"
+                          className="h-11 w-full rounded-lg border border-primary/15 bg-white py-2 pl-9 pr-3 text-sm text-black focus:border-black/15 focus:ring-2 focus:ring-black/10"
                         />
                       </div>
                     </div>
@@ -481,18 +481,18 @@ export default function EventsClient({
                     <div>
                       <label
                         htmlFor="phone"
-                        className="mb-1.5 block text-sm font-medium text-primary/80"
+                        className="mb-1.5 block text-sm font-medium text-black/80"
                       >
                         Phone
                       </label>
                       <div className="relative">
-                        <Phone className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-primary/55" />
+                        <Phone className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-black/55" />
                         <input
                           type="tel"
                           id="phone"
                           name="phone"
                           required
-                          className="h-11 w-full rounded-lg border border-primary/15 bg-white py-2 pl-9 pr-3 text-sm text-primary focus:border-black/15 focus:ring-2 focus:ring-black/10"
+                          className="h-11 w-full rounded-lg border border-primary/15 bg-white py-2 pl-9 pr-3 text-sm text-black focus:border-black/15 focus:ring-2 focus:ring-black/10"
                         />
                       </div>
                     </div>
@@ -501,7 +501,7 @@ export default function EventsClient({
                   <div>
                     <label
                       htmlFor="message"
-                      className="mb-1.5 block text-sm font-medium text-primary/80"
+                      className="mb-1.5 block text-sm font-medium text-black/80"
                     >
                       Note
                     </label>
@@ -509,7 +509,7 @@ export default function EventsClient({
                       id="message"
                       name="message"
                       rows={3}
-                      className="w-full rounded-lg border border-primary/15 bg-white px-3 py-2 text-sm text-primary focus:border-black/15 focus:ring-2 focus:ring-black/10"
+                      className="w-full rounded-lg border border-primary/15 bg-white px-3 py-2 text-sm text-black focus:border-black/15 focus:ring-2 focus:ring-black/10"
                       placeholder="Kosher needs, timing, setup, or anything we should know..."
                     ></textarea>
                   </div>
@@ -547,7 +547,7 @@ export default function EventsClient({
       {showBackToTop && (
         <button
           onClick={scrollToTop}
-          className="fixed bottom-8 right-8 z-40 rounded-full bg-gradient-to-r from-secondary to-secondary-light p-4 text-primary shadow-lg"
+          className="fixed bottom-8 right-8 z-40 rounded-full bg-gradient-to-r from-secondary to-secondary-light p-4 text-black shadow-lg"
           aria-label="Back to top"
         >
           <ArrowUp className="w-6 h-6" />

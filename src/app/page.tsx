@@ -49,25 +49,25 @@ export default function Home() {
           <div className="grid grid-cols-[minmax(0,0.9fr)_minmax(152px,1fr)] items-center gap-4 sm:gap-8 lg:gap-16">
             <div className="min-w-0 text-left">
               <div className="mb-5 sm:mb-6">
-                <h2 className="font-playfair text-4xl md:text-5xl lg:text-6xl font-bold text-primary leading-tight mb-6">
+                <h2 className="font-head text-4xl md:text-5xl lg:text-6xl font-bold text-black leading-tight mb-6">
                   Welcome
                 </h2>
               </div>
 
               <div className="max-w-3xl space-y-4 sm:space-y-6 text-sm sm:text-lg md:text-xl">
-                <p className="text-primary/90 leading-relaxed font-light font-lato">
+                <p className="text-black/90 leading-relaxed font-light font-body">
                   Or Hakerem is a unique building offering premium apartments for short-term stays in the heart of Tel Aviv.
                 </p>
 
-                <p className="text-primary/80 leading-relaxed font-light font-lato">
+                <p className="text-black/80 leading-relaxed font-light font-body">
                   Located in Kerem HaTeimanim, near Carmel Market and within walking distance to the beach, the property places you right in the center of it all — just moments from Banana Beach, Nachalat Binyamin, and the vibrant energy of the city.
                 </p>
 
-                <p className="text-primary/85 leading-relaxed font-light font-lato">
+                <p className="text-black/85 leading-relaxed font-light font-body">
                   Each apartment comes in a different format, designed to suit everything from short city stays to family trips, private gatherings, and special events. What they all share is the same standard: carefully designed spaces, comfort, and a location that makes everything feel easy.
                 </p>
 
-                <p className="text-primary/85 leading-relaxed font-light font-lato">
+                <p className="text-black/85 leading-relaxed font-light font-body">
                   Whether you’re coming for a few days by the sea or planning a more private moment, Or Hakerem offers a flexible and elevated way to experience Tel Aviv.
                 </p>
               </div>
@@ -120,7 +120,7 @@ export default function Home() {
                 <span className="text-secondary font-semibold text-lg tracking-[0.2em] uppercase block mb-3">
                   Our Location
                 </span>
-                <h2 className="font-playfair text-4xl md:text-5xl lg:text-6xl font-bold text-white leading-tight" data-animate="text" data-delay="1">
+                <h2 className="font-head text-4xl md:text-5xl lg:text-6xl font-bold text-white leading-tight" data-animate="text" data-delay="1">
                   At the Heart of Tel Aviv
                 </h2>
               </div>
@@ -152,7 +152,7 @@ export default function Home() {
       <section id="contact" className="home-contact-section py-16 bg-cream relative overflow-hidden mx-4" data-animate="fade-up">
         <div className="max-w-6xl mx-auto px-3 md:px-4 relative z-10">
           <div className="text-center mb-10" data-animate="fade-up">
-            <h2 className="font-playfair text-4xl md:text-5xl lg:text-6xl font-bold text-primary leading-tight" data-animate="text" data-delay="1">
+            <h2 className="font-head text-4xl md:text-5xl lg:text-6xl font-bold text-black leading-tight" data-animate="text" data-delay="1">
               Contact Us
             </h2>
           </div>

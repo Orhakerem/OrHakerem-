@@ -65,7 +65,7 @@ export default function AboutPage() {
             <span className="mb-4 inline-flex items-center rounded-full bg-white/10 px-5 py-2 text-sm font-semibold uppercase tracking-[0.22em] text-secondary">
               About Or HaKerem
             </span>
-            <h1 className="font-playfair text-4xl font-bold leading-tight md:text-6xl" data-animate="text">
+            <h1 className="font-head text-4xl font-bold leading-tight md:text-6xl" data-animate="text">
               About Or HaKerem – Luxury Stays in Tel Aviv
             </h1>
             <p className="mt-6 max-w-3xl text-lg leading-relaxed text-white/90 md:text-xl">
@@ -81,13 +81,13 @@ export default function AboutPage() {
             <span className="text-sm font-semibold uppercase tracking-[0.2em] text-secondary">
               Our Positioning
             </span>
-            <h2 className="mt-4 font-playfair text-3xl font-bold text-primary md:text-4xl">
+            <h2 className="mt-4 font-head text-3xl font-bold text-black md:text-4xl">
               A more personal standard of luxury
             </h2>
-            <p className="mt-6 text-lg leading-relaxed text-primary/80">
+            <p className="mt-6 text-lg leading-relaxed text-black/80">
               We offer a unique experience combining modern comfort with the authentic charm of one of Tel Aviv&apos;s most vibrant areas. For travelers seeking luxury apartments in Tel Aviv with both privacy and character, Or HaKerem provides a quieter, more considered alternative to conventional hospitality.
             </p>
-            <p className="mt-5 text-lg leading-relaxed text-primary/80">
+            <p className="mt-5 text-lg leading-relaxed text-black/80">
               Among the boutique stays in Tel Aviv chosen for design, discretion, and location, our approach is deliberately intimate: a smaller collection, a stronger sense of place, and one of the more distinctive unique stays in Tel Aviv for guests who value quality over volume.
             </p>
           </div>
@@ -96,13 +96,13 @@ export default function AboutPage() {
             <span className="text-sm font-semibold uppercase tracking-[0.2em] text-tertiary">
               Trust & Experience
             </span>
-            <h2 className="mt-4 font-playfair text-3xl font-bold text-primary">
+            <h2 className="mt-4 font-head text-3xl font-bold text-black">
               Hospitality built on repetition and care
             </h2>
-            <p className="mt-6 text-lg leading-relaxed text-primary/80">
+            <p className="mt-6 text-lg leading-relaxed text-black/80">
               Or HaKerem hosts dozens of guests every week across its boutique apartments and event spaces, making it a trusted choice for premium stays in Tel Aviv.
             </p>
-            <p className="mt-5 text-lg leading-relaxed text-primary/80">
+            <p className="mt-5 text-lg leading-relaxed text-black/80">
               That rhythm matters. It means every arrival, every request, and every detail is informed by real hosting experience, consistent guest expectations, and a hospitality standard shaped by repetition rather than promise alone.
             </p>
           </div>
@@ -116,7 +116,7 @@ export default function AboutPage() {
               <span className="text-sm font-semibold uppercase tracking-[0.2em] text-secondary">
                 What Makes Us Distinct
               </span>
-              <h2 className="mt-4 font-playfair text-3xl font-bold text-primary md:text-4xl">
+              <h2 className="mt-4 font-head text-3xl font-bold text-black md:text-4xl">
                 Designed for guests who value place as much as comfort
               </h2>
             </div>
@@ -127,13 +127,13 @@ export default function AboutPage() {
                   key={point.title}
                   className="rounded-2xl border border-primary/10 bg-cream p-6"
                 >
-                  <div className="mb-4 inline-flex rounded-2xl bg-primary/10 p-3 text-primary">
+                  <div className="mb-4 inline-flex rounded-2xl bg-primary/10 p-3 text-black">
                     <point.icon className="h-5 w-5" />
                   </div>
-                  <h3 className="font-playfair text-2xl font-semibold text-primary">
+                  <h3 className="font-head text-2xl font-semibold text-black">
                     {point.title}
                   </h3>
-                  <p className="mt-4 text-base leading-relaxed text-primary/75">
+                  <p className="mt-4 text-base leading-relaxed text-black/75">
                     {point.description}
                   </p>
                 </div>
@@ -141,7 +141,7 @@ export default function AboutPage() {
             </div>
 
             <div className="mt-8 rounded-2xl border border-secondary/20 bg-secondary/10 px-6 py-5">
-              <p className="text-lg leading-relaxed text-primary/80">
+              <p className="text-lg leading-relaxed text-black/80">
                 Our Kerem HaTeimanim apartments are especially valued by travelers who want a central stay without losing the texture of the neighborhood. Or HaKerem is one of the few boutique properties in Tel Aviv offering Shabbat-friendly accommodations and tailored Jewish event experiences. For guests looking for Shabbat-friendly stays in Tel Aviv, we combine practical support with a calm, premium atmosphere and tailored solutions for Jewish events, including optional kosher services.
               </p>
             </div>
@@ -155,13 +155,13 @@ export default function AboutPage() {
             <span className="text-sm font-semibold uppercase tracking-[0.2em] text-tertiary">
               Location Story
             </span>
-            <h2 className="mt-4 font-playfair text-3xl font-bold text-primary md:text-4xl">
+            <h2 className="mt-4 font-head text-3xl font-bold text-black md:text-4xl">
               Rooted in Kerem HaTeimanim
             </h2>
-            <p className="mt-6 text-lg leading-relaxed text-primary/80">
+            <p className="mt-6 text-lg leading-relaxed text-black/80">
               Located in Kerem HaTeimanim, one of Tel Aviv&apos;s oldest neighborhoods, the building blends local heritage with modern luxury.
             </p>
-            <p className="mt-5 text-lg leading-relaxed text-primary/80">
+            <p className="mt-5 text-lg leading-relaxed text-black/80">
               Located in the heart of Kerem HaTeimanim, just minutes from Carmel Market and the beach, Or HaKerem offers a unique local experience in Tel Aviv, with easy access to Banana Beach and the character of Nachalat Binyamin.
             </p>
           </div>
@@ -170,13 +170,13 @@ export default function AboutPage() {
             <span className="text-sm font-semibold uppercase tracking-[0.2em] text-secondary">
               Why Guests Choose Us
             </span>
-            <h2 className="mt-4 font-playfair text-3xl font-bold text-primary md:text-4xl">
+            <h2 className="mt-4 font-head text-3xl font-bold text-black md:text-4xl">
               Premium stays with context and consistency
             </h2>
-            <p className="mt-6 text-lg leading-relaxed text-primary/80">
+            <p className="mt-6 text-lg leading-relaxed text-black/80">
               We are not simply offering a place to sleep. We are offering a more complete way to stay in Tel Aviv: central, design-led, neighborhood-rooted, and supported by responsive hosting.
             </p>
-            <p className="mt-5 text-lg leading-relaxed text-primary/80">
+            <p className="mt-5 text-lg leading-relaxed text-black/80">
               Whether a guest is booking a short urban escape, a longer stay near the beach, or a private celebration, the goal remains the same: to deliver one of the more polished boutique stays in Tel Aviv for guests seeking comfort, credibility, and a quietly memorable local experience. Whether you are visiting Tel Aviv for a short stay or planning a private event, Or HaKerem offers a unique and elevated experience.
             </p>
           </div>
@@ -190,7 +190,7 @@ export default function AboutPage() {
               <span className="inline-flex items-center rounded-full bg-white/10 px-4 py-2 text-sm font-semibold uppercase tracking-[0.2em] text-secondary">
                 Explore Or HaKerem
               </span>
-              <h2 className="mt-5 font-playfair text-3xl font-bold md:text-4xl">
+              <h2 className="mt-5 font-head text-3xl font-bold md:text-4xl">
                 Discover the properties and the neighborhood behind them
               </h2>
               <p className="mt-5 text-lg leading-relaxed text-white/85">

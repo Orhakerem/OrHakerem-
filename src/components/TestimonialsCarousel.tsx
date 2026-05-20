@@ -126,7 +126,7 @@ export default function TestimonialsCarousel() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         {/* Header section */}
         <div className="home-testimonials-header text-center mb-16">
-          <h2 className="font-playfair text-5xl md:text-6xl font-bold text-primary mb-6 leading-tight">
+          <h2 className="font-head text-5xl md:text-6xl font-bold text-primary mb-6 leading-tight">
             What Our Guests Say
           </h2>
           <p className="text-primary/80 text-xl max-w-3xl mx-auto leading-relaxed">
@@ -186,7 +186,7 @@ export default function TestimonialsCarousel() {
               {/* Guest Info */}
               <div className="text-center">
                 <div className="home-testimonials-guest inline-block p-6 bg-gradient-to-br from-cream to-white rounded-2xl shadow-lg border border-secondary/20">
-                  <h4 className="font-playfair text-2xl font-bold text-primary mb-2">
+                  <h4 className="font-head text-2xl font-bold text-primary mb-2">
                     {testimonials[currentIndex].name}
                   </h4>
                   <div className="flex items-center justify-center text-sm text-primary/60">

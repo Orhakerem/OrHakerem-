@@ -21,10 +21,10 @@ function ServiceCard({ title, description, delay }: ServiceCardProps) {
       className="service-card relative rounded-xl border border-gray-100 bg-white p-5"
       style={{ animationDelay: `${delay}ms` }}
     >
-      <h3 className="relative z-10 mb-3 font-playfair text-xl font-bold text-primary">
+      <h3 className="relative z-10 mb-3 font-head text-xl font-bold text-black">
         {title}
       </h3>
-      <p className="relative z-10 text-sm leading-relaxed text-primary/80">
+      <p className="relative z-10 text-sm leading-relaxed text-black/80">
         {description}
       </p>
     </div>
@@ -127,7 +127,7 @@ export default function ConciergeServicesPage() {
             }}
           >
             <motion.h2
-              className="font-playfair text-5xl md:text-5xl lg:text-[4rem] font-bold leading-tight text-white"
+              className="font-head text-5xl md:text-5xl lg:text-[4rem] font-bold leading-tight text-white"
               variants={{
                 hidden: { y: 20, opacity: 0 },
                 visible: { y: 0, opacity: 1, transition: { duration: 0.5, ease: 'easeOut' } },
@@ -203,14 +203,14 @@ export default function ConciergeServicesPage() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           {/* Header section with modern design */}
           <div className="services-grid-header text-center mb-20" data-animate="fade-up">
-            <h1 className="font-playfair text-4xl md:text-6xl font-bold text-primary mb-6 leading-tight" data-animate="text">
+            <h1 className="font-head text-4xl md:text-6xl font-bold text-black mb-6 leading-tight" data-animate="text">
               Tailored to Your
               <br />
               <span className="text-transparent bg-clip-text bg-gradient-to-r from-secondary to-tertiary">
                 Every Need
               </span>
             </h1>
-            <p className="text-primary/70 text-lg md:text-xl max-w-2xl mx-auto leading-relaxed">
+            <p className="text-black/70 text-lg md:text-xl max-w-2xl mx-auto leading-relaxed">
               Discover our comprehensive range of luxury services designed to exceed your expectations
             </p>
           </div>
@@ -246,7 +246,7 @@ export default function ConciergeServicesPage() {
             <div className="w-full">
             {/* Compact Header */}
             <div className="services-contact-header text-center mb-10">
-              <h2 className="font-playfair text-3xl md:text-4xl font-bold text-white mb-3 leading-tight">
+              <h2 className="font-head text-3xl md:text-4xl font-bold text-white mb-3 leading-tight">
                 Request Concierge Services
               </h2>
               <p className="text-white/80 text-base max-w-xl mx-auto">
@@ -258,9 +258,9 @@ export default function ConciergeServicesPage() {
               <div className="max-w-2xl mx-auto">
                 <div className="services-contact-success bg-white/10 backdrop-blur-sm rounded-3xl p-10 text-center border border-white/20">
                   <div className="inline-block p-4 bg-gradient-to-br from-secondary to-secondary-light rounded-full mb-6">
-                    <Mail className="w-8 h-8 text-primary" />
+                    <Mail className="w-8 h-8 text-black" />
                   </div>
-                  <h3 className="font-playfair text-3xl font-bold text-white mb-4">
+                  <h3 className="font-head text-3xl font-bold text-white mb-4">
                     Thank you for your inquiry!
                   </h3>
                   <p className="text-white/90 text-lg mb-8">
@@ -277,7 +277,7 @@ export default function ConciergeServicesPage() {
                   <LiquidGlassButton onClick={() => setShowForm(true)}>
                     <span className="mr-2">Inquire about services</span>
                     <div className="w-5 h-5 bg-primary/20 rounded-full flex items-center justify-center">
-                      <span className="text-primary text-sm">→</span>
+                      <span className="text-black text-sm">→</span>
                     </div>
                   </LiquidGlassButton>
                 </div>
@@ -303,17 +303,17 @@ export default function ConciergeServicesPage() {
             <div className="services-form w-full max-w-2xl overflow-y-auto rounded-2xl border border-primary/10 bg-white shadow-2xl sm:rounded-3xl">
               <div className="sticky top-0 z-10 flex items-start justify-between gap-4 border-b border-primary/10 bg-white/95 px-5 py-4 backdrop-blur-sm sm:px-8 sm:py-5">
                 <div>
-                  <h3 id="services-inquiry-title" className="font-playfair text-2xl sm:text-3xl font-bold text-primary">
+                  <h3 id="services-inquiry-title" className="font-head text-2xl sm:text-3xl font-bold text-black">
                     Concierge Service Inquiry
                   </h3>
-                  <p className="mt-2 text-sm sm:text-base text-primary/70">
+                  <p className="mt-2 text-sm sm:text-base text-black/70">
                     Tell us what you need and we&apos;ll arrange it for your stay.
                   </p>
                 </div>
                 <button
                   type="button"
                   onClick={() => setShowForm(false)}
-                  className="shrink-0 rounded-full border border-primary/10 p-2 text-primary/60"
+                  className="shrink-0 rounded-full border border-primary/10 p-2 text-black/60"
                   aria-label="Close"
                 >
                   <span className="sr-only">Close</span>
@@ -325,7 +325,7 @@ export default function ConciergeServicesPage() {
                 <form onSubmit={handleSubmit} className="space-y-5">
                   <div className="grid md:grid-cols-2 gap-5">
                     <div>
-                      <label htmlFor="name" className="block text-sm font-medium text-primary/80 mb-2">
+                      <label htmlFor="name" className="block text-sm font-medium text-black/80 mb-2">
                         Your Name
                       </label>
                       <input
@@ -334,11 +334,11 @@ export default function ConciergeServicesPage() {
                         name="name"
                         placeholder="Enter your name"
                         required
-                        className="h-11 w-full rounded-lg border border-primary/15 bg-white px-4 text-sm text-primary placeholder-primary/40 outline-none transition-all duration-300 focus:border-primary/40 focus:ring-1 focus:ring-primary/20"
+                        className="h-11 w-full rounded-lg border border-primary/15 bg-white px-4 text-sm text-black placeholder-primary/40 outline-none transition-all duration-300 focus:border-primary/40 focus:ring-1 focus:ring-primary/20"
                       />
                     </div>
                     <div>
-                      <label htmlFor="email" className="block text-sm font-medium text-primary/80 mb-2">
+                      <label htmlFor="email" className="block text-sm font-medium text-black/80 mb-2">
                         Email Address
                       </label>
                       <input
@@ -347,13 +347,13 @@ export default function ConciergeServicesPage() {
                         name="email"
                         placeholder="your@email.com"
                         required
-                        className="h-11 w-full rounded-lg border border-primary/15 bg-white px-4 text-sm text-primary placeholder-primary/40 outline-none transition-all duration-300 focus:border-primary/40 focus:ring-1 focus:ring-primary/20"
+                        className="h-11 w-full rounded-lg border border-primary/15 bg-white px-4 text-sm text-black placeholder-primary/40 outline-none transition-all duration-300 focus:border-primary/40 focus:ring-1 focus:ring-primary/20"
                       />
                     </div>
                   </div>
 
                   <div>
-                    <label htmlFor="message" className="block text-sm font-medium text-primary/80 mb-2">
+                    <label htmlFor="message" className="block text-sm font-medium text-black/80 mb-2">
                       Service Request Details
                     </label>
                     <textarea
@@ -362,7 +362,7 @@ export default function ConciergeServicesPage() {
                       placeholder="Please describe the concierge service you need..."
                       rows={5}
                       required
-                      className="w-full resize-none rounded-lg border border-primary/15 bg-white px-4 py-3 text-sm text-primary placeholder-primary/40 outline-none transition-all duration-300 focus:border-primary/40 focus:ring-1 focus:ring-primary/20"
+                      className="w-full resize-none rounded-lg border border-primary/15 bg-white px-4 py-3 text-sm text-black placeholder-primary/40 outline-none transition-all duration-300 focus:border-primary/40 focus:ring-1 focus:ring-primary/20"
                     ></textarea>
                   </div>
 
@@ -393,7 +393,7 @@ export default function ConciergeServicesPage() {
       {showBackToTop && (
         <button
           onClick={scrollToTop}
-          className="fixed bottom-8 right-8 z-40 rounded-full bg-gradient-to-r from-secondary to-secondary-light p-4 text-primary shadow-lg"
+          className="fixed bottom-8 right-8 z-40 rounded-full bg-gradient-to-r from-secondary to-secondary-light p-4 text-black shadow-lg"
           aria-label="Back to top"
         >
           <ArrowUp className="w-6 h-6" />

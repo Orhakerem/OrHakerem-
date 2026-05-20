@@ -95,14 +95,14 @@ export default function BookingSingleDateCalendar({
       <div className="space-y-6">
         <div className="space-y-4 rounded-2xl border border-primary/10 bg-gradient-to-br from-cream to-white p-4">
           <div className="flex items-start gap-3">
-            <div className="rounded-2xl bg-primary/10 p-3 text-primary">
+            <div className="rounded-2xl bg-primary/10 p-3 text-black">
               <CalendarDays className="h-5 w-5" />
             </div>
             <div>
-              <p className="font-playfair text-xl font-semibold text-primary">
+              <p className="font-head text-xl font-semibold text-black">
                 Choose your event date
               </p>
-              <p className="mt-1 text-sm text-primary/70">
+              <p className="mt-1 text-sm text-black/70">
                 Select the date of your event directly from the calendar below.
               </p>
             </div>
@@ -115,19 +115,19 @@ export default function BookingSingleDateCalendar({
             <span className="block text-[11px] font-semibold uppercase tracking-[0.22em] text-white/75">
               Event date
             </span>
-            <span className="mt-2 block font-playfair text-lg font-semibold text-white">
+            <span className="mt-2 block font-head text-lg font-semibold text-white">
               {value ? formatIsoDate(value) : 'Add date'}
             </span>
           </button>
 
-          <div className="rounded-2xl border border-secondary/20 bg-secondary/10 px-4 py-4 text-primary shadow-sm">
-            <span className="block text-[11px] font-semibold uppercase tracking-[0.22em] text-primary/45">
+          <div className="rounded-2xl border border-secondary/20 bg-secondary/10 px-4 py-4 text-black shadow-sm">
+            <span className="block text-[11px] font-semibold uppercase tracking-[0.22em] text-black/45">
               Selected day
             </span>
-            <span className="mt-2 block font-playfair text-lg font-semibold">
+            <span className="mt-2 block font-head text-lg font-semibold">
               {hasSelection ? formatIsoDate(value!) : 'No date selected'}
             </span>
-            <p className="mt-2 text-sm text-primary/70">
+            <p className="mt-2 text-sm text-black/70">
               {hasSelection
                 ? 'Your event request will be sent with this date.'
                 : 'Choose the day you would like us to review for your event.'}
@@ -138,7 +138,7 @@ export default function BookingSingleDateCalendar({
             <button
               type="button"
               onClick={clearDate}
-              className="tap-reset inline-flex items-center justify-center gap-2 rounded-full border border-primary/15 bg-white px-4 py-2 text-sm font-semibold text-primary"
+              className="tap-reset inline-flex items-center justify-center gap-2 rounded-full border border-primary/15 bg-white px-4 py-2 text-sm font-semibold text-black"
             >
               <X className="h-4 w-4" />
               Clear date
@@ -154,13 +154,13 @@ export default function BookingSingleDateCalendar({
         </div>
 
         <div className="rounded-3xl border border-primary/10 bg-cream/60 p-4 md:p-6">
-          <div className="rounded-2xl bg-primary/10 p-3 text-primary">
+          <div className="rounded-2xl bg-primary/10 p-3 text-black">
             <div className="flex flex-wrap items-center justify-between gap-3">
               <div>
-                <p className="text-xs font-semibold uppercase tracking-[0.22em] text-primary/45">
+                <p className="text-xs font-semibold uppercase tracking-[0.22em] text-black/45">
                   Event calendar
                 </p>
-                <p className="mt-1 font-playfair text-xl font-semibold text-primary">
+                <p className="mt-1 font-head text-xl font-semibold text-black">
                   {hasSelection ? formatIsoDate(value!) : 'Select your event date'}
                 </p>
               </div>
@@ -169,7 +169,7 @@ export default function BookingSingleDateCalendar({
                 <button
                   type="button"
                   onClick={goToPreviousMonth}
-                  className="tap-reset inline-flex h-10 w-10 items-center justify-center rounded-full border border-primary/10 bg-white text-primary"
+                  className="tap-reset inline-flex h-10 w-10 items-center justify-center rounded-full border border-primary/10 bg-white text-black"
                   aria-label="Show previous month"
                 >
                   <ChevronLeft className="h-4 w-4" />
@@ -177,7 +177,7 @@ export default function BookingSingleDateCalendar({
                 <button
                   type="button"
                   onClick={goToNextMonth}
-                  className="tap-reset inline-flex h-10 w-10 items-center justify-center rounded-full border border-primary/10 bg-white text-primary"
+                  className="tap-reset inline-flex h-10 w-10 items-center justify-center rounded-full border border-primary/10 bg-white text-black"
                   aria-label="Show next month"
                 >
                   <ChevronRight className="h-4 w-4" />
@@ -210,14 +210,14 @@ export default function BookingSingleDateCalendar({
               months: 'flex flex-col gap-6',
               month: 'w-full max-w-[22rem] space-y-4',
               month_caption: 'flex h-10 items-center justify-center',
-              caption_label: 'font-playfair text-lg font-semibold text-primary',
+              caption_label: 'font-head text-lg font-semibold text-black',
               weekdays: 'grid grid-cols-7 gap-1',
               weekday:
-                'text-center text-[11px] font-semibold uppercase tracking-[0.22em] text-primary/45',
+                'text-center text-[11px] font-semibold uppercase tracking-[0.22em] text-black/45',
               week: 'grid grid-cols-7 gap-1',
               day: 'booking-calendar-day',
               day_button:
-                'booking-calendar-day-button tap-reset flex h-11 w-11 items-center justify-center rounded-2xl text-sm font-medium text-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-black/10',
+                'booking-calendar-day-button tap-reset flex h-11 w-11 items-center justify-center rounded-2xl text-sm font-medium text-black focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-black/10',
               disabled: 'booking-calendar-disabled',
               outside: 'booking-calendar-outside',
               today: 'booking-calendar-today',
