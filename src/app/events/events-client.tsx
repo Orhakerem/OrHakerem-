@@ -133,7 +133,7 @@ export default function EventsClient({
   return (
     <div className="min-h-screen" style={{ backgroundColor: '#e8e4dc' }}>
       {/* Video Section - Full Width */}
-      <section className="hero-section relative w-full h-[75vh] min-h-[600px] pt-20 bg-primary" data-animate="fade-up">
+      <section className="hero-section relative w-full h-[55vh] min-h-[340px] md:h-[75vh] md:min-h-[600px] pt-20 bg-primary" data-animate="fade-up">
         {/* Video Background */}
         <video
           ref={videoRef}
@@ -153,17 +153,17 @@ export default function EventsClient({
         {/* Hero Title - Positioned at bottom of video */}
         <div className="absolute bottom-[6vh] md:bottom-12 left-0 right-0 z-10">
           <div className="text-center px-4">
-            <h1 className="font-head text-3xl md:text-4xl lg:text-5xl font-bold text-secondary animate-fadeInUp drop-shadow-lg" data-animate="text">
+            <h1 className="font-head text-2xl md:text-4xl lg:text-5xl font-bold text-secondary animate-fadeInUp drop-shadow-lg" data-animate="text">
               Boutique Event Venue in Tel Aviv
             </h1>
-            <p className="max-w-3xl mx-auto mt-4 text-base md:text-lg text-white/90 leading-relaxed" data-animate="fade-up">
+            <p className="max-w-3xl mx-auto mt-2 md:mt-4 text-sm md:text-base md:text-lg text-white/90 leading-relaxed" data-animate="fade-up">
               Or HaKerem hosts boutique events and celebrations in Tel Aviv, offering a unique venue with optional kosher services.
             </p>
           </div>
         </div>
       </section>
 
-      <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
+      <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-8 md:py-20">
 
         {/* Event Spaces Section - Flat editorial */}
         <section id="venues" className="events-venues-section py-20 md:py-24 mb-20" data-animate="fade-up">
@@ -173,16 +173,16 @@ export default function EventsClient({
               <span className="text-black font-semibold text-sm md:text-base tracking-[0.2em] uppercase block mb-3">
                 Our Venues
               </span>
-              <h2 className="font-head text-3xl md:text-4xl lg:text-5xl font-bold text-black leading-tight" data-animate="text">
+              <h2 className="font-head text-2xl md:text-4xl lg:text-5xl font-bold text-black leading-tight" data-animate="text">
                 Available Event Spaces
               </h2>
-              <p className="mt-6 text-black/80 text-lg md:text-xl leading-relaxed max-w-3xl mx-auto">
+              <p className="mt-3 md:mt-6 text-black/80 text-sm md:text-xl leading-relaxed max-w-3xl mx-auto">
                 Set in the heart of Tel Aviv, our penthouse offers a refined setting for private celebrations, with panoramic sea and city views, elegant indoor spaces, and a rooftop terrace designed for intimate gatherings that feel both elevated and personal.
               </p>
             </div>
 
             {/* Pillars — flat 2-col split, hairline divider */}
-            <div className="mt-16 grid gap-10 md:grid-cols-2 md:gap-12" data-animate="fade-up">
+            <div className="mt-7 md:mt-16 grid gap-6 md:grid-cols-2 md:gap-12" data-animate="fade-up">
               <div>
                 <span className="text-secondary font-semibold text-xs tracking-[0.22em] uppercase block mb-3">
                   Jewish Events
@@ -202,8 +202,8 @@ export default function EventsClient({
             </div>
 
             {/* Event types — flat chips */}
-            <div className="mt-20 text-center" data-animate="fade-up">
-              <span className="text-black font-semibold text-sm tracking-[0.2em] uppercase block mb-6">
+            <div className="mt-8 md:mt-20 text-center" data-animate="fade-up">
+              <span className="text-black font-semibold text-sm tracking-[0.2em] uppercase block mb-3 md:mb-6">
                 Perfect For
               </span>
               <div className="flex flex-wrap justify-center gap-2 max-w-3xl mx-auto" data-animate-group="cards">
@@ -219,16 +219,16 @@ export default function EventsClient({
             </div>
 
             {/* Features & amenities — 3 clusters */}
-            <div className="mt-20" data-animate="fade-up">
-              <div className="text-center mb-10">
+            <div className="mt-8 md:mt-20" data-animate="fade-up">
+              <div className="text-center mb-5 md:mb-10">
                 <span className="text-black font-semibold text-sm tracking-[0.2em] uppercase block mb-3">
                   Features &amp; Amenities
                 </span>
-                <h3 className="font-head text-2xl md:text-3xl font-bold text-black">
+                <h3 className="font-head text-lg md:text-3xl font-bold text-black">
                   Everything in place for your event
                 </h3>
               </div>
-              <div className="grid gap-10 md:grid-cols-2 lg:grid-cols-3 md:gap-12">
+              <div className="grid gap-5 md:grid-cols-2 lg:grid-cols-3 md:gap-12">
                 {venueAmenityGroups.map((group) => (
                   <div key={group.title}>
                     <h4 className="font-head text-lg font-semibold text-black mb-4">
@@ -272,10 +272,10 @@ export default function EventsClient({
                   Plan Your Event
                 </span>
               </div>
-              <h2 className="font-head text-3xl md:text-4xl font-bold text-white mb-4 leading-tight">
+              <h2 className="font-head text-2xl md:text-4xl font-bold text-white mb-4 leading-tight">
                 Create Unforgettable Moments
               </h2>
-              <p className="text-white/90 text-lg max-w-2xl mx-auto leading-relaxed">
+              <p className="text-white/90 text-sm md:text-lg max-w-2xl mx-auto leading-relaxed">
                 Share your guest count, event style, and any kosher requirements, and our team will return with a tailored proposal for your celebration.
               </p>
             </div>

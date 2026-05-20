@@ -126,14 +126,14 @@ export default function TestimonialsCarousel() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         {/* Header section */}
         <div className="home-testimonials-header text-center mb-16">
-          <h2 className="font-head text-5xl md:text-6xl font-bold text-primary mb-6 leading-tight">
+          <h2 className="font-head text-3xl md:text-6xl font-bold text-primary mb-4 md:mb-6 leading-tight">
             What Our Guests Say
           </h2>
-          <p className="text-primary/80 text-xl max-w-3xl mx-auto leading-relaxed">
+          <p className="text-primary/80 text-sm md:text-xl max-w-3xl mx-auto leading-relaxed">
             Discover why our guests choose Or Hakerem for their luxury stays in Tel Aviv
           </p>
 
-          <div className="home-testimonials-platforms mt-10 flex flex-col items-center gap-4">
+          <div className="home-testimonials-platforms mt-5 md:mt-10 flex flex-col items-center gap-4">
             <span className="text-primary/60 text-sm tracking-[0.2em] uppercase">
               Reviewed on
             </span>
@@ -177,8 +177,8 @@ export default function TestimonialsCarousel() {
               </div>
 
               {/* Testimonial Text */}
-              <blockquote className="text-center mb-8">
-                <p className="text-primary/90 text-lg md:text-xl leading-relaxed font-light italic">
+              <blockquote className="text-center mb-5 md:mb-8">
+                <p className="text-primary/90 text-sm md:text-xl leading-relaxed font-light italic">
                   "{testimonials[currentIndex].text}"
                 </p>
               </blockquote>
@@ -186,7 +186,7 @@ export default function TestimonialsCarousel() {
               {/* Guest Info */}
               <div className="text-center">
                 <div className="home-testimonials-guest inline-block p-6 bg-gradient-to-br from-cream to-white rounded-2xl shadow-lg border border-secondary/20">
-                  <h4 className="font-head text-2xl font-bold text-primary mb-2">
+                  <h4 className="font-head text-xl md:text-2xl font-bold text-primary mb-2">
                     {testimonials[currentIndex].name}
                   </h4>
                   <div className="flex items-center justify-center text-sm text-primary/60">

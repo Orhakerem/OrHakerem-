@@ -30,9 +30,9 @@ export function ContactCard({
       {...props}
     >
       <div className="flex flex-col justify-between lg:col-span-2">
-        <div className="relative h-full space-y-4 px-4 py-8 md:p-8">
+        <div className="relative h-full space-y-4 px-4 py-5 md:p-8">
           {title && (
-            <h2 className="font-head text-3xl font-bold text-black md:text-4xl lg:text-5xl">
+            <h2 className="font-head text-xl md:text-4xl lg:text-5xl font-bold text-black">
               {title}
             </h2>
           )}

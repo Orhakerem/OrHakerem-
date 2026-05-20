@@ -18,10 +18,10 @@ function ServiceCard({ title, description, delay }: ServiceCardProps) {
   return (
     <div
       data-animate="scale"
-      className="service-card relative rounded-xl border border-gray-100 bg-white p-5"
+      className="service-card relative rounded-xl border border-gray-100 bg-white p-4 md:p-5"
       style={{ animationDelay: `${delay}ms` }}
     >
-      <h3 className="relative z-10 mb-3 font-head text-xl font-bold text-black">
+      <h3 className="relative z-10 mb-3 font-head text-base md:text-xl font-bold text-black">
         {title}
       </h3>
       <p className="relative z-10 text-sm leading-relaxed text-black/80">
@@ -119,7 +119,7 @@ export default function ConciergeServicesPage() {
         data-animate="fade-up"
       >
         {/* Left: Content */}
-        <div className="flex w-full flex-col justify-center min-h-[45vh] p-7 md:min-h-0 md:w-1/2 md:p-10 lg:w-3/5 lg:p-12">
+        <div className="flex w-full flex-col justify-center min-h-[30vh] p-5 md:min-h-0 md:w-1/2 md:p-10 lg:w-3/5 lg:p-12">
           <motion.main
             variants={{
               hidden: { opacity: 0 },
@@ -127,7 +127,7 @@ export default function ConciergeServicesPage() {
             }}
           >
             <motion.h2
-              className="font-head text-5xl md:text-5xl lg:text-[4rem] font-bold leading-tight text-white"
+              className="font-head text-3xl md:text-5xl lg:text-[4rem] font-bold leading-tight text-white"
               variants={{
                 hidden: { y: 20, opacity: 0 },
                 visible: { y: 0, opacity: 1, transition: { duration: 0.5, ease: 'easeOut' } },
@@ -140,7 +140,7 @@ export default function ConciergeServicesPage() {
             </motion.h2>
 
             <motion.div
-              className="my-6 h-1 w-20 bg-secondary"
+              className="my-3 md:my-6 h-1 w-20 bg-secondary"
               variants={{
                 hidden: { y: 20, opacity: 0 },
                 visible: { y: 0, opacity: 1, transition: { duration: 0.5, ease: 'easeOut' } },
@@ -148,7 +148,7 @@ export default function ConciergeServicesPage() {
             ></motion.div>
 
             <motion.p
-              className="mb-8 max-w-xl text-lg md:text-xl text-white/90 leading-relaxed"
+              className="mb-4 md:mb-8 max-w-xl text-sm md:text-xl text-white/90 leading-relaxed"
               variants={{
                 hidden: { y: 20, opacity: 0 },
                 visible: { y: 0, opacity: 1, transition: { duration: 0.5, ease: 'easeOut' } },
@@ -159,19 +159,19 @@ export default function ConciergeServicesPage() {
             </motion.p>
 
             <motion.div
-              className="services-hero-pills flex flex-wrap gap-4"
+              className="services-hero-pills flex flex-wrap gap-2 md:gap-4"
               variants={{
                 hidden: { y: 20, opacity: 0 },
                 visible: { y: 0, opacity: 1, transition: { duration: 0.5, ease: 'easeOut' } },
               }}
             >
-              <div className="px-6 py-3 bg-white/10 backdrop-blur-sm rounded-full border border-white/20 text-white/90">
+              <div className="px-4 py-2 md:px-6 md:py-3 bg-white/10 backdrop-blur-sm rounded-full border border-white/20 text-white/90">
                 24/7 Available
               </div>
-              <div className="px-6 py-3 bg-white/10 backdrop-blur-sm rounded-full border border-white/20 text-white/90">
+              <div className="px-4 py-2 md:px-6 md:py-3 bg-white/10 backdrop-blur-sm rounded-full border border-white/20 text-white/90">
                 Personalized Service
               </div>
-              <div className="px-6 py-3 bg-white/10 backdrop-blur-sm rounded-full border border-white/20 text-white/90">
+              <div className="px-4 py-2 md:px-6 md:py-3 bg-white/10 backdrop-blur-sm rounded-full border border-white/20 text-white/90">
                 Expert Team
               </div>
             </motion.div>
@@ -180,7 +180,7 @@ export default function ConciergeServicesPage() {
 
         {/* Right: Image with clip-path reveal */}
         <motion.div
-          className="w-full min-h-[260px] bg-cover bg-center md:w-1/2 md:min-h-[72vh] lg:w-2/5"
+          className="w-full min-h-[170px] bg-cover bg-center md:w-1/2 md:min-h-[72vh] lg:w-2/5"
           style={{
             backgroundImage: 'url(/Service_page_Hero.png)',
             backgroundColor: '#1f1612',
@@ -203,20 +203,20 @@ export default function ConciergeServicesPage() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           {/* Header section with modern design */}
           <div className="services-grid-header text-center mb-20" data-animate="fade-up">
-            <h1 className="font-head text-4xl md:text-6xl font-bold text-black mb-6 leading-tight" data-animate="text">
+            <h1 className="font-head text-2xl md:text-6xl font-bold text-black mb-6 leading-tight" data-animate="text">
               Tailored to Your
               <br />
               <span className="text-transparent bg-clip-text bg-gradient-to-r from-secondary to-tertiary">
                 Every Need
               </span>
             </h1>
-            <p className="text-black/70 text-lg md:text-xl max-w-2xl mx-auto leading-relaxed">
+            <p className="text-black/70 text-sm md:text-xl max-w-2xl mx-auto leading-relaxed">
               Discover our comprehensive range of luxury services designed to exceed your expectations
             </p>
           </div>
 
           {/* Services grid with enhanced cards - Updated to 3 columns with reduced gap */}
-          <div className="services-grid grid md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-6xl mx-auto" data-animate-group="cards">
+          <div className="services-grid grid md:grid-cols-2 lg:grid-cols-3 gap-3 md:gap-6 max-w-6xl mx-auto" data-animate-group="cards">
             {services.map((service, index) => (
               <ServiceCard
                 key={index}
@@ -231,10 +231,10 @@ export default function ConciergeServicesPage() {
 
       {/* Divider Section */}
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="h-px bg-gradient-to-r from-transparent via-primary/20 to-transparent mb-16"></div>
+        <div className="h-px bg-gradient-to-r from-transparent via-primary/20 to-transparent mb-8 md:mb-16"></div>
 
         {/* Contact Section - Centered and with bottom spacing */}
-        <section className="services-contact-section py-12 bg-gradient-to-br from-primary via-primary to-primary-light relative overflow-hidden rounded-2xl mb-20">
+        <section className="services-contact-section py-12 bg-gradient-to-br from-primary via-primary to-primary-light relative overflow-hidden rounded-2xl mb-8 md:mb-20">
           {/* Background decorative elements */}
           <div className="absolute inset-0">
             <div className="absolute top-6 left-5 w-24 h-24 bg-secondary/10 rounded-full blur-2xl"></div>
@@ -245,8 +245,8 @@ export default function ConciergeServicesPage() {
           <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 flex items-center justify-center">
             <div className="w-full">
             {/* Compact Header */}
-            <div className="services-contact-header text-center mb-10">
-              <h2 className="font-head text-3xl md:text-4xl font-bold text-white mb-3 leading-tight">
+            <div className="services-contact-header text-center mb-5 md:mb-10">
+              <h2 className="font-head text-2xl md:text-4xl font-bold text-white mb-3 leading-tight">
                 Request Concierge Services
               </h2>
               <p className="text-white/80 text-base max-w-xl mx-auto">
