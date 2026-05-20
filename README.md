@@ -58,7 +58,7 @@ Open [http://localhost:3000](http://localhost:3000) to view the website.
 ```
 src/
 ├── app/                    # Next.js App Router pages
-│   ├── concierge-services/ # Concierge services page
+│   ├── services/           # Services page
 │   ├── events/            # Event planning page
 │   ├── properties/        # Property listings and details
 │   ├── reservation/       # Booking system

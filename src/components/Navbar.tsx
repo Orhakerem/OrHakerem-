@@ -63,9 +63,9 @@ function Navbar() {
             </Link>
 
             <Link
-              href="/concierge-services"
-              className={`nav-item-floating ${isActive('/concierge-services') ? 'active' : ''}`}
-              aria-current={isActive('/concierge-services') ? 'page' : undefined}
+              href="/services"
+              className={`nav-item-floating ${isActive('/services') ? 'active' : ''}`}
+              aria-current={isActive('/services') ? 'page' : undefined}
             >
               <span>Services</span>
             </Link>
@@ -147,10 +147,10 @@ function Navbar() {
                 </Link>
                 
                 <Link
-                  href="/concierge-services"
+                  href="/services"
                   onClick={closeMobileMenu}
-                  className={`mobile-nav-item-floating ${isActive('/concierge-services') ? 'active' : ''}`}
-                  aria-current={isActive('/concierge-services') ? 'page' : undefined}
+                  className={`mobile-nav-item-floating ${isActive('/services') ? 'active' : ''}`}
+                  aria-current={isActive('/services') ? 'page' : undefined}
                 >
                   <span>Services</span>
                 </Link>

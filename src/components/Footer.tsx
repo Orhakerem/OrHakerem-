@@ -135,10 +135,10 @@ export default function Footer() {
                 Properties
               </Link>
               <Link
-                href="/concierge-services"
+                href="/services"
                 className="text-white/90 transition-all duration-300"
               >
-                Concierge Services
+                Services
               </Link>
               <Link
                 href="/events"
@@ -298,10 +298,10 @@ export default function Footer() {
                   Properties
                 </Link>
                 <Link
-                  href="/concierge-services"
+                  href="/services"
                   className="block rounded-lg p-1 text-xl font-medium leading-none text-white/90 transition-all duration-300"
                 >
-                  Concierge Services
+                  Services
                 </Link>
                 <Link
                   href="/events"
