@@ -62,7 +62,20 @@ function Navbar() {
     };
   }, []);
 
+  useEffect(() => {
+    if (isMobileMenuOpen) {
+      document.body.classList.add('mobile-menu-open');
+    } else {
+      document.body.classList.remove('mobile-menu-open');
+    }
+    return () => {
+      document.body.classList.remove('mobile-menu-open');
+    };
+  }, [isMobileMenuOpen]);
+
   const fadedClass = isFaded && !isMobileMenuOpen ? ' is-faded' : '';
+  const isListingDetail =
+    pathname.startsWith('/properties/') && pathname !== '/properties';
 
   const isActive = (match: string | null) => {
     if (!match) {
@@ -135,6 +148,7 @@ function Navbar() {
       </nav>
 
       {/* Mobile Navbar */}
+      {!isListingDetail && (
       <nav
         className={`navbar-floating md:hidden${fadedClass}`}
         role="navigation"
@@ -191,6 +205,7 @@ function Navbar() {
           )}
         </div>
       </nav>
+      )}
 
       {isMobileMenuOpen && (
         <div 

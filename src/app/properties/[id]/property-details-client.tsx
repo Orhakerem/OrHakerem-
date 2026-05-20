@@ -5,6 +5,7 @@ import {
   Bath,
   BedDouble,
   Calendar,
+  ChevronLeft,
   ChevronRight,
   Coffee,
   Dumbbell,
@@ -18,6 +19,7 @@ import {
   Tv,
   Utensils,
   UtensilsCrossed,
+  Users,
   Waves,
   Wifi,
   Wind,
@@ -931,16 +933,42 @@ export default function PropertyDetailsClient({
     `${property.beds} bed${property.beds === 1 ? '' : 's'}`,
     `${property.baths} bath${property.baths === 1 ? '' : 's'}`,
   ];
-  const bookingCtaLabel = activePriceQuote
-    ? `€${Math.round(activePriceQuote.total_price)} total · ${activePriceQuote.nights} night${activePriceQuote.nights === 1 ? '' : 's'}`
-    : 'Add dates for pricing';
+
 
   return (
-    <div className="min-h-screen pt-24 pb-32 lg:pb-20" style={{ backgroundColor: '#e8e4dc' }}>
-      {/* 1. Photo grid hero */}
-      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mt-4 md:mt-6">
-        {/* Desktop / tablet: Airbnb 5-up grid */}
-        <div className="relative hidden md:grid aspect-[2/1] grid-cols-4 grid-rows-2 gap-2 overflow-hidden rounded-[6px]">
+    <div className="property-detail-page min-h-screen pt-0 md:pt-24 pb-32 lg:pb-20" style={{ backgroundColor: '#e8e4dc' }}>
+      {/* Mobile: full-bleed photo with back button + gallery counter */}
+      <div className="md:hidden relative h-[44vh] w-full overflow-hidden">
+        <Image
+          src={property.images[0]}
+          alt={`${property.title} — photo 1`}
+          fill
+          priority
+          className="object-cover"
+          sizes="100vw"
+        />
+        <button
+          type="button"
+          onClick={() => router.push('/properties')}
+          aria-label="Back to properties"
+          className="tap-reset absolute top-4 left-4 flex h-10 w-10 items-center justify-center rounded-full bg-white shadow-md"
+        >
+          <ChevronLeft className="h-5 w-5 text-black" />
+        </button>
+        <button
+          type="button"
+          onClick={() => setIsPhotosModalOpen(true)}
+          aria-haspopup="dialog"
+          aria-label="View all photos"
+          className="tap-reset absolute bottom-4 right-4 rounded-full bg-black/50 px-3 py-1.5 text-xs font-semibold text-white backdrop-blur-sm"
+        >
+          1 / {property.images.length}
+        </button>
+      </div>
+
+      {/* Desktop / tablet: Airbnb 5-up photo grid */}
+      <section className="hidden md:block max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mt-4 md:mt-6">
+        <div className="relative grid aspect-[2/1] grid-cols-4 grid-rows-2 gap-2 overflow-hidden rounded-[6px]">
           {heroPhotos.map((src, index) => (
             <button
               key={src}
@@ -972,35 +1000,56 @@ export default function PropertyDetailsClient({
             Show all {property.images.length} photos
           </button>
         </div>
-
-        {/* Mobile: single hero with overlay button */}
-        <button
-          type="button"
-          onClick={() => setIsPhotosModalOpen(true)}
-          aria-haspopup="dialog"
-          aria-expanded={isPhotosModalOpen}
-          className="tap-reset md:hidden relative block h-[55vh] w-full overflow-hidden rounded-[6px]"
-        >
-          <Image
-            src={property.images[0]}
-            alt={`${property.title} — photo 1`}
-            fill
-            priority
-            className="object-cover"
-            sizes="100vw"
-          />
-          <span className="absolute bottom-4 right-4 rounded-full bg-white px-4 py-2 text-sm font-semibold text-black shadow-md">
-            View all {property.images.length} photos
-          </span>
-        </button>
       </section>
 
       {/* Main content + sticky booking */}
-      <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 pt-10 md:pt-14 grid gap-10 lg:gap-14 lg:grid-cols-[1.55fr_1fr]">
+      <div className="relative z-10 -mt-6 rounded-t-[1.75rem] bg-cream shadow-[0_-8px_24px_-16px_rgba(0,0,0,0.25)] md:mt-0 md:rounded-none md:shadow-none max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 pt-8 md:pt-14 grid gap-10 lg:gap-14 lg:grid-cols-[1.55fr_1fr]">
         {/* Left content column */}
         <div className="min-w-0">
-          {/* 2. Title + property type subtitle */}
-          <header>
+          {/* Mobile editorial header */}
+          <div className="md:hidden pb-4">
+            <p className="text-xs font-semibold uppercase tracking-[0.2em] text-primary">
+              {property.location}
+            </p>
+            <h1 className="mt-2 font-head text-2xl font-bold text-black leading-tight">
+              {property.title}
+            </h1>
+            <p className="mt-2 text-sm text-black/70 leading-relaxed">
+              {property.description}
+            </p>
+            <div className="mt-4 flex flex-wrap gap-x-4 gap-y-1.5 text-sm text-black/80">
+              <span className="flex items-center gap-1.5">
+                <Users className="h-4 w-4 shrink-0" />
+                {property.maxGuests} guests
+              </span>
+              <span className="flex items-center gap-1.5">
+                <BedDouble className="h-4 w-4 shrink-0" />
+                {property.bedrooms} bedroom{property.bedrooms !== 1 ? 's' : ''} · {property.beds} bed{property.beds !== 1 ? 's' : ''}
+              </span>
+              <span className="flex items-center gap-1.5">
+                <Bath className="h-4 w-4 shrink-0" />
+                {property.baths} bath{property.baths !== 1 ? 's' : ''}
+              </span>
+            </div>
+            <div className="mt-5 grid grid-cols-2 gap-3">
+              {property.highlights.map((highlight) => (
+                <div
+                  key={highlight.title}
+                  className="rounded-xl border border-primary/15 bg-white/60 p-4"
+                >
+                  <p className="text-[11px] font-semibold uppercase tracking-[0.15em] text-primary">
+                    {highlight.title}
+                  </p>
+                  <p className="mt-1 text-sm text-black/70 leading-snug">
+                    {highlight.description}
+                  </p>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          {/* 2. Title + property type subtitle (desktop) */}
+          <header className="hidden md:block">
             <h1 className="font-head text-3xl md:text-4xl font-bold text-black leading-tight">
               {property.title}
             </h1>
@@ -1015,10 +1064,10 @@ export default function PropertyDetailsClient({
           </header>
 
           {/* Divider */}
-          <hr className="mt-10 mb-5 border-t border-primary/10" />
+          <hr className="hidden md:block mt-10 mb-5 border-t border-primary/10" />
 
           {/* 5. Feature highlights */}
-          <section className="grid grid-cols-3 gap-3 py-1">
+          <section className="hidden md:grid grid-cols-3 gap-3 py-1">
             {property.highlights.map((highlight) => (
               <div key={highlight.title} className="flex flex-col gap-2">
                 <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-[10px] bg-primary/5 text-black">
@@ -1134,11 +1183,13 @@ export default function PropertyDetailsClient({
       <div className="lg:hidden fixed inset-x-0 bottom-0 z-40 border-t border-primary/10 bg-white/95 backdrop-blur-sm px-4 py-3 shadow-[0_-8px_24px_-12px_rgba(0,0,0,0.18)]">
         <div className="flex items-center justify-between gap-4 max-w-3xl mx-auto">
           <div className="min-w-0">
-            <p className="text-sm font-semibold text-black truncate">{bookingCtaLabel}</p>
-            <p className="text-xs text-black/60 truncate">
-              {dateRange.checkIn && dateRange.checkOut
-                ? `${dateRange.checkIn} → ${dateRange.checkOut}`
-                : 'Tap reserve to choose dates'}
+            <p className="text-xs font-semibold uppercase tracking-[0.18em] text-black/50">
+              Request to book
+            </p>
+            <p className="text-sm font-semibold text-black truncate">
+              {selectedNights > 0
+                ? `${selectedNights} night${selectedNights !== 1 ? 's' : ''} · ${dateRange.checkIn} → ${dateRange.checkOut}`
+                : 'Add dates for pricing'}
             </p>
           </div>
           <button
@@ -1148,7 +1199,7 @@ export default function PropertyDetailsClient({
             aria-expanded={isBookingSheetOpen}
             className="tap-reset shrink-0 rounded-full bg-primary px-6 py-3 text-sm font-semibold text-white shadow-md transition hover:bg-primary/90"
           >
-            Reserve
+            Inquire
           </button>
         </div>
       </div>

@@ -81,6 +81,17 @@
   }
 }
 
+@keyframes menuSlideIn {
+  from {
+    opacity: 0;
+    transform: translateY(-8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
 @keyframes heroTitleFadeInUp {
   from {
     opacity: 0;
@@ -421,7 +432,6 @@
   .tap-reset,
   .button-hover-clean,
   .glass-cta,
-  .whatsapp-float,
   .property-card-button,
   .booking-calendar-day-button {
     transition: none !important;
@@ -449,6 +459,14 @@
     .whatsapp-float {
       display: none;
     }
+  }
+
+  body.mobile-menu-open .whatsapp-float {
+    top: 90px;
+    left: 18px;
+    right: auto;
+    bottom: auto;
+    transform: none;
   }
 
   .nav-whatsapp-floating {
@@ -871,7 +889,8 @@
       transform: none;
     }
 
-    body:has(.faq-page) .whatsapp-float {
+    body:has(.faq-page) .whatsapp-float,
+    body:has(.property-detail-page) .whatsapp-float {
       display: none;
     }
 
@@ -880,7 +899,7 @@
     }
 
     .glass-cta-wrap {
-      bottom: 60px;
+      bottom: calc(env(safe-area-inset-bottom, 0px) + 9dvh);
     }
 
     .glass-cta {
@@ -1071,6 +1090,7 @@
     border: 0;
     overflow: hidden;
     margin: 0;
+    animation: menuSlideIn 0.25s ease;
   }
 
   .mobile-menu-items-floating {
@@ -2073,5 +2093,14 @@
     .event-form {
       max-height: calc(100vh - var(--event-modal-top-offset) - 0.75rem) !important;
     }
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .whatsapp-float {
+    transition: none !important;
+  }
+  .mobile-menu-floating {
+    animation: none !important;
   }
 }

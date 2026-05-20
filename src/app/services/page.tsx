@@ -119,7 +119,7 @@ export default function ConciergeServicesPage() {
         data-animate="fade-up"
       >
         {/* Left: Content */}
-        <div className="flex w-full flex-col justify-center p-7 md:w-1/2 md:p-10 lg:w-3/5 lg:p-12">
+        <div className="flex w-full flex-col justify-center min-h-[45vh] p-7 md:min-h-0 md:w-1/2 md:p-10 lg:w-3/5 lg:p-12">
           <motion.main
             variants={{
               hidden: { opacity: 0 },

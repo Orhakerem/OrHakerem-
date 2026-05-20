@@ -151,7 +151,7 @@ export default function EventsClient({
         <div className="absolute inset-0 bg-black/30 z-[1]"></div>
 
         {/* Hero Title - Positioned at bottom of video */}
-        <div className="absolute bottom-8 md:bottom-12 left-0 right-0 z-10">
+        <div className="absolute bottom-[6vh] md:bottom-12 left-0 right-0 z-10">
           <div className="text-center px-4">
             <h1 className="font-head text-3xl md:text-4xl lg:text-5xl font-bold text-secondary animate-fadeInUp drop-shadow-lg" data-animate="text">
               Boutique Event Venue in Tel Aviv
