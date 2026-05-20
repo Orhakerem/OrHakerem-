@@ -3,15 +3,18 @@ export const BOOKABLE_PROPERTIES = {
     id: 'penthouse-jacuzzi',
     listingId: 'penthouse',
     title: 'Luxury Penthouse',
-    airbnbIcalUrl:
+    icalUrls: [
       'https://www.airbnb.fr/calendar/ical/1247678225456455722.ics?t=183619b2f1764ec89198da07de1de912',
+      'https://ical.booking.com/v1/export?t=a56d0b9d-3637-42e9-8430-f6122fa65ee7',
+    ],
   },
   'cozy-studio': {
     id: 'cozy-studio',
     listingId: 'studio',
     title: 'Spacious & Cosy Apartment',
-    airbnbIcalUrl:
+    icalUrls: [
       'https://www.airbnb.fr/calendar/ical/1273005083237819919.ics?t=510782b0f337456babc7c59e9c087978',
+    ],
   },
 } as const;
 
