@@ -531,6 +531,12 @@
     letter-spacing: 0.3px;
   }
 
+  .liquid-cta--xs {
+    padding: 10px 20px;
+    font-size: 13px;
+    letter-spacing: 0.2px;
+  }
+
   .liquid-cta-shadow {
     position: absolute;
     inset: 0;
@@ -598,6 +604,14 @@
   .liquid-glass-btn:hover:not(:disabled) {
     transform: scale(1.04);
     filter: brightness(1.05);
+  }
+
+  .events-plan-cta .liquid-glass-btn:not(:disabled) {
+    filter: brightness(1.05);
+  }
+
+  .events-plan-cta .liquid-glass-btn:hover:not(:disabled) {
+    filter: brightness(1.1);
   }
 
 

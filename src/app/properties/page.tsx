@@ -254,6 +254,10 @@ export default function Properties() {
           </div>
         </section>
 
+        <div className="max-w-6xl mx-auto mb-16">
+          <hr className="border-t border-black/10" />
+        </div>
+
         <section className="max-w-4xl mx-auto mb-16" data-animate="fade-up">
           <div className="text-center mb-10">
             <span className="text-primary font-semibold text-sm md:text-base tracking-[0.2em] uppercase block mb-3">
@@ -277,6 +281,10 @@ export default function Properties() {
           </div>
         </section>
 
+        <div className="max-w-6xl mx-auto mb-16">
+          <hr className="border-t border-black/10" />
+        </div>
+
         <section className="max-w-6xl mx-auto mb-16" data-animate="fade-up">
           <div className="text-center mb-10">
             <span className="text-primary font-semibold text-sm md:text-base tracking-[0.2em] uppercase block mb-3">
@@ -290,18 +298,18 @@ export default function Properties() {
             </p>
           </div>
 
-          <div className="grid gap-6 md:grid-cols-2">
-            <div className="rounded-[10px] bg-white p-6 md:p-8 shadow-xl border border-primary/10">
+          <div className="grid gap-8 md:grid-cols-2">
+            <div className="text-center">
               <h3 className="font-playfair text-2xl font-semibold text-black mb-2">
                 Luxury Penthouse
               </h3>
               <p className="text-black/70 text-sm mb-5">Available on Airbnb and Booking.com</p>
-              <div className="flex flex-col sm:flex-row gap-3 items-center">
+              <div className="flex flex-col sm:flex-row gap-3 items-center justify-center">
                 <LiquidGlassCTA
                   href="https://www.airbnb.com/rooms/1247678225456455722"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="liquid-cta--sm liquid-cta--light"
+                  className="liquid-cta--xs liquid-cta--light"
                 >
                   <span>View on Airbnb</span>
                   <ExternalLink className="w-4 h-4 ml-2" />
@@ -310,7 +318,7 @@ export default function Properties() {
                   href="https://www.booking.com/hotel/il/penthouse-with-jacuzzi-bbq-2mn-from-sea-or-hakerem.fr.html?label=gen173bo-10CAsoakIycGVudGhvdXNlLXdpdGgtamFjdXp6aS1iYnEtMm1uLWZyb20tc2VhLW9yLWhha2VyZW1IM1gDaGqIAQGYATO4AQfIAQzYAQPoAQH4AQGIAgGYAgaoAgG4ArzUsNAGwAIB0gIkODQ1YTJkYmItOWI2NS00YWUwLTg4ZGEtNGUwMGJiNTAyMjZl2AIB4AIB&sid=d76cf1f6818f7b442a6ed091d7429070&dist=0&keep_landing=1&sb_price_type=total&type=total&"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="liquid-cta--sm liquid-cta--light"
+                  className="liquid-cta--xs liquid-cta--light"
                 >
                   <span>View on Booking.com</span>
                   <ExternalLink className="w-4 h-4 ml-2" />
@@ -318,17 +326,17 @@ export default function Properties() {
               </div>
             </div>
 
-            <div className="rounded-[10px] bg-white p-6 md:p-8 shadow-xl border border-primary/10">
+            <div className="text-center">
               <h3 className="font-playfair text-2xl font-semibold text-black mb-2">
                 Spacious & Cosy Apartment
               </h3>
               <p className="text-black/70 text-sm mb-5">Available on Airbnb</p>
-              <div className="flex flex-col sm:flex-row gap-3 items-center">
+              <div className="flex flex-col sm:flex-row gap-3 items-center justify-center">
                 <LiquidGlassCTA
                   href="https://www.airbnb.com/rooms/1273005083237819919"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="liquid-cta--sm liquid-cta--light"
+                  className="liquid-cta--xs liquid-cta--light"
                 >
                   <span>View on Airbnb</span>
                   <ExternalLink className="w-4 h-4 ml-2" />

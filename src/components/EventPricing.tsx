@@ -1,6 +1,5 @@
 import {
   cateringCategories,
-  globalExamples,
   venueRentals,
 } from '@/lib/event-pricing-data';
 
@@ -135,61 +134,8 @@ export default function EventPricing() {
               </div>
             </div>
 
-            <div className="mt-6 rounded-xl border border-tertiary/20 bg-gradient-to-br from-tertiary/5 to-white p-5">
-              <p className="text-tertiary font-semibold text-sm uppercase tracking-wider">
-                {cat.example.title}
-              </p>
-              <p className="text-primary/70 text-xs italic mt-1">
-                {cat.example.note}
-              </p>
-              <ul className="text-sm text-primary/80 mt-3 space-y-1">
-                {cat.example.breakdown.map((row) => (
-                  <li
-                    key={row.label}
-                    className="flex justify-between gap-4"
-                  >
-                    <span>{row.label}</span>
-                    <span className="whitespace-nowrap">{row.price}</span>
-                  </li>
-                ))}
-              </ul>
-              <div className="mt-3 pt-3 border-t border-gray-200 flex justify-between font-semibold text-primary">
-                <span>Add-ons subtotal</span>
-                <span className="whitespace-nowrap">
-                  {cat.example.subtotal.toLocaleString()}₪
-                </span>
-              </div>
-            </div>
           </div>
         ))}
-
-        {/* Global examples — venue + add-ons */}
-        <div
-          className="bg-primary text-white rounded-2xl p-6 md:p-8 mt-10"
-          data-animate="fade-up"
-        >
-          <h4 className="font-playfair text-2xl md:text-3xl font-bold mb-4">
-            Example total — 70 guests, Luxe
-          </h4>
-          <ul className="space-y-4">
-            {globalExamples.map((ex) => (
-              <li
-                key={ex.id}
-                className="flex flex-col md:flex-row md:justify-between md:items-baseline gap-1"
-              >
-                <span className="text-white/85">{ex.label}</span>
-                <span className="font-mono text-sm md:text-base">
-                  {ex.venue.toLocaleString()}₪ + {ex.addOns.toLocaleString()}₪
-                  ={' '}
-                  <strong className="text-secondary">
-                    {ex.total.toLocaleString()}₪
-                  </strong>{' '}
-                  <span className="text-white/70">{ex.note}</span>
-                </span>
-              </li>
-            ))}
-          </ul>
-        </div>
       </div>
     </section>
   );

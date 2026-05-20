@@ -18,13 +18,6 @@ export type CateringExtra = {
   price: string;
 };
 
-export type CateringExample = {
-  title: string;
-  note: string;
-  breakdown: { label: string; price: string }[];
-  subtotal: number;
-};
-
 export type CateringCategoryId = 'luxe';
 
 export type CateringCategory = {
@@ -33,16 +26,6 @@ export type CateringCategory = {
   tagline: string;
   tiers: CateringTier[];
   extras: CateringExtra[];
-  example: CateringExample;
-};
-
-export type GlobalExample = {
-  id: 'weekday' | 'weekend';
-  label: string;
-  venue: number;
-  addOns: number;
-  total: number;
-  note: string;
 };
 
 export const venueRentals: VenueRental[] = [
@@ -110,37 +93,5 @@ export const cateringCategories: CateringCategory[] = [
       { label: 'Chair', price: '15₪ each' },
       { label: 'Table', price: '35₪ each' },
     ],
-    example: {
-      title: 'Luxe — 70 guests',
-      note: 'Catering & services only. Venue rental and cleaning fee not included.',
-      breakdown: [
-        { label: 'Base package (60–70 guests)', price: '10,400₪' },
-        { label: '3 fruit platters', price: '1,200₪' },
-        { label: '3 pastry platters', price: '600₪' },
-        { label: '4 servers × 600₪', price: '2,400₪' },
-        { label: '5 tables × 35₪', price: '175₪' },
-        { label: '25 chairs × 15₪', price: '375₪' },
-      ],
-      subtotal: 15150,
-    },
-  },
-];
-
-export const globalExamples: GlobalExample[] = [
-  {
-    id: 'weekday',
-    label: '70 guests, Luxe — weekday',
-    venue: 2500,
-    addOns: 15150,
-    total: 17650,
-    note: '+ cleaning fee',
-  },
-  {
-    id: 'weekend',
-    label: '70 guests, Luxe — weekend',
-    venue: 3500,
-    addOns: 15150,
-    total: 18650,
-    note: '+ cleaning fee',
   },
 ];

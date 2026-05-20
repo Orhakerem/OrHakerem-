@@ -166,7 +166,7 @@ export default function EventsClient({
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
 
         {/* Event Spaces Section - Flat editorial */}
-        <section id="venues" className="events-venues-section py-20 md:py-24 bg-cream mb-20" data-animate="fade-up">
+        <section id="venues" className="events-venues-section py-20 md:py-24 mb-20" data-animate="fade-up">
           <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
             {/* Header */}
             <div className="text-center" data-animate="fade-up">
@@ -176,7 +176,7 @@ export default function EventsClient({
               <h2 className="font-playfair text-3xl md:text-4xl lg:text-5xl font-bold text-primary leading-tight" data-animate="text">
                 Available Event Spaces
               </h2>
-              <p className="mt-6 text-primary/85 text-lg md:text-xl leading-relaxed max-w-3xl mx-auto">
+              <p className="mt-6 text-black/80 text-lg md:text-xl leading-relaxed max-w-3xl mx-auto">
                 Set in the heart of Tel Aviv, our penthouse offers a refined setting for private celebrations, with panoramic sea and city views, elegant indoor spaces, and a rooftop terrace designed for intimate gatherings that feel both elevated and personal.
               </p>
             </div>
@@ -187,7 +187,7 @@ export default function EventsClient({
                 <span className="text-secondary font-semibold text-xs tracking-[0.22em] uppercase block mb-3">
                   Jewish Events
                 </span>
-                <p className="text-primary/80 leading-relaxed">
+                <p className="text-black/80 leading-relaxed">
                   From Bar and Bat Mitzvahs to Brit Milah, Sheva Brachot, and elegant family gatherings, each event is hosted with care and attention to detail, with kosher services available on request.
                 </p>
               </div>
@@ -195,7 +195,7 @@ export default function EventsClient({
                 <span className="text-tertiary font-semibold text-xs tracking-[0.22em] uppercase block mb-3">
                   Trusted Hosting
                 </span>
-                <p className="text-primary/80 leading-relaxed">
+                <p className="text-black/80 leading-relaxed">
                   Hosting dozens of guests weekly, Or HaKerem is one of the few venues in Tel Aviv offering a fully tailored experience for intimate events.
                 </p>
               </div>
@@ -210,7 +210,7 @@ export default function EventsClient({
                 {eventTypes.map((event) => (
                   <span
                     key={event}
-                    className="rounded-full border border-primary/20 px-4 py-1.5 text-sm text-primary/80"
+                    className="rounded-full border border-primary/20 px-4 py-1.5 text-sm text-black/80"
                   >
                     {event}
                   </span>
@@ -236,7 +236,7 @@ export default function EventsClient({
                     </h4>
                     <ul className="space-y-2.5">
                       {group.items.map((item) => (
-                        <li key={item} className="flex gap-3 text-primary/80 leading-relaxed">
+                        <li key={item} className="flex gap-3 text-black/80 leading-relaxed">
                           <span aria-hidden className="mt-2.5 h-px w-3 shrink-0 bg-primary/40" />
                           <span>{item}</span>
                         </li>
