@@ -8,7 +8,7 @@ import { Menu, X } from 'lucide-react';
 
 const navItems = [
   { label: 'Properties', href: '/properties', match: '/properties' },
-  { label: 'Services', href: '/concierge-services', match: '/concierge-services' },
+  { label: 'Services', href: '/services', match: '/services' },
   { label: 'Events', href: '/events', match: '/events' },
   { label: 'About', href: '/about', match: '/about' },
   { label: 'Blog', href: '/blog', match: '/blog' },
