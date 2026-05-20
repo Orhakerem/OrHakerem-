@@ -1,44 +1,52 @@
 {
-  "name": "orhakerem",
+  "name": "or-hakerem-luxury-rentals",
   "version": "0.1.0",
   "private": true,
+  "packageManager": "pnpm@9.15.9",
   "scripts": {
-    "dev": "next dev --turbopack",
-    "build": "next build",
-    "start": "next start",
-    "lint": "next lint",
-    "format": "prettier --write .",
-    "format:check": "prettier --check ."
+    "dev": "export LANG=en_US.UTF-8 && export LC_ALL=en_US.UTF-8 && next dev",
+    "build": "export LANG=en_US.UTF-8 && export LC_ALL=en_US.UTF-8 && next build && pnpm run prepare-standalone",
+    "start": "export LANG=en_US.UTF-8 && export LC_ALL=en_US.UTF-8 && pnpm run prepare-standalone && node .next/standalone/server.js",
+    "test": "export LANG=en_US.UTF-8 && export LC_ALL=en_US.UTF-8 && tsx --test \"src/**/*.test.ts\"",
+    "lint": "export LANG=en_US.UTF-8 && export LC_ALL=en_US.UTF-8 && eslint .",
+    "prepare-standalone": "rm -rf .next/standalone/public .next/standalone/.next/static && mkdir -p .next/standalone/.next && cp -R public .next/standalone/public && cp -R .next/static .next/standalone/.next/static",
+    "vercel-build": "export LANG=en_US.UTF-8 && export LC_ALL=en_US.UTF-8 && pnpm run build",
+    "clean": "export LANG=en_US.UTF-8 && export LC_ALL=en_US.UTF-8 && rm -rf .next node_modules",
+    "reinstall": "export LANG=en_US.UTF-8 && export LC_ALL=en_US.UTF-8 && pnpm run clean && pnpm install"
   },
   "dependencies": {
-    "@fullcalendar/core": "^6.1.17",
-    "@fullcalendar/daygrid": "^6.1.17",
-    "@fullcalendar/interaction": "^6.1.17",
-    "@fullcalendar/react": "^6.1.17",
-    "@fullcalendar/timegrid": "^6.1.17",
-    "lucide-react": "^0.509.0",
-    "next": "15.3.2",
-    "react": "^19.0.0",
-    "react-dom": "^19.0.0",
-    "react-hot-toast": "^2.5.2",
-    "resend": "^4.5.1",
-    "zod": "^3.24.4"
+    "@supabase/supabase-js": "^2.105.4",
+    "@vercel/speed-insights": "^2.0.0",
+    "lucide-react": "^0.460.0",
+    "next": "14.2.35",
+    "react": "^18.3.1",
+    "react-day-picker": "^9.14.0",
+    "react-dom": "^18.3.1",
+    "react-hot-toast": "^2.4.1",
+    "resend": "^4.0.1",
+    "server-only": "^0.0.1",
+    "sharp": "^0.33.0",
+    "zod": "^3.23.8"
   },
   "devDependencies": {
-    "@eslint/eslintrc": "^3",
-    "@next/eslint-plugin-next": "^15.3.2",
-    "@tailwindcss/postcss": "^4.1.6",
-    "@trivago/prettier-plugin-sort-imports": "^5.2.2",
-    "@types/node": "^20",
-    "@types/react": "^19",
-    "@types/react-dom": "^19",
-    "eslint": "^9",
-    "eslint-config-next": "15.3.2",
-    "eslint-config-prettier": "^10.1.5",
-    "eslint-plugin-prettier": "^5.4.0",
-    "prettier": "^3.5.3",
-    "prettier-plugin-tailwindcss": "^0.6.11",
-    "tailwindcss": "^4.1.6",
-    "typescript": "^5"
+    "@eslint/js": "^8.57.1",
+    "@types/node": "^22.8.4",
+    "@types/react": "^18.3.12",
+    "@types/react-dom": "^18.3.1",
+    "@typescript-eslint/eslint-plugin": "^6.21.0",
+    "@typescript-eslint/parser": "^6.21.0",
+    "autoprefixer": "^10.4.20",
+    "eslint": "^8.57.1",
+    "postcss": "^8.4.49",
+    "tailwindcss": "^3.4.14",
+    "tsx": "^4.22.0",
+    "typescript": "^5.6.3"
+  },
+  "engines": {
+    "node": ">=20.0.0",
+    "pnpm": ">=9.0.0"
+  },
+  "overrides": {
+    "sharp": "^0.33.0"
   }
 }

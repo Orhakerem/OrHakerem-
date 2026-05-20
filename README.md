@@ -1,36 +1,151 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Or Hakerem - Luxury Properties in Tel Aviv
 
-## Getting Started
+A premium luxury accommodation website featuring properties in Tel Aviv's vibrant Kerem HaTeimanim neighborhood. Built with Next.js 14, TypeScript, and Tailwind CSS.
 
-First, run the development server:
+## 🏨 Features
 
+- **Luxury Properties**: Showcase of premium accommodations including penthouse with jacuzzi and cozy studio
+- **Concierge Services**: Comprehensive luxury services including dining reservations, private transfers, and event planning
+- **Event Spaces**: Dedicated event planning and venue booking system
+- **Responsive Design**: Optimized for all devices with modern UI/UX
+- **Contact System**: Integrated email system with Resend for inquiries and bookings
+- **Multi-language Support**: Built with internationalization in mind
+
+## 🚀 Tech Stack
+
+- **Framework**: Next.js 14 with App Router
+- **Language**: TypeScript
+- **Styling**: Tailwind CSS v3
+- **Icons**: Lucide React
+- **Email**: Resend API
+- **Validation**: Zod
+- **Notifications**: React Hot Toast
+- **Deployment**: Vercel
+
+## 🛠️ Installation
+
+1. Clone the repository:
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+git clone https://github.com/yourusername/orhakerem.git
+cd orhakerem
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+2. Install dependencies:
+```bash
+pnpm install
+```
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+3. Set up environment variables:
+```bash
+cp .env.example .env.local
+```
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+Add your environment variables:
+```env
+RESEND_API_KEY=your_resend_api_key
+RECIPIENT_EMAIL=your_email@example.com
+```
 
-## Learn More
+4. Run the development server:
+```bash
+pnpm dev
+```
 
-To learn more about Next.js, take a look at the following resources:
+Open [http://localhost:3000](http://localhost:3000) to view the website.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## 📁 Project Structure
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+```
+src/
+├── app/                    # Next.js App Router pages
+│   ├── concierge-services/ # Concierge services page
+│   ├── events/            # Event planning page
+│   ├── properties/        # Property listings and details
+│   ├── reservation/       # Booking system
+│   ├── faq/              # FAQ page
+│   ├── terms/            # Terms & conditions
+│   ├── cancellation/     # Cancellation policy
+│   └── privacy/          # Privacy policy
+├── components/            # Reusable React components
+├── actions/              # Server actions for forms
+└── validation.ts         # Zod schemas for form validation
+```
 
-## Deploy on Vercel
+## 🎨 Design System
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+- **Primary Color**: #a5382b (Warm Red)
+- **Secondary Color**: #d8b084 (Gold)
+- **Tertiary Color**: #115814 (Forest Green)
+- **Background**: #f5f5f5 (Cream)
+- **Typography**: Playfair Display (headings), System fonts (body)
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+## 📧 Contact Forms
+
+The website includes several contact forms:
+- General contact form
+- Property reservation requests
+- Event planning inquiries
+- Concierge service requests
+
+All forms use server actions with Zod validation and Resend for email delivery.
+
+## 🚀 Deployment
+
+The site is configured for deployment on Vercel:
+
+```bash
+pnpm build
+```
+
+Environment variables needed for production:
+- `RESEND_API_KEY`
+- `RECIPIENT_EMAIL`
+
+## 📱 Features
+
+### Properties
+- Luxury penthouse with jacuzzi and BBQ terrace
+- Cozy studio apartment near the beach
+- Detailed property pages with image galleries
+- Room-by-room photo collections
+
+### Concierge Services
+- Restaurant reservations
+- Private transportation
+- Event planning
+- Childcare services
+
+### Event Planning
+- Multiple venue options
+- Capacity for up to 80 guests
+- Cultural celebration support
+- Custom event arrangements
+
+## 🔧 Development
+
+### Available Scripts
+
+- `pnpm dev` - Start development server
+- `pnpm build` - Build for production
+- `pnpm start` - Start production server
+- `pnpm lint` - Run ESLint
+
+### Code Quality
+
+- Flat ESLint configuration for JavaScript and TypeScript
+- TypeScript for type safety
+- Responsive design with Tailwind CSS
+
+## 📄 License
+
+This project is proprietary and confidential. All rights reserved.
+
+## 📞 Contact
+
+- **Email**: keremliving@gmail.com
+- **Phone**: +33 6 51 17 99 25 / +972 52 686 9791
+- **Instagram**: [@or_hakerem](https://www.instagram.com/or_hakerem/)
+
+---
+
+Built with ❤️ for luxury hospitality in Tel Aviv

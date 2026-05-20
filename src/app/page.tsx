@@ -1,219 +1,234 @@
-'use client';
+import Link from 'next/link';
 
-import React, { useState } from 'react';
-import Image from 'next/image';
 import FAQ from '@/components/FAQ';
-import { sendContactEmail } from '@/actions/contact';
-import toast from 'react-hot-toast';
+import HomeContactForm from '@/components/HomeContactForm';
+import TestimonialsCarousel from '@/components/TestimonialsCarousel';
+import PromotionalCarousel from '@/components/PromotionalCarousel';
 
-interface ServiceCardProps {
-  emoji: string;
-  title: string;
-  description: string;
-}
-
-function ServiceCard({ emoji, title, description }: ServiceCardProps) {
-  return (
-    <div className="text-center p-6 bg-secondary-lighter rounded-lg transition-transform hover:scale-105">
-      <div className="inline-block p-4 bg-primary rounded-full mb-4">
-        <span className="text-4xl">{emoji}</span>
-      </div>
-      <h3 className="font-playfair text-xl font-bold text-secondary mb-2">{title}</h3>
-      <p className="text-secondary-light">{description}</p>
-    </div>
-  );
-}
-
-const Home: React.FC = () => {
-  const [isSubmitting, setIsSubmitting] = useState(false);
-
-  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    setIsSubmitting(true);
-
-    try {
-      const result = await sendContactEmail(new FormData(e.currentTarget));
-      if (result.success) {
-        toast.success(result.message || 'Message sent successfully!');
-        (e.target as HTMLFormElement).reset();
-      } else {
-        toast.error(result.error || 'Failed to send message');
-      }
-    } catch (error) {
-      console.error('Contact form submission error:', error);
-      toast.error('Failed to send message. Please try again.');
-    } finally {
-      setIsSubmitting(false);
-    }
-  };
+export default function Home() {
+  const heroHeadline =
+    'Luxury Short-Term Stays in Tel Aviv – Or HaKerem';
 
   return (
     <div className="min-h-screen">
-      {/* Hero Section */}
-      <div className="relative h-screen">
-        <video
-          autoPlay
-          muted
-          playsInline
-          className="absolute inset-0 w-full h-full object-cover"
-        >
-          <source src="/hero.mp4" type="video/mp4" />
-        </video>
-        <div className="absolute inset-0 bg-black/40">
-          <div className="max-w-7xl mx-auto px-4 h-full flex mt-30 ml-20">
-            <div className="text-secondary">
-              <h1 className="font-playfair text-5xl md:text-6xl font-bold mb-4">
-                Discover Or Hakerem
-              </h1>
-              <p className="text-xl max-w-2xl">
-                Experience in a unique place with our luxury living in the heart of Tel Aviv
-              </p>
+      {/* Hero Section with Video Background - No Margin Top */}
+      <div className="hero-home relative w-full h-screen overflow-hidden">
+        <div className="hero-home-media absolute inset-0">
+          {/* Video Background */}
+          <video
+            autoPlay
+            muted
+            loop
+            playsInline
+            className="hero-home-video absolute inset-0 w-full h-full object-cover"
+          >
+            <source src="/hero.mp4" type="video/mp4" />
+          </video>
+          <div className="hero-home-overlay absolute inset-0"></div>
+          {/* Fallback for browsers that don't support video */}
+          <div className="hero-home-fallback absolute inset-0 bg-primary"></div>
+        </div>
+
+        {/* Desktop / large tablet overlay */}
+        <div className="hero-title hero-home-title" data-animate="text">
+          <h1 className="font-playfair font-bold hero-subtitle">
+            {heroHeadline}
+          </h1>
+        </div>
+
+        <div className="glass-cta-wrap hero-home-cta-wrap">
+          <Link
+            href="/properties"
+            className="glass-cta"
+          >
+            View Properties
+          </Link>
+        </div>
+
+        {/* Mobile / tablet hero */}
+        <div className="hero-home-mobile-strip"></div>
+
+        <div className="hero-home-mobile-text">
+          <div className="hero-home-mobile-text-inner">
+            <div
+              aria-hidden="true"
+              className="hero-home-mobile-title font-montserrat font-bold"
+              data-animate="text"
+            >
+              {heroHeadline}
             </div>
+          </div>
+        </div>
+
+        <div className="hero-home-mobile-video-section">
+          <div className="hero-home-mobile-video-wrap">
+            <video
+              autoPlay
+              muted
+              loop
+              playsInline
+              className="hero-home-mobile-video"
+            >
+              <source src="/hero.mp4" type="video/mp4" />
+            </video>
           </div>
         </div>
       </div>
 
-      {/* Building Description */}
-      <section className="py-20 bg-cream">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid md:grid-cols-2 gap-12 items-center">
-            <div className="relative h-[400px] rounded-lg overflow-hidden">
-              <Image
-                src="/penthouse/interieur/salon-angle.jpg"
-                width={500}
-                height={500}
-                alt="Building Interior"
-                className="absolute inset-0 w-full h-full object-cover"
-              />
-            </div>
-            <div>
-              <h2 className="font-playfair text-3xl font-bold text-primary mb-6">
-                Luxury living in the kerem
-              </h2>
-              <p className="text-primary/80 leading-relaxed mb-4">
-                Located in the Kerem, our property offers a unique experience combining modern
-                comforts with local charm.
-              </p>
-              <p className="text-primary/80 leading-relaxed">
-                Whether you're looking for a romantic getaway, a family holiday or a break with
-                friends, Or Hakerem is the place to be for unforgettable memories.
-              </p>
+      {/* Welcome Section */}
+      <section className="py-16 bg-cream relative overflow-hidden" data-animate="fade-up">
+        <div className="absolute inset-0">
+          <div className="absolute top-6 left-6 w-16 h-16 bg-secondary/10 rounded-full blur-2xl"></div>
+          <div className="absolute bottom-6 right-6 w-20 h-20 bg-tertiary/10 rounded-full blur-2xl"></div>
+        </div>
+
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+          <div className="flex flex-col items-center">
+            <div className="flex-1 text-center">
+              <div className="mb-6" data-animate="fade-up">
+                <span className="text-secondary font-semibold text-lg tracking-[0.2em] uppercase block mb-3">
+                  Welcome to
+                </span>
+                <h2 className="font-playfair text-4xl md:text-5xl lg:text-6xl font-bold text-primary leading-tight mb-6" data-animate="text" data-delay="1">
+                  Or Hakerem
+                </h2>
+              </div>
+
+              <div className="flex items-center justify-center mb-8">
+                <div className="w-12 h-px bg-gradient-to-r from-secondary to-tertiary"></div>
+                <div className="w-2 h-2 bg-secondary rounded-full mx-3 shadow-lg"></div>
+                <div className="w-12 h-px bg-gradient-to-l from-secondary to-tertiary"></div>
+              </div>
+
+              <div className="max-w-4xl space-y-6 text-lg md:text-xl" data-animate="fade-up" data-delay="2">
+                <p className="text-primary/90 leading-relaxed font-light font-lato">
+                  Or Hakerem is a unique building offering premium apartments for short-term stays in the heart of Tel Aviv.
+                </p>
+
+                <p className="text-primary/80 leading-relaxed font-light font-lato">
+                  Located in Kerem HaTeimanim, near Carmel Market and within walking distance to the beach, the property places you right in the center of it all — just moments from Banana Beach, Nachalat Binyamin, and the vibrant energy of the city.
+                </p>
+
+                <p className="text-primary/85 leading-relaxed font-light font-lato">
+                  Each apartment comes in a different format, designed to suit everything from short city stays to family trips, private gatherings, and special events. What they all share is the same standard: carefully designed spaces, comfort, and a location that makes everything feel easy.
+                </p>
+
+                <p className="text-primary/85 leading-relaxed font-light font-lato">
+                  Whether you’re coming for a few days by the sea or planning a more private moment, Or Hakerem offers a flexible and elevated way to experience Tel Aviv.
+                </p>
+              </div>
+
             </div>
           </div>
         </div>
       </section>
 
-      {/* Guest Services */}
-      <section className="py-20 bg-primary">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <h2 className="text-center font-playfair text-3xl font-bold text-secondary mb-12">
-            Guest Services
-          </h2>
-          <div className="grid md:grid-cols-3 gap-8">
-            <ServiceCard
-              emoji="🕯️"
-              title="Shabbat Delivery"
-              description="Candle kits & meals available upon request for a peaceful Shabbat experience"
-            />
-            <ServiceCard
-              emoji="🎁"
-              title="Welcome Packs"
-              description="Complimentary essentials basket upon arrival to make you feel at home"
-            />
-            <ServiceCard
-              emoji="📺"
-              title="Streaming Included"
-              description="Free access to premium streaming platforms during your stay"
-            />
+      {/* White Separator */}
+      <div className="home-section-divider h-12 bg-white"></div>
+
+      {/* Promotional Carousel with Events CTA */}
+      <div data-animate="fade-up">
+        <PromotionalCarousel/>
+      </div>
+
+      {/* White Separator */}
+      <div className="h-12 bg-white"></div>
+
+      {/* Location Section */}
+      <section className="home-location-section py-16 bg-cream relative overflow-hidden" data-animate="fade-up">
+        <div className="absolute inset-0">
+          <div className="absolute top-6 left-6 w-16 h-16 bg-secondary/10 rounded-full blur-2xl"></div>
+          <div className="absolute bottom-6 right-6 w-20 h-20 bg-tertiary/10 rounded-full blur-2xl"></div>
+        </div>
+
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+          <div className="flex flex-col items-center">
+            <div className="home-location-header text-center mb-12" data-animate="fade-up">
+              <span className="text-secondary font-semibold text-lg tracking-[0.2em] uppercase block mb-3">
+                Our Location
+              </span>
+              <h2 className="font-playfair text-4xl md:text-5xl lg:text-6xl font-bold text-primary leading-tight mb-6" data-animate="text" data-delay="1">
+                At the Heart of Tel Aviv
+              </h2>
+            </div>
+
+            <div className="home-location-content max-w-4xl w-full mb-8" data-animate="fade-up" data-delay="2">
+              <p className="text-primary/90 text-lg md:text-xl leading-relaxed font-light text-center mb-8">
+                Our building is located at <span className="font-medium text-secondary">35 Hakovshim Street</span>, in Kerem HaTeimanim, just steps from the beach and near Carmel Market for guests who want a central, walkable stay in Tel Aviv.
+              </p>
+
+              <div className="w-full rounded-2xl overflow-hidden shadow-xl border border-primary/10" data-animate="zoom">
+                <iframe
+                  src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3380.969106191464!2d34.76409907581854!3d32.07008431977721!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x151d4c843acd13ab%3A0xb4aff2902a9ec6dd!2sHaKovshim%2035%2C%20Tel%20Aviv-Jaffa!5e0!3m2!1sfr!2sil!4v1771934464053!5m2!1sfr!2sil"
+                  width="100%"
+                  height="450"
+                  style={{ border: 0, minHeight: '400px' }}
+                  allowFullScreen
+                  loading="lazy"
+                  referrerPolicy="no-referrer-when-downgrade"
+                  className="w-full"
+                  title="Or Hakerem Location - 35 Hakovshim Street, Tel Aviv"
+                ></iframe>
+                
+              </div>
+
+              <div className="text-center mt-8" data-animate="scale" data-delay="3">
+                <a
+                  href="https://www.google.com/maps?q=Hakovshim+35+Tel+Aviv"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="button-hover-clean inline-flex items-center rounded-full bg-gradient-to-r from-secondary to-secondary-light px-8 py-4 text-lg font-semibold text-primary shadow-xl transition-all duration-300"
+                >
+                  <span className="mr-2">Open in Google Maps</span>
+                  <div className="w-5 h-5 bg-primary/20 rounded-full flex items-center justify-center">
+                    <span className="text-primary text-xs">→</span>
+                  </div>
+                </a>
+              </div>
+            </div>
           </div>
         </div>
       </section>
+
+     {/* White Separator */}
+      <div className="home-section-divider h-12 bg-white"></div>
 
       {/* Contact Section */}
-      <section className="py-16 bg-cream">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-12">
-            <h2 className="font-playfair text-4xl font-bold text-primary mb-4">Get in Touch</h2>
-            <p className="text-primary/80 text-lg max-w-2xl mx-auto">
-              Have questions? We're here to help make your stay exceptional.
+      <section id="contact" className="home-contact-section py-12 bg-gradient-to-br from-primary via-primary to-primary-light relative overflow-hidden rounded-3xl mx-4" data-animate="fade-up">
+        <div className="absolute inset-0">
+          <div className="absolute top-20 left-10 w-32 h-32 bg-secondary/10 rounded-full blur-3xl"></div>
+          <div className="absolute bottom-20 right-10 w-40 h-40 bg-tertiary/10 rounded-full blur-3xl"></div>
+        </div>
+
+        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+          <div className="home-contact-header text-center mb-10" data-animate="fade-up">
+            <span className="text-secondary font-semibold text-lg tracking-wider uppercase">
+              Contact Us
+            </span>
+            <h2 className="font-playfair text-3xl md:text-4xl font-bold text-white mb-4 leading-tight" data-animate="text" data-delay="1">
+              Get in Touch
+            </h2>
+            <p className="text-white/90 text-lg max-w-2xl mx-auto leading-relaxed">
+              Have questions? We&apos;re here to help make your stay exceptional
             </p>
           </div>
 
-          <div className="max-w-2xl mx-auto">
-            <div className="bg-white rounded-2xl shadow-xl overflow-hidden p-8">
-              <form onSubmit={handleSubmit} className="space-y-6">
-                <div className="grid md:grid-cols-2 gap-6">
-                  <div>
-                    <label
-                      htmlFor="name"
-                      className="block text-sm font-medium text-primary/80 mb-1"
-                    >
-                      Your Name
-                    </label>
-                    <input
-                      type="text"
-                      id="name"
-                      name="name"
-                      placeholder="Enter your name"
-                      required
-                      className="w-full h-12 px-4 bg-cream border-2 border-transparent hover:border-primary focus:border-primary focus:ring-2 focus:ring-primary/20 rounded-lg transition-all duration-300 outline-none text-base"
-                    />
-                  </div>
-
-                  <div>
-                    <label
-                      htmlFor="email"
-                      className="block text-sm font-medium text-primary/80 mb-1"
-                    >
-                      Email Address
-                    </label>
-                    <input
-                      type="email"
-                      id="email"
-                      name="email"
-                      placeholder="your@email.com"
-                      required
-                      className="w-full h-12 px-4 bg-cream border-2 border-transparent hover:border-primary focus:border-primary focus:ring-2 focus:ring-primary/20 rounded-lg transition-all duration-300 outline-none text-base"
-                    />
-                  </div>
-                </div>
-
-                <div>
-                  <label
-                    htmlFor="message"
-                    className="block text-sm font-medium text-primary/80 mb-1"
-                  >
-                    Your Message
-                  </label>
-                  <textarea
-                    id="message"
-                    name="message"
-                    placeholder="Write your message here..."
-                    rows={4}
-                    required
-                    className="w-full px-4 py-3 bg-cream border-2 border-transparent hover:border-primary focus:border-primary focus:ring-2 focus:ring-primary/20 rounded-lg transition-all duration-300 outline-none resize-none text-base"
-                  ></textarea>
-                </div>
-
-                <div>
-                  <button
-                    type="submit"
-                    disabled={isSubmitting}
-                    className="w-full bg-primary text-secondary h-12 rounded-xl text-base font-medium hover:bg-primary/90 transition-all duration-300 flex items-center justify-center disabled:opacity-50"
-                  >
-                    {isSubmitting ? 'Sending...' : 'Send Message →'}
-                  </button>
-                </div>
-              </form>
-            </div>
-          </div>
+          <HomeContactForm />
         </div>
       </section>
 
+         {/* White Separator */}
+      <div className="home-section-divider h-12 bg-white"></div>
+
+      {/* Testimonials Carousel */}
+      <div data-animate="fade-up">
+        <TestimonialsCarousel />
+      </div>
+
       {/* FAQ Section */}
-      <FAQ />
+      <div data-animate="fade-up">
+        <FAQ />
+      </div>
     </div>
   );
-};
-
-export default Home;
+}

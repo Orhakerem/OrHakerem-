@@ -1,50 +1,40 @@
 'use server';
 
-import { Resend } from 'resend';
-import { contactSchema } from '@/validation';
-import type { ContactData } from '@/validation';
+import { contactSchema, type ContactData } from '@/validation';
+import { getEmailConfig, sanitizeForHeader, sendResendEmail } from '@/lib/email-service';
 
 export async function sendContactEmail(formData: FormData) {
   try {
-    const apiKey = process.env.RESEND_API_KEY;
-    const recipientEmail = process.env.RECIPIENT_EMAIL;
+    const { config, error: configError } = getEmailConfig();
 
-    if (!apiKey) {
+    if (!config) {
       return {
         success: false,
-        error: 'Missing Resend API key'
-      };
-    }
-
-    if (!recipientEmail) {
-      return {
-        success: false,
-        error: 'Missing recipient email'
+        error: configError,
       };
     }
 
     const data = {
-      name: formData.get('name')?.toString() || '',
-      email: formData.get('email')?.toString() || '',
-      message: formData.get('message')?.toString() || '',
+      name: formData.get('name')?.toString().trim() || '',
+      email: formData.get('email')?.toString().trim() || '',
+      message: formData.get('message')?.toString().trim() || '',
     };
 
     const validatedData = contactSchema.parse(data) as ContactData;
 
-    const resend = new Resend(apiKey);
+    // Sanitize validated data for use in headers
+    const sanitizedEmail = sanitizeForHeader(validatedData.email);
 
-    const { data: emailData, error } = await resend.emails.send({
-      from: 'Or Hakerem <onboarding@resend.dev>',
-      to: recipientEmail,
-      subject: `New message from ${validatedData.name}`,
+    const { error } = await sendResendEmail(config, {
+      subject: sanitizeForHeader(`New message from ${validatedData.name}`),
       html: `
         <h2>New Contact Form Submission</h2>
         <p><strong>From:</strong> ${validatedData.name}</p>
         <p><strong>Email:</strong> ${validatedData.email}</p>
         <p><strong>Message:</strong></p>
         <p>${validatedData.message}</p>
-      `,
-      replyTo: validatedData.email,
+      `.trim(),
+      replyTo: sanitizedEmail,
     });
 
     if (error) {
@@ -54,7 +44,6 @@ export async function sendContactEmail(formData: FormData) {
       };
     }
 
-    console.log('Contact email sent successfully:', emailData?.id);
     return { 
       success: true,
       message: 'Message sent successfully!'
