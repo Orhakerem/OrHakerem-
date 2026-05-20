@@ -24,7 +24,7 @@ const exploreLinks: FooterLink[] = [
 ];
 
 const stayLinks: FooterLink[] = [
-  { label: 'Concierge Services', href: '/concierge-services' },
+  { label: 'Services', href: '/services' },
   { label: 'Reservation', href: '/reservation' },
   { label: 'Contact', href: '/contact' },
 ];
