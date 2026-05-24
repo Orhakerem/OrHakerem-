@@ -1634,11 +1634,13 @@
 
     .navbar-floating {
       height: 92px;
-      padding: 10px 16px;
+      padding: 0 16px 0 0;
       border-radius: 0;
-      top: 10px;
-      width: calc(100% - 16px);
-      max-width: calc(100% - 16px);
+      top: 0;
+      left: 0;
+      transform: none;
+      width: 100%;
+      max-width: 100%;
       box-sizing: border-box;
     }
 
@@ -1648,12 +1650,14 @@
       min-width: 0;
       width: 100%;
       justify-content: space-between;
+      align-items: flex-start;
     }
 
     .logo-section-floating {
       min-width: 0;
       flex: 0 1 auto;
       justify-content: flex-start;
+      align-items: flex-start;
     }
 
     .nav-brand-floating {
