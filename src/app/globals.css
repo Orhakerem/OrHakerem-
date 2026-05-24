@@ -1210,10 +1210,22 @@
       display: none !important;
     }
 
+    .hero-home {
+      height: auto !important;
+      min-height: 0 !important;
+    }
+
+    .hero-home-media {
+      position: relative !important;
+    }
+
     .hero-home-video {
+      position: relative !important;
+      width: 100%;
+      height: auto !important;
       object-fit: contain !important;
-      object-position: top center !important;
-      background: #000;
+      object-position: center !important;
+      background: transparent !important;
     }
 
     .hero-home-cta-wrap {
