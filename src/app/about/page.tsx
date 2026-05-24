@@ -1,4 +1,3 @@
-import Link from 'next/link';
 import { MapPin, Shield, UtensilsCrossed } from 'lucide-react';
 
 import { createCanonicalUrl } from '@/app/seo';

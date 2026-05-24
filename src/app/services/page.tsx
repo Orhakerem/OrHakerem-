@@ -31,7 +31,7 @@ function ServiceCard({ title, description, delay }: ServiceCardProps) {
   );
 }
 
-export default function ConciergeServicesPage() {
+export default function ServicesPage() {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [showForm, setShowForm] = useState(false);
   const [isSuccess, setIsSuccess] = useState(false);
