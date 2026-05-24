@@ -44,7 +44,7 @@ export default function BookingRangeCalendar({
   blockedDates = [],
   availabilityStatus = 'ready',
 }: BookingRangeCalendarProps) {
-  const { rootRef } = useResponsiveCalendarLayout();
+  const { rootRef, numberOfMonths } = useResponsiveCalendarLayout();
   const todayIso = getTodayIsoInTimeZone();
   const todayMonth = useMemo(
     () => startOfMonthUtc(createDateFromIso(todayIso)),
@@ -368,7 +368,7 @@ export default function BookingRangeCalendar({
             onDayClick={handleDayClick}
             onSelect={keepDayPickerSelectionControlled}
             selected={selectedRange}
-            numberOfMonths={2}
+            numberOfMonths={numberOfMonths}
             pagedNavigation
             showOutsideDays
             timeZone={BUSINESS_TIME_ZONE}

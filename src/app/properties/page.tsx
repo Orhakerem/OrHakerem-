@@ -145,45 +145,45 @@ function PropertyCard({ property }: { property: (typeof properties)[keyof typeof
 
 export default function Properties() {
   return (
-    <div className="min-h-screen pt-28 pb-20 md:pt-32" style={{ backgroundColor: '#e8e4dc' }}>
+    <div className="min-h-screen pt-28 pb-10 md:pb-20 md:pt-32" style={{ backgroundColor: '#e8e4dc' }}>
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Hero Section */}
-        <div className="text-center mb-16" data-animate="fade-up">
-          <h1 className="font-head text-5xl md:text-6xl font-bold text-black mb-6 leading-tight" data-animate="text">
+        <div className="text-center mb-8 md:mb-16" data-animate="fade-up">
+          <h1 className="font-head text-3xl md:text-6xl font-bold text-black mb-0 leading-tight" data-animate="text">
             Luxury Apartments in Tel Aviv
           </h1>
         </div>
 
         {/* Properties Grid - Square Cards */}
-        <div id="properties-listing" className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-4xl mx-auto mb-16 scroll-mt-32" data-animate-group="cards">
+        <div id="properties-listing" className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-4xl mx-auto mb-8 md:mb-16 scroll-mt-32" data-animate-group="cards">
           {Object.values(properties).map((property) => (
             <PropertyCard key={property.id} property={property} />
           ))}
         </div>
 
-        <section className="max-w-6xl mx-auto mb-16" data-animate="fade-up">
+        <section className="max-w-6xl mx-auto mb-8 md:mb-16" data-animate="fade-up">
           <div className="grid gap-8 lg:grid-cols-[1.05fr_0.95fr] lg:items-center">
-            <div className="rounded-[10px] bg-white p-8 md:p-10 shadow-xl border border-primary/10">
+            <div className="rounded-[10px] bg-white p-5 md:p-10 shadow-xl border border-primary/10">
               <span className="text-secondary font-semibold text-sm md:text-base tracking-[0.2em] uppercase block mb-3">
                 Stay Experience
               </span>
-              <h2 className="font-head text-3xl md:text-4xl font-bold text-black mb-5">
+              <h2 className="font-head text-xl md:text-4xl font-bold text-black mb-3 md:mb-5">
                 A more local way to stay in Tel Aviv
               </h2>
-              <p className="text-black/80 text-lg leading-relaxed">
+              <p className="text-black/80 text-sm md:text-lg leading-relaxed">
                 Located in Kerem HaTeimanim, our apartments combine modern comfort with the character of one of Tel Aviv&apos;s most established neighborhoods. The setting feels central and connected, yet calmer and more personal than a conventional hotel stay.
               </p>
-              <p className="text-black/80 text-lg leading-relaxed mt-5">
+              <p className="text-black/80 text-sm md:text-lg leading-relaxed mt-3 md:mt-5">
                 Whether you are visiting for a weekend by the sea, a longer city stay, or time between business meetings and local plans, Or HaKerem offers a polished base within easy reach of the beach, the market, and the cultural center of the city.
               </p>
 
-              <div className="mt-8 rounded-[10px] bg-cream border border-primary/10 px-6 py-6">
-                <h3 className="font-head text-2xl font-semibold text-black mb-4">
+              <div className="mt-5 md:mt-8 rounded-[10px] bg-cream border border-primary/10 px-4 py-4 md:px-6 md:py-6">
+                <h3 className="font-head text-lg md:text-2xl font-semibold text-black mb-3 md:mb-4">
                   Best enjoyed on foot
                 </h3>
-                <ul className="space-y-3">
+                <ul className="space-y-2 md:space-y-3">
                   {neighborhoodHighlights.map((highlight) => (
-                    <li key={highlight} className="flex items-start text-black/80">
+                    <li key={highlight} className="flex items-start text-sm md:text-base text-black/80">
                       <CheckCircle className="w-5 h-5 text-secondary mr-3 mt-0.5 flex-shrink-0" />
                       <span>{highlight}</span>
                     </li>
@@ -193,7 +193,7 @@ export default function Properties() {
             </div>
 
             <div className="relative" data-animate="zoom">
-              <div className="relative h-[420px] md:h-[540px] overflow-hidden rounded-[6px] shadow-2xl">
+              <div className="relative h-[240px] md:h-[540px] overflow-hidden rounded-[6px] shadow-2xl">
                 <Image
                   src="/penthouse/7-vue-mer.jpg"
                   alt="Or HaKerem apartment view in Tel Aviv"
@@ -203,7 +203,7 @@ export default function Properties() {
                 />
               </div>
 
-              <div className="absolute -bottom-5 left-5 right-5 md:left-auto md:right-6 md:max-w-xs rounded-[10px] bg-white p-5 shadow-xl border border-primary/10">
+              <div className="absolute -bottom-5 left-5 right-5 md:left-auto md:right-6 md:max-w-xs rounded-[10px] bg-white p-4 md:p-5 shadow-xl border border-primary/10">
                 <div className="flex items-center gap-3 mb-2">
                   <div className="w-12 h-12 rounded-full bg-secondary/20 flex items-center justify-center text-black">
                     <CheckCircle className="w-6 h-6" />
@@ -221,32 +221,32 @@ export default function Properties() {
           </div>
         </section>
 
-        <div className="max-w-6xl mx-auto mb-16" data-animate="fade-up">
-          <div className="rounded-[10px] bg-gradient-to-r from-secondary/20 via-primary/15 to-secondary/20 border border-primary/30 px-6 py-5 md:px-8 md:py-6 text-center shadow-md">
-            <p className="font-head text-xl md:text-2xl font-semibold text-black">
+        <div className="max-w-6xl mx-auto mb-8 md:mb-16" data-animate="fade-up">
+          <div className="rounded-[10px] bg-gradient-to-r from-secondary/20 via-primary/15 to-secondary/20 border border-primary/30 px-4 py-4 md:px-8 md:py-6 text-center shadow-md">
+            <p className="font-head text-base md:text-2xl font-semibold text-black">
               Booking directly with us is up to 15% cheaper than platforms!
             </p>
           </div>
         </div>
 
-        <section className="max-w-6xl mx-auto mb-16" data-animate="fade-up">
-          <div className="text-center mb-10">
+        <section className="max-w-6xl mx-auto mb-8 md:mb-16" data-animate="fade-up">
+          <div className="text-center mb-5 md:mb-10">
             <span className="text-black font-semibold text-sm md:text-base tracking-[0.2em] uppercase block mb-3">
               Included in Every Stay
             </span>
-            <h2 className="font-head text-3xl md:text-4xl font-bold text-black">
+            <h2 className="font-head text-xl md:text-4xl font-bold text-black">
               Thoughtful essentials, consistently delivered
             </h2>
           </div>
 
-          <div className="grid gap-10 md:grid-cols-2 xl:grid-cols-4">
+          <div className="grid gap-5 md:gap-10 md:grid-cols-2 xl:grid-cols-4">
             {stayHighlights.map((highlight) => (
               <div key={highlight.title}>
-                <highlight.icon className="w-7 h-7 text-black mb-4" />
-                <h3 className="font-head text-2xl font-semibold text-black mb-3">
+                <highlight.icon className="w-7 h-7 text-black mb-3 md:mb-4" />
+                <h3 className="font-head text-lg md:text-2xl font-semibold text-black mb-2 md:mb-3">
                   {highlight.title}
                 </h3>
-                <p className="text-black/75 leading-relaxed">
+                <p className="text-sm md:text-base text-black/75 leading-relaxed">
                   {highlight.description}
                 </p>
               </div>
@@ -254,16 +254,16 @@ export default function Properties() {
           </div>
         </section>
 
-        <div className="max-w-6xl mx-auto mb-16">
+        <div className="max-w-6xl mx-auto mb-8 md:mb-16">
           <hr className="border-t border-black/10" />
         </div>
 
-        <section className="max-w-4xl mx-auto mb-16" data-animate="fade-up">
-          <div className="text-center mb-10">
+        <section className="max-w-4xl mx-auto mb-8 md:mb-16" data-animate="fade-up">
+          <div className="text-center mb-5 md:mb-10">
             <span className="text-black font-semibold text-sm md:text-base tracking-[0.2em] uppercase block mb-3">
               Nearby Landmarks
             </span>
-            <h2 className="font-head text-3xl md:text-4xl font-bold text-black">
+            <h2 className="font-head text-xl md:text-4xl font-bold text-black">
               Prime location in Tel Aviv
             </h2>
           </div>
@@ -272,7 +272,7 @@ export default function Properties() {
             {nearbyLandmarks.map((landmark) => (
               <div key={landmark.name} className="text-center">
                 <MapPin className="w-5 h-5 mx-auto mb-3 text-black" />
-                <h3 className="font-head text-xl font-semibold text-black mb-1">
+                <h3 className="font-head text-base md:text-xl font-semibold text-black mb-1">
                   {landmark.name}
                 </h3>
                 <p className="text-black/70 font-medium">{landmark.distance}</p>
@@ -281,26 +281,26 @@ export default function Properties() {
           </div>
         </section>
 
-        <div className="max-w-6xl mx-auto mb-16">
+        <div className="max-w-6xl mx-auto mb-8 md:mb-16">
           <hr className="border-t border-black/10" />
         </div>
 
-        <section className="max-w-6xl mx-auto mb-16" data-animate="fade-up">
-          <div className="text-center mb-10">
+        <section className="max-w-6xl mx-auto mb-8 md:mb-16" data-animate="fade-up">
+          <div className="text-center mb-5 md:mb-10">
             <span className="text-black font-semibold text-sm md:text-base tracking-[0.2em] uppercase block mb-3">
               Also Available On
             </span>
-            <h2 className="font-head text-3xl md:text-4xl font-bold text-black">
+            <h2 className="font-head text-xl md:text-4xl font-bold text-black">
               Our listings on different platforms
             </h2>
-            <p className="text-black/70 mt-4 max-w-2xl mx-auto">
+            <p className="text-black/70 mt-3 md:mt-4 text-sm md:text-base max-w-2xl mx-auto">
               Find us on the platforms you trust. Remember, booking directly with us is up to 15% cheaper.
             </p>
           </div>
 
           <div className="grid gap-8 md:grid-cols-2">
             <div className="text-center">
-              <h3 className="font-head text-2xl font-semibold text-black mb-2">
+              <h3 className="font-head text-lg md:text-2xl font-semibold text-black mb-2">
                 Luxury Penthouse
               </h3>
               <p className="text-black/70 text-sm mb-5">Available on Airbnb and Booking.com</p>
@@ -327,7 +327,7 @@ export default function Properties() {
             </div>
 
             <div className="text-center">
-              <h3 className="font-head text-2xl font-semibold text-black mb-2">
+              <h3 className="font-head text-lg md:text-2xl font-semibold text-black mb-2">
                 Spacious & Cosy Apartment
               </h3>
               <p className="text-black/70 text-sm mb-5">Available on Airbnb</p>

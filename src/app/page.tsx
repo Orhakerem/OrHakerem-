@@ -39,7 +39,7 @@ export default function Home() {
       </div>
 
       {/* Welcome Section */}
-      <section className="py-16 bg-cream relative overflow-hidden rounded-3xl mx-4">
+      <section className="py-8 md:py-16 bg-cream relative overflow-hidden rounded-3xl mx-4">
         <div className="absolute inset-0">
           <div className="absolute top-6 left-6 w-16 h-16 bg-secondary/10 rounded-full blur-2xl"></div>
           <div className="absolute bottom-6 right-6 w-20 h-20 bg-tertiary/10 rounded-full blur-2xl"></div>
@@ -48,13 +48,21 @@ export default function Home() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
           <div className="grid grid-cols-[minmax(0,0.9fr)_minmax(152px,1fr)] items-center gap-4 sm:gap-8 lg:gap-16">
             <div className="min-w-0 text-left">
-              <div className="mb-5 sm:mb-6">
-                <h2 className="font-head text-4xl md:text-5xl lg:text-6xl font-bold text-black leading-tight mb-6">
+              <div className="mb-2 sm:mb-6">
+                <h2 className="font-head text-2xl md:text-5xl lg:text-6xl font-bold text-black leading-tight mb-3 md:mb-6">
                   Welcome
                 </h2>
               </div>
 
-              <div className="max-w-3xl space-y-4 sm:space-y-6 text-sm sm:text-lg md:text-xl">
+              {/* Mobile: concise version, height ≈ video */}
+              <div className="block sm:hidden max-w-3xl text-sm leading-relaxed">
+                <p className="text-black/90 font-light font-body">
+                  Premium apartments for short-term stays in the heart of Tel Aviv — Kerem HaTeimanim, near Carmel Market and the beach. Carefully designed, comfortable spaces for a flexible, elevated stay.
+                </p>
+              </div>
+
+              {/* Desktop: full version */}
+              <div className="hidden sm:block max-w-3xl space-y-6 text-lg md:text-xl">
                 <p className="text-black/90 leading-relaxed font-light font-body">
                   Or Hakerem is a unique building offering premium apartments for short-term stays in the heart of Tel Aviv.
                 </p>
@@ -73,7 +81,7 @@ export default function Home() {
               </div>
             </div>
 
-            <div className="relative min-h-[300px] sm:min-h-[440px] lg:min-h-[620px] overflow-hidden rounded-md border border-primary/10 shadow-2xl" data-animate="slide-in-right">
+            <div className="relative min-h-[170px] sm:min-h-[440px] lg:min-h-[620px] overflow-hidden rounded-md border border-primary/10 shadow-2xl" data-animate="slide-in-right">
               <video
                 src="/jacuzzi-video.mp4"
                 autoPlay
@@ -126,11 +134,11 @@ export default function Home() {
               </div>
 
               <div className="home-location-content w-full" data-animate="fade-up" data-delay="2">
-                <p className="text-white/90 text-lg md:text-xl leading-relaxed font-light mb-8">
+                <p className="text-white/90 text-lg md:text-xl leading-relaxed font-light mb-8 hidden lg:block">
                   Our building is located at <span className="font-medium text-secondary">35 Hakovshim Street</span>, in Kerem HaTeimanim, just steps from the beach and near Carmel Market for guests who want a central, walkable stay in Tel Aviv.
                 </p>
 
-                <div className="text-center" data-animate="scale" data-delay="3">
+                <div className="text-center hidden lg:block" data-animate="scale" data-delay="3">
                   <LiquidGlassCTA
                     href="https://www.google.com/maps?q=Hakovshim+35+Tel+Aviv"
                     target="_blank"
@@ -140,6 +148,17 @@ export default function Home() {
                   </LiquidGlassCTA>
                 </div>
               </div>
+            </div>
+
+            {/* Responsive-only CTA: appears under the map (<lg) */}
+            <div className="order-last text-center lg:hidden" data-animate="scale" data-delay="3">
+              <LiquidGlassCTA
+                href="https://www.google.com/maps?q=Hakovshim+35+Tel+Aviv"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                Open in Google Maps
+              </LiquidGlassCTA>
             </div>
           </div>
         </div>

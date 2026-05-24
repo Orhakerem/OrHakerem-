@@ -5,6 +5,7 @@ import {
   Bath,
   BedDouble,
   Calendar,
+  ChevronLeft,
   ChevronRight,
   Coffee,
   Dumbbell,
@@ -18,6 +19,7 @@ import {
   Tv,
   Utensils,
   UtensilsCrossed,
+  Users,
   Waves,
   Wifi,
   Wind,
@@ -413,6 +415,7 @@ export default function PropertyDetailsClient({
   const [isAmenitiesModalOpen, setIsAmenitiesModalOpen] = useState(false);
   const [isDescriptionExpanded, setIsDescriptionExpanded] = useState(false);
   const [isBookingSheetOpen, setIsBookingSheetOpen] = useState(false);
+  const [heroPhotoIndex, setHeroPhotoIndex] = useState(0);
   const propertyKey = isPropertyId(propertyId) ? propertyId : null;
   const property = propertyKey ? properties[propertyKey] : null;
   const selectedListingId = propertyKey ? getBookablePropertyListingId(propertyKey) : '';
@@ -522,6 +525,10 @@ export default function PropertyDetailsClient({
     selectedListingId,
     selectedNights,
   ]);
+
+  useEffect(() => {
+    setHeroPhotoIndex(0);
+  }, [propertyKey]);
 
   const anyOverlayOpen =
     isPhotosModalOpen || isAmenitiesModalOpen || isBookingSheetOpen;
@@ -924,6 +931,9 @@ export default function PropertyDetailsClient({
   );
 
   const heroPhotos = property.images.slice(0, 5);
+  const heroPhotoCount = property.images.length;
+  const activeHeroPhotoIndex = heroPhotoIndex % heroPhotoCount;
+  const activeHeroPhoto = property.images[activeHeroPhotoIndex] ?? property.images[0];
   const amenitiesPreview = property.amenities.slice(0, 10);
   const quickFacts = [
     `${property.maxGuests} guest${property.maxGuests === 1 ? '' : 's'}`,
@@ -931,16 +941,70 @@ export default function PropertyDetailsClient({
     `${property.beds} bed${property.beds === 1 ? '' : 's'}`,
     `${property.baths} bath${property.baths === 1 ? '' : 's'}`,
   ];
-  const bookingCtaLabel = activePriceQuote
-    ? `€${Math.round(activePriceQuote.total_price)} total · ${activePriceQuote.nights} night${activePriceQuote.nights === 1 ? '' : 's'}`
-    : 'Add dates for pricing';
+  const showPreviousHeroPhoto = () => {
+    setHeroPhotoIndex((currentIndex) =>
+      currentIndex === 0 ? heroPhotoCount - 1 : currentIndex - 1,
+    );
+  };
+  const showNextHeroPhoto = () => {
+    setHeroPhotoIndex((currentIndex) =>
+      currentIndex === heroPhotoCount - 1 ? 0 : currentIndex + 1,
+    );
+  };
+
 
   return (
-    <div className="min-h-screen pt-24 pb-32 lg:pb-20" style={{ backgroundColor: '#e8e4dc' }}>
-      {/* 1. Photo grid hero */}
-      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mt-4 md:mt-6">
-        {/* Desktop / tablet: Airbnb 5-up grid */}
-        <div className="relative hidden md:grid aspect-[2/1] grid-cols-4 grid-rows-2 gap-2 overflow-hidden rounded-[6px]">
+    <div className="property-detail-page min-h-screen pt-0 lg:pt-24 pb-32 lg:pb-20" style={{ backgroundColor: '#e8e4dc' }}>
+      {/* Responsive: full-bleed photo with back button, carousel arrows + gallery counter */}
+      <div className="lg:hidden relative h-[44vh] w-full overflow-hidden">
+        <Image
+          src={activeHeroPhoto}
+          alt={`${property.title} — photo ${activeHeroPhotoIndex + 1}`}
+          fill
+          priority
+          className="object-cover"
+          sizes="100vw"
+        />
+        <button
+          type="button"
+          onClick={() => router.push('/properties')}
+          aria-label="Back to properties"
+          className="tap-reset absolute top-4 left-4 flex h-10 w-10 items-center justify-center rounded-full bg-white shadow-md"
+        >
+          <ChevronLeft className="h-5 w-5 text-black" />
+        </button>
+        <div className="absolute inset-y-0 left-0 right-0 flex items-center justify-between px-3 pointer-events-none">
+          <button
+            type="button"
+            onClick={showPreviousHeroPhoto}
+            aria-label="Show previous photo"
+            className="tap-reset pointer-events-auto flex h-10 w-10 items-center justify-center rounded-full bg-white/90 shadow-md backdrop-blur-sm transition hover:bg-white"
+          >
+            <ChevronLeft className="h-5 w-5 text-black" />
+          </button>
+          <button
+            type="button"
+            onClick={showNextHeroPhoto}
+            aria-label="Show next photo"
+            className="tap-reset pointer-events-auto flex h-10 w-10 items-center justify-center rounded-full bg-white/90 shadow-md backdrop-blur-sm transition hover:bg-white"
+          >
+            <ChevronRight className="h-5 w-5 text-black" />
+          </button>
+        </div>
+        <button
+          type="button"
+          onClick={() => setIsPhotosModalOpen(true)}
+          aria-haspopup="dialog"
+          aria-label="View all photos"
+          className="tap-reset absolute bottom-4 right-4 rounded-full bg-black/50 px-3 py-1.5 text-xs font-semibold text-white backdrop-blur-sm"
+        >
+          {activeHeroPhotoIndex + 1} / {property.images.length}
+        </button>
+      </div>
+
+      {/* Desktop: Airbnb 5-up photo grid */}
+      <section className="hidden lg:block max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mt-4 md:mt-6">
+        <div className="relative grid aspect-[2/1] grid-cols-4 grid-rows-2 gap-2 overflow-hidden rounded-[6px]">
           {heroPhotos.map((src, index) => (
             <button
               key={src}
@@ -972,35 +1036,38 @@ export default function PropertyDetailsClient({
             Show all {property.images.length} photos
           </button>
         </div>
-
-        {/* Mobile: single hero with overlay button */}
-        <button
-          type="button"
-          onClick={() => setIsPhotosModalOpen(true)}
-          aria-haspopup="dialog"
-          aria-expanded={isPhotosModalOpen}
-          className="tap-reset md:hidden relative block h-[55vh] w-full overflow-hidden rounded-[6px]"
-        >
-          <Image
-            src={property.images[0]}
-            alt={`${property.title} — photo 1`}
-            fill
-            priority
-            className="object-cover"
-            sizes="100vw"
-          />
-          <span className="absolute bottom-4 right-4 rounded-full bg-white px-4 py-2 text-sm font-semibold text-black shadow-md">
-            View all {property.images.length} photos
-          </span>
-        </button>
       </section>
 
       {/* Main content + sticky booking */}
-      <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 pt-10 md:pt-14 grid gap-10 lg:gap-14 lg:grid-cols-[1.55fr_1fr]">
+      <div className="relative z-10 -mt-6 rounded-t-[1.75rem] bg-cream shadow-[0_-8px_24px_-16px_rgba(0,0,0,0.25)] lg:mt-0 lg:rounded-none lg:shadow-none max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 pt-8 lg:pt-14 grid gap-10 lg:gap-14 lg:grid-cols-[1.55fr_1fr]">
         {/* Left content column */}
         <div className="min-w-0">
-          {/* 2. Title + property type subtitle */}
-          <header>
+          {/* Responsive editorial header */}
+          <div className="lg:hidden pb-4">
+            <h1 className="mt-2 font-head text-2xl font-bold text-black leading-tight">
+              {property.title}
+            </h1>
+            <p className="mt-2 text-sm text-black/70 leading-relaxed">
+              {property.description}
+            </p>
+            <div className="mt-4 flex flex-wrap gap-x-4 gap-y-1.5 text-sm text-black/80">
+              <span className="flex items-center gap-1.5">
+                <Users className="h-4 w-4 shrink-0" />
+                {property.maxGuests} guests
+              </span>
+              <span className="flex items-center gap-1.5">
+                <BedDouble className="h-4 w-4 shrink-0" />
+                {property.bedrooms} bedroom{property.bedrooms !== 1 ? 's' : ''} · {property.beds} bed{property.beds !== 1 ? 's' : ''}
+              </span>
+              <span className="flex items-center gap-1.5">
+                <Bath className="h-4 w-4 shrink-0" />
+                {property.baths} bath{property.baths !== 1 ? 's' : ''}
+              </span>
+            </div>
+          </div>
+
+          {/* 2. Title + property type subtitle (desktop) */}
+          <header className="hidden lg:block">
             <h1 className="font-head text-3xl md:text-4xl font-bold text-black leading-tight">
               {property.title}
             </h1>
@@ -1015,10 +1082,10 @@ export default function PropertyDetailsClient({
           </header>
 
           {/* Divider */}
-          <hr className="mt-10 mb-5 border-t border-primary/10" />
+          <hr className="hidden lg:block mt-10 mb-5 border-t border-primary/10" />
 
           {/* 5. Feature highlights */}
-          <section className="grid grid-cols-3 gap-3 py-1">
+          <section className="hidden lg:grid grid-cols-3 gap-3 py-1">
             {property.highlights.map((highlight) => (
               <div key={highlight.title} className="flex flex-col gap-2">
                 <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-[10px] bg-primary/5 text-black">
@@ -1029,7 +1096,7 @@ export default function PropertyDetailsClient({
             ))}
           </section>
 
-          <hr className="mt-5 mb-10 border-t border-primary/10" />
+          <hr className="hidden lg:block mt-5 mb-10 border-t border-primary/10" />
 
           {/* 6. Select check-in date — inline calendar (moved above About this space) */}
           <section id="select-checkin-date">
@@ -1048,6 +1115,17 @@ export default function PropertyDetailsClient({
                 availabilityStatus={availabilityStatus}
               />
             </div>
+            {hasValidDateRange ? (
+              <AccommodationPriceSummary
+                nights={selectedNights}
+                quote={activePriceQuote}
+                isLoading={isPriceLoading}
+                priceError={priceError}
+                validationError={formErrors.price}
+                className="lg:hidden mt-4 rounded-[10px] border border-primary/10 bg-white/80 px-4 py-3 text-sm shadow-sm"
+                totalValueClassName="font-head text-lg font-bold"
+              />
+            ) : null}
           </section>
 
           <hr className="my-10 border-t border-primary/10" />
@@ -1083,6 +1161,59 @@ export default function PropertyDetailsClient({
           </section>
 
           <hr className="my-10 border-t border-primary/10" />
+
+          {/* 8. Responsive photos by room */}
+          {property.rooms?.length ? (
+            <section className="lg:hidden">
+              <h2 className="font-head text-2xl font-bold text-black">
+                Photos by room
+              </h2>
+              <div className="mt-5 space-y-5">
+                {property.rooms.map((room) => (
+                  <button
+                    key={room.name}
+                    type="button"
+                    onClick={() => setIsPhotosModalOpen(true)}
+                    className="tap-reset block w-full text-left"
+                    aria-label={`View ${room.name} photos`}
+                  >
+                    <span className="flex gap-3 overflow-x-auto pb-2">
+                      {room.images.slice(0, 4).map((image, index) => (
+                        <span
+                          key={image.src}
+                          className="relative block h-24 w-32 shrink-0 overflow-hidden rounded-[6px] bg-white"
+                        >
+                          <Image
+                            src={image.src}
+                            alt={image.alt}
+                            fill
+                            className="object-cover"
+                            loading="lazy"
+                            sizes="128px"
+                          />
+                          {index === 3 && room.images.length > 4 ? (
+                            <span className="absolute inset-0 grid place-items-center bg-black/45 text-xs font-semibold text-white">
+                              +{room.images.length - 3}
+                            </span>
+                          ) : null}
+                        </span>
+                      ))}
+                    </span>
+                    <span className="mt-2 flex items-center justify-between gap-3">
+                      <span className="font-head text-base font-bold text-black">
+                        {room.name}
+                      </span>
+                      <span className="text-xs font-semibold uppercase tracking-[0.16em] text-primary">
+                        {room.images.length} photos
+                      </span>
+                    </span>
+                  </button>
+                ))}
+              </div>
+            </section>
+          ) : null}
+
+          <hr className="my-10 border-t border-primary/10 lg:hidden" />
 
           {/* 9. What this place offers */}
           <section>
@@ -1134,11 +1265,13 @@ export default function PropertyDetailsClient({
       <div className="lg:hidden fixed inset-x-0 bottom-0 z-40 border-t border-primary/10 bg-white/95 backdrop-blur-sm px-4 py-3 shadow-[0_-8px_24px_-12px_rgba(0,0,0,0.18)]">
         <div className="flex items-center justify-between gap-4 max-w-3xl mx-auto">
           <div className="min-w-0">
-            <p className="text-sm font-semibold text-black truncate">{bookingCtaLabel}</p>
-            <p className="text-xs text-black/60 truncate">
-              {dateRange.checkIn && dateRange.checkOut
-                ? `${dateRange.checkIn} → ${dateRange.checkOut}`
-                : 'Tap reserve to choose dates'}
+            <p className="text-xs font-semibold uppercase tracking-[0.18em] text-black/50">
+              Request to book
+            </p>
+            <p className="text-sm font-semibold text-black truncate">
+              {selectedNights > 0
+                ? `${selectedNights} night${selectedNights !== 1 ? 's' : ''} · ${dateRange.checkIn} → ${dateRange.checkOut}`
+                : 'Add dates for pricing'}
             </p>
           </div>
           <button
@@ -1148,7 +1281,7 @@ export default function PropertyDetailsClient({
             aria-expanded={isBookingSheetOpen}
             className="tap-reset shrink-0 rounded-full bg-primary px-6 py-3 text-sm font-semibold text-white shadow-md transition hover:bg-primary/90"
           >
-            Reserve
+            Inquire
           </button>
         </div>
       </div>

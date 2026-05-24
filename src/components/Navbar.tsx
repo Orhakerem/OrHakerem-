@@ -62,7 +62,20 @@ function Navbar() {
     };
   }, []);
 
+  useEffect(() => {
+    if (isMobileMenuOpen) {
+      document.body.classList.add('mobile-menu-open');
+    } else {
+      document.body.classList.remove('mobile-menu-open');
+    }
+    return () => {
+      document.body.classList.remove('mobile-menu-open');
+    };
+  }, [isMobileMenuOpen]);
+
   const fadedClass = isFaded && !isMobileMenuOpen ? ' is-faded' : '';
+  const isListingDetail =
+    pathname.startsWith('/properties/') && pathname !== '/properties';
 
   const isActive = (match: string | null) => {
     if (!match) {
@@ -135,6 +148,7 @@ function Navbar() {
       </nav>
 
       {/* Mobile Navbar */}
+      {!isListingDetail && (
       <nav
         className={`navbar-floating md:hidden${fadedClass}`}
         role="navigation"
@@ -167,36 +181,36 @@ function Navbar() {
               <Menu className="w-7 h-7" />
             )}
           </button>
-
-          {isMobileMenuOpen && (
-            <div className="mobile-menu-floating">
-              <div className="mobile-menu-items-floating">
-                {navItems.map((item) => {
-                  const active = isActive(item.match);
-
-                  return (
-                    <Link
-                      key={item.href}
-                      href={item.href}
-                      onClick={closeMobileMenu}
-                      className={`mobile-nav-item-floating ${active ? 'active' : ''}`}
-                      aria-current={active ? 'page' : undefined}
-                    >
-                      <span>{item.label}</span>
-                    </Link>
-                  );
-                })}
-              </div>
-            </div>
-          )}
         </div>
       </nav>
+      )}
 
       {isMobileMenuOpen && (
-        <div 
+        <div
           className="mobile-overlay-floating tap-reset"
           onClick={closeMobileMenu}
-        />
+        >
+          <div
+            className="mobile-menu-items-floating"
+            onClick={(e) => e.stopPropagation()}
+          >
+            {navItems.map((item) => {
+              const active = isActive(item.match);
+
+              return (
+                <Link
+                  key={item.href}
+                  href={item.href}
+                  onClick={closeMobileMenu}
+                  className={`mobile-nav-item-floating ${active ? 'active' : ''}`}
+                  aria-current={active ? 'page' : undefined}
+                >
+                  <span>{item.label}</span>
+                </Link>
+              );
+            })}
+          </div>
+        </div>
       )}
     </>
   );

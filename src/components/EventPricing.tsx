@@ -7,7 +7,7 @@ export default function EventPricing() {
   return (
     <section
       id="pricing"
-      className="events-pricing-section py-20 mb-20"
+      className="events-pricing-section py-8 md:py-20 mb-8 md:mb-20"
       data-animate="fade-up"
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -19,24 +19,24 @@ export default function EventPricing() {
             </span>
           </div>
           <h2
-            className="font-head text-4xl md:text-5xl font-bold text-black mb-4 leading-tight"
+            className="font-head text-2xl md:text-5xl font-bold text-black mb-4 leading-tight"
             data-animate="text"
           >
             Venue Rental
           </h2>
-          <p className="text-black/80 text-lg md:text-xl max-w-3xl mx-auto leading-relaxed">
+          <p className="text-black/80 text-sm md:text-xl max-w-3xl mx-auto leading-relaxed">
             Book the space only, then add catering and services if needed.
           </p>
         </div>
 
-        <div className="grid md:grid-cols-2 gap-6 md:gap-8 max-w-5xl mx-auto mb-20">
+        <div className="grid md:grid-cols-2 gap-6 md:gap-8 max-w-5xl mx-auto mb-8 md:mb-20">
           {venueRentals.map((rental) => (
             <article
               key={rental.id}
               className="bg-white rounded-3xl p-8 md:p-10 shadow-xl border border-secondary/30 hover:shadow-2xl transition-shadow"
               data-animate="scale"
             >
-              <h3 className="font-head text-2xl md:text-3xl font-bold text-black">
+              <h3 className="font-head text-lg md:text-3xl font-bold text-black">
                 {rental.label}
               </h3>
               <div className="my-6">
@@ -67,8 +67,8 @@ export default function EventPricing() {
         </div>
 
         {/* Secondary block — Catering & Service Add-ons */}
-        <div className="text-center mb-10" data-animate="fade-up">
-          <h3 className="font-head text-3xl md:text-4xl font-bold text-black mb-3">
+        <div className="text-center mb-5 md:mb-10" data-animate="fade-up">
+          <h3 className="font-head text-2xl md:text-4xl font-bold text-black mb-3">
             Catering &amp; Service Add-ons
           </h3>
           <p className="text-black/70 max-w-3xl mx-auto leading-relaxed">
