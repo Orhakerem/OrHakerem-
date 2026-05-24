@@ -181,37 +181,36 @@ function Navbar() {
               <Menu className="w-7 h-7" />
             )}
           </button>
-
-          {isMobileMenuOpen && (
-            <div className="mobile-menu-floating">
-              <div className="mobile-menu-items-floating">
-                {navItems.map((item) => {
-                  const active = isActive(item.match);
-
-                  return (
-                    <Link
-                      key={item.href}
-                      href={item.href}
-                      onClick={closeMobileMenu}
-                      className={`mobile-nav-item-floating ${active ? 'active' : ''}`}
-                      aria-current={active ? 'page' : undefined}
-                    >
-                      <span>{item.label}</span>
-                    </Link>
-                  );
-                })}
-              </div>
-            </div>
-          )}
         </div>
       </nav>
       )}
 
       {isMobileMenuOpen && (
-        <div 
+        <div
           className="mobile-overlay-floating tap-reset"
           onClick={closeMobileMenu}
-        />
+        >
+          <div
+            className="mobile-menu-items-floating"
+            onClick={(e) => e.stopPropagation()}
+          >
+            {navItems.map((item) => {
+              const active = isActive(item.match);
+
+              return (
+                <Link
+                  key={item.href}
+                  href={item.href}
+                  onClick={closeMobileMenu}
+                  className={`mobile-nav-item-floating ${active ? 'active' : ''}`}
+                  aria-current={active ? 'page' : undefined}
+                >
+                  <span>{item.label}</span>
+                </Link>
+              );
+            })}
+          </div>
+        </div>
       )}
     </>
   );
