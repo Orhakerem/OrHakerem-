@@ -72,14 +72,14 @@ export default function RoomGallery({ rooms }: RoomGalleryProps) {
               />
               <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent"></div>
               <span className="absolute bottom-4 left-4 text-white">
-                <span className="block font-playfair text-xl font-bold">{room.name}</span>
+                <span className="block font-head text-xl font-bold">{room.name}</span>
                 <span className="text-sm opacity-90">{room.images.length} photos</span>
               </span>
             </span>
             
             {/* Room Info */}
             <span className="block p-4">
-              <span className="text-sm text-primary/80">{room.description}</span>
+              <span className="text-sm text-black/80">{room.description}</span>
             </span>
           </button>
         ))}
@@ -98,7 +98,7 @@ export default function RoomGallery({ rooms }: RoomGalleryProps) {
 
           {/* Room Title */}
           <div className="absolute top-4 left-4 text-white z-10">
-            <h2 className="font-playfair text-2xl font-bold">{selectedRoom.name}</h2>
+            <h2 className="font-head text-2xl font-bold">{selectedRoom.name}</h2>
             <p className="text-sm opacity-90">
               {currentImageIndex + 1} of {selectedRoom.images.length}
             </p>

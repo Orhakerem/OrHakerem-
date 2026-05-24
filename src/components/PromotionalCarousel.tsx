@@ -140,19 +140,19 @@ const PromotionalCarousel: React.FC = () => {
           <span className="text-secondary font-semibold text-sm tracking-[0.2em] uppercase block mb-3">
             Special Events
           </span>
-          <h3 className="font-playfair text-3xl md:text-4xl font-light text-primary mb-4" data-animate="text" data-delay="2">
+          <h3 className="font-head text-3xl md:text-4xl font-light text-black mb-4" data-animate="text" data-delay="2">
             Host Your Celebration
           </h3>
-          <p className="text-primary/70 text-lg mb-8 font-lato max-w-2xl mx-auto">
+          <p className="text-black/70 text-lg mb-8 font-body max-w-2xl mx-auto">
             Our properties are the perfect venue for unforgettable moments. Discover exclusive events and private gatherings.
           </p>
           <Link
             href="/events"
-            className="button-hover-clean inline-flex items-center justify-center rounded-full bg-gradient-to-r from-secondary to-secondary-light px-8 py-3 text-base font-semibold text-primary shadow-xl"
+            className="button-hover-clean inline-flex items-center justify-center rounded-full bg-gradient-to-r from-secondary to-secondary-light px-8 py-3 text-base font-semibold text-black shadow-xl"
           >
             <span className="mr-2">Explore Events</span>
             <div className="w-5 h-5 bg-primary/20 rounded-full flex items-center justify-center">
-              <span className="text-primary text-xs">→</span>
+              <span className="text-black text-xs">→</span>
             </div>
           </Link>
         </div>

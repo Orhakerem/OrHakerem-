@@ -57,7 +57,7 @@ export default function AccommodationPriceSummary({
   priceError = null,
   validationError = null,
   className,
-  totalValueClassName = 'font-playfair text-lg font-bold',
+  totalValueClassName = 'font-head text-lg font-bold',
 }: AccommodationPriceSummaryProps) {
   if (nights <= 0) {
     return null;
@@ -68,35 +68,35 @@ export default function AccommodationPriceSummary({
   return (
     <div className={className}>
       <div className="flex items-center justify-between gap-4">
-        <span className="text-primary/70">Nights</span>
-        <span className="font-semibold text-primary">
+        <span className="text-black/70">Nights</span>
+        <span className="font-semibold text-black">
           {displayedNights} night{displayedNights === 1 ? '' : 's'}
         </span>
       </div>
 
       {isLoading ? (
-        <p className="mt-3 border-t border-primary/10 pt-3 text-sm text-primary/70">
+        <p className="mt-3 border-t border-primary/10 pt-3 text-sm text-black/70">
           Calculating price...
         </p>
       ) : null}
 
       {quote ? (
         <div className="mt-3 space-y-2 border-t border-primary/10 pt-3 text-sm">
-          <div className="flex items-center justify-between gap-4 text-primary/70">
+          <div className="flex items-center justify-between gap-4 text-black/70">
             <span>Night total</span>
-            <span className="font-semibold text-primary">
+            <span className="font-semibold text-black">
               {formatMoney(quote.night_total, quote.currency)}
             </span>
           </div>
 
-          <div className="flex items-center justify-between gap-4 text-primary/70">
+          <div className="flex items-center justify-between gap-4 text-black/70">
             <span>Cleaning fee</span>
-            <span className="font-semibold text-primary">
+            <span className="font-semibold text-black">
               {formatMoney(quote.cleaning_fee, quote.currency)}
             </span>
           </div>
 
-          <div className="flex items-center justify-between gap-4 border-t border-primary/10 pt-2 text-base text-primary">
+          <div className="flex items-center justify-between gap-4 border-t border-primary/10 pt-2 text-base text-black">
             <span className="font-semibold">Final total</span>
             <span className={totalValueClassName}>
               {formatMoney(quote.total_price, quote.currency)}
@@ -106,7 +106,7 @@ export default function AccommodationPriceSummary({
       ) : null}
 
       {priceError && !isLoading ? (
-        <p className="mt-3 border-t border-primary/10 pt-3 text-sm text-primary/70">
+        <p className="mt-3 border-t border-primary/10 pt-3 text-sm text-black/70">
           {priceError}
         </p>
       ) : null}

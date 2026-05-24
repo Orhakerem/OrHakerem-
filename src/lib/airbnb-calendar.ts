@@ -116,8 +116,8 @@ function parseBlockedDatesFromCalendar(calendarText: string) {
   return Array.from(blockedDates).sort(compareIsoDates);
 }
 
-async function refreshPropertyAvailability(propertyId: BookablePropertyId): Promise<PropertyAvailability> {
-  const response = await fetch(BOOKABLE_PROPERTIES[propertyId].airbnbIcalUrl, {
+async function fetchBlockedDatesFromUrl(icalUrl: string) {
+  const response = await fetch(icalUrl, {
     cache: 'no-store',
     headers: {
       Accept: 'text/calendar, text/plain;q=0.9, */*;q=0.1',
@@ -128,19 +128,44 @@ async function refreshPropertyAvailability(propertyId: BookablePropertyId): Prom
   });
 
   if (!response.ok) {
-    throw new Error(`Airbnb iCal request failed with status ${response.status}`);
+    throw new Error(`iCal request failed with status ${response.status}`);
   }
 
   const calendarText = await response.text();
 
   if (!calendarText.includes('BEGIN:VCALENDAR')) {
-    throw new Error('Airbnb iCal response did not contain a VCALENDAR payload');
+    throw new Error('iCal response did not contain a VCALENDAR payload');
+  }
+
+  return parseBlockedDatesFromCalendar(calendarText);
+}
+
+async function refreshPropertyAvailability(propertyId: BookablePropertyId): Promise<PropertyAvailability> {
+  const icalUrls = BOOKABLE_PROPERTIES[propertyId].icalUrls;
+  const results = await Promise.allSettled(icalUrls.map((url) => fetchBlockedDatesFromUrl(url)));
+
+  const mergedBlockedDates = new Set<string>();
+  let hasFailure = false;
+
+  for (const [index, result] of results.entries()) {
+    if (result.status === 'fulfilled') {
+      for (const blockedDate of result.value) {
+        mergedBlockedDates.add(blockedDate);
+      }
+    } else {
+      hasFailure = true;
+      console.warn(`iCal sync failed for ${propertyId} (${icalUrls[index]}):`, result.reason);
+    }
+  }
+
+  if (results.every((result) => result.status === 'rejected')) {
+    throw new Error(`All iCal sources failed for ${propertyId}`);
   }
 
   return {
-    blockedDates: parseBlockedDatesFromCalendar(calendarText),
+    blockedDates: Array.from(mergedBlockedDates).sort(compareIsoDates),
     fetchedAtIso: new Date().toISOString(),
-    status: 'ready',
+    status: hasFailure ? 'stale' : 'ready',
   };
 }
 
