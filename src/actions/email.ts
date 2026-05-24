@@ -2,7 +2,7 @@
 
 import { ZodError } from 'zod';
 
-import { reservationSchema, eventSchema, type ReservationData, type EventData } from '@/validation';
+import { reservationSchema, eventSchema } from '@/validation';
 import { getPropertyAvailability } from '@/lib/airbnb-calendar';
 import {
   compareIsoDates,
@@ -76,7 +76,7 @@ export async function sendEmail(formData: FormData) {
         message: formData.get('message')?.toString().trim(),
       };
 
-      validatedData = eventSchema.parse(eventData) as EventData;
+      validatedData = eventSchema.parse(eventData);
 
       const eventDateValidationMessage = await getEventDateValidationMessage(validatedData.checkIn);
 
@@ -153,7 +153,7 @@ export async function sendEmail(formData: FormData) {
         contactMethod,
       };
 
-      validatedData = reservationSchema.parse(reservationData) as ReservationData;
+      validatedData = reservationSchema.parse(reservationData);
 
       const propertyId = getBookablePropertyIdFromLabel(validatedData.property);
 

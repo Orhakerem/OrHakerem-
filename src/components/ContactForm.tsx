@@ -3,7 +3,6 @@
 import HomeContactForm from '@/components/HomeContactForm';
 
 interface ContactFormProps {
-  showTitle?: boolean;
   variant?: 'default' | 'light';
 }
 

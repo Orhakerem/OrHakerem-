@@ -46,8 +46,7 @@ export default function ContactPage() {
                 Or HaKerem is located in the heart of Tel Aviv, in the vibrant Kerem HaTeimanim neighborhood, within walking distance of Carmel Market and the beach. If you are looking for a luxury apartment in Tel Aviv or planning a boutique event, our team is here to assist you. Our team responds quickly to all inquiries and is available to help you plan your stay or event.
               </p>
             </div>
-            <ContactForm 
-              showTitle={false}
+            <ContactForm
               variant="default"
             />
           </div>
