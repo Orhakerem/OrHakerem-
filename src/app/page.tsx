@@ -134,11 +134,11 @@ export default function Home() {
               </div>
 
               <div className="home-location-content w-full" data-animate="fade-up" data-delay="2">
-                <p className="text-white/90 text-lg md:text-xl leading-relaxed font-light mb-8">
+                <p className="text-white/90 text-lg md:text-xl leading-relaxed font-light mb-8 hidden lg:block">
                   Our building is located at <span className="font-medium text-secondary">35 Hakovshim Street</span>, in Kerem HaTeimanim, just steps from the beach and near Carmel Market for guests who want a central, walkable stay in Tel Aviv.
                 </p>
 
-                <div className="text-center" data-animate="scale" data-delay="3">
+                <div className="text-center hidden lg:block" data-animate="scale" data-delay="3">
                   <LiquidGlassCTA
                     href="https://www.google.com/maps?q=Hakovshim+35+Tel+Aviv"
                     target="_blank"
@@ -148,6 +148,17 @@ export default function Home() {
                   </LiquidGlassCTA>
                 </div>
               </div>
+            </div>
+
+            {/* Responsive-only CTA: appears under the map (<lg) */}
+            <div className="order-last text-center lg:hidden" data-animate="scale" data-delay="3">
+              <LiquidGlassCTA
+                href="https://www.google.com/maps?q=Hakovshim+35+Tel+Aviv"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                Open in Google Maps
+              </LiquidGlassCTA>
             </div>
           </div>
         </div>
