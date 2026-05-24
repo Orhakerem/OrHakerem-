@@ -292,7 +292,7 @@ export default function EventsClient({
                   <p className="text-white/90 text-lg mb-8">
                     Our events team will contact you within 24 hours to discuss your special event.
                   </p>
-                  <LiquidGlassButton onClick={() => setIsSuccess(false)}>
+                  <LiquidGlassButton variant="dark" onClick={() => setIsSuccess(false)}>
                     Plan Another Event
                   </LiquidGlassButton>
                 </div>
@@ -301,7 +301,7 @@ export default function EventsClient({
               <>
                 <div className="events-plan-cta text-center mb-8">
                   <div className="inline-block relative">
-                    <LiquidGlassButton onClick={() => setShowForm(true)}>
+                    <LiquidGlassButton variant="dark" onClick={() => setShowForm(true)}>
                       <Calendar className="w-5 h-5 mr-2" />
                       <span>Inquire About Events</span>
                     </LiquidGlassButton>

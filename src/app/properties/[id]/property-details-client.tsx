@@ -1064,16 +1064,6 @@ export default function PropertyDetailsClient({
                 {property.baths} bath{property.baths !== 1 ? 's' : ''}
               </span>
             </div>
-            <div className="mt-5 flex flex-wrap gap-x-4 gap-y-2 border-y border-primary/10 py-3">
-              {property.highlights.map((highlight) => (
-                <p
-                  key={highlight.title}
-                  className="text-[11px] font-semibold uppercase tracking-[0.15em] text-primary"
-                >
-                  {highlight.title}
-                </p>
-              ))}
-            </div>
           </div>
 
           {/* 2. Title + property type subtitle (desktop) */}
@@ -1106,7 +1096,7 @@ export default function PropertyDetailsClient({
             ))}
           </section>
 
-          <hr className="mt-5 mb-10 border-t border-primary/10" />
+          <hr className="hidden lg:block mt-5 mb-10 border-t border-primary/10" />
 
           {/* 6. Select check-in date — inline calendar (moved above About this space) */}
           <section id="select-checkin-date">

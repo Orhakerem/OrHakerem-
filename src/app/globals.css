@@ -1515,12 +1515,12 @@
     }
 
     .property-card-content {
-      padding: 1rem;
+      padding: 0 1rem 1rem;
       gap: 0.75rem;
     }
 
     .property-card-copy {
-      min-height: 7rem;
+      min-height: 0;
     }
 
     .property-card-copy h3 {
@@ -1561,35 +1561,58 @@
     }
 
     .services-hero-section {
-      min-height: 34vh !important;
+      flex-direction: row !important;
+      align-items: stretch !important;
+      min-height: 36vh !important;
       padding-top: 3.75rem !important;
       padding-bottom: 0 !important;
     }
 
-    .services-hero-inner {
-      min-height: calc(34vh - 3.75rem) !important;
-      padding-top: 0 !important;
-      padding-bottom: 0 !important;
+    .services-hero-copy {
+      width: 58% !important;
+      flex: 0 0 58% !important;
+      min-height: calc(36vh - 3.75rem) !important;
+      max-width: none;
+      padding: 0.85rem 0.5rem 3.75rem 1rem !important;
       align-items: flex-start !important;
+      justify-content: center !important;
+      text-align: left !important;
     }
 
-    .services-hero-content {
-      padding-bottom: 0.75rem;
+    .services-hero-copy h2,
+    .services-hero-copy p,
+    .services-hero-pills {
+      text-align: left !important;
     }
 
-    .services-hero-content {
-      max-width: 32rem;
-      padding-bottom: 0 !important;
-    }
-
-    .services-hero-content h1 {
-      font-size: 2.1rem;
+    .services-hero-copy h2 {
+      font-size: clamp(1.35rem, 6vw, 2.1rem);
       margin-bottom: 0.75rem !important;
     }
 
-    .services-hero-content p {
-      font-size: 0.9rem;
+    .services-hero-copy p {
+      max-width: 100%;
+      font-size: clamp(0.74rem, 2.8vw, 0.9rem);
+      line-height: 1.45;
       margin-bottom: 0.75rem !important;
+    }
+
+    .services-hero-pills {
+      justify-content: flex-start;
+      gap: 0.4rem;
+    }
+
+    .services-hero-pills > div {
+      padding: 0.38rem 0.55rem;
+      font-size: clamp(0.63rem, 2.35vw, 0.76rem);
+      line-height: 1.2;
+    }
+
+    .services-hero-media {
+      width: 42% !important;
+      flex: 0 0 42% !important;
+      min-height: calc(36vh - 3.75rem) !important;
+      background-position: center right !important;
     }
 
     .home-contact-section {
