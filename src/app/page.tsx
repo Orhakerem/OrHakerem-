@@ -1,5 +1,4 @@
 import FAQ from '@/components/FAQ';
-import Image from 'next/image';
 import HeroAnimatedTitle from '@/components/HeroAnimatedTitle';
 import LiquidGlassCTA from '@/components/LiquidGlassCTA';
 import HomeContactForm from '@/components/HomeContactForm';
