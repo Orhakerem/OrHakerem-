@@ -54,7 +54,15 @@ export default function Home() {
                 </h2>
               </div>
 
-              <div className="max-w-3xl space-y-2.5 sm:space-y-6 text-sm sm:text-lg md:text-xl">
+              {/* Mobile: concise version, height ≈ video */}
+              <div className="block sm:hidden max-w-3xl text-sm leading-relaxed">
+                <p className="text-black/90 font-light font-body">
+                  Premium apartments for short-term stays in the heart of Tel Aviv — Kerem HaTeimanim, near Carmel Market and the beach. Carefully designed, comfortable spaces for a flexible, elevated stay.
+                </p>
+              </div>
+
+              {/* Desktop: full version */}
+              <div className="hidden sm:block max-w-3xl space-y-6 text-lg md:text-xl">
                 <p className="text-black/90 leading-relaxed font-light font-body">
                   Or Hakerem is a unique building offering premium apartments for short-term stays in the heart of Tel Aviv.
                 </p>
