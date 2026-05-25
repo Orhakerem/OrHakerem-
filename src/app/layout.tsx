@@ -8,6 +8,33 @@ import GoogleAnalytics from '@/components/GoogleAnalytics';
 import { DEFAULT_OG_IMAGE, DEFAULT_OPEN_GRAPH_IMAGE, SITE_URL, createCanonicalUrl } from '@/app/seo';
 import { inter, manrope } from '@/app/fonts';
 
+const organizationStructuredData = {
+  '@context': 'https://schema.org',
+  '@type': 'Organization',
+  name: 'Or Hakerem',
+  url: SITE_URL,
+  logo: `${SITE_URL}/logo/Logo_beige.png`,
+  description:
+    'Luxury short-term rental apartments and boutique event venue in Kerem HaTeimanim, Tel Aviv, Israel.',
+  address: {
+    '@type': 'PostalAddress',
+    streetAddress: '35 Hakovshim Street',
+    addressLocality: 'Tel Aviv',
+    addressCountry: 'IL',
+  },
+  contactPoint: {
+    '@type': 'ContactPoint',
+    telephone: '+972526869791',
+    contactType: 'customer service',
+    availableLanguage: ['English', 'Hebrew', 'French'],
+  },
+  sameAs: [
+    'https://www.instagram.com/or_hakerem/',
+    'https://www.facebook.com/profile.php?id=61583829025542',
+    'https://www.linkedin.com/company/orhakerem/',
+  ],
+};
+
 import './globals.css';
 
 export const metadata: Metadata = {
@@ -85,6 +112,10 @@ export default function RootLayout({
         <meta name="apple-mobile-web-app-title" content="Or Hakerem" />
       </head>
       <body className={`${inter.variable} ${manrope.variable} min-h-screen bg-cream antialiased`}>
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(organizationStructuredData) }}
+        />
         <GoogleAnalytics />
         <Toast />
         <Navbar />

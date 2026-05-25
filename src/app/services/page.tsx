@@ -126,7 +126,7 @@ export default function ServicesPage() {
               visible: { opacity: 1, transition: { staggerChildren: 0.15 } },
             }}
           >
-            <motion.h2
+            <motion.h1
               className="font-head text-3xl md:text-5xl lg:text-[4rem] font-bold leading-tight text-white"
               variants={{
                 hidden: { y: 20, opacity: 0 },
@@ -137,7 +137,7 @@ export default function ServicesPage() {
               Premium Concierge
               <br />
               <span className="text-secondary">Services</span>
-            </motion.h2>
+            </motion.h1>
 
             <motion.div
               className="my-3 md:my-6 h-1 w-20 bg-secondary"
