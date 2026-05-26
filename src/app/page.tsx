@@ -1,4 +1,5 @@
 import FAQ from '@/components/FAQ';
+import Image from 'next/image';
 import HeroAnimatedTitle from '@/components/HeroAnimatedTitle';
 import LiquidGlassCTA from '@/components/LiquidGlassCTA';
 import HomeContactForm from '@/components/HomeContactForm';
@@ -81,15 +82,13 @@ export default function Home() {
             </div>
 
             <div className="relative min-h-[170px] sm:min-h-[440px] lg:min-h-[620px] overflow-hidden rounded-md border border-primary/10 shadow-2xl" data-animate="slide-in-right">
-              <video
-                src="/jacuzzi-video.mp4"
-                autoPlay
-                muted
-                loop
-                playsInline
-                preload="metadata"
-                aria-label="Jacuzzi at Or Hakerem"
-                className="absolute inset-0 h-full w-full object-cover"
+              <Image
+                src="/img_5322.jpg"
+                alt="Or Hakerem apartment"
+                fill
+                priority
+                className="object-cover"
+                sizes="(max-width: 768px) 100vw, 40vw"
               />
             </div>
           </div>

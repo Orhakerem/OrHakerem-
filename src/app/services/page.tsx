@@ -126,7 +126,7 @@ export default function ServicesPage() {
               visible: { opacity: 1, transition: { staggerChildren: 0.15 } },
             }}
           >
-            <motion.h2
+            <motion.h1
               className="font-head text-3xl md:text-5xl lg:text-[4rem] font-bold leading-tight text-white"
               variants={{
                 hidden: { y: 20, opacity: 0 },
@@ -137,7 +137,7 @@ export default function ServicesPage() {
               Premium Concierge
               <br />
               <span className="text-secondary">Services</span>
-            </motion.h2>
+            </motion.h1>
 
             <motion.div
               className="my-3 md:my-6 h-1 w-20 bg-secondary"
@@ -290,7 +290,7 @@ export default function ServicesPage() {
 
       {showForm && (
         <div
-          className="services-modal tap-reset fixed inset-0 z-50 bg-black/55 backdrop-blur-sm p-3 sm:p-6"
+          className="services-modal tap-reset fixed inset-0 z-50 bg-black/55 backdrop-blur-sm px-3 pt-24 pb-3 sm:p-6"
           role="dialog"
           aria-modal="true"
           aria-labelledby="services-inquiry-title"
