@@ -290,7 +290,7 @@ export default function ServicesPage() {
 
       {showForm && (
         <div
-          className="services-modal tap-reset fixed inset-0 z-50 bg-black/55 backdrop-blur-sm p-3 sm:p-6"
+          className="services-modal tap-reset fixed inset-0 z-50 bg-black/55 backdrop-blur-sm px-3 pt-24 pb-3 sm:p-6"
           role="dialog"
           aria-modal="true"
           aria-labelledby="services-inquiry-title"
