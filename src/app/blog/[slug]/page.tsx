@@ -6,6 +6,7 @@ import { getAllPosts, getPostBySlug, getRelatedPosts, formatDate, readingTime } 
 import MdxContent from '@/components/blog/MdxContent';
 import PostCard from '@/components/blog/PostCard';
 import { createCanonicalUrl, SITE_URL } from '@/app/seo';
+import { HOST } from '@/lib/host';
 
 export function generateStaticParams() {
   return getAllPosts().map((post) => ({ slug: post.slug }));
@@ -80,7 +81,11 @@ export default function BlogPostPage({ params }: { params: { slug: string } }) {
     dateModified: frontmatter.updated ?? frontmatter.date,
     author: {
       '@type': 'Person',
-      name: frontmatter.author,
+      name: HOST.name,
+      url: HOST.url,
+      image: `${SITE_URL}${HOST.image}`,
+      jobTitle: HOST.jobTitle,
+      sameAs: HOST.sameAs,
     },
     publisher: {
       '@type': 'Organization',

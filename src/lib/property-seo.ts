@@ -10,6 +10,8 @@ export interface PropertySeoMeta {
   bedrooms: number;
   bathrooms: number;
   maxGuests: number;
+  priceFrom: number;
+  priceTo: number;
 }
 
 export const PROPERTY_SEO: Record<BookablePropertyId, PropertySeoMeta> = {
@@ -25,6 +27,8 @@ export const PROPERTY_SEO: Record<BookablePropertyId, PropertySeoMeta> = {
     bedrooms: 3,
     bathrooms: 3,
     maxGuests: 7,
+    priceFrom: 1850,
+    priceTo: 3900,
   },
   'cozy-studio': {
     title: 'Renovated Studio Apartment 2 Min from Beach | Kerem HaTeimanim, Tel Aviv | Or Hakerem',
@@ -38,6 +42,8 @@ export const PROPERTY_SEO: Record<BookablePropertyId, PropertySeoMeta> = {
     bedrooms: 1,
     bathrooms: 1,
     maxGuests: 4,
+    priceFrom: 550,
+    priceTo: 850,
   },
 };
 
@@ -51,6 +57,18 @@ export function getPropertyStructuredData(id: BookablePropertyId) {
     image: `${SITE_URL}${seo.image}`,
     description: seo.description,
     numberOfRooms: seo.bedrooms,
+    priceRange: `₪${seo.priceFrom}–₪${seo.priceTo}`,
+    makesOffer: {
+      '@type': 'Offer',
+      priceSpecification: {
+        '@type': 'UnitPriceSpecification',
+        price: seo.priceFrom,
+        priceCurrency: 'ILS',
+        unitText: 'NIGHT',
+      },
+      availability: 'https://schema.org/InStock',
+      url: `${SITE_URL}/properties/${id}`,
+    },
     amenityFeature:
       id === 'penthouse-jacuzzi'
         ? [
