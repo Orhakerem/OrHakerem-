@@ -5,9 +5,13 @@ import Image from 'next/image';
 import { Star, Quote } from 'lucide-react';
 
 const reviewPlatforms = [
-  { name: 'Airbnb', src: '/logo/airbnb.svg' },
-  { name: 'Booking.com', src: '/logo/booking.svg' },
-  { name: 'Google', src: '/logo/google.svg' },
+  { name: 'Airbnb', src: '/logo/airbnb.svg', href: 'https://he.airbnb.com/users/show/464026460' },
+  {
+    name: 'Booking.com',
+    src: '/logo/booking.svg',
+    href: 'https://www.booking.com/hotel/il/penthouse-with-jacuzzi-bbq-2mn-from-sea-or-hakerem.fr.html?label=gen173bo-10CAsoakIycGVudGhvdXNlLXdpdGgtamFjdXp6aS1iYnEtMm1uLWZyb20tc2VhLW9yLWhha2VyZW1IM1gDaGqIAQGYATO4AQfIAQzYAQPoAQH4AQGIAgGYAgaoAgG4ArzUsNAGwAIB0gIkODQ1YTJkYmItOWI2NS00YWUwLTg4ZGEtNGUwMGJiNTAyMjZl2AIB4AIB&sid=d76cf1f6818f7b442a6ed091d7429070&dist=0&keep_landing=1&sb_price_type=total&type=total&',
+  },
+  { name: 'Google', src: '/logo/google.svg', href: 'https://share.google/ctj8SSixX29HDfzzn' },
 ];
 
 interface Testimonial {
@@ -139,14 +143,22 @@ export default function TestimonialsCarousel() {
             </span>
             <div className="flex flex-wrap items-center justify-center gap-x-10 gap-y-6 md:gap-x-14">
               {reviewPlatforms.map((platform) => (
-                <Image
+                <a
                   key={platform.name}
-                  src={platform.src}
-                  alt={`${platform.name} reviews`}
-                  width={140}
-                  height={42}
-                  className="h-7 md:h-9 w-auto opacity-80 hover:opacity-100 transition-opacity"
-                />
+                  href={platform.href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label={`View ${platform.name} reviews`}
+                  className="opacity-80 hover:opacity-100 transition-opacity"
+                >
+                  <Image
+                    src={platform.src}
+                    alt={`${platform.name} reviews`}
+                    width={140}
+                    height={42}
+                    className="h-7 md:h-9 w-auto"
+                  />
+                </a>
               ))}
             </div>
           </div>

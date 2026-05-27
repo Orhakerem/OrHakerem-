@@ -12,6 +12,7 @@ const navItems = [
   { label: 'Events', href: '/events', match: '/events' },
   { label: 'About', href: '/about', match: '/about' },
   { label: 'Blog', href: '/blog', match: '/blog' },
+  { label: 'FAQ', href: '/faq', match: '/faq' },
   { label: 'Contact', href: '/#contact', match: null },
 ];
 

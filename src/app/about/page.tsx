@@ -1,7 +1,9 @@
+import Image from 'next/image';
 import { MapPin, Shield, UtensilsCrossed } from 'lucide-react';
 
 import { createCanonicalUrl } from '@/app/seo';
 import LiquidGlassCTA from '@/components/LiquidGlassCTA';
+import { HOST } from '@/lib/host';
 
 const valuePoints = [
   {
@@ -40,6 +42,14 @@ const structuredData = {
   areaServed: 'Tel Aviv',
   email: 'keremliving@gmail.com',
   telephone: ['+33651179925', '+972526869791'],
+  founder: {
+    '@type': 'Person',
+    name: HOST.name,
+    jobTitle: HOST.jobTitle,
+    image: `${createCanonicalUrl(HOST.image)}`,
+    url: HOST.url,
+    sameAs: HOST.sameAs,
+  },
 };
 
 export default function AboutPage() {
@@ -143,6 +153,44 @@ export default function AboutPage() {
               <p className="text-sm md:text-lg leading-relaxed text-black/80">
                 Our Kerem HaTeimanim apartments are especially valued by travelers who want a central stay without losing the texture of the neighborhood. Or HaKerem is one of the few boutique properties in Tel Aviv offering Shabbat-friendly accommodations and tailored Jewish event experiences. For guests looking for Shabbat-friendly stays in Tel Aviv, we combine practical support with a calm, premium atmosphere and tailored solutions for Jewish events, including optional kosher services.
               </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="host" className="scroll-mt-24 py-8 md:py-16" data-animate="fade-up">
+        <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
+          <div className="grid gap-6 md:gap-10 rounded-3xl bg-white p-5 md:p-10 shadow-xl border border-primary/10 md:grid-cols-[0.8fr_1.2fr] md:items-center">
+            <div className="relative mx-auto aspect-square w-40 md:w-full overflow-hidden rounded-3xl border border-primary/10 bg-cream">
+              <Image
+                src={HOST.image}
+                alt={HOST.imageAlt}
+                fill
+                className="object-cover"
+                sizes="(min-width: 768px) 40vw, 160px"
+              />
+            </div>
+            <div>
+              <span className="text-sm font-semibold uppercase tracking-[0.2em] text-secondary">
+                Meet Your Host
+              </span>
+              <h2 className="mt-2 md:mt-4 font-head text-xl md:text-4xl font-bold text-black">
+                {HOST.name}
+              </h2>
+              <p className="mt-1 text-sm md:text-base font-semibold uppercase tracking-[0.18em] text-tertiary">
+                {HOST.jobTitle}
+              </p>
+              <p className="mt-3 md:mt-6 text-sm md:text-lg leading-relaxed text-black/80">
+                {HOST.bio}
+              </p>
+              <a
+                href={HOST.sameAs[0]}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="mt-4 md:mt-6 inline-flex items-center text-sm md:text-base font-semibold text-primary underline underline-offset-4 hover:text-primary-light"
+              >
+                Connect on LinkedIn
+              </a>
             </div>
           </div>
         </div>

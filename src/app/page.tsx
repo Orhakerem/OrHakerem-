@@ -83,7 +83,7 @@ export default function Home() {
 
             <div className="relative min-h-[170px] sm:min-h-[440px] lg:min-h-[620px] overflow-hidden rounded-md border border-primary/10 shadow-2xl" data-animate="slide-in-right">
               <Image
-                src="/img_5322.jpg"
+                src="/studio/Salon_angle_3_Zoom.jpg"
                 alt="Or Hakerem apartment"
                 fill
                 priority
