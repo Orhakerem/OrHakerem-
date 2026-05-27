@@ -61,7 +61,7 @@ const properties = {
     location: 'Kerem HaTeimanim, Tel Aviv',
     description: 'This unique penthouse is perfect for both friendly or family stays equipped with amenities like the jacuzzi and barbecue, and live an unforgettable experience in a special place.',
     image: '/penthouse/1-jacuzzi-angle.JPEG',
-    maxGuests: 6,
+    maxGuests: 7,
     bedrooms: 3,
     bathrooms: 3,
     features: ['Private Jacuzzi', 'BBQ Terrace', 'Sea Views', 'Historic Building']

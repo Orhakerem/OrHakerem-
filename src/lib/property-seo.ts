@@ -24,7 +24,7 @@ export const PROPERTY_SEO: Record<BookablePropertyId, PropertySeoMeta> = {
       'Luxury penthouse rooftop terrace with private jacuzzi and Tel Aviv sea views at Or Hakerem',
     bedrooms: 3,
     bathrooms: 3,
-    maxGuests: 6,
+    maxGuests: 7,
   },
   'cozy-studio': {
     title: 'Renovated Studio Apartment 2 Min from Beach | Kerem HaTeimanim, Tel Aviv | Or Hakerem',
