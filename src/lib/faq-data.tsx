@@ -72,9 +72,9 @@ export const faqEntries: FAQEntry[] = [
     category: 'Booking',
     answer: (
       <>
-        You can review our cancellation terms in our{' '}
-        <Link href="/terms" className="font-medium text-black underline underline-offset-4">
-          Terms &amp; Conditions page
+        You can review our cancellation terms on our{' '}
+        <Link href="/cancellation" className="font-medium text-black underline underline-offset-4">
+          Cancellation &amp; Refund Policy page
         </Link>
         .
       </>
