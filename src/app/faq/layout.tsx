@@ -77,7 +77,7 @@ const faqSchemaEntries = [
   {
     question: 'What is your cancellation policy?',
     answer:
-      'You can review our full cancellation terms on our Terms & Conditions page at orhakerem.com/terms.',
+      'You can review our full cancellation terms on our Cancellation & Refund Policy page at orhakerem.com/cancellation.',
   },
   {
     question: "What's the difference with direct booking and Airbnb?",
