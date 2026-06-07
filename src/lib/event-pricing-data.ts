@@ -28,6 +28,8 @@ export type CateringCategory = {
   extras: CateringExtra[];
 };
 
+export const eventCleaningFee = 750;
+
 export const venueRentals: VenueRental[] = [
   {
     id: 'weekday',

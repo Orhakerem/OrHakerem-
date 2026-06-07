@@ -12,6 +12,8 @@ import LiquidGlassButton from '@/components/LiquidGlassButton';
 import { useBackToTopVisibility } from '@/hooks/useBackToTopVisibility';
 import { formatIsoDate } from '@/lib/booking-dates';
 import type { CalendarSyncStatus } from '@/lib/bookable-properties';
+import { eventCleaningFee, venueRentals } from '@/lib/event-pricing-data';
+import { getPricingNightKind } from '@/lib/pricing-date-helpers';
 
 const eventTypes = [
   'Wedding',
@@ -72,6 +74,19 @@ export default function EventsClient({
   const [eventDate, setEventDate] = useState<string | null>(null);
   const showBackToTop = useBackToTopVisibility();
   const videoRef = useRef<HTMLVideoElement>(null);
+
+  const eventQuote = eventDate
+    ? (() => {
+        const kind = getPricingNightKind(eventDate);
+        const rental = venueRentals.find((r) => r.id === kind)!;
+        return {
+          label: rental.label,
+          venuePrice: rental.price,
+          cleaningFee: eventCleaningFee,
+          total: rental.price + eventCleaningFee,
+        };
+      })()
+    : null;
 
   useEffect(() => {
     const video = videoRef.current;
@@ -245,6 +260,64 @@ export default function EventsClient({
                   </div>
                 ))}
               </div>
+            </div>
+          </div>
+        </section>
+
+        {/* Availability Section - synced to penthouse calendar */}
+        <section id="availability" className="events-availability-section py-8 md:py-20 mb-8 md:mb-20" data-animate="fade-up">
+          <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+            {/* Header */}
+            <div className="text-center mb-8 md:mb-12" data-animate="fade-up">
+              <span className="text-tertiary font-semibold text-sm md:text-base tracking-[0.2em] uppercase block mb-3">
+                Availability
+              </span>
+              <h2 className="font-head text-2xl md:text-4xl lg:text-5xl font-bold text-black leading-tight" data-animate="text">
+                Check availability
+              </h2>
+              <p className="mt-3 md:mt-6 text-black/80 text-sm md:text-xl leading-relaxed max-w-3xl mx-auto">
+                Pick a date below to see if the venue is available and the rental price for that day.
+              </p>
+            </div>
+
+            <div className="max-w-3xl mx-auto">
+              <BookingSingleDateCalendar
+                value={eventDate}
+                blockedDates={blockedDates}
+                availabilityStatus={availabilityStatus}
+                onChange={(nextDate) => setEventDate(nextDate)}
+              />
+
+              {eventQuote ? (
+                <div className="mt-6 bg-white rounded-[10px] p-6 border border-primary/10 shadow-sm">
+                  <h3 className="font-head text-lg md:text-xl font-bold text-black mb-4">
+                    {eventQuote.label}
+                  </h3>
+                  <div className="space-y-2 text-sm md:text-base text-black/80">
+                    <div className="flex items-center justify-between gap-4">
+                      <span>Venue rental</span>
+                      <span className="whitespace-nowrap">
+                        {eventQuote.venuePrice.toLocaleString()} ₪
+                      </span>
+                    </div>
+                    <div className="flex items-center justify-between gap-4">
+                      <span>Cleaning fee</span>
+                      <span className="whitespace-nowrap">
+                        {eventQuote.cleaningFee.toLocaleString()} ₪
+                      </span>
+                    </div>
+                    <div className="flex items-center justify-between gap-4 border-t border-primary/10 pt-3 text-black">
+                      <span className="font-semibold">Total</span>
+                      <span className="font-head text-xl font-bold whitespace-nowrap">
+                        {eventQuote.total.toLocaleString()} ₪
+                      </span>
+                    </div>
+                  </div>
+                  <p className="mt-4 text-black/60 text-xs md:text-sm">
+                    Prices include place location only for events.
+                  </p>
+                </div>
+              ) : null}
             </div>
           </div>
         </section>
