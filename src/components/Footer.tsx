@@ -33,7 +33,7 @@ const socials = [
   { label: 'Instagram', href: 'https://www.instagram.com/or_hakerem/', Icon: Instagram },
   { label: 'LinkedIn', href: 'https://www.linkedin.com/company/orhakerem/', Icon: Linkedin },
   { label: 'Facebook', href: 'https://www.facebook.com/profile.php?id=61583829025542', Icon: Facebook },
-  { label: 'WhatsApp', href: 'https://wa.me/972526869791', Icon: MessageCircle },
+  { label: 'WhatsApp', href: 'https://wa.me/972585778891', Icon: MessageCircle },
 ];
 
 export default function Footer() {
@@ -107,7 +107,7 @@ export default function Footer() {
               ))}
               <li>
                 <a
-                  href="https://wa.me/972526869791"
+                  href="https://wa.me/972585778891"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="inline-flex items-center gap-2 text-sm text-white/70 hover:text-white transition-colors"
@@ -140,12 +140,12 @@ export default function Footer() {
                 </span>
               </a>
               <a
-                href="tel:+972526869791"
+                href="tel:+972585778891"
                 className="flex items-start gap-2 hover:text-white transition-colors"
               >
                 <Phone className="h-4 w-4 mt-0.5 shrink-0 text-secondary/80" aria-hidden="true" />
                 <span>
-                  +972 52 686 9791 <span className="text-white/40">·</span> IL
+                  +972 58 577 8891 <span className="text-white/40">·</span> IL
                 </span>
               </a>
               <p className="flex items-start gap-2">
@@ -209,7 +209,7 @@ export default function Footer() {
             name: 'Or Hakerem',
             description: 'Luxury properties in Tel Aviv',
             url: SITE_URL,
-            telephone: ['+33651179925', '+972526869791'],
+            telephone: ['+33651179925', '+972585778891'],
             email: 'keremliving@gmail.com',
             address: {
               '@type': 'PostalAddress',

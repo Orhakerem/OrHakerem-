@@ -185,7 +185,7 @@ export default function Home() {
               {
                 icon: Phone,
                 label: 'Phone & WhatsApp',
-                value: '+33 6 51 17 99 25 · +972 52 686 9791',
+                value: '+33 6 51 17 99 25 · +972 58 577 8891',
                 href: 'tel:+33651179925',
               },
               {

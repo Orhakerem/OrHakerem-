@@ -432,8 +432,8 @@ export default function PrivacyPage() {
                   </p>
                   <p>
                     Phone:{' '}
-                    <a href="tel:+972526869791" className="font-semibold text-primary hover:text-primary-light">
-                      +972 52 686 9791
+                    <a href="tel:+972585778891" className="font-semibold text-primary hover:text-primary-light">
+                      +972 58 577 8891
                     </a>{' '}
                     (IL) ·{' '}
                     <a href="tel:+33651179925" className="font-semibold text-primary hover:text-primary-light">
