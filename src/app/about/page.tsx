@@ -41,7 +41,7 @@ const structuredData = {
   },
   areaServed: 'Tel Aviv',
   email: 'keremliving@gmail.com',
-  telephone: ['+33651179925', '+972526869791'],
+  telephone: ['+33651179925', '+972585778891'],
   founder: {
     '@type': 'Person',
     name: HOST.name,

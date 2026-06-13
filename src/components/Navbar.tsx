@@ -134,7 +134,7 @@ function Navbar() {
               );
             })}
             <a
-              href="https://wa.me/972526869791?text=Hi%20I%20am%20interested%20in%20your%20properties"
+              href="https://wa.me/972585778891?text=Hi%20I%20am%20interested%20in%20your%20properties"
               target="_blank"
               rel="noopener noreferrer"
               className="nav-whatsapp-floating"

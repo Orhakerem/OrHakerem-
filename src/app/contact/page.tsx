@@ -92,12 +92,12 @@ export default function ContactPage() {
                   +33 6 51 17 99 25
                 </a>
                 <a 
-                  href="https://wa.me/972526869791"
+                  href="https://wa.me/972585778891"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="inline-flex items-center justify-center rounded-full bg-gradient-to-r from-secondary to-secondary-light px-5 py-2.5 font-semibold text-black shadow-lg transition-all duration-300"
                 >
-                  WhatsApp: +972 52 686 9791
+                  WhatsApp: +972 58 577 8891
                 </a>
               </div>
             </div>

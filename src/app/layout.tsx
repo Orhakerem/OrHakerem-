@@ -24,7 +24,7 @@ const organizationStructuredData = {
   },
   contactPoint: {
     '@type': 'ContactPoint',
-    telephone: '+972526869791',
+    telephone: '+972585778891',
     contactType: 'customer service',
     availableLanguage: ['English', 'Hebrew', 'French'],
   },
@@ -127,7 +127,7 @@ export default function RootLayout({
         <Footer />
         <SpeedInsights />
         <a
-          href="https://wa.me/972526869791?text=Hi%20I%20am%20interested%20in%20your%20properties"
+          href="https://wa.me/972585778891?text=Hi%20I%20am%20interested%20in%20your%20properties"
           target="_blank"
           rel="noopener noreferrer"
           className="whatsapp-float"
