@@ -1,21 +1,90 @@
 'use client';
 
-import React, { useState } from 'react';
-import Link from 'next/link';
+import { useEffect, useRef, useState } from 'react';
 import Image from 'next/image';
+import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { Menu, X } from 'lucide-react';
+
+const navItems = [
+  { label: 'Properties', href: '/properties', match: '/properties' },
+  { label: 'Services', href: '/services', match: '/services' },
+  { label: 'Events', href: '/events', match: '/events' },
+  { label: 'About', href: '/about', match: '/about' },
+  { label: 'Blog', href: '/blog', match: '/blog' },
+  { label: 'FAQ', href: '/faq', match: '/faq' },
+  { label: 'Contact', href: '/#contact', match: null },
+];
 
 function Navbar() {
   const pathname = usePathname();
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
-  const propertiesHref = '/properties';
+  const [isFaded, setIsFaded] = useState(false);
+  const lastScrollYRef = useRef(0);
+  const inactivityTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
-  const isActive = (path: string) => {
-    return pathname === path;
+  useEffect(() => {
+    const prefersReducedMotion = window.matchMedia(
+      '(prefers-reduced-motion: reduce)'
+    ).matches;
+    if (prefersReducedMotion) {
+      return;
+    }
+
+    lastScrollYRef.current = window.scrollY;
+
+    const handleScroll = () => {
+      const current = window.scrollY;
+      const last = lastScrollYRef.current;
+
+      if (current > last && current > 80) {
+        setIsFaded(true);
+      } else if (current < last) {
+        setIsFaded(false);
+      }
+
+      lastScrollYRef.current = current;
+
+      if (inactivityTimerRef.current) {
+        clearTimeout(inactivityTimerRef.current);
+      }
+      inactivityTimerRef.current = setTimeout(() => {
+        setIsFaded(false);
+      }, 1500);
+    };
+
+    window.addEventListener('scroll', handleScroll, { passive: true });
+
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+      if (inactivityTimerRef.current) {
+        clearTimeout(inactivityTimerRef.current);
+      }
+    };
+  }, []);
+
+  useEffect(() => {
+    if (isMobileMenuOpen) {
+      document.body.classList.add('mobile-menu-open');
+    } else {
+      document.body.classList.remove('mobile-menu-open');
+    }
+    return () => {
+      document.body.classList.remove('mobile-menu-open');
+    };
+  }, [isMobileMenuOpen]);
+
+  const fadedClass = isFaded && !isMobileMenuOpen ? ' is-faded' : '';
+  const isListingDetail =
+    pathname.startsWith('/properties/') && pathname !== '/properties';
+
+  const isActive = (match: string | null) => {
+    if (!match) {
+      return false;
+    }
+
+    return pathname === match || pathname.startsWith(`${match}/`);
   };
-
-  const isPropertiesActive = pathname === '/properties' || pathname.startsWith('/properties/');
 
   const toggleMobileMenu = () => {
     setIsMobileMenuOpen(!isMobileMenuOpen);
@@ -27,96 +96,77 @@ function Navbar() {
 
   return (
     <>
-      {/* Desktop Navbar - Design épuré et amélioré */}
+      {/* Desktop Navbar */}
       <nav
-        className="navbar-floating hidden md:block"
+        className={`navbar-floating hidden md:block${fadedClass}`}
         role="navigation"
         aria-label="Main navigation"
       >
         <div className="navbar-container-floating">
-          {/* Logo Section - Centré verticalement */}
           <div className="logo-section-floating">
             <Link href="/" aria-label="Or Hakerem - Home" className="nav-brand-floating">
-              <Image
-                src="/orhakerem_logo_original.jpg"
-                alt="Or Hakerem logo"
-                width={30}
-                height={30}
-                className="nav-logo-floating"
-                sizes="64px"
-              />
-              <span className="logo-text-floating">
-                Or Hakerem
+              <span className="nav-logo-slot-floating">
+                <Image
+                  src="/logo/Logo_beige.png"
+                  alt="Or Hakerem"
+                  fill
+                  className="object-contain object-left"
+                  priority
+                  sizes="150px"
+                />
               </span>
             </Link>
           </div>
 
-          {/* Navigation Items - Centrés et épurés */}
           <div className="nav-items-floating">
-            <Link
-              href={propertiesHref}
-              className={`nav-item-floating ${isPropertiesActive ? 'active' : ''}`}
-              aria-current={isPropertiesActive ? 'page' : undefined}
-            >
-              
-              <span>Properties</span>
-            </Link>
+            {navItems.map((item) => {
+              const active = isActive(item.match);
 
-            <Link
-              href="/concierge-services"
-              className={`nav-item-floating ${isActive('/concierge-services') ? 'active' : ''}`}
-              aria-current={isActive('/concierge-services') ? 'page' : undefined}
+              return (
+                <Link
+                  key={item.href}
+                  href={item.href}
+                  className={`nav-item-floating ${active ? 'active' : ''}`}
+                  aria-current={active ? 'page' : undefined}
+                >
+                  <span>{item.label}</span>
+                </Link>
+              );
+            })}
+            <a
+              href="https://wa.me/972585778891?text=Hi%20I%20am%20interested%20in%20your%20properties"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="nav-whatsapp-floating"
+              aria-label="Contact on WhatsApp"
             >
-              <span>Services</span>
-            </Link>
-
-            <Link
-              href="/events"
-              className={`nav-item-floating ${isActive('/events') ? 'active' : ''}`}
-              aria-current={isActive('/events') ? 'page' : undefined}
-            >
-              <span>Events</span>
-            </Link>
-
-            <Link
-              href="/about"
-              className={`nav-item-floating ${isActive('/about') ? 'active' : ''}`}
-              aria-current={isActive('/about') ? 'page' : undefined}
-            >
-              <span>About</span>
-            </Link>
-
-            <Link
-              href="/faq"
-              className={`nav-item-floating ${isActive('/faq') ? 'active' : ''}`}
-              aria-current={isActive('/faq') ? 'page' : undefined}
-            >
-              <span>FAQ</span>
-            </Link>
+              <svg viewBox="0 0 32 32" width="20" height="20" aria-hidden="true">
+                <path fill="white" d="M16 3C9.4 3 4 8.3 4 14.8c0 2.6.9 5 2.4 7L5 29l7-2.3c1.8.9 3.8 1.4 5.9 1.4 6.6 0 12-5.3 12-11.8S22.6 3 16 3zm0 21.5c-1.8 0-3.6-.5-5.2-1.5l-.4-.2-4.1 1.3 1.4-4-.3-.4c-1.1-1.6-1.6-3.4-1.6-5.2C5.8 9.1 10.4 5 16 5s10.2 4.1 10.2 9.8S21.6 24.5 16 24.5zm5.6-7.3c-.3-.2-1.7-.8-2-.9-.3-.1-.5-.2-.7.2-.2.3-.8.9-.9 1.1-.2.2-.3.2-.6.1-.3-.2-1.2-.5-2.3-1.6-.8-.7-1.3-1.6-1.5-1.9-.2-.3 0-.5.1-.6.1-.1.3-.3.4-.5.1-.2.2-.3.3-.5.1-.2 0-.4 0-.5 0-.2-.7-1.6-1-2.2-.3-.6-.5-.5-.7-.5h-.6c-.2 0-.5.1-.7.4-.2.3-.9.9-.9 2.2 0 1.3.9 2.5 1.1 2.7.1.2 1.8 2.8 4.4 3.9.6.3 1.1.5 1.5.6.6.2 1.2.2 1.7.1.5-.1 1.7-.7 1.9-1.4.2-.7.2-1.3.2-1.4 0-.1-.1-.2-.3-.3z"/>
+              </svg>
+            </a>
           </div>
-
         </div>
       </nav>
 
-      {/* Mobile Navbar - Design épuré */}
+      {/* Mobile Navbar */}
+      {!isListingDetail && (
       <nav
-        className="navbar-floating md:hidden"
+        className={`navbar-floating md:hidden${fadedClass}`}
         role="navigation"
         aria-label="Main navigation"
       >
         <div className="navbar-container-floating">
           <div className="logo-section-floating">
             <Link href="/" aria-label="Or Hakerem - Home" className="nav-brand-floating" onClick={closeMobileMenu}>
-              <Image
-                src="/orhakerem_logo_original.jpg"
-                alt="Or Hakerem logo"
-                width={24}
-                height={24}
-                className="nav-logo-floating"
-                sizes="45px"
-              />
-              <span className="logo-text-floating mobile">
-                Or Hakerem
+              <span className="nav-logo-slot-floating">
+                <Image
+                  src="/logo/Logo_beige.png"
+                  alt="Or Hakerem"
+                  fill
+                  className="object-contain object-left"
+                  priority
+                  sizes="150px"
+                />
               </span>
             </Link>
           </div>
@@ -127,72 +177,41 @@ function Navbar() {
             aria-label="Toggle mobile menu"
           >
             {isMobileMenuOpen ? (
-              <X className="w-5 h-5" />
+              <X className="w-7 h-7" />
             ) : (
-              <Menu className="w-5 h-5" />
+              <Menu className="w-7 h-7" />
             )}
           </button>
-
-          {isMobileMenuOpen && (
-            <div className="mobile-menu-floating">
-              <div className="mobile-menu-items-floating">
-                <Link
-                  href={propertiesHref}
-                  onClick={closeMobileMenu}
-                  className={`mobile-nav-item-floating ${isPropertiesActive ? 'active' : ''}`}
-                  aria-current={isPropertiesActive ? 'page' : undefined}
-                >
-                  
-                  <span>Properties</span>
-                </Link>
-                
-                <Link
-                  href="/concierge-services"
-                  onClick={closeMobileMenu}
-                  className={`mobile-nav-item-floating ${isActive('/concierge-services') ? 'active' : ''}`}
-                  aria-current={isActive('/concierge-services') ? 'page' : undefined}
-                >
-                  <span>Services</span>
-                </Link>
-                
-                <Link
-                  href="/events"
-                  onClick={closeMobileMenu}
-                  className={`mobile-nav-item-floating ${isActive('/events') ? 'active' : ''}`}
-                  aria-current={isActive('/events') ? 'page' : undefined}
-                >
-                  
-                  <span>Events</span>
-                </Link>
-
-                <Link
-                  href="/about"
-                  onClick={closeMobileMenu}
-                  className={`mobile-nav-item-floating ${isActive('/about') ? 'active' : ''}`}
-                  aria-current={isActive('/about') ? 'page' : undefined}
-                >
-                  <span>About</span>
-                </Link>
-
-                <Link
-                  href="/faq"
-                  onClick={closeMobileMenu}
-                  className={`mobile-nav-item-floating ${isActive('/faq') ? 'active' : ''}`}
-                  aria-current={isActive('/faq') ? 'page' : undefined}
-                >
-                  <span>FAQ</span>
-                </Link>
-              </div>
-            </div>
-          )}
         </div>
       </nav>
+      )}
 
       {isMobileMenuOpen && (
-        <div 
+        <div
           className="mobile-overlay-floating tap-reset"
           onClick={closeMobileMenu}
-        />
+        >
+          <div
+            className="mobile-menu-items-floating"
+            onClick={(e) => e.stopPropagation()}
+          >
+            {navItems.map((item) => {
+              const active = isActive(item.match);
+
+              return (
+                <Link
+                  key={item.href}
+                  href={item.href}
+                  onClick={closeMobileMenu}
+                  className={`mobile-nav-item-floating ${active ? 'active' : ''}`}
+                  aria-current={active ? 'page' : undefined}
+                >
+                  <span>{item.label}</span>
+                </Link>
+              );
+            })}
+          </div>
+        </div>
       )}
     </>
   );

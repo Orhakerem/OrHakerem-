@@ -72,14 +72,14 @@ export default function RoomGallery({ rooms }: RoomGalleryProps) {
               />
               <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent"></div>
               <span className="absolute bottom-4 left-4 text-white">
-                <span className="block font-playfair text-xl font-bold">{room.name}</span>
+                <span className="block font-head text-xl font-bold">{room.name}</span>
                 <span className="text-sm opacity-90">{room.images.length} photos</span>
               </span>
             </span>
             
             {/* Room Info */}
             <span className="block p-4">
-              <span className="text-sm text-primary/80">{room.description}</span>
+              <span className="text-sm text-black/80">{room.description}</span>
             </span>
           </button>
         ))}
@@ -95,14 +95,6 @@ export default function RoomGallery({ rooms }: RoomGalleryProps) {
           >
             <X className="w-8 h-8" />
           </button>
-
-          {/* Room Title */}
-          <div className="absolute top-4 left-4 text-white z-10">
-            <h2 className="font-playfair text-2xl font-bold">{selectedRoom.name}</h2>
-            <p className="text-sm opacity-90">
-              {currentImageIndex + 1} of {selectedRoom.images.length}
-            </p>
-          </div>
 
           {/* Navigation Arrows */}
           {selectedRoom.images.length > 1 && (
@@ -123,8 +115,15 @@ export default function RoomGallery({ rooms }: RoomGalleryProps) {
           )}
 
           {/* Main Image */}
-          <div className="max-w-6xl w-full h-full flex items-center justify-center">
-            <div className="relative w-full h-[80vh]">
+          <div className="max-w-6xl w-full h-full flex flex-col items-center justify-center gap-2">
+            {/* Room name + counter above image */}
+            <div className="flex items-baseline gap-3 text-white">
+              <span className="font-head text-xl font-bold">{selectedRoom.name}</span>
+              <span className="text-sm opacity-75">
+                {currentImageIndex + 1} / {selectedRoom.images.length}
+              </span>
+            </div>
+            <div className="relative w-full h-[75vh]">
               <Image
                 src={selectedRoom.images[currentImageIndex]?.src || '/placeholder.jpg'}
                 alt={selectedRoom.images[currentImageIndex]?.alt || selectedRoom.name}

@@ -1,7 +1,18 @@
 'use client';
 
 import React, { useState, useEffect } from 'react';
+import Image from 'next/image';
 import { Star, Quote } from 'lucide-react';
+
+const reviewPlatforms = [
+  { name: 'Airbnb', src: '/logo/airbnb.svg', href: 'https://he.airbnb.com/users/show/464026460' },
+  {
+    name: 'Booking.com',
+    src: '/logo/booking.svg',
+    href: 'https://www.booking.com/hotel/il/penthouse-with-jacuzzi-bbq-2mn-from-sea-or-hakerem.fr.html?label=gen173bo-10CAsoakIycGVudGhvdXNlLXdpdGgtamFjdXp6aS1iYnEtMm1uLWZyb20tc2VhLW9yLWhha2VyZW1IM1gDaGqIAQGYATO4AQfIAQzYAQPoAQH4AQGIAgGYAgaoAgG4ArzUsNAGwAIB0gIkODQ1YTJkYmItOWI2NS00YWUwLTg4ZGEtNGUwMGJiNTAyMjZl2AIB4AIB&sid=d76cf1f6818f7b442a6ed091d7429070&dist=0&keep_landing=1&sb_price_type=total&type=total&',
+  },
+  { name: 'Google', src: '/logo/google.svg', href: 'https://share.google/ctj8SSixX29HDfzzn' },
+];
 
 interface Testimonial {
   name: string;
@@ -119,17 +130,38 @@ export default function TestimonialsCarousel() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         {/* Header section */}
         <div className="home-testimonials-header text-center mb-16">
-          <div className="inline-block mb-4">
-            <span className="text-tertiary font-semibold text-lg tracking-wider uppercase">
-              Guest Reviews
-            </span>
-          </div>
-          <h2 className="font-playfair text-5xl md:text-6xl font-bold text-primary mb-6 leading-tight">
+          <h2 className="font-head text-3xl md:text-6xl font-bold text-primary mb-4 md:mb-6 leading-tight">
             What Our Guests Say
           </h2>
-          <p className="text-primary/80 text-xl max-w-3xl mx-auto leading-relaxed">
+          <p className="text-primary/80 text-sm md:text-xl max-w-3xl mx-auto leading-relaxed">
             Discover why our guests choose Or Hakerem for their luxury stays in Tel Aviv
           </p>
+
+          <div className="home-testimonials-platforms mt-5 md:mt-10 flex flex-col items-center gap-4">
+            <span className="text-primary/60 text-sm tracking-[0.2em] uppercase">
+              Reviewed on
+            </span>
+            <div className="flex flex-wrap items-center justify-center gap-x-10 gap-y-6 md:gap-x-14">
+              {reviewPlatforms.map((platform) => (
+                <a
+                  key={platform.name}
+                  href={platform.href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label={`View ${platform.name} reviews`}
+                  className="opacity-80 hover:opacity-100 transition-opacity"
+                >
+                  <Image
+                    src={platform.src}
+                    alt={`${platform.name} reviews`}
+                    width={140}
+                    height={42}
+                    className="h-7 md:h-9 w-auto"
+                  />
+                </a>
+              ))}
+            </div>
+          </div>
         </div>
 
         {/* Carousel Container */}
@@ -157,8 +189,8 @@ export default function TestimonialsCarousel() {
               </div>
 
               {/* Testimonial Text */}
-              <blockquote className="text-center mb-8">
-                <p className="text-primary/90 text-lg md:text-xl leading-relaxed font-light italic">
+              <blockquote className="text-center mb-5 md:mb-8">
+                <p className="text-primary/90 text-sm md:text-xl leading-relaxed font-light italic">
                   "{testimonials[currentIndex].text}"
                 </p>
               </blockquote>
@@ -166,7 +198,7 @@ export default function TestimonialsCarousel() {
               {/* Guest Info */}
               <div className="text-center">
                 <div className="home-testimonials-guest inline-block p-6 bg-gradient-to-br from-cream to-white rounded-2xl shadow-lg border border-secondary/20">
-                  <h4 className="font-playfair text-2xl font-bold text-primary mb-2">
+                  <h4 className="font-head text-xl md:text-2xl font-bold text-primary mb-2">
                     {testimonials[currentIndex].name}
                   </h4>
                   <div className="flex items-center justify-center text-sm text-primary/60">

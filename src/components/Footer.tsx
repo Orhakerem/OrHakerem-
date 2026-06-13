@@ -2,379 +2,222 @@
 
 import React from 'react';
 import Link from 'next/link';
-import { Mail, Linkedin, Facebook } from 'lucide-react';
 import Image from 'next/image';
+import { Mail, Phone, MapPin, Instagram, Linkedin, Facebook, MessageCircle } from 'lucide-react';
 
 import { SITE_URL } from '@/app/seo';
 
+type FooterLink = {
+  label: string;
+  href: string;
+  indent?: boolean;
+};
+
+const exploreLinks: FooterLink[] = [
+  { label: 'Home', href: '/' },
+  { label: 'Properties', href: '/properties' },
+  { label: 'Luxury Penthouse', href: '/properties/penthouse-jacuzzi', indent: true },
+  { label: 'Spacious & Cosy Apartment', href: '/properties/cozy-studio', indent: true },
+  { label: 'Events', href: '/events' },
+  { label: 'About', href: '/about' },
+  { label: 'FAQ', href: '/faq' },
+];
+
+const stayLinks: FooterLink[] = [
+  { label: 'Services', href: '/services' },
+  { label: 'Reservation', href: '/reservation' },
+  { label: 'Contact', href: '/contact' },
+];
+
+const socials = [
+  { label: 'Instagram', href: 'https://www.instagram.com/or_hakerem/', Icon: Instagram },
+  { label: 'LinkedIn', href: 'https://www.linkedin.com/company/orhakerem/', Icon: Linkedin },
+  { label: 'Facebook', href: 'https://www.facebook.com/profile.php?id=61583829025542', Icon: Facebook },
+  { label: 'WhatsApp', href: 'https://wa.me/972585778891', Icon: MessageCircle },
+];
+
 export default function Footer() {
-  const handleContactClick = (e: React.MouseEvent<HTMLAnchorElement>) => {
-    e.preventDefault();
-    
-    // Check if we're on the homepage
-    if (typeof window !== 'undefined' && window.location.pathname === '/') {
-      // Scroll to the contact section
-      const contactSection = document.querySelector('#contact');
-      if (contactSection) {
-        contactSection.scrollIntoView({ 
-          behavior: 'smooth',
-          block: 'start'
-        });
-      }
-    } else if (typeof window !== 'undefined') {
-      // Navigate to homepage with hash
-      window.location.href = `${SITE_URL}/#contact`;
-    }
-  };
-
   return (
-    <footer className="site-footer bg-primary text-white relative overflow-hidden rounded-t-3xl">
-      {/* Background decorative elements - Minimal */}
-      <div className="absolute inset-0">
-        <div className="absolute top-2 left-2 w-8 h-8 bg-secondary/10 rounded-full blur-lg"></div>
-        <div className="absolute bottom-2 right-2 w-12 h-12 bg-tertiary/10 rounded-full blur-lg"></div>
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-16 h-16 bg-white/5 rounded-full blur-xl"></div>
-      </div>
-
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-        {/* Mobile Layout - Compact Desktop Mirror */}
-        <div className="site-footer-mobile md:hidden py-6">
-          <div className="site-footer-mobile-brand text-center mb-4">
-            <div className="flex items-center justify-center mb-3">
-              <div className="relative w-16 h-16 mr-3">
-                <Image
-                  src="/orhakerem_logo_original.jpg"
-                  alt="Or Hakerem Logo"
-                  fill
-                  className="object-contain rounded-lg shadow-lg"
-                  loading="lazy"
-                  sizes="64px"
-                />
-              </div>
-              <div>
-                <span className="font-playfair text-2xl font-bold text-secondary block leading-none">
-                  Or Hakerem
-                </span>
-                <span className="text-white/80 text-sm leading-none">Luxury Properties</span>
-              </div>
-            </div>
-          </div>
-
-          <div className="site-footer-mobile-contact text-center mb-4">
-            <h3 className="font-playfair text-lg font-bold text-secondary mb-3 leading-none">Contact Us</h3>
-            <div className="site-footer-mobile-contact-content flex flex-col items-center space-y-2">
-              <a 
-                href="mailto:keremliving@gmail.com" 
-                className="flex items-center text-sm text-white/90 transition-all duration-300"
-              >
-                <Mail className="w-4 h-4 mr-2" />
-                keremliving@gmail.com
-              </a>
-              
-              <div className="site-footer-mobile-phone-row flex space-x-4 text-sm">
-                <a 
-                  href="tel:+33651179925" 
-                  className="text-white/90 transition-all duration-300"
-                >
-                  +33 6 51 17 99 25
-                </a>
-                <a 
-                  href="tel:+972526869791"
-                  className="text-white/90 transition-all duration-300"
-                >
-                  +972 52 686 9791
-                </a>
-              </div>
-
-              {/* Social Icons - Compact */}
-              <div className="site-footer-mobile-socials flex gap-2">
-                <a
-                  href="https://www.instagram.com/or_hakerem/"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="inline-flex h-8 w-8 items-center justify-center rounded-lg border border-white/20 bg-white/10 transition-all duration-300"
-                  aria-label="Or Hakerem Instagram"
-                >
-                  <svg
-                    className="h-4 w-4 text-white"
-                    fill="currentColor"
-                    viewBox="0 0 24 24"
+    <footer className="site-footer bg-primary text-white relative rounded-t-3xl" aria-label="Footer">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        {/* Main grid */}
+        <div className="py-8 md:py-10 grid grid-cols-2 lg:grid-cols-4 gap-y-8 gap-x-8 lg:gap-x-12">
+          {/* Col 1 — Brand */}
+          <div className="col-span-2 lg:col-span-1 space-y-4">
+            <Link href="/" aria-label="Or Hakerem — Home" className="inline-block">
+              <Image
+                src="/logo/Logo_beige_h1.png"
+                alt="Or Hakerem"
+                width={180}
+                height={48}
+                className="h-16 md:h-20 w-auto object-contain"
+                loading="lazy"
+              />
+            </Link>
+            <p className="text-sm text-white/70 max-w-xs leading-snug">
+              Luxury accommodations in the heart of Tel Aviv.
+            </p>
+            <ul className="flex gap-3">
+              {socials.map(({ label, href, Icon }) => (
+                <li key={label}>
+                  <a
+                    href={href}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    aria-label={`Or Hakerem on ${label}`}
+                    className="inline-flex h-9 w-9 items-center justify-center rounded-full border border-white/15 text-white/80 transition-colors hover:border-secondary/60 hover:bg-white/5 hover:text-white"
                   >
-                    <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.40s-.644-1.44-1.439-1.40z"/>
-                  </svg>
-                </a>
-                <a
-                  href="https://www.linkedin.com/company/orhakerem/"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="inline-flex h-8 w-8 items-center justify-center rounded-lg border border-white/20 bg-white/10 transition-all duration-300"
-                  aria-label="Or Hakerem LinkedIn"
-                >
-                  <Linkedin className="h-4 w-4 text-white" />
-                </a>
-                <a
-                  href="https://www.facebook.com/profile.php?id=61583829025542"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="inline-flex h-8 w-8 items-center justify-center rounded-lg border border-white/20 bg-white/10 transition-all duration-300"
-                  aria-label="Or Hakerem Facebook"
-                >
-                  <Facebook className="h-4 w-4 text-white" />
-                </a>
-              </div>
-            </div>
+                    <Icon className="h-4 w-4" aria-hidden="true" />
+                  </a>
+                </li>
+              ))}
+            </ul>
           </div>
 
-          <div className="site-footer-mobile-nav text-center mb-4">
-            <h3 className="font-playfair text-lg font-bold text-secondary mb-3 leading-none">Navigation</h3>
-            <div className="flex flex-wrap justify-center gap-x-4 gap-y-1 text-sm">
-              <Link
-                href="/properties"
-                className="text-white/90 transition-all duration-300"
-              >
-                Properties
-              </Link>
-              <Link
-                href="/concierge-services"
-                className="text-white/90 transition-all duration-300"
-              >
-                Concierge Services
-              </Link>
-              <Link
-                href="/events"
-                className="text-white/90 transition-all duration-300"
-              >
-                Events
-              </Link>
-              <Link
-                href="/about"
-                className="text-white/90 transition-all duration-300"
-              >
-                About
-              </Link>
+          {/* Col 2 — Explore */}
+          <nav aria-label="Footer navigation — Explore">
+            <h3 className="font-head text-xs uppercase tracking-[0.18em] text-secondary mb-3">Explore</h3>
+            <ul className="space-y-2">
+              {exploreLinks.map(({ label, href, indent }) => (
+                <li key={href} className={indent ? 'pl-3 border-l border-white/10' : ''}>
+                  <Link
+                    href={href}
+                    className="text-sm text-white/70 hover:text-white transition-colors"
+                  >
+                    {label}
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </nav>
+
+          {/* Col 3 — Stay */}
+          <nav aria-label="Footer navigation — Stay">
+            <h3 className="font-head text-xs uppercase tracking-[0.18em] text-secondary mb-3">Stay</h3>
+            <ul className="space-y-2">
+              {stayLinks.map(({ label, href }) => (
+                <li key={href}>
+                  <Link
+                    href={href}
+                    className="text-sm text-white/70 hover:text-white transition-colors"
+                  >
+                    {label}
+                  </Link>
+                </li>
+              ))}
+              <li>
+                <a
+                  href="https://wa.me/972585778891"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-2 text-sm text-white/70 hover:text-white transition-colors"
+                >
+                  <MessageCircle className="h-3.5 w-3.5" aria-hidden="true" />
+                  WhatsApp us
+                </a>
+              </li>
+            </ul>
+          </nav>
+
+          {/* Col 4 — Contact */}
+          <div className="col-span-2 lg:col-span-1">
+            <h3 className="font-head text-xs uppercase tracking-[0.18em] text-secondary mb-3">Contact</h3>
+            <address className="not-italic space-y-2 text-sm text-white/70">
               <a
-                href="/#contact"
-                onClick={handleContactClick}
-                className="text-white/90 transition-all duration-300"
+                href="mailto:keremliving@gmail.com"
+                className="flex items-start gap-2 hover:text-white transition-colors"
               >
-                Contact
+                <Mail className="h-4 w-4 mt-0.5 shrink-0 text-secondary/80" aria-hidden="true" />
+                <span>keremliving@gmail.com</span>
               </a>
-            </div>
-          </div>
-
-          <div className="site-footer-mobile-policies text-center mb-4">
-            <h3 className="font-playfair text-lg font-bold text-secondary mb-3 leading-none">Policies</h3>
-            <div className="flex flex-wrap justify-center gap-x-4 gap-y-1 text-sm">
-              <Link
-                href="/terms"
-                className="text-white/90 transition-all duration-300"
+              <a
+                href="tel:+33651179925"
+                className="flex items-start gap-2 hover:text-white transition-colors"
               >
-                Terms & Conditions
+                <Phone className="h-4 w-4 mt-0.5 shrink-0 text-secondary/80" aria-hidden="true" />
+                <span>
+                  +33 6 51 17 99 25 <span className="text-white/40">·</span> FR
+                </span>
+              </a>
+              <a
+                href="tel:+972585778891"
+                className="flex items-start gap-2 hover:text-white transition-colors"
+              >
+                <Phone className="h-4 w-4 mt-0.5 shrink-0 text-secondary/80" aria-hidden="true" />
+                <span>
+                  +972 58 577 8891 <span className="text-white/40">·</span> IL
+                </span>
+              </a>
+              <p className="flex items-start gap-2">
+                <MapPin className="h-4 w-4 mt-0.5 shrink-0 text-secondary/80" aria-hidden="true" />
+                <span>
+                  35 Hakovshim Street
+                  <br />
+                  Tel Aviv, Israel
+                </span>
+              </p>
+            </address>
+          </div>
+        </div>
+
+        {/* Bottom bar */}
+        <div className="border-t border-secondary/20 py-3">
+          <div className="flex flex-col md:flex-row items-center justify-between gap-3 text-xs text-white/60">
+            <p>© 2026 Or Hakerem. All rights reserved.</p>
+            <nav
+              aria-label="Legal"
+              className="flex flex-wrap items-center justify-center gap-x-2 gap-y-1"
+            >
+              <Link href="/terms" className="hover:text-white transition-colors">
+                Terms
               </Link>
-            </div>
-          </div>
-
-          <div className="site-footer-mobile-meta text-center border-t border-white/20 pt-3">
-            <p className="text-white/80 text-xs leading-none">
-              © 2025 Or Hakerem. All rights reserved.
-            </p>
-            <p className="text-white/60 text-xs mt-1 leading-none">
-              Luxury accommodations in the heart of Tel Aviv
-            </p>
-          </div>
-        </div>
-
-        {/* Desktop Layout - Unchanged */}
-        <div className="hidden md:block py-4">
-          <div className="grid grid-cols-1 md:grid-cols-4 gap-3 md:gap-4">
-            
-            {/* Column 1: Logo & Brand - Massive Logo */}
-            <div className="text-center md:text-left md:col-span-1">
-              <div className="flex items-center justify-center md:justify-start mb-2">
-                <div className="relative w-40 h-40 mr-4">
-                  <Image
-                    src="/orhakerem_logo_original.jpg"
-                    alt="Or Hakerem Logo"
-                    fill
-                    className="object-contain rounded-xl shadow-lg"
-                  loading="lazy"
-                  sizes="160px"
-                />
-                </div>
-                <div>
-                  <span className="font-playfair text-4xl font-bold text-secondary block leading-none">
-                    Or Hakerem
-                  </span>
-                  <span className="text-white/80 text-base leading-none">Luxury Properties</span>
-                </div>
-              </div>
-            </div>
-            
-            {/* Column 2: Contact - Compact */}
-            <div className="text-center md:text-left">
-              <h3 className="font-playfair text-xl font-bold text-secondary mb-2 leading-none">Contact Us</h3>
-              
-              <div className="space-y-1">
-                <div>
-                  <div className="flex items-center justify-center rounded-lg p-1 md:justify-start">
-                    <Mail className="mr-2 w-5 h-5 flex-shrink-0 text-secondary" />
-                    <a 
-                      href="mailto:keremliving@gmail.com" 
-                      className="text-base font-medium leading-none text-white/90 transition-all duration-300"
-                    >
-                      keremliving@gmail.com
-                    </a>
-                  </div>
-                </div>
-                
-                <div>
-                  <div className="flex items-center justify-center rounded-lg p-1 md:justify-start">
-                    <span className="mr-2 text-base text-secondary">📞</span>
-                    <div className="flex flex-col">
-                      <a 
-                        href="tel:+33651179925" 
-                        className="text-base font-medium leading-none text-white/90 transition-all duration-300"
-                      >
-                        +33 6 51 17 99 25
-                      </a>
-                      <a 
-                        href="tel:+972526869791"
-                        className="mt-1 text-base font-medium leading-none text-white/90 transition-all duration-300"
-                      >
-                        +972 52 686 9791
-                      </a>
-                    </div>
-                  </div>
-                </div>
-
-                {/* Social Icons - Bigger */}
-                <div className="pt-1 flex justify-center md:justify-start gap-3">
-                  <a
-                    href="https://www.instagram.com/or_hakerem/"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="inline-flex h-12 w-12 items-center justify-center rounded-lg border border-white/20 bg-white/10 transition-all duration-300"
-                    aria-label="Or Hakerem Instagram"
-                  >
-                    <svg
-                      className="h-6 w-6 text-white"
-                      fill="currentColor"
-                      viewBox="0 0 24 24"
-                    >
-                      <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.40s-.644-1.44-1.439-1.40z"/>
-                    </svg>
-                  </a>
-                  <a
-                    href="https://www.linkedin.com/company/orhakerem/"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="inline-flex h-12 w-12 items-center justify-center rounded-lg border border-white/20 bg-white/10 transition-all duration-300"
-                    aria-label="Or Hakerem LinkedIn"
-                  >
-                    <Linkedin className="h-6 w-6 text-white" />
-                  </a>
-                  <a
-                    href="https://www.facebook.com/profile.php?id=61583829025542"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="inline-flex h-12 w-12 items-center justify-center rounded-lg border border-white/20 bg-white/10 transition-all duration-300"
-                    aria-label="Or Hakerem Facebook"
-                  >
-                    <Facebook className="h-6 w-6 text-white" />
-                  </a>
-                </div>
-              </div>
-            </div>
-
-            {/* Column 3: Quick Links - Bigger Text */}
-            <div className="text-center md:text-left">
-              <h3 className="font-playfair text-xl font-bold text-secondary mb-2 leading-none">Navigation</h3>
-
-              <nav className="space-y-0.5">
-                <Link
-                  href="/properties"
-                  className="block rounded-lg p-1 text-xl font-medium leading-none text-white/90 transition-all duration-300"
-                >
-                  Properties
-                </Link>
-                <Link
-                  href="/concierge-services"
-                  className="block rounded-lg p-1 text-xl font-medium leading-none text-white/90 transition-all duration-300"
-                >
-                  Concierge Services
-                </Link>
-                <Link
-                  href="/events"
-                  className="block rounded-lg p-1 text-xl font-medium leading-none text-white/90 transition-all duration-300"
-                >
-                  Events
-                </Link>
-                <Link
-                  href="/about"
-                  className="block rounded-lg p-1 text-xl font-medium leading-none text-white/90 transition-all duration-300"
-                >
-                  About
-                </Link>
-                <a
-                  href="/#contact"
-                  onClick={handleContactClick}
-                  className="block rounded-lg p-1 text-xl font-medium leading-none text-white/90 transition-all duration-300"
-                >
-                  Contact
-                </a>
-              </nav>
-            </div>
-
-            {/* Column 4: Legal - Bigger Text */}
-            <div className="text-center md:text-left">
-              <h3 className="font-playfair text-xl font-bold text-secondary mb-2 leading-none">Policies</h3>
-              
-              <nav className="space-y-0.5">
-                <Link 
-                  href="/terms" 
-                  className="block rounded-lg p-1 text-xl font-medium leading-none text-white/90 transition-all duration-300"
-                >
-                  Terms & Conditions
-                </Link>
-              </nav>
-            </div>
-          </div>
-        </div>
-
-        {/* Desktop Bottom Bar - Ultra Compact */}
-        <div className="hidden md:block border-t border-white/20 py-2">
-          <div className="text-center">
-            <p className="text-white/80 text-sm font-medium leading-none">
-              © 2025 Or Hakerem. All rights reserved.
-            </p>
-            <p className="text-white/60 text-xs mt-0.5 leading-none">
-              Luxury accommodations in the heart of Tel Aviv
+              <span aria-hidden="true" className="text-white/30">
+                ·
+              </span>
+              <Link href="/privacy" className="hover:text-white transition-colors">
+                Privacy
+              </Link>
+              <span aria-hidden="true" className="text-white/30">
+                ·
+              </span>
+              <Link href="/cancellation" className="hover:text-white transition-colors">
+                Cancellation Policy
+              </Link>
+            </nav>
+            <p>
+              Made by{' '}
+              <a
+                href="https://sitekept.com"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="hover:text-white transition-colors"
+              >
+                Sitekept
+              </a>
             </p>
           </div>
         </div>
       </div>
 
-      {/* Enhanced gradient overlay */}
-      <div className="absolute inset-0 bg-gradient-to-t from-primary via-transparent to-transparent opacity-30 pointer-events-none"></div>
-
-      {/* Microdata Schema */}
+      {/* JSON-LD LocalBusiness */}
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{
           __html: JSON.stringify({
-            "@context": "https://schema.org",
-            "@type": "LocalBusiness",
-            "name": "Or Hakerem",
-            "description": "Luxury properties in Tel Aviv",
-            "url": SITE_URL,
-            "telephone": ["+33651179925", "+972526869791"],
-            "email": "keremliving@gmail.com",
-            "address": {
-              "@type": "PostalAddress",
-              "addressLocality": "Tel Aviv",
-              "addressCountry": "Israel"
-            }
-          })
+            '@context': 'https://schema.org',
+            '@type': 'LocalBusiness',
+            name: 'Or Hakerem',
+            description: 'Luxury properties in Tel Aviv',
+            url: SITE_URL,
+            telephone: ['+33651179925', '+972585778891'],
+            email: 'keremliving@gmail.com',
+            address: {
+              '@type': 'PostalAddress',
+              streetAddress: '35 Hakovshim Street',
+              addressLocality: 'Tel Aviv',
+              addressCountry: 'Israel',
+            },
+          }),
         }}
       />
     </footer>

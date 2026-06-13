@@ -1,14 +1,13 @@
-import Link from 'next/link';
-
 import FAQ from '@/components/FAQ';
+import Image from 'next/image';
+import HeroAnimatedTitle from '@/components/HeroAnimatedTitle';
+import LiquidGlassCTA from '@/components/LiquidGlassCTA';
 import HomeContactForm from '@/components/HomeContactForm';
+import { ContactCard } from '@/components/ContactCard';
+import { Mail, Phone, Instagram, Facebook } from 'lucide-react';
 import TestimonialsCarousel from '@/components/TestimonialsCarousel';
-import PromotionalCarousel from '@/components/PromotionalCarousel';
 
 export default function Home() {
-  const heroHeadline =
-    'Luxury Short-Term Stays in Tel Aviv – Or HaKerem';
-
   return (
     <div className="min-h-screen">
       {/* Hero Section with Video Background - No Margin Top */}
@@ -30,94 +29,67 @@ export default function Home() {
         </div>
 
         {/* Desktop / large tablet overlay */}
-        <div className="hero-title hero-home-title" data-animate="text">
-          <h1 className="font-playfair font-bold hero-subtitle">
-            {heroHeadline}
-          </h1>
+        <div className="hero-title hero-home-title">
+          <HeroAnimatedTitle />
         </div>
 
         <div className="glass-cta-wrap hero-home-cta-wrap">
-          <Link
-            href="/properties"
-            className="glass-cta"
-          >
-            View Properties
-          </Link>
-        </div>
-
-        {/* Mobile / tablet hero */}
-        <div className="hero-home-mobile-strip"></div>
-
-        <div className="hero-home-mobile-text">
-          <div className="hero-home-mobile-text-inner">
-            <div
-              aria-hidden="true"
-              className="hero-home-mobile-title font-montserrat font-bold"
-              data-animate="text"
-            >
-              {heroHeadline}
-            </div>
-          </div>
-        </div>
-
-        <div className="hero-home-mobile-video-section">
-          <div className="hero-home-mobile-video-wrap">
-            <video
-              autoPlay
-              muted
-              loop
-              playsInline
-              className="hero-home-mobile-video"
-            >
-              <source src="/hero.mp4" type="video/mp4" />
-            </video>
-          </div>
+          <LiquidGlassCTA href="/properties">View Properties</LiquidGlassCTA>
         </div>
       </div>
 
       {/* Welcome Section */}
-      <section className="py-16 bg-cream relative overflow-hidden" data-animate="fade-up">
+      <section className="py-8 md:py-16 bg-cream relative overflow-hidden rounded-3xl mx-4">
         <div className="absolute inset-0">
           <div className="absolute top-6 left-6 w-16 h-16 bg-secondary/10 rounded-full blur-2xl"></div>
           <div className="absolute bottom-6 right-6 w-20 h-20 bg-tertiary/10 rounded-full blur-2xl"></div>
         </div>
 
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-          <div className="flex flex-col items-center">
-            <div className="flex-1 text-center">
-              <div className="mb-6" data-animate="fade-up">
-                <span className="text-secondary font-semibold text-lg tracking-[0.2em] uppercase block mb-3">
-                  Welcome to
-                </span>
-                <h2 className="font-playfair text-4xl md:text-5xl lg:text-6xl font-bold text-primary leading-tight mb-6" data-animate="text" data-delay="1">
-                  Or Hakerem
+          <div className="grid grid-cols-[minmax(0,0.9fr)_minmax(152px,1fr)] items-center gap-4 sm:gap-8 lg:gap-16">
+            <div className="min-w-0 text-left">
+              <div className="mb-2 sm:mb-6">
+                <h2 className="font-head text-2xl md:text-5xl lg:text-6xl font-bold text-black leading-tight mb-3 md:mb-6">
+                  Welcome
                 </h2>
               </div>
 
-              <div className="flex items-center justify-center mb-8">
-                <div className="w-12 h-px bg-gradient-to-r from-secondary to-tertiary"></div>
-                <div className="w-2 h-2 bg-secondary rounded-full mx-3 shadow-lg"></div>
-                <div className="w-12 h-px bg-gradient-to-l from-secondary to-tertiary"></div>
+              {/* Mobile: concise version, height ≈ video */}
+              <div className="block sm:hidden max-w-3xl text-sm leading-relaxed">
+                <p className="text-black/90 font-light font-body">
+                  Premium apartments for short-term stays in the heart of Tel Aviv — Kerem HaTeimanim, near Carmel Market and the beach. Carefully designed, comfortable spaces for a flexible, elevated stay.
+                </p>
               </div>
 
-              <div className="max-w-4xl space-y-6 text-lg md:text-xl" data-animate="fade-up" data-delay="2">
-                <p className="text-primary/90 leading-relaxed font-light font-lato">
+              {/* Desktop: full version */}
+              <div className="hidden sm:block max-w-3xl space-y-6 text-lg md:text-xl">
+                <p className="text-black/90 leading-relaxed font-light font-body">
                   Or Hakerem is a unique building offering premium apartments for short-term stays in the heart of Tel Aviv.
                 </p>
 
-                <p className="text-primary/80 leading-relaxed font-light font-lato">
+                <p className="text-black/80 leading-relaxed font-light font-body">
                   Located in Kerem HaTeimanim, near Carmel Market and within walking distance to the beach, the property places you right in the center of it all — just moments from Banana Beach, Nachalat Binyamin, and the vibrant energy of the city.
                 </p>
 
-                <p className="text-primary/85 leading-relaxed font-light font-lato">
+                <p className="text-black/85 leading-relaxed font-light font-body">
                   Each apartment comes in a different format, designed to suit everything from short city stays to family trips, private gatherings, and special events. What they all share is the same standard: carefully designed spaces, comfort, and a location that makes everything feel easy.
                 </p>
 
-                <p className="text-primary/85 leading-relaxed font-light font-lato">
+                <p className="text-black/85 leading-relaxed font-light font-body">
                   Whether you’re coming for a few days by the sea or planning a more private moment, Or Hakerem offers a flexible and elevated way to experience Tel Aviv.
                 </p>
               </div>
+            </div>
 
+            <div className="relative min-h-[170px] sm:min-h-[440px] lg:min-h-[620px] overflow-hidden rounded-md border border-primary/10 shadow-2xl" data-animate="slide-in-right">
+              <Image
+                src="/studio/Salon_angle_3_Zoom.jpg"
+                alt="Or Hakerem apartment"
+                fill
+                priority
+                className="object-cover"
+                sizes="(max-width: 768px) 100vw, 40vw"
+              />
             </div>
           </div>
         </div>
@@ -126,65 +98,65 @@ export default function Home() {
       {/* White Separator */}
       <div className="home-section-divider h-12 bg-white"></div>
 
-      {/* Promotional Carousel with Events CTA */}
-      <div data-animate="fade-up">
-        <PromotionalCarousel/>
-      </div>
-
-      {/* White Separator */}
-      <div className="h-12 bg-white"></div>
-
       {/* Location Section */}
-      <section className="home-location-section py-16 bg-cream relative overflow-hidden" data-animate="fade-up">
+      <section className="home-location-section py-16 bg-primary relative overflow-hidden rounded-3xl mx-4">
         <div className="absolute inset-0">
           <div className="absolute top-6 left-6 w-16 h-16 bg-secondary/10 rounded-full blur-2xl"></div>
           <div className="absolute bottom-6 right-6 w-20 h-20 bg-tertiary/10 rounded-full blur-2xl"></div>
         </div>
 
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-          <div className="flex flex-col items-center">
-            <div className="home-location-header text-center mb-12" data-animate="fade-up">
-              <span className="text-secondary font-semibold text-lg tracking-[0.2em] uppercase block mb-3">
-                Our Location
-              </span>
-              <h2 className="font-playfair text-4xl md:text-5xl lg:text-6xl font-bold text-primary leading-tight mb-6" data-animate="text" data-delay="1">
-                At the Heart of Tel Aviv
-              </h2>
+          <div className="grid grid-cols-1 lg:grid-cols-2 items-center gap-10 lg:gap-16">
+            <div className="w-full rounded-[5px] overflow-hidden shadow-xl border border-primary/10 order-2 lg:order-1" data-animate="zoom">
+              <iframe
+                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3380.969106191464!2d34.76409907581854!3d32.07008431977721!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x151d4c843acd13ab%3A0xb4aff2902a9ec6dd!2sHaKovshim%2035%2C%20Tel%20Aviv-Jaffa!5e0!3m2!1sfr!2sil!4v1771934464053!5m2!1sfr!2sil"
+                width="100%"
+                height="450"
+                style={{ border: 0, minHeight: '400px' }}
+                allowFullScreen
+                loading="lazy"
+                referrerPolicy="no-referrer-when-downgrade"
+                className="w-full"
+                title="Or Hakerem Location - 35 Hakovshim Street, Tel Aviv"
+              ></iframe>
             </div>
 
-            <div className="home-location-content max-w-4xl w-full mb-8" data-animate="fade-up" data-delay="2">
-              <p className="text-primary/90 text-lg md:text-xl leading-relaxed font-light text-center mb-8">
-                Our building is located at <span className="font-medium text-secondary">35 Hakovshim Street</span>, in Kerem HaTeimanim, just steps from the beach and near Carmel Market for guests who want a central, walkable stay in Tel Aviv.
-              </p>
-
-              <div className="w-full rounded-2xl overflow-hidden shadow-xl border border-primary/10" data-animate="zoom">
-                <iframe
-                  src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3380.969106191464!2d34.76409907581854!3d32.07008431977721!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x151d4c843acd13ab%3A0xb4aff2902a9ec6dd!2sHaKovshim%2035%2C%20Tel%20Aviv-Jaffa!5e0!3m2!1sfr!2sil!4v1771934464053!5m2!1sfr!2sil"
-                  width="100%"
-                  height="450"
-                  style={{ border: 0, minHeight: '400px' }}
-                  allowFullScreen
-                  loading="lazy"
-                  referrerPolicy="no-referrer-when-downgrade"
-                  className="w-full"
-                  title="Or Hakerem Location - 35 Hakovshim Street, Tel Aviv"
-                ></iframe>
-                
+            <div className="order-1 lg:order-2">
+              <div className="home-location-header mb-6" data-animate="fade-up">
+                <span className="text-secondary font-semibold text-lg tracking-[0.2em] uppercase block mb-3">
+                  Our Location
+                </span>
+                <h2 className="font-head text-4xl md:text-5xl lg:text-6xl font-bold text-white leading-tight" data-animate="text" data-delay="1">
+                  At the Heart of Tel Aviv
+                </h2>
               </div>
 
-              <div className="text-center mt-8" data-animate="scale" data-delay="3">
-                <a
-                  href="https://www.google.com/maps?q=Hakovshim+35+Tel+Aviv"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="button-hover-clean inline-flex items-center rounded-full bg-gradient-to-r from-secondary to-secondary-light px-8 py-4 text-lg font-semibold text-primary shadow-xl transition-all duration-300"
-                >
-                  <span className="mr-2">Open in Google Maps</span>
-                  <div className="w-5 h-5 bg-primary/20 rounded-full flex items-center justify-center">
-                    <span className="text-primary text-xs">→</span>
-                  </div>
-                </a>
+              <div className="home-location-content w-full" data-animate="fade-up" data-delay="2">
+                <p className="text-white/90 text-lg md:text-xl leading-relaxed font-light mb-8 hidden lg:block">
+                  Our building is located at <span className="font-medium text-secondary">35 Hakovshim Street</span>, in Kerem HaTeimanim, just steps from the beach and near Carmel Market for guests who want a central, walkable stay in Tel Aviv.
+                </p>
+
+                <div className="text-center hidden lg:block" data-animate="scale" data-delay="3">
+                  <LiquidGlassCTA
+                    href="https://www.google.com/maps?q=Hakovshim+35+Tel+Aviv"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    Open in Google Maps
+                  </LiquidGlassCTA>
+                </div>
               </div>
+            </div>
+
+            {/* Responsive-only CTA: appears under the map (<lg) */}
+            <div className="order-last text-center lg:hidden" data-animate="scale" data-delay="3">
+              <LiquidGlassCTA
+                href="https://www.google.com/maps?q=Hakovshim+35+Tel+Aviv"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                Open in Google Maps
+              </LiquidGlassCTA>
             </div>
           </div>
         </div>
@@ -194,26 +166,44 @@ export default function Home() {
       <div className="home-section-divider h-12 bg-white"></div>
 
       {/* Contact Section */}
-      <section id="contact" className="home-contact-section py-12 bg-gradient-to-br from-primary via-primary to-primary-light relative overflow-hidden rounded-3xl mx-4" data-animate="fade-up">
-        <div className="absolute inset-0">
-          <div className="absolute top-20 left-10 w-32 h-32 bg-secondary/10 rounded-full blur-3xl"></div>
-          <div className="absolute bottom-20 right-10 w-40 h-40 bg-tertiary/10 rounded-full blur-3xl"></div>
-        </div>
-
-        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-          <div className="home-contact-header text-center mb-10" data-animate="fade-up">
-            <span className="text-secondary font-semibold text-lg tracking-wider uppercase">
+      <section id="contact" className="home-contact-section py-16 bg-cream relative overflow-hidden mx-4" data-animate="fade-up">
+        <div className="max-w-6xl mx-auto px-3 md:px-4 relative z-10">
+          <div className="text-center mb-10" data-animate="fade-up">
+            <h2 className="font-head text-4xl md:text-5xl lg:text-6xl font-bold text-black leading-tight" data-animate="text" data-delay="1">
               Contact Us
-            </span>
-            <h2 className="font-playfair text-3xl md:text-4xl font-bold text-white mb-4 leading-tight" data-animate="text" data-delay="1">
-              Get in Touch
             </h2>
-            <p className="text-white/90 text-lg max-w-2xl mx-auto leading-relaxed">
-              Have questions? We&apos;re here to help make your stay exceptional
-            </p>
           </div>
-
-          <HomeContactForm />
+          <ContactCard
+            description="Have questions about our properties, events, or concierge services?"
+            contactInfo={[
+              {
+                icon: Mail,
+                label: 'Email',
+                value: 'keremliving@gmail.com',
+                href: 'mailto:keremliving@gmail.com',
+              },
+              {
+                icon: Phone,
+                label: 'Phone & WhatsApp',
+                value: '+33 6 51 17 99 25 · +972 58 577 8891',
+                href: 'tel:+33651179925',
+              },
+              {
+                icon: Instagram,
+                label: 'Instagram',
+                value: '@or_hakerem',
+                href: 'https://www.instagram.com/or_hakerem/',
+              },
+              {
+                icon: Facebook,
+                label: 'Facebook',
+                value: 'Or Hakerem',
+                href: 'https://www.facebook.com/profile.php?id=61583829025542',
+              },
+            ]}
+          >
+            <HomeContactForm theme="light" />
+          </ContactCard>
         </div>
       </section>
 

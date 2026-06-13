@@ -1,0 +1,205 @@
+- generic [active] [ref=e1]:
+  - navigation "Main navigation" [ref=e2]:
+    - generic [ref=e3]:
+      - link "Or Hakerem - Home" [ref=e5] [cursor=pointer]:
+        - /url: /
+        - img "Or Hakerem" [ref=e7]
+      - generic [ref=e8]:
+        - link "Properties" [ref=e9] [cursor=pointer]:
+          - /url: /properties
+          - generic [ref=e10]: Properties
+        - link "Services" [ref=e11] [cursor=pointer]:
+          - /url: /concierge-services
+          - generic [ref=e12]: Services
+        - link "Events" [ref=e13] [cursor=pointer]:
+          - /url: /events
+          - generic [ref=e14]: Events
+        - link "About" [ref=e15] [cursor=pointer]:
+          - /url: /about
+          - generic [ref=e16]: About
+        - link "Blog" [ref=e17] [cursor=pointer]:
+          - /url: /blog
+          - generic [ref=e18]: Blog
+        - link "Contact" [ref=e19] [cursor=pointer]:
+          - /url: /#contact
+          - generic [ref=e20]: Contact
+        - link "Contact on WhatsApp" [ref=e21] [cursor=pointer]:
+          - /url: https://wa.me/972526869791?text=Hi%20I%20am%20interested%20in%20your%20properties
+          - img [ref=e22]
+  - main [ref=e24]:
+    - generic [ref=e25]:
+      - generic [ref=e26]:
+        - heading "Or Hakerem Luxury Short-Term Stays in Tel Aviv" [level=1] [ref=e32]:
+          - generic [ref=e33]:
+            - generic [ref=e34]: Or Hakerem
+            - generic [ref=e35]: Luxury Short-Term Stays in Tel Aviv
+        - link "View Properties" [ref=e37] [cursor=pointer]:
+          - /url: /properties
+          - generic: View Properties
+      - generic [ref=e43]:
+        - generic [ref=e44]:
+          - generic [ref=e45]:
+            - generic [ref=e46]: Welcome to
+            - heading "Or Hakerem" [level=2] [ref=e47]
+          - generic [ref=e52]:
+            - paragraph [ref=e53]: Or Hakerem is a unique building offering premium apartments for short-term stays in the heart of Tel Aviv.
+            - paragraph [ref=e54]: Located in Kerem HaTeimanim, near Carmel Market and within walking distance to the beach, the property places you right in the center of it all — just moments from Banana Beach, Nachalat Binyamin, and the vibrant energy of the city.
+            - paragraph [ref=e55]: "Each apartment comes in a different format, designed to suit everything from short city stays to family trips, private gatherings, and special events. What they all share is the same standard: carefully designed spaces, comfort, and a location that makes everything feel easy."
+            - paragraph [ref=e56]: Whether you’re coming for a few days by the sea or planning a more private moment, Or Hakerem offers a flexible and elevated way to experience Tel Aviv.
+        - img "Terrace seating at Or Hakerem" [ref=e58]
+      - generic [ref=e65]:
+        - generic [ref=e66]:
+          - generic [ref=e67]: Our Location
+          - heading "At the Heart of Tel Aviv" [level=2] [ref=e68]
+        - generic [ref=e69]:
+          - paragraph [ref=e70]: Our building is located at 35 Hakovshim Street, in Kerem HaTeimanim, just steps from the beach and near Carmel Market for guests who want a central, walkable stay in Tel Aviv.
+          - iframe [ref=e72]:
+            
+          - link "Open in Google Maps →" [ref=e74] [cursor=pointer]:
+            - /url: https://www.google.com/maps?q=Hakovshim+35+Tel+Aviv
+            - generic [ref=e75]: Open in Google Maps
+            - generic [ref=e77]: →
+      - generic [ref=e83]:
+        - generic [ref=e84]:
+          - text: Contact Us
+          - heading "Get in Touch" [level=2] [ref=e85]
+          - paragraph [ref=e86]: Have questions? We're here to help make your stay exceptional
+        - generic [ref=e89]:
+          - generic [ref=e90]:
+            - generic [ref=e91]:
+              - generic [ref=e92]: Your Name
+              - textbox "Your Name" [ref=e93]:
+                - /placeholder: Enter your name
+            - generic [ref=e94]:
+              - generic [ref=e95]: Email Address
+              - textbox "Email Address" [ref=e96]:
+                - /placeholder: your@email.com
+          - generic [ref=e97]:
+            - generic [ref=e98]: Your Message
+            - textbox "Your Message" [ref=e99]:
+              - /placeholder: Write your message here...
+          - generic [ref=e100]:
+            - button "Send Message →" [ref=e101] [cursor=pointer]:
+              - generic [ref=e102]: Send Message
+              - generic [ref=e104]: →
+            - paragraph [ref=e105]: We'll get back to you within 24 hours
+      - generic [ref=e113]:
+        - generic [ref=e114]:
+          - generic [ref=e115]: Guest Reviews
+          - heading "What Our Guests Say" [level=2] [ref=e116]
+          - paragraph [ref=e117]: Discover why our guests choose Or Hakerem for their luxury stays in Tel Aviv
+        - generic [ref=e119]:
+          - img [ref=e122]
+          - generic [ref=e125]:
+            - generic [ref=e127]:
+              - img [ref=e128]
+              - img [ref=e130]
+              - img [ref=e132]
+              - img [ref=e134]
+              - img [ref=e136]
+            - blockquote [ref=e138]:
+              - paragraph [ref=e139]: "\"Great view of the city from this rooftop penthouse. The beach is literally right there and I was able to walk to many of my favorite places. 5 stars.\""
+            - generic [ref=e141]:
+              - heading "Amin" [level=4] [ref=e142]
+              - generic [ref=e144]: February 2026
+      - generic [ref=e147]:
+        - link "Frequently Asked Questions" [ref=e149] [cursor=pointer]:
+          - /url: /faq
+          - heading "Frequently Asked Questions" [level=2] [ref=e150]
+        - generic [ref=e151]:
+          - generic [ref=e152]:
+            - button "Where are the apartments located in Tel Aviv?" [ref=e153] [cursor=pointer]:
+              - heading "Where are the apartments located in Tel Aviv?" [level=3] [ref=e154]
+              - img [ref=e155]
+            - generic [ref=e157]: Or HaKerem apartments are located in the historic Kerem HaTeimanim neighborhood at Hakovshim Street 35, within walking distance of Carmel Market, Banana Beach, and Nachalat Binyamin.
+          - generic [ref=e158]:
+            - button "Is parking available?" [ref=e159] [cursor=pointer]:
+              - heading "Is parking available?" [level=3] [ref=e160]
+              - img [ref=e161]
+            - generic [ref=e163]: Yes, we provide a parking spot with additional payment of 70₪ per day.
+          - generic [ref=e164]:
+            - button "What is your cancellation policy?" [ref=e165] [cursor=pointer]:
+              - heading "What is your cancellation policy?" [level=3] [ref=e166]
+              - img [ref=e167]
+            - generic [ref=e169]:
+              - text: You can review our cancellation terms in our
+              - link "Terms & Conditions page" [ref=e170] [cursor=pointer]:
+                - /url: /terms
+              - text: .
+          - generic [ref=e171]:
+            - button "Is there a minimum stay requirement?" [ref=e172] [cursor=pointer]:
+              - heading "Is there a minimum stay requirement?" [level=3] [ref=e173]
+              - img [ref=e174]
+            - generic [ref=e176]: There is no minimum stay. You can make a one-night reservation or stay for a few weeks. You can also rent our places for a few hours for events.
+          - generic [ref=e177]:
+            - button "What payment methods do you accept?" [ref=e178] [cursor=pointer]:
+              - heading "What payment methods do you accept?" [level=3] [ref=e179]
+              - img [ref=e180]
+            - generic [ref=e182]: We accept bank transfers, Bit, and cash.
+          - generic [ref=e183]:
+            - button "What's the difference with direct booking and Airbnb?" [ref=e184] [cursor=pointer]:
+              - heading "What's the difference with direct booking and Airbnb?" [level=3] [ref=e185]
+              - img [ref=e186]
+            - generic [ref=e188]: Booking directly with us can get you better rates, personalized service, and more payment flexibility compared to booking through a third-party platform.
+          - generic [ref=e189]:
+            - button "Can I get a weekly or monthly discount for long stays?" [ref=e190] [cursor=pointer]:
+              - heading "Can I get a weekly or monthly discount for long stays?" [level=3] [ref=e191]
+              - img [ref=e192]
+            - generic [ref=e194]: Of course! We offer reduced rates and special discounts for guests looking to stay for longer periods of time.
+  - contentinfo [ref=e195]:
+    - generic [ref=e200]:
+      - generic [ref=e202]:
+        - img "Or Hakerem Logo" [ref=e206]
+        - generic [ref=e207]:
+          - heading "Contact Us" [level=3] [ref=e208]
+          - generic [ref=e209]:
+            - generic [ref=e211]:
+              - img [ref=e212]
+              - link "keremliving@gmail.com" [ref=e215] [cursor=pointer]:
+                - /url: mailto:keremliving@gmail.com
+            - generic [ref=e217]:
+              - generic [ref=e218]: 📞
+              - generic [ref=e219]:
+                - link "+33 6 51 17 99 25" [ref=e220] [cursor=pointer]:
+                  - /url: tel:+33651179925
+                - link "+972 52 686 9791" [ref=e221] [cursor=pointer]:
+                  - /url: tel:+972526869791
+            - generic [ref=e222]:
+              - link "Or Hakerem Instagram" [ref=e223] [cursor=pointer]:
+                - /url: https://www.instagram.com/or_hakerem/
+                - generic:
+                  - img
+              - link "Or Hakerem LinkedIn" [ref=e224] [cursor=pointer]:
+                - /url: https://www.linkedin.com/company/orhakerem/
+                - generic:
+                  - img
+              - link "Or Hakerem Facebook" [ref=e225] [cursor=pointer]:
+                - /url: https://www.facebook.com/profile.php?id=61583829025542
+                - generic:
+                  - img
+        - generic [ref=e226]:
+          - heading "Navigation" [level=3] [ref=e227]
+          - navigation [ref=e228]:
+            - link "Properties" [ref=e229] [cursor=pointer]:
+              - /url: /properties
+            - link "Concierge Services" [ref=e230] [cursor=pointer]:
+              - /url: /concierge-services
+            - link "Events" [ref=e231] [cursor=pointer]:
+              - /url: /events
+            - link "About" [ref=e232] [cursor=pointer]:
+              - /url: /about
+            - link "Contact" [ref=e233] [cursor=pointer]:
+              - /url: /#contact
+        - generic [ref=e234]:
+          - heading "Policies" [level=3] [ref=e235]
+          - navigation [ref=e236]:
+            - link "Terms & Conditions" [ref=e237] [cursor=pointer]:
+              - /url: /terms
+            - link "Privacy Policy" [ref=e238] [cursor=pointer]:
+              - /url: /privacy
+            - link "Support" [ref=e239] [cursor=pointer]:
+              - /url: mailto:keremliving@gmail.com
+      - generic [ref=e241]:
+        - paragraph [ref=e242]: © 2025 Or Hakerem. All rights reserved.
+        - paragraph [ref=e243]: Luxury accommodations in the heart of Tel Aviv
+  - alert [ref=e244]

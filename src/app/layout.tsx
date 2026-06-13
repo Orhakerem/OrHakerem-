@@ -1,19 +1,41 @@
 import type { Metadata } from 'next';
-import dynamic from 'next/dynamic';
 import Script from 'next/script';
 import { SpeedInsights } from '@vercel/speed-insights/next';
 import Toast from '@/components/Toast';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
-import GoogleAnalytics from '@/components/GoogleAnalytics';
+import CookieConsent from '@/components/CookieConsent';
 import { DEFAULT_OG_IMAGE, DEFAULT_OPEN_GRAPH_IMAGE, SITE_URL, createCanonicalUrl } from '@/app/seo';
-import { inter, lato, montserrat, playfair } from '@/app/fonts';
+import { inter, manrope } from '@/app/fonts';
+
+const organizationStructuredData = {
+  '@context': 'https://schema.org',
+  '@type': 'Organization',
+  name: 'Or Hakerem',
+  url: SITE_URL,
+  logo: `${SITE_URL}/logo/Logo_beige.png`,
+  description:
+    'Luxury short-term rental apartments and boutique event venue in Kerem HaTeimanim, Tel Aviv, Israel.',
+  address: {
+    '@type': 'PostalAddress',
+    streetAddress: '35 Hakovshim Street',
+    addressLocality: 'Tel Aviv',
+    addressCountry: 'IL',
+  },
+  contactPoint: {
+    '@type': 'ContactPoint',
+    telephone: '+972585778891',
+    contactType: 'customer service',
+    availableLanguage: ['English', 'Hebrew', 'French'],
+  },
+  sameAs: [
+    'https://www.instagram.com/or_hakerem/',
+    'https://www.facebook.com/profile.php?id=61583829025542',
+    'https://www.linkedin.com/company/orhakerem/',
+  ],
+};
 
 import './globals.css';
-
-const CustomCursor = dynamic(() => import('@/components/CustomCursor'), {
-  ssr: false,
-});
 
 export const metadata: Metadata = {
   title: 'Luxury Apartments in Tel Aviv | Or Hakerem | Kerem HaTeimanim',
@@ -60,18 +82,17 @@ export const metadata: Metadata = {
   icons: {
     icon: [
       { url: '/favicon/favicon.ico', sizes: 'any', type: 'image/x-icon' },
-      { url: '/favicon/web-app-manifest-192x192.png', sizes: '192x192', type: 'image/png' },
-      { url: '/favicon/web-app-manifest-512x512.png', sizes: '512x512', type: 'image/png' },
+      { url: '/favicon/favicon-32x32.png', sizes: '32x32', type: 'image/png' },
+      { url: '/favicon/favicon-16x16.png', sizes: '16x16', type: 'image/png' },
+      { url: '/favicon/android-chrome-192x192.png', sizes: '192x192', type: 'image/png' },
+      { url: '/favicon/android-chrome-512x512.png', sizes: '512x512', type: 'image/png' },
     ],
     shortcut: '/favicon/favicon.ico',
     apple: [
       { url: '/favicon/apple-touch-icon.png', sizes: '180x180', type: 'image/png' },
     ],
-    other: [
-      { rel: 'icon', url: '/favicon/favicon.svg', type: 'image/svg+xml' },
-    ],
   },
-  manifest: '/favicon/manifest.json',
+  manifest: '/favicon/site.webmanifest',
 };
 
 export default function RootLayout({
@@ -82,20 +103,22 @@ export default function RootLayout({
   return (
     <html lang="en">
       <head>
-        <link rel="icon" href="/favicon/favicon.ico" sizes="32x32" />
-        <link rel="icon" href="/favicon/favicon.ico" sizes="16x16" type="image/png" />
-        <link rel="icon" href="/favicon/favicon.ico" sizes="32x32" type="image/png" />
-        <link rel="apple-touch-icon" href="/favicon/apple-touch-icon.png" sizes="180x180" />
-        <link rel="manifest" href="/favicon/manifest.json" />
+        <link rel="preconnect" href="https://maps.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
+        <link rel="icon" type="image/x-icon" href="/favicon/favicon.ico" />
+        <link rel="icon" type="image/png" sizes="32x32" href="/favicon/favicon-32x32.png" />
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicon/favicon-16x16.png" />
+        <link rel="apple-touch-icon" sizes="180x180" href="/favicon/apple-touch-icon.png" />
+        <link rel="manifest" href="/favicon/site.webmanifest" />
         <meta name="theme-color" content="#a5382b" />
-        <meta name="msapplication-TileColor" content="#a5382b" />
-        <meta name="msapplication-TileImage" content="/favicon/web-app-manifest-512x512.png" />
-        <meta name="msapplication-config" content="/favicon/browserconfig.xml" />
         <meta name="apple-mobile-web-app-title" content="Or Hakerem" />
       </head>
-      <body className={`${inter.variable} ${playfair.variable} ${lato.variable} ${montserrat.variable} min-h-screen bg-cream antialiased`}>
-        <GoogleAnalytics />
-        <CustomCursor />
+      <body className={`${inter.variable} ${manrope.variable} min-h-screen bg-cream antialiased`}>
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(organizationStructuredData) }}
+        />
+        <CookieConsent />
         <Toast />
         <Navbar />
         <main>
@@ -104,7 +127,7 @@ export default function RootLayout({
         <Footer />
         <SpeedInsights />
         <a
-          href="https://wa.me/972526869791?text=Hi%20I%20am%20interested%20in%20your%20properties"
+          href="https://wa.me/972585778891?text=Hi%20I%20am%20interested%20in%20your%20properties"
           target="_blank"
           rel="noopener noreferrer"
           className="whatsapp-float"
@@ -115,10 +138,6 @@ export default function RootLayout({
           </svg>
         </a>
         <Script src="/scrollAnimations.js" strategy="afterInteractive" />
-        <Script
-          src="https://cdn.enable.co.il/licenses/enable-L54226f2ujbqzlpp-0226-80099/init.js"
-          strategy="afterInteractive"
-        />
       </body>
     </html>
   );

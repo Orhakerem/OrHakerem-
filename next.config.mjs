@@ -42,6 +42,11 @@ const nextConfig = {
   async redirects() {
     return [
       {
+        source: '/concierge-services',
+        destination: '/services',
+        permanent: true,
+      },
+      {
         source: '/:path*',
         has: [
           {

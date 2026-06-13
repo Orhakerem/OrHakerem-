@@ -1,6 +1,6 @@
 'use server';
 
-import { contactSchema, type ContactData } from '@/validation';
+import { contactSchema } from '@/validation';
 import { getEmailConfig, sanitizeForHeader, sendResendEmail } from '@/lib/email-service';
 
 export async function sendContactEmail(formData: FormData) {
@@ -20,7 +20,7 @@ export async function sendContactEmail(formData: FormData) {
       message: formData.get('message')?.toString().trim() || '',
     };
 
-    const validatedData = contactSchema.parse(data) as ContactData;
+    const validatedData = contactSchema.parse(data);
 
     // Sanitize validated data for use in headers
     const sanitizedEmail = sanitizeForHeader(validatedData.email);

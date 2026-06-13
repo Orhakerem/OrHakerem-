@@ -2,9 +2,14 @@
 
 import { ZodError } from 'zod';
 
-import { reservationSchema, eventSchema, type ReservationData, type EventData } from '@/validation';
+import { reservationSchema, eventSchema } from '@/validation';
 import { getPropertyAvailability } from '@/lib/airbnb-calendar';
-import { getBookingDateRangeValidationMessage } from '@/lib/booking-dates';
+import {
+  compareIsoDates,
+  getBookingDateRangeValidationMessage,
+  getTodayIsoInTimeZone,
+  isIsoDateString,
+} from '@/lib/booking-dates';
 import {
   getBookablePropertyIdFromLabel,
   getBookablePropertyListingId,
@@ -20,17 +25,30 @@ function isReservationInsertError(error: unknown) {
   return error instanceof Error && error.message.startsWith('Failed to save reservation request:');
 }
 
+async function getEventDateValidationMessage(checkIn: string) {
+  if (!isIsoDateString(checkIn)) {
+    return 'Please choose a valid event date.';
+  }
+
+  if (compareIsoDates(checkIn, getTodayIsoInTimeZone()) < 0) {
+    return 'Please choose a current or future event date.';
+  }
+
+  const availability = await getPropertyAvailability('penthouse-jacuzzi');
+
+  if (availability.status === 'error') {
+    return 'Airbnb availability is temporarily unavailable. Please try again in a moment.';
+  }
+
+  if (availability.blockedDates.includes(checkIn)) {
+    return 'That event date is unavailable on Airbnb. Please choose another date.';
+  }
+
+  return null;
+}
+
 export async function sendEmail(formData: FormData) {
   try {
-    const { config, error: configError } = getEmailConfig();
-
-    if (!config) {
-      return {
-        success: false,
-        error: configError,
-      };
-    }
-
     // Extract and sanitize common form fields
     const property = formData.get('property')?.toString().trim() || '';
     const name = formData.get('name')?.toString().trim() || '';
@@ -58,7 +76,25 @@ export async function sendEmail(formData: FormData) {
         message: formData.get('message')?.toString().trim(),
       };
 
-      validatedData = eventSchema.parse(eventData) as EventData;
+      validatedData = eventSchema.parse(eventData);
+
+      const eventDateValidationMessage = await getEventDateValidationMessage(validatedData.checkIn);
+
+      if (eventDateValidationMessage) {
+        return {
+          success: false,
+          error: eventDateValidationMessage,
+        };
+      }
+
+      const { config, error: configError } = getEmailConfig();
+
+      if (!config) {
+        return {
+          success: false,
+          error: configError,
+        };
+      }
 
       // Sanitize validated data for use in headers
       const sanitizedEmail = sanitizeForHeader(validatedData.email);
@@ -95,6 +131,15 @@ export async function sendEmail(formData: FormData) {
         message: 'Email sent successfully!'
       };
     } else {
+      const { config, error: configError } = getEmailConfig();
+
+      if (!config) {
+        return {
+          success: false,
+          error: configError,
+        };
+      }
+
       // Validate reservation data
       const reservationData = {
         property,
@@ -108,7 +153,7 @@ export async function sendEmail(formData: FormData) {
         contactMethod,
       };
 
-      validatedData = reservationSchema.parse(reservationData) as ReservationData;
+      validatedData = reservationSchema.parse(reservationData);
 
       const propertyId = getBookablePropertyIdFromLabel(validatedData.property);
 
