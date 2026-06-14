@@ -49,6 +49,15 @@ export default function BookingSingleDateCalendar({
     [value],
   );
   const blockedDateSet = useMemo(() => new Set(blockedDates), [blockedDates]);
+  const monthLabel = useMemo(
+    () =>
+      new Intl.DateTimeFormat('en-US', {
+        month: 'long',
+        year: 'numeric',
+        timeZone: BUSINESS_TIME_ZONE,
+      }).format(month),
+    [month],
+  );
 
   const handleSelect = (date: Date | undefined) => {
     if (!date) {
@@ -90,103 +99,74 @@ export default function BookingSingleDateCalendar({
   return (
     <div
       ref={rootRef}
-      className="w-full rounded-3xl border border-primary/10 bg-white p-4 shadow-sm md:p-6"
+      className="w-full space-y-5 rounded-3xl border border-primary/10 bg-white p-5 shadow-sm md:p-6"
     >
-      <div className="space-y-6">
-        <div className="space-y-4 rounded-2xl border border-primary/10 bg-gradient-to-br from-cream to-white p-4">
-          <div className="flex items-start gap-3">
-            <div className="rounded-2xl bg-primary/10 p-3 text-black">
-              <CalendarDays className="h-5 w-5" />
-            </div>
-            <div>
-              <p className="font-head text-xl font-semibold text-black">
-                Choose your event date
-              </p>
-              <p className="mt-1 text-sm text-black/70">
-                Select the date of your event directly from the calendar below.
-              </p>
-            </div>
-          </div>
+      <div className="flex items-start gap-3">
+        <CalendarDays className="mt-0.5 h-5 w-5 shrink-0 text-primary" />
+        <div>
+          <p className="font-head text-xl font-semibold text-black">
+            Choose your event date
+          </p>
+          <p className="mt-1 text-sm text-black/70">
+            Select the date of your event directly from the calendar below.
+          </p>
+        </div>
+      </div>
 
-          <button
-            type="button"
-            className="w-full rounded-2xl border border-black/10 bg-slate-900 px-4 py-4 text-left text-white shadow-lg shadow-black/10 transition"
-          >
-            <span className="block text-[11px] font-semibold uppercase tracking-[0.22em] text-white/75">
-              Event date
-            </span>
-            <span className="mt-2 block font-head text-lg font-semibold text-white">
-              {value ? formatIsoDate(value) : 'Add date'}
-            </span>
-          </button>
-
-          <div className="rounded-2xl border border-secondary/20 bg-secondary/10 px-4 py-4 text-black shadow-sm">
-            <span className="block text-[11px] font-semibold uppercase tracking-[0.22em] text-black/45">
-              Selected day
-            </span>
-            <span className="mt-2 block font-head text-lg font-semibold">
-              {hasSelection ? formatIsoDate(value!) : 'No date selected'}
-            </span>
-            <p className="mt-2 text-sm text-black/70">
-              {hasSelection
-                ? 'Your event request will be sent with this date.'
-                : 'Choose the day you would like us to review for your event.'}
-            </p>
-          </div>
-
-          {hasSelection ? (
-            <button
-              type="button"
-              onClick={clearDate}
-              className="tap-reset inline-flex items-center justify-center gap-2 rounded-full border border-primary/15 bg-white px-4 py-2 text-sm font-semibold text-black"
-            >
-              <X className="h-4 w-4" />
-              Clear date
-            </button>
-          ) : null}
-
-          {availabilityStatus === 'error' ? (
-            <div className="rounded-2xl border border-amber-200 bg-amber-50 px-4 py-3 text-sm text-amber-900">
-              Airbnb availability is temporarily unavailable. Refresh before submitting your
-              event.
-            </div>
-          ) : null}
+      <div className="flex flex-wrap items-center justify-between gap-3 border-b border-primary/10 pb-4">
+        <div>
+          <span className="block text-[11px] font-semibold uppercase tracking-[0.22em] text-black/45">
+            {hasSelection ? 'Selected date' : 'No date selected'}
+          </span>
+          <span className="mt-1 block font-head text-lg font-semibold text-black">
+            {hasSelection ? formatIsoDate(value!) : 'Pick a day below'}
+          </span>
         </div>
 
-        <div className="rounded-3xl border border-primary/10 bg-cream/60 p-4 md:p-6">
-          <div className="rounded-2xl bg-primary/10 p-3 text-black">
-            <div className="flex flex-wrap items-center justify-between gap-3">
-              <div>
-                <p className="text-xs font-semibold uppercase tracking-[0.22em] text-black/45">
-                  Event calendar
-                </p>
-                <p className="mt-1 font-head text-xl font-semibold text-black">
-                  {hasSelection ? formatIsoDate(value!) : 'Select your event date'}
-                </p>
-              </div>
+        {hasSelection ? (
+          <button
+            type="button"
+            onClick={clearDate}
+            className="tap-reset inline-flex items-center gap-1.5 text-sm font-semibold text-black/60 transition hover:text-black"
+          >
+            <X className="h-4 w-4" />
+            Clear
+          </button>
+        ) : null}
+      </div>
 
-              <div className="flex items-center gap-2">
-                <button
-                  type="button"
-                  onClick={goToPreviousMonth}
-                  className="tap-reset inline-flex h-10 w-10 items-center justify-center rounded-full border border-primary/10 bg-white text-black"
-                  aria-label="Show previous month"
-                >
-                  <ChevronLeft className="h-4 w-4" />
-                </button>
-                <button
-                  type="button"
-                  onClick={goToNextMonth}
-                  className="tap-reset inline-flex h-10 w-10 items-center justify-center rounded-full border border-primary/10 bg-white text-black"
-                  aria-label="Show next month"
-                >
-                  <ChevronRight className="h-4 w-4" />
-                </button>
-              </div>
-            </div>
+      {availabilityStatus === 'error' ? (
+        <p className="text-sm text-amber-700">
+          Airbnb availability is temporarily unavailable. Refresh before submitting your
+          event.
+        </p>
+      ) : null}
+
+      <div>
+        <div className="flex items-center justify-between gap-3">
+          <p className="font-head text-lg font-semibold text-black">{monthLabel}</p>
+
+          <div className="flex items-center gap-2">
+            <button
+              type="button"
+              onClick={goToPreviousMonth}
+              className="tap-reset inline-flex h-9 w-9 items-center justify-center rounded-full text-black/60 transition hover:bg-primary/5 hover:text-black"
+              aria-label="Show previous month"
+            >
+              <ChevronLeft className="h-4 w-4" />
+            </button>
+            <button
+              type="button"
+              onClick={goToNextMonth}
+              className="tap-reset inline-flex h-9 w-9 items-center justify-center rounded-full text-black/60 transition hover:bg-primary/5 hover:text-black"
+              aria-label="Show next month"
+            >
+              <ChevronRight className="h-4 w-4" />
+            </button>
           </div>
+        </div>
 
-          <DayPicker
+        <DayPicker
             mode="single"
             month={month}
             onMonthChange={(nextMonth) => setMonth(startOfMonthUtc(nextMonth))}
@@ -209,8 +189,7 @@ export default function BookingSingleDateCalendar({
             classNames={{
               months: 'flex flex-col gap-6',
               month: 'w-full max-w-[22rem] space-y-4',
-              month_caption: 'flex h-10 items-center justify-center',
-              caption_label: 'font-head text-lg font-semibold text-black',
+              month_caption: 'hidden',
               weekdays: 'grid grid-cols-7 gap-1',
               weekday:
                 'text-center text-[11px] font-semibold uppercase tracking-[0.22em] text-black/45',
@@ -225,7 +204,6 @@ export default function BookingSingleDateCalendar({
             }}
           />
         </div>
-      </div>
     </div>
   );
 }
