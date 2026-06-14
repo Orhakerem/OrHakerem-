@@ -499,7 +499,7 @@ export default function EventsClient({
                       </span>
                     </button>
                     {isDatePickerOpen ? (
-                      <div className="mt-3 overflow-hidden rounded-2xl border border-primary/10">
+                      <div className="mt-3">
                         <BookingSingleDateCalendar
                           value={eventDate}
                           blockedDates={blockedDates}
