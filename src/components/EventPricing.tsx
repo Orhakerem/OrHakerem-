@@ -42,7 +42,7 @@ export default function EventPricing() {
               <div className="my-6">
                 <div className="flex items-baseline gap-1 flex-wrap">
                   <span className="font-head text-5xl md:text-6xl font-bold text-black">
-                    {rental.price.toLocaleString()}
+                    {rental.price.toLocaleString('en-US')}
                   </span>
                   <span className="font-head text-3xl md:text-4xl font-bold text-black">
                     ₪

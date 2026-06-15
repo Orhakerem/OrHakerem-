@@ -22,6 +22,7 @@ interface BookingSingleDateCalendarProps {
   onChange: (date: string | null) => void;
   blockedDates?: readonly string[];
   availabilityStatus?: CalendarSyncStatus;
+  desktopMonths?: 1 | 2;
 }
 
 export default function BookingSingleDateCalendar({
@@ -29,8 +30,10 @@ export default function BookingSingleDateCalendar({
   onChange,
   blockedDates = [],
   availabilityStatus = 'ready',
+  desktopMonths = 1,
 }: BookingSingleDateCalendarProps) {
-  const { rootRef } = useResponsiveCalendarLayout();
+  const { rootRef, numberOfMonths } = useResponsiveCalendarLayout();
+  const monthsToShow = desktopMonths === 2 ? numberOfMonths : 1;
   const todayIso = getTodayIsoInTimeZone();
   const todayMonth = useMemo(
     () => startOfMonthUtc(createDateFromIso(todayIso)),
@@ -49,15 +52,6 @@ export default function BookingSingleDateCalendar({
     [value],
   );
   const blockedDateSet = useMemo(() => new Set(blockedDates), [blockedDates]);
-  const monthLabel = useMemo(
-    () =>
-      new Intl.DateTimeFormat('en-US', {
-        month: 'long',
-        year: 'numeric',
-        timeZone: BUSINESS_TIME_ZONE,
-      }).format(month),
-    [month],
-  );
 
   const handleSelect = (date: Date | undefined) => {
     if (!date) {
@@ -144,26 +138,22 @@ export default function BookingSingleDateCalendar({
 
       <div>
         <div className="flex items-center justify-between gap-3">
-          <p className="font-head text-lg font-semibold text-black">{monthLabel}</p>
-
-          <div className="flex items-center gap-2">
-            <button
-              type="button"
-              onClick={goToPreviousMonth}
-              className="tap-reset inline-flex h-9 w-9 items-center justify-center rounded-full text-black/60 transition hover:bg-primary/5 hover:text-black"
-              aria-label="Show previous month"
-            >
-              <ChevronLeft className="h-4 w-4" />
-            </button>
-            <button
-              type="button"
-              onClick={goToNextMonth}
-              className="tap-reset inline-flex h-9 w-9 items-center justify-center rounded-full text-black/60 transition hover:bg-primary/5 hover:text-black"
-              aria-label="Show next month"
-            >
-              <ChevronRight className="h-4 w-4" />
-            </button>
-          </div>
+          <button
+            type="button"
+            onClick={goToPreviousMonth}
+            className="tap-reset inline-flex h-9 w-9 items-center justify-center rounded-full text-black/60 transition hover:bg-primary/5 hover:text-black"
+            aria-label="Show previous month"
+          >
+            <ChevronLeft className="h-4 w-4" />
+          </button>
+          <button
+            type="button"
+            onClick={goToNextMonth}
+            className="tap-reset inline-flex h-9 w-9 items-center justify-center rounded-full text-black/60 transition hover:bg-primary/5 hover:text-black"
+            aria-label="Show next month"
+          >
+            <ChevronRight className="h-4 w-4" />
+          </button>
         </div>
 
         <DayPicker
@@ -172,7 +162,7 @@ export default function BookingSingleDateCalendar({
             onMonthChange={(nextMonth) => setMonth(startOfMonthUtc(nextMonth))}
             selected={selectedDate}
             onSelect={handleSelect}
-            numberOfMonths={1}
+            numberOfMonths={monthsToShow}
             pagedNavigation={false}
             showOutsideDays
             timeZone={BUSINESS_TIME_ZONE}
@@ -187,9 +177,10 @@ export default function BookingSingleDateCalendar({
             }}
             className="booking-calendar-root mt-5 w-full"
             classNames={{
-              months: 'flex flex-col gap-6',
-              month: 'w-full max-w-[22rem] space-y-4',
-              month_caption: 'hidden',
+              months: 'flex flex-col gap-6 md:flex-row md:justify-center md:gap-4',
+              month: 'w-full max-w-[22rem] mx-auto space-y-4',
+              month_caption: 'flex h-10 items-center justify-center',
+              caption_label: 'font-head text-lg font-semibold text-black',
               weekdays: 'grid grid-cols-7 gap-1',
               weekday:
                 'text-center text-[11px] font-semibold uppercase tracking-[0.22em] text-black/45',
