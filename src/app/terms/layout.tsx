@@ -10,8 +10,8 @@ export const metadata: Metadata = {
     canonical: createCanonicalUrl('/terms'),
   },
   robots: {
-    index: false,
-    follow: false,
+    index: true,
+    follow: true,
   },
 };
 
