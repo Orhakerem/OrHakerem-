@@ -181,7 +181,7 @@ export default function EventsClient({
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-8 md:py-20">
 
         {/* Event Spaces Section - Flat editorial */}
-        <section id="venues" className="events-venues-section py-20 md:py-24 mb-20" data-animate="fade-up">
+        <section id="venues" className="events-venues-section py-20 md:py-24 mb-8 md:mb-10" data-animate="fade-up">
           <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
             {/* Header */}
             <div className="text-center" data-animate="fade-up">
@@ -265,10 +265,10 @@ export default function EventsClient({
         </section>
 
         {/* Availability Section - synced to penthouse calendar */}
-        <section id="availability" className="events-availability-section py-8 md:py-20 mb-8 md:mb-20" data-animate="fade-up">
+        <section id="availability" className="events-availability-section py-6 md:py-10 mb-8 md:mb-12" data-animate="fade-up">
           <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
             {/* Header */}
-            <div className="text-center mb-8 md:mb-12" data-animate="fade-up">
+            <div className="text-center mb-5 md:mb-6" data-animate="fade-up">
               <span className="text-tertiary font-semibold text-sm md:text-base tracking-[0.2em] uppercase block mb-3">
                 Availability
               </span>
@@ -285,6 +285,7 @@ export default function EventsClient({
                 value={eventDate}
                 blockedDates={blockedDates}
                 availabilityStatus={availabilityStatus}
+                desktopMonths={2}
                 onChange={(nextDate) => setEventDate(nextDate)}
               />
 
@@ -297,19 +298,19 @@ export default function EventsClient({
                     <div className="flex items-center justify-between gap-4">
                       <span>Venue rental</span>
                       <span className="whitespace-nowrap">
-                        {eventQuote.venuePrice.toLocaleString()} ₪
+                        {eventQuote.venuePrice.toLocaleString('en-US')} ₪
                       </span>
                     </div>
                     <div className="flex items-center justify-between gap-4">
                       <span>Cleaning fee</span>
                       <span className="whitespace-nowrap">
-                        {eventQuote.cleaningFee.toLocaleString()} ₪
+                        {eventQuote.cleaningFee.toLocaleString('en-US')} ₪
                       </span>
                     </div>
                     <div className="flex items-center justify-between gap-4 border-t border-primary/10 pt-3 text-black">
                       <span className="font-semibold">Total</span>
                       <span className="font-head text-xl font-bold whitespace-nowrap">
-                        {eventQuote.total.toLocaleString()} ₪
+                        {eventQuote.total.toLocaleString('en-US')} ₪
                       </span>
                     </div>
                   </div>
