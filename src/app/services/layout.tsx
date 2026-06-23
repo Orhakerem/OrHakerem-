@@ -7,7 +7,7 @@ export const metadata: Metadata = {
   description:
     'Or Hakerem offers premium concierge services in Tel Aviv: grocery delivery, private airport transfers, babysitting, event planning, restaurant reservations, and on-demand cleaning. Included with every stay on request.',
   keywords:
-    'concierge service Tel Aviv, airport transfer Tel Aviv, grocery delivery Tel Aviv apartment, babysitting Tel Aviv, restaurant reservation Tel Aviv, event planning Tel Aviv',
+    'concierge services Tel Aviv, concierge Tel Aviv, concierge TLV, airport transfer Tel Aviv, grocery delivery Tel Aviv apartment, babysitting Tel Aviv, restaurant reservation Tel Aviv, event planning Tel Aviv',
   openGraph: {
     title: 'Concierge Services in Tel Aviv | Or Hakerem',
     description:
