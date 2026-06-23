@@ -20,7 +20,7 @@ export const PROPERTY_SEO: Record<BookablePropertyId, PropertySeoMeta> = {
     description:
       'Spacious 3-bedroom luxury penthouse in Kerem HaTeimanim, Tel Aviv. Private rooftop jacuzzi, BBQ terrace, panoramic sea views. Steps from Carmel Market & Banana Beach. Book direct and save 15%.',
     keywords:
-      'penthouse jacuzzi Tel Aviv, luxury penthouse Kerem HaTeimanim, sea view apartment Tel Aviv, BBQ terrace rental Tel Aviv, rooftop apartment Tel Aviv, luxury short-term rental Tel Aviv',
+      'penthouse jacuzzi Tel Aviv, luxury apartments Tel Aviv, luxury penthouse Kerem HaTeimanim, sea view apartment Tel Aviv, BBQ terrace rental Tel Aviv, rooftop apartment Tel Aviv, luxury short-term rental Tel Aviv, vacation rental Tel Aviv',
     image: '/penthouse/1-jacuzzi-angle.JPEG',
     imageAlt:
       'Luxury penthouse rooftop terrace with private jacuzzi and Tel Aviv sea views at Or Hakerem',
@@ -35,7 +35,7 @@ export const PROPERTY_SEO: Record<BookablePropertyId, PropertySeoMeta> = {
     description:
       'Charming renovated studio in a historic Ottoman building in Kerem HaTeimanim, Tel Aviv. 2 minutes from Banana Beach and Carmel Market. Perfect for short, medium, or long stays. Book direct and save 15%.',
     keywords:
-      'studio apartment Tel Aviv, short-term rental Carmel Market, historic building apartment Tel Aviv, studio near beach Tel Aviv, cozy apartment Kerem HaTeimanim, long-term rental Tel Aviv',
+      'studio apartment Tel Aviv, short-term rental Tel Aviv, vacation rental Tel Aviv, short-term rental Carmel Market, historic building apartment Tel Aviv, studio near beach Tel Aviv, cozy apartment Kerem HaTeimanim, long-term rental Tel Aviv',
     image: '/studio/lit_angle_1.jpg',
     imageAlt:
       'Cozy renovated studio apartment in historic Ottoman building, Kerem HaTeimanim Tel Aviv',

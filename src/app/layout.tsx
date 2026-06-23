@@ -39,8 +39,8 @@ import './globals.css';
 
 export const metadata: Metadata = {
   title: 'Luxury Apartments in Tel Aviv | Or Hakerem | Kerem HaTeimanim',
-  description: 'Premium apartments and boutique stays in Tel Aviv. Discover Or Hakerem in Kerem HaTeimanim for luxury accommodations, events, and attentive hosting.',
-  keywords: 'or hakerem, luxury apartments Tel Aviv, boutique stays Tel Aviv, luxury apartment in Tel Aviv, apartment Tel Aviv, events Tel Aviv, Kerem HaTeimanim, property management Tel Aviv, Tel Aviv accommodations',
+  description: 'Premium short-term rental apartments and boutique stays in Tel Aviv. Discover Or Hakerem in Kerem HaTeimanim for luxury accommodations, events, and attentive hosting.',
+  keywords: 'or hakerem, luxury apartments Tel Aviv, short-term rental Tel Aviv, vacation rental Tel Aviv, boutique stays Tel Aviv, luxury apartment in Tel Aviv, apartment Tel Aviv, events Tel Aviv, Kerem HaTeimanim, property management Tel Aviv, Tel Aviv accommodations',
   authors: [{ name: 'Or Hakerem' }],
   creator: 'Or Hakerem',
   publisher: 'Or Hakerem',
