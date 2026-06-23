@@ -54,6 +54,16 @@
     "node": ">=20.0.0",
     "pnpm": ">=9.0.0"
   },
+  "browserslist": [
+    "chrome >= 93",
+    "edge >= 93",
+    "firefox >= 92",
+    "opera >= 79",
+    "safari >= 15.4",
+    "ios_saf >= 15.4",
+    "samsung >= 17",
+    "not dead"
+  ],
   "overrides": {
     "sharp": "^0.33.0"
   }
