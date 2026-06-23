@@ -156,7 +156,8 @@ export default function EventsClient({
           muted
           loop
           playsInline
-          preload="auto"
+          poster="/events-poster.webp"
+          preload="metadata"
           className="absolute inset-0 w-full h-full object-cover"
         >
           <source src="/events-video.mp4" type="video/mp4" />
