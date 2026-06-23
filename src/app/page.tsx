@@ -11,6 +11,8 @@ import MapEmbed from '@/components/MapEmbed';
 export default function Home() {
   return (
     <div className="min-h-screen">
+      {/* Preload the hero poster (the LCP paint) at high priority */}
+      <link rel="preload" as="image" href="/hero-poster.webp" fetchPriority="high" />
       {/* Hero Section with Video Background - No Margin Top */}
       <div className="hero-home relative w-full h-screen overflow-hidden">
         <div className="hero-home-media absolute inset-0">
@@ -93,6 +95,7 @@ export default function Home() {
                 alt="Or Hakerem apartment"
                 fill
                 priority
+                quality={70}
                 className="object-cover"
                 sizes="(max-width: 768px) 100vw, 40vw"
               />
