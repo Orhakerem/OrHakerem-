@@ -93,6 +93,7 @@ export default function Home() {
                 alt="Or Hakerem apartment"
                 fill
                 priority
+                quality={70}
                 className="object-cover"
                 sizes="(max-width: 768px) 100vw, 40vw"
               />
