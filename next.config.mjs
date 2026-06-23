@@ -1,3 +1,10 @@
+import { fileURLToPath } from 'url';
+
+// Empty stand-in used to strip Next.js's unconditional client polyfill bundle.
+const emptyModulePath = fileURLToPath(
+  new URL('./scripts/empty-module.js', import.meta.url),
+);
+
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   // Enable strict mode for better development experience
@@ -91,9 +98,22 @@ const nextConfig = {
   compress: true,
 
   // Webpack configuration to resolve dependency issues
-  webpack: (config, { isServer }) => {
+  webpack: (config, { isServer, webpack }) => {
     // Fix for native dependencies on client side
     if (!isServer) {
+      // Strip Next.js's unconditional client polyfill bundle (polyfill-module),
+      // which Next requires into the client runtime for every browser. It
+      // polyfills Array.prototype.at/flat/flatMap, Object.fromEntries/hasOwn and
+      // String.prototype.trimStart/trimEnd — all natively supported by our
+      // browserslist target — so shipping it is dead weight that PageSpeed flags
+      // as unnecessary "legacy JavaScript". It is required via a relative path
+      // inside Next, so resolve.alias can't catch it; replace the module instead.
+      config.plugins.push(
+        new webpack.NormalModuleReplacementPlugin(
+          /[\\/]polyfills[\\/]polyfill-module(\.js)?$/,
+          emptyModulePath,
+        ),
+      );
       config.resolve.fallback = {
         ...config.resolve.fallback,
         fs: false,
