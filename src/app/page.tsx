@@ -6,6 +6,7 @@ import HomeContactForm from '@/components/HomeContactForm';
 import { ContactCard } from '@/components/ContactCard';
 import { Mail, Phone, Instagram, Facebook } from 'lucide-react';
 import TestimonialsCarousel from '@/components/TestimonialsCarousel';
+import MapEmbed from '@/components/MapEmbed';
 
 export default function Home() {
   return (
@@ -19,8 +20,13 @@ export default function Home() {
             muted
             loop
             playsInline
+            poster="/hero-poster.webp"
+            preload="metadata"
             className="hero-home-video absolute inset-0 w-full h-full object-cover"
           >
+            {/* Mobile: lightweight 1080-wide variant */}
+            <source src="/hero-1080.mp4" type="video/mp4" media="(max-width: 768px)" />
+            {/* Desktop */}
             <source src="/hero.mp4" type="video/mp4" />
           </video>
           <div className="hero-home-overlay absolute inset-0"></div>
@@ -108,17 +114,7 @@ export default function Home() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
           <div className="grid grid-cols-1 lg:grid-cols-2 items-center gap-10 lg:gap-16">
             <div className="w-full rounded-[5px] overflow-hidden shadow-xl border border-primary/10 order-2 lg:order-1" data-animate="zoom">
-              <iframe
-                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3380.969106191464!2d34.76409907581854!3d32.07008431977721!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x151d4c843acd13ab%3A0xb4aff2902a9ec6dd!2sHaKovshim%2035%2C%20Tel%20Aviv-Jaffa!5e0!3m2!1sfr!2sil!4v1771934464053!5m2!1sfr!2sil"
-                width="100%"
-                height="450"
-                style={{ border: 0, minHeight: '400px' }}
-                allowFullScreen
-                loading="lazy"
-                referrerPolicy="no-referrer-when-downgrade"
-                className="w-full"
-                title="Or Hakerem Location - 35 Hakovshim Street, Tel Aviv"
-              ></iframe>
+              <MapEmbed />
             </div>
 
             <div className="order-1 lg:order-2">

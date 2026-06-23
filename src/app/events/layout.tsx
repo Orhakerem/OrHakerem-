@@ -8,7 +8,7 @@ export const metadata: Metadata = {
   description:
     'Or HaKerem hosts boutique events and Jewish celebrations in Tel Aviv, offering an intimate premium venue with optional kosher services and tailored planning.',
   keywords:
-    'boutique events Tel Aviv, Jewish events Tel Aviv, Jewish celebrations Tel Aviv, kosher services Tel Aviv, intimate events Tel Aviv, private venue Tel Aviv, bar mitzvah venue Tel Aviv, brit mila venue Tel Aviv, Or Hakerem',
+    'boutique events Tel Aviv, event space Tel Aviv, luxury venue Israel, luxury event venue Israel, Jewish events Tel Aviv, Jewish celebrations Tel Aviv, kosher services Tel Aviv, intimate events Tel Aviv, private venue Tel Aviv, bar mitzvah venue Tel Aviv, brit mila venue Tel Aviv, Or Hakerem',
   openGraph: {
     title: 'Boutique Events Tel Aviv | Jewish Celebrations & Kosher Services | Or Hakerem',
     description:
