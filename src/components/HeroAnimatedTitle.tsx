@@ -1,10 +1,7 @@
 'use client';
 
 import { useEffect, useMemo, useState } from 'react';
-import { LazyMotion, m } from 'framer-motion';
-
-const loadFeatures = () =>
-  import('framer-motion').then((mod) => mod.domAnimation);
+import { motion } from 'framer-motion';
 
 type HeroAnimatedTitleProps = {
   className?: string;
@@ -28,25 +25,23 @@ export default function HeroAnimatedTitle({ className = '' }: HeroAnimatedTitleP
     <h1
       className={`hero-animated-title font-head font-bold ${className}`}
     >
-      <LazyMotion features={loadFeatures} strict>
-        <span className="hero-animated-title-stage">
-          {titles.map((title, index) => (
-            <m.span
-              key={index}
-              className="hero-animated-title-item"
-              initial={{ opacity: 0, y: -100 }}
-              transition={{ type: 'spring', stiffness: 50 }}
-              animate={
-                titleNumber === index
-                  ? { y: 0, opacity: 1 }
-                  : { y: titleNumber > index ? -150 : 150, opacity: 0 }
-              }
-            >
-              {title}
-            </m.span>
-          ))}
-        </span>
-      </LazyMotion>
+      <span className="hero-animated-title-stage">
+        {titles.map((title, index) => (
+          <motion.span
+            key={index}
+            className="hero-animated-title-item"
+            initial={{ opacity: 0, y: -100 }}
+            transition={{ type: 'spring', stiffness: 50 }}
+            animate={
+              titleNumber === index
+                ? { y: 0, opacity: 1 }
+                : { y: titleNumber > index ? -150 : 150, opacity: 0 }
+            }
+          >
+            {title}
+          </motion.span>
+        ))}
+      </span>
     </h1>
   );
 }
