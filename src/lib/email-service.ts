@@ -2,6 +2,8 @@ import 'server-only';
 
 import { Resend } from 'resend';
 
+import { buildInvoiceFromAddress, resolveInvoiceFromEmail } from './invoice-email-sender';
+
 interface EmailConfig {
   apiKey: string;
   recipientEmail: string;
@@ -61,8 +63,6 @@ export async function sendResendEmail(
   });
 }
 
-const DEFAULT_FROM = 'Or Hakerem <onboarding@resend.dev>';
-
 export type ReservationSendStatus = 'sent' | 'preview';
 
 export interface SendReservationResult {
@@ -80,6 +80,7 @@ interface SendReservationOptions {
   to: string;
   subject: string;
   html: string;
+  senderName: string;
   replyTo?: string;
   attachments?: ReservationAttachment[];
 }
@@ -93,18 +94,18 @@ interface SendReservationOptions {
  * status instead of throwing, so the back-office flow stays verifiable without
  * live credentials. It never reports a `sent` it did not actually make.
  *
- * Set `RESEND_FROM` to a verified-domain sender to deliver to arbitrary
- * recipients; the default sandbox sender only delivers to the account owner.
+ * Set `RESEND_INVOICE_FROM_EMAIL` to a verified-domain sender to deliver to
+ * arbitrary recipients.
  */
 export async function sendReservationQuoteEmail({
   to,
   subject,
   html,
+  senderName,
   replyTo,
   attachments,
 }: SendReservationOptions): Promise<SendReservationResult> {
   const apiKey = process.env.RESEND_API_KEY?.trim();
-  const from = process.env.RESEND_FROM?.trim() || DEFAULT_FROM;
   const isProduction = process.env.NODE_ENV === 'production';
 
   if (!apiKey) {
@@ -118,6 +119,12 @@ export async function sendReservationQuoteEmail({
   }
 
   try {
+    const from = buildInvoiceFromAddress({
+      senderName,
+      senderEmail: resolveInvoiceFromEmail({
+        RESEND_INVOICE_FROM_EMAIL: process.env.RESEND_INVOICE_FROM_EMAIL,
+      }),
+    });
     const resend = new Resend(apiKey);
     const { data, error } = await resend.emails.send({
       from,

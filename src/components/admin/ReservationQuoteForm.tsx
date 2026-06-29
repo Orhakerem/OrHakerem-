@@ -241,6 +241,12 @@ export default function ReservationQuoteForm() {
             />
           </label>
           <Field
+            label="Sender name"
+            value={data.senderName}
+            onChange={(v) => set('senderName', v)}
+            placeholder="Or Hakerem"
+          />
+          <Field
             label="Customer email (recipient)"
             type="email"
             value={data.customerEmail}

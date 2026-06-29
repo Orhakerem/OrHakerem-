@@ -34,6 +34,7 @@ function makeData(overrides: Partial<ReservationQuoteData> = {}): ReservationQuo
     securityDeposit: '—',
     balanceRemaining: '2,400 ₪',
     closingNote: 'See you soon.',
+    senderName: 'Or Hakerem',
     customerEmail: 'ada@example.com',
     ...overrides,
   };

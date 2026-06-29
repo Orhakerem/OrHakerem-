@@ -20,6 +20,7 @@ There is no typecheck script — `pnpm build` is the typecheck (Next.js runs `ts
 
 Required env vars (see `.env.example`):
 - `RESEND_API_KEY`, `RECIPIENT_EMAIL` — contact/reservation emails
+- `RESEND_INVOICE_FROM_EMAIL` — verified-domain sender for admin invoice/devis emails to prospects
 - Supabase: either server-only (`SUPABASE_URL` + `SUPABASE_ANON_KEY`) **or** public (`NEXT_PUBLIC_SUPABASE_URL` + `NEXT_PUBLIC_SUPABASE_ANON_KEY`). `resolveSupabaseEnv()` in `src/lib/supabase.ts` prefers the server-only pair if either is present; this is intentional for Vercel diagnostics — do not "simplify" it.
 
 ## Architecture

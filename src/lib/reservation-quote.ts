@@ -1,5 +1,7 @@
 import { z } from 'zod';
 
+import { DEFAULT_INVOICE_SENDER_NAME } from './invoice-email-sender';
+
 /**
  * Shape + validation for a reservation/invoice quote entered in the admin
  * back-office. Most fields are free-text strings on purpose: the source estimate
@@ -17,6 +19,17 @@ const lineItemSchema = z.object({
   unit: z.string(),
   amount: z.string(),
 });
+
+const senderNameSchema = z
+  .string()
+  .trim()
+  .min(1, 'Sender name is required')
+  .max(80, 'Sender name must be 80 characters or less')
+  .refine(
+    (value) => !/[\r\n]/.test(value),
+    'Sender name cannot contain header control characters',
+  )
+  .refine((value) => !/[<>]/.test(value), 'Sender name cannot contain angle brackets');
 
 export const reservationQuoteSchema = z.object({
   // Document
@@ -53,6 +66,7 @@ export const reservationQuoteSchema = z.object({
   balanceRemaining: z.string(),
   // Closing + delivery
   closingNote: z.string(),
+  senderName: senderNameSchema,
   customerEmail: z.string().trim().email('A valid customer email is required'),
 });
 
@@ -96,5 +110,6 @@ export const DEFAULT_RESERVATION_QUOTE: ReservationQuoteData = {
   balanceRemaining: '2,400 ₪',
   closingNote:
     'Thank you for choosing Or Hakerem. This document confirms your reservation and serves as your invoice. The detailed terms and conditions of your stay are provided in a separate document — by completing the payment, you acknowledge and accept them.',
+  senderName: DEFAULT_INVOICE_SENDER_NAME,
   customerEmail: '',
 };
