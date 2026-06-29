@@ -5,10 +5,9 @@ import { redirect } from 'next/navigation';
 import { verifyCredentials } from '@/lib/admin-auth';
 import { clearAdminSession, createAdminSession, getAdminSession } from '@/lib/admin-session';
 import { sanitizeForHeader, sendReservationQuoteEmail } from '@/lib/email-service';
-import {
-  buildReservationEmailSubject,
-  renderReservationEmailHtml,
-} from '@/lib/reservation-email-template';
+import { buildEstimatePdfFilename, renderEstimatePdf } from '@/lib/estimate-pdf';
+import { renderReservationEmailHtml } from '@/lib/reservation-email';
+import { buildReservationEmailSubject } from '@/lib/reservation-email-subject';
 import { reservationQuoteSchema, type ReservationQuoteData } from '@/lib/reservation-quote';
 
 interface LoginResult {
@@ -57,15 +56,20 @@ export async function sendReservationQuote(
   }
   const data = parsed.data;
 
-  const html = renderReservationEmailHtml(data);
   const subject = sanitizeForHeader(buildReservationEmailSubject(data));
 
   try {
+    const [html, pdf] = await Promise.all([
+      renderReservationEmailHtml(data),
+      renderEstimatePdf(data),
+    ]);
+
     const result = await sendReservationQuoteEmail({
       to: data.customerEmail,
       subject,
       html,
       replyTo: process.env.RECIPIENT_EMAIL?.trim() || undefined,
+      attachments: [{ filename: buildEstimatePdfFilename(data), content: pdf }],
     });
 
     if (result.status === 'sent') {

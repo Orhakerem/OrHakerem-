@@ -71,11 +71,17 @@ export interface SendReservationResult {
   reason?: string;
 }
 
+interface ReservationAttachment {
+  filename: string;
+  content: Buffer;
+}
+
 interface SendReservationOptions {
   to: string;
   subject: string;
   html: string;
   replyTo?: string;
+  attachments?: ReservationAttachment[];
 }
 
 /**
@@ -95,6 +101,7 @@ export async function sendReservationQuoteEmail({
   subject,
   html,
   replyTo,
+  attachments,
 }: SendReservationOptions): Promise<SendReservationResult> {
   const apiKey = process.env.RESEND_API_KEY?.trim();
   const from = process.env.RESEND_FROM?.trim() || DEFAULT_FROM;
@@ -118,6 +125,9 @@ export async function sendReservationQuoteEmail({
       subject,
       html,
       ...(replyTo ? { replyTo } : {}),
+      ...(attachments && attachments.length
+        ? { attachments: attachments.map(({ filename, content }) => ({ filename, content })) }
+        : {}),
     });
 
     if (error) {
