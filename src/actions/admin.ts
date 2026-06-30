@@ -4,6 +4,16 @@ import { redirect } from 'next/navigation';
 
 import { verifyCredentials } from '@/lib/admin-auth';
 import { clearAdminSession, createAdminSession, getAdminSession } from '@/lib/admin-session';
+import { getBookablePropertyCalendarSnapshot } from '@/lib/airbnb-calendar';
+import {
+  getAvailabilityStatusForAdminApartment,
+  getBlockedDatesForAdminApartment,
+  getBlockedStayNights,
+} from '@/lib/admin-availability';
+import {
+  calculateAdminQuote,
+  parseAdminDateToIso,
+} from '@/lib/admin-quote-calculations';
 import { sanitizeForHeader, sendReservationQuoteEmail } from '@/lib/email-service';
 import { buildEstimatePdfFilename, renderEstimatePdf } from '@/lib/estimate-pdf';
 import { renderReservationEmailHtml } from '@/lib/reservation-email';
@@ -54,7 +64,39 @@ export async function sendReservationQuote(
       error: parsed.error.issues[0]?.message ?? 'Invalid form data',
     };
   }
-  const data = parsed.data;
+  const data = calculateAdminQuote(parsed.data);
+
+  const checkIn = parseAdminDateToIso(data.checkInDate);
+  const checkOut = parseAdminDateToIso(data.checkOutDate);
+
+  if (checkIn && checkOut) {
+    const { blockedDatesByProperty, availabilityStatusByProperty } =
+      await getBookablePropertyCalendarSnapshot();
+    const availabilityStatus = getAvailabilityStatusForAdminApartment(
+      data.apartment,
+      availabilityStatusByProperty,
+    );
+
+    if (availabilityStatus === 'error') {
+      return {
+        success: false,
+        error: 'Calendar availability is temporarily unavailable. Refresh before sending.',
+      };
+    }
+
+    const blockedDates = getBlockedDatesForAdminApartment(
+      data.apartment,
+      blockedDatesByProperty,
+    );
+    const blockedStayNights = getBlockedStayNights({ checkIn, checkOut }, blockedDates);
+
+    if (blockedStayNights.length > 0) {
+      return {
+        success: false,
+        error: `Selected stay includes unavailable date ${blockedStayNights[0]}.`,
+      };
+    }
+  }
 
   const subject = sanitizeForHeader(buildReservationEmailSubject());
 

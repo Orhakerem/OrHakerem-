@@ -66,7 +66,7 @@ export const DEFAULT_RESERVATION_QUOTE: ReservationQuoteData = {
   idPassport: '',
   nationality: '',
   contact: '',
-  apartment: 'Penthouse Rooftop',
+  apartment: 'Penthouse',
   travellers: '1 adult',
   orderDate: '11 / 06 / 2026',
   nights: '1',

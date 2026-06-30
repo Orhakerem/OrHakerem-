@@ -3,11 +3,14 @@ import { redirect } from 'next/navigation';
 import { logoutAdmin } from '@/actions/admin';
 import ReservationQuoteForm from '@/components/admin/ReservationQuoteForm';
 import { getAdminSession } from '@/lib/admin-session';
+import { getBookablePropertyCalendarSnapshot } from '@/lib/airbnb-calendar';
 
-export default function AdminPage() {
+export default async function AdminPage() {
   if (!getAdminSession()) {
     redirect('/admin/login');
   }
+
+  const availabilitySnapshot = await getBookablePropertyCalendarSnapshot();
 
   return (
     <div className="mx-auto max-w-4xl px-4 pb-24 pt-28 sm:px-6">
@@ -34,7 +37,7 @@ export default function AdminPage() {
         </form>
       </header>
 
-      <ReservationQuoteForm />
+      <ReservationQuoteForm availabilitySnapshot={availabilitySnapshot} />
     </div>
   );
 }

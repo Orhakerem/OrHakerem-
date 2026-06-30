@@ -1,28 +1,72 @@
 'use client';
 
-import { type FormEvent, type ReactNode, useState } from 'react';
+import {
+  type FormEvent,
+  type ReactNode,
+  useEffect,
+  useMemo,
+  useState,
+} from 'react';
 import toast from 'react-hot-toast';
-import { Plus, Send, Trash2 } from 'lucide-react';
+import { CalendarDays, Plus, Send, Trash2, X } from 'lucide-react';
+import {
+  DayPicker,
+  type DateRange,
+  type OnSelectHandler,
+} from 'react-day-picker';
 
 import { sendReservationQuote } from '@/actions/admin';
 import {
-  DEFAULT_RESERVATION_QUOTE,
+  ADMIN_APARTMENT_OPTIONS,
+  getAvailabilityStatusForAdminApartment,
+  getBlockedDatesForAdminApartment,
+  getBlockedStayNights,
+  normalizeAdminApartment,
+  type AdminAvailabilitySnapshot,
+} from '@/lib/admin-availability';
+import {
+  calculateAdminQuote,
+  createDateFromAdminDate,
+  createInitialAdminQuote,
+  formatIsoDateForAdmin,
+  parseAdminDateToIso,
+} from '@/lib/admin-quote-calculations';
+import {
+  BUSINESS_TIME_ZONE,
+  compareIsoDates,
+  createDateFromIso,
+  getFirstBlockedDateAfter,
+  getTodayIsoInTimeZone,
+  toIsoDateString,
+} from '@/lib/booking-dates';
+import { addMonthsUtc, startOfMonthUtc } from '@/lib/calendar-months';
+import {
   type ReservationLineItem,
   type ReservationQuoteData,
 } from '@/lib/reservation-quote';
 
 const INPUT_CLASS =
   'h-11 w-full rounded-lg border-2 border-secondary/40 bg-white px-3 text-sm text-black placeholder-primary/30 outline-none transition-colors duration-200 focus:border-primary/60 focus:ring-2 focus:ring-primary/10';
+const READONLY_CLASS =
+  'h-11 w-full rounded-lg border-2 border-secondary/20 bg-cream/50 px-3 text-sm font-semibold text-black outline-none';
 
 interface FieldProps {
   label: string;
   value: string;
-  onChange: (value: string) => void;
+  onChange?: (value: string) => void;
   type?: string;
   placeholder?: string;
+  readOnly?: boolean;
 }
 
-function Field({ label, value, onChange, type = 'text', placeholder }: FieldProps) {
+function Field({
+  label,
+  value,
+  onChange,
+  type = 'text',
+  placeholder,
+  readOnly = false,
+}: FieldProps) {
   return (
     <label className="block">
       <span className="mb-1.5 block font-mono text-[10px] uppercase tracking-[0.18em] text-primary/70">
@@ -31,9 +75,10 @@ function Field({ label, value, onChange, type = 'text', placeholder }: FieldProp
       <input
         type={type}
         value={value}
-        onChange={(event) => onChange(event.target.value)}
+        onChange={(event) => onChange?.(event.target.value)}
         placeholder={placeholder}
-        className={INPUT_CLASS}
+        readOnly={readOnly}
+        className={readOnly ? READONLY_CLASS : INPUT_CLASS}
       />
     </label>
   );
@@ -59,24 +104,441 @@ function Section({ index, title, children }: SectionProps) {
   );
 }
 
+interface SelectFieldProps {
+  label: string;
+  value: string;
+  onChange: (value: string) => void;
+  options: readonly string[];
+}
+
+function SelectField({ label, value, onChange, options }: SelectFieldProps) {
+  return (
+    <label className="block">
+      <span className="mb-1.5 block font-mono text-[10px] uppercase tracking-[0.18em] text-primary/70">
+        {label}
+      </span>
+      <select
+        value={value}
+        onChange={(event) => onChange(event.target.value)}
+        className={INPUT_CLASS}
+      >
+        {options.map((option) => (
+          <option key={option} value={option}>
+            {option}
+          </option>
+        ))}
+      </select>
+    </label>
+  );
+}
+
+function getCalendarClassNames() {
+  return {
+    months: 'flex flex-col gap-6 md:flex-row md:gap-6',
+    month: 'w-full max-w-[20rem] mx-auto space-y-3',
+    month_caption: 'flex h-9 items-center justify-center',
+    caption_label: 'font-head text-base font-semibold text-black',
+    weekdays: 'grid grid-cols-7 gap-1',
+    weekday:
+      'text-center text-[10px] font-semibold uppercase tracking-[0.22em] text-black/45',
+    week: 'grid grid-cols-7 gap-1',
+    day: 'booking-calendar-day',
+    day_button:
+      'booking-calendar-day-button tap-reset flex h-10 w-10 items-center justify-center rounded-full text-sm font-medium text-black focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-black/10 sm:h-11 sm:w-11',
+    disabled: 'booking-calendar-disabled',
+    outside: 'booking-calendar-outside',
+    today: 'booking-calendar-today',
+    selected: 'booking-calendar-selected',
+    range_start: 'booking-calendar-range-start',
+    range_middle: 'booking-calendar-range-middle',
+    range_end: 'booking-calendar-range-end',
+  };
+}
+
+interface AdminDateFieldProps {
+  label: string;
+  value: string;
+  onChange: (value: string) => void;
+  allowClear?: boolean;
+}
+
+function AdminDateField({
+  label,
+  value,
+  onChange,
+  allowClear = true,
+}: AdminDateFieldProps) {
+  const selectedDate = useMemo(() => createDateFromAdminDate(value), [value]);
+  const todayIso = getTodayIsoInTimeZone();
+  const todayMonth = useMemo(
+    () => startOfMonthUtc(createDateFromIso(todayIso)),
+    [todayIso],
+  );
+  const [isOpen, setIsOpen] = useState(false);
+  const [month, setMonth] = useState<Date>(() =>
+    startOfMonthUtc(selectedDate ?? createDateFromIso(todayIso)),
+  );
+
+  useEffect(() => {
+    if (selectedDate) {
+      setMonth(startOfMonthUtc(selectedDate));
+    }
+  }, [selectedDate]);
+
+  const handleSelect = (date: Date | undefined) => {
+    if (!date) {
+      return;
+    }
+
+    onChange(formatIsoDateForAdmin(toIsoDateString(date)));
+    setMonth(startOfMonthUtc(date));
+    setIsOpen(false);
+  };
+
+  return (
+    <div className="block">
+      <span className="mb-1.5 block font-mono text-[10px] uppercase tracking-[0.18em] text-primary/70">
+        {label}
+      </span>
+      <div className="flex gap-2">
+        <button
+          type="button"
+          onClick={() => setIsOpen((current) => !current)}
+          className={`${INPUT_CLASS} flex items-center justify-between text-left`}
+        >
+          <span>{value || 'Select date'}</span>
+          <CalendarDays className="h-4 w-4 text-primary/70" aria-hidden="true" />
+        </button>
+        {allowClear && value ? (
+          <button
+            type="button"
+            onClick={() => onChange('')}
+            aria-label={`Clear ${label}`}
+            className="flex h-11 w-11 shrink-0 items-center justify-center rounded-lg border-2 border-secondary/40 text-primary/70 transition-colors hover:border-primary/40 hover:text-primary"
+          >
+            <X className="h-4 w-4" aria-hidden="true" />
+          </button>
+        ) : null}
+      </div>
+      {isOpen ? (
+        <div className="mt-3 rounded-xl border border-primary/10 bg-white p-3 shadow-sm">
+          <DayPicker
+            mode="single"
+            month={month}
+            onMonthChange={(nextMonth) => setMonth(startOfMonthUtc(nextMonth))}
+            selected={selectedDate}
+            onSelect={handleSelect}
+            showOutsideDays
+            timeZone={BUSINESS_TIME_ZONE}
+            defaultMonth={todayMonth}
+            className="booking-calendar-root w-full"
+            classNames={getCalendarClassNames()}
+          />
+        </div>
+      ) : null}
+    </div>
+  );
+}
+
+interface AdminStayCalendarProps {
+  checkInDate: string;
+  checkOutDate: string;
+  blockedDates: readonly string[];
+  availabilityStatus: 'ready' | 'stale' | 'error';
+  onChange: (range: { checkInDate: string; checkOutDate: string }) => void;
+}
+
+function AdminStayCalendar({
+  checkInDate,
+  checkOutDate,
+  blockedDates,
+  availabilityStatus,
+  onChange,
+}: AdminStayCalendarProps) {
+  const todayIso = getTodayIsoInTimeZone();
+  const checkInIso = parseAdminDateToIso(checkInDate);
+  const checkOutIso = parseAdminDateToIso(checkOutDate);
+  const blockedDateSet = useMemo(() => new Set(blockedDates), [blockedDates]);
+  const [activeField, setActiveField] = useState<'checkIn' | 'checkOut'>(
+    checkInIso ? 'checkOut' : 'checkIn',
+  );
+  const [month, setMonth] = useState<Date>(() =>
+    startOfMonthUtc(createDateFromIso(checkInIso ?? todayIso)),
+  );
+  const selectedRange = useMemo<DateRange | undefined>(() => {
+    if (!checkInIso) {
+      return undefined;
+    }
+
+    return {
+      from: createDateFromIso(checkInIso),
+      to: createDateFromIso(checkOutIso ?? checkInIso),
+    };
+  }, [checkInIso, checkOutIso]);
+  const maxCheckOutIso = useMemo(
+    () => (checkInIso ? getFirstBlockedDateAfter(checkInIso, blockedDates) : null),
+    [blockedDates, checkInIso],
+  );
+  const keepDayPickerSelectionControlled: OnSelectHandler<DateRange | undefined> = () =>
+    undefined;
+
+  useEffect(() => {
+    setMonth(startOfMonthUtc(createDateFromIso(checkInIso ?? todayIso)));
+  }, [checkInIso, todayIso]);
+
+  useEffect(() => {
+    if (!checkInIso) {
+      setActiveField('checkIn');
+      return;
+    }
+
+    if (!checkOutIso) {
+      setActiveField('checkOut');
+    }
+  }, [checkInIso, checkOutIso]);
+
+  const handleFieldFocus = (field: 'checkIn' | 'checkOut') => {
+    if (field === 'checkOut' && !checkInIso) {
+      setActiveField('checkIn');
+      return;
+    }
+
+    setActiveField(field);
+  };
+
+  const handleDayClick = (date: Date) => {
+    const clickedIso = toIsoDateString(date);
+    const clickedAdminDate = formatIsoDateForAdmin(clickedIso);
+    const isBlocked = blockedDateSet.has(clickedIso);
+    const canUseAsCheckOutBoundary =
+      activeField === 'checkOut' && checkInIso && clickedIso === maxCheckOutIso;
+
+    if (isBlocked && !canUseAsCheckOutBoundary) {
+      return;
+    }
+
+    if (!checkInIso || activeField === 'checkIn') {
+      onChange({ checkInDate: clickedAdminDate, checkOutDate: '' });
+      setActiveField('checkOut');
+      setMonth(startOfMonthUtc(date));
+      return;
+    }
+
+    if (compareIsoDates(clickedIso, checkInIso) <= 0) {
+      onChange({ checkInDate: clickedAdminDate, checkOutDate: '' });
+      setActiveField('checkOut');
+      setMonth(startOfMonthUtc(date));
+      return;
+    }
+
+    if (maxCheckOutIso && compareIsoDates(clickedIso, maxCheckOutIso) > 0) {
+      return;
+    }
+
+    onChange({ checkInDate, checkOutDate: clickedAdminDate });
+  };
+
+  const disabledDays = (date: Date) => {
+    const isoDate = toIsoDateString(date);
+
+    if (
+      activeField === 'checkOut' &&
+      checkInIso &&
+      maxCheckOutIso &&
+      isoDate === maxCheckOutIso
+    ) {
+      return false;
+    }
+
+    if (activeField === 'checkOut' && checkInIso && compareIsoDates(isoDate, checkInIso) <= 0) {
+      return true;
+    }
+
+    if (activeField === 'checkOut' && maxCheckOutIso && compareIsoDates(isoDate, maxCheckOutIso) > 0) {
+      return true;
+    }
+
+    return blockedDateSet.has(isoDate);
+  };
+
+  const unavailableDays = (date: Date) => blockedDateSet.has(toIsoDateString(date));
+  const goToPreviousMonth = () => setMonth((currentMonth) => addMonthsUtc(currentMonth, -1));
+  const goToNextMonth = () => setMonth((currentMonth) => addMonthsUtc(currentMonth, 1));
+
+  return (
+    <div className="sm:col-span-2">
+      <span className="mb-1.5 block font-mono text-[10px] uppercase tracking-[0.18em] text-primary/70">
+        Stay dates
+      </span>
+      <div className="overflow-hidden rounded-xl border border-primary/15 bg-white">
+        {availabilityStatus === 'error' ? (
+          <p className="border-b border-amber-200 bg-amber-50 px-4 py-3 text-sm text-amber-900">
+            Calendar sync is temporarily unavailable. Refresh before sending the invoice.
+          </p>
+        ) : null}
+        {availabilityStatus === 'stale' ? (
+          <p className="border-b border-amber-200 bg-amber-50 px-4 py-3 text-sm text-amber-900">
+            Calendar sync is partially stale. Blocked dates shown may be incomplete.
+          </p>
+        ) : null}
+        <div className="grid grid-cols-2 divide-x divide-primary/10 border-b border-primary/10">
+          <button
+            type="button"
+            onClick={() => handleFieldFocus('checkIn')}
+            aria-pressed={activeField === 'checkIn'}
+            className={`px-4 py-4 text-left transition ${
+              activeField === 'checkIn' ? 'bg-primary/[0.04]' : 'hover:bg-primary/[0.02]'
+            }`}
+          >
+            <span className="block text-[10px] font-semibold uppercase tracking-[0.22em] text-black/50">
+              Check-in
+            </span>
+            <span className="mt-1 block text-sm font-semibold text-black">
+              {checkInDate || 'Select date'}
+            </span>
+          </button>
+          <button
+            type="button"
+            onClick={() => handleFieldFocus('checkOut')}
+            aria-pressed={activeField === 'checkOut'}
+            className={`px-4 py-4 text-left transition ${
+              activeField === 'checkOut' ? 'bg-primary/[0.04]' : 'hover:bg-primary/[0.02]'
+            }`}
+          >
+            <span className="block text-[10px] font-semibold uppercase tracking-[0.22em] text-black/50">
+              Check-out
+            </span>
+            <span className="mt-1 block text-sm font-semibold text-black">
+              {checkOutDate || 'Select date'}
+            </span>
+          </button>
+        </div>
+        <div className="px-3 pt-4 pb-2 sm:px-6 sm:pt-6">
+          <div className="mb-3 flex items-center justify-between px-1 sm:mb-4">
+            <p className="text-xs font-medium uppercase tracking-[0.18em] text-black/55">
+              {activeField === 'checkOut' && checkInIso ? 'Pick check-out' : 'Pick check-in'}
+            </p>
+            <div className="flex items-center gap-1.5">
+              <button
+                type="button"
+                onClick={goToPreviousMonth}
+                aria-label="Show previous month"
+                className="inline-flex h-9 w-9 items-center justify-center rounded-full border border-primary/15 bg-white text-black transition hover:bg-cream/60"
+              >
+                ‹
+              </button>
+              <button
+                type="button"
+                onClick={goToNextMonth}
+                aria-label="Show next month"
+                className="inline-flex h-9 w-9 items-center justify-center rounded-full border border-primary/15 bg-white text-black transition hover:bg-cream/60"
+              >
+                ›
+              </button>
+            </div>
+          </div>
+          <DayPicker
+            mode="range"
+            month={month}
+            onMonthChange={(nextMonth) => setMonth(startOfMonthUtc(nextMonth))}
+            onDayClick={handleDayClick}
+            onSelect={keepDayPickerSelectionControlled}
+            selected={selectedRange}
+            numberOfMonths={1}
+            showOutsideDays
+            timeZone={BUSINESS_TIME_ZONE}
+            defaultMonth={startOfMonthUtc(createDateFromIso(todayIso))}
+            hideNavigation
+            disabled={disabledDays}
+            modifiers={{ unavailable: unavailableDays }}
+            modifiersClassNames={{ unavailable: 'booking-calendar-unavailable' }}
+            className="booking-calendar-root w-full"
+            classNames={getCalendarClassNames()}
+          />
+        </div>
+        {checkInDate || checkOutDate ? (
+          <div className="flex items-center justify-end border-t border-primary/10 bg-cream/40 px-5 py-3">
+            <button
+              type="button"
+              onClick={() => onChange({ checkInDate: '', checkOutDate: '' })}
+              className="inline-flex items-center gap-1.5 text-sm font-semibold text-black underline underline-offset-4 decoration-black/30 hover:decoration-black"
+            >
+              <X className="h-3.5 w-3.5" />
+              Clear dates
+            </button>
+          </div>
+        ) : null}
+      </div>
+    </div>
+  );
+}
+
 interface SendResult {
   status: 'sent' | 'preview';
   message: string;
   previewHtml?: string;
 }
 
-export default function ReservationQuoteForm() {
-  const [data, setData] = useState<ReservationQuoteData>(DEFAULT_RESERVATION_QUOTE);
+interface ReservationQuoteFormProps {
+  availabilitySnapshot: AdminAvailabilitySnapshot;
+}
+
+export default function ReservationQuoteForm({
+  availabilitySnapshot,
+}: ReservationQuoteFormProps) {
+  const [data, setData] = useState<ReservationQuoteData>(() => createInitialAdminQuote());
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [result, setResult] = useState<SendResult | null>(null);
+  const blockedDates = useMemo(
+    () =>
+      getBlockedDatesForAdminApartment(
+        data.apartment,
+        availabilitySnapshot.blockedDatesByProperty,
+      ),
+    [availabilitySnapshot.blockedDatesByProperty, data.apartment],
+  );
+  const availabilityStatus = getAvailabilityStatusForAdminApartment(
+    data.apartment,
+    availabilitySnapshot.availabilityStatusByProperty,
+  );
+
+  function updateData(
+    updater: (prev: ReservationQuoteData) => Partial<ReservationQuoteData>,
+  ) {
+    setData((prev) => calculateAdminQuote({ ...prev, ...updater(prev) }));
+  }
 
   function set<K extends keyof ReservationQuoteData>(key: K, value: ReservationQuoteData[K]) {
-    setData((prev) => ({ ...prev, [key]: value }));
+    updateData(() => ({ [key]: value }) as Partial<ReservationQuoteData>);
+  }
+
+  function setApartment(value: string) {
+    const nextApartment = normalizeAdminApartment(value);
+
+    setData((prev) => {
+      const next = calculateAdminQuote({ ...prev, apartment: nextApartment });
+      const checkIn = parseAdminDateToIso(next.checkInDate);
+      const checkOut = parseAdminDateToIso(next.checkOutDate);
+      const nextBlockedDates = getBlockedDatesForAdminApartment(
+        nextApartment,
+        availabilitySnapshot.blockedDatesByProperty,
+      );
+
+      if (
+        (checkIn && nextBlockedDates.includes(checkIn)) ||
+        (checkIn &&
+          checkOut &&
+          getBlockedStayNights({ checkIn, checkOut }, nextBlockedDates).length > 0)
+      ) {
+        return calculateAdminQuote({ ...next, checkInDate: '', checkOutDate: '' });
+      }
+
+      return next;
+    });
   }
 
   function updateLineItem(index: number, key: keyof ReservationLineItem, value: string) {
-    setData((prev) => ({
-      ...prev,
+    updateData((prev) => ({
       lineItems: prev.lineItems.map((item, i) =>
         i === index ? { ...item, [key]: value } : item,
       ),
@@ -84,15 +546,13 @@ export default function ReservationQuoteForm() {
   }
 
   function addLineItem() {
-    setData((prev) => ({
-      ...prev,
+    updateData((prev) => ({
       lineItems: [...prev.lineItems, { description: '', unit: '', amount: '' }],
     }));
   }
 
   function removeLineItem(index: number) {
-    setData((prev) => ({
-      ...prev,
+    updateData((prev) => ({
       lineItems: prev.lineItems.filter((_, i) => i !== index),
     }));
   }
@@ -113,7 +573,7 @@ export default function ReservationQuoteForm() {
     setResult(null);
 
     try {
-      const response = await sendReservationQuote(data);
+      const response = await sendReservationQuote(calculateAdminQuote(data));
       if (response.success && response.status) {
         const next: SendResult = {
           status: response.status,
@@ -142,7 +602,7 @@ export default function ReservationQuoteForm() {
       <Section index="i" title="Document">
         <div className="grid gap-4 sm:grid-cols-2">
           <Field label="Reservation №" value={data.reservationNumber} onChange={(v) => set('reservationNumber', v)} />
-          <Field label="Issued on" value={data.issuedOn} onChange={(v) => set('issuedOn', v)} />
+          <AdminDateField label="Issued on" value={data.issuedOn} onChange={(v) => set('issuedOn', v)} allowClear={false} />
         </div>
       </Section>
 
@@ -152,18 +612,23 @@ export default function ReservationQuoteForm() {
           <Field label="ID / Passport №" value={data.idPassport} onChange={(v) => set('idPassport', v)} />
           <Field label="Nationality" value={data.nationality} onChange={(v) => set('nationality', v)} />
           <Field label="Contact" value={data.contact} onChange={(v) => set('contact', v)} />
-          <Field label="Apartment" value={data.apartment} onChange={(v) => set('apartment', v)} />
+          <SelectField label="Apartment" value={data.apartment} onChange={setApartment} options={ADMIN_APARTMENT_OPTIONS} />
           <Field label="Travellers" value={data.travellers} onChange={(v) => set('travellers', v)} />
-          <Field label="Order date" value={data.orderDate} onChange={(v) => set('orderDate', v)} />
-          <Field label="Nights" value={data.nights} onChange={(v) => set('nights', v)} />
+          <AdminDateField label="Order date" value={data.orderDate} onChange={(v) => set('orderDate', v)} allowClear={false} />
+          <Field label="Nights" value={data.nights} readOnly />
         </div>
       </Section>
 
       <Section index="iii" title="Check-in & access">
         <div className="grid gap-4 sm:grid-cols-2">
-          <Field label="Check-in date" value={data.checkInDate} onChange={(v) => set('checkInDate', v)} />
+          <AdminStayCalendar
+            checkInDate={data.checkInDate}
+            checkOutDate={data.checkOutDate}
+            blockedDates={blockedDates}
+            availabilityStatus={availabilityStatus}
+            onChange={(range) => updateData(() => range)}
+          />
           <Field label="Check-in time" value={data.checkInTime} onChange={(v) => set('checkInTime', v)} />
-          <Field label="Check-out date" value={data.checkOutDate} onChange={(v) => set('checkOutDate', v)} />
           <Field label="Check-out time" value={data.checkOutTime} onChange={(v) => set('checkOutTime', v)} />
           <Field label="Apartment access" value={data.apartmentAccess} onChange={(v) => set('apartmentAccess', v)} />
         </div>
@@ -208,8 +673,8 @@ export default function ReservationQuoteForm() {
         </button>
 
         <div className="mt-5 grid gap-4 sm:grid-cols-2">
-          <Field label="Subtotal" value={data.subtotal} onChange={(v) => set('subtotal', v)} />
-          <Field label="Total" value={data.total} onChange={(v) => set('total', v)} />
+          <Field label="Subtotal" value={data.subtotal} readOnly />
+          <Field label="Total" value={data.total} readOnly />
         </div>
       </Section>
 
@@ -217,9 +682,9 @@ export default function ReservationQuoteForm() {
         <div className="grid gap-4 sm:grid-cols-2">
           <Field label="Payment method" value={data.paymentMethod} onChange={(v) => set('paymentMethod', v)} />
           <Field label="Deposit paid" value={data.depositPaid} onChange={(v) => set('depositPaid', v)} />
-          <Field label="Paid on" value={data.paidOn} onChange={(v) => set('paidOn', v)} />
-          <Field label="Balance due" value={data.balanceDue} onChange={(v) => set('balanceDue', v)} />
-          <Field label="Balance remaining" value={data.balanceRemaining} onChange={(v) => set('balanceRemaining', v)} />
+          <AdminDateField label="Paid on" value={data.paidOn} onChange={(v) => set('paidOn', v)} />
+          <Field label="Balance due" value={data.balanceDue} readOnly />
+          <Field label="Balance remaining" value={data.balanceRemaining} readOnly />
         </div>
       </Section>
 
