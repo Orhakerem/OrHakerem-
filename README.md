@@ -44,6 +44,7 @@ Add your environment variables:
 ```env
 RESEND_API_KEY=your_resend_api_key
 RECIPIENT_EMAIL=your_email@example.com
+RESEND_INVOICE_FROM_EMAIL=invoice@orhakerem.com
 ```
 
 4. Run the development server:
@@ -100,6 +101,7 @@ pnpm build
 Environment variables needed for production:
 - `RESEND_API_KEY`
 - `RECIPIENT_EMAIL`
+- `RESEND_INVOICE_FROM_EMAIL` for admin invoice/devis emails sent to prospects
 
 ## 📱 Features
 
