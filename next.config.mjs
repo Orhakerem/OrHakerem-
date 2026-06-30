@@ -32,6 +32,10 @@ const nextConfig = {
   experimental: {
     // Enable optimized package imports
     optimizePackageImports: ['lucide-react', 'react-hot-toast'],
+    // Keep the PDF renderer out of the webpack server bundle: it relies on
+    // dynamic requires and reads font files from disk (public/fonts), neither
+    // of which survive bundling. Next traces it into the standalone artifact.
+    serverComponentsExternalPackages: ['@react-pdf/renderer'],
   },
 
   // Configure TypeScript for build

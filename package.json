@@ -15,6 +15,9 @@
     "reinstall": "export LANG=en_US.UTF-8 && export LC_ALL=en_US.UTF-8 && pnpm run clean && pnpm install"
   },
   "dependencies": {
+    "@react-email/components": "^1.0.12",
+    "@react-email/render": "^2.0.9",
+    "@react-pdf/renderer": "^4.5.1",
     "@supabase/supabase-js": "^2.105.4",
     "@vercel/speed-insights": "^2.0.0",
     "framer-motion": "^12.38.0",
