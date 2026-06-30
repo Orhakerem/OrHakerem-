@@ -11,18 +11,23 @@ const productionFiles = [
   'src/emails/EstimatePdf.tsx',
 ] as const;
 
-const removedTerms = [
-  'senderName',
-  'qty',
-  'vatNote',
-  'dueOn',
-  'securityDeposit',
-  'Sender name',
-  'Qty',
-  'VAT note',
-  'VAT (18%)',
-  'Due on',
-  'Security deposit',
+const removedPatterns = [
+  /\bsenderName\b/,
+  /\bqty\b/,
+  /\bvatNote\b/,
+  /\bTVA\b/,
+  /\bVAT\b/,
+  /\bdueOn\b/,
+  /\bsecurityDeposit\b/,
+  /Sender name/,
+  /Qty/,
+  /VAT note/,
+  /VAT \(18%\)/,
+  /Due on/,
+  /Security deposit/,
+  /Preview/,
+  /previewHtml/,
+  /View email/,
 ] as const;
 
 test('admin invoice production flow does not expose removed fields', () => {
@@ -31,11 +36,11 @@ test('admin invoice production flow does not expose removed fields', () => {
   for (const file of productionFiles) {
     const source = readFileSync(path.join(root, file), 'utf8');
 
-    for (const term of removedTerms) {
+    for (const pattern of removedPatterns) {
       assert.equal(
-        source.includes(term),
+        pattern.test(source),
         false,
-        `${file} still contains removed invoice field "${term}"`,
+        `${file} still contains removed invoice field matching ${pattern}`,
       );
     }
   }

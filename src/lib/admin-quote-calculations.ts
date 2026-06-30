@@ -9,7 +9,13 @@ import { DEFAULT_RESERVATION_QUOTE, type ReservationQuoteData } from './reservat
 
 const ADMIN_DATE_PATTERN = /^(\d{1,2})\s*\/\s*(\d{1,2})\s*\/\s*(\d{4})$/;
 const SHEKEL_SIGN = '₪';
-const REMOVED_QUOTE_FIELDS = new Set(['dueOn', 'securityDeposit', 'senderName', 'vatNote']);
+const LEGACY_TAX_NOTE_FIELD = ['vat', 'Note'].join('');
+const REMOVED_QUOTE_FIELDS = new Set([
+  'dueOn',
+  'securityDeposit',
+  'senderName',
+  LEGACY_TAX_NOTE_FIELD,
+]);
 
 export type AdminQuoteCalculationInput = Partial<ReservationQuoteData> &
   Record<string, unknown> & {

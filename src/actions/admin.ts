@@ -16,6 +16,7 @@ import {
 } from '@/lib/admin-quote-calculations';
 import { sanitizeForHeader, sendReservationQuoteEmail } from '@/lib/email-service';
 import { buildEstimatePdfFilename, renderEstimatePdf } from '@/lib/estimate-pdf';
+import { buildReservationPdfAttachment } from '@/lib/reservation-email-attachments';
 import { renderReservationEmailHtml } from '@/lib/reservation-email';
 import { buildReservationEmailSubject } from '@/lib/reservation-email-subject';
 import { reservationQuoteSchema, type ReservationQuoteData } from '@/lib/reservation-quote';
@@ -30,7 +31,6 @@ interface SendQuoteResult {
   status?: 'sent' | 'preview';
   message?: string;
   error?: string;
-  previewHtml?: string;
 }
 
 export async function loginAdmin(formData: FormData): Promise<LoginResult> {
@@ -111,7 +111,12 @@ export async function sendReservationQuote(
       subject,
       html,
       replyTo: process.env.RECIPIENT_EMAIL?.trim() || undefined,
-      attachments: [{ filename: buildEstimatePdfFilename(data), content: pdf }],
+      attachments: [
+        buildReservationPdfAttachment({
+          filename: buildEstimatePdfFilename(data),
+          content: pdf,
+        }),
+      ],
     });
 
     if (result.status === 'sent') {
@@ -125,8 +130,7 @@ export async function sendReservationQuote(
     return {
       success: true,
       status: 'preview',
-      message: result.reason ?? 'Email rendered as a preview (not delivered).',
-      previewHtml: html,
+      message: result.reason ?? 'Email was not delivered.',
     };
   } catch (error) {
     console.error('Reservation quote send failed:', error);

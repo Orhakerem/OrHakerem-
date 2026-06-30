@@ -476,7 +476,6 @@ function AdminStayCalendar({
 interface SendResult {
   status: 'sent' | 'preview';
   message: string;
-  previewHtml?: string;
 }
 
 interface ReservationQuoteFormProps {
@@ -557,16 +556,6 @@ export default function ReservationQuoteForm({
     }));
   }
 
-  function openPreview() {
-    if (!result?.previewHtml) {
-      return;
-    }
-    const blob = new Blob([result.previewHtml], { type: 'text/html' });
-    const url = URL.createObjectURL(blob);
-    window.open(url, '_blank', 'noopener,noreferrer');
-    setTimeout(() => URL.revokeObjectURL(url), 60_000);
-  }
-
   async function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
     setIsSubmitting(true);
@@ -578,13 +567,12 @@ export default function ReservationQuoteForm({
         const next: SendResult = {
           status: response.status,
           message: response.message ?? 'Done.',
-          previewHtml: response.previewHtml,
         };
         setResult(next);
         if (response.status === 'sent') {
           toast.success('Reservation email sent.');
         } else {
-          toast('Email rendered as a preview.', { icon: '📄' });
+          toast('Email was not delivered.', { icon: '!' });
         }
       } else {
         toast.error(response.error ?? 'Failed to send reservation email.');
@@ -718,18 +706,9 @@ export default function ReservationQuoteForm({
           className="rounded-2xl border border-primary/15 bg-white p-5 shadow-sm"
         >
           <p className="font-mono text-[10px] uppercase tracking-[0.22em] text-primary/60">
-            {result.status === 'sent' ? 'Sent' : 'Preview'}
+            {result.status === 'sent' ? 'Sent' : 'Not delivered'}
           </p>
           <p className="mt-1 text-sm text-black/80">{result.message}</p>
-          {result.previewHtml ? (
-            <button
-              type="button"
-              onClick={openPreview}
-              className="mt-3 inline-flex items-center gap-2 rounded-full border-2 border-primary/30 px-4 py-2 text-sm font-medium text-primary transition-colors hover:bg-primary/5"
-            >
-              View email
-            </button>
-          ) : null}
         </div>
       ) : null}
 
