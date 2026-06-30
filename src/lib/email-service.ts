@@ -80,7 +80,6 @@ interface SendReservationOptions {
   to: string;
   subject: string;
   html: string;
-  senderName: string;
   replyTo?: string;
   attachments?: ReservationAttachment[];
 }
@@ -101,7 +100,6 @@ export async function sendReservationQuoteEmail({
   to,
   subject,
   html,
-  senderName,
   replyTo,
   attachments,
 }: SendReservationOptions): Promise<SendReservationResult> {
@@ -120,7 +118,6 @@ export async function sendReservationQuoteEmail({
 
   try {
     const from = buildInvoiceFromAddress({
-      senderName,
       senderEmail: resolveInvoiceFromEmail({
         RESEND_INVOICE_FROM_EMAIL: process.env.RESEND_INVOICE_FROM_EMAIL,
       }),

@@ -3,38 +3,39 @@ import test from 'node:test';
 
 import { DEFAULT_RESERVATION_QUOTE, reservationQuoteSchema } from './reservation-quote';
 
-test('default reservation quote includes the admin-editable sender name', () => {
-  assert.equal(DEFAULT_RESERVATION_QUOTE.senderName, 'Or Hakerem');
+test('default reservation quote omits removed admin invoice fields', () => {
+  const quote = DEFAULT_RESERVATION_QUOTE as Record<string, unknown>;
+  const firstLineItem = DEFAULT_RESERVATION_QUOTE.lineItems[0] as Record<string, unknown>;
+
+  assert.equal('senderName' in quote, false);
+  assert.equal('vatNote' in quote, false);
+  assert.equal('dueOn' in quote, false);
+  assert.equal('securityDeposit' in quote, false);
+  assert.equal('qty' in firstLineItem, false);
 });
 
-test('reservation quote schema trims and validates the sender name', () => {
-  const parsed = reservationQuoteSchema.parse({
+test('reservation quote schema strips stale removed fields from transitional payloads', () => {
+  const stalePayload = {
     ...DEFAULT_RESERVATION_QUOTE,
     customerEmail: 'ada@example.com',
-    senderName: ' Joseph - Or Hakerem ',
-  });
+    senderName: 'Legacy sender',
+    vatNote: 'Legacy VAT',
+    dueOn: 'Legacy due date',
+    securityDeposit: 'Legacy security deposit',
+    lineItems: DEFAULT_RESERVATION_QUOTE.lineItems.map((item) => ({
+      ...item,
+      qty: '99',
+    })),
+  };
 
-  assert.equal(parsed.senderName, 'Joseph - Or Hakerem');
-});
+  const parsed = reservationQuoteSchema.parse(stalePayload);
+  const quote = parsed as Record<string, unknown>;
+  const firstLineItem = parsed.lineItems[0] as Record<string, unknown>;
 
-test('reservation quote schema rejects sender header injection characters', () => {
-  assert.throws(
-    () =>
-      reservationQuoteSchema.parse({
-        ...DEFAULT_RESERVATION_QUOTE,
-        customerEmail: 'ada@example.com',
-        senderName: 'Or Hakerem\r\nBcc: attacker@example.com',
-      }),
-    /Sender name cannot contain header control characters/,
-  );
-
-  assert.throws(
-    () =>
-      reservationQuoteSchema.parse({
-        ...DEFAULT_RESERVATION_QUOTE,
-        customerEmail: 'ada@example.com',
-        senderName: 'Or <Hakerem>',
-      }),
-    /Sender name cannot contain angle brackets/,
-  );
+  assert.equal('senderName' in quote, false);
+  assert.equal('vatNote' in quote, false);
+  assert.equal('dueOn' in quote, false);
+  assert.equal('securityDeposit' in quote, false);
+  assert.equal('qty' in firstLineItem, false);
+  assert.equal(parsed.customerEmail, 'ada@example.com');
 });

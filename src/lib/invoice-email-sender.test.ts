@@ -3,43 +3,12 @@ import test from 'node:test';
 
 import { buildInvoiceFromAddress, resolveInvoiceFromEmail } from './invoice-email-sender';
 
-test('builds the invoice from header with the verified invoice sender email', () => {
+test('builds the invoice from header with the fixed sender name and verified invoice email', () => {
   assert.equal(
     buildInvoiceFromAddress({
-      senderName: 'Or Hakerem',
       senderEmail: 'invoice@orhakerem.com',
     }),
-    'Or Hakerem <invoice@orhakerem.com>',
-  );
-});
-
-test('falls back to the default sender name when the admin leaves it blank', () => {
-  assert.equal(
-    buildInvoiceFromAddress({
-      senderName: '   ',
-      senderEmail: 'invoice@orhakerem.com',
-    }),
-    'Or Hakerem <invoice@orhakerem.com>',
-  );
-});
-
-test('rejects sender names that can break email headers', () => {
-  assert.throws(
-    () =>
-      buildInvoiceFromAddress({
-        senderName: 'Or Hakerem\nBcc: attacker@example.com',
-        senderEmail: 'invoice@orhakerem.com',
-      }),
-    /Invalid sender name/,
-  );
-
-  assert.throws(
-    () =>
-      buildInvoiceFromAddress({
-        senderName: 'Or <Hakerem>',
-        senderEmail: 'invoice@orhakerem.com',
-      }),
-    /Invalid sender name/,
+    'OR HAKEREM <invoice@orhakerem.com>',
   );
 });
 
@@ -54,5 +23,15 @@ test('requires the invoice-specific sender email environment value', () => {
   assert.throws(
     () => resolveInvoiceFromEmail({}),
     /Missing invoice sender email/,
+  );
+});
+
+test('rejects invoice sender email values other than the verified invoice address', () => {
+  assert.throws(
+    () =>
+      resolveInvoiceFromEmail({
+        RESEND_INVOICE_FROM_EMAIL: 'billing@orhakerem.com',
+      }),
+    /Invalid invoice sender email/,
   );
 });

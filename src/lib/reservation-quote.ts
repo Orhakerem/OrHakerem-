@@ -1,7 +1,5 @@
 import { z } from 'zod';
 
-import { DEFAULT_INVOICE_SENDER_NAME } from './invoice-email-sender';
-
 /**
  * Shape + validation for a reservation/invoice quote entered in the admin
  * back-office. Most fields are free-text strings on purpose: the source estimate
@@ -15,21 +13,9 @@ import { DEFAULT_INVOICE_SENDER_NAME } from './invoice-email-sender';
  */
 const lineItemSchema = z.object({
   description: z.string(),
-  qty: z.string(),
   unit: z.string(),
   amount: z.string(),
 });
-
-const senderNameSchema = z
-  .string()
-  .trim()
-  .min(1, 'Sender name is required')
-  .max(80, 'Sender name must be 80 characters or less')
-  .refine(
-    (value) => !/[\r\n]/.test(value),
-    'Sender name cannot contain header control characters',
-  )
-  .refine((value) => !/[<>]/.test(value), 'Sender name cannot contain angle brackets');
 
 export const reservationQuoteSchema = z.object({
   // Document
@@ -54,19 +40,15 @@ export const reservationQuoteSchema = z.object({
   currency: z.string(),
   lineItems: z.array(lineItemSchema).min(1, 'At least one line item is required'),
   subtotal: z.string(),
-  vatNote: z.string(),
   total: z.string(),
   // Payment
   paymentMethod: z.string(),
   depositPaid: z.string(),
   paidOn: z.string(),
   balanceDue: z.string(),
-  dueOn: z.string(),
-  securityDeposit: z.string(),
   balanceRemaining: z.string(),
   // Closing + delivery
   closingNote: z.string(),
-  senderName: senderNameSchema,
   customerEmail: z.string().trim().email('A valid customer email is required'),
 });
 
@@ -95,21 +77,17 @@ export const DEFAULT_RESERVATION_QUOTE: ReservationQuoteData = {
   apartmentAccess: 'Code sent on arrival',
   currency: 'NIS (₪)',
   lineItems: [
-    { description: 'Event & night stay', qty: '1', unit: '3,800 ₪', amount: '3,800 ₪' },
-    { description: 'Cleaning fee', qty: '1', unit: '—', amount: 'Included' },
+    { description: 'Event & night stay', unit: '3,800 ₪', amount: '3,800 ₪' },
+    { description: 'Cleaning fee', unit: '—', amount: 'Included' },
   ],
   subtotal: '3,800 ₪',
-  vatNote: 'Exempt — foreign traveller',
   total: '3,800 ₪',
   paymentMethod: 'Bit',
   depositPaid: '1,400 ₪',
   paidOn: '',
   balanceDue: '2,400 ₪',
-  dueOn: '',
-  securityDeposit: '— ₪ · refundable',
   balanceRemaining: '2,400 ₪',
   closingNote:
     'Thank you for choosing Or Hakerem. This document confirms your reservation and serves as your invoice. The detailed terms and conditions of your stay are provided in a separate document — by completing the payment, you acknowledge and accept them.',
-  senderName: DEFAULT_INVOICE_SENDER_NAME,
   customerEmail: '',
 };

@@ -56,11 +56,11 @@ export async function sendReservationQuote(
   }
   const data = parsed.data;
 
-  const subject = sanitizeForHeader(buildReservationEmailSubject(data));
+  const subject = sanitizeForHeader(buildReservationEmailSubject());
 
   try {
     const [html, pdf] = await Promise.all([
-      renderReservationEmailHtml(data),
+      renderReservationEmailHtml(),
       renderEstimatePdf(data),
     ]);
 
@@ -68,7 +68,6 @@ export async function sendReservationQuote(
       to: data.customerEmail,
       subject,
       html,
-      senderName: data.senderName,
       replyTo: process.env.RECIPIENT_EMAIL?.trim() || undefined,
       attachments: [{ filename: buildEstimatePdfFilename(data), content: pdf }],
     });

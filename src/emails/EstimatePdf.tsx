@@ -208,7 +208,6 @@ const s = StyleSheet.create({
     borderBottomColor: C.ink,
   },
   colDesc: { flexGrow: 1, flexBasis: 0, fontFamily: SANS, fontSize: 8.5, color: C.ink },
-  colQty: { width: 50, textAlign: 'right', fontFamily: SANS, fontSize: 8.5, color: C.inkSoft },
   colUnit: { width: 80, textAlign: 'right', fontFamily: SANS, fontSize: 8.5, color: C.inkSoft },
   colAmt: { width: 80, textAlign: 'right', fontFamily: SANS, fontSize: 8.5, color: C.ink },
 
@@ -373,7 +372,6 @@ function LineItemRow({
   return (
     <View style={last ? s.tableRowLast : s.tableRow}>
       <Text style={s.colDesc}>{item.description}</Text>
-      <Text style={s.colQty}>{item.qty}</Text>
       <Text style={s.colUnit}>{item.unit}</Text>
       <Text style={s.colAmt}>{item.amount}</Text>
     </View>
@@ -472,7 +470,6 @@ export function EstimatePdf({ data }: { data: ReservationQuoteData }) {
 
           <View style={s.tableHead}>
             <Text style={[s.th, { flexGrow: 1, flexBasis: 0 }]}>Description</Text>
-            <Text style={[s.th, { width: 50, textAlign: 'right' }]}>Qty</Text>
             <Text style={[s.th, { width: 80, textAlign: 'right' }]}>Unit</Text>
             <Text style={[s.th, { width: 80, textAlign: 'right' }]}>Amount</Text>
           </View>
@@ -488,10 +485,6 @@ export function EstimatePdf({ data }: { data: ReservationQuoteData }) {
             <View style={s.totalsRow}>
               <Text style={s.totalsLabel}>Subtotal</Text>
               <Text style={s.totalsVal}>{data.subtotal}</Text>
-            </View>
-            <View style={s.totalsRow}>
-              <Text style={s.totalsLabel}>VAT (18%)</Text>
-              <Text style={s.totalsVal}>{data.vatNote}</Text>
             </View>
             <View style={s.grandRow}>
               <Text style={s.grandLabel}>Total</Text>
@@ -509,8 +502,6 @@ export function EstimatePdf({ data }: { data: ReservationQuoteData }) {
               ['Deposit paid', data.depositPaid],
               ['Paid on', data.paidOn],
               ['Balance due', data.balanceDue],
-              ['Due on', data.dueOn],
-              ['Security deposit', data.securityDeposit],
             ].map(([label, value], i, arr) => (
               <View key={label} style={i === arr.length - 1 ? s.payRowLast : s.payRow}>
                 <Text style={s.payRowLabel}>{label}</Text>

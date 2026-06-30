@@ -86,7 +86,7 @@ export default function ReservationQuoteForm() {
   function addLineItem() {
     setData((prev) => ({
       ...prev,
-      lineItems: [...prev.lineItems, { description: '', qty: '', unit: '', amount: '' }],
+      lineItems: [...prev.lineItems, { description: '', unit: '', amount: '' }],
     }));
   }
 
@@ -178,10 +178,9 @@ export default function ReservationQuoteForm() {
           {data.lineItems.map((item, index) => (
             <div
               key={index}
-              className="grid gap-3 rounded-xl border border-secondary/30 bg-cream/40 p-3 sm:grid-cols-[1fr_5rem_7rem_7rem_auto]"
+              className="grid gap-3 rounded-xl border border-secondary/30 bg-cream/40 p-3 sm:grid-cols-[1fr_7rem_7rem_auto]"
             >
               <Field label="Description" value={item.description} onChange={(v) => updateLineItem(index, 'description', v)} />
-              <Field label="Qty" value={item.qty} onChange={(v) => updateLineItem(index, 'qty', v)} />
               <Field label="Unit" value={item.unit} onChange={(v) => updateLineItem(index, 'unit', v)} />
               <Field label="Amount" value={item.amount} onChange={(v) => updateLineItem(index, 'amount', v)} />
               <div className="flex items-end">
@@ -208,9 +207,8 @@ export default function ReservationQuoteForm() {
           Add line item
         </button>
 
-        <div className="mt-5 grid gap-4 sm:grid-cols-3">
+        <div className="mt-5 grid gap-4 sm:grid-cols-2">
           <Field label="Subtotal" value={data.subtotal} onChange={(v) => set('subtotal', v)} />
-          <Field label="VAT note" value={data.vatNote} onChange={(v) => set('vatNote', v)} />
           <Field label="Total" value={data.total} onChange={(v) => set('total', v)} />
         </div>
       </Section>
@@ -221,8 +219,6 @@ export default function ReservationQuoteForm() {
           <Field label="Deposit paid" value={data.depositPaid} onChange={(v) => set('depositPaid', v)} />
           <Field label="Paid on" value={data.paidOn} onChange={(v) => set('paidOn', v)} />
           <Field label="Balance due" value={data.balanceDue} onChange={(v) => set('balanceDue', v)} />
-          <Field label="Due on" value={data.dueOn} onChange={(v) => set('dueOn', v)} />
-          <Field label="Security deposit" value={data.securityDeposit} onChange={(v) => set('securityDeposit', v)} />
           <Field label="Balance remaining" value={data.balanceRemaining} onChange={(v) => set('balanceRemaining', v)} />
         </div>
       </Section>
@@ -240,12 +236,6 @@ export default function ReservationQuoteForm() {
               className="w-full resize-none rounded-lg border-2 border-secondary/40 bg-white px-3 py-2 text-sm text-black outline-none transition-colors duration-200 focus:border-primary/60 focus:ring-2 focus:ring-primary/10"
             />
           </label>
-          <Field
-            label="Sender name"
-            value={data.senderName}
-            onChange={(v) => set('senderName', v)}
-            placeholder="Or Hakerem"
-          />
           <Field
             label="Customer email (recipient)"
             type="email"
