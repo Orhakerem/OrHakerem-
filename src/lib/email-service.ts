@@ -74,6 +74,7 @@ export interface SendReservationResult {
 interface ReservationAttachment {
   filename: string;
   content: Buffer;
+  contentType?: string;
 }
 
 interface SendReservationOptions {
@@ -89,8 +90,8 @@ interface SendReservationOptions {
  *
  * Unlike `sendResendEmail` (which always targets RECIPIENT_EMAIL), this targets
  * the customer. When no usable Resend key is configured, or Resend rejects the
- * request, it degrades gracefully OUTSIDE production: it returns a `preview`
- * status instead of throwing, so the back-office flow stays verifiable without
+   * request, it degrades gracefully OUTSIDE production: it returns a non-sent
+   * status instead of throwing, so the back-office flow stays verifiable without
  * live credentials. It never reports a `sent` it did not actually make.
  *
  * Set `RESEND_INVOICE_FROM_EMAIL` to a verified-domain sender to deliver to
@@ -112,7 +113,7 @@ export async function sendReservationQuoteEmail({
     }
     return {
       status: 'preview',
-      reason: 'No RESEND_API_KEY configured — email rendered as a preview (not delivered).',
+      reason: 'No RESEND_API_KEY configured — email was not delivered.',
     };
   }
 
@@ -130,7 +131,13 @@ export async function sendReservationQuoteEmail({
       html,
       ...(replyTo ? { replyTo } : {}),
       ...(attachments && attachments.length
-        ? { attachments: attachments.map(({ filename, content }) => ({ filename, content })) }
+        ? {
+            attachments: attachments.map(({ filename, content, contentType }) => ({
+              filename,
+              content,
+              ...(contentType ? { contentType } : {}),
+            })),
+          }
         : {}),
     });
 
@@ -140,7 +147,7 @@ export async function sendReservationQuoteEmail({
       }
       return {
         status: 'preview',
-        reason: `Resend did not deliver (${error.message}) — email rendered as a preview.`,
+        reason: `Resend did not deliver (${error.message}).`,
       };
     }
 
@@ -152,7 +159,7 @@ export async function sendReservationQuoteEmail({
     const reason = error instanceof Error ? error.message : 'Unknown send error';
     return {
       status: 'preview',
-      reason: `${reason} — email rendered as a preview.`,
+      reason: `${reason} — email was not delivered.`,
     };
   }
 }
