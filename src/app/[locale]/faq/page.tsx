@@ -4,37 +4,26 @@ import { useMemo, useState } from 'react';
 import { ChevronDown, MapPin, Home, CalendarCheck, ConciergeBell } from 'lucide-react';
 import type { LucideIcon } from 'lucide-react';
 
-import { faqEntries, type FAQEntry } from '@/lib/faq-data';
+import { faqData, type FAQCategory, type FAQEntry } from '@/lib/faq-data';
+import { useLocale } from '@/i18n/useLocale';
+import { faqMessages } from '@/i18n/messages/faq';
 
-const CATEGORY_META: Record<
-  FAQEntry['category'],
-  { description: string; icon: LucideIcon }
-> = {
-  Location: {
-    description: 'The neighborhood, beach access and the streets right outside the door.',
-    icon: MapPin,
-  },
-  Stay: {
-    description: 'Apartment amenities, layout and what to expect once you settle in.',
-    icon: Home,
-  },
-  Booking: {
-    description: 'Reservations, check-in, payment and cancellation essentials.',
-    icon: CalendarCheck,
-  },
-  Services: {
-    description: 'Concierge add-ons and bespoke requests we can take care of for you.',
-    icon: ConciergeBell,
-  },
+const CATEGORY_ICONS: Record<FAQCategory, LucideIcon> = {
+  location: MapPin,
+  stay: Home,
+  booking: CalendarCheck,
+  services: ConciergeBell,
 };
 
 export default function FAQPage() {
+  const locale = useLocale();
+  const t = faqMessages[locale];
   const [openKey, setOpenKey] = useState<string | null>(null);
 
   const grouped = useMemo(() => {
-    const order: FAQEntry['category'][] = [];
-    const map = new Map<FAQEntry['category'], FAQEntry[]>();
-    for (const entry of faqEntries) {
+    const order: FAQCategory[] = [];
+    const map = new Map<FAQCategory, FAQEntry[]>();
+    for (const entry of faqData[locale]) {
       if (!map.has(entry.category)) {
         order.push(entry.category);
         map.set(entry.category, []);
@@ -42,7 +31,7 @@ export default function FAQPage() {
       map.get(entry.category)!.push(entry);
     }
     return order.map((category) => ({ category, items: map.get(category)! }));
-  }, []);
+  }, [locale]);
 
   return (
     <div className="relative min-h-screen bg-cream">
@@ -58,10 +47,12 @@ export default function FAQPage() {
 
         <div className="relative mx-auto max-w-4xl px-4 sm:px-6 lg:px-8 text-center">
           <h1 className="font-head font-bold leading-[1.05] text-white text-3xl sm:text-4xl lg:text-5xl">
-            Frequently <span className="italic font-normal text-white/85">asked</span> questions
+            {t.headingBefore}
+            <span className="italic font-normal text-white/85">{t.headingItalic}</span>
+            {t.headingAfter}
           </h1>
           <p className="mx-auto mt-4 max-w-2xl text-sm leading-6 text-white/80 sm:text-base">
-            Everything you may want to know before booking your stay — from the neighborhood and the apartments themselves to check-in, policies and the concierge services we can arrange on your behalf.
+            {t.intro}
           </p>
         </div>
       </section>
@@ -72,16 +63,16 @@ export default function FAQPage() {
             return (
               <section
                 key={group.category}
-                id={`cat-${group.category.toLowerCase()}`}
+                id={`cat-${group.category}`}
                 className="scroll-mt-28 flex flex-col rounded-[1.75rem] border border-primary/10 bg-white shadow-[0_18px_50px_rgba(83,45,36,0.08)]"
               >
                 <header className="flex items-start gap-4 border-b border-primary/10 px-6 py-6 sm:px-7">
                   <div className="flex-1">
                     <h2 className="font-head text-2xl font-bold text-black sm:text-[1.7rem]">
-                      {group.category}
+                      {t.categories[group.category].label}
                     </h2>
                     <p className="mt-1.5 text-sm leading-6 text-black/65">
-                      {CATEGORY_META[group.category].description}
+                      {t.categories[group.category].description}
                     </p>
                   </div>
                 </header>
@@ -132,18 +123,16 @@ export default function FAQPage() {
         </div>
 
         <div className="mt-10 rounded-[1.75rem] border border-primary/10 bg-white px-6 py-8 text-center shadow-[0_18px_50px_rgba(83,45,36,0.08)] sm:px-10 sm:py-10">
-          <p className="font-head text-xl text-black sm:text-2xl">
-            Didn&apos;t find what you were looking for?
-          </p>
+          <p className="font-head text-xl text-black sm:text-2xl">{t.notFoundTitle}</p>
           <p className="mt-2 text-sm text-black/65 sm:text-base">
-            Write to us at{' '}
+            {t.notFoundBefore}
             <a
               href="mailto:keremliving@gmail.com"
               className="font-semibold text-black underline-offset-4 hover:underline"
             >
               keremliving@gmail.com
-            </a>{' '}
-            — we usually reply within a few hours.
+            </a>
+            {t.notFoundAfter}
           </p>
         </div>
       </div>

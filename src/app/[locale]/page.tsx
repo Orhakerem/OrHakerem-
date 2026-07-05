@@ -7,8 +7,13 @@ import { ContactCard } from '@/components/ContactCard';
 import { Mail, Phone, Instagram, Facebook } from 'lucide-react';
 import TestimonialsCarousel from '@/components/TestimonialsCarousel';
 import MapEmbed from '@/components/MapEmbed';
+import { isLocale, type Locale } from '@/i18n/config';
+import { homeMessages } from '@/i18n/messages/home';
 
-export default function Home() {
+export default function Home({ params }: { params: { locale: string } }) {
+  const locale: Locale = isLocale(params.locale) ? params.locale : 'en';
+  const t = homeMessages[locale];
+
   return (
     <div className="min-h-screen">
       {/* Preload the hero poster (the LCP paint) at high priority */}
@@ -38,11 +43,13 @@ export default function Home() {
 
         {/* Desktop / large tablet overlay */}
         <div className="hero-title hero-home-title">
-          <HeroAnimatedTitle />
+          <HeroAnimatedTitle titles={t.hero.titles} />
         </div>
 
         <div className="glass-cta-wrap hero-home-cta-wrap">
-          <LiquidGlassCTA href="/properties">View Properties</LiquidGlassCTA>
+          <LiquidGlassCTA href={locale === 'en' ? '/properties' : `/${locale}/properties`}>
+            {t.hero.viewProperties}
+          </LiquidGlassCTA>
         </div>
       </div>
 
@@ -58,41 +65,31 @@ export default function Home() {
             <div className="min-w-0 text-start">
               <div className="mb-2 sm:mb-6">
                 <h2 className="font-head text-2xl md:text-5xl lg:text-6xl font-bold text-black leading-tight mb-3 md:mb-6">
-                  Welcome
+                  {t.welcome.heading}
                 </h2>
               </div>
 
               {/* Mobile: concise version, height ≈ video */}
               <div className="block sm:hidden max-w-3xl text-sm leading-relaxed">
-                <p className="text-black/90 font-light font-body">
-                  Premium apartments for short-term stays in the heart of Tel Aviv — Kerem HaTeimanim, near Carmel Market and the beach. Carefully designed, comfortable spaces for a flexible, elevated stay.
-                </p>
+                <p className="text-black/90 font-light font-body">{t.welcome.introMobile}</p>
               </div>
 
               {/* Desktop: full version */}
               <div className="hidden sm:block max-w-3xl space-y-6 text-lg md:text-xl">
-                <p className="text-black/90 leading-relaxed font-light font-body">
-                  Or Hakerem is a unique building offering premium apartments for short-term stays in the heart of Tel Aviv.
-                </p>
+                <p className="text-black/90 leading-relaxed font-light font-body">{t.welcome.p1Desktop}</p>
 
-                <p className="text-black/80 leading-relaxed font-light font-body">
-                  Located in Kerem HaTeimanim, near Carmel Market and within walking distance to the beach, the property places you right in the center of it all — just moments from Banana Beach, Nachalat Binyamin, and the vibrant energy of the city.
-                </p>
+                <p className="text-black/80 leading-relaxed font-light font-body">{t.welcome.p2Desktop}</p>
 
-                <p className="text-black/85 leading-relaxed font-light font-body">
-                  Each apartment comes in a different format, designed to suit everything from short city stays to family trips, private gatherings, and special events. What they all share is the same standard: carefully designed spaces, comfort, and a location that makes everything feel easy.
-                </p>
+                <p className="text-black/85 leading-relaxed font-light font-body">{t.welcome.p3Desktop}</p>
 
-                <p className="text-black/85 leading-relaxed font-light font-body">
-                  Whether you’re coming for a few days by the sea or planning a more private moment, Or Hakerem offers a flexible and elevated way to experience Tel Aviv.
-                </p>
+                <p className="text-black/85 leading-relaxed font-light font-body">{t.welcome.p4Desktop}</p>
               </div>
             </div>
 
             <div className="relative min-h-[170px] sm:min-h-[440px] lg:min-h-[620px] overflow-hidden rounded-md border border-primary/10 shadow-2xl" data-animate="slide-in-right">
               <Image
                 src="/studio/Salon_angle_3_Zoom.jpg"
-                alt="Or Hakerem apartment"
+                alt={t.welcome.imageAlt}
                 fill
                 priority
                 quality={70}
@@ -123,16 +120,18 @@ export default function Home() {
             <div className="order-1 lg:order-2">
               <div className="home-location-header mb-6" data-animate="fade-up">
                 <span className="text-secondary font-semibold text-lg tracking-[0.2em] uppercase block mb-3">
-                  Our Location
+                  {t.location.kicker}
                 </span>
                 <h2 className="font-head text-4xl md:text-5xl lg:text-6xl font-bold text-white leading-tight" data-animate="text" data-delay="1">
-                  At the Heart of Tel Aviv
+                  {t.location.heading}
                 </h2>
               </div>
 
               <div className="home-location-content w-full" data-animate="fade-up" data-delay="2">
                 <p className="text-white/90 text-lg md:text-xl leading-relaxed font-light mb-8 hidden lg:block">
-                  Our building is located at <span className="font-medium text-secondary">35 Hakovshim Street</span>, in Kerem HaTeimanim, just steps from the beach and near Carmel Market for guests who want a central, walkable stay in Tel Aviv.
+                  {t.location.beforeAddress}
+                  <span className="font-medium text-secondary">{t.location.address}</span>
+                  {t.location.afterAddress}
                 </p>
 
                 <div className="text-center hidden lg:block" data-animate="scale" data-delay="3">
@@ -141,7 +140,7 @@ export default function Home() {
                     target="_blank"
                     rel="noopener noreferrer"
                   >
-                    Open in Google Maps
+                    {t.location.openMaps}
                   </LiquidGlassCTA>
                 </div>
               </div>
@@ -154,7 +153,7 @@ export default function Home() {
                 target="_blank"
                 rel="noopener noreferrer"
               >
-                Open in Google Maps
+                {t.location.openMaps}
               </LiquidGlassCTA>
             </div>
           </div>
@@ -169,33 +168,33 @@ export default function Home() {
         <div className="max-w-6xl mx-auto px-3 md:px-4 relative z-10">
           <div className="text-center mb-10" data-animate="fade-up">
             <h2 className="font-head text-4xl md:text-5xl lg:text-6xl font-bold text-black leading-tight" data-animate="text" data-delay="1">
-              Contact Us
+              {t.contact.heading}
             </h2>
           </div>
           <ContactCard
-            description="Have questions about our properties, events, or concierge services?"
+            description={t.contact.description}
             contactInfo={[
               {
                 icon: Mail,
-                label: 'Email',
+                label: t.contact.emailLabel,
                 value: 'keremliving@gmail.com',
                 href: 'mailto:keremliving@gmail.com',
               },
               {
                 icon: Phone,
-                label: 'Phone & WhatsApp',
+                label: t.contact.phoneLabel,
                 value: '+33 6 51 17 99 25 · +972 58 577 8891',
                 href: 'tel:+33651179925',
               },
               {
                 icon: Instagram,
-                label: 'Instagram',
+                label: t.contact.instagramLabel,
                 value: '@or_hakerem',
                 href: 'https://www.instagram.com/or_hakerem/',
               },
               {
                 icon: Facebook,
-                label: 'Facebook',
+                label: t.contact.facebookLabel,
                 value: 'Or Hakerem',
                 href: 'https://www.facebook.com/profile.php?id=61583829025542',
               },
