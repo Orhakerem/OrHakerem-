@@ -1,19 +1,11 @@
 'use client';
 
 import { useMemo, useState } from 'react';
-import { ChevronDown, MapPin, Home, CalendarCheck, ConciergeBell } from 'lucide-react';
-import type { LucideIcon } from 'lucide-react';
+import { ChevronDown } from 'lucide-react';
 
 import { faqData, type FAQCategory, type FAQEntry } from '@/lib/faq-data';
 import { useLocale } from '@/i18n/useLocale';
 import { faqMessages } from '@/i18n/messages/faq';
-
-const CATEGORY_ICONS: Record<FAQCategory, LucideIcon> = {
-  location: MapPin,
-  stay: Home,
-  booking: CalendarCheck,
-  services: ConciergeBell,
-};
 
 export default function FAQPage() {
   const locale = useLocale();

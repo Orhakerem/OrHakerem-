@@ -2,6 +2,7 @@
 
 import { redirect } from 'next/navigation';
 
+import { saveAdminQuoteHistory } from '@/actions/admin-pricing';
 import { verifyCredentials } from '@/lib/admin-auth';
 import { clearAdminSession, createAdminSession, getAdminSession } from '@/lib/admin-session';
 import { getBookablePropertyCalendarSnapshot } from '@/lib/airbnb-calendar';
@@ -120,6 +121,15 @@ export async function sendReservationQuote(
     });
 
     if (result.status === 'sent') {
+      const historyResult = await saveAdminQuoteHistory({
+        quote: data,
+        resendEmailId: result.id,
+      });
+
+      if (!historyResult.success) {
+        console.error('Reservation quote history save failed:', historyResult.error);
+      }
+
       return {
         success: true,
         status: 'sent',

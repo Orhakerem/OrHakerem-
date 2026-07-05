@@ -3,7 +3,7 @@ import { readFileSync } from 'node:fs';
 import { test } from 'node:test';
 import { fileURLToPath } from 'node:url';
 
-const sourcePath = fileURLToPath(new URL('../app/faq/page.tsx', import.meta.url));
+const sourcePath = fileURLToPath(new URL('../app/[locale]/faq/page.tsx', import.meta.url));
 const source = readFileSync(sourcePath, 'utf8');
 
 test('FAQ contact footer links to the support email address', () => {
