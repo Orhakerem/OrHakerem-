@@ -32,6 +32,19 @@ export function localizePath(locale: Locale, path: string): string {
   return normalized === '/' ? `/${locale}` : `/${locale}${normalized}`;
 }
 
+/**
+ * Removes a leading /fr or /he segment so path logic can reason about the
+ * canonical (English) shape of the current URL. Unprefixed paths pass through.
+ */
+export function stripLocalePrefix(pathname: string): string {
+  for (const locale of LOCALES) {
+    if (locale === DEFAULT_LOCALE) continue;
+    if (pathname === `/${locale}`) return '/';
+    if (pathname.startsWith(`/${locale}/`)) return pathname.slice(locale.length + 1);
+  }
+  return pathname;
+}
+
 export const OG_LOCALE: Record<Locale, string> = {
   en: 'en_US',
   fr: 'fr_FR',

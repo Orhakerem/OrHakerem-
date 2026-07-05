@@ -5,6 +5,9 @@ import Link from 'next/link';
 import { Cookie } from 'lucide-react';
 
 import GoogleAnalytics from '@/components/GoogleAnalytics';
+import { localizePath } from '@/i18n/config';
+import { useLocale } from '@/i18n/useLocale';
+import { commonMessages } from '@/i18n/messages/common';
 
 type ConsentChoice = 'granted' | 'denied';
 
@@ -39,6 +42,8 @@ function disableAnalytics() {
 }
 
 export default function CookieConsent() {
+  const locale = useLocale();
+  const t = commonMessages[locale].cookies;
   const [mounted, setMounted] = useState(false);
   const [consent, setConsent] = useState<ConsentChoice | null>(null);
   const [bannerOpen, setBannerOpen] = useState(false);
@@ -97,7 +102,7 @@ export default function CookieConsent() {
         <div
           role="dialog"
           aria-modal="false"
-          aria-label="Cookie consent"
+          aria-label={t.dialogAria}
           className="fixed bottom-24 start-3 end-3 z-50 rounded-2xl border border-primary/10 bg-white p-4 shadow-xl sm:bottom-5 sm:start-5 sm:end-auto sm:max-w-md sm:p-5"
         >
           <div className="flex flex-col gap-3">
@@ -106,17 +111,16 @@ export default function CookieConsent() {
                 <Cookie className="h-5 w-5" aria-hidden="true" />
               </span>
               <div>
-                <p className="font-head text-base font-semibold text-black">We value your privacy</p>
+                <p className="font-head text-base font-semibold text-black">{t.title}</p>
                 <p className="mt-1 text-sm leading-relaxed text-black/70">
-                  We use cookies to measure site traffic with Google Analytics. Analytics load only if you
-                  accept. See our{' '}
+                  {t.bodyBeforeLink}
                   <Link
-                    href="/privacy"
+                    href={localizePath(locale, '/privacy')}
                     className="font-semibold text-primary underline underline-offset-2 hover:text-primary-light"
                   >
-                    Privacy Policy
+                    {t.privacyPolicy}
                   </Link>
-                  .
+                  {t.bodyAfterLink}
                 </p>
               </div>
             </div>
@@ -127,14 +131,14 @@ export default function CookieConsent() {
                 onClick={decline}
                 className="flex-1 rounded-full border border-primary/20 px-4 py-3 text-sm font-semibold text-primary transition-colors hover:bg-primary/5 sm:flex-none"
               >
-                Decline
+                {t.decline}
               </button>
               <button
                 type="button"
                 onClick={accept}
                 className="flex-1 rounded-full bg-primary px-4 py-3 text-sm font-semibold text-white transition-colors hover:bg-primary-light sm:flex-none"
               >
-                Accept
+                {t.accept}
               </button>
             </div>
           </div>

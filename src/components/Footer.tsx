@@ -6,28 +6,10 @@ import Image from 'next/image';
 import { Mail, Phone, MapPin, Instagram, Linkedin, Facebook, MessageCircle } from 'lucide-react';
 
 import { SITE_URL } from '@/app/seo';
-
-type FooterLink = {
-  label: string;
-  href: string;
-  indent?: boolean;
-};
-
-const exploreLinks: FooterLink[] = [
-  { label: 'Home', href: '/' },
-  { label: 'Properties', href: '/properties' },
-  { label: 'Luxury Penthouse', href: '/properties/penthouse-jacuzzi', indent: true },
-  { label: 'Spacious & Cosy Apartment', href: '/properties/cozy-studio', indent: true },
-  { label: 'Events', href: '/events' },
-  { label: 'About', href: '/about' },
-  { label: 'FAQ', href: '/faq' },
-];
-
-const stayLinks: FooterLink[] = [
-  { label: 'Services', href: '/services' },
-  { label: 'Reservation', href: '/reservation' },
-  { label: 'Contact', href: '/contact' },
-];
+import { localizePath } from '@/i18n/config';
+import { useLocale } from '@/i18n/useLocale';
+import { commonMessages } from '@/i18n/messages/common';
+import LocaleSwitcher from '@/i18n/LocaleSwitcher';
 
 const socials = [
   { label: 'Instagram', href: 'https://www.instagram.com/or_hakerem/', Icon: Instagram },
@@ -37,14 +19,33 @@ const socials = [
 ];
 
 export default function Footer() {
+  const locale = useLocale();
+  const t = commonMessages[locale].footer;
+
+  const exploreLinks = [
+    { label: t.home, href: localizePath(locale, '/') },
+    { label: t.properties, href: localizePath(locale, '/properties') },
+    { label: t.penthouse, href: localizePath(locale, '/properties/penthouse-jacuzzi'), indent: true },
+    { label: t.studio, href: localizePath(locale, '/properties/cozy-studio'), indent: true },
+    { label: t.events, href: localizePath(locale, '/events') },
+    { label: t.about, href: localizePath(locale, '/about') },
+    { label: t.faq, href: localizePath(locale, '/faq') },
+  ];
+
+  const stayLinks = [
+    { label: t.services, href: localizePath(locale, '/services') },
+    { label: t.reservation, href: localizePath(locale, '/reservation') },
+    { label: t.contactLink, href: localizePath(locale, '/contact') },
+  ];
+
   return (
-    <footer className="site-footer bg-primary text-white relative rounded-t-3xl" aria-label="Footer">
+    <footer className="site-footer bg-primary text-white relative rounded-t-3xl" aria-label={t.footerAria}>
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Main grid */}
         <div className="py-8 md:py-10 grid grid-cols-2 lg:grid-cols-4 gap-y-8 gap-x-8 lg:gap-x-12">
           {/* Col 1 — Brand */}
           <div className="col-span-2 lg:col-span-1 space-y-4">
-            <Link href="/" aria-label="Or Hakerem — Home" className="inline-block">
+            <Link href={localizePath(locale, '/')} aria-label="Or Hakerem" className="inline-block">
               <Image
                 src="/logo/Logo_beige_h1.png"
                 alt="Or Hakerem"
@@ -55,7 +56,7 @@ export default function Footer() {
               />
             </Link>
             <p className="text-sm text-white/70 max-w-xs leading-snug">
-              Luxury accommodations in the heart of Tel Aviv.
+              {t.tagline}
             </p>
             <ul className="flex gap-3">
               {socials.map(({ label, href, Icon }) => (
@@ -75,8 +76,8 @@ export default function Footer() {
           </div>
 
           {/* Col 2 — Explore */}
-          <nav aria-label="Footer navigation — Explore">
-            <h3 className="font-head text-xs uppercase tracking-[0.18em] text-secondary mb-3">Explore</h3>
+          <nav aria-label={t.exploreAria}>
+            <h3 className="font-head text-xs uppercase tracking-[0.18em] text-secondary mb-3">{t.explore}</h3>
             <ul className="space-y-2">
               {exploreLinks.map(({ label, href, indent }) => (
                 <li key={href} className={indent ? 'ps-3 border-s border-white/10' : ''}>
@@ -92,8 +93,8 @@ export default function Footer() {
           </nav>
 
           {/* Col 3 — Stay */}
-          <nav aria-label="Footer navigation — Stay">
-            <h3 className="font-head text-xs uppercase tracking-[0.18em] text-secondary mb-3">Stay</h3>
+          <nav aria-label={t.stayAria}>
+            <h3 className="font-head text-xs uppercase tracking-[0.18em] text-secondary mb-3">{t.stay}</h3>
             <ul className="space-y-2">
               {stayLinks.map(({ label, href }) => (
                 <li key={href}>
@@ -113,7 +114,7 @@ export default function Footer() {
                   className="inline-flex items-center gap-2 text-sm text-white/70 hover:text-white transition-colors"
                 >
                   <MessageCircle className="h-3.5 w-3.5" aria-hidden="true" />
-                  WhatsApp us
+                  {t.whatsappUs}
                 </a>
               </li>
             </ul>
@@ -121,7 +122,7 @@ export default function Footer() {
 
           {/* Col 4 — Contact */}
           <div className="col-span-2 lg:col-span-1">
-            <h3 className="font-head text-xs uppercase tracking-[0.18em] text-secondary mb-3">Contact</h3>
+            <h3 className="font-head text-xs uppercase tracking-[0.18em] text-secondary mb-3">{t.contact}</h3>
             <address className="not-italic space-y-2 text-sm text-white/70">
               <a
                 href="mailto:keremliving@gmail.com"
@@ -135,7 +136,7 @@ export default function Footer() {
                 className="flex items-start gap-2 hover:text-white transition-colors"
               >
                 <Phone className="h-4 w-4 mt-0.5 shrink-0 text-secondary/80" aria-hidden="true" />
-                <span>
+                <span dir="ltr">
                   +33 6 51 17 99 25 <span className="text-white/40">·</span> FR
                 </span>
               </a>
@@ -144,16 +145,16 @@ export default function Footer() {
                 className="flex items-start gap-2 hover:text-white transition-colors"
               >
                 <Phone className="h-4 w-4 mt-0.5 shrink-0 text-secondary/80" aria-hidden="true" />
-                <span>
+                <span dir="ltr">
                   +972 58 577 8891 <span className="text-white/40">·</span> IL
                 </span>
               </a>
               <p className="flex items-start gap-2">
                 <MapPin className="h-4 w-4 mt-0.5 shrink-0 text-secondary/80" aria-hidden="true" />
                 <span>
-                  35 Hakovshim Street
+                  {t.address1}
                   <br />
-                  Tel Aviv, Israel
+                  {t.address2}
                 </span>
               </p>
             </address>
@@ -163,29 +164,30 @@ export default function Footer() {
         {/* Bottom bar */}
         <div className="border-t border-secondary/20 py-3">
           <div className="flex flex-col md:flex-row items-center justify-between gap-3 text-xs text-white/60">
-            <p>© 2026 Or Hakerem. All rights reserved.</p>
+            <p>{t.copyright}</p>
             <nav
-              aria-label="Legal"
+              aria-label={t.legalAria}
               className="flex flex-wrap items-center justify-center gap-x-2 gap-y-1"
             >
-              <Link href="/terms" className="hover:text-white transition-colors">
-                Terms
+              <Link href={localizePath(locale, '/terms')} className="hover:text-white transition-colors">
+                {t.terms}
               </Link>
               <span aria-hidden="true" className="text-white/30">
                 ·
               </span>
-              <Link href="/privacy" className="hover:text-white transition-colors">
-                Privacy
+              <Link href={localizePath(locale, '/privacy')} className="hover:text-white transition-colors">
+                {t.privacy}
               </Link>
               <span aria-hidden="true" className="text-white/30">
                 ·
               </span>
-              <Link href="/cancellation" className="hover:text-white transition-colors">
-                Cancellation Policy
+              <Link href={localizePath(locale, '/cancellation')} className="hover:text-white transition-colors">
+                {t.cancellation}
               </Link>
             </nav>
+            <LocaleSwitcher />
             <p>
-              Made by{' '}
+              {t.madeBy}{' '}
               <a
                 href="https://sitekept.com"
                 target="_blank"
