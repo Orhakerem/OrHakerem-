@@ -15,10 +15,10 @@ export default function ContactPage() {
             href="/"
             className="inline-flex items-center rounded-full border border-primary/20 bg-white/80 px-4 py-2 md:px-6 md:py-3 text-sm md:text-lg font-semibold text-black shadow-lg transition-all duration-300"
           >
-            <div className="relative mr-3">
+            <div className="relative me-3">
               <ArrowLeft className="w-5 h-5" />
             </div>
-            <Home className="w-5 h-5 mr-2 opacity-70" />
+            <Home className="w-5 h-5 me-2 opacity-70" />
             <span className="relative z-10">Back to Home</span>
           </Link>
         </div>

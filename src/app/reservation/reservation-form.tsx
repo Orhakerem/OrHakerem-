@@ -407,13 +407,13 @@ export default function ReservationForm({
             Email Address
           </label>
           <div className="relative">
-            <Mail className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-black/60" />
+            <Mail className="absolute start-3 top-1/2 -translate-y-1/2 w-5 h-5 text-black/60" />
             <input
               type="email"
               id="email"
               name="email"
               required
-              className="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-md"
+              className="w-full ps-10 pe-4 py-2 border border-gray-300 rounded-md"
             />
           </div>
         </div>
@@ -423,13 +423,13 @@ export default function ReservationForm({
             Phone Number
           </label>
           <div className="relative">
-            <Phone className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-black/60" />
+            <Phone className="absolute start-3 top-1/2 -translate-y-1/2 w-5 h-5 text-black/60" />
             <input
               type="tel"
               id="phone"
               name="phone"
               required
-              className="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-md"
+              className="w-full ps-10 pe-4 py-2 border border-gray-300 rounded-md"
             />
           </div>
         </div>
@@ -448,7 +448,7 @@ export default function ReservationForm({
                 className="absolute opacity-0"
               />
               <Mail className="h-5 w-5 text-black" />
-              <span className="ml-2 text-black">Email</span>
+              <span className="ms-2 text-black">Email</span>
             </label>
 
             <label className={`tap-reset relative flex cursor-pointer items-center justify-center rounded-md border p-4 ${contactMethod === 'phone' ? 'border-black/10 bg-black/[0.03] shadow-sm' : 'border-gray-200 bg-white'}`}>
@@ -461,7 +461,7 @@ export default function ReservationForm({
                 className="absolute opacity-0"
               />
               <Phone className="h-5 w-5 text-black" />
-              <span className="ml-2 text-black">Phone</span>
+              <span className="ms-2 text-black">Phone</span>
             </label>
 
             <label className={`tap-reset relative flex cursor-pointer items-center justify-center rounded-md border p-4 ${contactMethod === 'whatsapp' ? 'border-black/10 bg-black/[0.03] shadow-sm' : 'border-gray-200 bg-white'}`}>
@@ -474,7 +474,7 @@ export default function ReservationForm({
                 className="absolute opacity-0"
               />
               <MessageSquare className="h-5 w-5 text-black" />
-              <span className="ml-2 text-black">WhatsApp</span>
+              <span className="ms-2 text-black">WhatsApp</span>
             </label>
           </div>
         </div>

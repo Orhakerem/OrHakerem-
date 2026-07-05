@@ -1,43 +1,50 @@
 import { redirect } from 'next/navigation';
+import Link from 'next/link';
 
-import { logoutAdmin } from '@/actions/admin';
-import ReservationQuoteForm from '@/components/admin/ReservationQuoteForm';
+import AdminShell from '@/components/admin/AdminShell';
 import { getAdminSession } from '@/lib/admin-session';
-import { getBookablePropertyCalendarSnapshot } from '@/lib/airbnb-calendar';
 
 export default async function AdminPage() {
   if (!getAdminSession()) {
     redirect('/admin/login');
   }
 
-  const availabilitySnapshot = await getBookablePropertyCalendarSnapshot();
-
   return (
-    <div className="mx-auto max-w-4xl px-4 pb-24 pt-28 sm:px-6">
-      <header className="mb-8 flex flex-wrap items-end justify-between gap-4 border-b border-primary/15 pb-6">
-        <div>
-          <p className="font-mono text-[11px] uppercase tracking-[0.32em] text-primary/70">
-            Or Hakerem · Back office
+    <AdminShell
+      title="Dashboard"
+      description="Choose the back-office workflow you want to manage."
+    >
+      <div className="grid gap-4 sm:grid-cols-2">
+        <Link
+          href="/admin/devis"
+          className="rounded-2xl border border-primary/10 bg-white p-6 shadow-sm transition-colors hover:border-primary/30 hover:bg-primary/[0.02]"
+        >
+          <p className="font-mono text-[10px] uppercase tracking-[0.28em] text-primary/60">
+            Devis
           </p>
-          <h1 className="mt-2 font-head text-4xl font-light tracking-h1 text-black">
+          <h2 className="mt-2 font-head text-2xl font-light tracking-h3 text-black">
             Reservation quote
-          </h1>
-          <p className="mt-2 max-w-xl text-sm text-black/60">
-            Enter the booking details and send the branded reservation &amp; invoice email to the
-            customer.
+          </h2>
+          <p className="mt-2 text-sm text-black/60">
+            Prepare and send the branded reservation invoice email to the customer.
           </p>
-        </div>
-        <form action={logoutAdmin}>
-          <button
-            type="submit"
-            className="rounded-full border-2 border-primary/30 px-5 py-2 text-sm font-medium text-primary transition-colors hover:bg-primary/5"
-          >
-            Log out
-          </button>
-        </form>
-      </header>
+        </Link>
 
-      <ReservationQuoteForm availabilitySnapshot={availabilitySnapshot} />
-    </div>
+        <Link
+          href="/admin/pricing"
+          className="rounded-2xl border border-primary/10 bg-white p-6 shadow-sm transition-colors hover:border-primary/30 hover:bg-primary/[0.02]"
+        >
+          <p className="font-mono text-[10px] uppercase tracking-[0.28em] text-primary/60">
+            Pricing
+          </p>
+          <h2 className="mt-2 font-head text-2xl font-light tracking-h3 text-black">
+            Pricing editor
+          </h2>
+          <p className="mt-2 text-sm text-black/60">
+            Manage listing rates, seasonal periods, and pricing rules.
+          </p>
+        </Link>
+      </div>
+    </AdminShell>
   );
 }

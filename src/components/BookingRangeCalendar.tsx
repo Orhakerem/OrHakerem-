@@ -286,12 +286,12 @@ export default function BookingRangeCalendar({
           </p>
         ) : null}
 
-        <div className="grid grid-cols-2 divide-x divide-primary/10 border-b border-primary/10 sm:grid-cols-3">
+        <div className="grid grid-cols-2 divide-x rtl:divide-x-reverse divide-primary/10 border-b border-primary/10 sm:grid-cols-3">
           <button
             type="button"
             onClick={() => handleFieldFocus('checkIn')}
             aria-pressed={activeField === 'checkIn'}
-            className={`tap-reset px-4 py-4 text-left transition sm:px-5 ${
+            className={`tap-reset px-4 py-4 text-start transition sm:px-5 ${
               activeField === 'checkIn' ? 'bg-primary/[0.04]' : 'hover:bg-primary/[0.02]'
             }`}
           >
@@ -307,7 +307,7 @@ export default function BookingRangeCalendar({
             type="button"
             onClick={() => handleFieldFocus('checkOut')}
             aria-pressed={activeField === 'checkOut'}
-            className={`tap-reset px-4 py-4 text-left transition sm:px-5 ${
+            className={`tap-reset px-4 py-4 text-start transition sm:px-5 ${
               activeField === 'checkOut' ? 'bg-primary/[0.04]' : 'hover:bg-primary/[0.02]'
             }`}
           >

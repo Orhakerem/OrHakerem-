@@ -184,7 +184,7 @@ export default function Properties() {
                 <ul className="space-y-2 md:space-y-3">
                   {neighborhoodHighlights.map((highlight) => (
                     <li key={highlight} className="flex items-start text-sm md:text-base text-black/80">
-                      <CheckCircle className="w-5 h-5 text-secondary mr-3 mt-0.5 flex-shrink-0" />
+                      <CheckCircle className="w-5 h-5 text-secondary me-3 mt-0.5 flex-shrink-0" />
                       <span>{highlight}</span>
                     </li>
                   ))}
@@ -203,7 +203,7 @@ export default function Properties() {
                 />
               </div>
 
-              <div className="absolute -bottom-5 left-5 right-5 md:left-auto md:right-6 md:max-w-xs rounded-[10px] bg-white p-4 md:p-5 shadow-xl border border-primary/10">
+              <div className="absolute -bottom-5 start-5 end-5 md:start-auto md:end-6 md:max-w-xs rounded-[10px] bg-white p-4 md:p-5 shadow-xl border border-primary/10">
                 <div className="flex items-center gap-3 mb-2">
                   <div className="w-12 h-12 rounded-full bg-secondary/20 flex items-center justify-center text-black">
                     <CheckCircle className="w-6 h-6" />
@@ -312,7 +312,7 @@ export default function Properties() {
                   className="liquid-cta--xs liquid-cta--light"
                 >
                   <span>View on Airbnb</span>
-                  <ExternalLink className="w-4 h-4 ml-2" />
+                  <ExternalLink className="w-4 h-4 ms-2" />
                 </LiquidGlassCTA>
                 <LiquidGlassCTA
                   href="https://www.booking.com/hotel/il/penthouse-with-jacuzzi-bbq-2mn-from-sea-or-hakerem.fr.html?label=gen173bo-10CAsoakIycGVudGhvdXNlLXdpdGgtamFjdXp6aS1iYnEtMm1uLWZyb20tc2VhLW9yLWhha2VyZW1IM1gDaGqIAQGYATO4AQfIAQzYAQPoAQH4AQGIAgGYAgaoAgG4ArzUsNAGwAIB0gIkODQ1YTJkYmItOWI2NS00YWUwLTg4ZGEtNGUwMGJiNTAyMjZl2AIB4AIB&sid=d76cf1f6818f7b442a6ed091d7429070&dist=0&keep_landing=1&sb_price_type=total&type=total&"
@@ -321,7 +321,7 @@ export default function Properties() {
                   className="liquid-cta--xs liquid-cta--light"
                 >
                   <span>View on Booking.com</span>
-                  <ExternalLink className="w-4 h-4 ml-2" />
+                  <ExternalLink className="w-4 h-4 ms-2" />
                 </LiquidGlassCTA>
               </div>
             </div>
@@ -339,7 +339,7 @@ export default function Properties() {
                   className="liquid-cta--xs liquid-cta--light"
                 >
                   <span>View on Airbnb</span>
-                  <ExternalLink className="w-4 h-4 ml-2" />
+                  <ExternalLink className="w-4 h-4 ms-2" />
                 </LiquidGlassCTA>
               </div>
             </div>

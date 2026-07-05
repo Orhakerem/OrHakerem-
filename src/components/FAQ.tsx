@@ -13,7 +13,7 @@ export default function FAQ() {
     <section className="home-faq-section bg-cream py-12 sm:py-14" data-animate="fade-up">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="home-faq-shell grid items-start gap-6 rounded-[1.75rem] border border-white/10 bg-primary p-5 shadow-[0_18px_60px_rgba(83,45,36,0.25)] md:grid-cols-[0.82fr_1.18fr] md:p-7 lg:p-8">
-          <div className="home-faq-header text-left">
+          <div className="home-faq-header text-start">
             <h2 className="font-head text-3xl font-bold leading-tight text-white sm:text-4xl lg:text-5xl">
               Fast answers before you book
             </h2>
@@ -37,7 +37,7 @@ export default function FAQ() {
               >
                 <button
                   type="button"
-                  className="tap-reset flex w-full items-center justify-between gap-4 px-4 py-3.5 text-left sm:px-5"
+                  className="tap-reset flex w-full items-center justify-between gap-4 px-4 py-3.5 text-start sm:px-5"
                   onClick={() => setOpenIndex(openIndex === index ? -1 : index)}
                   aria-expanded={openIndex === index}
                   aria-controls={`home-faq-answer-${index}`}

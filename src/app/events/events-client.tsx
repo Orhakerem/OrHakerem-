@@ -207,7 +207,7 @@ export default function EventsClient({
                   From Bar and Bat Mitzvahs to Brit Milah, Sheva Brachot, and elegant family gatherings, each event is hosted with care and attention to detail, with kosher services available on request.
                 </p>
               </div>
-              <div className="md:border-l md:border-primary/15 md:pl-12">
+              <div className="md:border-s md:border-primary/15 md:ps-12">
                 <span className="text-tertiary font-semibold text-xs tracking-[0.22em] uppercase block mb-3">
                   Trusted Hosting
                 </span>
@@ -377,7 +377,7 @@ export default function EventsClient({
                 <div className="events-plan-cta text-center mb-8">
                   <div className="inline-block relative">
                     <LiquidGlassButton variant="dark" onClick={() => setShowForm(true)}>
-                      <Calendar className="w-5 h-5 mr-2" />
+                      <Calendar className="w-5 h-5 me-2" />
                       <span>Inquire About Events</span>
                     </LiquidGlassButton>
                   </div>
@@ -420,7 +420,7 @@ export default function EventsClient({
                     setShowForm(false);
                     setIsDatePickerOpen(false);
                   }}
-                  className="tap-reset -mr-1 shrink-0 p-2 text-black/55 transition hover:text-black"
+                  className="tap-reset -me-1 shrink-0 p-2 text-black/55 transition hover:text-black"
                 >
                   <span className="sr-only">Close</span>
                   <X className="h-4 w-4" />
@@ -485,7 +485,7 @@ export default function EventsClient({
                     <button
                       type="button"
                       onClick={() => setIsDatePickerOpen((isOpen) => !isOpen)}
-                      className="tap-reset flex w-full items-center justify-between gap-3 rounded-xl border border-primary/15 bg-cream/60 px-4 py-3 text-left transition hover:border-primary/30"
+                      className="tap-reset flex w-full items-center justify-between gap-3 rounded-xl border border-primary/15 bg-cream/60 px-4 py-3 text-start transition hover:border-primary/30"
                       aria-expanded={isDatePickerOpen}
                     >
                       <span>
@@ -542,13 +542,13 @@ export default function EventsClient({
                         Email
                       </label>
                       <div className="relative">
-                        <Mail className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-black/55" />
+                        <Mail className="absolute start-3 top-1/2 h-4 w-4 -translate-y-1/2 text-black/55" />
                         <input
                           type="email"
                           id="email"
                           name="email"
                           required
-                          className="h-11 w-full rounded-lg border border-primary/15 bg-white py-2 pl-9 pr-3 text-sm text-black focus:border-black/15 focus:ring-2 focus:ring-black/10"
+                          className="h-11 w-full rounded-lg border border-primary/15 bg-white py-2 ps-9 pe-3 text-sm text-black focus:border-black/15 focus:ring-2 focus:ring-black/10"
                         />
                       </div>
                     </div>
@@ -561,13 +561,13 @@ export default function EventsClient({
                         Phone
                       </label>
                       <div className="relative">
-                        <Phone className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-black/55" />
+                        <Phone className="absolute start-3 top-1/2 h-4 w-4 -translate-y-1/2 text-black/55" />
                         <input
                           type="tel"
                           id="phone"
                           name="phone"
                           required
-                          className="h-11 w-full rounded-lg border border-primary/15 bg-white py-2 pl-9 pr-3 text-sm text-black focus:border-black/15 focus:ring-2 focus:ring-black/10"
+                          className="h-11 w-full rounded-lg border border-primary/15 bg-white py-2 ps-9 pe-3 text-sm text-black focus:border-black/15 focus:ring-2 focus:ring-black/10"
                         />
                       </div>
                     </div>

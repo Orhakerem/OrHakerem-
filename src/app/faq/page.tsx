@@ -94,7 +94,7 @@ export default function FAQPage() {
                       <li key={key}>
                         <button
                           type="button"
-                          className="tap-reset group flex w-full items-start gap-4 py-4 text-left"
+                          className="tap-reset group flex w-full items-start gap-4 py-4 text-start"
                           onClick={() => setOpenKey(isOpen ? null : key)}
                           aria-expanded={isOpen}
                           aria-controls={`faq-${key}`}
@@ -117,7 +117,7 @@ export default function FAQPage() {
                           }`}
                         >
                           <div className="min-h-0">
-                            <div className="border-l-2 border-primary/15 pl-4 text-[15px] leading-7 text-black/75">
+                            <div className="border-s-2 border-primary/15 ps-4 text-[15px] leading-7 text-black/75">
                               {faq.answer}
                             </div>
                           </div>

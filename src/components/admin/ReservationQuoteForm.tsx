@@ -204,7 +204,7 @@ function AdminDateField({
         <button
           type="button"
           onClick={() => setIsOpen((current) => !current)}
-          className={`${INPUT_CLASS} flex items-center justify-between text-left`}
+          className={`${INPUT_CLASS} flex items-center justify-between text-start`}
         >
           <span>{value || 'Select date'}</span>
           <CalendarDays className="h-4 w-4 text-primary/70" aria-hidden="true" />
@@ -381,12 +381,12 @@ function AdminStayCalendar({
             Calendar sync is partially stale. Blocked dates shown may be incomplete.
           </p>
         ) : null}
-        <div className="grid grid-cols-2 divide-x divide-primary/10 border-b border-primary/10">
+        <div className="grid grid-cols-2 divide-x rtl:divide-x-reverse divide-primary/10 border-b border-primary/10">
           <button
             type="button"
             onClick={() => handleFieldFocus('checkIn')}
             aria-pressed={activeField === 'checkIn'}
-            className={`px-4 py-4 text-left transition ${
+            className={`px-4 py-4 text-start transition ${
               activeField === 'checkIn' ? 'bg-primary/[0.04]' : 'hover:bg-primary/[0.02]'
             }`}
           >
@@ -401,7 +401,7 @@ function AdminStayCalendar({
             type="button"
             onClick={() => handleFieldFocus('checkOut')}
             aria-pressed={activeField === 'checkOut'}
-            className={`px-4 py-4 text-left transition ${
+            className={`px-4 py-4 text-start transition ${
               activeField === 'checkOut' ? 'bg-primary/[0.04]' : 'hover:bg-primary/[0.02]'
             }`}
           >

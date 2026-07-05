@@ -79,7 +79,7 @@ export default function Footer() {
             <h3 className="font-head text-xs uppercase tracking-[0.18em] text-secondary mb-3">Explore</h3>
             <ul className="space-y-2">
               {exploreLinks.map(({ label, href, indent }) => (
-                <li key={href} className={indent ? 'pl-3 border-l border-white/10' : ''}>
+                <li key={href} className={indent ? 'ps-3 border-s border-white/10' : ''}>
                   <Link
                     href={href}
                     className="text-sm text-white/70 hover:text-white transition-colors"

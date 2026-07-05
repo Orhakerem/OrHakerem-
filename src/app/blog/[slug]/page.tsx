@@ -141,7 +141,7 @@ export default function BlogPostPage({ params }: { params: { slug: string } }) {
         <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/20 to-transparent" />
 
         {/* Breadcrumb */}
-        <nav aria-label="Breadcrumb" className="absolute top-24 left-4 sm:left-6 md:left-8 lg:left-12">
+        <nav aria-label="Breadcrumb" className="absolute top-24 start-4 sm:start-6 md:start-8 lg:start-12">
           <ol className="flex items-center gap-1.5 text-xs text-white/75">
             <li><Link href="/" className="hover:text-white transition-colors">Home</Link></li>
             <li aria-hidden>/</li>

@@ -55,7 +55,7 @@ export default function Home() {
 
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
           <div className="grid grid-cols-[minmax(0,0.9fr)_minmax(152px,1fr)] items-center gap-4 sm:gap-8 lg:gap-16">
-            <div className="min-w-0 text-left">
+            <div className="min-w-0 text-start">
               <div className="mb-2 sm:mb-6">
                 <h2 className="font-head text-2xl md:text-5xl lg:text-6xl font-bold text-black leading-tight mb-3 md:mb-6">
                   Welcome

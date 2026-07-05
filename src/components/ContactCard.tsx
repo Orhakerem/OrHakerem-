@@ -50,7 +50,7 @@ export function ContactCard({
       </div>
 
       <div
-        className={`flex h-full w-full flex-col justify-center bg-cream/60 border-t border-secondary/40 p-5 md:p-8 md:col-span-1 md:border-t-0 md:border-l lg:col-span-3 rounded-b-2xl md:rounded-bl-none md:rounded-r-2xl [&>*]:w-full ${formSectionClassName}`}
+        className={`flex h-full w-full flex-col justify-center bg-cream/60 border-t border-secondary/40 p-5 md:p-8 md:col-span-1 md:border-t-0 md:border-s lg:col-span-3 rounded-b-2xl md:rounded-es-none md:rounded-e-2xl [&>*]:w-full ${formSectionClassName}`}
       >
         {children}
       </div>

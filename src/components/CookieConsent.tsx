@@ -98,7 +98,7 @@ export default function CookieConsent() {
           role="dialog"
           aria-modal="false"
           aria-label="Cookie consent"
-          className="fixed bottom-24 left-3 right-3 z-50 rounded-2xl border border-primary/10 bg-white p-4 shadow-xl sm:bottom-5 sm:left-5 sm:right-auto sm:max-w-md sm:p-5"
+          className="fixed bottom-24 start-3 end-3 z-50 rounded-2xl border border-primary/10 bg-white p-4 shadow-xl sm:bottom-5 sm:start-5 sm:end-auto sm:max-w-md sm:p-5"
         >
           <div className="flex flex-col gap-3">
             <div className="flex items-start gap-3">

@@ -176,14 +176,14 @@ export default function TestimonialsCarousel() {
             <div className="absolute inset-0 bg-gradient-to-br from-secondary/5 to-tertiary/5 rounded-3xl"></div>
             
             {/* Quote icon */}
-            <div className="absolute top-6 right-6 opacity-10">
+            <div className="absolute top-6 end-6 opacity-10">
               <Quote className="w-24 h-24 text-primary" />
             </div>
 
             <div className="relative z-10">
               {/* Stars */}
               <div className="flex justify-center mb-6">
-                <div className="flex space-x-1">
+                <div className="flex space-x-1 rtl:space-x-reverse">
                   {renderStars(testimonials[currentIndex].rating)}
                 </div>
               </div>

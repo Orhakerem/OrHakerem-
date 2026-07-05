@@ -748,7 +748,7 @@ export default function PropertyDetailsClient({
                             ?.scrollIntoView({ behavior: 'smooth', block: 'start' });
                         }, 0);
                       }}
-                      className="tap-reset border-r border-primary/15 px-4 py-3 text-left transition hover:bg-primary/5"
+                      className="tap-reset border-e border-primary/15 px-4 py-3 text-start transition hover:bg-primary/5"
                     >
                       <p className="text-[10px] font-semibold uppercase tracking-[0.18em] text-black/55">
                         Check-in
@@ -767,7 +767,7 @@ export default function PropertyDetailsClient({
                             ?.scrollIntoView({ behavior: 'smooth', block: 'start' });
                         }, 0);
                       }}
-                      className="tap-reset px-4 py-3 text-left transition hover:bg-primary/5"
+                      className="tap-reset px-4 py-3 text-start transition hover:bg-primary/5"
                     >
                       <p className="text-[10px] font-semibold uppercase tracking-[0.18em] text-black/55">
                         Checkout
@@ -790,7 +790,7 @@ export default function PropertyDetailsClient({
                       className="rounded-[10px] border border-red-200 bg-red-50 px-4 py-3 text-sm text-red-700"
                     >
                       <p className="font-semibold">Please fix the highlighted details before sending.</p>
-                      <ul className="mt-2 list-disc space-y-1 pl-5">
+                      <ul className="mt-2 list-disc space-y-1 ps-5">
                         {visibleFormErrors.map((errorMessage) => (
                           <li key={errorMessage}>{errorMessage}</li>
                         ))}
@@ -846,7 +846,7 @@ export default function PropertyDetailsClient({
                         Email Address
                       </label>
                       <div className="relative">
-                        <Mail className="absolute left-3 top-1/2 h-5 w-5 -translate-y-1/2 text-black/60" />
+                        <Mail className="absolute start-3 top-1/2 h-5 w-5 -translate-y-1/2 text-black/60" />
                         <input
                           type="email"
                           id="property-reservation-email"
@@ -855,7 +855,7 @@ export default function PropertyDetailsClient({
                           aria-invalid={Boolean(formErrors.email)}
                           aria-describedby={formErrors.email ? 'property-reservation-email-error' : undefined}
                           onChange={() => clearFormError('email')}
-                          className="w-full rounded-[10px] border border-gray-300 py-2 pl-10 pr-4"
+                          className="w-full rounded-[10px] border border-gray-300 py-2 ps-10 pe-4"
                         />
                       </div>
                       {formErrors.email ? (
@@ -870,7 +870,7 @@ export default function PropertyDetailsClient({
                         Phone Number
                       </label>
                       <div className="relative">
-                        <Phone className="absolute left-3 top-1/2 h-5 w-5 -translate-y-1/2 text-black/60" />
+                        <Phone className="absolute start-3 top-1/2 h-5 w-5 -translate-y-1/2 text-black/60" />
                         <input
                           type="tel"
                           id="property-reservation-phone"
@@ -879,7 +879,7 @@ export default function PropertyDetailsClient({
                           aria-invalid={Boolean(formErrors.phone)}
                           aria-describedby={formErrors.phone ? 'property-reservation-phone-error' : undefined}
                           onChange={() => clearFormError('phone')}
-                          className="w-full rounded-[10px] border border-gray-300 py-2 pl-10 pr-4"
+                          className="w-full rounded-[10px] border border-gray-300 py-2 ps-10 pe-4"
                         />
                       </div>
                       {formErrors.phone ? (
@@ -928,7 +928,7 @@ export default function PropertyDetailsClient({
                           className="absolute opacity-0"
                         />
                         <Mail className="h-5 w-5 text-black" />
-                        <span className="ml-2 text-black">Email</span>
+                        <span className="ms-2 text-black">Email</span>
                       </label>
 
                       <label className={`tap-reset relative flex cursor-pointer items-center justify-center rounded-[10px] border p-4 ${contactMethod === 'phone' ? 'border-black/10 bg-black/[0.03] shadow-sm' : 'border-gray-200 bg-white'}`}>
@@ -941,7 +941,7 @@ export default function PropertyDetailsClient({
                           className="absolute opacity-0"
                         />
                         <Phone className="h-5 w-5 text-black" />
-                        <span className="ml-2 text-black">Phone</span>
+                        <span className="ms-2 text-black">Phone</span>
                       </label>
 
                       <label className={`tap-reset relative flex cursor-pointer items-center justify-center rounded-[10px] border p-4 ${contactMethod === 'whatsapp' ? 'border-black/10 bg-black/[0.03] shadow-sm' : 'border-gray-200 bg-white'}`}>
@@ -954,14 +954,14 @@ export default function PropertyDetailsClient({
                           className="absolute opacity-0"
                         />
                         <MessageSquare className="h-5 w-5 text-black" />
-                        <span className="ml-2 text-black">WhatsApp</span>
+                        <span className="ms-2 text-black">WhatsApp</span>
                       </label>
                     </div>
                   </div>
 
                   <div className="relative">
                     <LiquidGlassButton type="submit" className="w-full" disabled={isSubmitting}>
-                      <Calendar className="w-6 h-6 mr-3" />
+                      <Calendar className="w-6 h-6 me-3" />
                       <span>{isSubmitting ? 'SENDING...' : 'BOOK NOW'}</span>
                     </LiquidGlassButton>
 
@@ -1011,7 +1011,7 @@ export default function PropertyDetailsClient({
           type="button"
           onClick={() => router.push('/properties')}
           aria-label="Back to properties"
-          className="tap-reset absolute top-4 left-4 flex h-10 w-10 items-center justify-center rounded-full bg-white shadow-md"
+          className="tap-reset absolute top-4 start-4 flex h-10 w-10 items-center justify-center rounded-full bg-white shadow-md"
         >
           <ChevronLeft className="h-5 w-5 text-black" />
         </button>
@@ -1038,7 +1038,7 @@ export default function PropertyDetailsClient({
           onClick={() => setIsPhotosModalOpen(true)}
           aria-haspopup="dialog"
           aria-label="View all photos"
-          className="tap-reset absolute bottom-4 right-4 rounded-full bg-black/50 px-3 py-1.5 text-xs font-semibold text-white backdrop-blur-sm"
+          className="tap-reset absolute bottom-4 end-4 rounded-full bg-black/50 px-3 py-1.5 text-xs font-semibold text-white backdrop-blur-sm"
         >
           {activeHeroPhotoIndex + 1} / {property.images.length}
         </button>
@@ -1073,7 +1073,7 @@ export default function PropertyDetailsClient({
             onClick={() => setIsPhotosModalOpen(true)}
             aria-haspopup="dialog"
             aria-expanded={isPhotosModalOpen}
-            className="absolute bottom-4 right-4 rounded-full bg-white px-4 py-2 text-sm font-semibold text-black shadow-md transition hover:bg-cream"
+            className="absolute bottom-4 end-4 rounded-full bg-white px-4 py-2 text-sm font-semibold text-black shadow-md transition hover:bg-cream"
           >
             Show all {property.images.length} photos
           </button>
@@ -1216,7 +1216,7 @@ export default function PropertyDetailsClient({
                     key={room.name}
                     type="button"
                     onClick={() => setIsPhotosModalOpen(true)}
-                    className="tap-reset block w-full text-left"
+                    className="tap-reset block w-full text-start"
                     aria-label={`View ${room.name} photos`}
                   >
                     <span className="flex gap-3 overflow-x-auto pb-2">

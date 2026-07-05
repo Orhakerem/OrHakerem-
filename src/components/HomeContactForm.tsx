@@ -114,7 +114,7 @@ export default function HomeContactForm({ theme = 'dark' }: HomeContactFormProps
                 disabled={isSubmitting}
                 className="button-hover-clean inline-flex items-center rounded-full bg-gradient-to-r from-secondary to-secondary-light px-8 py-3 text-lg font-semibold text-black shadow-xl transition-all duration-300 disabled:cursor-not-allowed disabled:opacity-50"
               >
-                <span className="mr-2">
+                <span className="me-2">
                   {isSubmitting ? 'Sending...' : 'Send Message'}
                 </span>
                 <div className="w-5 h-5 bg-primary/20 rounded-full flex items-center justify-center">

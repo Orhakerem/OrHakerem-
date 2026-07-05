@@ -275,7 +275,7 @@ export default function ServicesPage() {
               <div className="services-contact-cta text-center mb-8">
                 <div className="inline-block relative">
                   <LiquidGlassButton variant="dark" onClick={() => setShowForm(true)}>
-                    <span className="mr-2">Inquire about services</span>
+                    <span className="me-2">Inquire about services</span>
                     <div className="w-5 h-5 bg-primary/20 rounded-full flex items-center justify-center">
                       <span className="text-white text-sm">→</span>
                     </div>
@@ -376,7 +376,7 @@ export default function ServicesPage() {
                       Cancel
                     </LiquidGlassButton>
                     <LiquidGlassButton type="submit" size="sm" disabled={isSubmitting}>
-                      <span className="mr-2">
+                      <span className="me-2">
                         {isSubmitting ? 'Sending...' : 'Submit Request'}
                       </span>
                       <span>→</span>

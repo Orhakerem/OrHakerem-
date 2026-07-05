@@ -124,7 +124,7 @@ export default function PrivacyPage() {
     <ul className="space-y-3">
       {items.map((item) => (
         <li key={item} className="flex items-start text-black/80 leading-relaxed">
-          <span className="mt-2 mr-3 h-2 w-2 flex-shrink-0 rounded-full bg-secondary"></span>
+          <span className="mt-2 me-3 h-2 w-2 flex-shrink-0 rounded-full bg-secondary"></span>
           <span>{item}</span>
         </li>
       ))}
@@ -155,7 +155,7 @@ export default function PrivacyPage() {
             onClick={handlePrint}
             className="inline-flex items-center rounded-full border border-primary/15 bg-white px-4 py-2 font-semibold text-black shadow-sm transition-all duration-300"
           >
-            <Printer className="mr-2 h-4 w-4" />
+            <Printer className="me-2 h-4 w-4" />
             Print
           </button>
         </div>
