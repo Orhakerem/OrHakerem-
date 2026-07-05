@@ -1,11 +1,18 @@
 import type { SupabaseClient } from '@supabase/supabase-js';
 
-import { compareIsoDates } from './booking-dates';
+import { compareIsoDates, getTodayIsoInTimeZone } from './booking-dates';
 import {
   getNightsBetween,
   getPricingNightKind,
   type PricingNightKind,
 } from './pricing-date-helpers';
+import {
+  applyPricingAdjustments,
+  fetchActivePricingAdjustmentRules,
+  selectPricingAdjustmentRules,
+  type AppliedPricingAdjustment,
+  type PricingAdjustmentRule,
+} from './pricing-adjustments';
 import {
   fetchActiveSeasonRules,
   resolveSeasonTypeForDate,
@@ -24,6 +31,7 @@ export interface PricingQuoteInput {
   listingId: string;
   checkIn: string;
   checkOut: string;
+  quoteDate?: string;
 }
 
 export interface PricingListing {
@@ -45,7 +53,10 @@ export interface NightlyPricingBreakdown {
   date: string;
   day_type: PricingDayType;
   season_type: SeasonType;
+  base_nightly_price?: number;
   nightly_price: number;
+  adjustment_amount?: number;
+  pricing_adjustments?: AppliedPricingAdjustment[];
   pricing_tier: {
     season_type: SeasonType;
     day_type: PricingDayType;
@@ -60,10 +71,13 @@ export interface PricingBreakdown {
   listing_id: string;
   nights: number;
   nightly_breakdown: NightlyPricingBreakdown[];
+  base_night_total?: number;
   night_total: number;
+  adjustment_total?: number;
   cleaning_fee: number;
   total_price: number;
   currency: string;
+  pricing_adjustments?: AppliedPricingAdjustment[];
 }
 
 interface ListingRow {
@@ -232,8 +246,10 @@ export function buildPricingBreakdown(
   listing: PricingListing,
   pricingTiers: readonly PricingTier[],
   seasonRules: SeasonRules,
+  pricingAdjustmentRules: readonly PricingAdjustmentRule[] = [],
 ): PricingBreakdown {
   const nights = getNightsBetween(input.checkIn, input.checkOut);
+  const quoteDate = input.quoteDate ?? getTodayIsoInTimeZone();
 
   if (nights.length === 0 || compareIsoDates(input.checkOut, input.checkIn) <= 0) {
     throw new RangeError('checkOut must be after checkIn.');
@@ -248,12 +264,25 @@ export function buildPricingBreakdown(
       dayType,
       totalNights: nights.length,
     });
+    const selectedAdjustments = selectPricingAdjustmentRules(pricingAdjustmentRules, {
+      listingId: listing.id,
+      nightDate: date,
+      checkIn: input.checkIn,
+      quoteDate,
+      totalNights: nights.length,
+      seasonType,
+      dayType,
+    });
+    const adjustmentResult = applyPricingAdjustments(
+      pricingTier.targetPrice,
+      selectedAdjustments,
+    );
 
-    return {
+    const night: NightlyPricingBreakdown = {
       date,
       day_type: dayType,
       season_type: seasonType,
-      nightly_price: pricingTier.targetPrice,
+      nightly_price: adjustmentResult.nightlyPrice,
       pricing_tier: {
         season_type: pricingTier.seasonType,
         day_type: pricingTier.dayType,
@@ -262,14 +291,36 @@ export function buildPricingBreakdown(
         target_price: pricingTier.targetPrice,
       },
     };
+
+    if (adjustmentResult.appliedAdjustments.length > 0) {
+      night.base_nightly_price = pricingTier.targetPrice;
+      night.adjustment_amount = adjustmentResult.adjustmentAmount;
+      night.pricing_adjustments = adjustmentResult.appliedAdjustments;
+    }
+
+    return night;
   });
 
+  const baseNightTotal = roundCurrencyAmount(
+    nightlyBreakdown.reduce(
+      (total, night) => total + (night.base_nightly_price ?? night.nightly_price),
+      0,
+    ),
+  );
   const nightTotal = roundCurrencyAmount(
     nightlyBreakdown.reduce((total, night) => total + night.nightly_price, 0),
   );
+  const adjustmentTotal = roundCurrencyAmount(nightTotal - baseNightTotal);
   const cleaningFee = roundCurrencyAmount(listing.cleaningFee);
+  const appliedAdjustments = Array.from(
+    new Map(
+      nightlyBreakdown
+        .flatMap((night) => night.pricing_adjustments ?? [])
+        .map((adjustment) => [adjustment.id, adjustment]),
+    ).values(),
+  );
 
-  return {
+  const breakdown: PricingBreakdown = {
     available: true,
     listing_id: listing.id,
     nights: nights.length,
@@ -279,6 +330,14 @@ export function buildPricingBreakdown(
     total_price: roundCurrencyAmount(nightTotal + cleaningFee),
     currency: listing.currency,
   };
+
+  if (appliedAdjustments.length > 0) {
+    breakdown.base_night_total = baseNightTotal;
+    breakdown.adjustment_total = adjustmentTotal;
+    breakdown.pricing_adjustments = appliedAdjustments;
+  }
+
+  return breakdown;
 }
 
 export async function fetchPricingListing(
@@ -325,11 +384,18 @@ export async function getPricingBreakdown(
   client?: SupabaseClient,
 ): Promise<PricingBreakdown> {
   const supabase = client ?? await getSupabaseClient();
-  const [listing, pricingTiers, seasonRules] = await Promise.all([
+  const [listing, pricingTiers, seasonRules, pricingAdjustmentRules] = await Promise.all([
     fetchPricingListing(input.listingId, supabase),
     fetchPricingTiers(input.listingId, supabase),
     fetchActiveSeasonRules(supabase),
+    fetchActivePricingAdjustmentRules(supabase),
   ]);
 
-  return buildPricingBreakdown(input, listing, pricingTiers, seasonRules);
+  return buildPricingBreakdown(
+    input,
+    listing,
+    pricingTiers,
+    seasonRules,
+    pricingAdjustmentRules,
+  );
 }

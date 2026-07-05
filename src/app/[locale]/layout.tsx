@@ -1,5 +1,6 @@
 import type { Metadata } from 'next';
 import Script from 'next/script';
+import { notFound } from 'next/navigation';
 import { SpeedInsights } from '@vercel/speed-insights/next';
 import Toast from '@/components/Toast';
 import Navbar from '@/components/Navbar';
@@ -7,6 +8,7 @@ import Footer from '@/components/Footer';
 import CookieConsent from '@/components/CookieConsent';
 import { DEFAULT_OG_IMAGE, DEFAULT_OPEN_GRAPH_IMAGE, SITE_URL, createCanonicalUrl } from '@/app/seo';
 import { inter, manrope } from '@/app/fonts';
+import { ENABLED_LOCALES, isEnabledLocale, isRtl } from '@/i18n/config';
 
 const organizationStructuredData = {
   '@context': 'https://schema.org',
@@ -35,7 +37,11 @@ const organizationStructuredData = {
   ],
 };
 
-import './globals.css';
+import '../globals.css';
+
+export function generateStaticParams() {
+  return ENABLED_LOCALES.map(locale => ({ locale }));
+}
 
 export const metadata: Metadata = {
   title: 'Luxury Apartments in Tel Aviv | Or Hakerem | Kerem HaTeimanim',
@@ -97,11 +103,18 @@ export const metadata: Metadata = {
 
 export default function RootLayout({
   children,
+  params,
 }: Readonly<{
   children: React.ReactNode;
+  params: { locale: string };
 }>) {
+  if (!isEnabledLocale(params.locale)) {
+    notFound();
+  }
+  const locale = params.locale;
+
   return (
-    <html lang="en">
+    <html lang={locale} dir={isRtl(locale) ? 'rtl' : 'ltr'}>
       <head>
         <link rel="icon" type="image/x-icon" href="/favicon/favicon.ico" />
         <link rel="icon" type="image/png" sizes="32x32" href="/favicon/favicon-32x32.png" />

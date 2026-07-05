@@ -1,6 +1,8 @@
 import type { Metadata } from 'next';
 import type { ReactNode } from 'react';
+import { notFound } from 'next/navigation';
 import { DEFAULT_OG_IMAGE, DEFAULT_OPEN_GRAPH_IMAGE, createCanonicalUrl } from '@/app/seo';
+import { DEFAULT_LOCALE } from '@/i18n/config';
 
 export const metadata: Metadata = {
   title: {
@@ -37,6 +39,17 @@ export const metadata: Metadata = {
   },
 };
 
-export default function BlogLayout({ children }: { children: ReactNode }) {
+export default function BlogLayout({
+  children,
+  params,
+}: {
+  children: ReactNode;
+  params: { locale: string };
+}) {
+  // Blog posts are English-only for now; /fr/blog and /he/blog 404 until
+  // the MDX content is translated.
+  if (params.locale !== DEFAULT_LOCALE) {
+    notFound();
+  }
   return <>{children}</>;
 }
