@@ -8,6 +8,10 @@ import React, { useEffect, useState } from 'react';
 import Link from 'next/link';
 
 import { sendEmail } from '@/actions/email';
+import { localizePath } from '@/i18n/config';
+import { useLocale } from '@/i18n/useLocale';
+import { reservationMessages } from '@/i18n/messages/reservation';
+import { propertiesMessages } from '@/i18n/messages/properties';
 import AccommodationPriceSummary, {
   isAccommodationPriceQuote,
   type AccommodationPriceQuote,
@@ -81,6 +85,9 @@ export default function ReservationForm({
   availabilityByProperty = EMPTY_AVAILABILITY_BY_PROPERTY,
   availabilityStatusByProperty = EMPTY_AVAILABILITY_STATUS_BY_PROPERTY,
 }: ReservationFormProps) {
+  const locale = useLocale();
+  const t = reservationMessages[locale];
+  const propertyLabels = propertiesMessages[locale].cards;
   const todayIso = getTodayIsoInTimeZone();
   const initialProperty = getSingleSearchParam(initialSearchParams?.property);
   const initialCheckIn = getSingleSearchParam(initialSearchParams?.checkIn);
@@ -209,7 +216,7 @@ export default function ReservationForm({
 
         console.error('Price calculation error:', error);
         setPriceQuote(null);
-        setPriceError('Price estimate is temporarily unavailable. Please try again before sending your request.');
+        setPriceError(t.errors.priceUnavailable);
       } finally {
         if (!controller.signal.aborted) {
           setIsPriceLoading(false);
@@ -238,17 +245,17 @@ export default function ReservationForm({
     e.preventDefault();
 
     if (!propertyId) {
-      toast.error('Please select a property before choosing your stay.');
+      toast.error(t.errors.selectPropertyFirst);
       return;
     }
 
     if (selectedAvailabilityStatus === 'error') {
-      toast.error('Airbnb availability is temporarily unavailable. Please try again shortly.');
+      toast.error(t.errors.availabilityUnavailable);
       return;
     }
 
     if (!selectedListingId) {
-      toast.error('Please select a valid property before sending your request.');
+      toast.error(t.errors.selectValidProperty);
       return;
     }
 
@@ -258,7 +265,7 @@ export default function ReservationForm({
     }
 
     if (isPriceLoading) {
-      toast.error('Please wait for the price estimate to finish.');
+      toast.error(t.errors.waitPriceLoading);
       return;
     }
 
@@ -268,7 +275,7 @@ export default function ReservationForm({
     }
 
     if (!activePriceQuote) {
-      toast.error('Please wait for the price estimate before sending your request.');
+      toast.error(t.errors.waitValidPrice);
       return;
     }
 
@@ -277,14 +284,14 @@ export default function ReservationForm({
     try {
       const result = await sendEmail(new FormData(e.currentTarget));
       if (result.success) {
-        toast.success(result.message || 'Reservation request sent successfully!');
+        toast.success(result.message || t.errors.successToast);
         setIsSuccess(true);
       } else {
-        toast.error(result.error || 'Failed to send reservation request');
+        toast.error(result.error || t.errors.submitFailed);
       }
     } catch (error) {
       console.error('Submission error:', error);
-      toast.error('Failed to submit reservation. Please try again.');
+      toast.error(t.errors.submitError);
     } finally {
       setIsSubmitting(false);
     }
@@ -294,17 +301,17 @@ export default function ReservationForm({
     const successCard = (
       <div className="bg-white p-8 rounded-3xl shadow-xl border border-primary/10 text-center">
         <h2 className="font-head text-2xl font-bold text-black mb-4">
-          Thank you for your reservation request!
+          {t.successTitle}
         </h2>
         <p className="text-black/80 mb-6">
-          We&apos;ll contact you via your chosen method within 24 hours.
+          {t.successBody}
         </p>
         {embedded && (
           <Link
-            href="/properties"
+            href={localizePath(locale, '/properties')}
             className="button-hover-clean inline-block bg-secondary text-black px-6 py-2 rounded-md font-semibold transition"
           >
-            Back to Properties
+            {t.backToProperties}
           </Link>
         )}
       </div>
@@ -332,16 +339,15 @@ export default function ReservationForm({
         <>
           {embedded ? (
             <h2 className="font-head text-3xl font-bold text-black mb-2" data-animate="text">
-              Reservation Request
+              {t.title}
             </h2>
           ) : (
             <h1 className="font-head text-3xl font-bold text-black mb-2" data-animate="text">
-              Reservation Request
+              {t.title}
             </h1>
           )}
           <p className="text-black/80 mb-8" data-animate="fade-up" data-delay="1">
-            Your reservation request will be handled by our team. Please provide your contact
-            preferences.
+            {t.intro}
           </p>
         </>
       ) : null}
@@ -355,7 +361,7 @@ export default function ReservationForm({
 
         <div>
           <label htmlFor="property" className="block text-sm font-medium text-black/80 mb-1">
-            Property
+            {t.propertyLabel}
           </label>
           <select
             id="property"
@@ -364,10 +370,10 @@ export default function ReservationForm({
             required
             className="w-full cursor-pointer rounded-md border border-gray-300 bg-white px-4 py-2 transition-colors focus:border-black/15 focus:outline-none focus:ring-2 focus:ring-black/10"
           >
-            <option value="" disabled>Select a property</option>
+            <option value="" disabled>{t.selectProperty}</option>
             {BOOKABLE_PROPERTY_OPTIONS.map((propertyOption) => (
               <option key={propertyOption.id} value={propertyOption.id}>
-                {propertyOption.title}
+                {propertyLabels[propertyOption.id].title}
               </option>
             ))}
           </select>
@@ -391,7 +397,7 @@ export default function ReservationForm({
 
         <div>
           <label htmlFor="name" className="block text-sm font-medium text-black/80 mb-1">
-            Full Name
+            {t.fullName}
           </label>
           <input
             type="text"
@@ -404,7 +410,7 @@ export default function ReservationForm({
 
         <div>
           <label htmlFor="email" className="block text-sm font-medium text-black/80 mb-1">
-            Email Address
+            {t.emailAddress}
           </label>
           <div className="relative">
             <Mail className="absolute start-3 top-1/2 -translate-y-1/2 w-5 h-5 text-black/60" />
@@ -420,7 +426,7 @@ export default function ReservationForm({
 
         <div>
           <label htmlFor="phone" className="block text-sm font-medium text-black/80 mb-1">
-            Phone Number
+            {t.phoneNumber}
           </label>
           <div className="relative">
             <Phone className="absolute start-3 top-1/2 -translate-y-1/2 w-5 h-5 text-black/60" />
@@ -435,7 +441,7 @@ export default function ReservationForm({
         </div>
         <div>
           <label className="block text-sm font-medium text-black/80 mb-3">
-            <span>Preferred Contact Method</span>
+            <span>{t.preferredContact}</span>
           </label>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
             <label className={`tap-reset relative flex cursor-pointer items-center justify-center rounded-md border p-4 ${contactMethod === 'email' ? 'border-black/10 bg-black/[0.03] shadow-sm' : 'border-gray-200 bg-white'}`}>
@@ -448,7 +454,7 @@ export default function ReservationForm({
                 className="absolute opacity-0"
               />
               <Mail className="h-5 w-5 text-black" />
-              <span className="ms-2 text-black">Email</span>
+              <span className="ms-2 text-black">{t.contactEmail}</span>
             </label>
 
             <label className={`tap-reset relative flex cursor-pointer items-center justify-center rounded-md border p-4 ${contactMethod === 'phone' ? 'border-black/10 bg-black/[0.03] shadow-sm' : 'border-gray-200 bg-white'}`}>
@@ -461,7 +467,7 @@ export default function ReservationForm({
                 className="absolute opacity-0"
               />
               <Phone className="h-5 w-5 text-black" />
-              <span className="ms-2 text-black">Phone</span>
+              <span className="ms-2 text-black">{t.contactPhone}</span>
             </label>
 
             <label className={`tap-reset relative flex cursor-pointer items-center justify-center rounded-md border p-4 ${contactMethod === 'whatsapp' ? 'border-black/10 bg-black/[0.03] shadow-sm' : 'border-gray-200 bg-white'}`}>
@@ -474,14 +480,14 @@ export default function ReservationForm({
                 className="absolute opacity-0"
               />
               <MessageSquare className="h-5 w-5 text-black" />
-              <span className="ms-2 text-black">WhatsApp</span>
+              <span className="ms-2 text-black">{t.contactWhatsapp}</span>
             </label>
           </div>
         </div>
 
         <LiquidGlassButton type="submit" className="w-full" disabled={isSubmitting}>
           <span>
-            {isSubmitting ? 'Sending...' : 'Send Request'}
+            {isSubmitting ? t.sending : t.send}
           </span>
         </LiquidGlassButton>
       </form>

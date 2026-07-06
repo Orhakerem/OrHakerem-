@@ -4,22 +4,27 @@ import React from 'react';
 import Link from 'next/link';
 import { ArrowLeft, Home } from 'lucide-react';
 import ContactForm from '@/components/ContactForm';
+import { isLocale, localizePath, type Locale } from '@/i18n/config';
+import { contactMessages } from '@/i18n/messages/contact';
 
-export default function ContactPage() {
+export default function ContactPage({ params }: { params: { locale: string } }) {
+  const locale: Locale = isLocale(params.locale) ? params.locale : 'en';
+  const t = contactMessages[locale];
+
   return (
     <div className="min-h-screen pt-24 pb-10 md:pb-20 bg-cream">
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Enhanced Back Navigation */}
         <div className="mb-5 md:mb-8" data-animate="fade-right">
           <Link
-            href="/"
+            href={localizePath(locale, '/')}
             className="inline-flex items-center rounded-full border border-primary/20 bg-white/80 px-4 py-2 md:px-6 md:py-3 text-sm md:text-lg font-semibold text-black shadow-lg transition-all duration-300"
           >
             <div className="relative me-3">
               <ArrowLeft className="w-5 h-5" />
             </div>
             <Home className="w-5 h-5 me-2 opacity-70" />
-            <span className="relative z-10">Back to Home</span>
+            <span className="relative z-10">{t.backToHome}</span>
           </Link>
         </div>
 
@@ -40,10 +45,10 @@ export default function ContactPage() {
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
             <div className="text-center mb-5 md:mb-8" data-animate="fade-up">
               <h1 className="font-head text-2xl md:text-4xl font-bold text-white mb-3 md:mb-4 leading-tight" data-animate="text" data-delay="1">
-                Contact Or HaKerem
+                {t.heading}
               </h1>
               <p className="text-white/90 text-sm md:text-lg max-w-2xl mx-auto leading-relaxed" data-animate="fade-up" data-delay="2">
-                Or HaKerem is located in the heart of Tel Aviv, in the vibrant Kerem HaTeimanim neighborhood, within walking distance of Carmel Market and the beach. If you are looking for a luxury apartment in Tel Aviv or planning a boutique event, our team is here to assist you. Our team responds quickly to all inquiries and is available to help you plan your stay or event.
+                {t.body}
               </p>
             </div>
             <ContactForm
@@ -56,10 +61,10 @@ export default function ContactPage() {
         <section className="mt-8 md:mt-16 bg-white rounded-2xl shadow-xl p-5 md:p-12" data-animate="fade-up">
           <div className="text-center mb-5 md:mb-8">
             <h2 className="font-head text-xl md:text-3xl font-bold text-black mb-3 md:mb-4" data-animate="text">
-              Other Ways to Reach Us
+              {t.otherWays.heading}
             </h2>
             <p className="text-black/80 text-sm md:text-lg">
-              Choose the method that works best for you
+              {t.otherWays.subheading}
             </p>
           </div>
 
@@ -69,7 +74,7 @@ export default function ContactPage() {
               <div className="inline-flex items-center justify-center w-12 h-12 md:w-16 md:h-16 bg-gradient-to-br from-secondary to-secondary-light rounded-full mb-3 md:mb-4">
                 <span className="text-2xl">📧</span>
               </div>
-              <h3 className="font-head text-base md:text-xl font-bold text-black mb-2">Email</h3>
+              <h3 className="font-head text-base md:text-xl font-bold text-black mb-2">{t.otherWays.emailTitle}</h3>
               <a 
                 href="mailto:keremliving@gmail.com"
                 className="font-medium text-black/80"
@@ -83,11 +88,12 @@ export default function ContactPage() {
               <div className="inline-flex items-center justify-center w-12 h-12 md:w-16 md:h-16 bg-gradient-to-br from-tertiary to-tertiary-light rounded-full mb-3 md:mb-4">
                 <span className="text-2xl text-white">📞</span>
               </div>
-              <h3 className="font-head text-base md:text-xl font-bold text-black mb-2">Phone & WhatsApp</h3>
+              <h3 className="font-head text-base md:text-xl font-bold text-black mb-2">{t.otherWays.phoneTitle}</h3>
               <div className="space-y-3">
                 <a 
                   href="tel:+33651179925"
                   className="block font-medium text-black/80"
+                  dir="ltr"
                 >
                   +33 6 51 17 99 25
                 </a>
@@ -96,8 +102,9 @@ export default function ContactPage() {
                   target="_blank"
                   rel="noopener noreferrer"
                   className="inline-flex items-center justify-center rounded-full bg-gradient-to-r from-secondary to-secondary-light px-5 py-2.5 font-semibold text-black shadow-lg transition-all duration-300"
+                  dir="ltr"
                 >
-                  WhatsApp: +972 58 577 8891
+                  {t.otherWays.whatsappCta}
                 </a>
               </div>
             </div>
@@ -107,7 +114,7 @@ export default function ContactPage() {
               <div className="inline-flex items-center justify-center w-12 h-12 md:w-16 md:h-16 bg-gradient-to-br from-primary to-primary-light rounded-full mb-3 md:mb-4">
                 <span className="text-2xl text-white">📱</span>
               </div>
-              <h3 className="font-head text-base md:text-xl font-bold text-black mb-2">Social Media</h3>
+              <h3 className="font-head text-base md:text-xl font-bold text-black mb-2">{t.otherWays.socialTitle}</h3>
               <a 
                 href="https://www.instagram.com/or_hakerem/"
                 target="_blank"
