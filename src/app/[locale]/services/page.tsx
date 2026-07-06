@@ -7,6 +7,8 @@ import toast from 'react-hot-toast';
 import { sendContactEmail } from '@/actions/contact';
 import LiquidGlassButton from '@/components/LiquidGlassButton';
 import { useBackToTopVisibility } from '@/hooks/useBackToTopVisibility';
+import { useLocale } from '@/i18n/useLocale';
+import { servicesMessages } from '@/i18n/messages/services';
 
 interface ServiceCardProps {
   title: string;
@@ -32,6 +34,8 @@ function ServiceCard({ title, description, delay }: ServiceCardProps) {
 }
 
 export default function ServicesPage() {
+  const locale = useLocale();
+  const t = servicesMessages[locale];
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [showForm, setShowForm] = useState(false);
   const [isSuccess, setIsSuccess] = useState(false);
@@ -47,32 +51,7 @@ export default function ServicesPage() {
     };
   }, [showForm]);
 
-  const services = [
-    {
-      title: 'Grocery Delivery',
-      description: 'We offer delivery during your stay on demand and even before check-in.'
-    },
-    {
-      title: 'Transportation',
-      description: 'Private cars with professional drivers and airport or city-to-city transfers.'
-    },
-    {
-      title: 'Baby Sitting',
-      description: 'Certified childcare professionals available 24/7 for your complete peace of mind.'
-    },
-    {
-      title: 'Event Planning',
-      description: 'Access to events and private celebrations with meticulous attention to every detail.'
-    },
-    {
-      title: 'Cleaning on Demand',
-      description: 'We offer cleaning services during your stay, provided by a professional team that will not interfere with your time in the apartment.'
-    },
-    {
-      title: 'Dining Reservation',
-      description: 'Experience the finest culinary destinations with our restaurant reservation service. We secure tables at the most sought-after establishments.'
-    }
-  ];
+  const services = t.services;
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -82,20 +61,20 @@ export default function ServicesPage() {
       const formData = new FormData(e.currentTarget);
       // Add context that this is a concierge service request
       const originalMessage = formData.get('message') as string;
-      formData.set('message', `Concierge Service Request: ${originalMessage}`);
-      
+      formData.set('message', `${t.form.messagePrefix}${originalMessage}`);
+
       const result = await sendContactEmail(formData);
       if (result.success) {
-        toast.success(result.message || 'Your concierge request has been sent successfully!');
+        toast.success(result.message || t.form.success);
         (e.target as HTMLFormElement).reset();
         setIsSuccess(true);
         setShowForm(false);
       } else {
-        toast.error(result.error || 'Failed to send request');
+        toast.error(result.error || t.form.error);
       }
     } catch (error) {
       console.error('Contact form submission error:', error);
-      toast.error('Failed to send request. Please try again.');
+      toast.error(t.form.error);
     } finally {
       setIsSubmitting(false);
     }
@@ -134,9 +113,9 @@ export default function ServicesPage() {
               }}
               data-animate="text"
             >
-              Premium Concierge
+              {t.hero.titleLine1}
               <br />
-              <span className="text-secondary">Services</span>
+              <span className="text-secondary">{t.hero.titleLine2}</span>
             </motion.h1>
 
             <motion.div
@@ -154,8 +133,7 @@ export default function ServicesPage() {
                 visible: { y: 0, opacity: 1, transition: { duration: 0.5, ease: 'easeOut' } },
               }}
             >
-              Our dedicated concierge team provides impeccable service tailored to your every need.
-              Experience the ultimate in personalized luxury during your stay.
+              {t.hero.body}
             </motion.p>
 
             <motion.div
@@ -165,15 +143,14 @@ export default function ServicesPage() {
                 visible: { y: 0, opacity: 1, transition: { duration: 0.5, ease: 'easeOut' } },
               }}
             >
-              <div className="px-4 py-2 md:px-6 md:py-3 bg-white/10 backdrop-blur-sm rounded-full border border-white/20 text-white/90">
-                24/7 Available
-              </div>
-              <div className="px-4 py-2 md:px-6 md:py-3 bg-white/10 backdrop-blur-sm rounded-full border border-white/20 text-white/90">
-                Personalized Service
-              </div>
-              <div className="px-4 py-2 md:px-6 md:py-3 bg-white/10 backdrop-blur-sm rounded-full border border-white/20 text-white/90">
-                Expert Team
-              </div>
+              {t.hero.pills.map((pill) => (
+                <div
+                  key={pill}
+                  className="px-4 py-2 md:px-6 md:py-3 bg-white/10 backdrop-blur-sm rounded-full border border-white/20 text-white/90"
+                >
+                  {pill}
+                </div>
+              ))}
             </motion.div>
           </motion.main>
         </div>
@@ -204,14 +181,14 @@ export default function ServicesPage() {
           {/* Header section with modern design */}
           <div className="services-grid-header text-center mb-20" data-animate="fade-up">
             <h1 className="font-head text-2xl md:text-6xl font-bold text-black mb-6 leading-tight" data-animate="text">
-              Tailored to Your
+              {t.grid.titleLine1}
               <br />
               <span className="text-transparent bg-clip-text bg-gradient-to-r from-secondary to-tertiary">
-                Every Need
+                {t.grid.titleLine2}
               </span>
             </h1>
             <p className="text-black/70 text-sm md:text-xl max-w-2xl mx-auto leading-relaxed">
-              Discover our comprehensive range of luxury services designed to exceed your expectations
+              {t.grid.subheading}
             </p>
           </div>
 
@@ -247,10 +224,10 @@ export default function ServicesPage() {
             {/* Compact Header */}
             <div className="services-contact-header text-center mb-5 md:mb-10">
               <h2 className="font-head text-2xl md:text-4xl font-bold text-white mb-3 leading-tight">
-                Request Concierge Services
+                {t.contact.heading}
               </h2>
               <p className="text-white/80 text-base max-w-xl mx-auto">
-                Available 24/7 to fulfill your every request
+                {t.contact.subheading}
               </p>
             </div>
 
@@ -261,13 +238,13 @@ export default function ServicesPage() {
                     <Mail className="w-8 h-8 text-black" />
                   </div>
                   <h3 className="font-head text-3xl font-bold text-white mb-4">
-                    Thank you for your inquiry!
+                    {t.contact.successTitle}
                   </h3>
                   <p className="text-white/90 text-lg mb-8">
-                    Our concierge team will get back to you within 2 hours.
+                    {t.contact.successBody}
                   </p>
                   <LiquidGlassButton variant="dark" onClick={() => setIsSuccess(false)}>
-                    Send Another Request
+                    {t.contact.sendAnother}
                   </LiquidGlassButton>
                 </div>
               </div>
@@ -275,7 +252,7 @@ export default function ServicesPage() {
               <div className="services-contact-cta text-center mb-8">
                 <div className="inline-block relative">
                   <LiquidGlassButton variant="dark" onClick={() => setShowForm(true)}>
-                    <span className="me-2">Inquire about services</span>
+                    <span className="me-2">{t.contact.inquire}</span>
                     <div className="w-5 h-5 bg-primary/20 rounded-full flex items-center justify-center">
                       <span className="text-white text-sm">→</span>
                     </div>
@@ -304,19 +281,19 @@ export default function ServicesPage() {
               <div className="sticky top-0 z-10 flex items-start justify-between gap-4 border-b border-primary/10 bg-white/95 px-5 py-4 backdrop-blur-sm sm:px-8 sm:py-5">
                 <div>
                   <h3 id="services-inquiry-title" className="font-head text-2xl sm:text-3xl font-bold text-black">
-                    Concierge Service Inquiry
+                    {t.form.title}
                   </h3>
                   <p className="mt-2 text-sm sm:text-base text-black/70">
-                    Tell us what you need and we&apos;ll arrange it for your stay.
+                    {t.form.subtitle}
                   </p>
                 </div>
                 <button
                   type="button"
                   onClick={() => setShowForm(false)}
                   className="shrink-0 rounded-full border border-primary/10 p-2 text-black/60"
-                  aria-label="Close"
+                  aria-label={t.form.close}
                 >
-                  <span className="sr-only">Close</span>
+                  <span className="sr-only">{t.form.close}</span>
                   ✕
                 </button>
               </div>
@@ -373,11 +350,11 @@ export default function ServicesPage() {
                       size="sm"
                       onClick={() => setShowForm(false)}
                     >
-                      Cancel
+                      {t.form.cancel}
                     </LiquidGlassButton>
                     <LiquidGlassButton type="submit" size="sm" disabled={isSubmitting}>
                       <span className="me-2">
-                        {isSubmitting ? 'Sending...' : 'Submit Request'}
+                        {isSubmitting ? t.form.sending : t.form.submit}
                       </span>
                       <span>→</span>
                     </LiquidGlassButton>
@@ -394,7 +371,7 @@ export default function ServicesPage() {
         <button
           onClick={scrollToTop}
           className="fixed bottom-8 right-8 z-40 rounded-full bg-gradient-to-r from-secondary to-secondary-light p-4 text-black shadow-lg"
-          aria-label="Back to top"
+          aria-label={t.backToTopAria}
         >
           <ArrowUp className="w-6 h-6" />
         </button>
