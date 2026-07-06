@@ -358,7 +358,7 @@ export default function BookingRangeCalendar({
                 aria-label={t.prevMonthAria}
                 className="tap-reset inline-flex h-9 w-9 items-center justify-center rounded-full border border-primary/15 bg-white text-black transition hover:bg-cream/60 disabled:cursor-not-allowed disabled:opacity-30"
               >
-                <ChevronLeft className="h-4 w-4" />
+                <ChevronLeft className="h-4 w-4 rtl:rotate-180" />
               </button>
               <button
                 type="button"
@@ -366,7 +366,7 @@ export default function BookingRangeCalendar({
                 aria-label={t.nextMonthAria}
                 className="tap-reset inline-flex h-9 w-9 items-center justify-center rounded-full border border-primary/15 bg-white text-black transition hover:bg-cream/60"
               >
-                <ChevronRight className="h-4 w-4" />
+                <ChevronRight className="h-4 w-4 rtl:rotate-180" />
               </button>
             </div>
           </div>

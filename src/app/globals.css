@@ -757,7 +757,8 @@
     width: clamp(280px, 34vw, 440px);
     height: 200px;
     flex-shrink: 0;
-    margin: -40px 0 -40px -120px;
+    margin-block: -40px;
+    margin-inline-start: -120px;
   }
 
   .nav-items-floating {

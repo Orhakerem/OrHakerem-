@@ -4,9 +4,8 @@ export type Locale = (typeof LOCALES)[number];
 
 export const DEFAULT_LOCALE: Locale = 'en';
 
-// Locales currently served to visitors. Flipped to the full LOCALES set once
-// the French and Hebrew translations are complete; until then /fr and /he 404.
-export const ENABLED_LOCALES: readonly Locale[] = ['en', 'fr', 'he'];
+// Locales currently served to visitors.
+export const ENABLED_LOCALES: readonly Locale[] = LOCALES;
 
 export function isLocale(value: string): value is Locale {
   return (LOCALES as readonly string[]).includes(value);

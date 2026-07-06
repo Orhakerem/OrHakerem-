@@ -103,13 +103,13 @@ export default function RoomGallery({ rooms }: RoomGalleryProps) {
                 onClick={prevImage}
                 className="tap-reset absolute start-4 top-1/2 z-10 -translate-y-1/2 rounded-full bg-white/20 p-2 text-white"
               >
-                <ChevronLeft className="w-6 h-6" />
+                <ChevronLeft className="w-6 h-6 rtl:rotate-180" />
               </button>
               <button
                 onClick={nextImage}
                 className="tap-reset absolute end-4 top-1/2 z-10 -translate-y-1/2 rounded-full bg-white/20 p-2 text-white"
               >
-                <ChevronRight className="w-6 h-6" />
+                <ChevronRight className="w-6 h-6 rtl:rotate-180" />
               </button>
             </>
           )}

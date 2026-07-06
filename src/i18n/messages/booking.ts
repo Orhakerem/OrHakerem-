@@ -15,6 +15,15 @@ const en = {
     nextMonthAria: 'Show next month',
     clearDates: 'Clear dates',
   },
+  singleDate: {
+    heading: 'Choose your event date',
+    subheading: 'Select the date of your event directly from the calendar below.',
+    selectedDate: 'Selected date',
+    noDateSelected: 'No date selected',
+    pickADay: 'Pick a day below',
+    clear: 'Clear',
+    availabilityError: 'Airbnb availability is temporarily unavailable. Refresh before submitting your event.',
+  },
   price: {
     nights: 'Nights',
     calculating: 'Calculating price...',
@@ -50,6 +59,16 @@ const fr: BookingMessages = {
     nextMonthAria: 'Mois suivant',
     clearDates: 'Effacer les dates',
   },
+  singleDate: {
+    heading: "Choisissez la date de votre événement",
+    subheading: "Sélectionnez la date de votre événement directement sur le calendrier ci-dessous.",
+    selectedDate: 'Date sélectionnée',
+    noDateSelected: 'Aucune date sélectionnée',
+    pickADay: 'Choisissez un jour ci-dessous',
+    clear: 'Effacer',
+    availabilityError:
+      'Les disponibilités Airbnb sont temporairement indisponibles. Actualisez avant d’envoyer votre demande.',
+  },
   price: {
     nights: 'Nuits',
     calculating: 'Calcul du prix...',
@@ -81,6 +100,15 @@ const he: BookingMessages = {
     prevMonthAria: 'חודש קודם',
     nextMonthAria: 'חודש הבא',
     clearDates: 'ניקוי תאריכים',
+  },
+  singleDate: {
+    heading: 'בחרו את תאריך האירוע',
+    subheading: 'בחרו את תאריך האירוע ישירות מהלוח שנה שלמטה.',
+    selectedDate: 'התאריך שנבחר',
+    noDateSelected: 'לא נבחר תאריך',
+    pickADay: 'בחרו יום למטה',
+    clear: 'ניקוי',
+    availabilityError: 'זמינות Airbnb אינה זמינה כרגע. רעננו את העמוד לפני שליחת הבקשה.',
   },
   price: {
     nights: 'לילות',

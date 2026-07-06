@@ -883,7 +883,7 @@ export default function PropertyDetailsClient({
           aria-label={t.ui.backAria}
           className="tap-reset absolute top-4 start-4 flex h-10 w-10 items-center justify-center rounded-full bg-white shadow-md"
         >
-          <ChevronLeft className="h-5 w-5 text-black" />
+          <ChevronLeft className="h-5 w-5 text-black rtl:rotate-180" />
         </button>
         <div className="absolute inset-y-0 left-0 right-0 flex items-center justify-between px-3 pointer-events-none">
           <button
@@ -892,7 +892,7 @@ export default function PropertyDetailsClient({
             aria-label={t.ui.gallery.prevPhotoAria}
             className="tap-reset pointer-events-auto flex h-10 w-10 items-center justify-center rounded-full bg-white/90 shadow-md backdrop-blur-sm transition hover:bg-white"
           >
-            <ChevronLeft className="h-5 w-5 text-black" />
+            <ChevronLeft className="h-5 w-5 text-black rtl:rotate-180" />
           </button>
           <button
             type="button"
@@ -900,7 +900,7 @@ export default function PropertyDetailsClient({
             aria-label={t.ui.gallery.nextPhotoAria}
             className="tap-reset pointer-events-auto flex h-10 w-10 items-center justify-center rounded-full bg-white/90 shadow-md backdrop-blur-sm transition hover:bg-white"
           >
-            <ChevronRight className="h-5 w-5 text-black" />
+            <ChevronRight className="h-5 w-5 text-black rtl:rotate-180" />
           </button>
         </div>
         <button

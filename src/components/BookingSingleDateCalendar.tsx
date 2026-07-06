@@ -2,6 +2,7 @@
 
 import { CalendarDays, ChevronLeft, ChevronRight, X } from 'lucide-react';
 import { DayPicker } from 'react-day-picker';
+import { enUS as dayPickerEn, fr as dayPickerFr, he as dayPickerHe } from 'react-day-picker/locale';
 
 import React, { useEffect, useMemo, useState } from 'react';
 
@@ -16,6 +17,15 @@ import {
 } from '@/lib/booking-dates';
 import { addMonthsUtc, startOfMonthUtc } from '@/lib/calendar-months';
 import type { CalendarSyncStatus } from '@/lib/bookable-properties';
+import { isRtl, type Locale } from '@/i18n/config';
+import { useLocale } from '@/i18n/useLocale';
+import { bookingMessages, DISPLAY_LOCALE } from '@/i18n/messages/booking';
+
+const DAY_PICKER_LOCALES: Record<Locale, typeof dayPickerEn> = {
+  en: dayPickerEn,
+  fr: dayPickerFr,
+  he: dayPickerHe,
+};
 
 interface BookingSingleDateCalendarProps {
   value: string | null;
@@ -32,6 +42,8 @@ export default function BookingSingleDateCalendar({
   availabilityStatus = 'ready',
   desktopMonths = 1,
 }: BookingSingleDateCalendarProps) {
+  const locale = useLocale();
+  const t = bookingMessages[locale];
   const { rootRef, numberOfMonths } = useResponsiveCalendarLayout();
   const monthsToShow = desktopMonths === 2 ? numberOfMonths : 1;
   const todayIso = getTodayIsoInTimeZone();
@@ -99,10 +111,10 @@ export default function BookingSingleDateCalendar({
         <CalendarDays className="mt-0.5 h-5 w-5 shrink-0 text-primary" />
         <div>
           <p className="font-head text-xl font-semibold text-black">
-            Choose your event date
+            {t.singleDate.heading}
           </p>
           <p className="mt-1 text-sm text-black/70">
-            Select the date of your event directly from the calendar below.
+            {t.singleDate.subheading}
           </p>
         </div>
       </div>
@@ -110,10 +122,10 @@ export default function BookingSingleDateCalendar({
       <div className="flex flex-wrap items-center justify-between gap-3 border-b border-primary/10 pb-4">
         <div>
           <span className="block text-[11px] font-semibold uppercase tracking-[0.22em] text-black/45">
-            {hasSelection ? 'Selected date' : 'No date selected'}
+            {hasSelection ? t.singleDate.selectedDate : t.singleDate.noDateSelected}
           </span>
           <span className="mt-1 block font-head text-lg font-semibold text-black">
-            {hasSelection ? formatIsoDate(value!) : 'Pick a day below'}
+            {hasSelection ? formatIsoDate(value!, DISPLAY_LOCALE[locale]) : t.singleDate.pickADay}
           </span>
         </div>
 
@@ -124,15 +136,14 @@ export default function BookingSingleDateCalendar({
             className="tap-reset inline-flex items-center gap-1.5 text-sm font-semibold text-black/60 transition hover:text-black"
           >
             <X className="h-4 w-4" />
-            Clear
+            {t.singleDate.clear}
           </button>
         ) : null}
       </div>
 
       {availabilityStatus === 'error' ? (
         <p className="text-sm text-amber-700">
-          Airbnb availability is temporarily unavailable. Refresh before submitting your
-          event.
+          {t.singleDate.availabilityError}
         </p>
       ) : null}
 
@@ -142,22 +153,24 @@ export default function BookingSingleDateCalendar({
             type="button"
             onClick={goToPreviousMonth}
             className="tap-reset inline-flex h-9 w-9 items-center justify-center rounded-full text-black/60 transition hover:bg-primary/5 hover:text-black"
-            aria-label="Show previous month"
+            aria-label={t.calendar.prevMonthAria}
           >
-            <ChevronLeft className="h-4 w-4" />
+            <ChevronLeft className="h-4 w-4 rtl:rotate-180" />
           </button>
           <button
             type="button"
             onClick={goToNextMonth}
             className="tap-reset inline-flex h-9 w-9 items-center justify-center rounded-full text-black/60 transition hover:bg-primary/5 hover:text-black"
-            aria-label="Show next month"
+            aria-label={t.calendar.nextMonthAria}
           >
-            <ChevronRight className="h-4 w-4" />
+            <ChevronRight className="h-4 w-4 rtl:rotate-180" />
           </button>
         </div>
 
         <DayPicker
             mode="single"
+            locale={DAY_PICKER_LOCALES[locale]}
+            dir={isRtl(locale) ? 'rtl' : 'ltr'}
             month={month}
             onMonthChange={(nextMonth) => setMonth(startOfMonthUtc(nextMonth))}
             selected={selectedDate}

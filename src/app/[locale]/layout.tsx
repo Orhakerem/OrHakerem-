@@ -7,8 +7,9 @@ import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
 import CookieConsent from '@/components/CookieConsent';
 import { DEFAULT_OG_IMAGE, DEFAULT_OPEN_GRAPH_IMAGE, SITE_URL, createCanonicalUrl } from '@/app/seo';
-import { inter, manrope } from '@/app/fonts';
+import { assistant, heebo, inter, manrope } from '@/app/fonts';
 import { ENABLED_LOCALES, isEnabledLocale, isRtl } from '@/i18n/config';
+import { commonMessages } from '@/i18n/messages/common';
 
 const organizationStructuredData = {
   '@context': 'https://schema.org',
@@ -112,6 +113,10 @@ export default function RootLayout({
     notFound();
   }
   const locale = params.locale;
+  const fontVariables = isRtl(locale)
+    ? `${heebo.variable} ${assistant.variable}`
+    : `${inter.variable} ${manrope.variable}`;
+  const t = commonMessages[locale];
 
   return (
     <html lang={locale} dir={isRtl(locale) ? 'rtl' : 'ltr'}>
@@ -124,7 +129,7 @@ export default function RootLayout({
         <meta name="theme-color" content="#a5382b" />
         <meta name="apple-mobile-web-app-title" content="Or Hakerem" />
       </head>
-      <body className={`${inter.variable} ${manrope.variable} min-h-screen bg-cream antialiased`}>
+      <body className={`${fontVariables} min-h-screen bg-cream antialiased`}>
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(organizationStructuredData) }}
@@ -142,7 +147,7 @@ export default function RootLayout({
           target="_blank"
           rel="noopener noreferrer"
           className="whatsapp-float"
-          aria-label="Contact on WhatsApp"
+          aria-label={t.nav.whatsappAria}
         >
           <svg viewBox="0 0 32 32" width="24" height="24" aria-hidden="true">
             <path fill="white" d="M16 3C9.4 3 4 8.3 4 14.8c0 2.6.9 5 2.4 7L5 29l7-2.3c1.8.9 3.8 1.4 5.9 1.4 6.6 0 12-5.3 12-11.8S22.6 3 16 3zm0 21.5c-1.8 0-3.6-.5-5.2-1.5l-.4-.2-4.1 1.3 1.4-4-.3-.4c-1.1-1.6-1.6-3.4-1.6-5.2C5.8 9.1 10.4 5 16 5s10.2 4.1 10.2 9.8S21.6 24.5 16 24.5zm5.6-7.3c-.3-.2-1.7-.8-2-.9-.3-.1-.5-.2-.7.2-.2.3-.8.9-.9 1.1-.2.2-.3.2-.6.1-.3-.2-1.2-.5-2.3-1.6-.8-.7-1.3-1.6-1.5-1.9-.2-.3 0-.5.1-.6.1-.1.3-.3.4-.5.1-.2.2-.3.3-.5.1-.2 0-.4 0-.5 0-.2-.7-1.6-1-2.2-.3-.6-.5-.5-.7-.5h-.6c-.2 0-.5.1-.7.4-.2.3-.9.9-.9 2.2 0 1.3.9 2.5 1.1 2.7.1.2 1.8 2.8 4.4 3.9.6.3 1.1.5 1.5.6.6.2 1.2.2 1.7.1.5-.1 1.7-.7 1.9-1.4.2-.7.2-1.3.2-1.4 0-.1-.1-.2-.3-.3z"/>
