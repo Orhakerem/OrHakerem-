@@ -3,28 +3,11 @@ import { MapPin, Shield, UtensilsCrossed } from 'lucide-react';
 
 import { createCanonicalUrl } from '@/app/seo';
 import LiquidGlassCTA from '@/components/LiquidGlassCTA';
-import { HOST } from '@/lib/host';
+import { HOST, getHostText } from '@/lib/host';
+import { isLocale, localizePath, type Locale } from '@/i18n/config';
+import { aboutMessages } from '@/i18n/messages/about';
 
-const valuePoints = [
-  {
-    icon: MapPin,
-    title: 'Prime location',
-    description:
-      'A short walk from Carmel Market, Banana Beach, Nachalat Binyamin, and the energy of central Tel Aviv.',
-  },
-  {
-    icon: Shield,
-    title: 'Jewish-friendly stays',
-    description:
-      'Our apartments are designed for guests seeking thoughtful, Shabbat-friendly comfort in a refined and well-appointed setting.',
-  },
-  {
-    icon: UtensilsCrossed,
-    title: 'Flexible event hosting',
-    description:
-      'For intimate celebrations and Jewish events, optional kosher services can be arranged with the same attention to detail as the venue itself.',
-  },
-];
+const VALUE_POINT_ICONS = [MapPin, Shield, UtensilsCrossed];
 
 const structuredData = {
   '@context': 'https://schema.org',
@@ -52,7 +35,15 @@ const structuredData = {
   },
 };
 
-export default function AboutPage() {
+export default function AboutPage({ params }: { params: { locale: string } }) {
+  const locale: Locale = isLocale(params.locale) ? params.locale : 'en';
+  const t = aboutMessages[locale];
+  const hostText = getHostText(locale);
+  const valuePoints = t.distinct.points.map((point, index) => ({
+    ...point,
+    icon: VALUE_POINT_ICONS[index],
+  }));
+
   return (
     <div className="min-h-screen pt-24 pb-10 md:pb-20" style={{ backgroundColor: '#e8e4dc' }}>
       <script
@@ -72,13 +63,13 @@ export default function AboutPage() {
         <div className="relative z-10 mx-auto max-w-6xl px-4 py-10 md:py-20 sm:px-6 lg:px-8">
           <div className="max-w-4xl">
             <span className="mb-3 md:mb-4 inline-flex items-center rounded-full bg-white/10 px-4 py-1.5 md:px-5 md:py-2 text-xs md:text-sm font-semibold uppercase tracking-[0.22em] text-secondary">
-              About Or HaKerem
+              {t.hero.badge}
             </span>
             <h1 className="font-head text-2xl md:text-6xl font-bold leading-tight" data-animate="text">
-              About Or HaKerem – Luxury Stays in Tel Aviv
+              {t.hero.title}
             </h1>
             <p className="mt-3 md:mt-6 max-w-3xl text-sm md:text-lg leading-relaxed text-white/90 md:text-xl">
-              Or HaKerem is a boutique collection of luxury short-term stays located in Tel Aviv&apos;s historic Kerem HaTeimanim neighborhood, just minutes from Carmel Market, Banana Beach, and Nachalat Binyamin.
+              {t.hero.body}
             </p>
           </div>
         </div>
@@ -88,31 +79,31 @@ export default function AboutPage() {
         <div className="mx-auto grid max-w-6xl gap-8 px-4 sm:px-6 lg:grid-cols-[1.15fr_0.85fr] lg:px-8">
           <div className="rounded-3xl bg-white p-5 md:p-10 shadow-xl border border-primary/10">
             <span className="text-sm font-semibold uppercase tracking-[0.2em] text-secondary">
-              Our Positioning
+              {t.positioning.kicker}
             </span>
             <h2 className="mt-2 md:mt-4 font-head text-xl md:text-4xl font-bold text-black">
-              A more personal standard of luxury
+              {t.positioning.heading}
             </h2>
             <p className="mt-3 md:mt-6 text-sm md:text-lg leading-relaxed text-black/80">
-              We offer a unique experience combining modern comfort with the authentic charm of one of Tel Aviv&apos;s most vibrant areas. For travelers seeking luxury apartments in Tel Aviv with both privacy and character, Or HaKerem provides a quieter, more considered alternative to conventional hospitality.
+              {t.positioning.p1}
             </p>
             <p className="mt-3 md:mt-5 text-sm md:text-lg leading-relaxed text-black/80">
-              Among the boutique stays in Tel Aviv chosen for design, discretion, and location, our approach is deliberately intimate: a smaller collection, a stronger sense of place, and one of the more distinctive unique stays in Tel Aviv for guests who value quality over volume.
+              {t.positioning.p2}
             </p>
           </div>
 
           <div className="rounded-3xl border border-secondary/20 bg-gradient-to-br from-secondary/10 via-white to-white p-5 md:p-10 shadow-lg">
             <span className="text-sm font-semibold uppercase tracking-[0.2em] text-tertiary">
-              Trust & Experience
+              {t.trust.kicker}
             </span>
             <h2 className="mt-2 md:mt-4 font-head text-xl md:text-3xl font-bold text-black">
-              Hospitality built on repetition and care
+              {t.trust.heading}
             </h2>
             <p className="mt-3 md:mt-6 text-sm md:text-lg leading-relaxed text-black/80">
-              Or HaKerem hosts dozens of guests every week across its boutique apartments and event spaces, making it a trusted choice for premium stays in Tel Aviv.
+              {t.trust.p1}
             </p>
             <p className="mt-3 md:mt-5 text-sm md:text-lg leading-relaxed text-black/80">
-              That rhythm matters. It means every arrival, every request, and every detail is informed by real hosting experience, consistent guest expectations, and a hospitality standard shaped by repetition rather than promise alone.
+              {t.trust.p2}
             </p>
           </div>
         </div>
@@ -123,10 +114,10 @@ export default function AboutPage() {
           <div className="rounded-3xl bg-white p-5 md:p-10 shadow-xl border border-primary/10">
             <div className="max-w-3xl">
               <span className="text-sm font-semibold uppercase tracking-[0.2em] text-secondary">
-                What Makes Us Distinct
+                {t.distinct.kicker}
               </span>
               <h2 className="mt-2 md:mt-4 font-head text-xl md:text-4xl font-bold text-black">
-                Designed for guests who value place as much as comfort
+                {t.distinct.heading}
               </h2>
             </div>
 
@@ -151,7 +142,7 @@ export default function AboutPage() {
 
             <div className="mt-5 md:mt-8 rounded-2xl border border-secondary/20 bg-secondary/10 px-5 py-4 md:px-6 md:py-5">
               <p className="text-sm md:text-lg leading-relaxed text-black/80">
-                Our Kerem HaTeimanim apartments are especially valued by travelers who want a central stay without losing the texture of the neighborhood. Or HaKerem is one of the few boutique properties in Tel Aviv offering Shabbat-friendly accommodations and tailored Jewish event experiences. For guests looking for Shabbat-friendly stays in Tel Aviv, we combine practical support with a calm, premium atmosphere and tailored solutions for Jewish events, including optional kosher services.
+                {t.distinct.callout}
               </p>
             </div>
           </div>
@@ -172,16 +163,16 @@ export default function AboutPage() {
             </div>
             <div>
               <span className="text-sm font-semibold uppercase tracking-[0.2em] text-secondary">
-                Meet Your Host
+                {t.host.kicker}
               </span>
               <h2 className="mt-2 md:mt-4 font-head text-xl md:text-4xl font-bold text-black">
                 {HOST.name}
               </h2>
               <p className="mt-1 text-sm md:text-base font-semibold uppercase tracking-[0.18em] text-tertiary">
-                {HOST.jobTitle}
+                {hostText.jobTitle}
               </p>
               <p className="mt-3 md:mt-6 text-sm md:text-lg leading-relaxed text-black/80">
-                {HOST.bio}
+                {hostText.bio}
               </p>
               <a
                 href={HOST.sameAs[0]}
@@ -189,7 +180,7 @@ export default function AboutPage() {
                 rel="noopener noreferrer"
                 className="mt-4 md:mt-6 inline-flex items-center text-sm md:text-base font-semibold text-primary underline underline-offset-4 hover:text-primary-light"
               >
-                Connect on LinkedIn
+                {hostText.connectOnLinkedIn}
               </a>
             </div>
           </div>
@@ -200,31 +191,31 @@ export default function AboutPage() {
         <div className="mx-auto grid max-w-6xl gap-8 px-4 sm:px-6 lg:grid-cols-[0.95fr_1.05fr] lg:px-8">
           <div className="rounded-3xl bg-gradient-to-br from-tertiary/10 via-white to-white p-5 md:p-10 shadow-lg border border-tertiary/10">
             <span className="text-sm font-semibold uppercase tracking-[0.2em] text-tertiary">
-              Location Story
+              {t.locationStory.kicker}
             </span>
             <h2 className="mt-2 md:mt-4 font-head text-xl md:text-4xl font-bold text-black">
-              Rooted in Kerem HaTeimanim
+              {t.locationStory.heading}
             </h2>
             <p className="mt-3 md:mt-6 text-sm md:text-lg leading-relaxed text-black/80">
-              Located in Kerem HaTeimanim, one of Tel Aviv&apos;s oldest neighborhoods, the building blends local heritage with modern luxury.
+              {t.locationStory.p1}
             </p>
             <p className="mt-3 md:mt-5 text-sm md:text-lg leading-relaxed text-black/80">
-              Located in the heart of Kerem HaTeimanim, just minutes from Carmel Market and the beach, Or HaKerem offers a unique local experience in Tel Aviv, with easy access to Banana Beach and the character of Nachalat Binyamin.
+              {t.locationStory.p2}
             </p>
           </div>
 
           <div className="rounded-3xl bg-white p-5 md:p-10 shadow-xl border border-primary/10">
             <span className="text-sm font-semibold uppercase tracking-[0.2em] text-secondary">
-              Why Guests Choose Us
+              {t.whyUs.kicker}
             </span>
             <h2 className="mt-2 md:mt-4 font-head text-xl md:text-4xl font-bold text-black">
-              Premium stays with context and consistency
+              {t.whyUs.heading}
             </h2>
             <p className="mt-3 md:mt-6 text-sm md:text-lg leading-relaxed text-black/80">
-              We are not simply offering a place to sleep. We are offering a more complete way to stay in Tel Aviv: central, design-led, neighborhood-rooted, and supported by responsive hosting.
+              {t.whyUs.p1}
             </p>
             <p className="mt-3 md:mt-5 text-sm md:text-lg leading-relaxed text-black/80">
-              Whether a guest is booking a short urban escape, a longer stay near the beach, or a private celebration, the goal remains the same: to deliver one of the more polished boutique stays in Tel Aviv for guests seeking comfort, credibility, and a quietly memorable local experience. Whether you are visiting Tel Aviv for a short stay or planning a private event, Or HaKerem offers a unique and elevated experience.
+              {t.whyUs.p2}
             </p>
           </div>
         </div>
@@ -235,22 +226,22 @@ export default function AboutPage() {
           <div className="rounded-3xl bg-gradient-to-br from-primary via-primary to-primary-light px-5 py-7 md:px-12 md:py-10 text-center text-white shadow-2xl">
             <div className="mx-auto max-w-3xl">
               <span className="inline-flex items-center rounded-full bg-white/10 px-4 py-2 text-sm font-semibold uppercase tracking-[0.2em] text-secondary">
-                Explore Or HaKerem
+                {t.explore.badge}
               </span>
               <h2 className="mt-3 md:mt-5 font-head text-xl md:text-4xl font-bold">
-                Discover the properties and the neighborhood behind them
+                {t.explore.heading}
               </h2>
               <p className="mt-3 md:mt-5 text-sm md:text-lg leading-relaxed text-white/85">
-                See our apartments, learn more about the stay experience, or get in touch for a tailored recommendation.
+                {t.explore.body}
               </p>
             </div>
 
             <div className="mt-5 md:mt-8 flex flex-col items-center justify-center gap-3 md:gap-4 sm:flex-row">
-              <LiquidGlassCTA href="/properties" className="liquid-cta--sm">
-                View Properties
+              <LiquidGlassCTA href={localizePath(locale, '/properties')} className="liquid-cta--sm">
+                {t.explore.viewProperties}
               </LiquidGlassCTA>
-              <LiquidGlassCTA href="/#contact" className="liquid-cta--sm">
-                Contact Us
+              <LiquidGlassCTA href={`${localizePath(locale, '/')}#contact`} className="liquid-cta--sm">
+                {t.explore.contactUs}
               </LiquidGlassCTA>
             </div>
           </div>
