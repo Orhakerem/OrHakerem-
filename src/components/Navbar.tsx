@@ -141,7 +141,7 @@ function Navbar() {
                 </Link>
               );
             })}
-            <LocaleSwitcher className="nav-item-floating" />
+            <LocaleSwitcher className="nav-locale-floating" />
             <a
               href="https://wa.me/972585778891?text=Hi%20I%20am%20interested%20in%20your%20properties"
               target="_blank"
