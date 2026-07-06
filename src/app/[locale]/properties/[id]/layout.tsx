@@ -2,25 +2,31 @@ import type { Metadata } from 'next';
 import type { ReactNode } from 'react';
 
 import { isBookablePropertyId } from '@/lib/bookable-properties';
-import { PROPERTY_SEO, getPropertyStructuredData } from '@/lib/property-seo';
-import { createCanonicalUrl, SITE_URL } from '@/app/seo';
+import { getPropertySeo, getPropertyStructuredData } from '@/lib/property-seo';
+import { createCanonicalUrl, createLocalizedAlternates, SITE_URL } from '@/app/seo';
+import { isLocale, localizePath, OG_LOCALE, type Locale } from '@/i18n/config';
+
+const PATH_PREFIX = '/properties';
 
 export function generateMetadata({
   params,
 }: {
-  params: { id: string };
+  params: { id: string; locale: string };
 }): Metadata {
   const { id } = params;
+  const locale: Locale = isLocale(params.locale) ? params.locale : 'en';
+  const path = `${PATH_PREFIX}/${id}`;
 
   if (!isBookablePropertyId(id)) {
     return {
       alternates: {
-        canonical: createCanonicalUrl(`/properties/${id}`),
+        canonical: createCanonicalUrl(localizePath(locale, path)),
       },
     };
   }
 
-  const seo = PROPERTY_SEO[id];
+  const seo = getPropertySeo(locale)[id];
+  const url = createCanonicalUrl(localizePath(locale, path));
 
   return {
     title: seo.title,
@@ -29,7 +35,7 @@ export function generateMetadata({
     openGraph: {
       title: seo.title,
       description: seo.description,
-      url: createCanonicalUrl(`/properties/${id}`),
+      url,
       siteName: 'Or Hakerem',
       images: [
         {
@@ -37,7 +43,7 @@ export function generateMetadata({
           alt: seo.imageAlt,
         },
       ],
-      locale: 'en_US',
+      locale: OG_LOCALE[locale],
       type: 'website',
     },
     twitter: {
@@ -46,9 +52,7 @@ export function generateMetadata({
       description: seo.description,
       images: [`${SITE_URL}${seo.image}`],
     },
-    alternates: {
-      canonical: createCanonicalUrl(`/properties/${id}`),
-    },
+    alternates: createLocalizedAlternates(path, locale),
     robots: {
       index: true,
       follow: true,
@@ -61,7 +65,7 @@ export default function PropertyDetailsLayout({
   params,
 }: {
   children: ReactNode;
-  params: { id: string };
+  params: { id: string; locale: string };
 }) {
   if (!isBookablePropertyId(params.id)) {
     return <>{children}</>;

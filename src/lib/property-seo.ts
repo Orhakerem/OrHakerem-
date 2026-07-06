@@ -1,4 +1,5 @@
 import type { BookablePropertyId } from '@/lib/bookable-properties';
+import type { Locale } from '@/i18n/config';
 import { SITE_URL } from '@/app/seo';
 
 export interface PropertySeoMeta {
@@ -14,7 +15,7 @@ export interface PropertySeoMeta {
   priceTo: number;
 }
 
-export const PROPERTY_SEO: Record<BookablePropertyId, PropertySeoMeta> = {
+const enSeo: Record<BookablePropertyId, PropertySeoMeta> = {
   'penthouse-jacuzzi': {
     title: 'Luxury Penthouse with Private Jacuzzi & Sea Views | Tel Aviv | Or Hakerem',
     description:
@@ -46,6 +47,80 @@ export const PROPERTY_SEO: Record<BookablePropertyId, PropertySeoMeta> = {
     priceTo: 850,
   },
 };
+
+const frSeo: Record<BookablePropertyId, PropertySeoMeta> = {
+  'penthouse-jacuzzi': {
+    title: 'Penthouse de luxe avec jacuzzi privé et vue mer | Tel Aviv | Or Hakerem',
+    description:
+      "Penthouse de luxe de 3 chambres à Kerem HaTeimanim, Tel Aviv. Jacuzzi privé sur le toit, terrasse barbecue, vue mer panoramique. À deux pas du marché du Carmel et de Banana Beach. Réservez en direct et économisez 15 %.",
+    keywords:
+      'penthouse jacuzzi Tel Aviv, appartements de luxe Tel Aviv, penthouse de luxe Kerem HaTeimanim, appartement vue mer Tel Aviv, terrasse barbecue location Tel Aviv, appartement toit Tel Aviv, location courte durée de luxe Tel Aviv',
+    image: '/penthouse/1-jacuzzi-angle.JPEG',
+    imageAlt: 'Terrasse sur le toit du penthouse de luxe avec jacuzzi privé et vue mer sur Tel Aviv, Or Hakerem',
+    bedrooms: 3,
+    bathrooms: 3,
+    maxGuests: 7,
+    priceFrom: 1850,
+    priceTo: 3900,
+  },
+  'cozy-studio': {
+    title: 'Studio rénové à 2 min de la plage | Kerem HaTeimanim, Tel Aviv | Or Hakerem',
+    description:
+      "Charmant studio rénové dans un bâtiment historique ottoman à Kerem HaTeimanim, Tel Aviv. À 2 minutes de Banana Beach et du marché du Carmel. Parfait pour les séjours courts, moyens ou longs. Réservez en direct et économisez 15 %.",
+    keywords:
+      'studio Tel Aviv, location courte durée Tel Aviv, location vacances Tel Aviv, bâtiment historique appartement Tel Aviv, studio près de la plage Tel Aviv, appartement chaleureux Kerem HaTeimanim, location longue durée Tel Aviv',
+    image: '/studio/lit_angle_1.jpg',
+    imageAlt: 'Studio rénové chaleureux dans un bâtiment historique ottoman, Kerem HaTeimanim Tel Aviv',
+    bedrooms: 1,
+    bathrooms: 1,
+    maxGuests: 4,
+    priceFrom: 550,
+    priceTo: 850,
+  },
+};
+
+const heSeo: Record<BookablePropertyId, PropertySeoMeta> = {
+  'penthouse-jacuzzi': {
+    title: 'פנטהאוז יוקרה עם ג׳קוזי פרטי ונוף לים | תל אביב | אור הכרם',
+    description:
+      'פנטהאוז יוקרה מרווח עם 3 חדרי שינה בכרם התימנים, תל אביב. ג׳קוזי פרטי על הגג, מרפסת מנגל, נוף פנורמי לים. צעדים ספורים משוק הכרמל ומבננה ביץ׳. הזמינו ישירות וחסכו 15%.',
+    keywords: 'פנטהאוז ג׳קוזי תל אביב, דירות יוקרה תל אביב, פנטהאוז יוקרה כרם התימנים, דירה נוף לים תל אביב, מרפסת מנגל תל אביב, דירת גג תל אביב',
+    image: '/penthouse/1-jacuzzi-angle.JPEG',
+    imageAlt: 'מרפסת גג של פנטהאוז יוקרה עם ג׳קוזי פרטי ונוף לים בתל אביב, אור הכרם',
+    bedrooms: 3,
+    bathrooms: 3,
+    maxGuests: 7,
+    priceFrom: 1850,
+    priceTo: 3900,
+  },
+  'cozy-studio': {
+    title: 'סטודיו משופץ 2 דקות מהים | כרם התימנים, תל אביב | אור הכרם',
+    description:
+      'סטודיו משופץ ומקסים בבניין היסטורי מתקופת האימפריה העות׳מאנית בכרם התימנים, תל אביב. 2 דקות מבננה ביץ׳ ומשוק הכרמל. מושלם לשהיות קצרות, בינוניות וארוכות. הזמינו ישירות וחסכו 15%.',
+    keywords: 'סטודיו תל אביב, השכרה לטווח קצר תל אביב, דירת נופש תל אביב, בניין היסטורי דירה תל אביב, סטודיו קרוב לים תל אביב, דירה נעימה כרם התימנים',
+    image: '/studio/lit_angle_1.jpg',
+    imageAlt: 'סטודיו משופץ ונעים בבניין היסטורי עות׳מאני, כרם התימנים תל אביב',
+    bedrooms: 1,
+    bathrooms: 1,
+    maxGuests: 4,
+    priceFrom: 550,
+    priceTo: 850,
+  },
+};
+
+const PROPERTY_SEO_BY_LOCALE: Record<Locale, Record<BookablePropertyId, PropertySeoMeta>> = {
+  en: enSeo,
+  fr: frSeo,
+  he: heSeo,
+};
+
+export function getPropertySeo(locale: Locale): Record<BookablePropertyId, PropertySeoMeta> {
+  return PROPERTY_SEO_BY_LOCALE[locale];
+}
+
+// Kept for the LodgingBusiness JSON-LD, which is language-neutral enough to
+// stay English (schema.org names/values), and for any not-yet-migrated caller.
+export const PROPERTY_SEO = enSeo;
 
 export function getPropertyStructuredData(id: BookablePropertyId) {
   const seo = PROPERTY_SEO[id];

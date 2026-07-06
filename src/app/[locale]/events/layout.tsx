@@ -1,39 +1,40 @@
 import type { Metadata } from 'next';
 import type { ReactNode } from 'react';
 
-import { DEFAULT_OG_IMAGE, DEFAULT_OPEN_GRAPH_IMAGE, createCanonicalUrl } from '@/app/seo';
+import { DEFAULT_OG_IMAGE, DEFAULT_OPEN_GRAPH_IMAGE, createCanonicalUrl, createLocalizedAlternates } from '@/app/seo';
+import { isLocale, localizePath, OG_LOCALE, type Locale } from '@/i18n/config';
+import { seoMessages } from '@/i18n/messages/seo';
 
-export const metadata: Metadata = {
-  title: 'Boutique Events Tel Aviv | Jewish Celebrations & Kosher Services | Or Hakerem',
-  description:
-    'Or HaKerem hosts boutique events and Jewish celebrations in Tel Aviv, offering an intimate premium venue with optional kosher services and tailored planning.',
-  keywords:
-    'boutique events Tel Aviv, event space Tel Aviv, luxury venue Israel, luxury event venue Israel, Jewish events Tel Aviv, Jewish celebrations Tel Aviv, kosher services Tel Aviv, intimate events Tel Aviv, private venue Tel Aviv, bar mitzvah venue Tel Aviv, brit mila venue Tel Aviv, Or Hakerem',
-  openGraph: {
-    title: 'Boutique Events Tel Aviv | Jewish Celebrations & Kosher Services | Or Hakerem',
-    description:
-      'Discover a premium private venue in Tel Aviv for boutique events, Jewish celebrations, and intimate gatherings with optional kosher services.',
-    url: createCanonicalUrl('/events'),
-    siteName: 'Or Hakerem',
-    images: [DEFAULT_OPEN_GRAPH_IMAGE],
-    locale: 'en_US',
-    type: 'website',
-  },
-  twitter: {
-    card: 'summary_large_image',
-    title: 'Boutique Events Tel Aviv | Jewish Celebrations | Or Hakerem',
-    description:
-      'A premium Tel Aviv venue for intimate events, Jewish celebrations, and optional kosher services.',
-    images: [DEFAULT_OG_IMAGE],
-  },
-  alternates: {
-    canonical: createCanonicalUrl('/events'),
-  },
-  robots: {
-    index: true,
-    follow: true,
-  },
-};
+const PATH = '/events';
+
+export function generateMetadata({ params }: { params: { locale: string } }): Metadata {
+  const locale: Locale = isLocale(params.locale) ? params.locale : 'en';
+  const seo = seoMessages[locale].events;
+  const url = createCanonicalUrl(localizePath(locale, PATH));
+
+  return {
+    title: seo.title,
+    description: seo.description,
+    keywords: seo.keywords,
+    openGraph: {
+      title: seo.title,
+      description: seo.description,
+      url,
+      siteName: 'Or Hakerem',
+      images: [DEFAULT_OPEN_GRAPH_IMAGE],
+      locale: OG_LOCALE[locale],
+      type: 'website',
+    },
+    twitter: {
+      card: 'summary_large_image',
+      title: seo.title,
+      description: seo.description,
+      images: [DEFAULT_OG_IMAGE],
+    },
+    alternates: createLocalizedAlternates(PATH, locale),
+    robots: { index: true, follow: true },
+  };
+}
 
 export default function EventsLayout({ children }: { children: ReactNode }) {
   return <>{children}</>;

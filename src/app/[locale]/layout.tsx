@@ -6,10 +6,11 @@ import Toast from '@/components/Toast';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
 import CookieConsent from '@/components/CookieConsent';
-import { DEFAULT_OG_IMAGE, DEFAULT_OPEN_GRAPH_IMAGE, SITE_URL, createCanonicalUrl } from '@/app/seo';
+import { DEFAULT_OG_IMAGE, DEFAULT_OPEN_GRAPH_IMAGE, SITE_URL, createLocalizedAlternates } from '@/app/seo';
 import { assistant, heebo, inter, manrope } from '@/app/fonts';
-import { ENABLED_LOCALES, isEnabledLocale, isRtl } from '@/i18n/config';
+import { ENABLED_LOCALES, isEnabledLocale, isLocale, isRtl, OG_LOCALE, type Locale } from '@/i18n/config';
 import { commonMessages } from '@/i18n/messages/common';
+import { seoMessages } from '@/i18n/messages/seo';
 
 const organizationStructuredData = {
   '@context': 'https://schema.org',
@@ -44,63 +45,66 @@ export function generateStaticParams() {
   return ENABLED_LOCALES.map(locale => ({ locale }));
 }
 
-export const metadata: Metadata = {
-  title: 'Luxury Apartments in Tel Aviv | Or Hakerem | Kerem HaTeimanim',
-  description: 'Premium short-term rental apartments and boutique stays in Tel Aviv. Discover Or Hakerem in Kerem HaTeimanim for luxury accommodations, events, and attentive hosting.',
-  keywords: 'or hakerem, luxury apartments Tel Aviv, short-term rental Tel Aviv, vacation rental Tel Aviv, boutique stays Tel Aviv, luxury apartment in Tel Aviv, apartment Tel Aviv, events Tel Aviv, Kerem HaTeimanim, property management Tel Aviv, Tel Aviv accommodations',
-  authors: [{ name: 'Or Hakerem' }],
-  creator: 'Or Hakerem',
-  publisher: 'Or Hakerem',
-  formatDetection: {
-    email: false,
-    address: false,
-    telephone: false,
-  },
-  metadataBase: new URL(SITE_URL),
-  alternates: {
-    canonical: createCanonicalUrl('/'),
-  },
-  openGraph: {
-    title: 'Luxury Apartments in Tel Aviv | Or Hakerem | Kerem HaTeimanim',
-    description: 'Premium apartments and boutique stays in Tel Aviv. Discover Or Hakerem in Kerem HaTeimanim for luxury accommodations, events, and attentive hosting.',
-    url: createCanonicalUrl('/'),
-    siteName: 'Or Hakerem',
-    images: [DEFAULT_OPEN_GRAPH_IMAGE],
-    locale: 'en_US',
-    type: 'website',
-  },
-  twitter: {
-    card: 'summary_large_image',
-    title: 'Luxury Apartments in Tel Aviv | Or Hakerem | Kerem HaTeimanim',
-    description: 'Premium apartments and boutique stays in Tel Aviv. Discover Or Hakerem in Kerem HaTeimanim for luxury accommodations and events.',
-    images: [DEFAULT_OG_IMAGE],
-  },
-  robots: {
-    index: true,
-    follow: true,
-    googleBot: {
+export function generateMetadata({ params }: { params: { locale: string } }): Metadata {
+  const locale: Locale = isLocale(params.locale) ? params.locale : 'en';
+  const seo = seoMessages[locale].home;
+
+  return {
+    title: seo.title,
+    description: seo.description,
+    keywords: seo.keywords,
+    authors: [{ name: 'Or Hakerem' }],
+    creator: 'Or Hakerem',
+    publisher: 'Or Hakerem',
+    formatDetection: {
+      email: false,
+      address: false,
+      telephone: false,
+    },
+    metadataBase: new URL(SITE_URL),
+    alternates: createLocalizedAlternates('/', locale),
+    openGraph: {
+      title: seo.title,
+      description: seo.description,
+      url: createLocalizedAlternates('/', locale)?.canonical as string | undefined,
+      siteName: 'Or Hakerem',
+      images: [DEFAULT_OPEN_GRAPH_IMAGE],
+      locale: OG_LOCALE[locale],
+      type: 'website',
+    },
+    twitter: {
+      card: 'summary_large_image',
+      title: seo.title,
+      description: seo.description,
+      images: [DEFAULT_OG_IMAGE],
+    },
+    robots: {
       index: true,
       follow: true,
-      'max-video-preview': -1,
-      'max-image-preview': 'large',
-      'max-snippet': -1,
+      googleBot: {
+        index: true,
+        follow: true,
+        'max-video-preview': -1,
+        'max-image-preview': 'large',
+        'max-snippet': -1,
+      },
     },
-  },
-  icons: {
-    icon: [
-      { url: '/favicon/favicon.ico', sizes: 'any', type: 'image/x-icon' },
-      { url: '/favicon/favicon-32x32.png', sizes: '32x32', type: 'image/png' },
-      { url: '/favicon/favicon-16x16.png', sizes: '16x16', type: 'image/png' },
-      { url: '/favicon/android-chrome-192x192.png', sizes: '192x192', type: 'image/png' },
-      { url: '/favicon/android-chrome-512x512.png', sizes: '512x512', type: 'image/png' },
-    ],
-    shortcut: '/favicon/favicon.ico',
-    apple: [
-      { url: '/favicon/apple-touch-icon.png', sizes: '180x180', type: 'image/png' },
-    ],
-  },
-  manifest: '/favicon/site.webmanifest',
-};
+    icons: {
+      icon: [
+        { url: '/favicon/favicon.ico', sizes: 'any', type: 'image/x-icon' },
+        { url: '/favicon/favicon-32x32.png', sizes: '32x32', type: 'image/png' },
+        { url: '/favicon/favicon-16x16.png', sizes: '16x16', type: 'image/png' },
+        { url: '/favicon/android-chrome-192x192.png', sizes: '192x192', type: 'image/png' },
+        { url: '/favicon/android-chrome-512x512.png', sizes: '512x512', type: 'image/png' },
+      ],
+      shortcut: '/favicon/favicon.ico',
+      apple: [
+        { url: '/favicon/apple-touch-icon.png', sizes: '180x180', type: 'image/png' },
+      ],
+    },
+    manifest: '/favicon/site.webmanifest',
+  };
+}
 
 export default function RootLayout({
   children,
