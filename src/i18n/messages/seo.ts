@@ -107,54 +107,55 @@ const fr: SeoCatalog = {
     description:
       'Appartements de luxe en location courte durée à Tel Aviv. Découvrez Or Hakerem à Kerem HaTeimanim pour un hébergement haut de gamme, des événements et un accueil attentif.',
     keywords:
-      'or hakerem, appartements de luxe Tel Aviv, location courte durée Tel Aviv, location vacances Tel Aviv, séjours boutique Tel Aviv, appartement de luxe à Tel Aviv, événements Tel Aviv, Kerem HaTeimanim',
+      'appartements de luxe à Tel Aviv, location appartement Tel Aviv, voyage Tel Aviv, séjour de luxe Israël, appartement de vacances Tel Aviv, location courte durée Tel Aviv, hébergement haut de gamme Tel Aviv, Or Hakerem, Kerem HaTeimanim',
   },
   about: {
     title: 'À propos d’Or Hakerem – Séjours de luxe à Tel Aviv',
     description:
       "Découvrez Or Hakerem, une collection boutique de séjours de luxe courte durée à Tel Aviv, avec appartements haut de gamme, accueil adapté au Shabbat et événements intimistes à Kerem HaTeimanim.",
     keywords:
-      'À propos d’Or Hakerem, appartements de luxe Tel Aviv, séjours boutique Tel Aviv, appartements Kerem HaTeimanim, séjours Shabbat friendly Tel Aviv, lieu événementiel boutique Tel Aviv',
+      'appartements de luxe à Tel Aviv, séjour boutique Tel Aviv, hébergement haut de gamme Israël, voyage Shabbat friendly Tel Aviv, lieu événementiel Tel Aviv, à propos d’Or Hakerem, Kerem HaTeimanim',
   },
   properties: {
     title: 'Appartements de luxe à Tel Aviv | Les biens Or Hakerem',
     description:
       'Découvrez nos appartements de luxe à Kerem HaTeimanim, Tel Aviv : un penthouse avec jacuzzi privé et un studio chaleureux, tous deux à deux pas de la plage et du marché du Carmel.',
-    keywords: 'appartements de luxe Tel Aviv, penthouse jacuzzi Tel Aviv, studio Tel Aviv, biens Kerem HaTeimanim',
+    keywords:
+      'appartements de luxe à Tel Aviv, location vacances Tel Aviv, penthouse avec jacuzzi Tel Aviv, studio à louer Tel Aviv, appartement centre-ville Tel Aviv, biens Kerem HaTeimanim',
   },
   services: {
     title: 'Services de conciergerie à Tel Aviv | Or Hakerem | Courses, transferts et plus',
     description:
       'Or Hakerem propose des services de conciergerie haut de gamme à Tel Aviv : livraison de courses, transferts aéroport privés, garde d’enfants, organisation d’événements, réservation de restaurants et ménage à la demande.',
     keywords:
-      'conciergerie Tel Aviv, transfert aéroport Tel Aviv, livraison de courses appartement Tel Aviv, garde d’enfants Tel Aviv, réservation restaurant Tel Aviv, organisation d’événements Tel Aviv',
+      'conciergerie Tel Aviv, services de conciergerie voyage, transfert aéroport Tel Aviv, organisation séjour Israël, garde d’enfants Tel Aviv, réservation restaurant Tel Aviv, service sur mesure Tel Aviv',
   },
   events: {
     title: 'Lieu événementiel boutique à Tel Aviv | Célébrations juives et services casher | Or Hakerem',
     description:
       'Or HaKerem accueille des événements boutique et des célébrations juives à Tel Aviv, dans un lieu intimiste et haut de gamme avec services casher optionnels et organisation sur mesure.',
     keywords:
-      'événements boutique Tel Aviv, lieu événementiel Tel Aviv, lieu de luxe Israël, événements juifs Tel Aviv, services casher Tel Aviv, lieu privé Tel Aviv, Or Hakerem',
+      'événements privés Tel Aviv, salle de réception Tel Aviv, lieu de réception Israël, organisation bar mitzvah Israël, mariage Tel Aviv, événement casher Tel Aviv, lieu pour événement privé Israël, Or Hakerem',
   },
   reservation: {
     title: 'Réservez un séjour à Tel Aviv | Or Hakerem | Réservation directe',
     description:
       "Réservez votre appartement de luxe à Tel Aviv directement auprès d'Or Hakerem. La réservation directe coûte jusqu'à 15 % moins cher qu'Airbnb ou Booking.com. Penthouse avec jacuzzi ou studio chaleureux à Kerem HaTeimanim.",
     keywords:
-      'réserver appartement de luxe Tel Aviv, réservation directe Tel Aviv, réserver penthouse Tel Aviv, réserver studio Tel Aviv, réservation Kerem HaTeimanim',
+      'réserver appartement Tel Aviv, réservation directe Tel Aviv, réserver un séjour à Tel Aviv, location vacances Israël réservation, réserver penthouse Tel Aviv, Kerem HaTeimanim',
   },
   contact: {
     title: 'Contacter Or Hakerem | Séjours de luxe à Tel Aviv',
     description:
       'Contactez Or Hakerem par téléphone, WhatsApp ou e-mail pour réserver votre séjour, poser une question sur nos appartements à Kerem HaTeimanim, ou organiser des services de conciergerie à Tel Aviv.',
-    keywords: 'contacter Or Hakerem, réserver appartement de luxe Tel Aviv, demande location Tel Aviv, contact Kerem HaTeimanim, WhatsApp Or Hakerem',
+    keywords: 'contacter Or Hakerem, réserver séjour Tel Aviv, agence location Tel Aviv, demande location Tel Aviv, WhatsApp Tel Aviv location',
   },
   faq: {
     title: 'FAQ — Réservation, emplacement et séjour | Or Hakerem Tel Aviv',
     description:
       "Réponses aux questions les plus fréquentes sur Or Hakerem : emplacement à Kerem HaTeimanim, horaires d'arrivée, accompagnement Shabbat, parking, politique d'annulation et réservation directe.",
     keywords:
-      'FAQ Or Hakerem, questions appartement Tel Aviv, séjour Kerem HaTeimanim, FAQ Shabbat friendly, réserver en direct Tel Aviv, politique d’annulation Or Hakerem',
+      'questions fréquentes location Tel Aviv, FAQ voyage Israël, conditions séjour Tel Aviv, politique d’annulation location, FAQ Or Hakerem',
   },
   terms: {
     title: 'Conditions Générales | Or Hakerem Tel Aviv',
@@ -165,19 +166,19 @@ const fr: SeoCatalog = {
     title: 'Politique de confidentialité | Or Hakerem Tel Aviv',
     description:
       "Consultez la politique de confidentialité d'Or Hakerem : quelles données personnelles nous collectons, comment nous les utilisons, les cookies et outils analytiques utilisés, et vos droits selon le RGPD et le droit israélien.",
-    keywords: 'politique de confidentialité Or Hakerem, confidentialité location Tel Aviv, RGPD location courte durée, données personnelles, cookies',
+    keywords: 'politique de confidentialité, RGPD location courte durée, protection des données voyage, cookies, Or Hakerem',
   },
   cancellation: {
     title: "Politique d'annulation et de remboursement | Or Hakerem Tel Aviv",
     description:
       "Consultez la politique d'annulation et de remboursement d'Or Hakerem pour les séjours courte durée à Tel Aviv : échéancier des acomptes, situations non remboursables et conditions de bon d'achat.",
-    keywords: "politique d'annulation Tel Aviv, politique de remboursement location courte durée, conditions de réservation Or Hakerem, annulation appartement Tel Aviv",
+    keywords: "politique d'annulation Tel Aviv, remboursement location Israël, conditions de réservation, Or Hakerem",
   },
   blog: {
     title: 'Blog voyage Tel Aviv | Or Hakerem',
     description:
       'Guides de voyage à Tel Aviv, conseils sur le quartier de Kerem HaTeimanim, informations Shabbat-friendly et regards d’initiés d’Or Hakerem — locations de luxe courte durée au cœur de Tel Aviv.',
-    keywords: 'blog voyage Tel Aviv, guide Kerem HaTeimanim, quartier Tel Aviv, Shabbat Tel Aviv, à faire à Tel Aviv, séjours de luxe Tel Aviv',
+    keywords: 'blog voyage Tel Aviv, guide voyage Israël, que faire à Tel Aviv, conseils voyage Tel Aviv, quartier Kerem HaTeimanim',
   },
 };
 
@@ -185,42 +186,42 @@ const he: SeoCatalog = {
   home: {
     title: 'דירות יוקרה בתל אביב | אור הכרם | כרם התימנים',
     description: 'דירות פרימיום להשכרה לטווח קצר ושהיות בוטיקיות בתל אביב. גלו את אור הכרם בכרם התימנים לאירוח יוקרתי, אירועים ואירוח קשוב.',
-    keywords: 'אור הכרם, דירות יוקרה תל אביב, השכרה לטווח קצר תל אביב, שהיות בוטיק תל אביב, דירת יוקרה בתל אביב, אירועים תל אביב, כרם התימנים',
+    keywords: 'דירות יוקרה בתל אביב, דירות נופש בתל אביב, השכרה לטווח קצר תל אביב, כרם התימנים, לב תל אביב, 2 דקות לים, שוק הכרמל, אירוח בוטיקי תל אביב',
   },
   about: {
     title: 'אודות אור הכרם – אירוח יוקרתי בתל אביב',
     description: 'הכירו את אור הכרם, קולקציה בוטיקית של שהיות יוקרה קצרות בתל אביב עם דירות פרימיום, אירוח ידידותי לשבת וחוויות אירועים אינטימיות בכרם התימנים.',
-    keywords: 'אודות אור הכרם, דירות יוקרה תל אביב, שהיות בוטיק תל אביב, דירות כרם התימנים, שהיות ידידותיות לשבת תל אביב, מקום אירועים בוטיקי תל אביב',
+    keywords: 'אודות אור הכרם, דירות יוקרה כרם התימנים, לב תל אביב, אירוח ידידותי לשבת תל אביב, מקום אירועים בוטיקי, שוק הכרמל',
   },
   properties: {
     title: 'דירות יוקרה בתל אביב | הנכסים של אור הכרם',
     description: 'עיינו בדירות היוקרה שלנו בכרם התימנים, תל אביב: פנטהאוז עם ג׳קוזי פרטי וסטודיו נעים, שניהם צעדים ספורים מהים ומשוק הכרמל.',
-    keywords: 'דירות יוקרה תל אביב, פנטהאוז ג׳קוזי תל אביב, סטודיו תל אביב, נכסים כרם התימנים',
+    keywords: 'דירות יוקרה בתל אביב, פנטהאוז עם ג׳קוזי תל אביב, סטודיו להשכרה תל אביב, נכסים כרם התימנים, 2 דקות מהים, שוק הכרמל',
   },
   services: {
     title: 'שירותי קונסיירז׳ בתל אביב | אור הכרם | קניות, הסעות ועוד',
     description: 'אור הכרם מציע שירותי קונסיירז׳ פרימיום בתל אביב: משלוח קניות, הסעות פרטיות משדה התעופה, שמרטפות, תכנון אירועים, הזמנת מסעדות וניקיון לפי דרישה.',
-    keywords: 'קונסיירז׳ תל אביב, הסעה משדה התעופה תל אביב, משלוח קניות דירה תל אביב, שמרטפות תל אביב, הזמנת מסעדה תל אביב, תכנון אירועים תל אביב',
+    keywords: 'קונסיירז׳ תל אביב, שירותי קונסיירז׳ לדירות נופש, הסעה משדה התעופה תל אביב, שמרטפות תל אביב, הזמנת מסעדות תל אביב, כרם התימנים',
   },
   events: {
     title: 'מקום אירועים בוטיקי בתל אביב | חגיגות יהודיות ושירותי כשרות | אור הכרם',
     description: 'אור הכרם מארח אירועים בוטיקיים וחגיגות יהודיות בתל אביב, במקום אינטימי ופרימיום עם שירותי כשרות אופציונליים ותכנון מותאם אישית.',
-    keywords: 'אירועים בוטיקיים תל אביב, מקום אירועים תל אביב, מקום יוקרה ישראל, אירועים יהודיים תל אביב, שירותי כשרות תל אביב, מקום פרטי תל אביב, אור הכרם',
+    keywords: 'אירועים בוטיקיים תל אביב, מקום לאירועים פרטיים תל אביב, אולם אירועים כרם התימנים, בר מצווה תל אביב, ברית מילה תל אביב, אירוע כשר תל אביב, לב תל אביב',
   },
   reservation: {
     title: 'הזמינו שהות בתל אביב | אור הכרם | הזמנה ישירה',
     description: 'הזמינו את שהות דירת היוקרה שלכם בתל אביב ישירות מול אור הכרם. הזמנה ישירה זולה עד 15% מ-Airbnb או Booking.com. פנטהאוז עם ג׳קוזי או סטודיו נעים בכרם התימנים.',
-    keywords: 'הזמנת דירת יוקרה תל אביב, הזמנה ישירה תל אביב, הזמנת פנטהאוז תל אביב, הזמנת סטודיו תל אביב, הזמנה כרם התימנים',
+    keywords: 'הזמנת דירה בתל אביב, הזמנה ישירה תל אביב, הזמנת פנטהאוז תל אביב, הזמנת סטודיו כרם התימנים, כרם התימנים',
   },
   contact: {
     title: 'צרו קשר עם אור הכרם | שהיות יוקרה בתל אביב',
     description: 'צרו קשר עם אור הכרם בטלפון, בוואטסאפ או באימייל כדי להזמין שהות, לשאול על הדירות שלנו בכרם התימנים או לתאם שירותי קונסיירז׳ בתל אביב.',
-    keywords: 'צור קשר אור הכרם, הזמנת דירת יוקרה תל אביב, פנייה להשכרה תל אביב, יצירת קשר כרם התימנים, וואטסאפ אור הכרם',
+    keywords: 'יצירת קשר אור הכרם, פנייה להשכרת דירה תל אביב, וואטסאפ תל אביב, כרם התימנים',
   },
   faq: {
     title: 'שאלות נפוצות — הזמנה, מיקום ושהות | אור הכרם תל אביב',
     description: 'תשובות לשאלות הנפוצות ביותר על אור הכרם: מיקום הדירה בכרם התימנים, שעות צ׳ק-אין, תמיכה לשבת, חניה, מדיניות ביטולים וכיצד להזמין ישירות.',
-    keywords: 'שאלות נפוצות אור הכרם, שאלות דירה תל אביב, שהות כרם התימנים, שאלות ידידותיות לשבת, הזמנה ישירה תל אביב, מדיניות ביטולים אור הכרם',
+    keywords: 'שאלות נפוצות השכרת דירה, שאלות על שהות בתל אביב, מדיניות ביטולים, כרם התימנים',
   },
   terms: {
     title: 'תנאי שימוש | אור הכרם תל אביב',
@@ -229,17 +230,17 @@ const he: SeoCatalog = {
   privacy: {
     title: 'מדיניות פרטיות | אור הכרם תל אביב',
     description: 'קראו את מדיניות הפרטיות של אור הכרם: אילו נתונים אישיים אנו אוספים, כיצד אנו משתמשים בהם, העוגיות והאנליטיקה שבהן אנו נעזרים, והזכויות שלכם על פי GDPR והדין הישראלי.',
-    keywords: 'מדיניות פרטיות אור הכרם, פרטיות השכרה תל אביב, GDPR השכרה לטווח קצר, נתונים אישיים, עוגיות',
+    keywords: 'מדיניות פרטיות, הגנת מידע אישי, עוגיות אתר, אור הכרם',
   },
   cancellation: {
     title: 'מדיניות ביטולים והחזרים | אור הכרם תל אביב',
     description: 'קראו את מדיניות הביטולים וההחזרים של אור הכרם לשהיות קצרות בתל אביב, כולל לוח מקדמות, מקרים ללא החזר ותנאי שוברים.',
-    keywords: 'מדיניות ביטולים תל אביב, מדיניות החזרים השכרה לטווח קצר, תנאי הזמנה אור הכרם, ביטול דירה תל אביב',
+    keywords: 'מדיניות ביטולים תל אביב, החזר כספי השכרת דירה, תנאי הזמנה, אור הכרם',
   },
   blog: {
     title: 'בלוג טיולים תל אביב | אור הכרם',
     description: 'מדריכי טיולים לתל אביב, טיפים על שכונת כרם התימנים, ייעוץ ידידותי לשבת ותובנות מאור הכרם — השכרות יוקרה לטווח קצר בלב תל אביב.',
-    keywords: 'בלוג טיולים תל אביב, מדריך כרם התימנים, שכונת תל אביב, שבת תל אביב, מה לעשות בתל אביב, שהיות יוקרה תל אביב',
+    keywords: 'בלוג טיולים תל אביב, מדריך כרם התימנים, מה לעשות בתל אביב, טיולים בשבת תל אביב, שוק הכרמל מדריך',
   },
 };
 
