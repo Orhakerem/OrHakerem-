@@ -15,72 +15,43 @@ import Image from 'next/image';
 import Link from 'next/link';
 
 import LiquidGlassCTA from '@/components/LiquidGlassCTA';
+import { isLocale, localizePath, type Locale } from '@/i18n/config';
+import { propertiesMessages, type PropertiesMessages } from '@/i18n/messages/properties';
 
 export const dynamic = 'force-dynamic';
 
-const nearbyLandmarks = [
-  { name: 'Carmel Market', distance: '400m' },
-  { name: 'Banana Beach', distance: '600m' },
-  { name: 'Nachalat Binyamin', distance: '450m' },
-];
+const STAY_HIGHLIGHT_ICONS = [Wifi, UtensilsCrossed, Shield, Clock];
 
-const stayHighlights = [
-  {
-    icon: Wifi,
-    title: 'High-speed WiFi',
-    description: 'Reliable connectivity for work, planning, and longer stays in the city.',
-  },
-  {
-    icon: UtensilsCrossed,
-    title: 'Fully equipped kitchens',
-    description: 'Thoughtful essentials for breakfast at home, relaxed evenings, or extended visits.',
-  },
-  {
-    icon: Shield,
-    title: 'Secure, private setting',
-    description: 'A calm and well-kept address in one of central Tel Aviv’s most characterful neighborhoods.',
-  },
-  {
-    icon: Clock,
-    title: 'Responsive hosting',
-    description: 'Fast communication before arrival and attentive support throughout the stay.',
-  },
-];
-
-const neighborhoodHighlights = [
-  'Carmel Market for local produce, cafes, and everyday Tel Aviv energy',
-  'Banana Beach and the shoreline for morning walks and sunset swims',
-  'Nachalat Binyamin for galleries, design, and a lively cultural scene',
-  'Rothschild Boulevard and central Tel Aviv within easy reach',
-];
-
-const properties = {
+const propertyMedia = {
   'penthouse-jacuzzi': {
-    id: 'penthouse-jacuzzi',
-    title: 'Luxury Penthouse',
-    location: 'Kerem HaTeimanim, Tel Aviv',
-    description: 'This unique penthouse is perfect for both friendly or family stays equipped with amenities like the jacuzzi and barbecue, and live an unforgettable experience in a special place.',
+    id: 'penthouse-jacuzzi' as const,
     image: '/penthouse/1-jacuzzi-angle.JPEG',
     maxGuests: 7,
     bedrooms: 3,
     bathrooms: 3,
-    features: ['Private Jacuzzi', 'BBQ Terrace', 'Sea Views', 'Historic Building']
   },
   'cozy-studio': {
-    id: 'cozy-studio',
-    title: 'Spacious & Cosy Apartment',
-    location: 'Kerem HaTeimanim, Tel Aviv',
-    description: 'This renovated apartment is perfect for short and medium term stays. Fully equipped and located a short walk from the beach, Carmel Market, and the entrance to Kerem HaTeimanim.',
+    id: 'cozy-studio' as const,
     image: '/studio/lit_angle_1.jpg',
     maxGuests: 3,
     bedrooms: 1,
     bathrooms: 1,
-    features: ['Beach Access', 'Fully Equipped', 'Historic Charm', 'City Center']
   },
 };
 
-function PropertyCard({ property }: { property: (typeof properties)[keyof typeof properties] }) {
-  const propertyHref = `/properties/${property.id}`;
+type PropertyMedia = (typeof propertyMedia)[keyof typeof propertyMedia];
+
+function PropertyCard({
+  property,
+  locale,
+  t,
+}: {
+  property: PropertyMedia;
+  locale: Locale;
+  t: PropertiesMessages;
+}) {
+  const propertyHref = localizePath(locale, `/properties/${property.id}`);
+  const card = t.cards[property.id];
 
   return (
     <article
@@ -89,7 +60,7 @@ function PropertyCard({ property }: { property: (typeof properties)[keyof typeof
     >
       <Link
         href={propertyHref}
-        aria-label={`View ${property.title}`}
+        aria-label={t.viewAria(card.title)}
         className="absolute inset-0 z-10 rounded-[4px]"
       />
 
@@ -97,7 +68,7 @@ function PropertyCard({ property }: { property: (typeof properties)[keyof typeof
       <div className="property-card-image relative flex-1 min-h-0 overflow-hidden pointer-events-none" data-animate="zoom">
         <Image
           src={property.image}
-          alt={property.title}
+          alt={card.title}
           fill
           className="object-cover"
           loading="lazy"
@@ -113,7 +84,7 @@ function PropertyCard({ property }: { property: (typeof properties)[keyof typeof
         {/* Title */}
         <div className="property-card-copy mb-4 pointer-events-none">
           <h3 className="line-clamp-2 font-head text-xl font-bold text-black">
-            {property.title}
+            {card.title}
           </h3>
         </div>
 
@@ -143,21 +114,24 @@ function PropertyCard({ property }: { property: (typeof properties)[keyof typeof
   );
 }
 
-export default function Properties() {
+export default function Properties({ params }: { params: { locale: string } }) {
+  const locale: Locale = isLocale(params.locale) ? params.locale : 'en';
+  const t = propertiesMessages[locale];
+
   return (
     <div className="min-h-screen pt-28 pb-10 md:pb-20 md:pt-32" style={{ backgroundColor: '#e8e4dc' }}>
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Hero Section */}
         <div className="text-center mb-8 md:mb-16" data-animate="fade-up">
           <h1 className="font-head text-3xl md:text-6xl font-bold text-black mb-0 leading-tight" data-animate="text">
-            Luxury Apartments in Tel Aviv
+            {t.heroTitle}
           </h1>
         </div>
 
         {/* Properties Grid - Square Cards */}
         <div id="properties-listing" className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-4xl mx-auto mb-8 md:mb-16 scroll-mt-32" data-animate-group="cards">
-          {Object.values(properties).map((property) => (
-            <PropertyCard key={property.id} property={property} />
+          {Object.values(propertyMedia).map((property) => (
+            <PropertyCard key={property.id} property={property} locale={locale} t={t} />
           ))}
         </div>
 
@@ -165,24 +139,20 @@ export default function Properties() {
           <div className="grid gap-8 lg:grid-cols-[1.05fr_0.95fr] lg:items-center">
             <div className="rounded-[10px] bg-white p-5 md:p-10 shadow-xl border border-primary/10">
               <span className="text-secondary font-semibold text-sm md:text-base tracking-[0.2em] uppercase block mb-3">
-                Stay Experience
+                {t.experience.kicker}
               </span>
               <h2 className="font-head text-xl md:text-4xl font-bold text-black mb-3 md:mb-5">
-                A more local way to stay in Tel Aviv
+                {t.experience.heading}
               </h2>
-              <p className="text-black/80 text-sm md:text-lg leading-relaxed">
-                Located in Kerem HaTeimanim, our apartments combine modern comfort with the character of one of Tel Aviv&apos;s most established neighborhoods. The setting feels central and connected, yet calmer and more personal than a conventional hotel stay.
-              </p>
-              <p className="text-black/80 text-sm md:text-lg leading-relaxed mt-3 md:mt-5">
-                Whether you are visiting for a weekend by the sea, a longer city stay, or time between business meetings and local plans, Or HaKerem offers a polished base within easy reach of the beach, the market, and the cultural center of the city.
-              </p>
+              <p className="text-black/80 text-sm md:text-lg leading-relaxed">{t.experience.p1}</p>
+              <p className="text-black/80 text-sm md:text-lg leading-relaxed mt-3 md:mt-5">{t.experience.p2}</p>
 
               <div className="mt-5 md:mt-8 rounded-[10px] bg-cream border border-primary/10 px-4 py-4 md:px-6 md:py-6">
                 <h3 className="font-head text-lg md:text-2xl font-semibold text-black mb-3 md:mb-4">
-                  Best enjoyed on foot
+                  {t.experience.onFootHeading}
                 </h3>
                 <ul className="space-y-2 md:space-y-3">
-                  {neighborhoodHighlights.map((highlight) => (
+                  {t.experience.neighborhoodHighlights.map((highlight) => (
                     <li key={highlight} className="flex items-start text-sm md:text-base text-black/80">
                       <CheckCircle className="w-5 h-5 text-secondary me-3 mt-0.5 flex-shrink-0" />
                       <span>{highlight}</span>
@@ -196,7 +166,7 @@ export default function Properties() {
               <div className="relative h-[240px] md:h-[540px] overflow-hidden rounded-[6px] shadow-2xl">
                 <Image
                   src="/penthouse/7-vue-mer.jpg"
-                  alt="Or HaKerem apartment view in Tel Aviv"
+                  alt={t.experience.imageAlt}
                   fill
                   className="object-cover"
                   sizes="(max-width: 1024px) 100vw, 45vw"
@@ -209,13 +179,11 @@ export default function Properties() {
                     <CheckCircle className="w-6 h-6" />
                   </div>
                   <div>
-                    <div className="font-head text-2xl font-bold text-black">4.9/5</div>
-                    <div className="text-sm text-black/70">Verified guest rating</div>
+                    <div className="font-head text-2xl font-bold text-black">{t.experience.rating}</div>
+                    <div className="text-sm text-black/70">{t.experience.ratingLabel}</div>
                   </div>
                 </div>
-                <p className="text-sm text-black/75 leading-relaxed">
-                  A stay shaped by responsive hosting, strong reviews, and a location guests return to.
-                </p>
+                <p className="text-sm text-black/75 leading-relaxed">{t.experience.ratingBody}</p>
               </div>
             </div>
           </div>
@@ -223,26 +191,26 @@ export default function Properties() {
 
         <div className="max-w-6xl mx-auto mb-8 md:mb-16" data-animate="fade-up">
           <div className="rounded-[10px] bg-gradient-to-r from-secondary/20 via-primary/15 to-secondary/20 border border-primary/30 px-4 py-4 md:px-8 md:py-6 text-center shadow-md">
-            <p className="font-head text-base md:text-2xl font-semibold text-black">
-              Booking directly with us is up to 15% cheaper than platforms!
-            </p>
+            <p className="font-head text-base md:text-2xl font-semibold text-black">{t.directBanner}</p>
           </div>
         </div>
 
         <section className="max-w-6xl mx-auto mb-8 md:mb-16" data-animate="fade-up">
           <div className="text-center mb-5 md:mb-10">
             <span className="text-black font-semibold text-sm md:text-base tracking-[0.2em] uppercase block mb-3">
-              Included in Every Stay
+              {t.included.kicker}
             </span>
             <h2 className="font-head text-xl md:text-4xl font-bold text-black">
-              Thoughtful essentials, consistently delivered
+              {t.included.heading}
             </h2>
           </div>
 
           <div className="grid gap-5 md:gap-10 md:grid-cols-2 xl:grid-cols-4">
-            {stayHighlights.map((highlight) => (
+            {t.included.highlights.map((highlight, index) => {
+              const HighlightIcon = STAY_HIGHLIGHT_ICONS[index];
+              return (
               <div key={highlight.title}>
-                <highlight.icon className="w-7 h-7 text-black mb-3 md:mb-4" />
+                <HighlightIcon className="w-7 h-7 text-black mb-3 md:mb-4" />
                 <h3 className="font-head text-lg md:text-2xl font-semibold text-black mb-2 md:mb-3">
                   {highlight.title}
                 </h3>
@@ -250,7 +218,8 @@ export default function Properties() {
                   {highlight.description}
                 </p>
               </div>
-            ))}
+              );
+            })}
           </div>
         </section>
 
@@ -261,15 +230,15 @@ export default function Properties() {
         <section className="max-w-4xl mx-auto mb-8 md:mb-16" data-animate="fade-up">
           <div className="text-center mb-5 md:mb-10">
             <span className="text-black font-semibold text-sm md:text-base tracking-[0.2em] uppercase block mb-3">
-              Nearby Landmarks
+              {t.landmarks.kicker}
             </span>
             <h2 className="font-head text-xl md:text-4xl font-bold text-black">
-              Prime location in Tel Aviv
+              {t.landmarks.heading}
             </h2>
           </div>
 
           <div className="grid gap-8 md:grid-cols-3">
-            {nearbyLandmarks.map((landmark) => (
+            {t.landmarks.items.map((landmark) => (
               <div key={landmark.name} className="text-center">
                 <MapPin className="w-5 h-5 mx-auto mb-3 text-black" />
                 <h3 className="font-head text-base md:text-xl font-semibold text-black mb-1">
@@ -288,22 +257,22 @@ export default function Properties() {
         <section className="max-w-6xl mx-auto mb-8 md:mb-16" data-animate="fade-up">
           <div className="text-center mb-5 md:mb-10">
             <span className="text-black font-semibold text-sm md:text-base tracking-[0.2em] uppercase block mb-3">
-              Also Available On
+              {t.platforms.kicker}
             </span>
             <h2 className="font-head text-xl md:text-4xl font-bold text-black">
-              Our listings on different platforms
+              {t.platforms.heading}
             </h2>
             <p className="text-black/70 mt-3 md:mt-4 text-sm md:text-base max-w-2xl mx-auto">
-              Find us on the platforms you trust. Remember, booking directly with us is up to 15% cheaper.
+              {t.platforms.body}
             </p>
           </div>
 
           <div className="grid gap-8 md:grid-cols-2">
             <div className="text-center">
               <h3 className="font-head text-lg md:text-2xl font-semibold text-black mb-2">
-                Luxury Penthouse
+                {t.cards['penthouse-jacuzzi'].title}
               </h3>
-              <p className="text-black/70 text-sm mb-5">Available on Airbnb and Booking.com</p>
+              <p className="text-black/70 text-sm mb-5">{t.platforms.penthouseAvailability}</p>
               <div className="flex flex-col sm:flex-row gap-3 items-center justify-center">
                 <LiquidGlassCTA
                   href="https://www.airbnb.com/rooms/1247678225456455722"
@@ -311,7 +280,7 @@ export default function Properties() {
                   rel="noopener noreferrer"
                   className="liquid-cta--xs liquid-cta--light"
                 >
-                  <span>View on Airbnb</span>
+                  <span>{t.platforms.viewOnAirbnb}</span>
                   <ExternalLink className="w-4 h-4 ms-2" />
                 </LiquidGlassCTA>
                 <LiquidGlassCTA
@@ -320,7 +289,7 @@ export default function Properties() {
                   rel="noopener noreferrer"
                   className="liquid-cta--xs liquid-cta--light"
                 >
-                  <span>View on Booking.com</span>
+                  <span>{t.platforms.viewOnBooking}</span>
                   <ExternalLink className="w-4 h-4 ms-2" />
                 </LiquidGlassCTA>
               </div>
@@ -328,9 +297,9 @@ export default function Properties() {
 
             <div className="text-center">
               <h3 className="font-head text-lg md:text-2xl font-semibold text-black mb-2">
-                Spacious & Cosy Apartment
+                {t.cards['cozy-studio'].title}
               </h3>
-              <p className="text-black/70 text-sm mb-5">Available on Airbnb</p>
+              <p className="text-black/70 text-sm mb-5">{t.platforms.studioAvailability}</p>
               <div className="flex flex-col sm:flex-row gap-3 items-center justify-center">
                 <LiquidGlassCTA
                   href="https://www.airbnb.com/rooms/1273005083237819919"
@@ -338,7 +307,7 @@ export default function Properties() {
                   rel="noopener noreferrer"
                   className="liquid-cta--xs liquid-cta--light"
                 >
-                  <span>View on Airbnb</span>
+                  <span>{t.platforms.viewOnAirbnb}</span>
                   <ExternalLink className="w-4 h-4 ms-2" />
                 </LiquidGlassCTA>
               </div>

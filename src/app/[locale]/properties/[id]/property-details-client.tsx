@@ -47,9 +47,14 @@ import {
   getTodayIsoInTimeZone,
 } from '@/lib/booking-dates';
 import {
+  BOOKABLE_PROPERTIES,
   getBookablePropertyListingId,
   type CalendarSyncStatus,
 } from '@/lib/bookable-properties';
+import { localizePath } from '@/i18n/config';
+import { useLocale } from '@/i18n/useLocale';
+import { propertyDetailsMessages } from '@/i18n/messages/propertyDetails';
+import { localizeBookingValidationMessage } from '@/i18n/messages/booking';
 
 interface PropertyDetailsClientProps {
   propertyId: string;
@@ -57,21 +62,13 @@ interface PropertyDetailsClientProps {
   availabilityStatus?: CalendarSyncStatus;
 }
 
-const properties = {
+/**
+ * Structural, language-neutral data (images, icons, counts). Display text
+ * (titles, descriptions, room/amenity/highlight names) lives in
+ * propertyDetailsMessages, keyed by the same property id and positional index.
+ */
+const propertyMedia = {
   'penthouse-jacuzzi': {
-    title: 'Luxury Penthouse',
-    location: 'Kerem HaTeimanim, Tel Aviv',
-    description:
-      'Luxurious penthouse featuring a private jacuzzi, BBQ area, and breathtaking sea views.',
-    longDescription: `This unique penthouse located in the heart of Tel Aviv, just steps from the beach and the Carmel Market.
-
-Perfect for both friendly or family stays equipped with amenities like the jacuzzi and barbecue, and live a unforgettable experience in a special place.
-
-All bedrooms are equipped with a queen size bed, storage cupboards and curtains for total darkness if desired, the large bedroom is equipped with a baby bed. The kitchen is fully equipped; coffee machine, microwave, oven…
-
-The outdoor dining area is perfect for BBQ evenings.
-
-The main feature of this apartment is the terrace, with amenities such as BBQ, jacuzzi and sea views you can be sure to have an unforgettable experience and leave with wonderful memories!`,
     cleaningFee: 650,
     images: [
       '/penthouse/1-jacuzzi-angle.JPEG',
@@ -111,156 +108,70 @@ The main feature of this apartment is the terrace, with amenities such as BBQ, j
       '/penthouse/8-ext-drone-13.jpg',
     ],
     rooms: [
-      {
-        name: 'Living Room',
-        description: 'Bright open-plan lounge with a large sofa and rooftop access',
-        images: [
-          { src: '/penthouse/salon_angle_1.JPG', alt: 'Living room with sofa and round mirror' },
-          { src: '/penthouse/salon_angle_2.JPG', alt: 'Lounge with balcony access' },
-          { src: '/penthouse/IMG_0911.jpg', alt: 'Open living and dining area' },
-          { src: '/penthouse/IMG_0926.jpg', alt: 'Living room with smart TV' },
-        ],
-      },
-      {
-        name: 'Kitchen',
-        description: 'Fully equipped kitchen with a city-view window and modern appliances',
-        images: [
-          { src: '/penthouse/IMG_0933.jpg', alt: 'Kitchen with city view' },
-          { src: '/penthouse/IMG_0934.jpg', alt: 'Kitchen worktop and sink' },
-          { src: '/penthouse/IMG_0940.jpg', alt: 'Kitchen with fridge' },
-          { src: '/penthouse/IMG_0945.jpg', alt: 'Coffee machine, kettle and toaster' },
-        ],
-      },
-      {
-        name: 'Dining Area',
-        description: 'Round dining table for shared meals next to the kitchen',
-        images: [
-          { src: '/penthouse/IMG_0917.jpg', alt: 'Dining table with smart TV' },
-          { src: '/penthouse/IMG_0913.jpg', alt: 'Dining table by the kitchen' },
-        ],
-      },
-      {
-        name: 'Bedroom 1',
-        description: 'Master bedroom with a queen bed, wardrobe and blackout curtains',
-        images: [
-          { src: '/penthouse/IMG_0947.jpg', alt: 'Master bedroom with queen bed' },
-          { src: '/penthouse/IMG_0961.jpg', alt: 'Master bedroom with pendant light' },
-          { src: '/penthouse/IMG_0949.jpg', alt: 'Master bedroom, second angle' },
-          { src: '/penthouse/IMG_0951.jpg', alt: 'Bedroom wardrobe and door' },
-        ],
-      },
-      {
-        name: 'Bedroom 2',
-        description: 'Comfortable bedroom with a queen bed and natural light',
-        images: [
-          { src: '/penthouse/IMG_0994.jpg', alt: 'Second bedroom with queen bed' },
-          { src: '/penthouse/IMG_0984.jpg', alt: 'Second bedroom with terrace access' },
-        ],
-      },
-      {
-        name: 'Bedroom 3',
-        description: 'Cosy bedroom with a queen bed, wardrobe and full-length mirror',
-        images: [
-          { src: '/penthouse/IMG_0966.jpg', alt: 'Third bedroom with queen bed' },
-          { src: '/penthouse/IMG_0967.jpg', alt: 'Third bedroom with mirror' },
-          { src: '/penthouse/IMG_0971.jpg', alt: 'Bedroom wardrobe' },
-        ],
-      },
-      {
-        name: 'Full Bathroom 1',
-        description: 'Full bathroom with a walk-in shower and vanity',
-        images: [
-          { src: '/penthouse/6-salle-de-bain-douche-angle-2.jpg', alt: 'Bathroom with walk-in shower and sink' },
-        ],
-      },
-      {
-        name: 'Full Bathroom 2',
-        description: 'Second full bathroom with a rain shower',
-        images: [{ src: '/penthouse/15-douche.jpg', alt: 'Walk-in rain shower' }],
-      },
-      {
-        name: 'Toilet with Sink',
-        description: 'Separate WC with a vessel sink',
-        images: [
-          { src: '/penthouse/20-toilette-lavabo-angle-1.jpg', alt: 'Vessel sink and vanity' },
-          { src: '/penthouse/19-toilette-lavabo-angle-2.jpg', alt: 'Toilet with sink' },
-        ],
-      },
-      {
-        name: 'Terrace',
-        description: 'Private rooftop terrace with lounge seating, BBQ, sea views and aerial views',
-        images: [
-          { src: '/penthouse/4-terrasse-ext-coucher-soleil.jpg', alt: 'Rooftop terrace at sunset' },
-          { src: '/penthouse/chaises_hautes_angle 1.JPG', alt: 'Terrace high table and bench' },
-          { src: '/penthouse/chaises_hautes_angle 2.JPG', alt: 'Terrace high table with city view' },
-          { src: '/penthouse/7-vue-mer.jpg', alt: 'Sea view down the street' },
-          { src: '/penthouse/24-ext-drone-4.jpg', alt: 'Aerial view of the rooftop terrace' },
-          { src: '/penthouse/9-ext-drone-3.jpg', alt: 'Rooftop terrace from above' },
-          { src: '/penthouse/ext_drone_5.jpg', alt: 'Terrace and jacuzzi from above' },
-          { src: '/penthouse/23-ext-drone-12.jpg', alt: 'Rooftop and city view' },
-          { src: '/penthouse/8-ext-drone-13.jpg', alt: 'Aerial view of the building and street' },
-        ],
-      },
-      {
-        name: 'Laundry Area',
-        description: 'Utility area with a washer and sink',
-        images: [{ src: '/penthouse/14-espace-laverie.jpg', alt: 'Laundry area with washing machine' }],
-      },
-      {
-        name: 'Jacuzzi',
-        description: 'Private rooftop jacuzzi with panoramic city views',
-        images: [
-          { src: '/penthouse/1-jacuzzi-angle.JPEG', alt: 'Rooftop jacuzzi' },
-          { src: '/penthouse/26-jacuzzi-angle-2.JPEG', alt: 'Jacuzzi with city skyline' },
-        ],
-      },
+      { images: [
+        '/penthouse/salon_angle_1.JPG',
+        '/penthouse/salon_angle_2.JPG',
+        '/penthouse/IMG_0911.jpg',
+        '/penthouse/IMG_0926.jpg',
+      ] },
+      { images: [
+        '/penthouse/IMG_0933.jpg',
+        '/penthouse/IMG_0934.jpg',
+        '/penthouse/IMG_0940.jpg',
+        '/penthouse/IMG_0945.jpg',
+      ] },
+      { images: [
+        '/penthouse/IMG_0917.jpg',
+        '/penthouse/IMG_0913.jpg',
+      ] },
+      { images: [
+        '/penthouse/IMG_0947.jpg',
+        '/penthouse/IMG_0961.jpg',
+        '/penthouse/IMG_0949.jpg',
+        '/penthouse/IMG_0951.jpg',
+      ] },
+      { images: [
+        '/penthouse/IMG_0994.jpg',
+        '/penthouse/IMG_0984.jpg',
+      ] },
+      { images: [
+        '/penthouse/IMG_0966.jpg',
+        '/penthouse/IMG_0967.jpg',
+        '/penthouse/IMG_0971.jpg',
+      ] },
+      { images: [
+        '/penthouse/6-salle-de-bain-douche-angle-2.jpg',
+      ] },
+      { images: ['/penthouse/15-douche.jpg'] },
+      { images: [
+        '/penthouse/20-toilette-lavabo-angle-1.jpg',
+        '/penthouse/19-toilette-lavabo-angle-2.jpg',
+      ] },
+      { images: [
+        '/penthouse/4-terrasse-ext-coucher-soleil.jpg',
+        '/penthouse/chaises_hautes_angle 1.JPG',
+        '/penthouse/chaises_hautes_angle 2.JPG',
+        '/penthouse/7-vue-mer.jpg',
+        '/penthouse/24-ext-drone-4.jpg',
+        '/penthouse/9-ext-drone-3.jpg',
+        '/penthouse/ext_drone_5.jpg',
+        '/penthouse/23-ext-drone-12.jpg',
+        '/penthouse/8-ext-drone-13.jpg',
+      ] },
+      { images: ['/penthouse/14-espace-laverie.jpg'] },
+      { images: [
+        '/penthouse/1-jacuzzi-angle.JPEG',
+        '/penthouse/26-jacuzzi-angle-2.JPEG',
+      ] },
     ],
-    amenities: [
-      { icon: Waves, name: 'Beach Access', description: '2 minutes walk to the beach' },
-      { icon: UtensilsCrossed, name: 'BBQ Area', description: 'Outdoor BBQ with all utensils' },
-      { icon: Bath, name: 'Jacuzzi', description: 'Private rooftop jacuzzi' },
-      { icon: Wind, name: 'Air Conditioning', description: 'Central air throughout' },
-      { icon: Coffee, name: 'Coffee Station', description: 'Espresso machine & coffee maker' },
-      { icon: Baby, name: 'Family Friendly', description: 'Baby cot and high chair available' },
-      { icon: Dumbbell, name: 'Fitness Equipment', description: 'Basic exercise equipment' },
-      { icon: Shirt, name: 'Laundry', description: 'Washer/dryer in unit' },
-      { icon: Laptop, name: 'Work Space', description: 'Dedicated desk and chair' },
-      { icon: Wifi, name: 'High-speed WiFi', description: 'Throughout the property' },
-    ],
-    propertyType: 'Entire penthouse',
-    highlights: [
-      {
-        icon: Waves,
-        title: 'Panoramic sea views',
-        description: 'A full Tel Aviv coastline panorama from the private rooftop.',
-      },
-      {
-        icon: Bath,
-        title: 'Private rooftop jacuzzi',
-        description: 'Soak under the stars on your own terrace, no shared space.',
-      },
-      {
-        icon: MapPin,
-        title: 'Heart of Kerem HaTeimanim',
-        description: 'Steps from the beach, the Carmel Market, and the city center.',
-      },
-    ],
+    amenityIcons: [Waves, UtensilsCrossed, Bath, Wind, Coffee, Baby, Dumbbell, Shirt, Laptop, Wifi],
+    highlightIcons: [Waves, Bath, MapPin],
     maxGuests: 7,
     bedrooms: 3,
     beds: 3,
     baths: 3,
   },
   'cozy-studio': {
-    title: 'Spacious & Cosy Apartment',
-    location: 'Kerem HaTeimanim, Tel Aviv',
-    description: 'Completely renovated studio perfect for short to long term stays.',
-    longDescription: `This renovated apartment is perfect for short, medium, and long-term stays. Fully equipped and located 2 minutes walk from the beach, the Shouk Hacarmel and the entrance of Kerem Hateimanim, live a unique experience.
-
-    Enjoy the comfort of this cosy studio apartment in the heart of Tel Aviv ☀️ 
-
-    The apartment is a large room divided into two parts: on one side you'll find the entrance, equipped with an opening sofa, a table with chairs, a TV hanging on the wall and the bathroom just behind it. On the other side you'll find the bed, the wardrobe and the mini-kitchen with everything you need to prepare your meals.
-
-    The studio is located on the 1st floor of a unique building that is described as a historical monument dating from the Ottoman Empire.`,
     cleaningFee: 200,
     images: [
       '/studio/IMG_0814.jpg',
@@ -283,96 +194,39 @@ The main feature of this apartment is the terrace, with amenities such as BBQ, j
       '/studio/Canape_ouvert_angle_2.jpg',
     ],
     rooms: [
-      {
-        name: 'Living Room',
-        description: 'Open-plan lounge by the entrance with a comfortable sofa',
-        images: [
-          { src: '/studio/Salon_angle_1.jpg', alt: 'Living room with sofa and dining table' },
-          { src: '/studio/Salon_angle_1_Zoom.jpg', alt: 'Lounge area near the entrance' },
-          { src: '/studio/Salon_angle_4.jpg', alt: 'Living room sofa and dining table' },
-        ],
-      },
-      {
-        name: 'Kitchenette',
-        description: 'Compact kitchen fully equipped for everyday cooking',
-        images: [
-          { src: '/studio/Cuisine_angle_1.jpg', alt: 'Kitchenette with sink and oven' },
-          { src: '/studio/cuisine_angle_2.jpg', alt: 'Kitchenette with fridge' },
-          { src: '/studio/IMG_0806.jpg', alt: 'Cooktop and toaster oven' },
-        ],
-      },
-      {
-        name: 'Dining Area',
-        description: 'Round dining table by the window',
-        images: [
-          { src: '/studio/Salon_angle_3_Zoom.jpg', alt: 'Dining table by the window' },
-        ],
-      },
-      {
-        name: 'Bedroom',
-        description: 'Comfortable queen bed with storage',
-        images: [
-          { src: '/studio/IMG_0814.jpg', alt: 'Bedroom with queen bed' },
-          { src: '/studio/lit_angle_1.jpg', alt: 'Bed with fresh towels' },
-          { src: '/studio/IMG_0821.jpg', alt: 'Bedroom with arched window' },
-          { src: '/studio/IMG_0828.jpg', alt: 'Bedroom with mirror and dresser' },
-          { src: '/studio/IMG_0825.jpg', alt: 'Bedroom with TV and desk' },
-        ],
-      },
-      {
-        name: 'Bathroom',
-        description: 'Private bathroom with walk-in shower',
-        images: [
-          { src: '/studio/IMG_0800.jpg', alt: 'Walk-in shower' },
-          { src: '/studio/IMG_0795.jpg', alt: 'Vanity with arched window' },
-        ],
-      },
-      {
-        name: 'Workspace',
-        description: 'Dedicated desk and chair for remote work',
-        images: [
-          { src: '/studio/IMG_0809.jpg', alt: 'Desk with wall-mounted TV' },
-          { src: '/studio/IMG_0810.jpg', alt: 'Workspace with desk and chair' },
-        ],
-      },
-      {
-        name: 'Sofa Bed Area',
-        description: 'Convertible sofa near the entrance for additional sleeping space',
-        images: [
-          { src: '/studio/Canape_ouvert_angle_1.jpg', alt: 'Convertible sofa bed made up' },
-          { src: '/studio/Canape_ouvert_angle_2.jpg', alt: 'Sofa bed area' },
-        ],
-      },
+      { images: [
+        '/studio/Salon_angle_1.jpg',
+        '/studio/Salon_angle_1_Zoom.jpg',
+        '/studio/Salon_angle_4.jpg',
+      ] },
+      { images: [
+        '/studio/Cuisine_angle_1.jpg',
+        '/studio/cuisine_angle_2.jpg',
+        '/studio/IMG_0806.jpg',
+      ] },
+      { images: ['/studio/Salon_angle_3_Zoom.jpg'] },
+      { images: [
+        '/studio/IMG_0814.jpg',
+        '/studio/lit_angle_1.jpg',
+        '/studio/IMG_0821.jpg',
+        '/studio/IMG_0828.jpg',
+        '/studio/IMG_0825.jpg',
+      ] },
+      { images: [
+        '/studio/IMG_0800.jpg',
+        '/studio/IMG_0795.jpg',
+      ] },
+      { images: [
+        '/studio/IMG_0809.jpg',
+        '/studio/IMG_0810.jpg',
+      ] },
+      { images: [
+        '/studio/Canape_ouvert_angle_1.jpg',
+        '/studio/Canape_ouvert_angle_2.jpg',
+      ] },
     ],
-    amenities: [
-      { icon: Waves, name: 'Beach Access', description: '2 minutes to beach' },
-      { icon: Wind, name: 'Air Conditioning', description: 'Central air conditioning' },
-      { icon: Coffee, name: 'Coffee Setup', description: 'Electric kettle & coffee maker' },
-      { icon: UtensilsCrossed, name: 'Mini Kitchen', description: 'Equipped for meal prep' },
-      { icon: Tv, name: 'Smart TV', description: 'Wall-mounted TV' },
-      { icon: Sofa, name: 'Convertible Sofa', description: 'Additional sleeping space' },
-      { icon: BedDouble, name: 'Comfortable Bed', description: 'Quality bedding provided' },
-      { icon: Utensils, name: 'Full Amenities', description: 'All essentials provided' },
-      { icon: Wifi, name: 'High-speed WiFi', description: 'Throughout the studio' },
-    ],
-    propertyType: 'Entire studio apartment',
-    highlights: [
-      {
-        icon: MapPin,
-        title: 'Steps from everything',
-        description: '2 minutes to the beach, the Shouk HaCarmel, and the Kerem entrance.',
-      },
-      {
-        icon: BedDouble,
-        title: 'Sleeps four comfortably',
-        description: 'Queen bed plus a convertible sofa near the entrance.',
-      },
-      {
-        icon: Wifi,
-        title: 'Set up to work',
-        description: 'Fully renovated and equipped — ideal for medium and long stays.',
-      },
-    ],
+    amenityIcons: [Waves, Wind, Coffee, UtensilsCrossed, Tv, Sofa, BedDouble, Utensils, Wifi],
+    highlightIcons: [MapPin, BedDouble, Wifi],
     maxGuests: 4,
     bedrooms: 1,
     beds: 1,
@@ -380,7 +234,7 @@ The main feature of this apartment is the terrace, with amenities such as BBQ, j
   },
 };
 
-type PropertyId = keyof typeof properties;
+type PropertyId = keyof typeof propertyMedia;
 
 type PriceQuote = AccommodationPriceQuote;
 
@@ -402,21 +256,19 @@ interface ReservationFormErrors {
 }
 
 function isPropertyId(value: string): value is PropertyId {
-  return value in properties;
+  return value in propertyMedia;
 }
 
 function isRecord(value: unknown): value is Record<string, unknown> {
   return typeof value === 'object' && value !== null;
 }
 
-function getPriceErrorMessage(value: unknown) {
+function getPriceErrorMessage(value: unknown, fallback: string) {
   if (!isRecord(value) || !isRecord(value.error)) {
-    return 'Unable to calculate price';
+    return fallback;
   }
 
-  return typeof value.error.message === 'string'
-    ? value.error.message
-    : 'Unable to calculate price';
+  return typeof value.error.message === 'string' ? value.error.message : fallback;
 }
 
 function getFormFieldValue(formData: FormData, name: string) {
@@ -442,6 +294,8 @@ export default function PropertyDetailsClient({
   availabilityStatus = 'ready',
 }: PropertyDetailsClientProps) {
   const router = useRouter();
+  const locale = useLocale();
+  const t = propertyDetailsMessages[locale];
   const [dateRange, setDateRange] = useState<BookingDateRange>({
     checkIn: null,
     checkOut: null,
@@ -459,7 +313,8 @@ export default function PropertyDetailsClient({
   const [isBookingSheetOpen, setIsBookingSheetOpen] = useState(false);
   const [heroPhotoIndex, setHeroPhotoIndex] = useState(0);
   const propertyKey = isPropertyId(propertyId) ? propertyId : null;
-  const property = propertyKey ? properties[propertyKey] : null;
+  const property = propertyKey ? propertyMedia[propertyKey] : null;
+  const text = propertyKey ? t.properties[propertyKey] : null;
   const selectedListingId = propertyKey ? getBookablePropertyListingId(propertyKey) : '';
   const selectedNights = getNightCount(dateRange);
   const todayIso = getTodayIsoInTimeZone();
@@ -482,12 +337,12 @@ export default function PropertyDetailsClient({
   const propertyPageHeading = (
     <h1
       className={
-        property
+        text
           ? 'font-head text-3xl font-bold text-black mb-2'
           : 'text-2xl font-bold text-black mb-4'
       }
     >
-      {property ? property.title : 'Property Not Found'}
+      {text ? text.title : t.ui.notFoundTitle}
     </h1>
   );
 
@@ -524,7 +379,7 @@ export default function PropertyDetailsClient({
         const payload: unknown = await response.json().catch(() => null);
 
         if (!response.ok) {
-          throw new Error(getPriceErrorMessage(payload));
+          throw new Error(getPriceErrorMessage(payload, t.ui.priceUnexpected));
         }
 
         if (!isAccommodationPriceQuote(payload)) {
@@ -549,7 +404,7 @@ export default function PropertyDetailsClient({
 
         console.error('Property price calculation error:', error);
         setPriceQuoteResult(null);
-        setPriceError('Dynamic price is temporarily unavailable.');
+        setPriceError(t.ui.priceUnavailable);
       } finally {
         if (!controller.signal.aborted) {
           setIsPriceLoading(false);
@@ -592,13 +447,13 @@ export default function PropertyDetailsClient({
     };
   }, [anyOverlayOpen]);
 
-  if (!property) {
+  if (!property || !text) {
     return (
       <div className="min-h-screen pt-24 pb-20">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           {propertyPageHeading}
-          <LiquidGlassButton onClick={() => router.push('/properties')}>
-            Back to Properties
+          <LiquidGlassButton onClick={() => router.push(localizePath(locale, '/properties'))}>
+            {t.ui.backToProperties}
           </LiquidGlassButton>
         </div>
       </div>
@@ -634,45 +489,45 @@ export default function PropertyDetailsClient({
     const guestsCount = Number.parseInt(guestsCountValue, 10);
 
     if (!selectedListingId) {
-      nextErrors.form = 'Please select a valid property before sending your request.';
+      nextErrors.form = t.ui.errors.selectProperty;
     }
 
     if (availabilityStatus === 'error') {
-      nextErrors.dates = 'Airbnb availability is temporarily unavailable. Please try again shortly.';
+      nextErrors.dates = t.ui.errors.availabilityUnavailable;
     } else if (dateValidationMessage) {
-      nextErrors.dates = dateValidationMessage;
+      nextErrors.dates = localizeBookingValidationMessage(locale, dateValidationMessage);
     }
 
     if (!nextErrors.dates) {
       if (isPriceLoading) {
-        nextErrors.price = 'Please wait for the price estimate to finish.';
+        nextErrors.price = t.ui.errors.waitPriceLoading;
       } else if (priceError) {
         nextErrors.price = priceError;
       } else if (!activePriceQuote) {
-        nextErrors.price = 'Please wait for a valid price estimate before sending your request.';
+        nextErrors.price = t.ui.errors.waitValidPrice;
       }
     }
 
     if (!guestName) {
-      nextErrors.name = 'Please enter your full name.';
+      nextErrors.name = t.ui.errors.nameRequired;
     }
 
     if (!guestEmail) {
-      nextErrors.email = 'Please enter your email address.';
+      nextErrors.email = t.ui.errors.emailRequired;
     } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(guestEmail)) {
-      nextErrors.email = 'Please enter a valid email address.';
+      nextErrors.email = t.ui.errors.emailInvalid;
     }
 
     if (!guestPhone) {
-      nextErrors.phone = 'Please enter your phone number.';
+      nextErrors.phone = t.ui.errors.phoneRequired;
     }
 
     if (!guestsCountValue) {
-      nextErrors.guestsCount = 'Please enter the number of guests.';
+      nextErrors.guestsCount = t.ui.errors.guestsRequired;
     } else if (!Number.isInteger(guestsCount) || guestsCount < 1) {
-      nextErrors.guestsCount = 'Please enter at least 1 guest.';
+      nextErrors.guestsCount = t.ui.errors.guestsMin;
     } else if (guestsCount > property.maxGuests) {
-      nextErrors.guestsCount = `This property can host up to ${property.maxGuests} guests.`;
+      nextErrors.guestsCount = t.ui.errors.guestsMax(property.maxGuests);
     }
 
     return nextErrors;
@@ -706,19 +561,19 @@ export default function PropertyDetailsClient({
       const result = await sendEmail(formData);
 
       if (result.success) {
-        toast.success(result.message || 'Reservation request sent successfully!');
+        toast.success(result.message || t.ui.successToast);
         setIsSubmitSuccess(true);
         form.reset();
         setContactMethod('email');
         setFormErrors({});
       } else {
-        const errorMessage = result.error || 'Failed to send reservation request.';
+        const errorMessage = result.error || t.ui.errors.submitFailed;
         setFormErrors({ form: errorMessage });
         toast.error(errorMessage);
       }
     } catch (error) {
       console.error('Property reservation submission error:', error);
-      const errorMessage = 'Failed to submit reservation. Please try again.';
+      const errorMessage = t.ui.errors.submitError;
       setFormErrors({ form: errorMessage });
       toast.error(errorMessage);
     } finally {
@@ -732,7 +587,7 @@ export default function PropertyDetailsClient({
 
   const reservationForm = (
     <form onSubmit={handleBookNowSubmit} noValidate className="space-y-6">
-                  <input type="hidden" name="property" value={property.title} />
+                  <input type="hidden" name="property" value={BOOKABLE_PROPERTIES[propertyKey!].title} />
                   <input type="hidden" name="listing_id" value={selectedListingId} />
                   <input type="hidden" name="checkIn" value={dateRange.checkIn ?? ''} />
                   <input type="hidden" name="checkOut" value={dateRange.checkOut ?? ''} />
@@ -751,10 +606,10 @@ export default function PropertyDetailsClient({
                       className="tap-reset border-e border-primary/15 px-4 py-3 text-start transition hover:bg-primary/5"
                     >
                       <p className="text-[10px] font-semibold uppercase tracking-[0.18em] text-black/55">
-                        Check-in
+                        {t.ui.form.checkIn}
                       </p>
                       <p className="mt-1 text-sm font-semibold text-black">
-                        {dateRange.checkIn ?? 'Add date'}
+                        {dateRange.checkIn ?? t.ui.form.addDate}
                       </p>
                     </button>
                     <button
@@ -770,10 +625,10 @@ export default function PropertyDetailsClient({
                       className="tap-reset px-4 py-3 text-start transition hover:bg-primary/5"
                     >
                       <p className="text-[10px] font-semibold uppercase tracking-[0.18em] text-black/55">
-                        Checkout
+                        {t.ui.form.checkout}
                       </p>
                       <p className="mt-1 text-sm font-semibold text-black">
-                        {dateRange.checkOut ?? 'Add date'}
+                        {dateRange.checkOut ?? t.ui.form.addDate}
                       </p>
                     </button>
                   </div>
@@ -789,7 +644,7 @@ export default function PropertyDetailsClient({
                       role="alert"
                       className="rounded-[10px] border border-red-200 bg-red-50 px-4 py-3 text-sm text-red-700"
                     >
-                      <p className="font-semibold">Please fix the highlighted details before sending.</p>
+                      <p className="font-semibold">{t.ui.errors.fixHighlighted}</p>
                       <ul className="mt-2 list-disc space-y-1 ps-5">
                         {visibleFormErrors.map((errorMessage) => (
                           <li key={errorMessage}>{errorMessage}</li>
@@ -803,7 +658,7 @@ export default function PropertyDetailsClient({
                       role="status"
                       className="rounded-[10px] border border-green-200 bg-green-50 px-4 py-3 text-sm font-medium text-green-700"
                     >
-                      Thank you. Your reservation request was sent and our team will contact you within 24 hours.
+                      {t.ui.success}
                     </div>
                   ) : null}
 
@@ -822,7 +677,7 @@ export default function PropertyDetailsClient({
                   <div className="grid gap-4 md:grid-cols-2">
                     <div>
                       <label htmlFor="property-reservation-name" className="block text-sm font-medium text-black/80 mb-1">
-                        Full Name
+                        {t.ui.form.fullName}
                       </label>
                       <input
                         type="text"
@@ -843,7 +698,7 @@ export default function PropertyDetailsClient({
 
                     <div>
                       <label htmlFor="property-reservation-email" className="block text-sm font-medium text-black/80 mb-1">
-                        Email Address
+                        {t.ui.form.emailAddress}
                       </label>
                       <div className="relative">
                         <Mail className="absolute start-3 top-1/2 h-5 w-5 -translate-y-1/2 text-black/60" />
@@ -867,7 +722,7 @@ export default function PropertyDetailsClient({
 
                     <div>
                       <label htmlFor="property-reservation-phone" className="block text-sm font-medium text-black/80 mb-1">
-                        Phone Number
+                        {t.ui.form.phoneNumber}
                       </label>
                       <div className="relative">
                         <Phone className="absolute start-3 top-1/2 h-5 w-5 -translate-y-1/2 text-black/60" />
@@ -891,7 +746,7 @@ export default function PropertyDetailsClient({
 
                     <div>
                       <label htmlFor="property-reservation-guests" className="block text-sm font-medium text-black/80 mb-1">
-                        Guests
+                        {t.ui.form.guests}
                       </label>
                       <input
                         type="number"
@@ -915,7 +770,7 @@ export default function PropertyDetailsClient({
 
                   <div>
                     <label className="block text-sm font-medium text-black/80 mb-3">
-                      <span>Preferred Contact Method</span>
+                      <span>{t.ui.form.preferredContact}</span>
                     </label>
                     <div className="grid grid-cols-1 gap-4 md:grid-cols-3">
                       <label className={`tap-reset relative flex cursor-pointer items-center justify-center rounded-[10px] border p-4 ${contactMethod === 'email' ? 'border-black/10 bg-black/[0.03] shadow-sm' : 'border-gray-200 bg-white'}`}>
@@ -928,7 +783,7 @@ export default function PropertyDetailsClient({
                           className="absolute opacity-0"
                         />
                         <Mail className="h-5 w-5 text-black" />
-                        <span className="ms-2 text-black">Email</span>
+                        <span className="ms-2 text-black">{t.ui.form.contactEmail}</span>
                       </label>
 
                       <label className={`tap-reset relative flex cursor-pointer items-center justify-center rounded-[10px] border p-4 ${contactMethod === 'phone' ? 'border-black/10 bg-black/[0.03] shadow-sm' : 'border-gray-200 bg-white'}`}>
@@ -941,7 +796,7 @@ export default function PropertyDetailsClient({
                           className="absolute opacity-0"
                         />
                         <Phone className="h-5 w-5 text-black" />
-                        <span className="ms-2 text-black">Phone</span>
+                        <span className="ms-2 text-black">{t.ui.form.contactPhone}</span>
                       </label>
 
                       <label className={`tap-reset relative flex cursor-pointer items-center justify-center rounded-[10px] border p-4 ${contactMethod === 'whatsapp' ? 'border-black/10 bg-black/[0.03] shadow-sm' : 'border-gray-200 bg-white'}`}>
@@ -954,7 +809,7 @@ export default function PropertyDetailsClient({
                           className="absolute opacity-0"
                         />
                         <MessageSquare className="h-5 w-5 text-black" />
-                        <span className="ms-2 text-black">WhatsApp</span>
+                        <span className="ms-2 text-black">{t.ui.form.contactWhatsapp}</span>
                       </label>
                     </div>
                   </div>
@@ -962,11 +817,11 @@ export default function PropertyDetailsClient({
                   <div className="relative">
                     <LiquidGlassButton type="submit" className="w-full" disabled={isSubmitting}>
                       <Calendar className="w-6 h-6 me-3" />
-                      <span>{isSubmitting ? 'SENDING...' : 'BOOK NOW'}</span>
+                      <span>{isSubmitting ? t.ui.form.sending : t.ui.form.bookNow}</span>
                     </LiquidGlassButton>
 
                     <p className="mt-4 text-black/70 text-sm font-medium text-center">
-                      Response within 24 hours guaranteed
+                      {t.ui.form.responseGuarantee}
                     </p>
                   </div>
                 </form>
@@ -976,12 +831,27 @@ export default function PropertyDetailsClient({
   const heroPhotoCount = property.images.length;
   const activeHeroPhotoIndex = heroPhotoIndex % heroPhotoCount;
   const activeHeroPhoto = property.images[activeHeroPhotoIndex] ?? property.images[0];
-  const amenitiesPreview = property.amenities.slice(0, 10);
+  const rooms = property.rooms.map((room, index) => ({
+    ...text.rooms[index],
+    images: room.images.map((src, imageIndex) => ({
+      src,
+      alt: text.rooms[index].imageAlts[imageIndex] ?? text.rooms[index].name,
+    })),
+  }));
+  const amenities = property.amenityIcons.map((icon, index) => ({
+    icon,
+    ...text.amenities[index],
+  }));
+  const highlights = property.highlightIcons.map((icon, index) => ({
+    icon,
+    ...text.highlights[index],
+  }));
+  const amenitiesPreview = amenities.slice(0, 10);
   const quickFacts = [
-    `${property.maxGuests} guest${property.maxGuests === 1 ? '' : 's'}`,
-    `${property.bedrooms} bedroom${property.bedrooms === 1 ? '' : 's'}`,
-    `${property.beds} bed${property.beds === 1 ? '' : 's'}`,
-    `${property.baths} bath${property.baths === 1 ? '' : 's'}`,
+    t.ui.facts.guests(property.maxGuests),
+    t.ui.facts.bedrooms(property.bedrooms),
+    t.ui.facts.beds(property.beds),
+    t.ui.facts.baths(property.baths),
   ];
   const showPreviousHeroPhoto = () => {
     setHeroPhotoIndex((currentIndex) =>
@@ -1001,7 +871,7 @@ export default function PropertyDetailsClient({
       <div className="lg:hidden relative h-[44vh] w-full overflow-hidden">
         <Image
           src={activeHeroPhoto}
-          alt={`${property.title} — photo ${activeHeroPhotoIndex + 1}`}
+          alt={t.ui.gallery.heroPhotoAlt(text.title, activeHeroPhotoIndex + 1)}
           fill
           priority
           className="object-cover"
@@ -1009,8 +879,8 @@ export default function PropertyDetailsClient({
         />
         <button
           type="button"
-          onClick={() => router.push('/properties')}
-          aria-label="Back to properties"
+          onClick={() => router.push(localizePath(locale, '/properties'))}
+          aria-label={t.ui.backAria}
           className="tap-reset absolute top-4 start-4 flex h-10 w-10 items-center justify-center rounded-full bg-white shadow-md"
         >
           <ChevronLeft className="h-5 w-5 text-black" />
@@ -1019,7 +889,7 @@ export default function PropertyDetailsClient({
           <button
             type="button"
             onClick={showPreviousHeroPhoto}
-            aria-label="Show previous photo"
+            aria-label={t.ui.gallery.prevPhotoAria}
             className="tap-reset pointer-events-auto flex h-10 w-10 items-center justify-center rounded-full bg-white/90 shadow-md backdrop-blur-sm transition hover:bg-white"
           >
             <ChevronLeft className="h-5 w-5 text-black" />
@@ -1027,7 +897,7 @@ export default function PropertyDetailsClient({
           <button
             type="button"
             onClick={showNextHeroPhoto}
-            aria-label="Show next photo"
+            aria-label={t.ui.gallery.nextPhotoAria}
             className="tap-reset pointer-events-auto flex h-10 w-10 items-center justify-center rounded-full bg-white/90 shadow-md backdrop-blur-sm transition hover:bg-white"
           >
             <ChevronRight className="h-5 w-5 text-black" />
@@ -1037,7 +907,7 @@ export default function PropertyDetailsClient({
           type="button"
           onClick={() => setIsPhotosModalOpen(true)}
           aria-haspopup="dialog"
-          aria-label="View all photos"
+          aria-label={t.ui.gallery.viewAllPhotosAria}
           className="tap-reset absolute bottom-4 end-4 rounded-full bg-black/50 px-3 py-1.5 text-xs font-semibold text-white backdrop-blur-sm"
         >
           {activeHeroPhotoIndex + 1} / {property.images.length}
@@ -1052,14 +922,14 @@ export default function PropertyDetailsClient({
               key={src}
               type="button"
               onClick={() => setIsPhotosModalOpen(true)}
-              aria-label={`Open photo gallery (photo ${index + 1})`}
+              aria-label={t.ui.gallery.openGalleryAria(index + 1)}
               className={`tap-reset relative overflow-hidden bg-cream transition hover:brightness-95 ${
                 index === 0 ? 'col-span-2 row-span-2' : ''
               }`}
             >
               <Image
                 src={src}
-                alt={`${property.title} — photo ${index + 1}`}
+                alt={t.ui.gallery.heroPhotoAlt(text.title, index + 1)}
                 fill
                 className="object-cover"
                 priority={index === 0}
@@ -1075,7 +945,7 @@ export default function PropertyDetailsClient({
             aria-expanded={isPhotosModalOpen}
             className="absolute bottom-4 end-4 rounded-full bg-white px-4 py-2 text-sm font-semibold text-black shadow-md transition hover:bg-cream"
           >
-            Show all {property.images.length} photos
+            {t.ui.gallery.showAllPhotos(property.images.length)}
           </button>
         </div>
       </section>
@@ -1087,23 +957,23 @@ export default function PropertyDetailsClient({
           {/* Responsive editorial header */}
           <div className="lg:hidden pb-4">
             <h1 className="mt-2 font-head text-2xl font-bold text-black leading-tight">
-              {property.title}
+              {text.title}
             </h1>
             <p className="mt-2 text-sm text-black/70 leading-relaxed">
-              {property.description}
+              {text.description}
             </p>
             <div className="mt-4 flex flex-wrap gap-x-4 gap-y-1.5 text-sm text-black/80">
               <span className="flex items-center gap-1.5">
                 <Users className="h-4 w-4 shrink-0" />
-                {property.maxGuests} guests
+                {t.ui.facts.guests(property.maxGuests)}
               </span>
               <span className="flex items-center gap-1.5">
                 <BedDouble className="h-4 w-4 shrink-0" />
-                {property.bedrooms} bedroom{property.bedrooms !== 1 ? 's' : ''} · {property.beds} bed{property.beds !== 1 ? 's' : ''}
+                {t.ui.facts.bedrooms(property.bedrooms)} · {t.ui.facts.beds(property.beds)}
               </span>
               <span className="flex items-center gap-1.5">
                 <Bath className="h-4 w-4 shrink-0" />
-                {property.baths} bath{property.baths !== 1 ? 's' : ''}
+                {t.ui.facts.baths(property.baths)}
               </span>
             </div>
           </div>
@@ -1111,10 +981,10 @@ export default function PropertyDetailsClient({
           {/* 2. Title + property type subtitle (desktop) */}
           <header className="hidden lg:block">
             <h1 className="font-head text-3xl md:text-4xl font-bold text-black leading-tight">
-              {property.title}
+              {text.title}
             </h1>
             <p className="mt-3 text-black/70">
-              {property.propertyType} in {property.location}
+              {t.ui.facts.typeIn(text.propertyType, text.location)}
             </p>
 
             {/* 3. Quick facts */}
@@ -1128,7 +998,7 @@ export default function PropertyDetailsClient({
 
           {/* 5. Feature highlights */}
           <section className="hidden lg:grid grid-cols-3 gap-3 py-1">
-            {property.highlights.map((highlight) => (
+            {highlights.map((highlight) => (
               <div key={highlight.title} className="flex flex-col gap-2">
                 <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-[10px] bg-primary/5 text-black">
                   <highlight.icon className="h-4 w-4" />
@@ -1143,10 +1013,10 @@ export default function PropertyDetailsClient({
           {/* 6. Select check-in date — inline calendar (moved above About this space) */}
           <section id="select-checkin-date">
             <h2 className="font-head text-2xl md:text-3xl font-bold text-black">
-              Plan your stay
+              {t.ui.sections.planYourStay}
             </h2>
             <p className="mt-2 text-black/70">
-              Add your travel dates for exact pricing.
+              {t.ui.sections.addTravelDates}
             </p>
             <div className="mt-6">
               <BookingRangeCalendar
@@ -1175,7 +1045,7 @@ export default function PropertyDetailsClient({
           {/* 7. About this space */}
           <section>
             <h2 className="font-head text-2xl md:text-3xl font-bold text-black">
-              About this space
+              {t.ui.sections.aboutThisSpace}
             </h2>
             <div
               className={`mt-5 space-y-4 text-black/80 leading-relaxed ${
@@ -1184,7 +1054,7 @@ export default function PropertyDetailsClient({
                   : 'relative max-h-44 overflow-hidden after:pointer-events-none after:absolute after:inset-x-0 after:bottom-0 after:h-16 after:bg-gradient-to-t after:from-cream after:to-transparent'
               }`}
             >
-              {property.longDescription.split('\n\n').map((paragraph, index) => (
+              {text.longDescription.split('\n\n').map((paragraph, index) => (
                 <p key={index}>{paragraph.trim()}</p>
               ))}
             </div>
@@ -1193,7 +1063,7 @@ export default function PropertyDetailsClient({
               onClick={() => setIsDescriptionExpanded((value) => !value)}
               className="tap-reset mt-4 inline-flex items-center gap-1 text-sm font-semibold text-black underline underline-offset-4 decoration-navy/40 hover:decoration-navy"
             >
-              {isDescriptionExpanded ? 'Show less' : 'Show more'}
+              {isDescriptionExpanded ? t.ui.sections.showLess : t.ui.sections.showMore}
               <ChevronRight
                 className={`h-4 w-4 transition-transform ${
                   isDescriptionExpanded ? '-rotate-90' : 'rotate-90'
@@ -1205,19 +1075,19 @@ export default function PropertyDetailsClient({
           <hr className="my-10 border-t border-primary/10" />
 
           {/* 8. Responsive photos by room */}
-          {property.rooms?.length ? (
+          {rooms.length ? (
             <section className="lg:hidden">
               <h2 className="font-head text-2xl font-bold text-black">
-                Photos by room
+                {t.ui.gallery.photosByRoom}
               </h2>
               <div className="mt-5 space-y-5">
-                {property.rooms.map((room) => (
+                {rooms.map((room) => (
                   <button
                     key={room.name}
                     type="button"
                     onClick={() => setIsPhotosModalOpen(true)}
                     className="tap-reset block w-full text-start"
-                    aria-label={`View ${room.name} photos`}
+                    aria-label={t.ui.gallery.viewRoomPhotosAria(room.name)}
                   >
                     <span className="flex gap-3 overflow-x-auto pb-2">
                       {room.images.slice(0, 4).map((image, index) => (
@@ -1246,7 +1116,7 @@ export default function PropertyDetailsClient({
                         {room.name}
                       </span>
                       <span className="text-xs font-semibold uppercase tracking-[0.16em] text-primary">
-                        {room.images.length} photos
+                        {t.ui.gallery.photosCount(room.images.length)}
                       </span>
                     </span>
                   </button>
@@ -1260,7 +1130,7 @@ export default function PropertyDetailsClient({
           {/* 9. What this place offers */}
           <section>
             <h2 className="font-head text-2xl md:text-3xl font-bold text-black">
-              What this place offers
+              {t.ui.sections.whatThisPlaceOffers}
             </h2>
             <div className="mt-6 grid gap-y-4 sm:grid-cols-2 sm:gap-x-8">
               {amenitiesPreview.map((amenity) => (
@@ -1277,7 +1147,7 @@ export default function PropertyDetailsClient({
               aria-expanded={isAmenitiesModalOpen}
               className="tap-reset mt-8 rounded-full border border-navy/30 px-5 py-2.5 text-sm font-semibold text-black transition hover:bg-navy/5"
             >
-              Show all {property.amenities.length} amenities
+              {t.ui.sections.showAllAmenities(amenities.length)}
             </button>
           </section>
         </div>
@@ -1287,13 +1157,13 @@ export default function PropertyDetailsClient({
           <div>
             <div className="rounded-[10px] border border-primary/10 bg-white shadow-xl p-5 lg:max-h-[calc(100vh-8rem)] lg:overflow-y-auto">
               <p className="text-[11px] font-semibold uppercase tracking-[0.22em] text-secondary">
-                Reservation
+                {t.ui.bookingPanel.kicker}
               </p>
               <h2 className="mt-1 font-head text-xl font-bold text-black">
-                Book your stay
+                {t.ui.bookingPanel.heading}
               </h2>
               <p className="mt-1 text-xs text-black/75">
-                Pick your dates and send your request — we reply within 24 hours.
+                {t.ui.bookingPanel.subheading}
               </p>
               <div className="mt-4">
                 {reservationForm}
@@ -1308,12 +1178,12 @@ export default function PropertyDetailsClient({
         <div className="flex items-center justify-between gap-4 max-w-3xl mx-auto">
           <div className="min-w-0">
             <p className="text-xs font-semibold uppercase tracking-[0.18em] text-black/50">
-              Request to book
+              {t.ui.bookingPanel.requestToBook}
             </p>
             <p className="text-sm font-semibold text-black truncate">
               {selectedNights > 0
-                ? `${selectedNights} night${selectedNights !== 1 ? 's' : ''} · ${dateRange.checkIn} → ${dateRange.checkOut}`
-                : 'Add dates for pricing'}
+                ? `${t.ui.bookingPanel.nightsSummary(selectedNights)} · ${dateRange.checkIn} → ${dateRange.checkOut}`
+                : t.ui.bookingPanel.addDatesForPricing}
             </p>
           </div>
           <button
@@ -1323,7 +1193,7 @@ export default function PropertyDetailsClient({
             aria-expanded={isBookingSheetOpen}
             className="tap-reset shrink-0 rounded-full bg-primary px-6 py-3 text-sm font-semibold text-white shadow-md transition hover:bg-primary/90"
           >
-            Inquire
+            {t.ui.bookingPanel.inquire}
           </button>
         </div>
       </div>
@@ -1333,24 +1203,24 @@ export default function PropertyDetailsClient({
         <div
           role="dialog"
           aria-modal="true"
-          aria-label="All photos"
+          aria-label={t.ui.gallery.viewAllPhotosAria}
           className="fixed inset-0 z-50 overflow-y-auto bg-cream"
         >
           <div className="sticky top-0 z-10 flex items-center justify-between border-b border-primary/10 bg-cream/95 backdrop-blur-sm px-4 sm:px-6 py-4">
             <p className="font-head text-lg font-bold text-black">
-              {property.title} — All photos
+              {t.ui.gallery.allPhotosTitle(text.title)}
             </p>
             <button
               type="button"
               onClick={() => setIsPhotosModalOpen(false)}
-              aria-label="Close photos"
+              aria-label={t.ui.gallery.closePhotosAria}
               className="tap-reset rounded-full bg-white p-2 text-black shadow-md transition hover:bg-cream"
             >
               <X className="h-5 w-5" />
             </button>
           </div>
           <div className="max-w-6xl mx-auto px-4 sm:px-6 py-8">
-            <RoomGallery rooms={property.rooms || []} />
+            <RoomGallery rooms={rooms} />
           </div>
         </div>
       ) : null}
@@ -1360,7 +1230,7 @@ export default function PropertyDetailsClient({
         <div
           role="dialog"
           aria-modal="true"
-          aria-label="All amenities"
+          aria-label={t.ui.sections.whatThisPlaceOffers}
           className="fixed inset-0 z-[2000] grid place-items-end sm:place-items-center bg-black/50 px-0 sm:px-4"
           onClick={(event) => {
             if (event.target === event.currentTarget) {
@@ -1371,23 +1241,23 @@ export default function PropertyDetailsClient({
           <div className="w-full sm:max-w-lg max-h-[85vh] overflow-y-auto rounded-t-3xl sm:rounded-3xl bg-cream shadow-2xl">
             <div className="sticky top-0 z-10 flex items-center justify-between border-b border-primary/10 bg-cream/95 backdrop-blur-sm px-6 py-4">
               <p className="font-head text-lg font-bold text-black">
-                What this place offers
+                {t.ui.sections.whatThisPlaceOffers}
               </p>
               <button
                 type="button"
                 onClick={() => setIsAmenitiesModalOpen(false)}
-                aria-label="Close amenities"
+                aria-label={t.ui.sections.closeAmenitiesAria}
                 className="tap-reset rounded-full bg-white p-2 text-black shadow-md transition hover:bg-cream"
               >
                 <X className="h-4 w-4" />
               </button>
             </div>
             <div className="px-6 py-6 space-y-5">
-              {property.amenities.map((amenity, index) => (
+              {amenities.map((amenity, index) => (
                 <div
                   key={amenity.name}
                   className={`flex items-start gap-4 pb-5 ${
-                    index < property.amenities.length - 1 ? 'border-b border-primary/10' : ''
+                    index < amenities.length - 1 ? 'border-b border-primary/10' : ''
                   }`}
                 >
                   <amenity.icon className="h-5 w-5 shrink-0 text-black mt-0.5" />
@@ -1408,20 +1278,20 @@ export default function PropertyDetailsClient({
           id="booking-sheet"
           role="dialog"
           aria-modal="true"
-          aria-label="Reservation"
+          aria-label={t.ui.bookingPanel.kicker}
           className="lg:hidden fixed inset-x-0 bottom-0 top-12 z-50 overflow-y-auto rounded-t-3xl bg-cream shadow-2xl"
         >
           <div className="sticky top-0 z-10 flex items-center justify-between border-b border-primary/10 bg-cream/95 backdrop-blur-sm px-5 py-4">
             <div>
               <p className="text-xs font-semibold uppercase tracking-[0.22em] text-secondary">
-                Reservation
+                {t.ui.bookingPanel.kicker}
               </p>
-              <p className="mt-0.5 font-head text-lg font-bold text-black">Book your stay</p>
+              <p className="mt-0.5 font-head text-lg font-bold text-black">{t.ui.bookingPanel.heading}</p>
             </div>
             <button
               type="button"
               onClick={() => setIsBookingSheetOpen(false)}
-              aria-label="Close reservation"
+              aria-label={t.ui.bookingPanel.closeReservationAria}
               className="tap-reset rounded-full bg-white p-2 text-black shadow-md transition hover:bg-cream"
             >
               <X className="h-5 w-5" />
