@@ -12,51 +12,10 @@ import LiquidGlassButton from '@/components/LiquidGlassButton';
 import { useBackToTopVisibility } from '@/hooks/useBackToTopVisibility';
 import { formatIsoDate } from '@/lib/booking-dates';
 import type { CalendarSyncStatus } from '@/lib/bookable-properties';
-import { eventCleaningFee, venueRentals } from '@/lib/event-pricing-data';
+import { eventCleaningFee, getVenueRentals } from '@/lib/event-pricing-data';
 import { getPricingNightKind } from '@/lib/pricing-date-helpers';
-
-const eventTypes = [
-  'Wedding',
-  'Bar/Bat Mitzvah',
-  'Brit Mila',
-  'Sheva Brachot',
-  'Birthday Celebration',
-  'Heena',
-  'Private Dinner',
-  'Cocktail Reception',
-];
-
-const venueAmenityGroups: { title: string; items: string[] }[] = [
-  {
-    title: 'Setting',
-    items: [
-      'Panoramic sea and city views',
-      'Rooftop terrace with jacuzzi',
-      'Indoor and outdoor spaces',
-      'Perfect for sunset events',
-      'Stunning photo opportunities',
-    ],
-  },
-  {
-    title: 'Hosting',
-    items: [
-      'Capacity: up to 80 guests',
-      'Tailored planning for intimate events',
-      'Optional kosher services and meal arrangements',
-      'Flexible space configuration',
-      'Elegant dining setup',
-    ],
-  },
-  {
-    title: 'Amenities',
-    items: [
-      'Fully equipped professional kitchen',
-      'BBQ facilities',
-      'Professional catering available upon request',
-      'Premium audio system',
-    ],
-  },
-];
+import { useLocale } from '@/i18n/useLocale';
+import { eventsMessages } from '@/i18n/messages/events';
 
 interface EventsClientProps {
   blockedDates: readonly string[];
@@ -67,6 +26,11 @@ export default function EventsClient({
   blockedDates,
   availabilityStatus,
 }: EventsClientProps) {
+  const locale = useLocale();
+  const t = eventsMessages[locale];
+  const eventTypes = t.eventTypes;
+  const venueAmenityGroups = t.venues.amenityGroups;
+  const venueRentals = getVenueRentals(locale);
   const [showForm, setShowForm] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSuccess, setIsSuccess] = useState(false);
@@ -101,7 +65,7 @@ export default function EventsClient({
     e.preventDefault();
 
     if (!eventDate) {
-      toast.error('Please choose an event date.');
+      toast.error(t.form.missingDate);
       setIsDatePickerOpen(true);
       return;
     }
@@ -114,16 +78,16 @@ export default function EventsClient({
 
       const result = await sendEmail(formData);
       if (result.success) {
-        toast.success(result.message || 'Event inquiry sent successfully!');
+        toast.success(result.message || t.form.success);
         setIsSuccess(true);
         setShowForm(false);
         setIsDatePickerOpen(false);
       } else {
-        toast.error(result.error || 'Failed to send event inquiry');
+        toast.error(result.error || t.form.errorGeneric);
       }
     } catch (error) {
       console.error('Submission error:', error);
-      toast.error('Failed to submit event request. Please try again.');
+      toast.error(t.form.errorSubmit);
     } finally {
       setIsSubmitting(false);
     }
@@ -170,10 +134,10 @@ export default function EventsClient({
         <div className="absolute bottom-[6vh] md:bottom-12 left-0 right-0 z-10">
           <div className="text-center px-4">
             <h1 className="font-head text-2xl md:text-4xl lg:text-5xl font-bold text-secondary animate-fadeInUp drop-shadow-lg" data-animate="text">
-              Boutique Event Venue in Tel Aviv
+              {t.hero.title}
             </h1>
             <p className="max-w-3xl mx-auto mt-2 md:mt-4 text-sm md:text-base md:text-lg text-white/90 leading-relaxed" data-animate="fade-up">
-              Or HaKerem hosts boutique events and celebrations in Tel Aviv, offering a unique venue with optional kosher services.
+              {t.hero.body}
             </p>
           </div>
         </div>
@@ -187,13 +151,13 @@ export default function EventsClient({
             {/* Header */}
             <div className="text-center" data-animate="fade-up">
               <span className="text-black font-semibold text-sm md:text-base tracking-[0.2em] uppercase block mb-3">
-                Our Venues
+                {t.venues.kicker}
               </span>
               <h2 className="font-head text-2xl md:text-4xl lg:text-5xl font-bold text-black leading-tight" data-animate="text">
-                Available Event Spaces
+                {t.venues.heading}
               </h2>
               <p className="mt-3 md:mt-6 text-black/80 text-sm md:text-xl leading-relaxed max-w-3xl mx-auto">
-                Set in the heart of Tel Aviv, our penthouse offers a refined setting for private celebrations, with panoramic sea and city views, elegant indoor spaces, and a rooftop terrace designed for intimate gatherings that feel both elevated and personal.
+                {t.venues.body}
               </p>
             </div>
 
@@ -201,18 +165,18 @@ export default function EventsClient({
             <div className="mt-7 md:mt-16 grid gap-6 md:grid-cols-2 md:gap-12" data-animate="fade-up">
               <div>
                 <span className="text-secondary font-semibold text-xs tracking-[0.22em] uppercase block mb-3">
-                  Jewish Events
+                  {t.venues.jewishEventsKicker}
                 </span>
                 <p className="text-black/80 leading-relaxed">
-                  From Bar and Bat Mitzvahs to Brit Milah, Sheva Brachot, and elegant family gatherings, each event is hosted with care and attention to detail, with kosher services available on request.
+                  {t.venues.jewishEventsBody}
                 </p>
               </div>
               <div className="md:border-s md:border-primary/15 md:ps-12">
                 <span className="text-tertiary font-semibold text-xs tracking-[0.22em] uppercase block mb-3">
-                  Trusted Hosting
+                  {t.venues.trustedKicker}
                 </span>
                 <p className="text-black/80 leading-relaxed">
-                  Hosting dozens of guests weekly, Or HaKerem is one of the few venues in Tel Aviv offering a fully tailored experience for intimate events.
+                  {t.venues.trustedBody}
                 </p>
               </div>
             </div>
@@ -220,7 +184,7 @@ export default function EventsClient({
             {/* Event types — flat chips */}
             <div className="mt-8 md:mt-20 text-center" data-animate="fade-up">
               <span className="text-black font-semibold text-sm tracking-[0.2em] uppercase block mb-3 md:mb-6">
-                Perfect For
+                {t.venues.perfectForKicker}
               </span>
               <div className="flex flex-wrap justify-center gap-2 max-w-3xl mx-auto" data-animate-group="cards">
                 {eventTypes.map((event) => (
@@ -238,10 +202,10 @@ export default function EventsClient({
             <div className="mt-8 md:mt-20" data-animate="fade-up">
               <div className="text-center mb-5 md:mb-10">
                 <span className="text-black font-semibold text-sm tracking-[0.2em] uppercase block mb-3">
-                  Features &amp; Amenities
+                  {t.venues.amenitiesKicker}
                 </span>
                 <h3 className="font-head text-lg md:text-3xl font-bold text-black">
-                  Everything in place for your event
+                  {t.venues.amenitiesHeading}
                 </h3>
               </div>
               <div className="grid gap-5 md:grid-cols-2 lg:grid-cols-3 md:gap-12">
@@ -271,13 +235,13 @@ export default function EventsClient({
             {/* Header */}
             <div className="text-center mb-5 md:mb-6" data-animate="fade-up">
               <span className="text-tertiary font-semibold text-sm md:text-base tracking-[0.2em] uppercase block mb-3">
-                Availability
+                {t.availability.kicker}
               </span>
               <h2 className="font-head text-2xl md:text-4xl lg:text-5xl font-bold text-black leading-tight" data-animate="text">
-                Check availability
+                {t.availability.heading}
               </h2>
               <p className="mt-3 md:mt-6 text-black/80 text-sm md:text-xl leading-relaxed max-w-3xl mx-auto">
-                Pick a date below to see if the venue is available and the rental price for that day.
+                {t.availability.body}
               </p>
             </div>
 
@@ -297,26 +261,26 @@ export default function EventsClient({
                   </h3>
                   <div className="space-y-2 text-sm md:text-base text-black/80">
                     <div className="flex items-center justify-between gap-4">
-                      <span>Venue rental</span>
-                      <span className="whitespace-nowrap">
+                      <span>{t.availability.venueRental}</span>
+                      <span className="whitespace-nowrap" dir="ltr">
                         {eventQuote.venuePrice.toLocaleString('en-US')} ₪
                       </span>
                     </div>
                     <div className="flex items-center justify-between gap-4">
-                      <span>Cleaning fee</span>
-                      <span className="whitespace-nowrap">
+                      <span>{t.availability.cleaningFee}</span>
+                      <span className="whitespace-nowrap" dir="ltr">
                         {eventQuote.cleaningFee.toLocaleString('en-US')} ₪
                       </span>
                     </div>
                     <div className="flex items-center justify-between gap-4 border-t border-primary/10 pt-3 text-black">
-                      <span className="font-semibold">Total</span>
-                      <span className="font-head text-xl font-bold whitespace-nowrap">
+                      <span className="font-semibold">{t.availability.total}</span>
+                      <span className="font-head text-xl font-bold whitespace-nowrap" dir="ltr">
                         {eventQuote.total.toLocaleString('en-US')} ₪
                       </span>
                     </div>
                   </div>
                   <p className="mt-4 text-black/60 text-xs md:text-sm">
-                    Prices include place location only for events.
+                    {t.availability.priceNote}
                   </p>
                 </div>
               ) : null}
@@ -324,7 +288,7 @@ export default function EventsClient({
           </div>
         </section>
 
-        <EventPricing />
+        <EventPricing locale={locale} t={t.pricing} />
 
         {/* Contact Section - Compact */}
         <section className="events-plan-section py-12 bg-gradient-to-br from-primary via-primary to-primary-light relative overflow-hidden rounded-3xl" data-animate="fade-up">
@@ -344,14 +308,14 @@ export default function EventsClient({
             <div className="events-plan-header text-center mb-10">
               <div className="inline-block mb-3">
                 <span className="text-secondary font-semibold text-base tracking-wider uppercase">
-                  Plan Your Event
+                  {t.plan.kicker}
                 </span>
               </div>
               <h2 className="font-head text-2xl md:text-4xl font-bold text-white mb-4 leading-tight">
-                Create Unforgettable Moments
+                {t.plan.heading}
               </h2>
               <p className="text-white/90 text-sm md:text-lg max-w-2xl mx-auto leading-relaxed">
-                Share your guest count, event style, and any kosher requirements, and our team will return with a tailored proposal for your celebration.
+                {t.plan.body}
               </p>
             </div>
 
@@ -362,13 +326,13 @@ export default function EventsClient({
                     <Calendar className="w-8 h-8 text-black" />
                   </div>
                   <h3 className="font-head text-3xl font-bold text-white mb-4">
-                    Thank you for your inquiry!
+                    {t.plan.successTitle}
                   </h3>
                   <p className="text-white/90 text-lg mb-8">
-                    Our events team will contact you within 24 hours to discuss your special event.
+                    {t.plan.successBody}
                   </p>
                   <LiquidGlassButton variant="dark" onClick={() => setIsSuccess(false)}>
-                    Plan Another Event
+                    {t.plan.planAnother}
                   </LiquidGlassButton>
                 </div>
               </div>
@@ -378,11 +342,11 @@ export default function EventsClient({
                   <div className="inline-block relative">
                     <LiquidGlassButton variant="dark" onClick={() => setShowForm(true)}>
                       <Calendar className="w-5 h-5 me-2" />
-                      <span>Inquire About Events</span>
+                      <span>{t.plan.inquire}</span>
                     </LiquidGlassButton>
                   </div>
                   <p className="text-white/70 text-xs mt-4 font-medium">
-                    Private consultation • Tailored planning • Kosher options on request
+                    {t.plan.footnote}
                   </p>
                 </div>
 
@@ -408,10 +372,10 @@ export default function EventsClient({
               <div className="sticky top-0 z-10 flex items-start justify-between gap-4 border-b border-primary/10 bg-white/95 px-4 py-3 backdrop-blur-sm sm:px-5">
                 <div>
                   <h3 id="event-inquiry-title" className="font-head text-2xl font-bold text-black">
-                    Event inquiry
+                    {t.form.title}
                   </h3>
                   <p className="mt-1 text-sm text-black/65">
-                    Send the essentials. We&apos;ll reply with a tailored proposal.
+                    {t.form.subtitle}
                   </p>
                 </div>
                 <button
@@ -422,7 +386,7 @@ export default function EventsClient({
                   }}
                   className="tap-reset -me-1 shrink-0 p-2 text-black/55 transition hover:text-black"
                 >
-                  <span className="sr-only">Close</span>
+                  <span className="sr-only">{t.form.close}</span>
                   <X className="h-4 w-4" />
                 </button>
               </div>
@@ -438,7 +402,7 @@ export default function EventsClient({
                         htmlFor="eventType"
                         className="mb-1.5 block text-sm font-medium text-black/80"
                       >
-                        Event type
+                        {t.form.eventTypeLabel}
                       </label>
                       <select
                         id="eventType"
@@ -446,16 +410,16 @@ export default function EventsClient({
                         required
                         className="h-11 w-full rounded-lg border border-primary/15 bg-white px-3 text-sm text-black focus:border-black/15 focus:ring-2 focus:ring-black/10"
                       >
-                        <option value="">Select type</option>
-                        <option value="wedding">Wedding</option>
-                        <option value="bar-mitzvah">Bar/Bat Mitzvah</option>
-                        <option value="brit-mila">Brit Mila</option>
-                        <option value="birthday">Birthday Party</option>
-                        <option value="bachelor">Bachelor Party</option>
-                        <option value="heena">Heena</option>
-                        <option value="dinner">Private Dinner</option>
-                        <option value="cocktail">Cocktail Party</option>
-                        <option value="other">Other</option>
+                        <option value="">{t.form.selectType}</option>
+                        <option value="wedding">{t.form.typeOptions.wedding}</option>
+                        <option value="bar-mitzvah">{t.form.typeOptions.barMitzvah}</option>
+                        <option value="brit-mila">{t.form.typeOptions.britMila}</option>
+                        <option value="birthday">{t.form.typeOptions.birthday}</option>
+                        <option value="bachelor">{t.form.typeOptions.bachelor}</option>
+                        <option value="heena">{t.form.typeOptions.heena}</option>
+                        <option value="dinner">{t.form.typeOptions.dinner}</option>
+                        <option value="cocktail">{t.form.typeOptions.cocktail}</option>
+                        <option value="other">{t.form.typeOptions.other}</option>
                       </select>
                     </div>
 
@@ -464,7 +428,7 @@ export default function EventsClient({
                         htmlFor="guestCount"
                         className="mb-1.5 block text-sm font-medium text-black/80"
                       >
-                        Guests
+                        {t.form.guestsLabel}
                       </label>
                       <input
                         type="number"
@@ -480,7 +444,7 @@ export default function EventsClient({
 
                   <div>
                     <span className="mb-1.5 block text-sm font-medium text-black/80">
-                      Event date
+                      {t.form.eventDateLabel}
                     </span>
                     <button
                       type="button"
@@ -490,10 +454,10 @@ export default function EventsClient({
                     >
                       <span>
                         <span className="block text-[11px] font-semibold uppercase tracking-[0.2em] text-black/45">
-                          {eventDate ? 'Selected date' : 'Choose date'}
+                          {eventDate ? t.form.selectedDate : t.form.chooseDate}
                         </span>
                         <span className="mt-1 block font-head text-lg font-semibold text-black">
-                          {eventDate ? formatIsoDate(eventDate) : 'Add event date'}
+                          {eventDate ? formatIsoDate(eventDate) : t.form.addEventDate}
                         </span>
                       </span>
                       <span className={`flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-primary text-white transition-transform ${isDatePickerOpen ? 'rotate-180' : ''}`}>
@@ -523,7 +487,7 @@ export default function EventsClient({
                         htmlFor="name"
                         className="mb-1.5 block text-sm font-medium text-black/80"
                       >
-                        Name
+                        {t.form.nameLabel}
                       </label>
                       <input
                         type="text"
@@ -539,7 +503,7 @@ export default function EventsClient({
                         htmlFor="email"
                         className="mb-1.5 block text-sm font-medium text-black/80"
                       >
-                        Email
+                        {t.form.emailLabel}
                       </label>
                       <div className="relative">
                         <Mail className="absolute start-3 top-1/2 h-4 w-4 -translate-y-1/2 text-black/55" />
@@ -558,7 +522,7 @@ export default function EventsClient({
                         htmlFor="phone"
                         className="mb-1.5 block text-sm font-medium text-black/80"
                       >
-                        Phone
+                        {t.form.phoneLabel}
                       </label>
                       <div className="relative">
                         <Phone className="absolute start-3 top-1/2 h-4 w-4 -translate-y-1/2 text-black/55" />
@@ -578,14 +542,14 @@ export default function EventsClient({
                       htmlFor="message"
                       className="mb-1.5 block text-sm font-medium text-black/80"
                     >
-                      Note
+                      {t.form.noteLabel}
                     </label>
                     <textarea
                       id="message"
                       name="message"
                       rows={3}
                       className="w-full rounded-lg border border-primary/15 bg-white px-3 py-2 text-sm text-black focus:border-black/15 focus:ring-2 focus:ring-black/10"
-                      placeholder="Kosher needs, timing, setup, or anything we should know..."
+                      placeholder={t.form.notePlaceholder}
                     ></textarea>
                   </div>
 
@@ -600,7 +564,7 @@ export default function EventsClient({
                         setIsDatePickerOpen(false);
                       }}
                     >
-                      Cancel
+                      {t.form.cancel}
                     </LiquidGlassButton>
                     <LiquidGlassButton
                       type="submit"
@@ -608,7 +572,7 @@ export default function EventsClient({
                       className="flex-1"
                       disabled={isSubmitting}
                     >
-                      {isSubmitting ? 'Sending...' : 'Send inquiry'}
+                      {isSubmitting ? t.form.sending : t.form.send}
                     </LiquidGlassButton>
                   </div>
                 </form>
@@ -623,7 +587,7 @@ export default function EventsClient({
         <button
           onClick={scrollToTop}
           className="fixed bottom-8 right-8 z-40 rounded-full bg-gradient-to-r from-secondary to-secondary-light p-4 text-black shadow-lg"
-          aria-label="Back to top"
+          aria-label={t.backToTopAria}
         >
           <ArrowUp className="w-6 h-6" />
         </button>
