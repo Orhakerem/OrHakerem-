@@ -421,6 +421,8 @@ export default function PropertyDetailsClient({
     priceRequestKey,
     selectedListingId,
     selectedNights,
+    t.ui.priceUnavailable,
+    t.ui.priceUnexpected,
   ]);
 
   useEffect(() => {

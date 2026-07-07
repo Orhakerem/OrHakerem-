@@ -183,10 +183,6 @@ export function calculateAdminQuote(
   };
 }
 
-export function applyAdminQuoteCalculations(data: ReservationQuoteData): ReservationQuoteData {
-  return calculateAdminQuote(data) as ReservationQuoteData;
-}
-
 export function createInitialAdminQuote(now = new Date()): ReservationQuoteData {
   const today = formatDateForAdmin(now);
 

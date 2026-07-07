@@ -233,6 +233,7 @@ export default function ReservationForm({
     hasValidDateSelection,
     nights,
     selectedListingId,
+    t.errors.priceUnavailable,
   ]);
 
   const clearPriceEstimate = () => {

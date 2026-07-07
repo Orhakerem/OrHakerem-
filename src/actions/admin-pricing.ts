@@ -353,6 +353,13 @@ function combineSimulationQuotes(
     throw new Error('No quotes to combine.');
   }
 
+  // Both quotes are computed for the same stay, so their nightly breakdowns
+  // must line up; a mismatch means bad pricing data and silently zipping the
+  // arrays would drop nights from the combined breakdown.
+  if (quotes.some((quote) => quote.nightlyBreakdown.length !== firstQuote.nightlyBreakdown.length)) {
+    throw new Error('Cannot combine listings: nightly breakdowns have different lengths.');
+  }
+
   const nightlyBreakdown = firstQuote.nightlyBreakdown.map((night, index) => {
     const matchingNights = quotes.map((quote) => quote.nightlyBreakdown[index]);
     const basePrice = matchingNights.reduce((total, item) => total + (item?.basePrice ?? 0), 0);

@@ -443,6 +443,22 @@ export async function fetchAdminRequestQuoteDraft(
     return null;
   }
 
+  // Light runtime check of the fields the summaries below actually read, so a
+  // schema drift fails loudly (the page shows the error) instead of rendering
+  // a half-empty quote from a blind cast.
+  const record = data as unknown as Record<string, unknown>;
+  const requiredColumns =
+    source.sourceType === 'reservation'
+      ? ['id', 'check_in', 'check_out', 'guest_name', 'guest_email']
+      : ['id', 'event_type', 'event_date', 'guest_name', 'guest_email'];
+  const missingColumns = requiredColumns.filter((column) => record[column] == null);
+
+  if (missingColumns.length > 0) {
+    throw new Error(
+      `Request row ${source.sourceType}:${source.sourceId} is missing expected columns: ${missingColumns.join(', ')}`,
+    );
+  }
+
   const [request] = mapAdminCustomerRequests({
     reservations: source.sourceType === 'reservation' ? [data as unknown as ReservationRequestRow] : [],
     events: source.sourceType === 'event_request' ? [data as unknown as EventRequestRow] : [],
