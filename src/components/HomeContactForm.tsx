@@ -7,11 +7,16 @@ import { sendContactEmail } from '@/actions/contact';
 import LiquidGlassButton from '@/components/LiquidGlassButton';
 import { Send } from 'lucide-react';
 
+import { useLocale } from '@/i18n/useLocale';
+import { homeMessages } from '@/i18n/messages/home';
+
 interface HomeContactFormProps {
   theme?: 'light' | 'dark';
 }
 
 export default function HomeContactForm({ theme = 'dark' }: HomeContactFormProps) {
+  const locale = useLocale();
+  const t = homeMessages[locale].form;
   const [isSubmitting, setIsSubmitting] = useState(false);
   const isLight = theme === 'light';
 
@@ -23,14 +28,14 @@ export default function HomeContactForm({ theme = 'dark' }: HomeContactFormProps
     try {
       const result = await sendContactEmail(new FormData(form));
       if (result.success) {
-        toast.success(result.message || 'Message sent successfully!');
+        toast.success(t.success);
         form.reset();
       } else {
-        toast.error(result.error || 'Failed to send message');
+        toast.error(result.error || t.error);
       }
     } catch (error) {
       console.error('Contact form submission error:', error);
-      toast.error('Failed to send message. Please try again.');
+      toast.error(t.error);
     } finally {
       setIsSubmitting(false);
     }
@@ -61,13 +66,13 @@ export default function HomeContactForm({ theme = 'dark' }: HomeContactFormProps
           <div className="grid md:grid-cols-2 gap-6">
             <div>
               <label htmlFor="name" className={labelClass}>
-                Your Name
+                {t.nameLabel}
               </label>
               <input
                 type="text"
                 id="name"
                 name="name"
-                placeholder="Enter your name"
+                placeholder={t.namePlaceholder}
                 required
                 className={inputClass}
               />
@@ -75,13 +80,13 @@ export default function HomeContactForm({ theme = 'dark' }: HomeContactFormProps
 
             <div>
               <label htmlFor="email" className={labelClass}>
-                Email Address
+                {t.emailLabel}
               </label>
               <input
                 type="email"
                 id="email"
                 name="email"
-                placeholder="your@email.com"
+                placeholder={t.emailPlaceholder}
                 required
                 className={inputClass}
               />
@@ -90,12 +95,12 @@ export default function HomeContactForm({ theme = 'dark' }: HomeContactFormProps
 
           <div>
             <label htmlFor="message" className={labelClass}>
-              Your Message
+              {t.messageLabel}
             </label>
             <textarea
               id="message"
               name="message"
-              placeholder="Write your message here..."
+              placeholder={t.messagePlaceholder}
               rows={4}
               required
               className={textareaClass}
@@ -105,7 +110,7 @@ export default function HomeContactForm({ theme = 'dark' }: HomeContactFormProps
           <div className="text-center">
             {isLight ? (
               <LiquidGlassButton type="submit" disabled={isSubmitting}>
-                {isSubmitting ? 'Sending...' : 'Send Message'}
+                {isSubmitting ? t.sending : t.send}
                 <Send className="w-4 h-4" />
               </LiquidGlassButton>
             ) : (
@@ -114,18 +119,14 @@ export default function HomeContactForm({ theme = 'dark' }: HomeContactFormProps
                 disabled={isSubmitting}
                 className="button-hover-clean inline-flex items-center rounded-full bg-gradient-to-r from-secondary to-secondary-light px-8 py-3 text-lg font-semibold text-black shadow-xl transition-all duration-300 disabled:cursor-not-allowed disabled:opacity-50"
               >
-                <span className="mr-2">
-                  {isSubmitting ? 'Sending...' : 'Send Message'}
-                </span>
+                <span className="me-2">{isSubmitting ? t.sending : t.send}</span>
                 <div className="w-5 h-5 bg-primary/20 rounded-full flex items-center justify-center">
                   <span className="text-black text-sm">→</span>
                 </div>
               </button>
             )}
 
-            <p className={helperClass}>
-              We&apos;ll get back to you within 24 hours
-            </p>
+            <p className={helperClass}>{t.helper}</p>
           </div>
         </form>
       </div>

@@ -17,6 +17,8 @@ test('default reservation quote omits removed admin invoice fields', () => {
 test('reservation quote schema strips stale removed fields from transitional payloads', () => {
   const stalePayload = {
     ...DEFAULT_RESERVATION_QUOTE,
+    reservationNumber: 'OH-2026-ADA',
+    guestName: 'Ada Lovelace',
     customerEmail: 'ada@example.com',
     senderName: 'Legacy sender',
     vatNote: 'Legacy VAT',

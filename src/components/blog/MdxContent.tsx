@@ -29,12 +29,12 @@ const components: MDXRemoteProps['components'] = {
     </p>
   ),
   ul: ({ children, ...props }) => (
-    <ul className="mb-5 ml-6 list-disc space-y-2 text-base leading-7 text-black/80" {...props}>
+    <ul className="mb-5 ms-6 list-disc space-y-2 text-base leading-7 text-black/80" {...props}>
       {children}
     </ul>
   ),
   ol: ({ children, ...props }) => (
-    <ol className="mb-5 ml-6 list-decimal space-y-2 text-base leading-7 text-black/80" {...props}>
+    <ol className="mb-5 ms-6 list-decimal space-y-2 text-base leading-7 text-black/80" {...props}>
       {children}
     </ol>
   ),
@@ -75,7 +75,7 @@ const components: MDXRemoteProps['components'] = {
   ),
   blockquote: ({ children, ...props }) => (
     <blockquote
-      className="my-6 border-l-4 border-primary/30 pl-5 italic text-black/70"
+      className="my-6 border-s-4 border-primary/30 ps-5 italic text-black/70"
       {...props}
     >
       {children}

@@ -97,6 +97,7 @@ test('saves a pending reservation request with server-calculated pricing', async
   assert.equal(result.quote.night_total, 500);
   assert.equal(result.quote.cleaning_fee, 75);
   assert.equal(result.quote.total_price, 575);
+  assert.equal(result.request.id, 'reservations-1');
   assert.deepEqual(insertedRows.reservations, [
     {
       listing_id: LISTING_ID,
@@ -157,14 +158,25 @@ class MockSupabaseQuery {
   insert(row: Record<string, unknown>) {
     this.insertedRows[this.tableName] = this.insertedRows[this.tableName] ?? [];
     this.insertedRows[this.tableName].push(row);
+    this.rows = [
+      {
+        id: `${this.tableName}-1`,
+        created_at: '2026-07-06T10:00:00.000Z',
+        ...row,
+      },
+    ];
 
+    return this;
+  }
+
+  maybeSingle() {
     return Promise.resolve({
-      data: null,
+      data: this.rows[0] ?? null,
       error: null,
     });
   }
 
-  maybeSingle() {
+  single() {
     return Promise.resolve({
       data: this.rows[0] ?? null,
       error: null,

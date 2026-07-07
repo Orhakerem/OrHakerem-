@@ -57,7 +57,7 @@ export default function RoomGallery({ rooms }: RoomGalleryProps) {
           <button
             type="button"
             key={roomIndex}
-            className="tap-reset overflow-hidden rounded-xl bg-white text-left shadow-lg"
+            className="tap-reset overflow-hidden rounded-xl bg-white text-start shadow-lg"
             onClick={() => openRoom(room)}
           >
             {/* Room Cover Image */}
@@ -71,7 +71,7 @@ export default function RoomGallery({ rooms }: RoomGalleryProps) {
                 sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
               />
               <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent"></div>
-              <span className="absolute bottom-4 left-4 text-white">
+              <span className="absolute bottom-4 start-4 text-white">
                 <span className="block font-head text-xl font-bold">{room.name}</span>
                 <span className="text-sm opacity-90">{room.images.length} photos</span>
               </span>
@@ -91,7 +91,7 @@ export default function RoomGallery({ rooms }: RoomGalleryProps) {
           {/* Close Button */}
           <button
             onClick={closeRoom}
-            className="tap-reset absolute right-4 top-4 z-10 text-white"
+            className="tap-reset absolute end-4 top-4 z-10 text-white"
           >
             <X className="w-8 h-8" />
           </button>
@@ -101,15 +101,15 @@ export default function RoomGallery({ rooms }: RoomGalleryProps) {
             <>
               <button
                 onClick={prevImage}
-                className="tap-reset absolute left-4 top-1/2 z-10 -translate-y-1/2 rounded-full bg-white/20 p-2 text-white"
+                className="tap-reset absolute start-4 top-1/2 z-10 -translate-y-1/2 rounded-full bg-white/20 p-2 text-white"
               >
-                <ChevronLeft className="w-6 h-6" />
+                <ChevronLeft className="w-6 h-6 rtl:rotate-180" />
               </button>
               <button
                 onClick={nextImage}
-                className="tap-reset absolute right-4 top-1/2 z-10 -translate-y-1/2 rounded-full bg-white/20 p-2 text-white"
+                className="tap-reset absolute end-4 top-1/2 z-10 -translate-y-1/2 rounded-full bg-white/20 p-2 text-white"
               >
-                <ChevronRight className="w-6 h-6" />
+                <ChevronRight className="w-6 h-6 rtl:rotate-180" />
               </button>
             </>
           )}
@@ -137,7 +137,7 @@ export default function RoomGallery({ rooms }: RoomGalleryProps) {
 
           {/* Thumbnail Strip */}
           {selectedRoom.images.length > 1 && (
-            <div className="absolute bottom-4 left-1/2 -translate-x-1/2 flex space-x-2 bg-black/50 p-2 rounded-lg">
+            <div className="absolute bottom-4 left-1/2 -translate-x-1/2 flex space-x-2 rtl:space-x-reverse bg-black/50 p-2 rounded-lg">
               {selectedRoom.images.map((image, index) => (
                 <button
                   key={index}

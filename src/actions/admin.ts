@@ -1,15 +1,30 @@
 'use server';
 
+import { headers } from 'next/headers';
 import { redirect } from 'next/navigation';
 
-import { verifyCredentials } from '@/lib/admin-auth';
+import { saveAdminQuoteHistory } from '@/actions/admin-pricing';
+import { MissingAdminAuthEnvError, verifyCredentials } from '@/lib/admin-auth';
+import {
+  checkAdminLoginRateLimit,
+  clearAdminLoginFailures,
+  registerFailedAdminLogin,
+} from '@/lib/admin-login-rate-limit';
 import { clearAdminSession, createAdminSession, getAdminSession } from '@/lib/admin-session';
 import { getBookablePropertyCalendarSnapshot } from '@/lib/airbnb-calendar';
 import {
   getAvailabilityStatusForAdminApartment,
+  getAdminApartmentPropertyIds,
   getBlockedDatesForAdminApartment,
   getBlockedStayNights,
+  normalizeAdminApartment,
 } from '@/lib/admin-availability';
+import { fetchAdminCalendarSnapshot, validateAdminCalendarStay } from '@/lib/admin-calendar';
+import {
+  markAdminRequestQuoteSent,
+  normalizeAdminRequestSource,
+  type AdminRequestSourceInput,
+} from '@/lib/admin-requests';
 import {
   calculateAdminQuote,
   parseAdminDateToIso,
@@ -37,10 +52,35 @@ export async function loginAdmin(formData: FormData): Promise<LoginResult> {
   const email = formData.get('email')?.toString() ?? '';
   const password = formData.get('password')?.toString() ?? '';
 
-  if (!verifyCredentials(email, password)) {
-    return { success: false, error: 'Invalid email or password' };
+  const clientKey =
+    headers().get('x-forwarded-for')?.split(',')[0]?.trim() || 'unknown-client';
+  const rateLimit = checkAdminLoginRateLimit(clientKey);
+
+  if (!rateLimit.allowed) {
+    const retryMinutes = Math.max(1, Math.ceil(rateLimit.retryAfterMs / 60_000));
+    return {
+      success: false,
+      error: `Too many failed attempts. Try again in about ${retryMinutes} min.`,
+    };
   }
 
+  try {
+    if (!verifyCredentials(email, password)) {
+      registerFailedAdminLogin(clientKey);
+      return { success: false, error: 'Invalid email or password' };
+    }
+  } catch (error) {
+    if (error instanceof MissingAdminAuthEnvError) {
+      console.error('Admin login is not configured:', error.message);
+      return {
+        success: false,
+        error: `Admin login is not configured on this environment (${error.envName} is missing).`,
+      };
+    }
+    throw error;
+  }
+
+  clearAdminLoginFailures(clientKey);
   createAdminSession();
   return { success: true };
 }
@@ -52,6 +92,7 @@ export async function logoutAdmin(): Promise<void> {
 
 export async function sendReservationQuote(
   input: ReservationQuoteData,
+  sourceContext?: AdminRequestSourceInput | null,
 ): Promise<SendQuoteResult> {
   if (!getAdminSession()) {
     return { success: false, error: 'Not authenticated' };
@@ -65,6 +106,7 @@ export async function sendReservationQuote(
     };
   }
   const data = calculateAdminQuote(parsed.data);
+  const source = sourceContext ? normalizeAdminRequestSource(sourceContext) : null;
 
   const checkIn = parseAdminDateToIso(data.checkInDate);
   const checkOut = parseAdminDateToIso(data.checkOutDate);
@@ -96,6 +138,24 @@ export async function sendReservationQuote(
         error: `Selected stay includes unavailable date ${blockedStayNights[0]}.`,
       };
     }
+
+    const calendarValidation = validateAdminCalendarStay(
+      await fetchAdminCalendarSnapshot(),
+      {
+        propertyIds: [...getAdminApartmentPropertyIds(normalizeAdminApartment(data.apartment))],
+        checkIn,
+        checkOut,
+      },
+    );
+
+    if (!calendarValidation.available) {
+      return {
+        success: false,
+        error:
+          calendarValidation.reasons[0] ??
+          'Selected stay violates an internal calendar rule.',
+      };
+    }
   }
 
   const subject = sanitizeForHeader(buildReservationEmailSubject());
@@ -120,10 +180,35 @@ export async function sendReservationQuote(
     });
 
     if (result.status === 'sent') {
+      // The customer email is out; bookkeeping failures below must be shown
+      // to the admin instead of silently logging behind a success message.
+      const warnings: string[] = [];
+
+      const historyResult = await saveAdminQuoteHistory({
+        quote: data,
+        resendEmailId: result.id,
+        source,
+      });
+
+      if (!historyResult.success) {
+        console.error('Reservation quote history save failed:', historyResult.error);
+        warnings.push('the quote history was NOT saved');
+      }
+
+      try {
+        await markAdminRequestQuoteSent(source);
+      } catch (error) {
+        console.error('Admin request status update failed:', error);
+        warnings.push('the request status was NOT updated to "quote sent"');
+      }
+
       return {
         success: true,
         status: 'sent',
-        message: `Reservation email sent to ${data.customerEmail}.`,
+        message:
+          warnings.length > 0
+            ? `Reservation email sent to ${data.customerEmail}, BUT ${warnings.join(' and ')}. Check Supabase and the Requests page.`
+            : `Reservation email sent to ${data.customerEmail}.`,
       };
     }
 

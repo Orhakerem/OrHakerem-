@@ -16,6 +16,7 @@ import {
   PricingListingNotFoundError,
   PricingTierNotFoundError,
 } from './pricing-errors';
+import type { PricingAdjustmentRule } from './pricing-adjustments';
 import type { SeasonRules } from './pricing-seasons';
 
 const LISTING_ID = 'listing-1';
@@ -382,6 +383,148 @@ test('uses duration-based tiers directly without a separate long stay discount',
   assert.equal(breakdown.total_price, 410);
 });
 
+test('applies active pricing adjustments after tier selection and before cleaning fee', () => {
+  const adjustments = [
+    {
+      listingId: LISTING_ID,
+      id: 'last-minute-10-percent',
+      name: 'Last minute',
+      ruleType: 'last_minute',
+      isActive: true,
+      priority: 0,
+      adjustmentBasisPoints: -1000,
+      minNights: null,
+      maxNights: null,
+      minDaysBeforeCheckIn: null,
+      maxDaysBeforeCheckIn: 7,
+      seasonType: null,
+      dayType: null,
+      startsOn: null,
+      endsOn: null,
+    },
+    {
+      listingId: LISTING_ID,
+      id: 'short-stay-surcharge',
+      name: 'Short stay surcharge',
+      ruleType: 'duration',
+      isActive: true,
+      priority: 0,
+      adjustmentBasisPoints: 500,
+      minNights: 1,
+      maxNights: 2,
+      minDaysBeforeCheckIn: null,
+      maxDaysBeforeCheckIn: null,
+      seasonType: null,
+      dayType: null,
+      startsOn: null,
+      endsOn: null,
+    },
+  ] satisfies PricingAdjustmentRule[];
+
+  const breakdown = buildPricingBreakdown(
+    {
+      listingId: LISTING_ID,
+      checkIn: '2026-05-10',
+      checkOut: '2026-05-12',
+      quoteDate: '2026-05-05',
+    },
+    {
+      id: LISTING_ID,
+      cleaningFee: 50,
+      currency: 'ILS',
+    },
+    [
+      {
+        listingId: LISTING_ID,
+        seasonType: 'current',
+        dayType: 'weekday',
+        minNights: 1,
+        maxNights: null,
+        targetPrice: 200,
+      },
+    ],
+    {
+      dateOverrides: [],
+      periods: [],
+    },
+    adjustments,
+  );
+
+  assert.equal(breakdown.night_total, 380);
+  assert.equal(breakdown.cleaning_fee, 50);
+  assert.equal(breakdown.total_price, 430);
+  assert.equal(breakdown.base_night_total, 400);
+  assert.equal(breakdown.adjustment_total, -20);
+  assert.deepEqual(breakdown.pricing_adjustments, [
+    {
+      id: 'last-minute-10-percent',
+      name: 'Last minute',
+      rule_type: 'last_minute',
+      adjustment_basis_points: -1000,
+    },
+    {
+      id: 'short-stay-surcharge',
+      name: 'Short stay surcharge',
+      rule_type: 'duration',
+      adjustment_basis_points: 500,
+    },
+  ]);
+  assert.deepEqual(
+    breakdown.nightly_breakdown.map((night) => ({
+      date: night.date,
+      nightly_price: night.nightly_price,
+      base_nightly_price: night.base_nightly_price,
+      adjustment_amount: night.adjustment_amount,
+      pricing_tier_target: night.pricing_tier.target_price,
+      pricing_adjustments: night.pricing_adjustments,
+    })),
+    [
+      {
+        date: '2026-05-10',
+        nightly_price: 190,
+        base_nightly_price: 200,
+        adjustment_amount: -10,
+        pricing_tier_target: 200,
+        pricing_adjustments: [
+          {
+            id: 'last-minute-10-percent',
+            name: 'Last minute',
+            rule_type: 'last_minute',
+            adjustment_basis_points: -1000,
+          },
+          {
+            id: 'short-stay-surcharge',
+            name: 'Short stay surcharge',
+            rule_type: 'duration',
+            adjustment_basis_points: 500,
+          },
+        ],
+      },
+      {
+        date: '2026-05-11',
+        nightly_price: 190,
+        base_nightly_price: 200,
+        adjustment_amount: -10,
+        pricing_tier_target: 200,
+        pricing_adjustments: [
+          {
+            id: 'last-minute-10-percent',
+            name: 'Last minute',
+            rule_type: 'last_minute',
+            adjustment_basis_points: -1000,
+          },
+          {
+            id: 'short-stay-surcharge',
+            name: 'Short stay surcharge',
+            rule_type: 'duration',
+            adjustment_basis_points: 500,
+          },
+        ],
+      },
+    ],
+  );
+});
+
 test('matches the business pricing examples without implicit discount fields', () => {
   const cases = [
     {
@@ -543,6 +686,25 @@ test('fetches listing, pricing tiers, and season rules from Supabase before pric
     ],
     season_date_overrides: [],
     season_periods: [],
+    pricing_adjustment_rules: [
+      {
+        id: 'active-last-minute',
+        listing_id: LISTING_ID,
+        name: 'Last minute',
+        rule_type: 'last_minute',
+        is_active: true,
+        priority: 0,
+        adjustment_basis_points: '-1000',
+        min_nights: null,
+        max_nights: null,
+        min_days_before_check_in: null,
+        max_days_before_check_in: 7,
+        season_type: null,
+        day_type: null,
+        starts_on: null,
+        ends_on: null,
+      },
+    ],
   });
 
   const breakdown = await getPricingBreakdown(
@@ -550,18 +712,21 @@ test('fetches listing, pricing tiers, and season rules from Supabase before pric
       listingId: LISTING_ID,
       checkIn: '2026-05-16',
       checkOut: '2026-05-18',
+      quoteDate: '2026-05-10',
     },
     client as never,
   );
 
   assert.deepEqual(selectedTables.sort(), [
     'listings',
+    'pricing_adjustment_rules',
     'pricing_tiers',
     'season_date_overrides',
     'season_periods',
   ]);
   assert.deepEqual(filters.sort(), [
     'listings.id.listing-1',
+    'pricing_adjustment_rules.is_active.true',
     'pricing_tiers.listing_id.listing-1',
     'season_date_overrides.is_active.true',
     'season_periods.is_active.true',
@@ -569,9 +734,11 @@ test('fetches listing, pricing tiers, and season rules from Supabase before pric
   assert.equal(breakdown.listing_id, LISTING_ID);
   assert.equal(breakdown.nights, 2);
   assertNoImplicitDiscountFields(breakdown);
-  assert.equal(breakdown.night_total, 600);
+  assert.equal(breakdown.base_night_total, 600);
+  assert.equal(breakdown.adjustment_total, -60);
+  assert.equal(breakdown.night_total, 540);
   assert.equal(breakdown.cleaning_fee, 75);
-  assert.equal(breakdown.total_price, 675);
+  assert.equal(breakdown.total_price, 615);
   assert.equal(breakdown.currency, 'ILS');
 });
 

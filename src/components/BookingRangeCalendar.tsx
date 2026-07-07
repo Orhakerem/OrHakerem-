@@ -7,6 +7,7 @@ import {
   type Modifiers,
   type OnSelectHandler,
 } from 'react-day-picker';
+import { enUS as dayPickerEn, fr as dayPickerFr, he as dayPickerHe } from 'react-day-picker/locale';
 
 import React, { useEffect, useMemo, useState } from 'react';
 
@@ -26,6 +27,15 @@ import {
 } from '@/lib/booking-dates';
 import { addMonthsUtc, isSameMonthUtc, startOfMonthUtc } from '@/lib/calendar-months';
 import type { CalendarSyncStatus } from '@/lib/bookable-properties';
+import { isRtl, type Locale } from '@/i18n/config';
+import { useLocale } from '@/i18n/useLocale';
+import { bookingMessages, DISPLAY_LOCALE } from '@/i18n/messages/booking';
+
+const DAY_PICKER_LOCALES: Record<Locale, typeof dayPickerEn> = {
+  en: dayPickerEn,
+  fr: dayPickerFr,
+  he: dayPickerHe,
+};
 
 interface BookingRangeCalendarProps {
   value: BookingDateRange;
@@ -44,6 +54,8 @@ export default function BookingRangeCalendar({
   blockedDates = [],
   availabilityStatus = 'ready',
 }: BookingRangeCalendarProps) {
+  const locale = useLocale();
+  const t = bookingMessages[locale].calendar;
   const { rootRef, numberOfMonths } = useResponsiveCalendarLayout();
   const todayIso = getTodayIsoInTimeZone();
   const todayMonth = useMemo(
@@ -265,38 +277,36 @@ export default function BookingRangeCalendar({
   };
   const unavailableDays = (date: Date) => blockedDateSet.has(toIsoDateString(date));
 
-  const checkInLabel = displayValue.checkIn ? formatIsoDate(displayValue.checkIn) : 'Add date';
+  const checkInLabel = displayValue.checkIn
+    ? formatIsoDate(displayValue.checkIn, DISPLAY_LOCALE[locale])
+    : t.addDate;
   const checkOutLabel = displayValue.checkOut
-    ? formatIsoDate(displayValue.checkOut)
-    : 'Add date';
-  const stayLabel = hasSelection
-    ? `${nights} night${nights === 1 ? '' : 's'}`
-    : '—';
+    ? formatIsoDate(displayValue.checkOut, DISPLAY_LOCALE[locale])
+    : t.addDate;
+  const stayLabel = hasSelection ? t.nightsCount(nights) : '—';
   const navHintLabel =
-    activeField === 'checkOut' && displayValue.checkIn
-      ? 'Pick your check-out date'
-      : 'Pick your check-in date';
+    activeField === 'checkOut' && displayValue.checkIn ? t.pickCheckOut : t.pickCheckIn;
 
   return (
     <div ref={rootRef} className="w-full">
       <div className="overflow-hidden rounded-[14px] border border-primary/15 bg-white shadow-[0_1px_2px_rgba(0,0,0,0.04)]">
         {availabilityStatus === 'error' ? (
           <p className="border-b border-amber-200 bg-amber-50 px-5 py-3 text-sm text-amber-900">
-            Airbnb availability is temporarily unavailable. Refresh before submitting your stay.
+            {t.availabilityError}
           </p>
         ) : null}
 
-        <div className="grid grid-cols-2 divide-x divide-primary/10 border-b border-primary/10 sm:grid-cols-3">
+        <div className="grid grid-cols-2 divide-x rtl:divide-x-reverse divide-primary/10 border-b border-primary/10 sm:grid-cols-3">
           <button
             type="button"
             onClick={() => handleFieldFocus('checkIn')}
             aria-pressed={activeField === 'checkIn'}
-            className={`tap-reset px-4 py-4 text-left transition sm:px-5 ${
+            className={`tap-reset px-4 py-4 text-start transition sm:px-5 ${
               activeField === 'checkIn' ? 'bg-primary/[0.04]' : 'hover:bg-primary/[0.02]'
             }`}
           >
             <span className="block text-[10px] font-semibold uppercase tracking-[0.22em] text-black/50">
-              Check-in
+              {t.checkIn}
             </span>
             <span className="mt-1.5 block font-head text-base font-semibold text-black sm:text-lg">
               {checkInLabel}
@@ -307,12 +317,12 @@ export default function BookingRangeCalendar({
             type="button"
             onClick={() => handleFieldFocus('checkOut')}
             aria-pressed={activeField === 'checkOut'}
-            className={`tap-reset px-4 py-4 text-left transition sm:px-5 ${
+            className={`tap-reset px-4 py-4 text-start transition sm:px-5 ${
               activeField === 'checkOut' ? 'bg-primary/[0.04]' : 'hover:bg-primary/[0.02]'
             }`}
           >
             <span className="block text-[10px] font-semibold uppercase tracking-[0.22em] text-black/50">
-              Check-out
+              {t.checkOut}
             </span>
             <span className="mt-1.5 block font-head text-base font-semibold text-black sm:text-lg">
               {checkOutLabel}
@@ -321,7 +331,7 @@ export default function BookingRangeCalendar({
 
           <div className="col-span-2 border-t border-primary/10 px-4 py-4 sm:col-span-1 sm:border-t-0 sm:px-5">
             <span className="block text-[10px] font-semibold uppercase tracking-[0.22em] text-black/50">
-              Stay
+              {t.stay}
             </span>
             <span className="mt-1.5 block font-head text-base font-semibold text-black sm:text-lg">
               {stayLabel}
@@ -331,7 +341,7 @@ export default function BookingRangeCalendar({
 
         {canUseBlockedBoundaryAsCheckout ? (
           <p className="border-b border-primary/10 bg-cream/40 px-5 py-3 text-xs text-black/65">
-            Airbnb-blocked nights stay unavailable. You can still check out on the first blocked day.
+            {t.blockedBoundaryNote}
           </p>
         ) : null}
 
@@ -345,24 +355,26 @@ export default function BookingRangeCalendar({
                 type="button"
                 onClick={goToPreviousMonth}
                 disabled={!canGoToPreviousMonth}
-                aria-label="Show previous month"
+                aria-label={t.prevMonthAria}
                 className="tap-reset inline-flex h-9 w-9 items-center justify-center rounded-full border border-primary/15 bg-white text-black transition hover:bg-cream/60 disabled:cursor-not-allowed disabled:opacity-30"
               >
-                <ChevronLeft className="h-4 w-4" />
+                <ChevronLeft className="h-4 w-4 rtl:rotate-180" />
               </button>
               <button
                 type="button"
                 onClick={goToNextMonth}
-                aria-label="Show next month"
+                aria-label={t.nextMonthAria}
                 className="tap-reset inline-flex h-9 w-9 items-center justify-center rounded-full border border-primary/15 bg-white text-black transition hover:bg-cream/60"
               >
-                <ChevronRight className="h-4 w-4" />
+                <ChevronRight className="h-4 w-4 rtl:rotate-180" />
               </button>
             </div>
           </div>
 
           <DayPicker
             mode="range"
+            locale={DAY_PICKER_LOCALES[locale]}
+            dir={isRtl(locale) ? 'rtl' : 'ltr'}
             month={month}
             onMonthChange={(nextMonth) => setMonth(startOfMonthUtc(nextMonth))}
             onDayClick={handleDayClick}
@@ -414,7 +426,7 @@ export default function BookingRangeCalendar({
               className="tap-reset inline-flex items-center gap-1.5 text-sm font-semibold text-black underline underline-offset-4 decoration-black/30 hover:decoration-black"
             >
               <X className="h-3.5 w-3.5" />
-              Clear dates
+              {t.clearDates}
             </button>
           </div>
         ) : null}

@@ -57,6 +57,18 @@ const nextConfig = {
         destination: '/services',
         permanent: true,
       },
+      // English is the default locale and lives on unprefixed URLs; /en/*
+      // would be duplicate content, so it permanently redirects to /*.
+      {
+        source: '/en',
+        destination: '/',
+        permanent: true,
+      },
+      {
+        source: '/en/:path*',
+        destination: '/:path*',
+        permanent: true,
+      },
       {
         source: '/:path*',
         has: [
@@ -68,6 +80,37 @@ const nextConfig = {
         destination: 'https://www.orhakerem.com/:path*',
         permanent: true,
       },
+    ];
+  },
+
+  // Map unprefixed (English) URLs onto the /en segment of the [locale] route
+  // tree. Explicit per-route list on purpose: deterministic, and filesystem
+  // matches (/api/*, public assets, sitemap.xml, robots.txt) stay untouched
+  // because array-form rewrites run after the filesystem check.
+  async rewrites() {
+    const englishRoutes = [
+      '/properties',
+      '/properties/:id',
+      '/about',
+      '/services',
+      '/events',
+      '/blog',
+      '/blog/:slug',
+      '/faq',
+      '/reservation',
+      '/contact',
+      '/terms',
+      '/privacy',
+      '/cancellation',
+      '/admin',
+      '/admin/:path*',
+    ];
+    return [
+      { source: '/', destination: '/en' },
+      ...englishRoutes.map(route => ({
+        source: route,
+        destination: `/en${route}`,
+      })),
     ];
   },
 

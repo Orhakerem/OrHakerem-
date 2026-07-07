@@ -4,6 +4,9 @@ import React, { useState, useEffect } from 'react';
 import Image from 'next/image';
 import { Star, Quote } from 'lucide-react';
 
+import { useLocale } from '@/i18n/useLocale';
+import { homeMessages } from '@/i18n/messages/home';
+
 const reviewPlatforms = [
   { name: 'Airbnb', src: '/logo/airbnb.svg', href: 'https://he.airbnb.com/users/show/464026460' },
   {
@@ -91,6 +94,8 @@ const testimonials: Testimonial[] = [
 ];
 
 export default function TestimonialsCarousel() {
+  const locale = useLocale();
+  const t = homeMessages[locale].testimonials;
   const [currentIndex, setCurrentIndex] = useState(0);
   const [isAutoPlaying, setIsAutoPlaying] = useState(true);
 
@@ -131,15 +136,15 @@ export default function TestimonialsCarousel() {
         {/* Header section */}
         <div className="home-testimonials-header text-center mb-16">
           <h2 className="font-head text-3xl md:text-6xl font-bold text-primary mb-4 md:mb-6 leading-tight">
-            What Our Guests Say
+            {t.heading}
           </h2>
           <p className="text-primary/80 text-sm md:text-xl max-w-3xl mx-auto leading-relaxed">
-            Discover why our guests choose Or Hakerem for their luxury stays in Tel Aviv
+            {t.subheading}
           </p>
 
           <div className="home-testimonials-platforms mt-5 md:mt-10 flex flex-col items-center gap-4">
             <span className="text-primary/60 text-sm tracking-[0.2em] uppercase">
-              Reviewed on
+              {t.reviewedOn}
             </span>
             <div className="flex flex-wrap items-center justify-center gap-x-10 gap-y-6 md:gap-x-14">
               {reviewPlatforms.map((platform) => (
@@ -148,12 +153,12 @@ export default function TestimonialsCarousel() {
                   href={platform.href}
                   target="_blank"
                   rel="noopener noreferrer"
-                  aria-label={`View ${platform.name} reviews`}
+                  aria-label={t.viewReviewsAria(platform.name)}
                   className="opacity-80 hover:opacity-100 transition-opacity"
                 >
                   <Image
                     src={platform.src}
-                    alt={`${platform.name} reviews`}
+                    alt={t.reviewsAlt(platform.name)}
                     width={140}
                     height={42}
                     className="h-7 md:h-9 w-auto"
@@ -176,14 +181,14 @@ export default function TestimonialsCarousel() {
             <div className="absolute inset-0 bg-gradient-to-br from-secondary/5 to-tertiary/5 rounded-3xl"></div>
             
             {/* Quote icon */}
-            <div className="absolute top-6 right-6 opacity-10">
+            <div className="absolute top-6 end-6 opacity-10">
               <Quote className="w-24 h-24 text-primary" />
             </div>
 
             <div className="relative z-10">
               {/* Stars */}
               <div className="flex justify-center mb-6">
-                <div className="flex space-x-1">
+                <div className="flex space-x-1 rtl:space-x-reverse">
                   {renderStars(testimonials[currentIndex].rating)}
                 </div>
               </div>

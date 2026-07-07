@@ -1,0 +1,403 @@
+/* eslint-disable react/no-unescaped-entities */
+'use client';
+
+import Link from 'next/link';
+import { BulletList, CardGrid } from '@/components/legal/LegalPageShell';
+
+const dataYouProvide = [
+  {
+    title: 'Formulaire de contact',
+    body: 'Votre nom, votre adresse e-mail et le contenu de votre message.',
+  },
+  {
+    title: 'Demandes de réservation',
+    body: 'Votre nom, e-mail, numéro de téléphone, mode de contact préféré, le logement choisi, vos dates d’arrivée et de départ, ainsi que le nombre de voyageurs.',
+  },
+  {
+    title: 'Demandes concernant les événements',
+    body: 'Votre nom, e-mail, numéro de téléphone, mode de contact préféré, type d’événement, date de l’événement, nombre de voyageurs attendus, et tout détail optionnel que vous partagez.',
+  },
+];
+
+const dataCollectedAutomatically = [
+  'Les pages que vous consultez et votre parcours sur le site',
+  "Le type de navigateur, l'appareil et le système d'exploitation",
+  'La localisation approximative déduite de votre adresse IP',
+  'Le site ou la source qui vous a orienté vers nous',
+];
+
+const howWeUse = [
+  'Répondre à vos demandes et messages',
+  'Traiter, confirmer et gérer vos demandes de réservation et d’événement',
+  'Vous contacter via le moyen que vous avez choisi au sujet de votre demande',
+  'Faire fonctionner, sécuriser, maintenir et améliorer le site',
+  'Respecter nos obligations légales, fiscales et comptables',
+];
+
+const legalBases = [
+  {
+    title: "L'exécution d'un contrat",
+    body: 'Le traitement de votre demande de réservation ou d’événement et les démarches entreprises à votre demande avant la conclusion d’un contrat.',
+  },
+  {
+    title: 'Le consentement',
+    body: 'Le chargement des cookies analytiques, que nous n’activons qu’après votre acceptation. Vous pouvez modifier ou retirer votre consentement à tout moment via notre bannière cookies ou les paramètres de votre navigateur.',
+  },
+  {
+    title: 'Nos intérêts légitimes',
+    body: 'Assurer la sécurité du site, comprendre son utilisation, l’améliorer et répondre aux demandes générales.',
+  },
+  {
+    title: 'Une obligation légale',
+    body: 'Conserver certains documents lorsque la législation fiscale et comptable applicable l’exige.',
+  },
+];
+
+const processors = [
+  {
+    title: 'Resend',
+    body: 'Envoie les notifications par e-mail générées par nos formulaires de contact, de réservation et d’événement.',
+  },
+  {
+    title: 'Supabase',
+    body: 'Stocke de manière sécurisée les demandes de réservation afin que nous puissions gérer et suivre votre réservation.',
+  },
+  {
+    title: 'Google Analytics (Google LLC)',
+    body: "Fournit des statistiques agrégées d'utilisation du site via des cookies et technologies similaires.",
+  },
+  {
+    title: 'Vercel',
+    body: 'Héberge le site et traite les journaux de serveur et de sécurité standards.',
+  },
+];
+
+const dataRetention = [
+  "Les messages de contact et de demande sont conservés uniquement le temps nécessaire pour traiter votre demande, plus une période de suivi raisonnable.",
+  'Les données de réservation sont conservées pour la gestion des réservations et pour répondre aux exigences légales et comptables.',
+  'Les données analytiques sont conservées selon les paramètres de conservation de Google Analytics.',
+];
+
+const gdprRights = [
+  'Accéder aux données personnelles que nous détenons à votre sujet',
+  'Demander la rectification de données inexactes ou incomplètes',
+  'Demander l’effacement de vos données',
+  'Demander la limitation du traitement, ou vous y opposer',
+  'Demander la portabilité des données que vous nous avez fournies',
+  'Retirer votre consentement à tout moment, sans affecter les traitements déjà effectués',
+  'Introduire une réclamation auprès de votre autorité locale de protection des données',
+];
+
+export default function PrivacyContentFr({
+  termsHref,
+  cancellationHref,
+}: {
+  termsHref: string;
+  cancellationHref: string;
+}) {
+  return (
+    <>
+      <section className="mb-10" data-animate="fade-up" data-delay="1">
+        <h2 className="font-head text-3xl font-bold text-black">Qui sommes-nous</h2>
+        <div className="mt-3 h-px w-full bg-gradient-to-r from-secondary to-transparent"></div>
+
+        <div className="mt-8 rounded-2xl border border-primary/10 bg-white p-6 md:p-8">
+          <div className="space-y-4 text-black/80 leading-relaxed">
+            <p>
+              Or Hakerem (« nous », « notre » ou « l'entreprise ») propose des hébergements de
+              luxe de courte durée à Tel Aviv et exploite le site orhakerem.com. Nous sommes le
+              responsable du traitement des données personnelles décrites dans cette politique.
+            </p>
+            <p>
+              Vous pouvez nous contacter pour toute question relative à la confidentialité à{' '}
+              <a
+                href="mailto:keremliving@gmail.com"
+                className="font-semibold text-primary underline underline-offset-4 transition-colors hover:text-primary-light"
+              >
+                keremliving@gmail.com
+              </a>{' '}
+              ou par courrier au 35 rue Hakovshim, Tel Aviv, Israël. Si vous réservez via Airbnb,
+              votre séjour est également régi par la politique de confidentialité propre à Airbnb.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <section className="mb-10" data-animate="fade-up" data-delay="2">
+        <h2 className="font-head text-3xl font-bold text-black">Les informations que nous collectons</h2>
+        <div className="mt-3 h-px w-full bg-gradient-to-r from-secondary to-transparent"></div>
+
+        <div className="mt-8 space-y-6">
+          <div className="rounded-2xl border border-primary/10 bg-cream/50 p-6 md:p-8">
+            <h3 className="font-head text-2xl font-semibold text-black">Les informations que vous nous fournissez</h3>
+            <p className="mt-2 text-black/75 leading-relaxed">
+              Nous ne recevons ces informations que lorsque vous choisissez de nous les envoyer via l'un de nos formulaires.
+            </p>
+            <div className="mt-6">
+              <CardGrid items={dataYouProvide} />
+            </div>
+          </div>
+
+          <div className="rounded-2xl border border-primary/10 bg-white p-6 md:p-8">
+            <h3 className="font-head text-2xl font-semibold text-black">
+              Les informations collectées automatiquement
+            </h3>
+            <p className="mt-2 text-black/75 leading-relaxed">
+              Lorsque vous naviguez sur le site, notre prestataire d'analyse collecte des informations
+              techniques limitées via des cookies et technologies similaires :
+            </p>
+            <div className="mt-5">
+              <BulletList items={dataCollectedAutomatically} />
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section className="mb-10" data-animate="fade-up" data-delay="3">
+        <h2 className="font-head text-3xl font-bold text-black">Cookies et outils analytiques</h2>
+        <div className="mt-3 h-px w-full bg-gradient-to-r from-secondary to-transparent"></div>
+
+        <div className="mt-8 rounded-2xl border border-primary/10 bg-white p-6 md:p-8">
+          <div className="space-y-4 text-black/80 leading-relaxed">
+            <p>
+              Nous utilisons Google Analytics 4 pour comprendre comment les visiteurs utilisent le
+              site afin de l'améliorer. Google Analytics dépose des cookies et traite les
+              informations techniques décrites ci-dessus. Ces cookies analytiques ne se chargent
+              qu'après votre acceptation via notre bannière cookies, et nous n'utilisons pas de
+              cookies publicitaires ou de suivi intersites.
+            </p>
+            <p>
+              Vous pouvez modifier ou retirer votre choix à tout moment via le bouton ci-dessous,
+              refuser ou supprimer les cookies dans les paramètres de votre navigateur, ou vous
+              désinscrire de Google Analytics sur l'ensemble des sites via le{' '}
+              <a
+                href="https://tools.google.com/dlpage/gaoptout"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="font-semibold text-primary underline underline-offset-4 transition-colors hover:text-primary-light"
+              >
+                module de désactivation de Google
+              </a>
+              . Le blocage des cookies n'affecte pas votre capacité à naviguer sur le site ou à nous contacter.
+            </p>
+          </div>
+
+          <button
+            type="button"
+            onClick={() => window.dispatchEvent(new Event('open-cookie-settings'))}
+            className="mt-6 inline-flex items-center rounded-full border border-primary/15 bg-white px-5 py-2.5 font-semibold text-primary shadow-sm transition-colors hover:bg-primary/5"
+          >
+            Gérer les préférences de cookies
+          </button>
+        </div>
+      </section>
+
+      <section className="mb-10" data-animate="fade-up">
+        <h2 className="font-head text-3xl font-bold text-black">Comment nous utilisons vos informations</h2>
+        <div className="mt-3 h-px w-full bg-gradient-to-r from-secondary to-transparent"></div>
+
+        <div className="mt-8 rounded-2xl border border-primary/10 bg-white p-6 md:p-8">
+          <BulletList items={howWeUse} />
+        </div>
+      </section>
+
+      <section className="mb-10" data-animate="fade-up">
+        <h2 className="font-head text-3xl font-bold text-black">Base légale du traitement</h2>
+        <div className="mt-3 h-px w-full bg-gradient-to-r from-secondary to-transparent"></div>
+
+        <div className="mt-8 rounded-2xl border border-primary/10 bg-cream/50 p-6 md:p-8">
+          <p className="text-black/75 leading-relaxed">
+            Lorsque le Règlement général sur la protection des données de l'UE ou du Royaume-Uni
+            s'applique, nous nous appuyons sur les bases légales suivantes :
+          </p>
+          <div className="mt-6">
+            <CardGrid items={legalBases} />
+          </div>
+        </div>
+      </section>
+
+      <section className="mb-10" data-animate="fade-up">
+        <h2 className="font-head text-3xl font-bold text-black">Partage et sous-traitants</h2>
+        <div className="mt-3 h-px w-full bg-gradient-to-r from-secondary to-transparent"></div>
+
+        <div className="mt-8 rounded-2xl border border-primary/10 bg-white p-6 md:p-8">
+          <p className="text-black/80 leading-relaxed">
+            Nous ne vendons pas vos données personnelles. Nous les partageons uniquement avec des
+            prestataires de confiance qui les traitent pour notre compte, et lorsque la loi nous y
+            oblige :
+          </p>
+          <div className="mt-6">
+            <CardGrid items={processors} />
+          </div>
+        </div>
+      </section>
+
+      <section className="mb-10" data-animate="fade-up">
+        <h2 className="font-head text-3xl font-bold text-black">Transferts internationaux de données</h2>
+        <div className="mt-3 h-px w-full bg-gradient-to-r from-secondary to-transparent"></div>
+
+        <div className="mt-8 rounded-2xl border border-primary/10 bg-white p-6 md:p-8">
+          <p className="text-black/80 leading-relaxed">
+            Certains de nos prestataires sont situés en dehors d'Israël et de l'Espace économique
+            européen, notamment aux États-Unis. Lorsque vos données sont transférées à
+            l'international, nous nous appuyons sur des garanties appropriées offertes par ces
+            prestataires, notamment des clauses contractuelles types et des mécanismes d'adéquation reconnus.
+          </p>
+        </div>
+      </section>
+
+      <section className="mb-10" data-animate="fade-up">
+        <h2 className="font-head text-3xl font-bold text-black">Conservation des données</h2>
+        <div className="mt-3 h-px w-full bg-gradient-to-r from-secondary to-transparent"></div>
+
+        <div className="mt-8 rounded-2xl border border-primary/10 bg-white p-6 md:p-8">
+          <BulletList items={dataRetention} />
+        </div>
+      </section>
+
+      <section className="mb-10" data-animate="fade-up">
+        <h2 className="font-head text-3xl font-bold text-black">Vos droits</h2>
+        <div className="mt-3 h-px w-full bg-gradient-to-r from-secondary to-transparent"></div>
+
+        <div className="mt-8 grid gap-6 lg:grid-cols-2">
+          <div className="rounded-2xl border border-primary/10 bg-white p-6">
+            <h3 className="font-head text-2xl font-semibold text-black">Si vous résidez dans l'EEE ou au Royaume-Uni</h3>
+            <p className="mt-2 text-black/75 leading-relaxed">
+              En vertu du RGPD, vous avez le droit de :
+            </p>
+            <div className="mt-5">
+              <BulletList items={gdprRights} />
+            </div>
+          </div>
+
+          <div className="rounded-2xl border border-primary/10 bg-white p-6">
+            <h3 className="font-head text-2xl font-semibold text-black">Si vous résidez en Israël</h3>
+            <div className="mt-2 space-y-4 text-black/75 leading-relaxed">
+              <p>
+                En vertu de la loi israélienne sur la protection de la vie privée, vous avez le
+                droit de consulter les données personnelles que nous détenons à votre sujet dans
+                notre base de données et de demander leur correction ou mise à jour.
+              </p>
+              <p>
+                Pour exercer l'un de ces droits, écrivez-nous à{' '}
+                <a
+                  href="mailto:keremliving@gmail.com"
+                  className="font-semibold text-primary underline underline-offset-4 transition-colors hover:text-primary-light"
+                >
+                  keremliving@gmail.com
+                </a>
+                . Nous répondrons dans les délais requis par la loi applicable.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section className="mb-10" data-animate="fade-up">
+        <h2 className="font-head text-3xl font-bold text-black">Sécurité des données</h2>
+        <div className="mt-3 h-px w-full bg-gradient-to-r from-secondary to-transparent"></div>
+
+        <div className="mt-8 rounded-2xl border border-primary/10 bg-white p-6 md:p-8">
+          <p className="text-black/80 leading-relaxed">
+            Nous prenons des mesures techniques et organisationnelles raisonnables pour protéger
+            vos données personnelles et nous nous appuyons sur des prestataires réputés pour les
+            stocker et les traiter de manière sécurisée. Cependant, aucune méthode de transmission
+            sur internet ou de stockage électronique n'est totalement sécurisée, et nous ne
+            pouvons garantir une sécurité absolue.
+          </p>
+        </div>
+      </section>
+
+      <section className="mb-10" data-animate="fade-up">
+        <h2 className="font-head text-3xl font-bold text-black">Confidentialité des mineurs</h2>
+        <div className="mt-3 h-px w-full bg-gradient-to-r from-secondary to-transparent"></div>
+
+        <div className="mt-8 rounded-2xl border border-primary/10 bg-white p-6 md:p-8">
+          <p className="text-black/80 leading-relaxed">
+            Le site est destiné aux adultes. Nous ne collectons pas sciemment de données
+            personnelles auprès d'enfants de moins de 16 ans. Si vous pensez qu'un enfant nous a
+            fourni des données personnelles, merci de nous contacter afin que nous puissions les supprimer.
+          </p>
+        </div>
+      </section>
+
+      <section className="mb-10" data-animate="fade-up">
+        <h2 className="font-head text-3xl font-bold text-black">Liens vers des sites tiers</h2>
+        <div className="mt-3 h-px w-full bg-gradient-to-r from-secondary to-transparent"></div>
+
+        <div className="mt-8 rounded-2xl border border-primary/10 bg-white p-6 md:p-8">
+          <p className="text-black/80 leading-relaxed">
+            Notre site renvoie vers des services externes tels qu'Airbnb, WhatsApp, Instagram,
+            LinkedIn et Facebook. Nous ne sommes pas responsables des pratiques de confidentialité
+            de ces services, et nous vous encourageons à consulter leurs propres politiques de confidentialité.
+          </p>
+        </div>
+      </section>
+
+      <section className="mb-10" data-animate="fade-up">
+        <h2 className="font-head text-3xl font-bold text-black">Modifications de cette politique</h2>
+        <div className="mt-3 h-px w-full bg-gradient-to-r from-secondary to-transparent"></div>
+
+        <div className="mt-8 rounded-2xl border border-primary/10 bg-white p-6 md:p-8">
+          <p className="text-black/80 leading-relaxed">
+            Nous pouvons mettre à jour cette politique de temps à autre pour refléter des
+            changements dans nos pratiques ou pour des raisons légales. Le cas échéant, nous
+            mettrons à jour la date de « Dernière mise à jour » en haut de cette page.
+          </p>
+        </div>
+      </section>
+
+      <section data-animate="fade-up">
+        <h2 className="font-head text-3xl font-bold text-black">Nous contacter</h2>
+        <div className="mt-3 h-px w-full bg-gradient-to-r from-secondary to-transparent"></div>
+
+        <div className="mt-8 rounded-2xl border border-primary/10 bg-white p-6 md:p-8">
+          <div className="rounded-2xl border border-secondary/20 bg-cream p-6">
+            <h3 className="font-head text-2xl font-semibold text-black">Or Hakerem</h3>
+            <address className="mt-4 not-italic space-y-2 text-black/80 leading-relaxed">
+              <p>35 rue Hakovshim, Tel Aviv, Israël</p>
+              <p>
+                E-mail :{' '}
+                <a
+                  href="mailto:keremliving@gmail.com"
+                  className="font-semibold text-primary underline underline-offset-4 transition-colors hover:text-primary-light"
+                >
+                  keremliving@gmail.com
+                </a>
+              </p>
+              <p dir="ltr">
+                Téléphone :{' '}
+                <a href="tel:+972585778891" className="font-semibold text-primary hover:text-primary-light">
+                  +972 58 577 8891
+                </a>{' '}
+                (IL) ·{' '}
+                <a href="tel:+33651179925" className="font-semibold text-primary hover:text-primary-light">
+                  +33 6 51 17 99 25
+                </a>{' '}
+                (FR)
+              </p>
+            </address>
+          </div>
+
+          <p className="mt-6 text-black/80 leading-relaxed">
+            Voir également nos{' '}
+            <Link
+              href={termsHref}
+              className="font-semibold text-primary underline underline-offset-4 transition-colors hover:text-primary-light"
+            >
+              Conditions Générales
+            </Link>{' '}
+            et notre{' '}
+            <Link
+              href={cancellationHref}
+              className="font-semibold text-primary underline underline-offset-4 transition-colors hover:text-primary-light"
+            >
+              Politique d'annulation et de remboursement
+            </Link>
+            .
+          </p>
+        </div>
+      </section>
+    </>
+  );
+}
