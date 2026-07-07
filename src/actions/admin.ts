@@ -1,9 +1,15 @@
 'use server';
 
+import { headers } from 'next/headers';
 import { redirect } from 'next/navigation';
 
 import { saveAdminQuoteHistory } from '@/actions/admin-pricing';
-import { verifyCredentials } from '@/lib/admin-auth';
+import { MissingAdminAuthEnvError, verifyCredentials } from '@/lib/admin-auth';
+import {
+  checkAdminLoginRateLimit,
+  clearAdminLoginFailures,
+  registerFailedAdminLogin,
+} from '@/lib/admin-login-rate-limit';
 import { clearAdminSession, createAdminSession, getAdminSession } from '@/lib/admin-session';
 import { getBookablePropertyCalendarSnapshot } from '@/lib/airbnb-calendar';
 import {
@@ -46,10 +52,35 @@ export async function loginAdmin(formData: FormData): Promise<LoginResult> {
   const email = formData.get('email')?.toString() ?? '';
   const password = formData.get('password')?.toString() ?? '';
 
-  if (!verifyCredentials(email, password)) {
-    return { success: false, error: 'Invalid email or password' };
+  const clientKey =
+    headers().get('x-forwarded-for')?.split(',')[0]?.trim() || 'unknown-client';
+  const rateLimit = checkAdminLoginRateLimit(clientKey);
+
+  if (!rateLimit.allowed) {
+    const retryMinutes = Math.max(1, Math.ceil(rateLimit.retryAfterMs / 60_000));
+    return {
+      success: false,
+      error: `Too many failed attempts. Try again in about ${retryMinutes} min.`,
+    };
   }
 
+  try {
+    if (!verifyCredentials(email, password)) {
+      registerFailedAdminLogin(clientKey);
+      return { success: false, error: 'Invalid email or password' };
+    }
+  } catch (error) {
+    if (error instanceof MissingAdminAuthEnvError) {
+      console.error('Admin login is not configured:', error.message);
+      return {
+        success: false,
+        error: `Admin login is not configured on this environment (${error.envName} is missing).`,
+      };
+    }
+    throw error;
+  }
+
+  clearAdminLoginFailures(clientKey);
   createAdminSession();
   return { success: true };
 }
