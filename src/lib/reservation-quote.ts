@@ -75,7 +75,7 @@ export const DEFAULT_RESERVATION_QUOTE: ReservationQuoteData = {
   orderDate: '',
   nights: '',
   checkInDate: '',
-  checkInTime: '17:00',
+  checkInTime: '15:00',
   checkOutDate: '',
   checkOutTime: '11:00',
   apartmentAccess: 'Code sent on arrival',
