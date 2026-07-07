@@ -6,7 +6,6 @@ import {
   AlertTriangle,
   CalendarDays,
   CheckCircle2,
-  RefreshCw,
   ShieldAlert,
   SlidersHorizontal,
   Trash2,
@@ -17,7 +16,6 @@ import {
   saveAdminCalendarBlock,
   saveAdminCalendarRule,
   saveAdminPropertyStatus,
-  syncAdminCalendarSources,
   validateAdminCalendarRange,
 } from '@/actions/admin-calendar';
 import {
@@ -34,7 +32,6 @@ import type {
 } from '@/lib/admin-calendar';
 import type { CalendarEvent, CalendarRuleType } from '@/lib/calendar-rules';
 
-import { getAdminCalendarClassNames } from './admin-calendar-styles';
 import {
   AdminField,
   AdminIconButton,
@@ -205,7 +202,6 @@ export default function AdminCalendarManager({ snapshot }: AdminCalendarManagerP
   const [sourceFilter, setSourceFilter] = useState('all');
   const [viewMode, setViewMode] = useState<'month' | 'week' | 'list'>('month');
   const [monthStart, setMonthStart] = useState(`${todayIso.slice(0, 7)}-01`);
-  const [syncState, setSyncState] = useState<AdminSectionSaveState>('idle');
   const [blockState, setBlockState] = useState<AdminSectionSaveState>('idle');
   const [ruleState, setRuleState] = useState<AdminSectionSaveState>('idle');
   const [validationState, setValidationState] = useState<AdminSectionSaveState>('idle');
@@ -255,7 +251,6 @@ export default function AdminCalendarManager({ snapshot }: AdminCalendarManagerP
   );
   const monthDays = useMemo(() => getMonthDays(monthStart), [monthStart]);
   const displayedDays = viewMode === 'week' ? monthDays.slice(0, 7) : monthDays;
-  const calendarClassNames = getAdminCalendarClassNames();
   const sourceOptions = [
     { value: 'all', label: 'All sources' },
     { value: 'airbnb', label: 'Airbnb' },
@@ -265,20 +260,6 @@ export default function AdminCalendarManager({ snapshot }: AdminCalendarManagerP
     { value: 'manual', label: 'Manual' },
   ];
   const propertyOptions = [{ value: 'all', label: 'All properties' }, ...getPropertyOptions()];
-
-  async function handleSync() {
-    setSyncState('saving');
-    const result = await syncAdminCalendarSources();
-
-    if (result.success) {
-      toast.success(result.message);
-      setSyncState('saved');
-      return;
-    }
-
-    toast.error(result.error);
-    setSyncState('error');
-  }
 
   async function handleSaveBlock() {
     setBlockState('saving');
@@ -398,61 +379,27 @@ export default function AdminCalendarManager({ snapshot }: AdminCalendarManagerP
         </div>
       ) : null}
 
-      <div className="grid gap-4 lg:grid-cols-[1.3fr_0.7fr]">
-        <AdminPanel
-          title="Sync health"
-          eyebrow="Sources"
-          icon={RefreshCw}
-          action={<AdminSaveButton state={syncState} onClick={handleSync} label="Sync now" />}
-        >
-          <div className="grid gap-3 sm:grid-cols-3">
-            {snapshot.sources.map((source) => (
-              <div key={source.id} className="rounded-xl border border-primary/10 bg-cream/35 p-4">
-                <div className="flex items-start justify-between gap-3">
-                  <div>
-                    <p className="font-mono text-[10px] uppercase tracking-[0.18em] text-primary/60">
-                      {source.channel}
-                    </p>
-                    <h3 className="mt-1 text-sm font-semibold text-black">{source.name}</h3>
-                    <p className="mt-1 text-xs text-black/55">{getPropertyTitle(source.propertyId)}</p>
-                  </div>
-                  <AdminPill tone={source.status === 'ready' ? 'success' : 'warning'}>
-                    {source.status}
-                  </AdminPill>
-                </div>
-                <p className="mt-3 text-xs text-black/55">
-                  Last success: {source.lastSuccessAt ?? 'Never'}
-                </p>
-                {source.lastError ? (
-                  <p className="mt-2 text-xs text-primary">{source.lastError}</p>
-                ) : null}
-              </div>
-            ))}
+      <AdminPanel title="Risk panel" eyebrow="Conflicts" icon={ShieldAlert}>
+        <div className="space-y-3 text-sm">
+          <div className="flex items-center justify-between">
+            <span className="text-black/60">Conflicts</span>
+            <span className="font-semibold text-black">{snapshot.conflicts.length}</span>
           </div>
-        </AdminPanel>
-
-        <AdminPanel title="Risk panel" eyebrow="Conflicts" icon={ShieldAlert}>
-          <div className="space-y-3 text-sm">
-            <div className="flex items-center justify-between">
-              <span className="text-black/60">Conflicts</span>
-              <span className="font-semibold text-black">{snapshot.conflicts.length}</span>
-            </div>
-            <div className="flex items-center justify-between">
-              <span className="text-black/60">Health issues</span>
-              <span className="font-semibold text-black">{snapshot.healthIssues.length}</span>
-            </div>
-            <div className="flex items-center justify-between">
-              <span className="text-black/60">Rules</span>
-              <span className="font-semibold text-black">{snapshot.rules.length}</span>
-            </div>
-            {snapshot.healthIssues.map((issue) => (
-              <p key={issue} className="rounded-lg border border-amber-200 bg-amber-50 px-3 py-2 text-xs text-amber-950">
-                {issue}
-              </p>
-            ))}
+          <div className="flex items-center justify-between">
+            <span className="text-black/60">Health issues</span>
+            <span className="font-semibold text-black">{snapshot.healthIssues.length}</span>
           </div>
-        </AdminPanel>
-      </div>
+          <div className="flex items-center justify-between">
+            <span className="text-black/60">Rules</span>
+            <span className="font-semibold text-black">{snapshot.rules.length}</span>
+          </div>
+          {snapshot.healthIssues.map((issue) => (
+            <p key={issue} className="rounded-lg border border-amber-200 bg-amber-50 px-3 py-2 text-xs text-amber-950">
+              {issue}
+            </p>
+          ))}
+        </div>
+      </AdminPanel>
 
       <AdminPanel title="Apartment status" eyebrow="Housekeeping" icon={CheckCircle2}>
         <div className="grid gap-3 md:grid-cols-2">
@@ -557,10 +504,13 @@ export default function AdminCalendarManager({ snapshot }: AdminCalendarManagerP
         {viewMode === 'list' ? (
           <EventList events={visibleEvents} onCancel={handleCancelEvent} />
         ) : (
-          <div className="booking-calendar-root w-full">
-            <div className={`${calendarClassNames.weekdays} mb-2`}>
+          <div className="w-full">
+            <div className="mb-2 hidden gap-1 sm:grid sm:grid-cols-7">
               {['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'].map((day) => (
-                <div key={day} className={calendarClassNames.weekday}>
+                <div
+                  key={day}
+                  className="text-center text-[10px] font-semibold uppercase tracking-[0.22em] text-black/45"
+                >
                   {day}
                 </div>
               ))}
@@ -572,10 +522,10 @@ export default function AdminCalendarManager({ snapshot }: AdminCalendarManagerP
               return (
                 <div
                   key={day}
-                  className={`${calendarClassNames.day} min-h-32 rounded-xl border border-primary/10 bg-cream/25 p-2`}
+                  className="flex min-h-32 flex-col rounded-xl border border-primary/10 bg-cream/25 p-2"
                 >
                   <div className="flex items-center justify-between gap-2">
-                    <span className={calendarClassNames.day_button}>{Number(day.slice(-2))}</span>
+                    <span className="text-sm font-medium text-black">{Number(day.slice(-2))}</span>
                     <span className="truncate font-mono text-[10px] uppercase tracking-[0.16em] text-black/45">
                       {day.slice(0, 7)}
                     </span>

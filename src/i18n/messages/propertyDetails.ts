@@ -60,6 +60,7 @@ const enUi = {
     sending: 'SENDING...',
     bookNow: 'BOOK NOW',
     responseGuarantee: 'Response within 24 hours guaranteed',
+    quoteByEmail: 'Receive your quote by email',
   },
   gallery: {
     heroPhotoAlt: (title: string, n: number) => `${title} — photo ${n}`,
@@ -372,6 +373,7 @@ const fr: PropertyDetailsMessages = {
       sending: 'ENVOI...',
       bookNow: 'RÉSERVER',
       responseGuarantee: 'Réponse garantie sous 24 heures',
+      quoteByEmail: 'Recevez votre devis par e-mail',
     },
     gallery: {
       heroPhotoAlt: (title: string, n: number) => `${title} — photo ${n}`,
@@ -672,6 +674,7 @@ const he: PropertyDetailsMessages = {
       sending: 'שולח...',
       bookNow: 'להזמנה',
       responseGuarantee: 'מענה מובטח תוך 24 שעות',
+      quoteByEmail: 'קבלו את ההצעה שלכם במייל',
     },
     gallery: {
       heroPhotoAlt: (title: string, n: number) => `${title} — תמונה ${n}`,

@@ -575,6 +575,9 @@ export default function EventsClient({
                       {isSubmitting ? t.form.sending : t.form.send}
                     </LiquidGlassButton>
                   </div>
+                  <p className="mt-2 text-black/70 text-sm font-medium text-center">
+                    {t.form.quoteByEmail}
+                  </p>
                 </form>
               </div>
             </div>

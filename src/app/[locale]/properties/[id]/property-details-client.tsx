@@ -825,6 +825,9 @@ export default function PropertyDetailsClient({
                     <p className="mt-4 text-black/70 text-sm font-medium text-center">
                       {t.ui.form.responseGuarantee}
                     </p>
+                    <p className="mt-1 text-black/70 text-sm font-medium text-center">
+                      {t.ui.form.quoteByEmail}
+                    </p>
                   </div>
                 </form>
   );
