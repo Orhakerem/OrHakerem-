@@ -1,9 +1,16 @@
-import {
-  cateringCategories,
-  venueRentals,
-} from '@/lib/event-pricing-data';
+import { getCateringCategories, getVenueRentals } from '@/lib/event-pricing-data';
+import type { Locale } from '@/i18n/config';
+import type { EventsMessages } from '@/i18n/messages/events';
 
-export default function EventPricing() {
+interface EventPricingProps {
+  locale: Locale;
+  t: EventsMessages['pricing'];
+}
+
+export default function EventPricing({ locale, t }: EventPricingProps) {
+  const venueRentals = getVenueRentals(locale);
+  const cateringCategories = getCateringCategories(locale);
+
   return (
     <section
       id="pricing"
@@ -15,17 +22,17 @@ export default function EventPricing() {
         <div className="text-center mb-12" data-animate="fade-up">
           <div className="inline-block mb-4">
             <span className="text-tertiary font-semibold text-lg tracking-wider uppercase">
-              Event Pricing
+              {t.kicker}
             </span>
           </div>
           <h2
             className="font-head text-2xl md:text-5xl font-bold text-black mb-4 leading-tight"
             data-animate="text"
           >
-            Venue Rental
+            {t.heading}
           </h2>
           <p className="text-black/80 text-sm md:text-xl max-w-3xl mx-auto leading-relaxed">
-            Book the space only, then add catering and services if needed.
+            {t.body}
           </p>
         </div>
 
@@ -40,7 +47,7 @@ export default function EventPricing() {
                 {rental.label}
               </h3>
               <div className="my-6">
-                <div className="flex items-baseline gap-1 flex-wrap">
+                <div className="flex items-baseline gap-1 flex-wrap" dir="ltr">
                   <span className="font-head text-5xl md:text-6xl font-bold text-black">
                     {rental.price.toLocaleString('en-US')}
                   </span>
@@ -69,11 +76,10 @@ export default function EventPricing() {
         {/* Secondary block — Catering & Service Add-ons */}
         <div className="text-center mb-5 md:mb-10" data-animate="fade-up">
           <h3 className="font-head text-2xl md:text-4xl font-bold text-black mb-3">
-            Catering &amp; Service Add-ons
+            {t.cateringHeading}
           </h3>
           <p className="text-black/70 max-w-3xl mx-auto leading-relaxed">
-            Optional packages and services can be added depending on your event
-            size.
+            {t.cateringBody}
           </p>
         </div>
 
@@ -108,7 +114,7 @@ export default function EventPricing() {
                         className="flex justify-between gap-4 py-2"
                       >
                         <span>{item.label}</span>
-                        <span className="font-medium whitespace-nowrap">
+                        <span className="font-medium whitespace-nowrap" dir="ltr">
                           {item.price}
                         </span>
                       </li>
@@ -120,7 +126,7 @@ export default function EventPricing() {
 
             <div className="mt-6">
               <p className="text-black/70 text-xs uppercase tracking-wider mb-2">
-                Furniture extras
+                {t.furnitureExtras}
               </p>
               <div className="flex flex-wrap gap-2">
                 {cat.extras.map((extra) => (

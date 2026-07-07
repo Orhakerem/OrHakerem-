@@ -44,6 +44,13 @@ import {
   type ReservationLineItem,
   type ReservationQuoteData,
 } from '@/lib/reservation-quote';
+import { ADMIN_REQUEST_STATUS_LABELS } from '@/lib/admin-request-status';
+import type {
+  AdminCustomerRequestSummary,
+  AdminRequestSourceInput,
+} from '@/lib/admin-requests';
+
+import { getAdminCalendarClassNames } from './admin-calendar-styles';
 
 const INPUT_CLASS =
   'h-11 w-full rounded-lg border-2 border-secondary/40 bg-white px-3 text-sm text-black placeholder-primary/30 outline-none transition-colors duration-200 focus:border-primary/60 focus:ring-2 focus:ring-primary/10';
@@ -132,29 +139,6 @@ function SelectField({ label, value, onChange, options }: SelectFieldProps) {
   );
 }
 
-function getCalendarClassNames() {
-  return {
-    months: 'flex flex-col gap-6 md:flex-row md:gap-6',
-    month: 'w-full max-w-[20rem] mx-auto space-y-3',
-    month_caption: 'flex h-9 items-center justify-center',
-    caption_label: 'font-head text-base font-semibold text-black',
-    weekdays: 'grid grid-cols-7 gap-1',
-    weekday:
-      'text-center text-[10px] font-semibold uppercase tracking-[0.22em] text-black/45',
-    week: 'grid grid-cols-7 gap-1',
-    day: 'booking-calendar-day',
-    day_button:
-      'booking-calendar-day-button tap-reset flex h-10 w-10 items-center justify-center rounded-full text-sm font-medium text-black focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-black/10 sm:h-11 sm:w-11',
-    disabled: 'booking-calendar-disabled',
-    outside: 'booking-calendar-outside',
-    today: 'booking-calendar-today',
-    selected: 'booking-calendar-selected',
-    range_start: 'booking-calendar-range-start',
-    range_middle: 'booking-calendar-range-middle',
-    range_end: 'booking-calendar-range-end',
-  };
-}
-
 interface AdminDateFieldProps {
   label: string;
   value: string;
@@ -204,7 +188,7 @@ function AdminDateField({
         <button
           type="button"
           onClick={() => setIsOpen((current) => !current)}
-          className={`${INPUT_CLASS} flex items-center justify-between text-left`}
+          className={`${INPUT_CLASS} flex items-center justify-between text-start`}
         >
           <span>{value || 'Select date'}</span>
           <CalendarDays className="h-4 w-4 text-primary/70" aria-hidden="true" />
@@ -232,7 +216,7 @@ function AdminDateField({
             timeZone={BUSINESS_TIME_ZONE}
             defaultMonth={todayMonth}
             className="booking-calendar-root w-full"
-            classNames={getCalendarClassNames()}
+            classNames={getAdminCalendarClassNames()}
           />
         </div>
       ) : null}
@@ -381,12 +365,12 @@ function AdminStayCalendar({
             Calendar sync is partially stale. Blocked dates shown may be incomplete.
           </p>
         ) : null}
-        <div className="grid grid-cols-2 divide-x divide-primary/10 border-b border-primary/10">
+        <div className="grid grid-cols-2 divide-x rtl:divide-x-reverse divide-primary/10 border-b border-primary/10">
           <button
             type="button"
             onClick={() => handleFieldFocus('checkIn')}
             aria-pressed={activeField === 'checkIn'}
-            className={`px-4 py-4 text-left transition ${
+            className={`px-4 py-4 text-start transition ${
               activeField === 'checkIn' ? 'bg-primary/[0.04]' : 'hover:bg-primary/[0.02]'
             }`}
           >
@@ -401,7 +385,7 @@ function AdminStayCalendar({
             type="button"
             onClick={() => handleFieldFocus('checkOut')}
             aria-pressed={activeField === 'checkOut'}
-            className={`px-4 py-4 text-left transition ${
+            className={`px-4 py-4 text-start transition ${
               activeField === 'checkOut' ? 'bg-primary/[0.04]' : 'hover:bg-primary/[0.02]'
             }`}
           >
@@ -453,7 +437,7 @@ function AdminStayCalendar({
             modifiers={{ unavailable: unavailableDays }}
             modifiersClassNames={{ unavailable: 'booking-calendar-unavailable' }}
             className="booking-calendar-root w-full"
-            classNames={getCalendarClassNames()}
+            classNames={getAdminCalendarClassNames()}
           />
         </div>
         {checkInDate || checkOutDate ? (
@@ -480,12 +464,20 @@ interface SendResult {
 
 interface ReservationQuoteFormProps {
   availabilitySnapshot: AdminAvailabilitySnapshot;
+  initialQuote?: ReservationQuoteData;
+  sourceContext?: AdminRequestSourceInput | null;
+  sourceRequest?: AdminCustomerRequestSummary | null;
 }
 
 export default function ReservationQuoteForm({
   availabilitySnapshot,
+  initialQuote,
+  sourceContext = null,
+  sourceRequest = null,
 }: ReservationQuoteFormProps) {
-  const [data, setData] = useState<ReservationQuoteData>(() => createInitialAdminQuote());
+  const [data, setData] = useState<ReservationQuoteData>(() =>
+    initialQuote ? calculateAdminQuote(initialQuote) : createInitialAdminQuote(),
+  );
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [result, setResult] = useState<SendResult | null>(null);
   const blockedDates = useMemo(
@@ -562,7 +554,7 @@ export default function ReservationQuoteForm({
     setResult(null);
 
     try {
-      const response = await sendReservationQuote(calculateAdminQuote(data));
+      const response = await sendReservationQuote(calculateAdminQuote(data), sourceContext);
       if (response.success && response.status) {
         const next: SendResult = {
           status: response.status,
@@ -587,6 +579,27 @@ export default function ReservationQuoteForm({
 
   return (
     <form onSubmit={handleSubmit} className="space-y-6" noValidate>
+      {sourceRequest ? (
+        <div className="rounded-2xl border border-primary/10 bg-white p-5 shadow-sm">
+          <p className="font-mono text-[10px] uppercase tracking-[0.22em] text-primary/60">
+            Source request
+          </p>
+          <div className="mt-2 flex flex-wrap items-center justify-between gap-3">
+            <div>
+              <p className="font-head text-2xl font-light tracking-h3 text-black">
+                {sourceRequest.title}
+              </p>
+              <p className="mt-1 text-sm text-black/60">
+                {sourceRequest.guestName} · {sourceRequest.dateLabel} · {sourceRequest.amountLabel}
+              </p>
+            </div>
+            <span className="rounded-full border border-primary/15 bg-cream/60 px-3 py-1 text-xs font-semibold uppercase tracking-[0.14em] text-primary">
+              {ADMIN_REQUEST_STATUS_LABELS[sourceRequest.status] ?? sourceRequest.status}
+            </span>
+          </div>
+        </div>
+      ) : null}
+
       <Section index="i" title="Document">
         <div className="grid gap-4 sm:grid-cols-2">
           <Field label="Reservation №" value={data.reservationNumber} onChange={(v) => set('reservationNumber', v)} />

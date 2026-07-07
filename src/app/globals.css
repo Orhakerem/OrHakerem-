@@ -387,7 +387,7 @@
     height: 38px;
     border-radius: 50%;
     background: #25d366;
-    margin-left: 8px;
+    margin-inline-start: 8px;
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.18);
     transition: transform 0.2s ease;
   }
@@ -757,19 +757,19 @@
     width: clamp(280px, 34vw, 440px);
     height: 200px;
     flex-shrink: 0;
-    margin: -40px 0 -40px -120px;
+    margin-block: -40px;
+    margin-inline-start: -120px;
   }
 
   .nav-items-floating {
     display: flex;
-    gap: 16px;
+    flex: 1 1 auto;
+    min-width: 0;
+    gap: 4px;
     align-items: center;
     justify-content: center;
     padding: 0;
     height: 100%;
-    position: absolute;
-    left: 50%;
-    transform: translateX(-50%);
   }
 
   .nav-item-floating {
@@ -780,9 +780,9 @@
     text-decoration: none;
     font-family: var(--font-body), system-ui, sans-serif;
     font-weight: 700;
-    font-size: 18px;
+    font-size: clamp(14px, 1.1vw, 18px);
     letter-spacing: 0;
-    padding: 14px 20px;
+    padding: 14px clamp(8px, 1.1vw, 20px);
     min-height: 56px;
     border-radius: 0;
     background: transparent;
@@ -796,6 +796,18 @@
     position: relative;
     flex-shrink: 0;
     white-space: nowrap;
+  }
+
+  .nav-locale-floating {
+    display: inline-flex;
+    align-items: center;
+    color: #ffffff;
+    font-family: var(--font-body), system-ui, sans-serif;
+    font-size: 13px;
+    padding-inline: 8px;
+    flex-shrink: 0;
+    white-space: nowrap;
+    text-shadow: 0 1px 10px rgba(0, 0, 0, 0.35);
   }
 
   .nav-item-floating:hover,
@@ -1335,16 +1347,17 @@
       flex: 0 0 58% !important;
       min-height: calc(36vh - 3.75rem) !important;
       max-width: none;
-      padding: 0.85rem 0.5rem 3.75rem 1rem !important;
+      padding-block: 0.85rem 3.75rem !important;
+      padding-inline: 1rem 0.5rem !important;
       align-items: flex-start !important;
       justify-content: center !important;
-      text-align: left !important;
+      text-align: start !important;
     }
 
     .services-hero-copy h2,
     .services-hero-copy p,
     .services-hero-pills {
-      text-align: left !important;
+      text-align: start !important;
     }
 
     .services-hero-copy h2 {
@@ -1456,7 +1469,7 @@
     }
 
     .mobile-menu-button-floating {
-      margin-left: auto;
+      margin-inline-start: auto;
       flex: 0 0 auto;
     }
 
@@ -1689,7 +1702,7 @@
     .site-footer-mobile-brand .w-16 {
       width: 3rem !important;
       height: 3rem !important;
-      margin-right: 0.5rem !important;
+      margin-inline-end: 0.5rem !important;
     }
 
     .site-footer-mobile-brand .text-2xl {

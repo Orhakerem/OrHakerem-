@@ -48,6 +48,23 @@ export function getEmailConfig():
   };
 }
 
+function getInternalFromAddress() {
+  const invoiceSender = process.env.RESEND_INVOICE_FROM_EMAIL?.trim();
+
+  // Prefer the verified-domain sender for internal notifications too;
+  // onboarding@resend.dev only delivers to the Resend account owner and is
+  // kept as a fallback for local setups without the verified domain.
+  if (invoiceSender) {
+    try {
+      return buildInvoiceFromAddress({ senderEmail: invoiceSender });
+    } catch {
+      // Misconfigured sender — fall back to the sandbox address below.
+    }
+  }
+
+  return 'Or Hakerem <onboarding@resend.dev>';
+}
+
 export async function sendResendEmail(
   config: EmailConfig,
   { html, replyTo, subject }: SendEmailOptions,
@@ -55,7 +72,7 @@ export async function sendResendEmail(
   const resend = new Resend(config.apiKey);
 
   return resend.emails.send({
-    from: 'Or Hakerem <onboarding@resend.dev>',
+    from: getInternalFromAddress(),
     to: config.recipientEmail,
     subject,
     html,

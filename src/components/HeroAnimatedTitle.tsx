@@ -5,13 +5,16 @@ import { motion } from 'framer-motion';
 
 type HeroAnimatedTitleProps = {
   className?: string;
+  titles?: readonly string[];
 };
 
-export default function HeroAnimatedTitle({ className = '' }: HeroAnimatedTitleProps) {
-  const titles = useMemo(
-    () => ['Or Hakerem', 'Luxury Short-Term Stays in Tel Aviv'],
-    []
-  );
+const DEFAULT_TITLES = ['Or Hakerem', 'Luxury Short-Term Stays in Tel Aviv'] as const;
+
+export default function HeroAnimatedTitle({
+  className = '',
+  titles: titlesProp,
+}: HeroAnimatedTitleProps) {
+  const titles = useMemo(() => titlesProp ?? DEFAULT_TITLES, [titlesProp]);
   const [titleNumber, setTitleNumber] = useState(0);
 
   useEffect(() => {
