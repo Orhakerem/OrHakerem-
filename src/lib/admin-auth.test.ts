@@ -11,10 +11,13 @@ import {
 } from './admin-auth';
 
 const TEST_ENV: NodeJS.ProcessEnv = {
+  NODE_ENV: 'test',
   ADMIN_EMAIL: 'admin@example.com',
   ADMIN_PASSWORD_SHA256: sha256('correct horse battery staple'),
   ADMIN_SESSION_SECRET: 'unit-test-session-secret',
 };
+
+const EMPTY_ENV: NodeJS.ProcessEnv = { NODE_ENV: 'test' };
 
 test('resolveAdminAuthEnv requires all three variables', () => {
   assert.deepEqual(resolveAdminAuthEnv(TEST_ENV), {
@@ -46,7 +49,7 @@ test('verifyCredentials rejects a wrong password or wrong email', () => {
 
 test('verifyCredentials surfaces missing configuration as a typed error', () => {
   assert.throws(
-    () => verifyCredentials('admin@example.com', 'correct horse battery staple', {}),
+    () => verifyCredentials('admin@example.com', 'correct horse battery staple', EMPTY_ENV),
     MissingAdminAuthEnvError,
   );
 });
@@ -64,5 +67,5 @@ test('session token round-trips, rejects invalid tokens, and depends on the secr
 });
 
 test('isValidSessionToken returns false instead of throwing when env is missing', () => {
-  assert.equal(isValidSessionToken('any-token', {}), false);
+  assert.equal(isValidSessionToken('any-token', EMPTY_ENV), false);
 });

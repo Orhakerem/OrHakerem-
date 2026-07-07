@@ -44,6 +44,7 @@ import {
   type ReservationLineItem,
   type ReservationQuoteData,
 } from '@/lib/reservation-quote';
+import { ADMIN_REQUEST_STATUS_LABELS } from '@/lib/admin-request-status';
 import type {
   AdminCustomerRequestSummary,
   AdminRequestSourceInput,
@@ -593,7 +594,7 @@ export default function ReservationQuoteForm({
               </p>
             </div>
             <span className="rounded-full border border-primary/15 bg-cream/60 px-3 py-1 text-xs font-semibold uppercase tracking-[0.14em] text-primary">
-              {sourceRequest.status.replace('_', ' ')}
+              {ADMIN_REQUEST_STATUS_LABELS[sourceRequest.status] ?? sourceRequest.status}
             </span>
           </div>
         </div>

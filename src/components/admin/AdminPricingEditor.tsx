@@ -774,7 +774,14 @@ export default function AdminPricingEditor({ snapshot, actions }: AdminPricingEd
 
     if (validation.errors.length > 0) {
       setSectionState(sectionKey, 'error');
-      toast.error(validation.errors[0]);
+      // Show every validation problem, not just the first one, so a single
+      // save attempt is enough to know everything that needs fixing.
+      toast.error(
+        validation.errors.length === 1
+          ? validation.errors[0]
+          : `${validation.errors.length} problems:\n• ${validation.errors.join('\n• ')}`,
+        { duration: 6000 },
+      );
       return;
     }
 
@@ -1302,7 +1309,7 @@ export default function AdminPricingEditor({ snapshot, actions }: AdminPricingEd
         }
       >
         <div className="overflow-x-auto rounded-xl border border-primary/10">
-          <table className="w-full min-w-[92rem] text-left text-sm">
+          <table className="w-full min-w-[76rem] text-left text-sm">
             <thead className="bg-white text-[10px] uppercase tracking-[0.18em] text-black/45">
               <tr>
                 <th className="px-4 py-3 font-semibold">Name</th>

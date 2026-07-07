@@ -15,7 +15,7 @@ const DASHBOARD_CARDS = [
   },
   {
     href: '/admin/devis',
-    eyebrow: 'Devis',
+    eyebrow: 'Quotes',
     title: 'Reservation quote',
     description: 'Prepare and send the branded reservation invoice email to the customer.',
   },

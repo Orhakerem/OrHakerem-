@@ -8,6 +8,7 @@ import { FileText } from 'lucide-react';
 import { updateAdminRequestStatus } from '@/actions/admin-requests';
 import {
   ADMIN_REQUEST_STATUSES,
+  ADMIN_REQUEST_STATUS_LABELS as STATUS_LABELS,
   type AdminRequestStatus,
 } from '@/lib/admin-request-status';
 import type { AdminCustomerRequestSummary } from '@/lib/admin-requests';
@@ -15,16 +16,6 @@ import type { AdminCustomerRequestSummary } from '@/lib/admin-requests';
 interface AdminRequestsInboxProps {
   requests: AdminCustomerRequestSummary[];
 }
-
-const STATUS_LABELS: Record<AdminRequestStatus, string> = {
-  new: 'New',
-  in_progress: 'In progress',
-  quote_sent: 'Quote sent',
-  accepted: 'Accepted',
-  declined: 'Declined',
-  expired: 'Expired',
-  confirmed: 'Confirmed',
-};
 
 const STATUS_TONES: Record<AdminRequestStatus, string> = {
   new: 'border-blue-200 bg-blue-50 text-blue-900',
@@ -104,7 +95,7 @@ export default function AdminRequestsInbox({ requests }: AdminRequestsInboxProps
 
   return (
     <div className="space-y-5">
-      <div className="grid gap-3 sm:grid-cols-4 lg:grid-cols-7">
+      <div className="grid grid-cols-2 gap-3 sm:grid-cols-4 lg:grid-cols-7">
         {ADMIN_REQUEST_STATUSES.map((status) => (
           <div
             key={status}

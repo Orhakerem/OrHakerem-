@@ -13,6 +13,17 @@ export const ADMIN_REQUEST_SOURCE_TYPES = ['reservation', 'event_request'] as co
 export type AdminRequestStatus = (typeof ADMIN_REQUEST_STATUSES)[number];
 export type AdminRequestSourceType = (typeof ADMIN_REQUEST_SOURCE_TYPES)[number];
 
+/** Display labels shared by every admin surface that renders a status. */
+export const ADMIN_REQUEST_STATUS_LABELS: Record<AdminRequestStatus, string> = {
+  new: 'New',
+  in_progress: 'In progress',
+  quote_sent: 'Quote sent',
+  accepted: 'Accepted',
+  declined: 'Declined',
+  expired: 'Expired',
+  confirmed: 'Confirmed',
+};
+
 export interface AdminRequestSourceInput {
   sourceType: AdminRequestSourceType;
   sourceId: string;

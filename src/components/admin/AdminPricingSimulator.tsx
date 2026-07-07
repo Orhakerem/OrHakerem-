@@ -1,6 +1,6 @@
 'use client';
 
-import { useMemo, useState } from 'react';
+import { useMemo, useRef, useState } from 'react';
 import { CalendarDays, Calculator, RefreshCw, X } from 'lucide-react';
 import { DayPicker, type DateRange } from 'react-day-picker';
 
@@ -105,6 +105,9 @@ export default function AdminPricingSimulator({
   );
   const [result, setResult] = useState<AdminPricingSimulationResult | null>(null);
   const [isChecking, setIsChecking] = useState(false);
+  // Incremented whenever the input changes or a new run starts, so a slow
+  // response can never overwrite the result of a more recent simulation.
+  const runSeqRef = useRef(0);
 
   const quote = result?.success ? result.quote : null;
   const error = result?.success === false ? result.error : null;
@@ -120,13 +123,18 @@ export default function AdminPricingSimulator({
     };
   }, [input.checkIn, input.checkOut]);
 
-  function updateInput(key: keyof AdminPricingSimulationInput, value: string) {
+  function invalidateSimulation() {
+    runSeqRef.current += 1;
     setResult(null);
+  }
+
+  function updateInput(key: keyof AdminPricingSimulationInput, value: string) {
+    invalidateSimulation();
     setInput((current) => ({ ...current, [key]: value }));
   }
 
   function selectDate(value: string) {
-    setResult(null);
+    invalidateSimulation();
 
     if (!isIsoDateString(value) || compareIsoDates(value, todayIso) < 0) {
       return;
@@ -161,7 +169,7 @@ export default function AdminPricingSimulator({
   }
 
   function clearDates() {
-    setResult(null);
+    invalidateSimulation();
     setInput((current) => ({
       ...current,
       checkIn: '',
@@ -183,18 +191,28 @@ export default function AdminPricingSimulator({
       return;
     }
 
+    const seq = ++runSeqRef.current;
     setIsChecking(true);
     setResult(null);
 
     try {
-      setResult(await runSimulation(input));
+      const simulation = await runSimulation(input);
+
+      if (runSeqRef.current === seq) {
+        setResult(simulation);
+      }
     } catch (err) {
       console.error('Admin pricing simulation failed:', err);
-      setResult({
-        success: false,
-        error: 'Unable to run the server simulation.',
-      });
+
+      if (runSeqRef.current === seq) {
+        setResult({
+          success: false,
+          error: 'Unable to run the server simulation.',
+        });
+      }
     } finally {
+      // Runs cannot overlap (the button is disabled while checking), so the
+      // spinner is always released even if the input changed mid-flight.
       setIsChecking(false);
     }
   }

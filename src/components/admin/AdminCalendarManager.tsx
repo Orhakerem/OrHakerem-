@@ -25,9 +25,9 @@ import {
   type BookablePropertyId,
 } from '@/lib/bookable-properties';
 import { addNights, compareIsoDates, getTodayIsoInTimeZone } from '@/lib/booking-dates';
+import { adminCalendarRuleInputSchema } from '@/lib/admin-calendar-input-schemas';
 import type {
   AdminCalendarBlockInput,
-  AdminCalendarRuleInput,
   AdminCalendarSnapshot,
   AdminPropertyStatus,
   PropertyOperationalStatus,
@@ -295,8 +295,18 @@ export default function AdminCalendarManager({ snapshot }: AdminCalendarManagerP
   }
 
   async function handleSaveRule() {
+    // Validate with the same schema the server action parses, instead of the
+    // previous unchecked `as unknown as` cast of the string-based draft.
+    const parsed = adminCalendarRuleInputSchema.safeParse(ruleDraft);
+
+    if (!parsed.success) {
+      toast.error(parsed.error.issues[0]?.message ?? 'Invalid calendar rule.');
+      setRuleState('error');
+      return;
+    }
+
     setRuleState('saving');
-    const result = await saveAdminCalendarRule(ruleDraft as unknown as AdminCalendarRuleInput);
+    const result = await saveAdminCalendarRule(parsed.data);
 
     if (result.success) {
       toast.success(result.message);
