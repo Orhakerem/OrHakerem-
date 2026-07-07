@@ -33,6 +33,32 @@ function getSafeValidationErrorMessage(error: ZodError) {
   return error.issues[0]?.message ?? 'Please check the reservation details and try again.';
 }
 
+/**
+ * Best-effort internal alert when the automatic customer quote fails after the
+ * request itself was saved. The customer must NOT see this as a failure (their
+ * request is recorded); the admin handles the quote manually instead.
+ */
+async function reportAutoQuoteIssue(
+  config: Parameters<typeof sendResendEmail>[0],
+  requestLabel: string,
+  issues: string[],
+) {
+  try {
+    await sendResendEmail(config, {
+      subject: sanitizeForHeader(`Action needed: automatic quote issue — ${requestLabel}`),
+      html: `
+        <h2>Automatic quote issue</h2>
+        <p>The customer request (${requestLabel}) was saved, but the automatic quote hit a problem:</p>
+        <ul>${issues.map((issue) => `<li>${issue}</li>`).join('')}</ul>
+        <p>Review it in the back office (Requests page) and send the quote manually from the Quotes page if needed.</p>
+      `.trim(),
+      replyTo: config.recipientEmail,
+    });
+  } catch (error) {
+    console.error('Auto-quote issue notification failed:', error);
+  }
+}
+
 function isReservationInsertError(error: unknown) {
   return error instanceof Error && error.message.startsWith('Failed to save reservation request:');
 }
@@ -151,24 +177,37 @@ export async function sendEmail(formData: FormData) {
         };
       }
 
+      // The request is saved and the internal inquiry email is out: from here
+      // on, auto-quote problems are reported to the admin, never to the
+      // customer (a "try again" here caused duplicate submissions).
       try {
-        await sendCustomerQuoteFromRequest({
+        const quoteResult = await sendCustomerQuoteFromRequest({
           quote: buildQuoteDraftFromAdminRequest(eventRequest),
           source: {
             sourceType: 'event_request',
             sourceId: eventRequest.sourceId,
           },
         });
+
+        if (quoteResult.status === 'sent' && quoteResult.warnings.length > 0) {
+          await reportAutoQuoteIssue(
+            config,
+            `event request from ${sanitizeForHeader(validatedData.name)}`,
+            quoteResult.warnings,
+          );
+        }
       } catch (error) {
         console.error('Event quote delivery failed:', error);
-
-        return {
-          success: false,
-          error: 'Unable to generate and send the event quote. Please try again.',
-        };
+        await reportAutoQuoteIssue(
+          config,
+          `event request from ${sanitizeForHeader(validatedData.name)}`,
+          [
+            'The automatic quote email could not be sent to the customer. The request is still in the inbox with status "new" — send the quote manually.',
+          ],
+        );
       }
 
-      return { 
+      return {
         success: true,
         message: 'Email sent successfully!'
       };
@@ -298,24 +337,36 @@ export async function sendEmail(formData: FormData) {
         };
       }
 
+      // Same contract as the event path: the reservation is saved, so quote
+      // problems go to the admin, not back to the customer.
       try {
-        await sendCustomerQuoteFromRequest({
+        const quoteResult = await sendCustomerQuoteFromRequest({
           quote: buildQuoteDraftFromAdminRequest(reservationRequest),
           source: {
             sourceType: 'reservation',
             sourceId: reservationRequest.sourceId,
           },
         });
+
+        if (quoteResult.status === 'sent' && quoteResult.warnings.length > 0) {
+          await reportAutoQuoteIssue(
+            config,
+            `reservation request from ${sanitizeForHeader(validatedData.name)}`,
+            quoteResult.warnings,
+          );
+        }
       } catch (error) {
         console.error('Reservation quote delivery failed:', error);
-
-        return {
-          success: false,
-          error: 'Unable to generate and send the reservation quote. Please try again.',
-        };
+        await reportAutoQuoteIssue(
+          config,
+          `reservation request from ${sanitizeForHeader(validatedData.name)}`,
+          [
+            'The automatic quote email could not be sent to the customer. The request is still in the inbox with status "new" — send the quote manually.',
+          ],
+        );
       }
 
-      return { 
+      return {
         success: true,
         message: 'Email sent successfully!'
       };

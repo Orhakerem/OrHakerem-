@@ -180,6 +180,10 @@ export async function sendReservationQuote(
     });
 
     if (result.status === 'sent') {
+      // The customer email is out; bookkeeping failures below must be shown
+      // to the admin instead of silently logging behind a success message.
+      const warnings: string[] = [];
+
       const historyResult = await saveAdminQuoteHistory({
         quote: data,
         resendEmailId: result.id,
@@ -188,18 +192,23 @@ export async function sendReservationQuote(
 
       if (!historyResult.success) {
         console.error('Reservation quote history save failed:', historyResult.error);
+        warnings.push('the quote history was NOT saved');
       }
 
       try {
         await markAdminRequestQuoteSent(source);
       } catch (error) {
         console.error('Admin request status update failed:', error);
+        warnings.push('the request status was NOT updated to "quote sent"');
       }
 
       return {
         success: true,
         status: 'sent',
-        message: `Reservation email sent to ${data.customerEmail}.`,
+        message:
+          warnings.length > 0
+            ? `Reservation email sent to ${data.customerEmail}, BUT ${warnings.join(' and ')}. Check Supabase and the Requests page.`
+            : `Reservation email sent to ${data.customerEmail}.`,
       };
     }
 

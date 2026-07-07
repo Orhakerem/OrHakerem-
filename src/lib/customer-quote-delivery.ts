@@ -45,6 +45,12 @@ export type CustomerQuoteDeliveryResult =
   | {
       status: 'sent';
       emailId?: string;
+      /**
+       * Post-send bookkeeping failures (history save, request status update).
+       * The customer email IS delivered when these are present — callers must
+       * surface them to the admin instead of treating the send as failed.
+       */
+      warnings: string[];
     }
   | {
       status: 'preview';
@@ -116,20 +122,44 @@ export async function sendCustomerQuoteFromRequest(
     };
   }
 
-  const historyResult = await dependencies.saveHistory({
-    quote: input.quote,
-    resendEmailId: result.id,
-    source: input.source,
-  });
+  // The email is delivered at this point: bookkeeping failures below must not
+  // bubble up as a send failure (that caused customers to resubmit and receive
+  // duplicate quotes). Both steps always run; failures become warnings.
+  const warnings: string[] = [];
 
-  if (!historyResult.success) {
-    throw new Error(historyResult.error ?? 'Failed to save quote history');
+  try {
+    const historyResult = await dependencies.saveHistory({
+      quote: input.quote,
+      resendEmailId: result.id,
+      source: input.source,
+    });
+
+    if (!historyResult.success) {
+      throw new Error(historyResult.error ?? 'Failed to save quote history');
+    }
+  } catch (error) {
+    console.error('Customer quote history save failed:', error);
+    warnings.push(
+      `Quote email was sent but saving the quote history failed (${getErrorMessage(error)}).`,
+    );
   }
 
-  await dependencies.markQuoteSent(input.source);
+  try {
+    await dependencies.markQuoteSent(input.source);
+  } catch (error) {
+    console.error('Customer quote request status update failed:', error);
+    warnings.push(
+      `Quote email was sent but updating the request status failed (${getErrorMessage(error)}).`,
+    );
+  }
 
   return {
     status: 'sent',
     emailId: result.id,
+    warnings,
   };
+}
+
+function getErrorMessage(error: unknown) {
+  return error instanceof Error ? error.message : 'unknown error';
 }

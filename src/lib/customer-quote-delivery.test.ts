@@ -55,7 +55,79 @@ test('sendCustomerQuoteFromRequest sends the PDF quote and records sent history 
   assert.deepEqual(result, {
     status: 'sent',
     emailId: 'email_123',
+    warnings: [],
   });
+});
+
+test('sendCustomerQuoteFromRequest keeps a sent status and still updates the request when history save fails', async () => {
+  const calls: string[] = [];
+
+  const result = await sendCustomerQuoteFromRequest(
+    {
+      quote: {
+        ...DEFAULT_RESERVATION_QUOTE,
+        customerEmail: 'sarah@example.com',
+      },
+      source: {
+        sourceType: 'event_request',
+        sourceId: 'event-1',
+      },
+    },
+    {
+      renderHtml: async () => '<p>Quote attached</p>',
+      renderPdf: async () => Buffer.from('pdf'),
+      buildFilename: async () => 'quote.pdf',
+      sendEmail: async () => ({ status: 'sent', id: 'email_456' }),
+      saveHistory: async () => {
+        calls.push('saveHistory');
+        throw new Error('history table unavailable');
+      },
+      markQuoteSent: async () => {
+        calls.push('markQuoteSent');
+      },
+    },
+  );
+
+  assert.deepEqual(calls, ['saveHistory', 'markQuoteSent']);
+  assert.equal(result.status, 'sent');
+  assert.equal(result.status === 'sent' && result.emailId, 'email_456');
+  assert.equal(result.status === 'sent' && result.warnings.length, 1);
+  assert.match(
+    (result.status === 'sent' && result.warnings[0]) || '',
+    /history.*failed.*history table unavailable/i,
+  );
+});
+
+test('sendCustomerQuoteFromRequest reports a status-update failure as a warning, not an error', async () => {
+  const result = await sendCustomerQuoteFromRequest(
+    {
+      quote: {
+        ...DEFAULT_RESERVATION_QUOTE,
+        customerEmail: 'sarah@example.com',
+      },
+      source: {
+        sourceType: 'reservation',
+        sourceId: 'reservation-9',
+      },
+    },
+    {
+      renderHtml: async () => '<p>Quote attached</p>',
+      renderPdf: async () => Buffer.from('pdf'),
+      buildFilename: async () => 'quote.pdf',
+      sendEmail: async () => ({ status: 'sent', id: 'email_789' }),
+      saveHistory: async () => ({ success: true }),
+      markQuoteSent: async () => {
+        throw new Error('status upsert rejected');
+      },
+    },
+  );
+
+  assert.equal(result.status, 'sent');
+  assert.equal(result.status === 'sent' && result.warnings.length, 1);
+  assert.match(
+    (result.status === 'sent' && result.warnings[0]) || '',
+    /status.*failed.*status upsert rejected/i,
+  );
 });
 
 test('sendCustomerQuoteFromRequest does not record sent history for preview sends', async () => {
