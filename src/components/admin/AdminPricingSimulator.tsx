@@ -8,11 +8,18 @@ import {
   BUSINESS_TIME_ZONE,
   compareIsoDates,
   createDateFromIso,
+  getFirstBlockedDateAfter,
   getTodayIsoInTimeZone,
   isIsoDateString,
   toIsoDateString,
 } from '@/lib/booking-dates';
 import { addMonthsUtc, startOfMonthUtc } from '@/lib/calendar-months';
+import {
+  BOOKABLE_PROPERTY_IDS,
+  getBookablePropertyIdFromListingId,
+  type BookablePropertyId,
+} from '@/lib/bookable-properties';
+import { getBlockedStayNights, type AdminAvailabilitySnapshot } from '@/lib/admin-availability';
 import type { AdminPricingSnapshot } from '@/lib/admin-pricing';
 
 import {
@@ -30,9 +37,21 @@ const COMBINED_LISTING_ID = 'penthouse+studio';
 
 interface AdminPricingSimulatorProps {
   snapshot: AdminPricingSnapshot;
+  availabilitySnapshot: AdminAvailabilitySnapshot;
   runSimulation?: (
     input: AdminPricingSimulationInput,
   ) => Promise<AdminPricingSimulationResult>;
+}
+
+/** Maps a simulator listingId ('penthouse', 'studio', or the synthetic combined value) to the underlying property id(s) whose iCal/calendar-block data applies. */
+function getPropertyIdsForListing(listingId: string): BookablePropertyId[] {
+  if (listingId === COMBINED_LISTING_ID) {
+    return [...BOOKABLE_PROPERTY_IDS];
+  }
+
+  const propertyId = getBookablePropertyIdFromListingId(listingId);
+
+  return propertyId ? [propertyId] : [];
 }
 
 function formatMoney(value: number, currency: string) {
@@ -90,6 +109,7 @@ function validateInput(input: AdminPricingSimulationInput) {
 
 export default function AdminPricingSimulator({
   snapshot,
+  availabilitySnapshot,
   runSimulation,
 }: AdminPricingSimulatorProps) {
   const listingOptions = useMemo(() => getListingOptions(snapshot), [snapshot]);
@@ -123,6 +143,42 @@ export default function AdminPricingSimulator({
     };
   }, [input.checkIn, input.checkOut]);
 
+  // Blocked dates + sync status for whichever listing is currently selected,
+  // so the calendar reflects that property's real Airbnb/Booking availability
+  // instead of only disabling past dates regardless of the dropdown.
+  const propertyIds = useMemo(() => getPropertyIdsForListing(input.listingId), [input.listingId]);
+  const blockedDates = useMemo(() => {
+    const dates = new Set<string>();
+
+    for (const propertyId of propertyIds) {
+      for (const blockedDate of availabilitySnapshot.blockedDatesByProperty[propertyId] ?? []) {
+        dates.add(blockedDate);
+      }
+    }
+
+    return Array.from(dates).sort(compareIsoDates);
+  }, [availabilitySnapshot.blockedDatesByProperty, propertyIds]);
+  const blockedDateSet = useMemo(() => new Set(blockedDates), [blockedDates]);
+  const maxCheckOutIso = useMemo(
+    () => (input.checkIn ? getFirstBlockedDateAfter(input.checkIn, blockedDates) : null),
+    [blockedDates, input.checkIn],
+  );
+  const availabilityStatus = useMemo(() => {
+    const statuses = propertyIds.map(
+      (propertyId) => availabilitySnapshot.availabilityStatusByProperty[propertyId] ?? 'ready',
+    );
+
+    if (statuses.includes('error')) {
+      return 'error' as const;
+    }
+
+    if (statuses.includes('stale')) {
+      return 'stale' as const;
+    }
+
+    return 'ready' as const;
+  }, [availabilitySnapshot.availabilityStatusByProperty, propertyIds]);
+
   function invalidateSimulation() {
     runSeqRef.current += 1;
     setResult(null);
@@ -130,6 +186,29 @@ export default function AdminPricingSimulator({
 
   function updateInput(key: keyof AdminPricingSimulationInput, value: string) {
     invalidateSimulation();
+
+    if (key === 'listingId') {
+      // Switching listing changes which dates are blocked; drop a selection
+      // that is no longer valid for the newly selected property instead of
+      // silently keeping a stale, possibly-unavailable range.
+      const nextBlockedDates = getPropertyIdsForListing(value).flatMap(
+        (propertyId) => availabilitySnapshot.blockedDatesByProperty[propertyId] ?? [],
+      );
+      const isCheckInBlocked = input.checkIn && nextBlockedDates.includes(input.checkIn);
+      const hasBlockedNight =
+        input.checkIn && input.checkOut
+          ? getBlockedStayNights(
+              { checkIn: input.checkIn, checkOut: input.checkOut },
+              nextBlockedDates,
+            ).length > 0
+          : false;
+
+      if (isCheckInBlocked || hasBlockedNight) {
+        setInput((current) => ({ ...current, listingId: value, checkIn: '', checkOut: '' }));
+        return;
+      }
+    }
+
     setInput((current) => ({ ...current, [key]: value }));
   }
 
@@ -137,6 +216,10 @@ export default function AdminPricingSimulator({
     invalidateSimulation();
 
     if (!isIsoDateString(value) || compareIsoDates(value, todayIso) < 0) {
+      return;
+    }
+
+    if (blockedDateSet.has(value)) {
       return;
     }
 
@@ -159,6 +242,10 @@ export default function AdminPricingSimulator({
       }));
       setActiveDateField('checkOut');
       setMonth(startOfMonthUtc(createDateFromIso(value)));
+      return;
+    }
+
+    if (maxCheckOutIso && compareIsoDates(value, maxCheckOutIso) > 0) {
       return;
     }
 
@@ -226,6 +313,18 @@ export default function AdminPricingSimulator({
     >
       <div className="grid gap-4 xl:grid-cols-[minmax(19rem,22rem)_minmax(0,1fr)]">
         <div className="overflow-hidden rounded-xl border border-primary/15 bg-white">
+          {availabilityStatus === 'error' ? (
+            <p className="border-b border-amber-200 bg-amber-50 px-4 py-3 text-sm text-amber-900">
+              Calendar sync is temporarily unavailable for this listing. Blocked dates shown may be
+              incomplete.
+            </p>
+          ) : null}
+          {availabilityStatus === 'stale' ? (
+            <p className="border-b border-amber-200 bg-amber-50 px-4 py-3 text-sm text-amber-900">
+              Calendar sync is partially stale for this listing. Blocked dates shown may be
+              incomplete.
+            </p>
+          ) : null}
           <div className="grid grid-cols-2 divide-x divide-primary/10 border-b border-primary/10 rtl:divide-x-reverse">
             <button
               type="button"
@@ -296,7 +395,34 @@ export default function AdminPricingSimulator({
               timeZone={BUSINESS_TIME_ZONE}
               defaultMonth={startOfMonthUtc(createDateFromIso(todayIso))}
               hideNavigation
-              disabled={(date) => compareIsoDates(toIsoDateString(date), todayIso) < 0}
+              disabled={(date) => {
+                const isoDate = toIsoDateString(date);
+
+                if (compareIsoDates(isoDate, todayIso) < 0) {
+                  return true;
+                }
+
+                if (
+                  activeDateField === 'checkOut' &&
+                  input.checkIn &&
+                  maxCheckOutIso &&
+                  isoDate === maxCheckOutIso
+                ) {
+                  return false;
+                }
+
+                if (activeDateField === 'checkOut' && input.checkIn && compareIsoDates(isoDate, input.checkIn) <= 0) {
+                  return true;
+                }
+
+                if (activeDateField === 'checkOut' && maxCheckOutIso && compareIsoDates(isoDate, maxCheckOutIso) > 0) {
+                  return true;
+                }
+
+                return blockedDateSet.has(isoDate);
+              }}
+              modifiers={{ unavailable: (date) => blockedDateSet.has(toIsoDateString(date)) }}
+              modifiersClassNames={{ unavailable: 'booking-calendar-unavailable' }}
               className="booking-calendar-root w-full"
               classNames={calendarClassNames}
             />

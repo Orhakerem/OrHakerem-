@@ -13,6 +13,7 @@ import {
 } from 'lucide-react';
 
 import { compareIsoDates, isIsoDateString } from '@/lib/booking-dates';
+import type { AdminAvailabilitySnapshot } from '@/lib/admin-availability';
 import type {
   AdminListingInput,
   AdminPricingRuleInput,
@@ -120,6 +121,7 @@ export interface AdminPricingActions {
 
 interface AdminPricingEditorProps {
   snapshot: AdminPricingSnapshot;
+  availabilitySnapshot: AdminAvailabilitySnapshot;
   actions?: Partial<AdminPricingActions>;
 }
 
@@ -696,7 +698,11 @@ function getListingOptions(snapshot: AdminPricingSnapshot) {
   ];
 }
 
-export default function AdminPricingEditor({ snapshot, actions }: AdminPricingEditorProps) {
+export default function AdminPricingEditor({
+  snapshot,
+  availabilitySnapshot,
+  actions,
+}: AdminPricingEditorProps) {
   const [currentSnapshot, setCurrentSnapshot] = useState(snapshot);
   const [listingDrafts, setListingDrafts] = useState<ListingDraft[]>(() =>
     snapshot.listings.map(toListingDraft),
@@ -863,6 +869,7 @@ export default function AdminPricingEditor({ snapshot, actions }: AdminPricingEd
       <div className="grid gap-4 xl:grid-cols-[minmax(0,1fr)_22rem]">
         <AdminPricingSimulator
           snapshot={currentSnapshot}
+          availabilitySnapshot={availabilitySnapshot}
           runSimulation={actions?.runSimulation}
         />
 

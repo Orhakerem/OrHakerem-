@@ -11,6 +11,7 @@ import AdminPricingEditor from '@/components/admin/AdminPricingEditor';
 import AdminShell from '@/components/admin/AdminShell';
 import { getAdminSession } from '@/lib/admin-session';
 import { fetchAdminPricingSnapshot } from '@/lib/admin-pricing';
+import { getBookablePropertyCalendarSnapshot } from '@/lib/airbnb-calendar';
 import { getSupabaseAdminClient } from '@/lib/supabase-admin';
 
 export default async function AdminPricingPage() {
@@ -19,7 +20,10 @@ export default async function AdminPricingPage() {
   }
 
   try {
-    const snapshot = await fetchAdminPricingSnapshot(getSupabaseAdminClient());
+    const [snapshot, availabilitySnapshot] = await Promise.all([
+      fetchAdminPricingSnapshot(getSupabaseAdminClient()),
+      getBookablePropertyCalendarSnapshot(),
+    ]);
 
     return (
       <AdminShell
@@ -29,6 +33,7 @@ export default async function AdminPricingPage() {
       >
         <AdminPricingEditor
           snapshot={snapshot}
+          availabilitySnapshot={availabilitySnapshot}
           actions={{
             saveListingPrices: saveAdminListingPrices,
             saveSeasonPeriods: saveAdminSeasonPeriods,
