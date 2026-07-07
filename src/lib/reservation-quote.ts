@@ -56,37 +56,41 @@ export type ReservationLineItem = z.infer<typeof lineItemSchema>;
 export type ReservationQuoteData = z.infer<typeof reservationQuoteSchema>;
 
 /**
- * Prefilled defaults taken from the original "Shirel Diler" estimate so the form
- * is fast to use and to test. The host edits these per booking.
+ * Neutral prefill for a blank admin quote. Identity fields (guest name,
+ * reservation number, email, dates, amounts) stay EMPTY on purpose so a quote
+ * can never go out carrying another guest's details by accident — the Zod
+ * schema blocks sending until they are filled. Dates default via
+ * `createInitialAdminQuote`; request-based drafts override everything relevant
+ * in `buildQuoteDraftFromAdminRequest`.
  */
 export const DEFAULT_RESERVATION_QUOTE: ReservationQuoteData = {
-  reservationNumber: 'OH-2026-SHIREL',
-  issuedOn: '11 / 06 / 2026',
-  guestName: 'Shirel Diler',
+  reservationNumber: '',
+  issuedOn: '',
+  guestName: '',
   idPassport: '',
   nationality: '',
   contact: '',
   apartment: 'Penthouse',
-  travellers: '1 adult',
-  orderDate: '11 / 06 / 2026',
-  nights: '1',
-  checkInDate: '25 / 06 / 2026',
+  travellers: '',
+  orderDate: '',
+  nights: '',
+  checkInDate: '',
   checkInTime: '17:00',
-  checkOutDate: '26 / 06 / 2026',
+  checkOutDate: '',
   checkOutTime: '11:00',
   apartmentAccess: 'Code sent on arrival',
   currency: 'NIS (₪)',
   lineItems: [
-    { description: 'Event & night stay', unit: '3,800 ₪', amount: '3,800 ₪' },
+    { description: '', unit: '', amount: '' },
     { description: 'Cleaning fee', unit: '—', amount: 'Included' },
   ],
-  subtotal: '3,800 ₪',
-  total: '3,800 ₪',
-  paymentMethod: 'Bit',
-  depositPaid: '1,400 ₪',
+  subtotal: '',
+  total: '',
+  paymentMethod: '',
+  depositPaid: '',
   paidOn: '',
-  balanceDue: '2,400 ₪',
-  balanceRemaining: '2,400 ₪',
+  balanceDue: '',
+  balanceRemaining: '',
   closingNote:
     'Thank you for choosing Or Hakerem. This document confirms your reservation and serves as your invoice. The detailed terms and conditions of your stay are provided in a separate document — by completing the payment, you acknowledge and accept them.',
   customerEmail: '',
