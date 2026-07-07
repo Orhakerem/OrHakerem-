@@ -37,7 +37,7 @@ const venueRentalsByLocale: Record<Locale, VenueRental[]> = {
     {
       id: 'weekday',
       label: 'Weekday Venue Rental',
-      price: 2500,
+      price: 2800,
       priceSuffix: '+ cleaning fee',
       features: ['Space rental only', 'Catering and service add-ons available separately'],
       highlight: true,
@@ -55,7 +55,7 @@ const venueRentalsByLocale: Record<Locale, VenueRental[]> = {
     {
       id: 'weekday',
       label: 'Location en semaine',
-      price: 2500,
+      price: 2800,
       priceSuffix: '+ frais de ménage',
       features: ['Location de l’espace uniquement', 'Traiteur et services additionnels disponibles séparément'],
       highlight: true,
@@ -73,7 +73,7 @@ const venueRentalsByLocale: Record<Locale, VenueRental[]> = {
     {
       id: 'weekday',
       label: 'השכרת המקום באמצע השבוע',
-      price: 2500,
+      price: 2800,
       priceSuffix: '+ דמי ניקיון',
       features: ['השכרת המקום בלבד', 'קייטרינג ושירותים נוספים זמינים בנפרד'],
       highlight: true,
