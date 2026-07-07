@@ -8,9 +8,17 @@ import { clearAdminSession, createAdminSession, getAdminSession } from '@/lib/ad
 import { getBookablePropertyCalendarSnapshot } from '@/lib/airbnb-calendar';
 import {
   getAvailabilityStatusForAdminApartment,
+  getAdminApartmentPropertyIds,
   getBlockedDatesForAdminApartment,
   getBlockedStayNights,
+  normalizeAdminApartment,
 } from '@/lib/admin-availability';
+import { fetchAdminCalendarSnapshot, validateAdminCalendarStay } from '@/lib/admin-calendar';
+import {
+  markAdminRequestQuoteSent,
+  normalizeAdminRequestSource,
+  type AdminRequestSourceInput,
+} from '@/lib/admin-requests';
 import {
   calculateAdminQuote,
   parseAdminDateToIso,
@@ -53,6 +61,7 @@ export async function logoutAdmin(): Promise<void> {
 
 export async function sendReservationQuote(
   input: ReservationQuoteData,
+  sourceContext?: AdminRequestSourceInput | null,
 ): Promise<SendQuoteResult> {
   if (!getAdminSession()) {
     return { success: false, error: 'Not authenticated' };
@@ -66,6 +75,7 @@ export async function sendReservationQuote(
     };
   }
   const data = calculateAdminQuote(parsed.data);
+  const source = sourceContext ? normalizeAdminRequestSource(sourceContext) : null;
 
   const checkIn = parseAdminDateToIso(data.checkInDate);
   const checkOut = parseAdminDateToIso(data.checkOutDate);
@@ -97,6 +107,24 @@ export async function sendReservationQuote(
         error: `Selected stay includes unavailable date ${blockedStayNights[0]}.`,
       };
     }
+
+    const calendarValidation = validateAdminCalendarStay(
+      await fetchAdminCalendarSnapshot(),
+      {
+        propertyIds: [...getAdminApartmentPropertyIds(normalizeAdminApartment(data.apartment))],
+        checkIn,
+        checkOut,
+      },
+    );
+
+    if (!calendarValidation.available) {
+      return {
+        success: false,
+        error:
+          calendarValidation.reasons[0] ??
+          'Selected stay violates an internal calendar rule.',
+      };
+    }
   }
 
   const subject = sanitizeForHeader(buildReservationEmailSubject());
@@ -124,10 +152,17 @@ export async function sendReservationQuote(
       const historyResult = await saveAdminQuoteHistory({
         quote: data,
         resendEmailId: result.id,
+        source,
       });
 
       if (!historyResult.success) {
         console.error('Reservation quote history save failed:', historyResult.error);
+      }
+
+      try {
+        await markAdminRequestQuoteSent(source);
+      } catch (error) {
+        console.error('Admin request status update failed:', error);
       }
 
       return {

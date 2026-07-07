@@ -2,8 +2,11 @@ import assert from 'node:assert/strict';
 import test from 'node:test';
 
 import {
+  assertListingPricingCoverage,
   buildAdminQuoteHistoryRow,
   buildPricingAdjustmentRuleRow,
+  buildPricingTierUpdateRow,
+  fetchAdminPricingSnapshot,
   saveAdminQuoteHistoryEntry,
   savePricingAdjustmentRule,
   type AdminQuoteHistoryRow,
@@ -66,6 +69,84 @@ test('buildPricingAdjustmentRuleRow rejects invalid date and stay ranges', () =>
   );
 });
 
+test('buildPricingTierUpdateRow keeps hidden priority as a backend default', () => {
+  const row = buildPricingTierUpdateRow({
+    listingId: 'penthouse',
+    seasonType: 'high',
+    dayType: 'weekend',
+    minNights: 2,
+    maxNights: '',
+    targetPrice: 900,
+    isActive: true,
+  });
+
+  assert.equal(row.priority, 0);
+  assert.equal(row.max_nights, null);
+});
+
+test('fetchAdminPricingSnapshot filters inactive editable child rows', async () => {
+  const { client, filters } = createSelectMockSupabase();
+
+  await fetchAdminPricingSnapshot(client as never);
+
+  assert.deepEqual(filters.pricing_tiers, [{ column: 'is_active', value: true }]);
+  assert.deepEqual(filters.season_periods, [{ column: 'is_active', value: true }]);
+  assert.deepEqual(filters.season_date_overrides, [{ column: 'is_active', value: true }]);
+  assert.deepEqual(filters.pricing_adjustment_rules, [{ column: 'is_active', value: true }]);
+  assert.equal(filters.listings, undefined);
+});
+
+test('assertListingPricingCoverage accepts complete active public pricing tiers', () => {
+  assert.doesNotThrow(() =>
+    assertListingPricingCoverage(
+      {
+        listingId: 'penthouse',
+        basePrice: 0,
+        cleaningFee: 750,
+        currency: 'ILS',
+        isActive: true,
+      },
+      createCompleteTierInputs('penthouse'),
+    ),
+  );
+});
+
+test('assertListingPricingCoverage rejects active listings without active tiers', () => {
+  assert.throws(
+    () =>
+      assertListingPricingCoverage(
+        {
+          listingId: 'penthouse',
+          basePrice: 0,
+          cleaningFee: 750,
+          currency: 'ILS',
+          isActive: true,
+        },
+        createCompleteTierInputs('penthouse').map((tier) => ({ ...tier, isActive: false })),
+      ),
+    /must keep at least one active tier/,
+  );
+});
+
+test('assertListingPricingCoverage rejects gaps that would break public pricing', () => {
+  assert.throws(
+    () =>
+      assertListingPricingCoverage(
+        {
+          listingId: 'penthouse',
+          basePrice: 0,
+          cleaningFee: 750,
+          currency: 'ILS',
+          isActive: true,
+        },
+        createCompleteTierInputs('penthouse').filter(
+          (tier) => !(tier.seasonType === 'current' && tier.dayType === 'weekday'),
+        ),
+      ),
+    /current weekday/,
+  );
+});
+
 test('savePricingAdjustmentRule upserts the normalized rule through Supabase admin', async () => {
   const { client, upsertedRows } = createMockSupabase();
 
@@ -119,6 +200,10 @@ test('buildAdminQuoteHistoryRow stores searchable fields and the full quote payl
       currency: 'NIS (₪)',
     },
     resendEmailId: 'email_123',
+    source: {
+      sourceType: 'reservation',
+      sourceId: 'reservation-1',
+    },
   });
 
   assert.deepEqual(row, {
@@ -134,6 +219,10 @@ test('buildAdminQuoteHistoryRow stores searchable fields and the full quote payl
     currency_label: 'NIS (₪)',
     resend_email_id: 'email_123',
     send_status: 'sent',
+    quote_status: 'sent',
+    source_type: 'reservation',
+    source_id: 'reservation-1',
+    expires_at: null,
     sent_at: row.sent_at,
     quote_payload: row.quote_payload,
   } satisfies AdminQuoteHistoryRow);
@@ -166,6 +255,31 @@ test('saveAdminQuoteHistoryEntry inserts the history row through Supabase admin'
 });
 
 type TableRows = Record<string, Array<Record<string, unknown>>>;
+
+function createCompleteTierInputs(listingId: string) {
+  return (['current', 'low', 'high'] as const).flatMap((seasonType) =>
+    (['weekday', 'weekend'] as const).flatMap((dayType) => [
+      {
+        listingId,
+        seasonType,
+        dayType,
+        minNights: 1,
+        maxNights: 2,
+        targetPrice: 1000,
+        isActive: true,
+      },
+      {
+        listingId,
+        seasonType,
+        dayType,
+        minNights: 3,
+        maxNights: '',
+        targetPrice: 900,
+        isActive: true,
+      },
+    ]),
+  );
+}
 
 class MockSupabaseQuery {
   constructor(
@@ -201,6 +315,54 @@ class MockSupabaseQuery {
 
     return this;
   }
+}
+
+class MockSelectQuery {
+  private selectedTable = '';
+
+  constructor(
+    tableName: string,
+    private readonly filters: Record<string, Array<{ column: string; value: unknown }>>,
+  ) {
+    this.selectedTable = tableName;
+  }
+
+  select() {
+    return this;
+  }
+
+  eq(column: string, value: unknown) {
+    this.filters[this.selectedTable] = this.filters[this.selectedTable] ?? [];
+    this.filters[this.selectedTable].push({ column, value });
+
+    return this;
+  }
+
+  order() {
+    return this;
+  }
+
+  then<TResult1 = { data: never[]; error: null }, TResult2 = never>(
+    onfulfilled?:
+      | ((value: { data: never[]; error: null }) => TResult1 | PromiseLike<TResult1>)
+      | null,
+    onrejected?: ((reason: unknown) => TResult2 | PromiseLike<TResult2>) | null,
+  ) {
+    return Promise.resolve({ data: [], error: null }).then(onfulfilled, onrejected);
+  }
+}
+
+function createSelectMockSupabase() {
+  const filters: Record<string, Array<{ column: string; value: unknown }>> = {};
+
+  return {
+    filters,
+    client: {
+      from(tableName: string) {
+        return new MockSelectQuery(tableName, filters);
+      },
+    },
+  };
 }
 
 function createMockSupabase() {

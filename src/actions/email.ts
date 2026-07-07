@@ -15,7 +15,19 @@ import {
   getBookablePropertyListingId,
 } from '@/lib/bookable-properties';
 import { getEmailConfig, sanitizeForHeader, sendResendEmail } from '@/lib/email-service';
-import { savePendingReservationRequest } from '@/lib/reservation-requests';
+import {
+  ReservationAvailabilityError,
+  savePendingReservationRequest,
+} from '@/lib/reservation-requests';
+import {
+  type AdminCustomerRequestSummary,
+  buildEventRequestSummary,
+  buildQuoteDraftFromAdminRequest,
+  buildReservationRequestSummary,
+  saveEventRequest,
+  type ReservationRequestRow,
+} from '@/lib/admin-requests';
+import { sendCustomerQuoteFromRequest } from '@/lib/customer-quote-delivery';
 
 function getSafeValidationErrorMessage(error: ZodError) {
   return error.issues[0]?.message ?? 'Please check the reservation details and try again.';
@@ -96,6 +108,19 @@ export async function sendEmail(formData: FormData) {
         };
       }
 
+      let eventRequest: AdminCustomerRequestSummary;
+
+      try {
+        const savedEvent = await saveEventRequest(validatedData);
+        eventRequest = buildEventRequestSummary(savedEvent.request);
+      } catch (error) {
+        console.error('Event request persistence failed:', error);
+        return {
+          success: false,
+          error: 'Unable to save event request. Please try again.',
+        };
+      }
+
       // Sanitize validated data for use in headers
       const sanitizedEmail = sanitizeForHeader(validatedData.email);
 
@@ -123,6 +148,23 @@ export async function sendEmail(formData: FormData) {
         return {
           success: false,
           error: error.message
+        };
+      }
+
+      try {
+        await sendCustomerQuoteFromRequest({
+          quote: buildQuoteDraftFromAdminRequest(eventRequest),
+          source: {
+            sourceType: 'event_request',
+            sourceId: eventRequest.sourceId,
+          },
+        });
+      } catch (error) {
+        console.error('Event quote delivery failed:', error);
+
+        return {
+          success: false,
+          error: 'Unable to generate and send the event quote. Please try again.',
         };
       }
 
@@ -198,8 +240,10 @@ export async function sendEmail(formData: FormData) {
         };
       }
 
+      let reservationRequest: AdminCustomerRequestSummary;
+
       try {
-        await savePendingReservationRequest({
+        const savedReservation = await savePendingReservationRequest({
           listingId,
           checkIn: validatedData.checkIn,
           checkOut: validatedData.checkOut,
@@ -208,14 +252,20 @@ export async function sendEmail(formData: FormData) {
           guestPhone: validatedData.phone,
           guestsCount: validatedData.guestsCount,
         });
+        reservationRequest = buildReservationRequestSummary(
+          savedReservation.request as ReservationRequestRow,
+        );
       } catch (error) {
         console.error('Reservation persistence failed:', error);
 
         return {
           success: false,
-          error: isReservationInsertError(error)
-            ? 'Unable to save reservation request. Please try again.'
-            : 'Unable to calculate the price for those dates. Please try again.',
+          error:
+            error instanceof ReservationAvailabilityError
+              ? error.message
+              : isReservationInsertError(error)
+                ? 'Unable to save reservation request. Please try again.'
+                : 'Unable to generate and send the reservation quote. Please try again.',
         };
       }
 
@@ -245,6 +295,23 @@ export async function sendEmail(formData: FormData) {
         return {
           success: false,
           error: error.message
+        };
+      }
+
+      try {
+        await sendCustomerQuoteFromRequest({
+          quote: buildQuoteDraftFromAdminRequest(reservationRequest),
+          source: {
+            sourceType: 'reservation',
+            sourceId: reservationRequest.sourceId,
+          },
+        });
+      } catch (error) {
+        console.error('Reservation quote delivery failed:', error);
+
+        return {
+          success: false,
+          error: 'Unable to generate and send the reservation quote. Please try again.',
         };
       }
 

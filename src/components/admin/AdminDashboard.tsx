@@ -8,6 +8,12 @@ interface AdminDashboardProps {
 
 const DASHBOARD_CARDS = [
   {
+    href: '/admin/requests',
+    eyebrow: 'Requests',
+    title: 'Customer inbox',
+    description: 'Review apartment and event requests, update statuses, and open prefilled quotes.',
+  },
+  {
     href: '/admin/devis',
     eyebrow: 'Devis',
     title: 'Reservation quote',
@@ -19,12 +25,18 @@ const DASHBOARD_CARDS = [
     title: 'Pricing editor',
     description: 'Manage listing rates, seasons, date overrides, and adjustment rules.',
   },
+  {
+    href: '/admin/calendar',
+    eyebrow: 'Calendar',
+    title: 'Multi-calendar',
+    description: 'Review iCal sync, internal blocks, conflicts, holds, and calendar rules.',
+  },
 ] as const;
 
 export default function AdminDashboard({ summary }: AdminDashboardProps) {
   return (
     <div className="space-y-6">
-      <div className="grid gap-4 sm:grid-cols-2">
+      <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
         {DASHBOARD_CARDS.map((card) => (
           <Link
             key={card.href}
@@ -92,7 +104,7 @@ export default function AdminDashboard({ summary }: AdminDashboardProps) {
               Quote history
             </p>
             <h2 className="mt-1 font-head text-2xl font-light tracking-h3 text-black">
-              Recent sent quotes
+              Sent quotes
             </h2>
           </div>
         </div>

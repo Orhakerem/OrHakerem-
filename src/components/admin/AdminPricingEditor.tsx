@@ -625,6 +625,22 @@ function buildComparable(value: unknown) {
   return JSON.stringify(value);
 }
 
+function omitClientIds<T extends { clientId: string }>(items: readonly T[]) {
+  return items.map((item) => {
+    const { clientId, ...comparableItem } = item;
+    void clientId;
+
+    return comparableItem;
+  });
+}
+
+function toComparableListingDraft(listing: ListingDraft) {
+  return {
+    ...listing,
+    tiers: omitClientIds(listing.tiers),
+  };
+}
+
 function getPendingDiffs(
   snapshot: AdminPricingSnapshot,
   listingDrafts: readonly ListingDraft[],
@@ -637,28 +653,32 @@ function getPendingDiffs(
   for (const listing of listingDrafts) {
     const original = snapshot.listings.find((candidate) => candidate.listingId === listing.listingId);
 
-    if (original && buildComparable(toListingDraft(original)) !== buildComparable(listing)) {
+    if (
+      original &&
+      buildComparable(toComparableListingDraft(toListingDraft(original))) !==
+        buildComparable(toComparableListingDraft(listing))
+    ) {
       diffs.push(`${listing.title}: listing prices changed`);
     }
   }
 
   if (
-    buildComparable(snapshot.seasonPeriods.map(toSeasonPeriodDraft)) !==
-    buildComparable(seasonPeriodDrafts)
+    buildComparable(omitClientIds(snapshot.seasonPeriods.map(toSeasonPeriodDraft))) !==
+    buildComparable(omitClientIds(seasonPeriodDrafts))
   ) {
     diffs.push('Season periods changed');
   }
 
   if (
-    buildComparable(snapshot.specialDates.map(toSpecialDateDraft)) !==
-    buildComparable(specialDateDrafts)
+    buildComparable(omitClientIds(snapshot.specialDates.map(toSpecialDateDraft))) !==
+    buildComparable(omitClientIds(specialDateDrafts))
   ) {
     diffs.push('Special date overrides changed');
   }
 
   if (
-    buildComparable(snapshot.adjustmentRules.map(toRuleDraft)) !==
-    buildComparable(ruleDrafts)
+    buildComparable(omitClientIds(snapshot.adjustmentRules.map(toRuleDraft))) !==
+    buildComparable(omitClientIds(ruleDrafts))
   ) {
     diffs.push('Pricing adjustment rules changed');
   }
@@ -705,12 +725,36 @@ export default function AdminPricingEditor({ snapshot, actions }: AdminPricingEd
     [currentSnapshot, listingDrafts, ruleDrafts, seasonPeriodDrafts, specialDateDrafts],
   );
 
-  function applySnapshot(nextSnapshot: AdminPricingSnapshot) {
+  function applySnapshot(nextSnapshot: AdminPricingSnapshot, sectionKey: string) {
     setCurrentSnapshot(nextSnapshot);
-    setListingDrafts(nextSnapshot.listings.map(toListingDraft));
-    setSeasonPeriodDrafts(nextSnapshot.seasonPeriods.map(toSeasonPeriodDraft));
-    setSpecialDateDrafts(nextSnapshot.specialDates.map(toSpecialDateDraft));
-    setRuleDrafts(nextSnapshot.adjustmentRules.map(toRuleDraft));
+
+    if (sectionKey.startsWith('listing:')) {
+      const listingId = sectionKey.slice('listing:'.length);
+      const savedListing = nextSnapshot.listings.find((listing) => listing.listingId === listingId);
+
+      if (savedListing) {
+        setListingDrafts((current) =>
+          current.map((listing) =>
+            listing.listingId === listingId ? toListingDraft(savedListing) : listing,
+          ),
+        );
+      }
+      return;
+    }
+
+    if (sectionKey === 'seasons') {
+      setSeasonPeriodDrafts(nextSnapshot.seasonPeriods.map(toSeasonPeriodDraft));
+      return;
+    }
+
+    if (sectionKey === 'special-dates') {
+      setSpecialDateDrafts(nextSnapshot.specialDates.map(toSpecialDateDraft));
+      return;
+    }
+
+    if (sectionKey === 'pricing-rules') {
+      setRuleDrafts(nextSnapshot.adjustmentRules.map(toRuleDraft));
+    }
   }
 
   function setSectionState(sectionKey: string, state: AdminSectionSaveState) {
@@ -745,7 +789,7 @@ export default function AdminPricingEditor({ snapshot, actions }: AdminPricingEd
         return;
       }
 
-      applySnapshot(result.snapshot);
+      applySnapshot(result.snapshot, sectionKey);
       setSectionState(sectionKey, 'saved');
       toast.success(result.message ?? 'Pricing section saved.');
     } catch (error) {
@@ -809,7 +853,12 @@ export default function AdminPricingEditor({ snapshot, actions }: AdminPricingEd
 
   return (
     <div className="space-y-6">
-      <div className="grid gap-4 lg:grid-cols-[minmax(0,1fr)_22rem]">
+      <div className="grid gap-4 xl:grid-cols-[minmax(0,1fr)_22rem]">
+        <AdminPricingSimulator
+          snapshot={currentSnapshot}
+          runSimulation={actions?.runSimulation}
+        />
+
         <AdminPanel title="Pending diff" eyebrow="Review" icon={CheckCircle2}>
           {pendingDiffs.length > 0 ? (
             <ul className="space-y-2 text-sm text-black/70">
@@ -824,11 +873,6 @@ export default function AdminPricingEditor({ snapshot, actions }: AdminPricingEd
             <p className="text-sm text-black/60">No pending changes against the saved snapshot.</p>
           )}
         </AdminPanel>
-
-        <AdminPricingSimulator
-          snapshot={currentSnapshot}
-          runSimulation={actions?.runSimulation}
-        />
       </div>
 
       <AdminPanel title="Listing price matrix" eyebrow="Prices" icon={CircleDollarSign}>
@@ -905,7 +949,6 @@ export default function AdminPricingEditor({ snapshot, actions }: AdminPricingEd
                       <th className="px-4 py-3 font-semibold">Min nights</th>
                       <th className="px-4 py-3 font-semibold">Max nights</th>
                       <th className="px-4 py-3 font-semibold">Nightly price</th>
-                      <th className="px-4 py-3 font-semibold">Priority</th>
                       <th className="px-4 py-3 font-semibold">Active</th>
                       <th className="px-4 py-3 text-right font-semibold">Remove</th>
                     </tr>
@@ -995,22 +1038,6 @@ export default function AdminPricingEditor({ snapshot, actions }: AdminPricingEd
                               updateTier(listing.listingId, tier.clientId, (current) => ({
                                 ...current,
                                 targetPrice: event.target.value,
-                              }))
-                            }
-                            className={ADMIN_INPUT_CLASS}
-                          />
-                        </td>
-                        <td className="px-4 py-3">
-                          <input
-                            aria-label="Tier priority"
-                            type="number"
-                            min={0}
-                            step={1}
-                            value={tier.priority}
-                            onChange={(event) =>
-                              updateTier(listing.listingId, tier.clientId, (current) => ({
-                                ...current,
-                                priority: event.target.value,
                               }))
                             }
                             className={ADMIN_INPUT_CLASS}
@@ -1290,7 +1317,6 @@ export default function AdminPricingEditor({ snapshot, actions }: AdminPricingEd
                 <th className="px-4 py-3 font-semibold">Day</th>
                 <th className="px-4 py-3 font-semibold">Start</th>
                 <th className="px-4 py-3 font-semibold">End</th>
-                <th className="px-4 py-3 font-semibold">Priority</th>
                 <th className="px-4 py-3 font-semibold">Active</th>
                 <th className="px-4 py-3 text-right font-semibold">Remove</th>
               </tr>
@@ -1486,22 +1512,6 @@ export default function AdminPricingEditor({ snapshot, actions }: AdminPricingEd
                         updateRule(rule.clientId, (current) => ({
                           ...current,
                           endsOn: event.target.value,
-                        }))
-                      }
-                      className={ADMIN_INPUT_CLASS}
-                    />
-                  </td>
-                  <td className="px-4 py-3">
-                    <input
-                      aria-label="Rule priority"
-                      type="number"
-                      min={0}
-                      step={1}
-                      value={rule.priority}
-                      onChange={(event) =>
-                        updateRule(rule.clientId, (current) => ({
-                          ...current,
-                          priority: event.target.value,
                         }))
                       }
                       className={ADMIN_INPUT_CLASS}

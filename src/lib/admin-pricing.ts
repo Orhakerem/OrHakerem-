@@ -119,6 +119,10 @@ export interface AdminQuoteHistoryRow {
   currency_label: string;
   resend_email_id: string | null;
   send_status: 'sent';
+  quote_status: 'sent';
+  source_type: 'reservation' | 'event_request' | null;
+  source_id: string | null;
+  expires_at: string | null;
   sent_at: string;
   quote_payload: ReservationQuoteData;
 }
@@ -126,6 +130,11 @@ export interface AdminQuoteHistoryRow {
 export interface SaveAdminQuoteHistoryInput {
   quote: ReservationQuoteData;
   resendEmailId?: string | null;
+  source?: {
+    sourceType: 'reservation' | 'event_request';
+    sourceId: string;
+  } | null;
+  expiresAt?: string | null;
 }
 
 export interface PricingAdjustmentRuleUpsertRow {
@@ -356,6 +365,7 @@ export type AdminPricingTierInput = z.input<typeof adminPricingTierInputSchema>;
 export type AdminSeasonPeriodInput = z.input<typeof adminSeasonPeriodInputSchema>;
 export type AdminSeasonDateOverrideInput = z.input<typeof adminSeasonDateOverrideInputSchema>;
 export type AdminPricingRuleInput = z.input<typeof adminPricingRuleInputSchema>;
+type ParsedAdminPricingTier = z.output<typeof adminPricingTierInputSchema>;
 
 interface ListingRow {
   id: string;
@@ -452,6 +462,74 @@ function getListingTitle(listingId: string, name: string | null) {
   );
 
   return configuredProperty?.title ?? name ?? listingId;
+}
+
+function formatSeasonDayLabel(seasonType: SeasonType, dayType: PricingDayType) {
+  return `${seasonType} ${dayType}`;
+}
+
+function assertTierCoverageForCombination(
+  listingTitle: string,
+  seasonType: SeasonType,
+  dayType: PricingDayType,
+  tiers: readonly ParsedAdminPricingTier[],
+) {
+  const scopedTiers = tiers
+    .filter((tier) => tier.seasonType === seasonType && tier.dayType === dayType)
+    .sort((left, right) => left.minNights - right.minNights);
+  const label = formatSeasonDayLabel(seasonType, dayType);
+  let nextRequiredNightCount = 1;
+
+  for (const tier of scopedTiers) {
+    if (tier.maxNights !== null && tier.maxNights < nextRequiredNightCount) {
+      continue;
+    }
+
+    if (tier.minNights > nextRequiredNightCount) {
+      throw new Error(
+        `${listingTitle} pricing must keep active ${label} tiers covering ${nextRequiredNightCount} night(s).`,
+      );
+    }
+
+    if (tier.maxNights === null) {
+      return;
+    }
+
+    nextRequiredNightCount = Math.max(nextRequiredNightCount, tier.maxNights + 1);
+  }
+
+  throw new Error(`${listingTitle} pricing must keep an active open-ended ${label} tier.`);
+}
+
+export function assertListingPricingCoverage(
+  listing: AdminListingInput,
+  tiers: readonly AdminPricingTierInput[],
+) {
+  const parsedListing = adminListingInputSchema.parse(listing);
+
+  if (!parsedListing.isActive) {
+    return;
+  }
+
+  const activeTiers = tiers
+    .map((tier) =>
+      adminPricingTierInputSchema.parse({
+        ...tier,
+        listingId: parsedListing.listingId,
+      }),
+    )
+    .filter((tier) => tier.isActive);
+  const listingTitle = getListingTitle(parsedListing.listingId, null);
+
+  if (activeTiers.length === 0) {
+    throw new Error(`${listingTitle} pricing must keep at least one active tier.`);
+  }
+
+  for (const seasonType of SEASON_TYPES) {
+    for (const dayType of DAY_TYPES) {
+      assertTierCoverageForCombination(listingTitle, seasonType, dayType, activeTiers);
+    }
+  }
 }
 
 function mapPricingTier(row: PricingTierRow): AdminPricingTierSnapshot {
@@ -554,6 +632,7 @@ export async function fetchAdminPricingSnapshot(
     supabase
       .from('pricing_tiers')
       .select('id, listing_id, season_type, day_type, min_nights, max_nights, target_price, is_active, priority')
+      .eq('is_active', true)
       .order('listing_id', { ascending: true })
       .order('season_type', { ascending: true })
       .order('day_type', { ascending: true })
@@ -561,14 +640,17 @@ export async function fetchAdminPricingSnapshot(
     supabase
       .from('season_periods')
       .select('id, name, season_type, start_date, end_date, is_active')
+      .eq('is_active', true)
       .order('start_date', { ascending: true }),
     supabase
       .from('season_date_overrides')
       .select('id, date, season_type, note, is_active')
+      .eq('is_active', true)
       .order('date', { ascending: true }),
     supabase
       .from('pricing_adjustment_rules')
       .select('id, listing_id, name, rule_type, is_active, priority, adjustment_basis_points, min_days_before_check_in, max_days_before_check_in, min_nights, max_nights, season_type, day_type, starts_on, ends_on')
+      .eq('is_active', true)
       .order('priority', { ascending: false }),
   ]);
 
@@ -619,8 +701,7 @@ export async function fetchAdminDashboardSummary(
           .from('admin_quote_history')
           .select('id, reservation_number, guest_name, customer_email, apartment, check_in, check_out, nights, total_label, sent_at')
           .eq('send_status', 'sent')
-          .order('sent_at', { ascending: false })
-          .limit(5),
+          .order('sent_at', { ascending: false }),
         supabase.from('season_periods').select('id').eq('is_active', true),
         supabase.from('season_date_overrides').select('id').eq('is_active', true),
         supabase.from('pricing_adjustment_rules').select('id').eq('is_active', true),
@@ -782,10 +863,8 @@ function parsePositiveInteger(value: string) {
   return Number.isInteger(parsedValue) && parsedValue > 0 ? parsedValue : null;
 }
 
-export function buildAdminQuoteHistoryRow({
-  quote,
-  resendEmailId,
-}: SaveAdminQuoteHistoryInput): AdminQuoteHistoryRow {
+export function buildAdminQuoteHistoryRow(input: SaveAdminQuoteHistoryInput): AdminQuoteHistoryRow {
+  const { quote, resendEmailId } = input;
   const parsedQuote = reservationQuoteSchema.parse(quote);
 
   return {
@@ -801,6 +880,10 @@ export function buildAdminQuoteHistoryRow({
     currency_label: parsedQuote.currency.trim() || 'NIS',
     resend_email_id: resendEmailId?.trim() || null,
     send_status: 'sent',
+    quote_status: 'sent',
+    source_type: input.source?.sourceType ?? null,
+    source_id: input.source?.sourceId ?? null,
+    expires_at: input.expiresAt?.trim() || null,
     sent_at: new Date().toISOString(),
     quote_payload: parsedQuote,
   };

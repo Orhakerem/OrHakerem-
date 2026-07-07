@@ -4,6 +4,7 @@ import { revalidatePath } from 'next/cache';
 import { ZodError } from 'zod';
 
 import {
+  assertListingPricingCoverage,
   buildListingUpdateRow,
   buildPricingRuleRow,
   buildPricingTierUpdateRow,
@@ -180,6 +181,8 @@ export async function saveAdminListingPrices(
   input: AdminSaveListingPricesInput,
 ): Promise<AdminPricingActionResult> {
   return handleAdminPricingMutation('save listing prices', async () => {
+    assertListingPricingCoverage(input.listing, input.tiers);
+
     const listingRow = buildListingUpdateRow(input.listing);
     const { id: listingId, ...listingUpdate } = listingRow;
     const tierRows = input.tiers.map((tier) =>

@@ -1,3 +1,4 @@
+/* eslint-disable react/no-unescaped-entities */
 import { BulletList } from '@/components/legal/LegalPageShell';
 
 const standardCancellationPolicy = [

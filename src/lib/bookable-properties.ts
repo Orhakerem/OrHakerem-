@@ -33,6 +33,10 @@ const PROPERTY_ID_BY_TITLE = Object.fromEntries(
   Object.values(BOOKABLE_PROPERTIES).map((property) => [property.title, property.id]),
 ) as Record<BookablePropertyTitle, BookablePropertyId>;
 
+const PROPERTY_ID_BY_LISTING_ID = Object.fromEntries(
+  Object.values(BOOKABLE_PROPERTIES).map((property) => [property.listingId, property.id]),
+) as Record<string, BookablePropertyId>;
+
 export const BOOKABLE_PROPERTY_IDS = Object.keys(BOOKABLE_PROPERTIES) as BookablePropertyId[];
 
 export const BOOKABLE_PROPERTY_OPTIONS = BOOKABLE_PROPERTY_IDS.map((propertyId) => ({
@@ -68,4 +72,8 @@ export function getBookablePropertyTitle(propertyId: BookablePropertyId) {
 
 export function getBookablePropertyListingId(propertyId: BookablePropertyId) {
   return BOOKABLE_PROPERTIES[propertyId].listingId;
+}
+
+export function getBookablePropertyIdFromListingId(listingId: string) {
+  return PROPERTY_ID_BY_LISTING_ID[listingId] ?? null;
 }
