@@ -4,6 +4,7 @@ const en = {
   hero: {
     title: 'Boutique Event Venue in Tel Aviv',
     body: 'Or HaKerem hosts boutique events and celebrations in Tel Aviv, offering a unique venue with optional kosher services.',
+    cta: 'Plan your event',
   },
   eventTypes: [
     'Wedding',
@@ -52,7 +53,8 @@ const en = {
         items: [
           'Fully equipped professional kitchen',
           'BBQ facilities',
-          'Professional catering available upon request',
+          'Several trusted caterers available on request — dairy, meat and other kosher menus',
+          'Partner decorators and DJs available on request',
           'Premium audio system',
         ],
       },
@@ -66,14 +68,13 @@ const en = {
     cleaningFee: 'Cleaning fee',
     total: 'Total',
     priceNote: 'Prices include place location only for events.',
+    reserveCta: 'Reserve your event',
+    getQuoteCta: 'Get your instant quote',
   },
   pricing: {
     kicker: 'Event Pricing',
     heading: 'Venue Rental',
     body: 'Book the space only, then add catering and services if needed.',
-    cateringHeading: 'Catering & Service Add-ons',
-    cateringBody: 'Optional packages and services can be added depending on your event size.',
-    furnitureExtras: 'Furniture extras',
   },
   plan: {
     kicker: 'Plan Your Event',
@@ -130,6 +131,7 @@ const fr: EventsMessages = {
   hero: {
     title: 'Lieu événementiel boutique à Tel Aviv',
     body: 'Or HaKerem accueille des événements et célébrations boutique à Tel Aviv, avec un lieu unique et des services casher optionnels.',
+    cta: 'Planifiez votre événement',
   },
   eventTypes: [
     'Mariage',
@@ -178,7 +180,8 @@ const fr: EventsMessages = {
         items: [
           'Cuisine professionnelle entièrement équipée',
           'Installations barbecue',
-          'Traiteur professionnel disponible sur demande',
+          'Plusieurs traiteurs de confiance disponibles sur demande — menus lactés, carnés et autres options cachères',
+          'Décorateurs et DJ partenaires disponibles sur demande',
           'Système audio haut de gamme',
         ],
       },
@@ -192,14 +195,13 @@ const fr: EventsMessages = {
     cleaningFee: 'Frais de ménage',
     total: 'Total',
     priceNote: 'Les prix incluent uniquement la location du lieu pour les événements.',
+    reserveCta: 'Réservez votre événement',
+    getQuoteCta: 'Recevez votre devis instantané',
   },
   pricing: {
     kicker: 'Tarifs événements',
     heading: 'Location du lieu',
     body: "Réservez uniquement l'espace, puis ajoutez le traiteur et les services si besoin.",
-    cateringHeading: 'Traiteur & services additionnels',
-    cateringBody: "Des formules et services optionnels peuvent être ajoutés selon la taille de votre événement.",
-    furnitureExtras: 'Mobilier supplémentaire',
   },
   plan: {
     kicker: 'Organisez votre événement',
@@ -254,6 +256,7 @@ const he: EventsMessages = {
   hero: {
     title: 'מקום אירועים בוטיקי בתל אביב',
     body: 'אור הכרם מארח אירועים וחגיגות בוטיקיים בתל אביב, במקום ייחודי עם אפשרות לשירותי כשרות.',
+    cta: 'תכננו את האירוע',
   },
   eventTypes: [
     'חתונה',
@@ -302,7 +305,8 @@ const he: EventsMessages = {
         items: [
           'מטבח מקצועי מאובזר במלואו',
           'מתקני מנגל',
-          'קייטרינג מקצועי זמין לפי בקשה',
+          'מספר קייטרינגים מהימנים זמינים לפי בקשה — תפריטים חלביים, בשריים ואפשרויות כשרות נוספות',
+          'מעצבים ו-DJ שותפים זמינים לפי בקשה',
           'מערכת שמע פרימיום',
         ],
       },
@@ -316,14 +320,13 @@ const he: EventsMessages = {
     cleaningFee: 'דמי ניקיון',
     total: 'סה״כ',
     priceNote: 'המחירים כוללים רק את השכרת המקום עבור אירועים.',
+    reserveCta: 'הזמינו את האירוע שלכם',
+    getQuoteCta: 'קבלו הצעת מחיר מיידית',
   },
   pricing: {
     kicker: 'תמחור אירועים',
     heading: 'השכרת המקום',
     body: 'הזמינו את המקום בלבד, ולאחר מכן הוסיפו קייטרינג ושירותים לפי הצורך.',
-    cateringHeading: 'קייטרינג ותוספות שירות',
-    cateringBody: 'ניתן להוסיף חבילות ושירותים אופציונליים בהתאם לגודל האירוע שלכם.',
-    furnitureExtras: 'ריהוט נוסף',
   },
   plan: {
     kicker: 'תכננו את האירוע שלכם',
