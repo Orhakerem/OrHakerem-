@@ -4,31 +4,58 @@ import Link from 'next/link';
 import type { ReactNode } from 'react';
 
 interface LiquidGlassCTAProps {
-  href: string;
+  href?: string;
+  onClick?: () => void;
+  type?: 'button' | 'submit';
   children: ReactNode;
   className?: string;
   target?: string;
   rel?: string;
 }
 
-export default function LiquidGlassCTA({ href, children, className = '', target, rel }: LiquidGlassCTAProps) {
+export default function LiquidGlassCTA({
+  href,
+  onClick,
+  type = 'button',
+  children,
+  className = '',
+  target,
+  rel,
+}: LiquidGlassCTAProps) {
+  const inner = (
+    <>
+      <span className="liquid-cta-shadow" aria-hidden="true" />
+      <span
+        className="liquid-cta-distort"
+        aria-hidden="true"
+        style={{ backdropFilter: 'url("#liquid-cta-glass")' }}
+      />
+      <span className="liquid-cta-label">{children}</span>
+    </>
+  );
+
   return (
     <>
-      <Link
-        href={href}
-        className={`liquid-cta ${className}`}
-        data-slot="button"
-        target={target}
-        rel={rel}
-      >
-        <span className="liquid-cta-shadow" aria-hidden="true" />
-        <span
-          className="liquid-cta-distort"
-          aria-hidden="true"
-          style={{ backdropFilter: 'url("#liquid-cta-glass")' }}
-        />
-        <span className="liquid-cta-label">{children}</span>
-      </Link>
+      {href ? (
+        <Link
+          href={href}
+          className={`liquid-cta ${className}`}
+          data-slot="button"
+          target={target}
+          rel={rel}
+        >
+          {inner}
+        </Link>
+      ) : (
+        <button
+          type={type}
+          onClick={onClick}
+          className={`liquid-cta ${className}`}
+          data-slot="button"
+        >
+          {inner}
+        </button>
+      )}
 
       <svg className="liquid-cta-svg" aria-hidden="true" focusable="false">
         <defs>

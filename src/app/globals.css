@@ -491,6 +491,13 @@
     letter-spacing: 0.2px;
   }
 
+  /* Events hero CTA — slightly smaller than the full-screen homepage CTA so it
+     fits under the title + body inside the shorter events hero video. */
+  .events-hero-cta .liquid-cta {
+    padding: 15px 34px;
+    font-size: 18px;
+  }
+
   .liquid-cta-shadow {
     position: absolute;
     inset: 0;
@@ -679,6 +686,11 @@
       font-size: 22px;
       white-space: nowrap;
       line-height: 1;
+    }
+
+    .events-hero-cta .liquid-cta {
+      padding: 11px 26px;
+      font-size: 15px;
     }
   }
 
