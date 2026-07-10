@@ -1,6 +1,6 @@
 'use client';
 
-import { ArrowUp, Calendar, ChevronDown, Mail, Phone, X } from 'lucide-react';
+import { ArrowUp, ChevronDown, Mail, Phone, X } from 'lucide-react';
 import toast from 'react-hot-toast';
 
 import React, { useState, useEffect, useRef } from 'react';
@@ -9,6 +9,7 @@ import { sendEmail } from '@/actions/email';
 import BookingSingleDateCalendar from '@/components/BookingSingleDateCalendar';
 import EventPricing from '@/components/EventPricing';
 import LiquidGlassButton from '@/components/LiquidGlassButton';
+import LiquidGlassCTA from '@/components/LiquidGlassCTA';
 import { useBackToTopVisibility } from '@/hooks/useBackToTopVisibility';
 import { formatIsoDate } from '@/lib/booking-dates';
 import type { CalendarSyncStatus } from '@/lib/bookable-properties';
@@ -33,7 +34,6 @@ export default function EventsClient({
   const venueRentals = getVenueRentals(locale);
   const [showForm, setShowForm] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const [isSuccess, setIsSuccess] = useState(false);
   const [isDatePickerOpen, setIsDatePickerOpen] = useState(false);
   const [eventDate, setEventDate] = useState<string | null>(null);
   const showBackToTop = useBackToTopVisibility();
@@ -79,7 +79,6 @@ export default function EventsClient({
       const result = await sendEmail(formData);
       if (result.success) {
         toast.success(result.message || t.form.success);
-        setIsSuccess(true);
         setShowForm(false);
         setIsDatePickerOpen(false);
       } else {
@@ -131,7 +130,7 @@ export default function EventsClient({
         <div className="absolute inset-0 bg-black/30 z-[1]"></div>
 
         {/* Hero Title - Positioned at bottom of video */}
-        <div className="absolute bottom-[6vh] md:bottom-12 left-0 right-0 z-10">
+        <div className="absolute bottom-[9vh] md:bottom-16 left-0 right-0 z-10">
           <div className="text-center px-4">
             <h1 className="font-head text-2xl md:text-4xl lg:text-5xl font-bold text-secondary animate-fadeInUp drop-shadow-lg" data-animate="text">
               {t.hero.title}
@@ -139,11 +138,84 @@ export default function EventsClient({
             <p className="max-w-3xl mx-auto mt-2 md:mt-4 text-sm md:text-base md:text-lg text-white/90 leading-relaxed" data-animate="fade-up">
               {t.hero.body}
             </p>
+            <div className="events-hero-cta mt-4 md:mt-7 flex justify-center" data-animate="fade-up">
+              <LiquidGlassCTA onClick={() => setShowForm(true)}>{t.hero.cta}</LiquidGlassCTA>
+            </div>
           </div>
         </div>
       </section>
 
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-8 md:py-20">
+
+        {/* Availability Section - synced to penthouse calendar */}
+        <section id="availability" className="events-availability-section py-6 md:py-10 mb-8 md:mb-12" data-animate="fade-up">
+          <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+            {/* Header */}
+            <div className="text-center mb-5 md:mb-6" data-animate="fade-up">
+              <span className="text-tertiary font-semibold text-sm md:text-base tracking-[0.2em] uppercase block mb-3">
+                {t.availability.kicker}
+              </span>
+              <h2 className="font-head text-2xl md:text-4xl lg:text-5xl font-bold text-black leading-tight" data-animate="text">
+                {t.availability.heading}
+              </h2>
+              <p className="mt-3 md:mt-6 text-black/80 text-sm md:text-xl leading-relaxed max-w-3xl mx-auto">
+                {t.availability.body}
+              </p>
+            </div>
+
+            <div className="max-w-3xl mx-auto">
+              <BookingSingleDateCalendar
+                value={eventDate}
+                blockedDates={blockedDates}
+                availabilityStatus={availabilityStatus}
+                desktopMonths={2}
+                onChange={(nextDate) => setEventDate(nextDate)}
+              />
+
+              {eventQuote ? (
+                <div className="mt-6 bg-white rounded-[10px] p-6 border border-primary/10 shadow-sm">
+                  <h3 className="font-head text-lg md:text-xl font-bold text-black mb-4">
+                    {eventQuote.label}
+                  </h3>
+                  <div className="space-y-2 text-sm md:text-base text-black/80">
+                    <div className="flex items-center justify-between gap-4">
+                      <span>{t.availability.venueRental}</span>
+                      <span className="whitespace-nowrap" dir="ltr">
+                        {eventQuote.venuePrice.toLocaleString('en-US')} ₪
+                      </span>
+                    </div>
+                    <div className="flex items-center justify-between gap-4">
+                      <span>{t.availability.cleaningFee}</span>
+                      <span className="whitespace-nowrap" dir="ltr">
+                        {eventQuote.cleaningFee.toLocaleString('en-US')} ₪
+                      </span>
+                    </div>
+                    <div className="flex items-center justify-between gap-4 border-t border-primary/10 pt-3 text-black">
+                      <span className="font-semibold">{t.availability.total}</span>
+                      <span className="font-head text-xl font-bold whitespace-nowrap" dir="ltr">
+                        {eventQuote.total.toLocaleString('en-US')} ₪
+                      </span>
+                    </div>
+                  </div>
+                  <p className="mt-4 text-black/60 text-xs md:text-sm">
+                    {t.availability.priceNote}
+                  </p>
+                </div>
+              ) : null}
+
+              <div className="mt-6 md:mt-8 text-center" data-animate="fade-up">
+                <LiquidGlassButton onClick={() => setShowForm(true)}>
+                  {t.availability.reserveCta}
+                </LiquidGlassButton>
+                <p className="mt-3 text-black/60 text-xs md:text-sm font-medium">
+                  {t.availability.getQuoteCta}
+                </p>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <EventPricing locale={locale} t={t.pricing} />
 
         {/* Event Spaces Section - Flat editorial */}
         <section id="venues" className="events-venues-section py-20 md:py-24 mb-8 md:mb-10" data-animate="fade-up">
@@ -226,132 +298,6 @@ export default function EventsClient({
                 ))}
               </div>
             </div>
-          </div>
-        </section>
-
-        {/* Availability Section - synced to penthouse calendar */}
-        <section id="availability" className="events-availability-section py-6 md:py-10 mb-8 md:mb-12" data-animate="fade-up">
-          <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
-            {/* Header */}
-            <div className="text-center mb-5 md:mb-6" data-animate="fade-up">
-              <span className="text-tertiary font-semibold text-sm md:text-base tracking-[0.2em] uppercase block mb-3">
-                {t.availability.kicker}
-              </span>
-              <h2 className="font-head text-2xl md:text-4xl lg:text-5xl font-bold text-black leading-tight" data-animate="text">
-                {t.availability.heading}
-              </h2>
-              <p className="mt-3 md:mt-6 text-black/80 text-sm md:text-xl leading-relaxed max-w-3xl mx-auto">
-                {t.availability.body}
-              </p>
-            </div>
-
-            <div className="max-w-3xl mx-auto">
-              <BookingSingleDateCalendar
-                value={eventDate}
-                blockedDates={blockedDates}
-                availabilityStatus={availabilityStatus}
-                desktopMonths={2}
-                onChange={(nextDate) => setEventDate(nextDate)}
-              />
-
-              {eventQuote ? (
-                <div className="mt-6 bg-white rounded-[10px] p-6 border border-primary/10 shadow-sm">
-                  <h3 className="font-head text-lg md:text-xl font-bold text-black mb-4">
-                    {eventQuote.label}
-                  </h3>
-                  <div className="space-y-2 text-sm md:text-base text-black/80">
-                    <div className="flex items-center justify-between gap-4">
-                      <span>{t.availability.venueRental}</span>
-                      <span className="whitespace-nowrap" dir="ltr">
-                        {eventQuote.venuePrice.toLocaleString('en-US')} ₪
-                      </span>
-                    </div>
-                    <div className="flex items-center justify-between gap-4">
-                      <span>{t.availability.cleaningFee}</span>
-                      <span className="whitespace-nowrap" dir="ltr">
-                        {eventQuote.cleaningFee.toLocaleString('en-US')} ₪
-                      </span>
-                    </div>
-                    <div className="flex items-center justify-between gap-4 border-t border-primary/10 pt-3 text-black">
-                      <span className="font-semibold">{t.availability.total}</span>
-                      <span className="font-head text-xl font-bold whitespace-nowrap" dir="ltr">
-                        {eventQuote.total.toLocaleString('en-US')} ₪
-                      </span>
-                    </div>
-                  </div>
-                  <p className="mt-4 text-black/60 text-xs md:text-sm">
-                    {t.availability.priceNote}
-                  </p>
-                </div>
-              ) : null}
-            </div>
-          </div>
-        </section>
-
-        <EventPricing locale={locale} t={t.pricing} />
-
-        {/* Contact Section - Compact */}
-        <section className="events-plan-section py-12 bg-gradient-to-br from-primary via-primary to-primary-light relative overflow-hidden rounded-3xl" data-animate="fade-up">
-          {/* Background decorative elements */}
-          <div className="absolute inset-0">
-            <div className="absolute top-10 left-10 w-24 h-24 bg-secondary/10 rounded-full blur-3xl"></div>
-            <div className="absolute bottom-10 right-10 w-32 h-32 bg-tertiary/10 rounded-full blur-3xl"></div>
-          </div>
-
-          {/* Animated background pattern */}
-          <div className="absolute inset-0 opacity-10">
-            <div className="absolute top-0 left-0 w-full h-full bg-gradient-to-r from-transparent via-white/5 to-transparent transform -skew-y-12 animate-pulse"></div>
-          </div>
-
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-            {/* Header section */}
-            <div className="events-plan-header text-center mb-10">
-              <div className="inline-block mb-3">
-                <span className="text-secondary font-semibold text-base tracking-wider uppercase">
-                  {t.plan.kicker}
-                </span>
-              </div>
-              <h2 className="font-head text-2xl md:text-4xl font-bold text-white mb-4 leading-tight">
-                {t.plan.heading}
-              </h2>
-              <p className="text-white/90 text-sm md:text-lg max-w-2xl mx-auto leading-relaxed">
-                {t.plan.body}
-              </p>
-            </div>
-
-            {isSuccess ? (
-              <div className="max-w-2xl mx-auto">
-                <div className="events-plan-success bg-white/10 backdrop-blur-sm rounded-3xl p-10 text-center border border-white/20">
-                  <div className="inline-block p-4 bg-gradient-to-br from-secondary to-secondary-light rounded-full mb-6">
-                    <Calendar className="w-8 h-8 text-black" />
-                  </div>
-                  <h3 className="font-head text-3xl font-bold text-white mb-4">
-                    {t.plan.successTitle}
-                  </h3>
-                  <p className="text-white/90 text-lg mb-8">
-                    {t.plan.successBody}
-                  </p>
-                  <LiquidGlassButton variant="dark" onClick={() => setIsSuccess(false)}>
-                    {t.plan.planAnother}
-                  </LiquidGlassButton>
-                </div>
-              </div>
-            ) : (
-              <>
-                <div className="events-plan-cta text-center mb-8">
-                  <div className="inline-block relative">
-                    <LiquidGlassButton variant="dark" onClick={() => setShowForm(true)}>
-                      <Calendar className="w-5 h-5 me-2" />
-                      <span>{t.plan.inquire}</span>
-                    </LiquidGlassButton>
-                  </div>
-                  <p className="text-white/70 text-xs mt-4 font-medium">
-                    {t.plan.footnote}
-                  </p>
-                </div>
-
-              </>
-            )}
           </div>
         </section>
       </div>

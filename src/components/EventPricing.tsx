@@ -1,4 +1,4 @@
-import { getCateringCategories, getVenueRentals } from '@/lib/event-pricing-data';
+import { getVenueRentals } from '@/lib/event-pricing-data';
 import type { Locale } from '@/i18n/config';
 import type { EventsMessages } from '@/i18n/messages/events';
 
@@ -9,7 +9,6 @@ interface EventPricingProps {
 
 export default function EventPricing({ locale, t }: EventPricingProps) {
   const venueRentals = getVenueRentals(locale);
-  const cateringCategories = getCateringCategories(locale);
 
   return (
     <section
@@ -36,7 +35,7 @@ export default function EventPricing({ locale, t }: EventPricingProps) {
           </p>
         </div>
 
-        <div className="grid md:grid-cols-2 gap-6 md:gap-8 max-w-5xl mx-auto mb-8 md:mb-20">
+        <div className="grid md:grid-cols-2 gap-6 md:gap-8 max-w-5xl mx-auto">
           {venueRentals.map((rental) => (
             <article
               key={rental.id}
@@ -72,76 +71,6 @@ export default function EventPricing({ locale, t }: EventPricingProps) {
             </article>
           ))}
         </div>
-
-        {/* Secondary block — Catering & Service Add-ons */}
-        <div className="text-center mb-5 md:mb-10" data-animate="fade-up">
-          <h3 className="font-head text-2xl md:text-4xl font-bold text-black mb-3">
-            {t.cateringHeading}
-          </h3>
-          <p className="text-black/70 max-w-3xl mx-auto leading-relaxed">
-            {t.cateringBody}
-          </p>
-        </div>
-
-        {cateringCategories.map((cat) => (
-          <div
-            key={cat.id}
-            className="bg-cream/60 rounded-2xl border border-secondary/20 p-6 md:p-8 mb-8"
-            data-animate="fade-up"
-          >
-            <div className="flex flex-wrap items-baseline gap-x-3 gap-y-1 mb-2">
-              <h4 className="font-head text-2xl font-bold text-black">
-                {cat.name}
-              </h4>
-              <span className="text-tertiary text-sm uppercase tracking-wider">
-                {cat.tagline}
-              </span>
-            </div>
-
-            <div className="grid md:grid-cols-2 gap-4 md:gap-6 mt-6">
-              {cat.tiers.map((tier) => (
-                <div
-                  key={tier.id}
-                  className="bg-white rounded-xl p-5 border border-gray-100"
-                >
-                  <h5 className="font-semibold text-black mb-3">
-                    {tier.guestRange}
-                  </h5>
-                  <ul className="text-sm text-black/80 divide-y divide-gray-100">
-                    {tier.items.map((item) => (
-                      <li
-                        key={item.label}
-                        className="flex justify-between gap-4 py-2"
-                      >
-                        <span>{item.label}</span>
-                        <span className="font-medium whitespace-nowrap" dir="ltr">
-                          {item.price}
-                        </span>
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-              ))}
-            </div>
-
-            <div className="mt-6">
-              <p className="text-black/70 text-xs uppercase tracking-wider mb-2">
-                {t.furnitureExtras}
-              </p>
-              <div className="flex flex-wrap gap-2">
-                {cat.extras.map((extra) => (
-                  <span
-                    key={extra.label}
-                    className="bg-secondary/15 text-black px-3 py-1 rounded-full text-sm"
-                  >
-                    {extra.label} — {extra.price}
-                  </span>
-                ))}
-              </div>
-            </div>
-
-          </div>
-        ))}
       </div>
     </section>
   );
