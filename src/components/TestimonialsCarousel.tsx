@@ -14,7 +14,11 @@ const reviewPlatforms = [
     src: '/logo/booking.svg',
     href: 'https://www.booking.com/hotel/il/penthouse-with-jacuzzi-bbq-2mn-from-sea-or-hakerem.fr.html?label=gen173bo-10CAsoakIycGVudGhvdXNlLXdpdGgtamFjdXp6aS1iYnEtMm1uLWZyb20tc2VhLW9yLWhha2VyZW1IM1gDaGqIAQGYATO4AQfIAQzYAQPoAQH4AQGIAgGYAgaoAgG4ArzUsNAGwAIB0gIkODQ1YTJkYmItOWI2NS00YWUwLTg4ZGEtNGUwMGJiNTAyMjZl2AIB4AIB&sid=d76cf1f6818f7b442a6ed091d7429070&dist=0&keep_landing=1&sb_price_type=total&type=total&',
   },
-  { name: 'Google', src: '/logo/google.svg', href: 'https://share.google/ctj8SSixX29HDfzzn' },
+  {
+    name: 'Google',
+    src: '/logo/google.svg',
+    href: 'https://www.google.com/maps?cid=1464890306103557880',
+  },
 ];
 
 interface Testimonial {

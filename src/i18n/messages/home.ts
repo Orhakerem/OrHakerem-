@@ -64,7 +64,7 @@ const en = {
   map: {
     iframeTitle: 'Or Hakerem Location - 35 Hakovshim Street, Tel Aviv',
     loadAria: 'Load map of 35 Hakovshim Street, Tel Aviv',
-    view: 'View map',
+    view: 'Click to display the map',
   },
 };
 
@@ -135,7 +135,7 @@ const fr: HomeMessages = {
   map: {
     iframeTitle: 'Emplacement Or Hakerem - 35 rue Hakovshim, Tel Aviv',
     loadAria: 'Charger la carte du 35 rue Hakovshim, Tel Aviv',
-    view: 'Afficher la carte',
+    view: 'Cliquez pour afficher la carte',
   },
 };
 
@@ -202,7 +202,7 @@ const he: HomeMessages = {
   map: {
     iframeTitle: 'מיקום אור הכרם - רחוב הכובשים 35, תל אביב',
     loadAria: 'טעינת מפה של רחוב הכובשים 35, תל אביב',
-    view: 'הצגת המפה',
+    view: 'לחצו להצגת המפה',
   },
 };
 
