@@ -2,7 +2,7 @@
 
 Last reviewed: 2026-07-19
 Owner: Or Hakerem
-Status: research and draft outreach only — no listing or message has been submitted.
+Status: one targeted editorial outreach message sent; no directory listing has been submitted.
 
 ## Canonical business details
 
@@ -60,7 +60,7 @@ The A–E codes apply only to editorial and partner pitches. Every citation uses
 | 18 | BuyIt Homes | Blocked | — | Blocked | The domain did not resolve during review; do not submit or count this source. Replace after fresh research. |
 | 19 | [Vrbo host listing](https://www.vrbo.com/en-us/list) | Distribution | Properties / reservation | Not contacted | Consider only if it fits the direct-booking and calendar strategy; not a backlink target. |
 | 20 | [Visit Tel Aviv](https://www.visit-tel-aviv.com/en/about-us/) | Editorial | A, B | Not contacted | Confirm whether a short-term rental business is eligible before pitching a local guide. |
-| 21 | [Tourist Israel](https://www.touristisrael.com/contact/) | Editorial | A, B | Not contacted | Offer the three-day itinerary or Kerem HaTeimanim expertise, not a generic link request. |
+| 21 | [Tourist Israel](https://www.touristisrael.com/contact/) | Editorial | A, B | Sent — 19 Jul 2026 | Sent the three-day itinerary to the public media contact; no payment or reciprocal link requested. |
 | 22 | [Secret Tel Aviv](https://www.secrettelaviv.com/) | Editorial | B, C | Not contacted | Propose a genuinely useful neighbourhood or celebration resource. |
 | 23 | [Time Out Israel](https://timeout.co.il/) | Editorial | B, C | Not contacted | Pitch only a newsworthy local or intimate-event angle. |
 | 24 | [Tel Aviv Info event directory](https://telavivinfo.com/tel_aviv_directory?category=events_venue) | Listing | Events page | Not contacted | Verify capacity, neighbours and permitted format before submitting. |
@@ -100,6 +100,7 @@ Copy this table into the working sheet before beginning outreach. One row equals
 | Date | Prospect | Contact / form URL | Type | Target page | Personal angle | Status | Published URL | Link type | Referral visits | Enquiries | Notes |
 | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
 |  |  |  |  |  |  | Research / Draft / Sent / Follow-up / Live / Declined |  | Citation / Editorial / Partner |  |  |  |
+| 2026-07-19 | Tourist Israel | pr@touristisrael.com | Editorial | https://www.orhakerem.com/blog/three-day-tel-aviv-itinerary-beach-carmel-market-jaffa | First-time visitor itinerary: beach, Carmel Market, Kerem HaTeimanim, Jaffa and Shabbat planning | Sent |  | Editorial |  |  | Public media contact; no payment or reciprocal link requested. |
 
 ## Monthly review
 
