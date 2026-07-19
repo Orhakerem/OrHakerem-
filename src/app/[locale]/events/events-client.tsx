@@ -119,11 +119,11 @@ export default function EventsClient({
           muted
           loop
           playsInline
-          poster="/events-poster.webp"
+          poster="/hero-events-2-poster.webp"
           preload="metadata"
           className="absolute inset-0 w-full h-full object-cover"
         >
-          <source src="/events-video.mp4" type="video/mp4" />
+          <source src="/hero-events-2.mp4" type="video/mp4" />
         </video>
 
         {/* Dark overlay for better text visibility */}
