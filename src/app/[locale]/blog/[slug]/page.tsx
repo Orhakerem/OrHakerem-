@@ -199,7 +199,7 @@ export default function BlogPostPage({ params }: { params: { slug: string } }) {
             Planning a visit to Tel Aviv?
           </p>
           <p className="mt-2 text-sm text-white/80 md:text-base">
-            Stay in Kerem HaTeimanim — steps from Carmel Market and Banana Beach. Book directly with us and save up to 15% vs. Airbnb.
+            Stay in Kerem HaTeimanim — steps from Carmel Market and Banana Beach. Request a clear direct quote for your dates.
           </p>
           <div className="mt-6 flex flex-col items-center gap-3 sm:flex-row sm:justify-center">
             <Link

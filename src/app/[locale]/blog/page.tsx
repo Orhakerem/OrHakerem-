@@ -121,7 +121,7 @@ export default function BlogIndexPage() {
               href="/reservation"
               className="inline-block rounded-full border border-primary px-8 py-3 text-sm font-semibold text-primary transition-colors hover:bg-primary/5 md:text-base"
             >
-              Book Direct &amp; Save 15%
+              Request Dates Directly
             </Link>
           </div>
         </div>
