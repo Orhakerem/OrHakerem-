@@ -29,9 +29,13 @@ export function createCanonicalMetadata(path: string): Metadata {
  * all locales. `path` is the unprefixed (English) site-relative path, e.g.
  * '/about'. x-default points at the English (unprefixed) URL.
  */
-export function createLocalizedAlternates(path: string, locale: Locale): Metadata['alternates'] {
+export function createLocalizedAlternates(
+  path: string,
+  locale: Locale,
+  availableLocales: readonly Locale[] = ENABLED_LOCALES,
+): Metadata['alternates'] {
   const languages: Record<string, string> = {};
-  for (const loc of ENABLED_LOCALES) {
+  for (const loc of availableLocales) {
     languages[loc] = createCanonicalUrl(localizePath(loc, path));
   }
   languages['x-default'] = createCanonicalUrl(localizePath(DEFAULT_LOCALE, path));

@@ -3,7 +3,7 @@ import type { Locale } from '@/i18n/config';
 const en = {
   hero: {
     title: 'Boutique Event Venue in Tel Aviv',
-    body: 'Or HaKerem hosts boutique events and celebrations in Tel Aviv, offering a unique venue with optional kosher services.',
+    body: 'Or Hakerem hosts boutique events and celebrations in Tel Aviv, offering a unique venue with optional kosher services.',
     cta: 'Plan your event',
   },
   eventTypes: [
@@ -23,7 +23,7 @@ const en = {
     jewishEventsKicker: 'Jewish Events',
     jewishEventsBody: 'From Bar and Bat Mitzvahs to Brit Milah, Sheva Brachot, and elegant family gatherings, each event is hosted with care and attention to detail, with kosher services available on request.',
     trustedKicker: 'Trusted Hosting',
-    trustedBody: 'Hosting dozens of guests weekly, Or HaKerem is one of the few venues in Tel Aviv offering a fully tailored experience for intimate events.',
+    trustedBody: 'Hosting dozens of guests weekly, Or Hakerem is one of the few venues in Tel Aviv offering a fully tailored experience for intimate events.',
     perfectForKicker: 'Perfect For',
     amenitiesKicker: 'Features & Amenities',
     amenitiesHeading: 'Everything in place for your event',
@@ -130,7 +130,7 @@ export type EventsMessages = typeof en;
 const fr: EventsMessages = {
   hero: {
     title: 'Lieu événementiel boutique à Tel Aviv',
-    body: 'Or HaKerem accueille des événements et célébrations boutique à Tel Aviv, avec un lieu unique et des services casher optionnels.',
+    body: 'Or Hakerem accueille des événements et célébrations boutique à Tel Aviv, avec un lieu unique et des services casher optionnels.',
     cta: 'Planifiez votre événement',
   },
   eventTypes: [
@@ -150,7 +150,7 @@ const fr: EventsMessages = {
     jewishEventsKicker: 'Événements juifs',
     jewishEventsBody: 'Des Bar et Bat Mitsva au Brit Mila, en passant par les Sheva Brachot et les élégantes réunions de famille, chaque événement est organisé avec soin et attention au détail, avec des services casher disponibles sur demande.',
     trustedKicker: 'Un accueil de confiance',
-    trustedBody: 'Accueillant des dizaines de voyageurs chaque semaine, Or HaKerem est l’un des rares lieux de Tel Aviv à proposer une expérience entièrement sur mesure pour les événements intimes.',
+    trustedBody: 'Accueillant des dizaines de voyageurs chaque semaine, Or Hakerem est l’un des rares lieux de Tel Aviv à proposer une expérience entièrement sur mesure pour les événements intimes.',
     perfectForKicker: 'Idéal pour',
     amenitiesKicker: 'Caractéristiques & équipements',
     amenitiesHeading: 'Tout est prêt pour votre événement',

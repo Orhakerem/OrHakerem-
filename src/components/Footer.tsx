@@ -5,7 +5,6 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { Mail, Phone, MapPin, Instagram, Linkedin, Facebook, MessageCircle } from 'lucide-react';
 
-import { SITE_URL } from '@/app/seo';
 import { localizePath } from '@/i18n/config';
 import { useLocale } from '@/i18n/useLocale';
 import { commonMessages } from '@/i18n/messages/common';
@@ -201,27 +200,6 @@ export default function Footer() {
         </div>
       </div>
 
-      {/* JSON-LD LocalBusiness */}
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{
-          __html: JSON.stringify({
-            '@context': 'https://schema.org',
-            '@type': 'LocalBusiness',
-            name: 'Or Hakerem',
-            description: 'Luxury properties in Tel Aviv',
-            url: SITE_URL,
-            telephone: ['+33651179925', '+972585778891'],
-            email: 'keremliving@gmail.com',
-            address: {
-              '@type': 'PostalAddress',
-              streetAddress: '35 Hakovshim Street',
-              addressLocality: 'Tel Aviv',
-              addressCountry: 'Israel',
-            },
-          }),
-        }}
-      />
     </footer>
   );
 }

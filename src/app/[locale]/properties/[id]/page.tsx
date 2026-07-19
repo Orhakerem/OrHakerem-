@@ -1,6 +1,7 @@
 import PropertyDetailsClient from './property-details-client';
 import { getPropertyAvailability } from '@/lib/airbnb-calendar';
 import { isBookablePropertyId } from '@/lib/bookable-properties';
+import { notFound } from 'next/navigation';
 
 export const dynamic = 'force-dynamic';
 
@@ -9,13 +10,11 @@ export default async function PropertyDetailsPage({
 }: {
   params: { id: string };
 }) {
-  const availability = isBookablePropertyId(params.id)
-    ? await getPropertyAvailability(params.id)
-    : {
-        blockedDates: [],
-        fetchedAtIso: null,
-        status: 'error' as const,
-      };
+  if (!isBookablePropertyId(params.id)) {
+    notFound();
+  }
+
+  const availability = await getPropertyAvailability(params.id);
 
   return (
     <PropertyDetailsClient

@@ -45,35 +45,35 @@ const en: FAQEntry[] = withAnswers([
     question: 'Where are the apartments located in Tel Aviv?',
     category: 'location',
     plainAnswer:
-      'Or HaKerem apartments are located in the historic Kerem HaTeimanim neighborhood at Hakovshim Street 35, within walking distance of Carmel Market, Banana Beach, and Nachalat Binyamin.',
+      'Or Hakerem apartments are located in the historic Kerem HaTeimanim neighborhood at Hakovshim Street 35, within walking distance of Carmel Market, Banana Beach, and Nachalat Binyamin.',
   },
   {
     id: 'beach-distance',
-    question: 'How far is the beach from Or HaKerem?',
+    question: 'How far is the beach from Or Hakerem?',
     category: 'location',
     plainAnswer:
       'The beach is just a few minutes away, with Banana Beach located approximately 600 meters from the property.',
   },
   {
     id: 'carmel-market',
-    question: 'Is Or HaKerem close to Carmel Market?',
+    question: 'Is Or Hakerem close to Carmel Market?',
     category: 'location',
     plainAnswer:
       'Yes, Carmel Market is located about 400 meters from the apartments, making it easily accessible by foot.',
   },
   {
     id: 'what-unique',
-    question: 'What makes Or HaKerem unique in Tel Aviv?',
+    question: 'What makes Or Hakerem unique in Tel Aviv?',
     category: 'stay',
     plainAnswer:
-      'Or HaKerem offers a unique combination of boutique luxury, Shabbat-friendly accommodations, and proximity to key landmarks in central Tel Aviv.',
+      'Or Hakerem offers a unique combination of boutique luxury, Shabbat-friendly accommodations, and proximity to key landmarks in central Tel Aviv.',
   },
   {
     id: 'central-tlv',
     question: 'Are the apartments located in central Tel Aviv?',
     category: 'location',
     plainAnswer:
-      'Yes, Or HaKerem is located in central Tel Aviv, in the vibrant Kerem HaTeimanim neighborhood.',
+      'Yes, Or Hakerem is located in central Tel Aviv, in the vibrant Kerem HaTeimanim neighborhood.',
   },
   {
     id: 'checkin-times',
@@ -193,35 +193,35 @@ const fr: FAQEntry[] = withAnswers([
     question: 'Où se trouvent les appartements à Tel Aviv ?',
     category: 'location',
     plainAnswer:
-      'Les appartements Or HaKerem se situent dans le quartier historique de Kerem HaTeimanim, au 35 rue Hakovshim, à quelques pas du marché du Carmel, de Banana Beach et de Nachalat Binyamin.',
+      'Les appartements Or Hakerem se situent dans le quartier historique de Kerem HaTeimanim, au 35 rue Hakovshim, à quelques pas du marché du Carmel, de Banana Beach et de Nachalat Binyamin.',
   },
   {
     id: 'beach-distance',
-    question: "À quelle distance se trouve la plage d'Or HaKerem ?",
+    question: "À quelle distance se trouve la plage d'Or Hakerem ?",
     category: 'location',
     plainAnswer:
       "La plage est à quelques minutes à peine : Banana Beach se trouve à environ 600 mètres de l'immeuble.",
   },
   {
     id: 'carmel-market',
-    question: 'Or HaKerem est-il proche du marché du Carmel ?',
+    question: 'Or Hakerem est-il proche du marché du Carmel ?',
     category: 'location',
     plainAnswer:
       'Oui, le marché du Carmel est à environ 400 mètres des appartements, facilement accessible à pied.',
   },
   {
     id: 'what-unique',
-    question: "Qu'est-ce qui rend Or HaKerem unique à Tel Aviv ?",
+    question: "Qu'est-ce qui rend Or Hakerem unique à Tel Aviv ?",
     category: 'stay',
     plainAnswer:
-      'Or HaKerem combine luxe boutique, hébergements adaptés au Shabbat et proximité des principaux points d’intérêt du centre de Tel Aviv.',
+      'Or Hakerem combine luxe boutique, hébergements adaptés au Shabbat et proximité des principaux points d’intérêt du centre de Tel Aviv.',
   },
   {
     id: 'central-tlv',
     question: 'Les appartements sont-ils au centre de Tel Aviv ?',
     category: 'location',
     plainAnswer:
-      'Oui, Or HaKerem se trouve au centre de Tel Aviv, dans le quartier animé de Kerem HaTeimanim.',
+      'Oui, Or Hakerem se trouve au centre de Tel Aviv, dans le quartier animé de Kerem HaTeimanim.',
   },
   {
     id: 'checkin-times',

@@ -1,7 +1,7 @@
 import Image from 'next/image';
 import { MapPin, Shield, UtensilsCrossed } from 'lucide-react';
 
-import { createCanonicalUrl } from '@/app/seo';
+import { createCanonicalUrl, SITE_URL } from '@/app/seo';
 import LiquidGlassCTA from '@/components/LiquidGlassCTA';
 import { HOST, getHostText } from '@/lib/host';
 import { isLocale, localizePath, type Locale } from '@/i18n/config';
@@ -9,36 +9,21 @@ import { aboutMessages } from '@/i18n/messages/about';
 
 const VALUE_POINT_ICONS = [MapPin, Shield, UtensilsCrossed];
 
-const structuredData = {
-  '@context': 'https://schema.org',
-  '@type': 'LodgingBusiness',
-  name: 'Or Hakerem',
-  url: createCanonicalUrl('/about'),
-  description:
-    'Boutique luxury stays and intimate event experiences in Kerem HaTeimanim, Tel Aviv, near Carmel Market, Banana Beach, and Nachalat Binyamin.',
-  address: {
-    '@type': 'PostalAddress',
-    streetAddress: '35 Hakovshim Street',
-    addressLocality: 'Tel Aviv',
-    addressCountry: 'IL',
-  },
-  areaServed: 'Tel Aviv',
-  email: 'keremliving@gmail.com',
-  telephone: ['+33651179925', '+972585778891'],
-  founder: {
-    '@type': 'Person',
-    name: HOST.name,
-    jobTitle: HOST.jobTitle,
-    image: `${createCanonicalUrl(HOST.image)}`,
-    url: HOST.url,
-    sameAs: HOST.sameAs,
-  },
-};
-
 export default function AboutPage({ params }: { params: { locale: string } }) {
   const locale: Locale = isLocale(params.locale) ? params.locale : 'en';
   const t = aboutMessages[locale];
   const hostText = getHostText(locale);
+  const url = createCanonicalUrl(localizePath(locale, '/about'));
+  const structuredData = {
+    '@context': 'https://schema.org',
+    '@type': 'AboutPage',
+    '@id': `${url}#about`,
+    url,
+    name: t.hero.title,
+    description: t.hero.body,
+    inLanguage: locale,
+    mainEntity: { '@id': `${SITE_URL}/#business` },
+  };
   const valuePoints = t.distinct.points.map((point, index) => ({
     ...point,
     icon: VALUE_POINT_ICONS[index],

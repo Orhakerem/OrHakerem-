@@ -1,17 +1,25 @@
 import Image from 'next/image';
 import Link from 'next/link';
 import { formatDate, readingTime, type Post } from '@/lib/blog';
+import { localizePath, type Locale } from '@/i18n/config';
+import { blogMessages } from '@/i18n/messages/blog';
 
 interface PostCardProps {
   post: Post;
+  locale: Locale;
 }
 
-export default function PostCard({ post }: PostCardProps) {
+export default function PostCard({ post, locale }: PostCardProps) {
   const { frontmatter, slug, content } = post;
+  const t = blogMessages[locale];
 
   return (
     <article className="group relative flex flex-col overflow-hidden rounded-2xl bg-white shadow-[0_8px_32px_rgba(83,45,36,0.08)] border border-primary/10 transition-transform duration-300 hover:-translate-y-1">
-      <Link href={`/blog/${slug}`} className="absolute inset-0 z-10" aria-label={`Read: ${frontmatter.title}`} />
+      <Link
+        href={localizePath(locale, `/blog/${slug}`)}
+        className="absolute inset-0 z-10"
+        aria-label={t.readAria(frontmatter.title)}
+      />
 
       <div className="relative h-52 overflow-hidden">
         <Image
@@ -45,8 +53,8 @@ export default function PostCard({ post }: PostCardProps) {
         </p>
 
         <div className="flex items-center justify-between text-xs text-black/45">
-          <span>{formatDate(frontmatter.date)}</span>
-          <span>{readingTime(content)}</span>
+          <span>{formatDate(frontmatter.date, locale)}</span>
+          <span>{readingTime(content, locale)}</span>
         </div>
       </div>
     </article>

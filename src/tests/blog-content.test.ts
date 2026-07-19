@@ -5,7 +5,8 @@ import test from 'node:test';
 
 import { SITE_URL } from '../app/seo';
 import sitemap from '../app/sitemap';
-import { getAllPosts } from '../lib/blog';
+import { ENABLED_LOCALES, localizePath, type Locale } from '../i18n/config';
+import { getAllPosts, getAvailablePostLocales, localizeBlogHref } from '../lib/blog';
 
 const NEW_POST_SLUGS = [
   'where-to-stay-in-tel-aviv-neighborhoods-guide',
@@ -115,4 +116,59 @@ test('new SEO articles are published in the sitemap', () => {
   for (const slug of NEW_POST_SLUGS) {
     assert.ok(urls.has(`${SITE_URL}/blog/${slug}`));
   }
+});
+
+test('new SEO articles have complete French and Hebrew editions with correct sitemap alternates', () => {
+  const entries = sitemap();
+
+  for (const locale of ENABLED_LOCALES) {
+    const posts = new Map(getAllPosts(locale).map((post) => [post.slug, post]));
+
+    for (const slug of NEW_POST_SLUGS) {
+      const post = posts.get(slug);
+      assert.ok(post, `expected ${slug} to be available in ${locale}`);
+      assert.equal(post.locale, locale);
+      assert.ok(post.frontmatter.title.trim(), `${slug} ${locale} title should not be empty`);
+      assert.ok(post.frontmatter.description.trim(), `${slug} ${locale} description should not be empty`);
+      assert.ok(post.frontmatter.imageAlt.trim(), `${slug} ${locale} imageAlt should not be empty`);
+
+      const wordCount = post.content.trim().split(/\s+/).length;
+      assert.ok(
+        wordCount >= 1200 && wordCount <= 1800,
+        `${slug} ${locale} should contain 1,200–1,800 words, received ${wordCount}`,
+      );
+
+      const internalLinks = post.content.match(/\]\(\/[^)\s]+\)/g) ?? [];
+      assert.ok(
+        internalLinks.length >= 4 && internalLinks.length <= 6,
+        `${slug} ${locale} should have 4–6 internal links, received ${internalLinks.length}`,
+      );
+
+      const url = `${SITE_URL}${localizePath(locale, `/blog/${slug}`)}`;
+      const entry = entries.find((candidate) => candidate.url === url);
+      assert.ok(entry, `expected ${url} in sitemap`);
+      assert.deepEqual(entry.alternates?.languages, {
+        en: `${SITE_URL}/blog/${slug}`,
+        fr: `${SITE_URL}/fr/blog/${slug}`,
+        he: `${SITE_URL}/he/blog/${slug}`,
+        'x-default': `${SITE_URL}/blog/${slug}`,
+      });
+    }
+  }
+
+  for (const slug of NEW_POST_SLUGS) {
+    assert.deepEqual(getAvailablePostLocales(slug), [...ENABLED_LOCALES]);
+  }
+});
+
+test('English-only legacy guides retain their English URL from translated blog content', () => {
+  const legacySlug = 'kerem-hateimanim-neighborhood-guide';
+
+  assert.deepEqual(getAvailablePostLocales(legacySlug), ['en'] satisfies Locale[]);
+  assert.equal(localizeBlogHref('fr', `/blog/${legacySlug}`), `/blog/${legacySlug}`);
+  assert.equal(localizeBlogHref('he', `/blog/${legacySlug}`), `/blog/${legacySlug}`);
+  assert.equal(
+    localizeBlogHref('fr', '/blog/where-to-stay-in-tel-aviv-neighborhoods-guide'),
+    '/fr/blog/where-to-stay-in-tel-aviv-neighborhoods-guide',
+  );
 });

@@ -11,33 +11,7 @@ import { assistant, heebo, inter, manrope } from '@/app/fonts';
 import { ENABLED_LOCALES, isEnabledLocale, isLocale, isRtl, OG_LOCALE, type Locale } from '@/i18n/config';
 import { commonMessages } from '@/i18n/messages/common';
 import { seoMessages } from '@/i18n/messages/seo';
-
-const organizationStructuredData = {
-  '@context': 'https://schema.org',
-  '@type': 'Organization',
-  name: 'Or Hakerem',
-  url: SITE_URL,
-  logo: `${SITE_URL}/logo/Logo_beige.png`,
-  description:
-    'Luxury short-term rental apartments and boutique event venue in Kerem HaTeimanim, Tel Aviv, Israel.',
-  address: {
-    '@type': 'PostalAddress',
-    streetAddress: '35 Hakovshim Street',
-    addressLocality: 'Tel Aviv',
-    addressCountry: 'IL',
-  },
-  contactPoint: {
-    '@type': 'ContactPoint',
-    telephone: '+972585778891',
-    contactType: 'customer service',
-    availableLanguage: ['English', 'Hebrew', 'French'],
-  },
-  sameAs: [
-    'https://www.instagram.com/or_hakerem/',
-    'https://www.facebook.com/profile.php?id=61583829025542',
-    'https://www.linkedin.com/company/orhakerem/',
-  ],
-};
+import { getBusinessStructuredData } from '@/lib/business-schema';
 
 import '../globals.css';
 
@@ -121,6 +95,7 @@ export default function RootLayout({
     ? `${heebo.variable} ${assistant.variable}`
     : `${inter.variable} ${manrope.variable}`;
   const t = commonMessages[locale];
+  const businessStructuredData = getBusinessStructuredData(locale, seoMessages[locale].home.description);
 
   return (
     <html lang={locale} dir={isRtl(locale) ? 'rtl' : 'ltr'}>
@@ -136,7 +111,7 @@ export default function RootLayout({
       <body className={`${fontVariables} min-h-screen bg-cream antialiased`}>
         <script
           type="application/ld+json"
-          dangerouslySetInnerHTML={{ __html: JSON.stringify(organizationStructuredData) }}
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(businessStructuredData) }}
         />
         <CookieConsent />
         <Toast />

@@ -19,9 +19,8 @@ export function generateMetadata({
 
   if (!isBookablePropertyId(id)) {
     return {
-      alternates: {
-        canonical: createCanonicalUrl(localizePath(locale, path)),
-      },
+      alternates: { canonical: null },
+      robots: { index: false, follow: false },
     };
   }
 
@@ -71,7 +70,8 @@ export default function PropertyDetailsLayout({
     return <>{children}</>;
   }
 
-  const structuredData = getPropertyStructuredData(params.id);
+  const locale: Locale = isLocale(params.locale) ? params.locale : 'en';
+  const structuredData = getPropertyStructuredData(params.id, locale);
 
   return (
     <>
