@@ -3,28 +3,15 @@
 import { useEffect } from 'react';
 import { usePathname } from 'next/navigation';
 
-type MetaPixelFunction = {
-  (...args: unknown[]): void;
-  callMethod?: (...args: unknown[]) => void;
-  queue: unknown[][];
-  loaded: boolean;
-  version: string;
-  push: (...args: unknown[]) => void;
-};
-
-declare global {
-  interface Window {
-    fbq?: MetaPixelFunction;
-    _fbq?: MetaPixelFunction;
-    __orHakeremMetaPixelIds?: string[];
-    __orHakeremMetaLastPageView?: string;
-  }
-}
+import {
+  setMetaMarketingConsent,
+  type MetaPixelFunction,
+} from '@/lib/meta-events';
 
 const META_PIXEL_SCRIPT_ID = 'or-hakerem-meta-pixel';
 
 function ensureMetaPixel(pixelId: string) {
-  if (!window.fbq) {
+  if (typeof window.fbq !== 'function') {
     const fbq = function (...args: unknown[]) {
       if (fbq.callMethod) {
         fbq.callMethod(...args);
@@ -56,7 +43,7 @@ function ensureMetaPixel(pixelId: string) {
     window.__orHakeremMetaPixelIds.push(pixelId);
   }
 
-  window.fbq('consent', 'grant');
+  setMetaMarketingConsent(true);
 }
 
 export default function MetaPixel() {

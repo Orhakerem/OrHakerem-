@@ -15,6 +15,7 @@ import { formatIsoDate } from '@/lib/booking-dates';
 import type { CalendarSyncStatus } from '@/lib/bookable-properties';
 import { eventCleaningFee, getVenueRentals } from '@/lib/event-pricing-data';
 import { getPricingNightKind } from '@/lib/pricing-date-helpers';
+import { trackMetaLead } from '@/lib/meta-events';
 import { useLocale } from '@/i18n/useLocale';
 import { eventsMessages } from '@/i18n/messages/events';
 
@@ -78,6 +79,11 @@ export default function EventsClient({
 
       const result = await sendEmail(formData);
       if (result.success) {
+        trackMetaLead({
+          leadType: 'event_inquiry',
+          formLocation: 'events',
+          locale,
+        });
         toast.success(result.message || t.form.success);
         setShowForm(false);
         setIsDatePickerOpen(false);
