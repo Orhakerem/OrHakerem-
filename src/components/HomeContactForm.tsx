@@ -9,6 +9,7 @@ import { Send } from 'lucide-react';
 
 import { useLocale } from '@/i18n/useLocale';
 import { homeMessages } from '@/i18n/messages/home';
+import { trackMetaLead } from '@/lib/meta-events';
 
 interface HomeContactFormProps {
   theme?: 'light' | 'dark';
@@ -28,6 +29,11 @@ export default function HomeContactForm({ theme = 'dark' }: HomeContactFormProps
     try {
       const result = await sendContactEmail(new FormData(form));
       if (result.success) {
+        trackMetaLead({
+          leadType: 'contact_inquiry',
+          formLocation: 'contact',
+          locale,
+        });
         toast.success(t.success);
         form.reset();
       } else {

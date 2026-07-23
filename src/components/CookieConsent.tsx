@@ -18,6 +18,7 @@ import {
   resolveConsent,
   type ConsentPreferences,
 } from '@/lib/consent';
+import { setMetaMarketingConsent } from '@/lib/meta-events';
 
 const GA_ID = process.env.NEXT_PUBLIC_GA_ID || 'G-J0Q3G9CZWW';
 
@@ -54,11 +55,11 @@ function disableAnalytics() {
 }
 
 function grantMarketingConsent() {
-  window.fbq?.('consent', 'grant');
+  setMetaMarketingConsent(true);
 }
 
 function revokeMarketingConsent() {
-  window.fbq?.('consent', 'revoke');
+  setMetaMarketingConsent(false);
   delete window.__orHakeremMetaLastPageView;
   clearCookies(name => name === '_fbp' || name === '_fbc');
 }
