@@ -1,7 +1,14 @@
+'use client';
+
+import { useEffect } from 'react';
 import Script from 'next/script';
 
 export default function GoogleAnalytics() {
   const gaId = process.env.NEXT_PUBLIC_GA_ID || 'G-J0Q3G9CZWW';
+
+  useEffect(() => {
+    (window as unknown as Record<string, boolean>)[`ga-disable-${gaId}`] = false;
+  }, [gaId]);
 
   return (
     <>

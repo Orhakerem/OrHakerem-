@@ -9,6 +9,7 @@ import { localizePath } from '@/i18n/config';
 import { useLocale } from '@/i18n/useLocale';
 import { commonMessages } from '@/i18n/messages/common';
 import LocaleSwitcher from '@/i18n/LocaleSwitcher';
+import { OPEN_CONSENT_SETTINGS_EVENT } from '@/lib/consent';
 
 const socials = [
   { label: 'Instagram', href: 'https://www.instagram.com/or_hakerem/', Icon: Instagram },
@@ -183,6 +184,16 @@ export default function Footer() {
               <Link href={localizePath(locale, '/cancellation')} className="hover:text-white transition-colors">
                 {t.cancellation}
               </Link>
+              <span aria-hidden="true" className="text-white/30">
+                ·
+              </span>
+              <button
+                type="button"
+                onClick={() => window.dispatchEvent(new Event(OPEN_CONSENT_SETTINGS_EVENT))}
+                className="hover:text-white transition-colors"
+              >
+                {t.cookieSettings}
+              </button>
             </nav>
             <LocaleSwitcher />
             <p>

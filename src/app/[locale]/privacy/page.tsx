@@ -21,18 +21,18 @@ const HEADER_TEXT: Record<Locale, { title: string; subtitle: string; lastUpdated
     title: 'Privacy Policy',
     subtitle:
       'This policy explains what personal data Or Hakerem collects, how we use it, and the rights you have over it.',
-    lastUpdated: 'Last updated: 4 June 2026',
+    lastUpdated: 'Last updated: 23 July 2026',
   },
   fr: {
     title: 'Politique de confidentialité',
     subtitle:
       "Cette politique explique quelles données personnelles Or Hakerem collecte, comment nous les utilisons et les droits dont vous disposez.",
-    lastUpdated: 'Dernière mise à jour : 4 juin 2026',
+    lastUpdated: 'Dernière mise à jour : 23 juillet 2026',
   },
   he: {
     title: 'מדיניות פרטיות',
     subtitle: 'מדיניות זו מסבירה אילו נתונים אישיים אור הכרם אוסף, כיצד אנו משתמשים בהם ומהן הזכויות שלכם לגביהם.',
-    lastUpdated: 'עדכון אחרון: 4 ביוני 2026',
+    lastUpdated: 'עדכון אחרון: 23 ביולי 2026',
   },
 };
 

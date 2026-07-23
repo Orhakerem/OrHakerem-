@@ -1,112 +1,232 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import { useCallback, useEffect, useRef, useState } from 'react';
 import Link from 'next/link';
-import { Cookie } from 'lucide-react';
+import { Cookie, X } from 'lucide-react';
 
 import GoogleAnalytics from '@/components/GoogleAnalytics';
+import MetaPixel from '@/components/MetaPixel';
 import { localizePath } from '@/i18n/config';
-import { useLocale } from '@/i18n/useLocale';
 import { commonMessages } from '@/i18n/messages/common';
+import { useLocale } from '@/i18n/useLocale';
+import {
+  CONSENT_STORAGE_KEY,
+  EMPTY_CONSENT_PREFERENCES,
+  LEGACY_CONSENT_STORAGE_KEY,
+  OPEN_CONSENT_SETTINGS_EVENT,
+  createStoredConsent,
+  resolveConsent,
+  type ConsentPreferences,
+} from '@/lib/consent';
 
-type ConsentChoice = 'granted' | 'denied';
-
-const STORAGE_KEY = 'cookie-consent';
-const OPEN_EVENT = 'open-cookie-settings';
 const GA_ID = process.env.NEXT_PUBLIC_GA_ID || 'G-J0Q3G9CZWW';
 
-function clearAnalyticsCookies() {
-  if (typeof document === 'undefined') return;
-
+function expireFirstPartyCookie(name: string) {
   const expired = 'Thu, 01 Jan 1970 00:00:00 GMT';
   const host = window.location.hostname;
+  const hostParts = host.split('.');
+  const rootDomain = hostParts.length > 2 ? hostParts.slice(-2).join('.') : host;
+  const domains = new Set([host, `.${host}`, rootDomain, `.${rootDomain}`]);
 
-  document.cookie.split(';').forEach((entry) => {
-    const name = entry.split('=')[0]?.trim();
+  document.cookie = `${name}=; expires=${expired}; path=/`;
 
-    if (!name || !(name.startsWith('_ga') || name === '_gid' || name === '_gat')) {
-      return;
-    }
-
-    document.cookie = `${name}=; expires=${expired}; path=/`;
-    document.cookie = `${name}=; expires=${expired}; path=/; domain=${host}`;
-    document.cookie = `${name}=; expires=${expired}; path=/; domain=.${host}`;
+  domains.forEach((domain) => {
+    document.cookie = `${name}=; expires=${expired}; path=/; domain=${domain}`;
   });
 }
 
-// Best-effort withdrawal when a visitor declines after previously accepting:
-// flag GA to stop sending hits and clear any analytics cookies already set.
+function clearCookies(matches: (name: string) => boolean) {
+  document.cookie.split(';').forEach((entry) => {
+    const name = entry.split('=')[0]?.trim();
+    if (name && matches(name)) {
+      expireFirstPartyCookie(name);
+    }
+  });
+}
+
+function enableAnalytics() {
+  (window as unknown as Record<string, boolean>)[`ga-disable-${GA_ID}`] = false;
+}
+
 function disableAnalytics() {
   (window as unknown as Record<string, boolean>)[`ga-disable-${GA_ID}`] = true;
-  clearAnalyticsCookies();
+  clearCookies(name => name.startsWith('_ga') || name === '_gid' || name === '_gat');
+}
+
+function grantMarketingConsent() {
+  window.fbq?.('consent', 'grant');
+}
+
+function revokeMarketingConsent() {
+  window.fbq?.('consent', 'revoke');
+  delete window.__orHakeremMetaLastPageView;
+  clearCookies(name => name === '_fbp' || name === '_fbc');
+}
+
+function applyTrackerPreferences(
+  previous: ConsentPreferences,
+  next: ConsentPreferences,
+) {
+  if (next.analytics) {
+    enableAnalytics();
+  } else if (previous.analytics || !next.analytics) {
+    disableAnalytics();
+  }
+
+  if (next.marketing) {
+    grantMarketingConsent();
+  } else if (previous.marketing || !next.marketing) {
+    revokeMarketingConsent();
+  }
 }
 
 export default function CookieConsent() {
   const locale = useLocale();
   const t = commonMessages[locale].cookies;
+  const preferencesRef = useRef<ConsentPreferences>(EMPTY_CONSENT_PREFERENCES);
   const [mounted, setMounted] = useState(false);
-  const [consent, setConsent] = useState<ConsentChoice | null>(null);
+  const [preferences, setPreferences] = useState<ConsentPreferences>(
+    EMPTY_CONSENT_PREFERENCES,
+  );
+  const [draft, setDraft] = useState<ConsentPreferences>(EMPTY_CONSENT_PREFERENCES);
   const [bannerOpen, setBannerOpen] = useState(false);
+  const [customizing, setCustomizing] = useState(false);
+  const [canDismiss, setCanDismiss] = useState(false);
+
+  const updatePreferences = useCallback(
+    (next: ConsentPreferences, persist: boolean) => {
+      applyTrackerPreferences(preferencesRef.current, next);
+      preferencesRef.current = next;
+      setPreferences(next);
+      setDraft(next);
+
+      if (!persist) return;
+
+      try {
+        localStorage.setItem(
+          CONSENT_STORAGE_KEY,
+          JSON.stringify(createStoredConsent(next)),
+        );
+        localStorage.removeItem(LEGACY_CONSENT_STORAGE_KEY);
+      } catch {
+        // Storage may be unavailable in private mode. The choice still applies
+        // to the current page session.
+      }
+    },
+    [],
+  );
 
   useEffect(() => {
     setMounted(true);
 
-    let stored: string | null = null;
+    let currentRaw: string | null = null;
+    let legacyRaw: string | null = null;
+
     try {
-      stored = localStorage.getItem(STORAGE_KEY);
+      currentRaw = localStorage.getItem(CONSENT_STORAGE_KEY);
+      legacyRaw = localStorage.getItem(LEGACY_CONSENT_STORAGE_KEY);
     } catch {
-      stored = null;
+      // Keep the default no-consent state and show the banner.
     }
 
-    if (stored === 'granted' || stored === 'denied') {
-      setConsent(stored);
-    } else {
+    const resolved = resolveConsent(currentRaw, legacyRaw);
+
+    if (resolved.migratedLegacy && resolved.storedConsent) {
+      try {
+        localStorage.setItem(
+          CONSENT_STORAGE_KEY,
+          JSON.stringify(resolved.storedConsent),
+        );
+        localStorage.removeItem(LEGACY_CONSENT_STORAGE_KEY);
+      } catch {
+        // The in-memory migration below still protects the current session.
+      }
+    }
+
+    updatePreferences(resolved.preferences, false);
+    setBannerOpen(resolved.mustPrompt);
+    setCanDismiss(false);
+
+    const openHandler = () => {
+      setDraft(preferencesRef.current);
+      setCustomizing(true);
+      setCanDismiss(true);
       setBannerOpen(true);
-    }
+    };
 
-    const openHandler = () => setBannerOpen(true);
-    window.addEventListener(OPEN_EVENT, openHandler);
+    const storageHandler = (event: StorageEvent) => {
+      if (event.key !== CONSENT_STORAGE_KEY) return;
 
-    return () => window.removeEventListener(OPEN_EVENT, openHandler);
+      const next = resolveConsent(event.newValue, null);
+      updatePreferences(next.preferences, false);
+      setBannerOpen(next.mustPrompt);
+      setCustomizing(false);
+      setCanDismiss(false);
+    };
+
+    window.addEventListener(OPEN_CONSENT_SETTINGS_EVENT, openHandler);
+    window.addEventListener('storage', storageHandler);
+
+    return () => {
+      window.removeEventListener(OPEN_CONSENT_SETTINGS_EVENT, openHandler);
+      window.removeEventListener('storage', storageHandler);
+    };
+  }, [updatePreferences]);
+
+  const closeSettings = useCallback(() => {
+    setDraft(preferencesRef.current);
+    setBannerOpen(false);
+    setCustomizing(false);
+    setCanDismiss(false);
   }, []);
 
-  const persist = (choice: ConsentChoice) => {
-    try {
-      localStorage.setItem(STORAGE_KEY, choice);
-    } catch {
-      /* storage unavailable (private mode, blocked) — choice still applies for this session */
-    }
-  };
+  useEffect(() => {
+    if (!bannerOpen || !canDismiss) return;
 
-  const accept = () => {
-    persist('granted');
-    setConsent('granted');
+    const keyHandler = (event: KeyboardEvent) => {
+      if (event.key === 'Escape') {
+        closeSettings();
+      }
+    };
+
+    window.addEventListener('keydown', keyHandler);
+    return () => window.removeEventListener('keydown', keyHandler);
+  }, [bannerOpen, canDismiss, closeSettings]);
+
+  const finish = (next: ConsentPreferences) => {
+    updatePreferences(next, true);
     setBannerOpen(false);
+    setCustomizing(false);
+    setCanDismiss(false);
   };
 
-  const decline = () => {
-    persist('denied');
-    setConsent('denied');
-    setBannerOpen(false);
-    disableAnalytics();
-  };
-
-  // Avoid SSR/hydration mismatch — localStorage is only available after mount.
   if (!mounted) return null;
 
   return (
     <>
-      {consent === 'granted' && <GoogleAnalytics />}
+      {preferences.analytics && <GoogleAnalytics />}
+      {preferences.marketing && <MetaPixel />}
 
       {bannerOpen && (
         <div
           role="dialog"
           aria-modal="false"
           aria-label={t.dialogAria}
-          className="fixed bottom-24 start-3 end-3 z-50 rounded-2xl border border-primary/10 bg-white p-4 shadow-xl sm:bottom-5 sm:start-5 sm:end-auto sm:max-w-md sm:p-5"
+          className="fixed bottom-24 start-3 end-3 z-50 rounded-2xl border border-primary/10 bg-white p-4 shadow-xl sm:bottom-5 sm:start-5 sm:end-auto sm:max-w-xl sm:p-5"
         >
-          <div className="flex flex-col gap-3">
-            <div className="flex items-start gap-3">
+          {canDismiss && (
+            <button
+              type="button"
+              onClick={closeSettings}
+              aria-label={t.close}
+              className="absolute end-3 top-3 inline-flex h-9 w-9 items-center justify-center rounded-full text-black/50 transition-colors hover:bg-primary/5 hover:text-primary"
+            >
+              <X className="h-4 w-4" aria-hidden="true" />
+            </button>
+          )}
+
+          <div className="flex flex-col gap-4">
+            <div className={`flex items-start gap-3 ${canDismiss ? 'pe-9' : ''}`}>
               <span className="mt-0.5 inline-flex h-9 w-9 flex-shrink-0 items-center justify-center rounded-full bg-primary/10 text-primary">
                 <Cookie className="h-5 w-5" aria-hidden="true" />
               </span>
@@ -125,22 +245,115 @@ export default function CookieConsent() {
               </div>
             </div>
 
-            <div className="flex gap-2 sm:justify-end">
-              <button
-                type="button"
-                onClick={decline}
-                className="flex-1 rounded-full border border-primary/20 px-4 py-3 text-sm font-semibold text-primary transition-colors hover:bg-primary/5 sm:flex-none"
-              >
-                {t.decline}
-              </button>
-              <button
-                type="button"
-                onClick={accept}
-                className="flex-1 rounded-full bg-primary px-4 py-3 text-sm font-semibold text-white transition-colors hover:bg-primary-light sm:flex-none"
-              >
-                {t.accept}
-              </button>
-            </div>
+            {customizing ? (
+              <>
+                <div className="space-y-2">
+                  <div className="flex items-start justify-between gap-4 rounded-xl border border-primary/10 bg-cream/40 p-3">
+                    <div>
+                      <p className="text-sm font-semibold text-black">{t.necessaryTitle}</p>
+                      <p className="mt-1 text-xs leading-relaxed text-black/60">
+                        {t.necessaryDescription}
+                      </p>
+                    </div>
+                    <input
+                      type="checkbox"
+                      checked
+                      disabled
+                      aria-label={t.necessaryTitle}
+                      className="mt-1 h-5 w-5 accent-primary"
+                    />
+                  </div>
+
+                  <label className="flex cursor-pointer items-start justify-between gap-4 rounded-xl border border-primary/10 p-3">
+                    <span>
+                      <span className="block text-sm font-semibold text-black">
+                        {t.analyticsTitle}
+                      </span>
+                      <span className="mt-1 block text-xs leading-relaxed text-black/60">
+                        {t.analyticsDescription}
+                      </span>
+                    </span>
+                    <input
+                      type="checkbox"
+                      checked={draft.analytics}
+                      onChange={event =>
+                        setDraft(current => ({
+                          ...current,
+                          analytics: event.target.checked,
+                        }))
+                      }
+                      className="mt-1 h-5 w-5 accent-primary"
+                    />
+                  </label>
+
+                  <label className="flex cursor-pointer items-start justify-between gap-4 rounded-xl border border-primary/10 p-3">
+                    <span>
+                      <span className="block text-sm font-semibold text-black">
+                        {t.marketingTitle}
+                      </span>
+                      <span className="mt-1 block text-xs leading-relaxed text-black/60">
+                        {t.marketingDescription}
+                      </span>
+                    </span>
+                    <input
+                      type="checkbox"
+                      checked={draft.marketing}
+                      onChange={event =>
+                        setDraft(current => ({
+                          ...current,
+                          marketing: event.target.checked,
+                        }))
+                      }
+                      className="mt-1 h-5 w-5 accent-primary"
+                    />
+                  </label>
+                </div>
+
+                <div className="flex flex-col gap-2 sm:flex-row sm:justify-end">
+                  <button
+                    type="button"
+                    onClick={() => setCustomizing(false)}
+                    className="rounded-full border border-primary/20 px-4 py-3 text-sm font-semibold text-primary transition-colors hover:bg-primary/5"
+                  >
+                    {t.back}
+                  </button>
+                  <button
+                    type="button"
+                    onClick={() => finish(draft)}
+                    className="rounded-full bg-primary px-4 py-3 text-sm font-semibold text-white transition-colors hover:bg-primary-light"
+                  >
+                    {t.save}
+                  </button>
+                </div>
+              </>
+            ) : (
+              <div className="grid gap-2 sm:grid-cols-3">
+                <button
+                  type="button"
+                  onClick={() => finish(EMPTY_CONSENT_PREFERENCES)}
+                  className="rounded-full border border-primary/20 px-4 py-3 text-sm font-semibold text-primary transition-colors hover:bg-primary/5"
+                >
+                  {t.rejectAll}
+                </button>
+                <button
+                  type="button"
+                  onClick={() => {
+                    setDraft(preferencesRef.current);
+                    setCustomizing(true);
+                  }}
+                  className="rounded-full bg-primary px-4 py-3 text-sm font-semibold text-white transition-colors hover:bg-primary-light"
+                >
+                  {t.customize}
+                </button>
+                <button
+                  type="button"
+                  onClick={() => finish({ analytics: true, marketing: true })}
+                  className="rounded-full border border-primary/20 px-4 py-3 text-sm font-semibold text-primary transition-colors hover:bg-primary/5"
+                >
+                  {t.acceptAll}
+                </button>
+              </div>
+            )}
           </div>
         </div>
       )}
