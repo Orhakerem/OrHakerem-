@@ -11,11 +11,12 @@ import {
 } from '@/i18n/config';
 import { useLocale } from '@/i18n/useLocale';
 import { commonMessages } from '@/i18n/messages/common';
+import { hasBlogTranslation } from '@/lib/blog-locale-manifest';
 
 function targetPath(locale: Locale, basePath: string): string {
-  // The blog only exists in English; from a blog page, other locales land home.
-  if (locale !== 'en' && (basePath === '/blog' || basePath.startsWith('/blog/'))) {
-    return localizePath(locale, '/');
+  const blogMatch = basePath.match(/^\/blog\/([^/]+)$/);
+  if (blogMatch && !hasBlogTranslation(locale, blogMatch[1])) {
+    return basePath;
   }
   return localizePath(locale, basePath);
 }

@@ -16,13 +16,12 @@ function Navbar() {
   const basePath = stripLocalePrefix(pathname);
   const t = commonMessages[locale].nav;
 
-  // The blog is English-only for now, so its link is never locale-prefixed.
   const navItems = [
     { label: t.properties, href: localizePath(locale, '/properties'), match: '/properties' },
     { label: t.services, href: localizePath(locale, '/services'), match: '/services' },
     { label: t.events, href: localizePath(locale, '/events'), match: '/events' },
     { label: t.about, href: localizePath(locale, '/about'), match: '/about' },
-    { label: t.blog, href: '/blog', match: '/blog' },
+    { label: t.blog, href: localizePath(locale, '/blog'), match: '/blog' },
     { label: t.faq, href: localizePath(locale, '/faq'), match: '/faq' },
     { label: t.contact, href: `${localizePath(locale, '/')}#contact`, match: null },
   ];

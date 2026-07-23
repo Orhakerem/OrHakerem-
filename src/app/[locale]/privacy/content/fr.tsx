@@ -3,6 +3,7 @@
 
 import Link from 'next/link';
 import { BulletList, CardGrid } from '@/components/legal/LegalPageShell';
+import { OPEN_CONSENT_SETTINGS_EVENT } from '@/lib/consent';
 
 const dataYouProvide = [
   {
@@ -24,6 +25,7 @@ const dataCollectedAutomatically = [
   "Le type de navigateur, l'appareil et le système d'exploitation",
   'La localisation approximative déduite de votre adresse IP',
   'Le site ou la source qui vous a orienté vers nous',
+  'Vos interactions avec nos campagnes publicitaires lorsque vous acceptez le Pixel Meta',
 ];
 
 const howWeUse = [
@@ -31,6 +33,7 @@ const howWeUse = [
   'Traiter, confirmer et gérer vos demandes de réservation et d’événement',
   'Vous contacter via le moyen que vous avez choisi au sujet de votre demande',
   'Faire fonctionner, sécuriser, maintenir et améliorer le site',
+  "Mesurer l'efficacité de nos publicités et créer des audiences pertinentes lorsque vous y consentez",
   'Respecter nos obligations légales, fiscales et comptables',
 ];
 
@@ -41,7 +44,7 @@ const legalBases = [
   },
   {
     title: 'Le consentement',
-    body: 'Le chargement des cookies analytiques, que nous n’activons qu’après votre acceptation. Vous pouvez modifier ou retirer votre consentement à tout moment via notre bannière cookies ou les paramètres de votre navigateur.',
+    body: 'Le chargement des cookies analytiques Google et des technologies publicitaires Meta, que nous n’activons qu’après votre choix explicite pour chaque service. Vous pouvez modifier ou retirer votre consentement à tout moment.',
   },
   {
     title: 'Nos intérêts légitimes',
@@ -67,6 +70,10 @@ const processors = [
     body: "Fournit des statistiques agrégées d'utilisation du site via des cookies et technologies similaires.",
   },
   {
+    title: 'Meta Platforms',
+    body: "Fournit le Pixel Meta. Selon la finalité, Meta peut traiter certaines données pour notre compte ou agir avec nous en qualité de responsable conjoint pour la collecte et la transmission de données d’événement utilisées pour le ciblage et l’amélioration publicitaires.",
+  },
+  {
     title: 'Vercel',
     body: 'Héberge le site et traite les journaux de serveur et de sécurité standards.',
   },
@@ -76,6 +83,7 @@ const dataRetention = [
   "Les messages de contact et de demande sont conservés uniquement le temps nécessaire pour traiter votre demande, plus une période de suivi raisonnable.",
   'Les données de réservation sont conservées pour la gestion des réservations et pour répondre aux exigences légales et comptables.',
   'Les données analytiques sont conservées selon les paramètres de conservation de Google Analytics.',
+  'Selon les Conditions des outils Meta Business, Meta peut conserver les données d’événement pendant deux ans au maximum et les audiences créées à partir de ces données jusqu’à leur suppression dans les outils du compte.',
 ];
 
 const gdprRights = [
@@ -143,8 +151,9 @@ export default function PrivacyContentFr({
               Les informations collectées automatiquement
             </h3>
             <p className="mt-2 text-black/75 leading-relaxed">
-              Lorsque vous naviguez sur le site, notre prestataire d'analyse collecte des informations
-              techniques limitées via des cookies et technologies similaires :
+              Selon vos choix de consentement, nos prestataires de mesure d’audience et de publicité
+              peuvent collecter des informations techniques limitées via des cookies et technologies
+              similaires :
             </p>
             <div className="mt-5">
               <BulletList items={dataCollectedAutomatically} />
@@ -154,7 +163,7 @@ export default function PrivacyContentFr({
       </section>
 
       <section className="mb-10" data-animate="fade-up" data-delay="3">
-        <h2 className="font-head text-3xl font-bold text-black">Cookies et outils analytiques</h2>
+        <h2 className="font-head text-3xl font-bold text-black">Cookies, mesure d’audience et publicité</h2>
         <div className="mt-3 h-px w-full bg-gradient-to-r from-secondary to-transparent"></div>
 
         <div className="mt-8 rounded-2xl border border-primary/10 bg-white p-6 md:p-8">
@@ -163,8 +172,15 @@ export default function PrivacyContentFr({
               Nous utilisons Google Analytics 4 pour comprendre comment les visiteurs utilisent le
               site afin de l'améliorer. Google Analytics dépose des cookies et traite les
               informations techniques décrites ci-dessus. Ces cookies analytiques ne se chargent
-              qu'après votre acceptation via notre bannière cookies, et nous n'utilisons pas de
-              cookies publicitaires ou de suivi intersites.
+              que si vous acceptez séparément la catégorie « Mesure d’audience ».
+            </p>
+            <p>
+              Avec votre consentement distinct pour la catégorie « Publicité », nous utilisons
+              également le Pixel Meta. Il nous permet de mesurer les actions réalisées après une
+              interaction avec nos publicités et de créer des audiences pertinentes sur les
+              services Meta. Le Pixel peut traiter des informations techniques, l’adresse IP,
+              l’adresse de la page, des identifiants de navigateur et des informations relatives à
+              la campagne. Nous n’envoyons pas à Meta le contenu de vos formulaires via le Pixel.
             </p>
             <p>
               Vous pouvez modifier ou retirer votre choix à tout moment via le bouton ci-dessous,
@@ -184,7 +200,7 @@ export default function PrivacyContentFr({
 
           <button
             type="button"
-            onClick={() => window.dispatchEvent(new Event('open-cookie-settings'))}
+            onClick={() => window.dispatchEvent(new Event(OPEN_CONSENT_SETTINGS_EVENT))}
             className="mt-6 inline-flex items-center rounded-full border border-primary/15 bg-white px-5 py-2.5 font-semibold text-primary shadow-sm transition-colors hover:bg-primary/5"
           >
             Gérer les préférences de cookies
@@ -217,14 +233,26 @@ export default function PrivacyContentFr({
       </section>
 
       <section className="mb-10" data-animate="fade-up">
-        <h2 className="font-head text-3xl font-bold text-black">Partage et sous-traitants</h2>
+        <h2 className="font-head text-3xl font-bold text-black">Partage et services tiers</h2>
         <div className="mt-3 h-px w-full bg-gradient-to-r from-secondary to-transparent"></div>
 
         <div className="mt-8 rounded-2xl border border-primary/10 bg-white p-6 md:p-8">
           <p className="text-black/80 leading-relaxed">
-            Nous ne vendons pas vos données personnelles. Nous les partageons uniquement avec des
-            prestataires de confiance qui les traitent pour notre compte, et lorsque la loi nous y
-            oblige :
+            Nous ne vendons pas vos données personnelles. Selon le service et la finalité, les tiers
+            peuvent traiter les données pour notre compte, agir comme responsables indépendants ou
+            agir avec nous en qualité de responsables conjoints. Pour certains traitements des
+            outils Meta Business soumis au RGPD, Or Hakerem et Meta Platforms Ireland Limited sont
+            responsables conjoints de la collecte et de la transmission des données d’événement.
+            Pour en savoir plus, consultez les{' '}
+            <a
+              href="https://www.facebook.com/legal/terms/businesstools/preview"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="font-semibold text-primary underline underline-offset-4 transition-colors hover:text-primary-light"
+            >
+              Conditions des outils Meta Business
+            </a>
+            .
           </p>
           <div className="mt-6">
             <CardGrid items={processors} />

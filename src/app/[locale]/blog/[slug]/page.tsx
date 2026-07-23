@@ -2,25 +2,40 @@ import type { Metadata } from 'next';
 import Image from 'next/image';
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
-import { getAllPosts, getPostBySlug, getRelatedPosts, formatDate, readingTime } from '@/lib/blog';
+import {
+  getAllPosts,
+  getAvailablePostLocales,
+  getPostBySlug,
+  getRelatedPosts,
+  formatDate,
+  readingTime,
+} from '@/lib/blog';
 import MdxContent from '@/components/blog/MdxContent';
 import PostCard from '@/components/blog/PostCard';
-import { createCanonicalUrl, SITE_URL } from '@/app/seo';
+import { createCanonicalUrl, createLocalizedAlternates, SITE_URL } from '@/app/seo';
 import { HOST } from '@/lib/host';
+import { ENABLED_LOCALES, isLocale, localizePath, OG_LOCALE, type Locale } from '@/i18n/config';
+import { blogMessages } from '@/i18n/messages/blog';
 
 export function generateStaticParams() {
-  return getAllPosts().map((post) => ({ slug: post.slug }));
+  return ENABLED_LOCALES.flatMap((locale) =>
+    getAllPosts(locale).map((post) => ({ locale, slug: post.slug })),
+  );
 }
 
 export function generateMetadata({
   params,
 }: {
-  params: { slug: string };
+  params: { locale: string; slug: string };
 }): Metadata {
-  const post = getPostBySlug(params.slug);
+  const locale: Locale = isLocale(params.locale) ? params.locale : 'en';
+  const post = getPostBySlug(locale, params.slug);
   if (!post) return {};
 
   const { frontmatter, slug } = post;
+  const path = `/blog/${slug}`;
+  const url = createCanonicalUrl(localizePath(locale, path));
+  const availableLocales = getAvailablePostLocales(slug);
   const ogImageUrl = `${SITE_URL}${frontmatter.image}`;
 
   return {
@@ -31,7 +46,7 @@ export function generateMetadata({
     openGraph: {
       title: frontmatter.title,
       description: frontmatter.description,
-      url: createCanonicalUrl(`/blog/${slug}`),
+      url,
       siteName: 'Or Hakerem',
       images: [
         {
@@ -41,7 +56,7 @@ export function generateMetadata({
           height: 630,
         },
       ],
-      locale: 'en_US',
+      locale: OG_LOCALE[locale],
       type: 'article',
       publishedTime: frontmatter.date,
       modifiedTime: frontmatter.updated ?? frontmatter.date,
@@ -54,9 +69,7 @@ export function generateMetadata({
       description: frontmatter.description,
       images: [ogImageUrl],
     },
-    alternates: {
-      canonical: createCanonicalUrl(`/blog/${slug}`),
-    },
+    alternates: createLocalizedAlternates(path, locale, availableLocales),
     robots: {
       index: true,
       follow: true,
@@ -64,12 +77,16 @@ export function generateMetadata({
   };
 }
 
-export default function BlogPostPage({ params }: { params: { slug: string } }) {
-  const post = getPostBySlug(params.slug);
+export default function BlogPostPage({ params }: { params: { locale: string; slug: string } }) {
+  const locale: Locale = isLocale(params.locale) ? params.locale : 'en';
+  const post = getPostBySlug(locale, params.slug);
   if (!post) notFound();
 
   const { frontmatter, content, slug } = post;
-  const relatedPosts = getRelatedPosts(slug, frontmatter.tags);
+  const relatedPosts = getRelatedPosts(locale, slug, frontmatter.tags);
+  const t = blogMessages[locale];
+  const path = `/blog/${slug}`;
+  const url = createCanonicalUrl(localizePath(locale, path));
 
   const blogPostingSchema = {
     '@context': 'https://schema.org',
@@ -89,16 +106,15 @@ export default function BlogPostPage({ params }: { params: { slug: string } }) {
     },
     publisher: {
       '@type': 'Organization',
+      '@id': `${SITE_URL}/#business`,
       name: 'Or Hakerem',
       logo: {
         '@type': 'ImageObject',
         url: `${SITE_URL}/logo/Logo_beige.png`,
       },
     },
-    mainEntityOfPage: {
-      '@type': 'WebPage',
-      '@id': createCanonicalUrl(`/blog/${slug}`),
-    },
+    mainEntityOfPage: { '@type': 'WebPage', '@id': url },
+    inLanguage: locale,
     keywords: frontmatter.keywords.join(', '),
   };
 
@@ -106,13 +122,13 @@ export default function BlogPostPage({ params }: { params: { slug: string } }) {
     '@context': 'https://schema.org',
     '@type': 'BreadcrumbList',
     itemListElement: [
-      { '@type': 'ListItem', position: 1, name: 'Home', item: SITE_URL },
-      { '@type': 'ListItem', position: 2, name: 'Blog', item: `${SITE_URL}/blog` },
+      { '@type': 'ListItem', position: 1, name: t.home, item: createCanonicalUrl(localizePath(locale, '/')) },
+      { '@type': 'ListItem', position: 2, name: t.blog, item: createCanonicalUrl(localizePath(locale, '/blog')) },
       {
         '@type': 'ListItem',
         position: 3,
         name: frontmatter.title,
-        item: createCanonicalUrl(`/blog/${slug}`),
+        item: url,
       },
     ],
   };
@@ -143,9 +159,9 @@ export default function BlogPostPage({ params }: { params: { slug: string } }) {
         {/* Breadcrumb */}
         <nav aria-label="Breadcrumb" className="absolute top-24 start-4 sm:start-6 md:start-8 lg:start-12">
           <ol className="flex items-center gap-1.5 text-xs text-white/75">
-            <li><Link href="/" className="hover:text-white transition-colors">Home</Link></li>
+            <li><Link href={localizePath(locale, '/')} className="hover:text-white transition-colors">{t.home}</Link></li>
             <li aria-hidden>/</li>
-            <li><Link href="/blog" className="hover:text-white transition-colors">Blog</Link></li>
+            <li><Link href={localizePath(locale, '/blog')} className="hover:text-white transition-colors">{t.blog}</Link></li>
             <li aria-hidden>/</li>
             <li className="text-white/50 line-clamp-1 max-w-[140px]">{frontmatter.title}</li>
           </ol>
@@ -173,46 +189,46 @@ export default function BlogPostPage({ params }: { params: { slug: string } }) {
 
         {/* Byline */}
         <div className="mt-4 flex flex-wrap items-center gap-3 text-sm text-black/50">
-          <span>By <strong className="text-black/70">{frontmatter.author}</strong></span>
+          <span>{t.by} <strong className="text-black/70">{frontmatter.author}</strong></span>
           <span aria-hidden>·</span>
-          <time dateTime={frontmatter.date}>{formatDate(frontmatter.date)}</time>
+          <time dateTime={frontmatter.date}>{formatDate(frontmatter.date, locale)}</time>
           {frontmatter.updated && frontmatter.updated !== frontmatter.date && (
             <>
               <span aria-hidden>·</span>
-              <span>Updated <time dateTime={frontmatter.updated}>{formatDate(frontmatter.updated)}</time></span>
+              <span>{t.updated} <time dateTime={frontmatter.updated}>{formatDate(frontmatter.updated, locale)}</time></span>
             </>
           )}
           <span aria-hidden>·</span>
-          <span>{readingTime(content)}</span>
+          <span>{readingTime(content, locale)}</span>
         </div>
 
         <hr className="mt-6 border-t border-primary/15" />
 
         {/* Body */}
         <div className="mt-8">
-          <MdxContent source={content} />
+          <MdxContent source={content} locale={locale} />
         </div>
 
         {/* Booking CTA */}
         <div className="mt-12 rounded-2xl bg-primary px-6 py-8 text-center text-white md:px-10 md:py-10">
           <p className="font-head text-xl font-bold md:text-2xl">
-            Planning a visit to Tel Aviv?
+            {t.ctaTitle}
           </p>
           <p className="mt-2 text-sm text-white/80 md:text-base">
-            Stay in Kerem HaTeimanim — steps from Carmel Market and Banana Beach. Book directly with us and save up to 15% vs. Airbnb.
+            {t.ctaBody}
           </p>
           <div className="mt-6 flex flex-col items-center gap-3 sm:flex-row sm:justify-center">
             <Link
-              href="/properties"
+              href={localizePath(locale, '/properties')}
               className="inline-block rounded-full bg-white px-8 py-3 text-sm font-semibold text-primary transition-opacity hover:opacity-90 md:text-base"
             >
-              View Properties
+              {t.viewPropertiesShort}
             </Link>
             <Link
-              href="/reservation"
+              href={localizePath(locale, '/reservation')}
               className="inline-block rounded-full border border-white/50 px-8 py-3 text-sm font-semibold text-white transition-colors hover:bg-white/10 md:text-base"
             >
-              Book Direct
+              {t.bookDirect}
             </Link>
           </div>
         </div>
@@ -222,11 +238,11 @@ export default function BlogPostPage({ params }: { params: { slug: string } }) {
       {relatedPosts.length > 0 && (
         <section className="mx-auto max-w-6xl px-4 pb-16 sm:px-6 lg:px-8 md:pb-24">
           <h2 className="mb-6 font-head text-2xl font-bold text-black md:text-3xl">
-            More from the blog
+            {t.more}
           </h2>
           <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
             {relatedPosts.map((related) => (
-              <PostCard key={related.slug} post={related} />
+            <PostCard key={related.slug} post={related} locale={locale} />
             ))}
           </div>
         </section>

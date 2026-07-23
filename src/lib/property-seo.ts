@@ -1,6 +1,7 @@
 import type { BookablePropertyId } from '@/lib/bookable-properties';
-import type { Locale } from '@/i18n/config';
-import { SITE_URL } from '@/app/seo';
+import { localizePath, type Locale } from '@/i18n/config';
+import { createCanonicalUrl, SITE_URL } from '@/app/seo';
+import { BUSINESS_NAP } from '@/lib/business-schema';
 
 export interface PropertySeoMeta {
   title: string;
@@ -118,19 +119,29 @@ export function getPropertySeo(locale: Locale): Record<BookablePropertyId, Prope
   return PROPERTY_SEO_BY_LOCALE[locale];
 }
 
-// Kept for the LodgingBusiness JSON-LD, which is language-neutral enough to
-// stay English (schema.org names/values), and for any not-yet-migrated caller.
+// Kept for any legacy caller that has not yet selected a locale.
 export const PROPERTY_SEO = enSeo;
 
-export function getPropertyStructuredData(id: BookablePropertyId) {
-  const seo = PROPERTY_SEO[id];
+export function getPropertyStructuredData(id: BookablePropertyId, locale: Locale) {
+  const seo = getPropertySeo(locale)[id];
+  const url = createCanonicalUrl(localizePath(locale, `/properties/${id}`));
+  const businessId = `${SITE_URL}/#business`;
+
   return {
     '@context': 'https://schema.org',
     '@type': 'LodgingBusiness',
+    '@id': `${url}#lodging-business`,
     name: `Or Hakerem — ${id === 'penthouse-jacuzzi' ? 'Luxury Penthouse' : 'Spacious & Cosy Apartment'}`,
-    url: `${SITE_URL}/properties/${id}`,
+    url,
     image: `${SITE_URL}${seo.image}`,
     description: seo.description,
+    inLanguage: locale,
+    parentOrganization: {
+      '@id': businessId,
+      '@type': 'Organization',
+      name: 'Or Hakerem',
+      url: SITE_URL,
+    },
     numberOfRooms: seo.bedrooms,
     priceRange: `₪${seo.priceFrom}–₪${seo.priceTo}`,
     makesOffer: {
@@ -142,7 +153,10 @@ export function getPropertyStructuredData(id: BookablePropertyId) {
         unitText: 'NIGHT',
       },
       availability: 'https://schema.org/InStock',
-      url: `${SITE_URL}/properties/${id}`,
+      url,
+      seller: {
+        '@id': businessId,
+      },
     },
     amenityFeature:
       id === 'penthouse-jacuzzi'
@@ -161,9 +175,10 @@ export function getPropertyStructuredData(id: BookablePropertyId) {
           ],
     address: {
       '@type': 'PostalAddress',
-      streetAddress: '35 Hakovshim Street',
-      addressLocality: 'Tel Aviv',
-      addressCountry: 'IL',
+      streetAddress: BUSINESS_NAP.streetAddress,
+      addressLocality: BUSINESS_NAP.addressLocality,
+      postalCode: BUSINESS_NAP.postalCode,
+      addressCountry: BUSINESS_NAP.addressCountry,
     },
     containedInPlace: {
       '@type': 'Place',

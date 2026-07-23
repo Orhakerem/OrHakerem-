@@ -9,6 +9,7 @@ import TestimonialsCarousel from '@/components/TestimonialsCarousel';
 import MapEmbed from '@/components/MapEmbed';
 import { isLocale, type Locale } from '@/i18n/config';
 import { homeMessages } from '@/i18n/messages/home';
+import { GOOGLE_BUSINESS_PROFILE_URL } from '@/lib/business-schema';
 
 export default function Home({ params }: { params: { locale: string } }) {
   const locale: Locale = isLocale(params.locale) ? params.locale : 'en';
@@ -136,7 +137,7 @@ export default function Home({ params }: { params: { locale: string } }) {
 
                 <div className="text-center hidden lg:block" data-animate="scale" data-delay="3">
                   <LiquidGlassCTA
-                    href="https://www.google.com/maps?q=Hakovshim+35+Tel+Aviv"
+                    href={GOOGLE_BUSINESS_PROFILE_URL}
                     target="_blank"
                     rel="noopener noreferrer"
                   >
@@ -149,7 +150,7 @@ export default function Home({ params }: { params: { locale: string } }) {
             {/* Responsive-only CTA: appears under the map (<lg) */}
             <div className="order-last text-center lg:hidden" data-animate="scale" data-delay="3">
               <LiquidGlassCTA
-                href="https://www.google.com/maps?q=Hakovshim+35+Tel+Aviv"
+                href={GOOGLE_BUSINESS_PROFILE_URL}
                 target="_blank"
                 rel="noopener noreferrer"
               >

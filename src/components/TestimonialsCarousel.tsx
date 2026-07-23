@@ -6,6 +6,7 @@ import { Star, Quote } from 'lucide-react';
 
 import { useLocale } from '@/i18n/useLocale';
 import { homeMessages } from '@/i18n/messages/home';
+import { GOOGLE_BUSINESS_PROFILE_URL } from '@/lib/business-schema';
 
 const reviewPlatforms = [
   { name: 'Airbnb', src: '/logo/airbnb.svg', href: 'https://he.airbnb.com/users/show/464026460' },
@@ -17,7 +18,7 @@ const reviewPlatforms = [
   {
     name: 'Google',
     src: '/logo/google.svg',
-    href: 'https://www.google.com/maps?cid=1464890306103557880',
+    href: GOOGLE_BUSINESS_PROFILE_URL,
   },
 ];
 

@@ -3,6 +3,7 @@
 
 import Link from 'next/link';
 import { BulletList, CardGrid } from '@/components/legal/LegalPageShell';
+import { OPEN_CONSENT_SETTINGS_EVENT } from '@/lib/consent';
 
 const dataYouProvide = [
   {
@@ -24,6 +25,7 @@ const dataCollectedAutomatically = [
   'סוג הדפדפן, המכשיר ומערכת ההפעלה',
   'מיקום משוער המבוסס על כתובת ה-IP שלכם',
   'האתר או המקור שהפנה אתכם אלינו',
+  'האינטראקציות שלכם עם קמפיינים פרסומיים כאשר אתם מאשרים את Meta Pixel',
 ];
 
 const howWeUse = [
@@ -31,6 +33,7 @@ const howWeUse = [
   'טיפול, אישור וניהול של בקשות ההזמנה והאירועים שלכם',
   'יצירת קשר איתכם בדרך המועדפת עליכם בנוגע לבקשתכם',
   'תפעול, אבטחה, תחזוקה ושיפור האתר',
+  'מדידת יעילות הפרסום ויצירת קהלים רלוונטיים כאשר אתם מסכימים לכך',
   'עמידה בהתחייבויותינו המשפטיות, המיסויות והחשבונאיות',
 ];
 
@@ -41,7 +44,7 @@ const legalBases = [
   },
   {
     title: 'הסכמה',
-    body: 'טעינת עוגיות אנליטיקה, שאותן אנו מפעילים רק לאחר אישורכם. באפשרותכם לשנות או לבטל את הסכמתכם בכל עת דרך באנר העוגיות שלנו או הגדרות הדפדפן.',
+    body: 'טעינת עוגיות האנליטיקה של Google וטכנולוגיות הפרסום של Meta, המופעלות רק לאחר בחירה מפורשת בכל שירות. ניתן לשנות או לבטל את ההסכמה בכל עת.',
   },
   {
     title: 'אינטרסים לגיטימיים',
@@ -67,6 +70,10 @@ const processors = [
     body: 'מספק נתוני שימוש מצטברים באתר באמצעות עוגיות וטכנולוגיות דומות.',
   },
   {
+    title: 'Meta Platforms',
+    body: 'מספקת את Meta Pixel. בהתאם למטרה, Meta עשויה לעבד נתונים עבורנו או לפעול יחד איתנו כאחראית משותפת לאיסוף ולהעברת נתוני אירועים המשמשים למיקוד ולשיפור פרסום.',
+  },
+  {
     title: 'Vercel',
     body: 'מארח את האתר ומעבד יומני שרת ואבטחה סטנדרטיים.',
   },
@@ -76,6 +83,7 @@ const dataRetention = [
   'הודעות יצירת קשר ופנייה נשמרות רק לפרק הזמן הנדרש לטיפול בבקשתכם, בתוספת תקופת מעקב סבירה.',
   'רשומות הזמנה נשמרות לצורך ניהול ההזמנות ולעמידה בדרישות משפטיות וחשבונאיות.',
   'נתוני אנליטיקה נשמרים בהתאם להגדרות השמירה של Google Analytics.',
+  'בהתאם לתנאי כלי Meta Business, Meta עשויה לשמור נתוני אירועים למשך עד שנתיים, וקהלים שנוצרו מהם עד למחיקתם באמצעות כלי החשבון.',
 ];
 
 const gdprRights = [
@@ -142,7 +150,8 @@ export default function PrivacyContentHe({
               מידע שנאסף באופן אוטומטי
             </h3>
             <p className="mt-2 text-black/75 leading-relaxed">
-              כשאתם גולשים באתר, ספק האנליטיקה שלנו אוסף מידע טכני מוגבל באמצעות עוגיות וטכנולוגיות דומות:
+              בהתאם לבחירות ההסכמה שלכם, ספקי האנליטיקה והפרסום שלנו עשויים לאסוף מידע טכני מוגבל
+              באמצעות עוגיות וטכנולוגיות דומות:
             </p>
             <div className="mt-5">
               <BulletList items={dataCollectedAutomatically} />
@@ -152,7 +161,7 @@ export default function PrivacyContentHe({
       </section>
 
       <section className="mb-10" data-animate="fade-up" data-delay="3">
-        <h2 className="font-head text-3xl font-bold text-black">עוגיות ואנליטיקה</h2>
+        <h2 className="font-head text-3xl font-bold text-black">עוגיות, אנליטיקה ופרסום</h2>
         <div className="mt-3 h-px w-full bg-gradient-to-r from-secondary to-transparent"></div>
 
         <div className="mt-8 rounded-2xl border border-primary/10 bg-white p-6 md:p-8">
@@ -160,8 +169,13 @@ export default function PrivacyContentHe({
             <p>
               אנחנו משתמשים ב-Google Analytics 4 כדי להבין כיצד המבקרים משתמשים באתר ולשפר אותו.
               Google Analytics מפעיל עוגיות ומעבד את המידע הטכני שתואר לעיל. עוגיות אנליטיקה אלה
-              נטענות רק לאחר שתאשרו אותן בבאנר העוגיות שלנו, ואיננו משתמשים בעוגיות פרסום או מעקב
-              בין-אתרי.
+              נטענות רק אם תאשרו בנפרד את קטגוריית מדידת השימוש.
+            </p>
+            <p>
+              בהסכמה נפרדת לקטגוריית הפרסום, אנו משתמשים גם ב-Meta Pixel. הפיקסל מסייע לנו למדוד
+              פעולות שבוצעו לאחר אינטראקציה עם הפרסומות שלנו וליצור קהלים רלוונטיים בשירותי Meta.
+              הוא עשוי לעבד מידע טכני, כתובת IP, כתובת העמוד, מזהי דפדפן ומידע על הקמפיין. איננו
+              שולחים ל-Meta את תוכן הטפסים באמצעות הפיקסל.
             </p>
             <p>
               באפשרותכם לשנות או לבטל את בחירתכם בכל עת באמצעות הכפתור למטה, לסרב או למחוק עוגיות
@@ -180,7 +194,7 @@ export default function PrivacyContentHe({
 
           <button
             type="button"
-            onClick={() => window.dispatchEvent(new Event('open-cookie-settings'))}
+            onClick={() => window.dispatchEvent(new Event(OPEN_CONSENT_SETTINGS_EVENT))}
             className="mt-6 inline-flex items-center rounded-full border border-primary/15 bg-white px-5 py-2.5 font-semibold text-primary shadow-sm transition-colors hover:bg-primary/5"
           >
             ניהול העדפות עוגיות
@@ -212,13 +226,24 @@ export default function PrivacyContentHe({
       </section>
 
       <section className="mb-10" data-animate="fade-up">
-        <h2 className="font-head text-3xl font-bold text-black">שיתוף וגורמי עיבוד צד שלישי</h2>
+        <h2 className="font-head text-3xl font-bold text-black">שיתוף ושירותי צד שלישי</h2>
         <div className="mt-3 h-px w-full bg-gradient-to-r from-secondary to-transparent"></div>
 
         <div className="mt-8 rounded-2xl border border-primary/10 bg-white p-6 md:p-8">
           <p className="text-black/80 leading-relaxed">
-            אנחנו לא מוכרים את הנתונים האישיים שלכם. אנחנו משתפים אותם רק עם ספקי שירות מהימנים
-            המעבדים אותם עבורנו, ובמקרים בהם החוק מחייב זאת:
+            איננו מוכרים את הנתונים האישיים שלכם. בהתאם לשירות ולמטרה, צדדים שלישיים עשויים לעבד
+            נתונים עבורנו, לפעול כאחראים עצמאיים או לפעול יחד איתנו כאחראים משותפים. עבור עיבודים
+            מסוימים של כלי Meta Business הכפופים ל-GDPR, אור הכרם ו-Meta Platforms Ireland Limited
+            הן אחראיות משותפות לאיסוף ולהעברת נתוני אירועים. למידע נוסף, ראו את{' '}
+            <a
+              href="https://www.facebook.com/legal/terms/businesstools/preview"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="font-semibold text-primary underline underline-offset-4 transition-colors hover:text-primary-light"
+            >
+              תנאי כלי Meta Business
+            </a>
+            .
           </p>
           <div className="mt-6">
             <CardGrid items={processors} />

@@ -5,8 +5,11 @@ import Link from 'next/link';
 import remarkGfm from 'remark-gfm';
 import rehypeSlug from 'rehype-slug';
 import rehypeAutolinkHeadings from 'rehype-autolink-headings';
+import { type Locale } from '@/i18n/config';
+import { localizeBlogHref } from '@/lib/blog';
 
-const components: MDXRemoteProps['components'] = {
+function createComponents(locale: Locale): MDXRemoteProps['components'] {
+  return {
   h2: ({ children, ...props }) => (
     <h2
       className="mb-4 mt-10 font-head text-2xl font-bold text-black md:text-3xl scroll-mt-28"
@@ -48,7 +51,7 @@ const components: MDXRemoteProps['components'] = {
     if (isInternal) {
       return (
         <Link
-          href={href ?? '#'}
+          href={href ? localizeBlogHref(locale, href) : '#'}
           className="font-medium text-primary underline underline-offset-4 hover:text-primary/75 transition-colors"
           {...props}
         >
@@ -93,13 +96,15 @@ const components: MDXRemoteProps['components'] = {
       />
     </span>
   ),
-};
+  };
+}
 
 interface MdxContentProps {
   source: string;
+  locale: Locale;
 }
 
-export default async function MdxContent({ source }: MdxContentProps) {
+export default async function MdxContent({ source, locale }: MdxContentProps) {
   return (
     <div className="prose-custom">
       <MDXRemote
@@ -113,7 +118,7 @@ export default async function MdxContent({ source }: MdxContentProps) {
             ],
           },
         }}
-        components={components}
+        components={createComponents(locale)}
       />
     </div>
   );

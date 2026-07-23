@@ -5,11 +5,11 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { Mail, Phone, MapPin, Instagram, Linkedin, Facebook, MessageCircle } from 'lucide-react';
 
-import { SITE_URL } from '@/app/seo';
 import { localizePath } from '@/i18n/config';
 import { useLocale } from '@/i18n/useLocale';
 import { commonMessages } from '@/i18n/messages/common';
 import LocaleSwitcher from '@/i18n/LocaleSwitcher';
+import { OPEN_CONSENT_SETTINGS_EVENT } from '@/lib/consent';
 
 const socials = [
   { label: 'Instagram', href: 'https://www.instagram.com/or_hakerem/', Icon: Instagram },
@@ -184,6 +184,16 @@ export default function Footer() {
               <Link href={localizePath(locale, '/cancellation')} className="hover:text-white transition-colors">
                 {t.cancellation}
               </Link>
+              <span aria-hidden="true" className="text-white/30">
+                ·
+              </span>
+              <button
+                type="button"
+                onClick={() => window.dispatchEvent(new Event(OPEN_CONSENT_SETTINGS_EVENT))}
+                className="hover:text-white transition-colors"
+              >
+                {t.cookieSettings}
+              </button>
             </nav>
             <LocaleSwitcher />
             <p>
@@ -201,27 +211,6 @@ export default function Footer() {
         </div>
       </div>
 
-      {/* JSON-LD LocalBusiness */}
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{
-          __html: JSON.stringify({
-            '@context': 'https://schema.org',
-            '@type': 'LocalBusiness',
-            name: 'Or Hakerem',
-            description: 'Luxury properties in Tel Aviv',
-            url: SITE_URL,
-            telephone: ['+33651179925', '+972585778891'],
-            email: 'keremliving@gmail.com',
-            address: {
-              '@type': 'PostalAddress',
-              streetAddress: '35 Hakovshim Street',
-              addressLocality: 'Tel Aviv',
-              addressCountry: 'Israel',
-            },
-          }),
-        }}
-      />
     </footer>
   );
 }

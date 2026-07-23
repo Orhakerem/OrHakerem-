@@ -52,14 +52,14 @@ const en: SeoCatalog = {
   events: {
     title: 'Boutique Events Tel Aviv | Jewish Celebrations & Kosher Services | Or Hakerem',
     description:
-      'Or HaKerem hosts boutique events and Jewish celebrations in Tel Aviv, offering an intimate premium venue with optional kosher services and tailored planning.',
+      'Or Hakerem hosts boutique events and Jewish celebrations in Tel Aviv, offering an intimate premium venue with optional kosher services and tailored planning.',
     keywords:
       'boutique events Tel Aviv, event space Tel Aviv, luxury venue Israel, luxury event venue Israel, Jewish events Tel Aviv, Jewish celebrations Tel Aviv, kosher services Tel Aviv, intimate events Tel Aviv, private venue Tel Aviv, bar mitzvah venue Tel Aviv, brit mila venue Tel Aviv, Or Hakerem',
   },
   reservation: {
     title: 'Book a Stay in Tel Aviv | Or Hakerem | Direct Reservation',
     description:
-      'Book your luxury apartment stay in Tel Aviv directly with Or Hakerem. Direct booking is up to 15% cheaper than Airbnb or Booking.com. Penthouse with jacuzzi or cozy studio in Kerem HaTeimanim.',
+      'Book your luxury apartment stay in Tel Aviv directly with Or Hakerem. Request a clear quote for your exact dates, whether you choose the penthouse with jacuzzi or the cosy studio in Kerem HaTeimanim.',
     keywords:
       'book luxury apartment Tel Aviv, direct booking Tel Aviv, reserve penthouse Tel Aviv, book studio Tel Aviv, Kerem HaTeimanim reservation, Or Hakerem booking',
   },
@@ -133,14 +133,14 @@ const fr: SeoCatalog = {
   events: {
     title: 'Lieu événementiel boutique à Tel Aviv | Célébrations juives et services casher | Or Hakerem',
     description:
-      'Or HaKerem accueille des événements boutique et des célébrations juives à Tel Aviv, dans un lieu intimiste et haut de gamme avec services casher optionnels et organisation sur mesure.',
+      'Or Hakerem accueille des événements boutique et des célébrations juives à Tel Aviv, dans un lieu intimiste et haut de gamme avec services casher optionnels et organisation sur mesure.',
     keywords:
       'événements privés Tel Aviv, salle de réception Tel Aviv, lieu de réception Israël, organisation bar mitzvah Israël, mariage Tel Aviv, événement casher Tel Aviv, lieu pour événement privé Israël, Or Hakerem',
   },
   reservation: {
     title: 'Réservez un séjour à Tel Aviv | Or Hakerem | Réservation directe',
     description:
-      "Réservez votre appartement de luxe à Tel Aviv directement auprès d'Or Hakerem. La réservation directe coûte jusqu'à 15 % moins cher qu'Airbnb ou Booking.com. Penthouse avec jacuzzi ou studio chaleureux à Kerem HaTeimanim.",
+      "Réservez votre appartement de luxe à Tel Aviv directement auprès d'Or Hakerem. Demandez un devis clair pour vos dates, que vous choisissiez le penthouse avec jacuzzi ou le studio chaleureux à Kerem HaTeimanim.",
     keywords:
       'réserver appartement Tel Aviv, réservation directe Tel Aviv, réserver un séjour à Tel Aviv, location vacances Israël réservation, réserver penthouse Tel Aviv, Kerem HaTeimanim',
   },
@@ -210,7 +210,7 @@ const he: SeoCatalog = {
   },
   reservation: {
     title: 'הזמינו שהות בתל אביב | אור הכרם | הזמנה ישירה',
-    description: 'הזמינו את שהות דירת היוקרה שלכם בתל אביב ישירות מול אור הכרם. הזמנה ישירה זולה עד 15% מ-Airbnb או Booking.com. פנטהאוז עם ג׳קוזי או סטודיו נעים בכרם התימנים.',
+    description: 'הזמינו את השהות בדירת היוקרה שלכם בתל אביב ישירות מול אור הכרם. בקשו הצעת מחיר ברורה לתאריכים המדויקים שלכם, בין אם תבחרו בפנטהאוז עם הג׳קוזי או בסטודיו הנעים בכרם התימנים.',
     keywords: 'הזמנת דירה בתל אביב, הזמנה ישירה תל אביב, הזמנת פנטהאוז תל אביב, הזמנת סטודיו כרם התימנים, כרם התימנים',
   },
   contact: {

@@ -2,6 +2,7 @@
 
 import Link from 'next/link';
 import { BulletList, CardGrid } from '@/components/legal/LegalPageShell';
+import { OPEN_CONSENT_SETTINGS_EVENT } from '@/lib/consent';
 
 const dataYouProvide = [
   {
@@ -23,6 +24,7 @@ const dataCollectedAutomatically = [
   'Browser type, device, and operating system',
   'Approximate location derived from your IP address',
   'The website or source that referred you to us',
+  'Your interactions with our advertising campaigns when you accept the Meta Pixel',
 ];
 
 const howWeUse = [
@@ -30,6 +32,7 @@ const howWeUse = [
   'Process, confirm, and manage your booking and event requests',
   'Contact you through your preferred method about your request',
   'Operate, secure, maintain, and improve the website',
+  'Measure advertising effectiveness and create relevant audiences when you consent',
   'Comply with our legal, tax, and accounting obligations',
 ];
 
@@ -40,7 +43,7 @@ const legalBases = [
   },
   {
     title: 'Consent',
-    body: 'Loading analytics cookies, which we set only after you accept them. You can change or withdraw your consent at any time through our cookie banner or your browser settings.',
+    body: 'Loading Google analytics cookies and Meta advertising technologies, which we activate only after your explicit choice for each service. You can change or withdraw your consent at any time.',
   },
   {
     title: 'Legitimate interests',
@@ -66,6 +69,10 @@ const processors = [
     body: 'Provides aggregated website-usage analytics through cookies and similar technologies.',
   },
   {
+    title: 'Meta Platforms',
+    body: 'Provides the Meta Pixel. Depending on the purpose, Meta may process data on our behalf or act with us as a joint controller for the collection and transfer of Event Data used for advertising targeting and improvement.',
+  },
+  {
     title: 'Vercel',
     body: 'Hosts the website and processes standard server and security logs.',
   },
@@ -75,6 +82,7 @@ const dataRetention = [
   'Contact and inquiry messages are kept only as long as needed to handle your request, plus a reasonable follow-up period.',
   'Reservation records are retained for booking administration and to meet legal and accounting requirements.',
   'Analytics data is retained according to our Google Analytics retention settings.',
+  'Under the Meta Business Tools Terms, Meta may retain Event Data for up to two years and audiences created from it until they are deleted through the account tools.',
 ];
 
 const gdprRights = [
@@ -142,8 +150,8 @@ export default function PrivacyContentEn({
               Information collected automatically
             </h3>
             <p className="mt-2 text-black/75 leading-relaxed">
-              When you browse the website, our analytics provider collects limited technical information
-              through cookies and similar technologies:
+              Depending on your consent choices, our analytics and advertising providers may collect
+              limited technical information through cookies and similar technologies:
             </p>
             <div className="mt-5">
               <BulletList items={dataCollectedAutomatically} />
@@ -153,7 +161,7 @@ export default function PrivacyContentEn({
       </section>
 
       <section className="mb-10" data-animate="fade-up" data-delay="3">
-        <h2 className="font-head text-3xl font-bold text-black">Cookies &amp; Analytics</h2>
+        <h2 className="font-head text-3xl font-bold text-black">Cookies, Analytics &amp; Advertising</h2>
         <div className="mt-3 h-px w-full bg-gradient-to-r from-secondary to-transparent"></div>
 
         <div className="mt-8 rounded-2xl border border-primary/10 bg-white p-6 md:p-8">
@@ -161,8 +169,14 @@ export default function PrivacyContentEn({
             <p>
               We use Google Analytics 4 to understand how visitors use the website so we can improve it.
               Google Analytics sets cookies and processes the technical information described above. These
-              analytics cookies load only after you accept them in our cookie banner, and we do not use
-              advertising or cross-site tracking cookies.
+              analytics cookies load only if you separately accept the “Audience measurement” category.
+            </p>
+            <p>
+              With your separate consent for the “Advertising” category, we also use the Meta Pixel. It
+              helps us measure actions taken after an interaction with our ads and create relevant
+              audiences on Meta services. The Pixel may process technical information, IP address, page
+              address, browser identifiers, and campaign information. We do not send form content to Meta
+              through the Pixel.
             </p>
             <p>
               You can change or withdraw your choice at any time using the button below, refuse or delete
@@ -182,7 +196,7 @@ export default function PrivacyContentEn({
 
           <button
             type="button"
-            onClick={() => window.dispatchEvent(new Event('open-cookie-settings'))}
+            onClick={() => window.dispatchEvent(new Event(OPEN_CONSENT_SETTINGS_EVENT))}
             className="mt-6 inline-flex items-center rounded-full border border-primary/15 bg-white px-5 py-2.5 font-semibold text-primary shadow-sm transition-colors hover:bg-primary/5"
           >
             Manage cookie preferences
@@ -215,13 +229,25 @@ export default function PrivacyContentEn({
       </section>
 
       <section className="mb-10" data-animate="fade-up">
-        <h2 className="font-head text-3xl font-bold text-black">Sharing &amp; Third-Party Processors</h2>
+        <h2 className="font-head text-3xl font-bold text-black">Sharing &amp; Third-Party Services</h2>
         <div className="mt-3 h-px w-full bg-gradient-to-r from-secondary to-transparent"></div>
 
         <div className="mt-8 rounded-2xl border border-primary/10 bg-white p-6 md:p-8">
           <p className="text-black/80 leading-relaxed">
-            We do not sell your personal data. We share it only with trusted service providers who
-            process it on our behalf, and where we are required to do so by law:
+            We do not sell your personal data. Depending on the service and purpose, third parties
+            may process data on our behalf, act as independent controllers, or act jointly with us
+            as controllers. For certain Meta Business Tools processing under the GDPR, Or Hakerem
+            and Meta Platforms Ireland Limited are joint controllers for collecting and
+            transmitting Event Data. More information is available in the{' '}
+            <a
+              href="https://www.facebook.com/legal/terms/businesstools/preview"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="font-semibold text-primary underline underline-offset-4 transition-colors hover:text-primary-light"
+            >
+              Meta Business Tools Terms
+            </a>
+            .
           </p>
           <div className="mt-6">
             <CardGrid items={processors} />
