@@ -9,6 +9,7 @@ import LiquidGlassButton from '@/components/LiquidGlassButton';
 import { useBackToTopVisibility } from '@/hooks/useBackToTopVisibility';
 import { useLocale } from '@/i18n/useLocale';
 import { servicesMessages } from '@/i18n/messages/services';
+import { trackMetaLead } from '@/lib/meta-events';
 
 interface ServiceCardProps {
   title: string;
@@ -65,6 +66,11 @@ export default function ServicesPage() {
 
       const result = await sendContactEmail(formData);
       if (result.success) {
+        trackMetaLead({
+          leadType: 'concierge_inquiry',
+          formLocation: 'services',
+          locale,
+        });
         toast.success(result.message || t.form.success);
         (e.target as HTMLFormElement).reset();
         setIsSuccess(true);

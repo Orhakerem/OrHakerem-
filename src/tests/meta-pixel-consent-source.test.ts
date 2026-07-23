@@ -12,6 +12,7 @@ function source(filePath: string) {
 const layout = source('src/app/[locale]/layout.tsx');
 const cookieConsent = source('src/components/CookieConsent.tsx');
 const metaPixel = source('src/components/MetaPixel.tsx');
+const metaEvents = source('src/lib/meta-events.ts');
 const envExample = source('.env.example');
 const commonMessages = source('src/i18n/messages/common.ts');
 
@@ -87,7 +88,11 @@ test('one guarded PageView command is emitted by the Meta component', () => {
 });
 
 test('withdrawing marketing consent revokes Meta and clears its browser identifiers', () => {
-  assert.match(cookieConsent, /window\.fbq\?\.\('consent', 'revoke'\)/);
+  assert.match(cookieConsent, /setMetaMarketingConsent\(false\)/);
+  assert.match(
+    metaEvents,
+    /window\.fbq\('consent', granted \? 'grant' : 'revoke'\)/,
+  );
   assert.match(cookieConsent, /name === '_fbp'/);
   assert.match(cookieConsent, /name === '_fbc'/);
   assert.match(cookieConsent, /delete window\.__orHakeremMetaLastPageView/);

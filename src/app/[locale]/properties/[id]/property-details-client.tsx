@@ -55,6 +55,7 @@ import { localizePath } from '@/i18n/config';
 import { useLocale } from '@/i18n/useLocale';
 import { propertyDetailsMessages } from '@/i18n/messages/propertyDetails';
 import { localizeBookingValidationMessage } from '@/i18n/messages/booking';
+import { trackMetaLead } from '@/lib/meta-events';
 
 interface PropertyDetailsClientProps {
   propertyId: string;
@@ -563,6 +564,11 @@ export default function PropertyDetailsClient({
       const result = await sendEmail(formData);
 
       if (result.success) {
+        trackMetaLead({
+          leadType: 'reservation_inquiry',
+          formLocation: 'property_detail',
+          locale,
+        });
         toast.success(result.message || t.ui.successToast);
         setIsSubmitSuccess(true);
         form.reset();
