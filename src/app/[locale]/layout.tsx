@@ -107,6 +107,10 @@ export default function RootLayout({
         <link rel="manifest" href="/favicon/site.webmanifest" />
         <meta name="theme-color" content="#a5382b" />
         <meta name="apple-mobile-web-app-title" content="Or Hakerem" />
+        <meta
+          name="facebook-domain-verification"
+          content="wxwb737u7ce2rnc2df2kibu2ifppu4"
+        />
       </head>
       <body className={`${fontVariables} min-h-screen bg-cream antialiased`}>
         <script
