@@ -25,7 +25,7 @@ const dataCollectedAutomatically = [
   "Le type de navigateur, l'appareil et le système d'exploitation",
   'La localisation approximative déduite de votre adresse IP',
   'Le site ou la source qui vous a orienté vers nous',
-  'Vos interactions avec nos campagnes publicitaires lorsque vous acceptez le Pixel Meta',
+  'Vos interactions avec nos campagnes publicitaires Meta et Google lorsque vous acceptez les cookies publicitaires',
 ];
 
 const howWeUse = [
@@ -44,7 +44,7 @@ const legalBases = [
   },
   {
     title: 'Le consentement',
-    body: 'Le chargement des cookies analytiques Google et des technologies publicitaires Meta, que nous n’activons qu’après votre choix explicite pour chaque service. Vous pouvez modifier ou retirer votre consentement à tout moment.',
+    body: 'Le chargement des cookies analytiques Google Analytics et des technologies publicitaires Meta et Google Ads, que nous n’activons qu’après votre choix explicite pour chaque catégorie. Vous pouvez modifier ou retirer votre consentement à tout moment.',
   },
   {
     title: 'Nos intérêts légitimes',
@@ -70,6 +70,10 @@ const processors = [
     body: "Fournit des statistiques agrégées d'utilisation du site via des cookies et technologies similaires.",
   },
   {
+    title: 'Google Ads (Google LLC)',
+    body: "Mesure les réservations et demandes générées par nos campagnes de recherche et display et constitue des audiences de remarketing. Google agit en qualité de responsable de traitement indépendant pour une partie de ces traitements, conformément à ses propres conditions publicitaires.",
+  },
+  {
     title: 'Meta Platforms',
     body: "Fournit le Pixel Meta. Selon la finalité, Meta peut traiter certaines données pour notre compte ou agir avec nous en qualité de responsable conjoint pour la collecte et la transmission de données d’événement utilisées pour le ciblage et l’amélioration publicitaires.",
   },
@@ -83,6 +87,7 @@ const dataRetention = [
   "Les messages de contact et de demande sont conservés uniquement le temps nécessaire pour traiter votre demande, plus une période de suivi raisonnable.",
   'Les données de réservation sont conservées pour la gestion des réservations et pour répondre aux exigences légales et comptables.',
   'Les données analytiques sont conservées selon les paramètres de conservation de Google Analytics.',
+  'Les données de conversion et de remarketing Google Ads sont conservées selon les durées définies par Google, et l’appartenance à une liste de remarketing expire au terme de la durée maximale autorisée par Google Ads.',
   'Selon les Conditions des outils Meta Business, Meta peut conserver les données d’événement pendant deux ans au maximum et les audiences créées à partir de ces données jusqu’à leur suppression dans les outils du compte.',
 ];
 
@@ -183,8 +188,17 @@ export default function PrivacyContentFr({
               la campagne. Nous n’envoyons pas à Meta le contenu de vos formulaires via le Pixel.
             </p>
             <p>
+              Ce même consentement à la catégorie « Publicité » couvre Google Ads. Nous diffusons des
+              campagnes sur le réseau de recherche et le réseau display, et la balise Google Ads nous
+              permet de mesurer les réservations et demandes consécutives à un clic sur une annonce et
+              de présenter des annonces pertinentes aux personnes ayant déjà visité le site
+              (remarketing). Lorsque notre propriété Google Analytics est associée à Google Ads, les
+              données analytiques peuvent également servir à constituer ces audiences. Nous
+              n’envoyons pas à Google le contenu de vos formulaires.
+            </p>
+            <p>
               Vous pouvez modifier ou retirer votre choix à tout moment via le bouton ci-dessous,
-              refuser ou supprimer les cookies dans les paramètres de votre navigateur, ou vous
+              refuser ou supprimer les cookies dans les paramètres de votre navigateur, vous
               désinscrire de Google Analytics sur l'ensemble des sites via le{' '}
               <a
                 href="https://tools.google.com/dlpage/gaoptout"
@@ -193,6 +207,24 @@ export default function PrivacyContentFr({
                 className="font-semibold text-primary underline underline-offset-4 transition-colors hover:text-primary-light"
               >
                 module de désactivation de Google
+              </a>
+              , désactiver la publicité personnalisée dans vos{' '}
+              <a
+                href="https://myadcenter.google.com/"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="font-semibold text-primary underline underline-offset-4 transition-colors hover:text-primary-light"
+              >
+                paramètres publicitaires Google
+              </a>
+              , ou ajuster vos{' '}
+              <a
+                href="https://www.facebook.com/settings?tab=ads"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="font-semibold text-primary underline underline-offset-4 transition-colors hover:text-primary-light"
+              >
+                préférences publicitaires Meta
               </a>
               . Le blocage des cookies n'affecte pas votre capacité à naviguer sur le site ou à nous contacter.
             </p>
