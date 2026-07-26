@@ -147,6 +147,37 @@ test('buildEventRequestSummary prices event requests from the public event prici
   assert.equal(quote.total, '4,250 ₪');
 });
 
+test('prices a weekday event at the same venue rate plus cleaning', () => {
+  const request = buildEventRequestSummary({
+    id: 'event-weekday-1',
+    event_type: 'Private dinner',
+    event_date: '2026-09-02',
+    guest_count_label: '18',
+    guest_name: 'Leah Cohen',
+    guest_email: 'leah@example.com',
+    guest_phone: '050-123-4567',
+    contact_method: 'email',
+    message: '',
+    created_at: '2026-07-24T10:00:00.000Z',
+  });
+
+  assert.equal(request.amountLabel, 'ILS 4,250');
+
+  const quote = buildQuoteDraftFromAdminRequest(request, {
+    todayIso: '2026-07-24',
+  });
+
+  assert.deepEqual(quote.lineItems, [
+    {
+      description: 'Private dinner event venue rental',
+      unit: 'Weekday Venue Rental',
+      amount: '3,500 ₪',
+    },
+    { description: 'Cleaning fee', unit: '-', amount: '750 ₪' },
+  ]);
+  assert.equal(quote.total, '4,250 ₪');
+});
+
 test('buildQuoteDraftFromAdminRequest prefills the existing admin devis shape', () => {
   const [request] = mapAdminCustomerRequests({
     reservations: [
