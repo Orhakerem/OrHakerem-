@@ -35,6 +35,7 @@ import {
   getBookablePropertyTitle,
 } from '@/lib/bookable-properties';
 import { trackMetaLead } from '@/lib/meta-events';
+import { trackGaLead } from '@/lib/ga-events';
 
 interface ReservationFormProps {
   initialSearchParams?: { [key: string]: string | string[] | undefined };
@@ -287,6 +288,11 @@ export default function ReservationForm({
       const result = await sendEmail(new FormData(e.currentTarget));
       if (result.success) {
         trackMetaLead({
+          leadType: 'reservation_inquiry',
+          formLocation: 'reservation',
+          locale,
+        });
+        trackGaLead({
           leadType: 'reservation_inquiry',
           formLocation: 'reservation',
           locale,
