@@ -23,7 +23,12 @@ export interface GaLeadEvent {
 
 export type GaOutboundMethod = 'whatsapp';
 
-export type GaOutboundLocation = 'floating_button' | 'contact_page';
+export type GaOutboundLocation =
+  | 'floating_button'
+  | 'contact_page'
+  | 'navbar'
+  | 'footer_social'
+  | 'footer_link';
 
 export interface GaOutboundEvent {
   method: GaOutboundMethod;
