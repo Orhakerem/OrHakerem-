@@ -10,6 +10,7 @@ import { useLocale } from '@/i18n/useLocale';
 import { commonMessages } from '@/i18n/messages/common';
 import LocaleSwitcher from '@/i18n/LocaleSwitcher';
 import { OPEN_CONSENT_SETTINGS_EVENT } from '@/lib/consent';
+import { trackGaOutboundContact } from '@/lib/ga-events';
 
 const socials = [
   { label: 'Instagram', href: 'https://www.instagram.com/or_hakerem/', Icon: Instagram },
@@ -67,6 +68,16 @@ export default function Footer() {
                     rel="noopener noreferrer"
                     aria-label={`Or Hakerem on ${label}`}
                     className="inline-flex h-9 w-9 items-center justify-center rounded-full border border-white/15 text-white/80 transition-colors hover:border-secondary/60 hover:bg-white/5 hover:text-white"
+                    onClick={
+                      label === 'WhatsApp'
+                        ? () =>
+                            trackGaOutboundContact({
+                              method: 'whatsapp',
+                              location: 'footer_social',
+                              locale,
+                            })
+                        : undefined
+                    }
                   >
                     <Icon className="h-4 w-4" aria-hidden="true" />
                   </a>
@@ -112,6 +123,13 @@ export default function Footer() {
                   target="_blank"
                   rel="noopener noreferrer"
                   className="inline-flex items-center gap-2 text-sm text-white/70 hover:text-white transition-colors"
+                  onClick={() =>
+                    trackGaOutboundContact({
+                      method: 'whatsapp',
+                      location: 'footer_link',
+                      locale,
+                    })
+                  }
                 >
                   <MessageCircle className="h-3.5 w-3.5" aria-hidden="true" />
                   {t.whatsappUs}

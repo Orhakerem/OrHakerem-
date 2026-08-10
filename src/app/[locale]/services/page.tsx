@@ -10,6 +10,7 @@ import { useBackToTopVisibility } from '@/hooks/useBackToTopVisibility';
 import { useLocale } from '@/i18n/useLocale';
 import { servicesMessages } from '@/i18n/messages/services';
 import { trackMetaLead } from '@/lib/meta-events';
+import { trackGaLead } from '@/lib/ga-events';
 
 interface ServiceCardProps {
   title: string;
@@ -67,6 +68,11 @@ export default function ServicesPage() {
       const result = await sendContactEmail(formData);
       if (result.success) {
         trackMetaLead({
+          leadType: 'concierge_inquiry',
+          formLocation: 'services',
+          locale,
+        });
+        trackGaLead({
           leadType: 'concierge_inquiry',
           formLocation: 'services',
           locale,
