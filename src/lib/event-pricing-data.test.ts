@@ -10,7 +10,7 @@ import {
 } from './event-pricing-data';
 
 test('uses one venue price for weekday and weekend events in every locale', () => {
-  assert.equal(eventVenueRentalPrice, 3500);
+  assert.equal(eventVenueRentalPrice, 4500);
 
   const cleaningSuffixByLocale = {
     en: '+ cleaning fee',
@@ -24,8 +24,8 @@ test('uses one venue price for weekday and weekend events in every locale', () =
     assert.deepEqual(
       rentals.map(({ id, price }) => ({ id, price })),
       [
-        { id: 'weekday', price: 3500 },
-        { id: 'weekend', price: 3500 },
+        { id: 'weekday', price: 4500 },
+        { id: 'weekend', price: 4500 },
       ],
     );
     assert.deepEqual(
@@ -40,5 +40,5 @@ test('uses one venue price for weekday and weekend events in every locale', () =
 
 test('keeps cleaning as a separate fee on top of the venue price', () => {
   assert.equal(eventCleaningFee, 750);
-  assert.equal(eventVenueRentalPrice + eventCleaningFee, 4250);
+  assert.equal(eventVenueRentalPrice + eventCleaningFee, 5250);
 });

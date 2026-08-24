@@ -159,6 +159,8 @@ export default function EventsClient({
 
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-8 md:py-20">
 
+        <EventPricing locale={locale} t={t.pricing} />
+
         {/* Availability Section - synced to penthouse calendar */}
         <section id="availability" className="events-availability-section py-6 md:py-10 mb-8 md:mb-12" data-animate="fade-up">
           <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -227,7 +229,6 @@ export default function EventsClient({
           </div>
         </section>
 
-        <EventPricing locale={locale} t={t.pricing} />
 
         {/* Event Spaces Section - Flat editorial */}
         <section id="venues" className="events-venues-section py-20 md:py-24 mb-8 md:mb-10" data-animate="fade-up">
