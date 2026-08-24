@@ -6,6 +6,7 @@ import { ArrowLeft, Home } from 'lucide-react';
 import ContactForm from '@/components/ContactForm';
 import { isLocale, localizePath, type Locale } from '@/i18n/config';
 import { contactMessages } from '@/i18n/messages/contact';
+import { trackGaOutboundContact } from '@/lib/ga-events';
 
 export default function ContactPage({ params }: { params: { locale: string } }) {
   const locale: Locale = isLocale(params.locale) ? params.locale : 'en';
@@ -103,6 +104,13 @@ export default function ContactPage({ params }: { params: { locale: string } }) 
                   rel="noopener noreferrer"
                   className="inline-flex items-center justify-center rounded-full bg-gradient-to-r from-secondary to-secondary-light px-5 py-2.5 font-semibold text-black shadow-lg transition-all duration-300"
                   dir="ltr"
+                  onClick={() =>
+                    trackGaOutboundContact({
+                      method: 'whatsapp',
+                      location: 'contact_page',
+                      locale,
+                    })
+                  }
                 >
                   {t.otherWays.whatsappCta}
                 </a>

@@ -236,6 +236,46 @@ for (const integration of integrations) {
   });
 }
 
+for (const integration of integrations) {
+  test(`${integration.filePath} mirrors the lead into GA4`, () => {
+    const sourceFile = parse(integration.filePath);
+    const trackingCalls = collectCalls(sourceFile, 'trackGaLead');
+
+    assert.equal(
+      trackingCalls.length,
+      1,
+      'every Meta lead must have exactly one GA4 counterpart',
+    );
+
+    const trackingCall = trackingCalls[0];
+    const successParent = findSuccessParent(trackingCall);
+
+    assert.ok(
+      successParent,
+      'GA4 tracking must sit inside the same if (result.success) branch',
+    );
+
+    const options = trackingCall.arguments[0];
+    assert.ok(
+      options && ts.isObjectLiteralExpression(options),
+      'trackGaLead must receive an object literal',
+    );
+    assert.equal(getStringProperty(options, 'leadType'), integration.leadType);
+    assert.equal(
+      getStringProperty(options, 'formLocation'),
+      integration.formLocation,
+    );
+    assert.ok(
+      options.properties.some(
+        property =>
+          ts.isShorthandPropertyAssignment(property) &&
+          property.name.text === 'locale',
+      ),
+      'locale must be forwarded from the localized client',
+    );
+  });
+}
+
 test('server email actions contain no Meta tracking', () => {
   for (const filePath of ['src/actions/contact.ts', 'src/actions/email.ts']) {
     const text = source(filePath);
