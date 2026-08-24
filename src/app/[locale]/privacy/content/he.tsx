@@ -25,7 +25,7 @@ const dataCollectedAutomatically = [
   'סוג הדפדפן, המכשיר ומערכת ההפעלה',
   'מיקום משוער המבוסס על כתובת ה-IP שלכם',
   'האתר או המקור שהפנה אתכם אלינו',
-  'האינטראקציות שלכם עם קמפיינים פרסומיים כאשר אתם מאשרים את Meta Pixel',
+  'האינטראקציות שלכם עם קמפיינים פרסומיים של Meta ושל Google כאשר אתם מאשרים עוגיות פרסום',
 ];
 
 const howWeUse = [
@@ -44,7 +44,7 @@ const legalBases = [
   },
   {
     title: 'הסכמה',
-    body: 'טעינת עוגיות האנליטיקה של Google וטכנולוגיות הפרסום של Meta, המופעלות רק לאחר בחירה מפורשת בכל שירות. ניתן לשנות או לבטל את ההסכמה בכל עת.',
+    body: 'טעינת עוגיות האנליטיקה של Google Analytics וטכנולוגיות הפרסום של Meta ושל Google Ads, המופעלות רק לאחר בחירה מפורשת בכל קטגוריה. ניתן לשנות או לבטל את ההסכמה בכל עת.',
   },
   {
     title: 'אינטרסים לגיטימיים',
@@ -70,6 +70,10 @@ const processors = [
     body: 'מספק נתוני שימוש מצטברים באתר באמצעות עוגיות וטכנולוגיות דומות.',
   },
   {
+    title: '(Google LLC) Google Ads',
+    body: 'מודד את ההזמנות והפניות שנוצרו מקמפיינים ברשת החיפוש וברשת המדיה ובונה קהלי רימרקטינג. Google פועלת כבעלת שליטה עצמאית בחלק מהעיבודים הללו, בהתאם לתנאי הפרסום שלה.',
+  },
+  {
     title: 'Meta Platforms',
     body: 'מספקת את Meta Pixel. בהתאם למטרה, Meta עשויה לעבד נתונים עבורנו או לפעול יחד איתנו כאחראית משותפת לאיסוף ולהעברת נתוני אירועים המשמשים למיקוד ולשיפור פרסום.',
   },
@@ -83,6 +87,7 @@ const dataRetention = [
   'הודעות יצירת קשר ופנייה נשמרות רק לפרק הזמן הנדרש לטיפול בבקשתכם, בתוספת תקופת מעקב סבירה.',
   'רשומות הזמנה נשמרות לצורך ניהול ההזמנות ולעמידה בדרישות משפטיות וחשבונאיות.',
   'נתוני אנליטיקה נשמרים בהתאם להגדרות השמירה של Google Analytics.',
+  'נתוני המרות ורימרקטינג של Google Ads נשמרים לפרקי הזמן שנקבעו על ידי Google, וההשתייכות לרשימת רימרקטינג פוקעת בתום משך הזמן המרבי המותר ב-Google Ads.',
   'בהתאם לתנאי כלי Meta Business, Meta עשויה לשמור נתוני אירועים למשך עד שנתיים, וקהלים שנוצרו מהם עד למחיקתם באמצעות כלי החשבון.',
 ];
 
@@ -178,8 +183,15 @@ export default function PrivacyContentHe({
               שולחים ל-Meta את תוכן הטפסים באמצעות הפיקסל.
             </p>
             <p>
+              אותה הסכמה לקטגוריית הפרסום חלה גם על Google Ads. אנו מפעילים קמפיינים ברשת החיפוש
+              וברשת המדיה, ותג Google Ads מאפשר לנו למדוד הזמנות ופניות שבוצעו לאחר קליק על מודעה
+              ולהציג מודעות רלוונטיות למי שכבר ביקר באתר (רימרקטינג). כאשר נכס Google Analytics שלנו
+              מקושר ל-Google Ads, נתוני האנליטיקה עשויים לשמש גם לבניית קהלים אלה. איננו שולחים
+              ל-Google את תוכן הטפסים.
+            </p>
+            <p>
               באפשרותכם לשנות או לבטל את בחירתכם בכל עת באמצעות הכפתור למטה, לסרב או למחוק עוגיות
-              דרך הגדרות הדפדפן, או להסיר את עצמכם מ-Google Analytics בכל האתרים באמצעות{' '}
+              דרך הגדרות הדפדפן, להסיר את עצמכם מ-Google Analytics בכל האתרים באמצעות{' '}
               <a
                 href="https://tools.google.com/dlpage/gaoptout"
                 target="_blank"
@@ -187,6 +199,24 @@ export default function PrivacyContentHe({
                 className="font-semibold text-primary underline underline-offset-4 transition-colors hover:text-primary-light"
               >
                 תוסף ההסרה של Google
+              </a>
+              , לכבות פרסום מותאם אישית ב{' '}
+              <a
+                href="https://myadcenter.google.com/"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="font-semibold text-primary underline underline-offset-4 transition-colors hover:text-primary-light"
+              >
+                הגדרות המודעות של Google
+              </a>
+              , או להתאים את{' '}
+              <a
+                href="https://www.facebook.com/settings?tab=ads"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="font-semibold text-primary underline underline-offset-4 transition-colors hover:text-primary-light"
+              >
+                העדפות המודעות שלכם ב-Meta
               </a>
               . חסימת עוגיות לא תפגע ביכולתכם לגלוש באתר או ליצור איתנו קשר.
             </p>

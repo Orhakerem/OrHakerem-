@@ -7,7 +7,9 @@ export default function robots(): MetadataRoute.Robots {
       {
         userAgent: '*',
         allow: '/',
-        disallow: ['/api/', '/_next/', '/admin', '/admin/'],
+        // /_next/ must stay crawlable: blocking it hides the site's CSS and
+        // fonts from Googlebot, degrading rendering/mobile-usability checks.
+        disallow: ['/api/', '/admin', '/admin/'],
       },
     ],
     sitemap: `${SITE_URL}/sitemap.xml`,

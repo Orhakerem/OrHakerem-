@@ -32,12 +32,15 @@ export function localizePath(locale: Locale, path: string): string {
 }
 
 /**
- * Removes a leading /fr or /he segment so path logic can reason about the
+ * Removes a leading /en, /fr or /he segment so path logic can reason about the
  * canonical (English) shape of the current URL. Unprefixed paths pass through.
+ * Statically prerendered pages resolve `usePathname()` to the internal
+ * `/en/...` rewrite target, so /en must be stripped too or callers that
+ * re-localize the result (e.g. LocaleSwitcher) double-prefix it into
+ * `/fr/en/...`.
  */
 export function stripLocalePrefix(pathname: string): string {
   for (const locale of LOCALES) {
-    if (locale === DEFAULT_LOCALE) continue;
     if (pathname === `/${locale}`) return '/';
     if (pathname.startsWith(`/${locale}/`)) return pathname.slice(locale.length + 1);
   }

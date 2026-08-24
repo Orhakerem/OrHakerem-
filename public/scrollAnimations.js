@@ -6,7 +6,10 @@ const showAllAnimatedElements = () => {
   });
 };
 
-const observer = new IntersectionObserver((entries, obs) => {
+const REVEAL_RATIO = 0.12;
+const ROOT_MARGIN_BOTTOM_RATIO = 0.08;
+
+const createObserver = (threshold) => new IntersectionObserver((entries, obs) => {
   entries.forEach(entry => {
     if (entry.isIntersecting) {
       const delay = entry.target.getAttribute("data-delay");
@@ -20,9 +23,24 @@ const observer = new IntersectionObserver((entries, obs) => {
     }
   });
 }, {
-  threshold: 0.12,
-  rootMargin: "0px 0px -8% 0px",
+  threshold,
+  rootMargin: `0px 0px -${ROOT_MARGIN_BOTTOM_RATIO * 100}% 0px`,
 });
+
+const observer = createObserver(REVEAL_RATIO);
+
+// An element can never expose more of itself than the root can hold, so once it
+// is taller than rootHeight / REVEAL_RATIO its ratio tops out below the
+// threshold, the callback never fires, and it stays at opacity 0 forever (this
+// is what blanked the long legal pages). Reveal those on entry instead.
+const tallElementObserver = createObserver(0);
+
+const canReachRevealRatio = (element) => {
+  const height = element.getBoundingClientRect().height;
+  const rootHeight = window.innerHeight * (1 - ROOT_MARGIN_BOTTOM_RATIO);
+
+  return height * REVEAL_RATIO <= rootHeight;
+};
 
 const prepareAnimationGroups = (root) => {
   root.querySelectorAll("[data-animate-group]").forEach((group) => {
@@ -58,7 +76,7 @@ const observeAnimations = (root = document) => {
     }
 
     observedElements.add(element);
-    observer.observe(element);
+    (canReachRevealRatio(element) ? observer : tallElementObserver).observe(element);
   });
 };
 

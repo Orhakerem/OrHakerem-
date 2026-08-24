@@ -9,6 +9,7 @@ export type VenueRental = {
   highlight?: boolean;
 };
 
+export const eventVenueRentalPrice = 4500;
 export const eventCleaningFee = 750;
 
 const venueRentalsByLocale: Record<Locale, VenueRental[]> = {
@@ -16,7 +17,7 @@ const venueRentalsByLocale: Record<Locale, VenueRental[]> = {
     {
       id: 'weekday',
       label: 'Weekday Venue Rental',
-      price: 2800,
+      price: eventVenueRentalPrice,
       priceSuffix: '+ cleaning fee',
       features: ['Space rental only', 'Catering and service add-ons available separately'],
       highlight: true,
@@ -24,7 +25,7 @@ const venueRentalsByLocale: Record<Locale, VenueRental[]> = {
     {
       id: 'weekend',
       label: 'Weekend Venue Rental',
-      price: 3500,
+      price: eventVenueRentalPrice,
       priceSuffix: '+ cleaning fee',
       features: ['Space rental only', 'Catering and service add-ons available separately'],
       highlight: true,
@@ -34,7 +35,7 @@ const venueRentalsByLocale: Record<Locale, VenueRental[]> = {
     {
       id: 'weekday',
       label: 'Location en semaine',
-      price: 2800,
+      price: eventVenueRentalPrice,
       priceSuffix: '+ frais de ménage',
       features: ['Location de l’espace uniquement', 'Traiteur et services additionnels disponibles séparément'],
       highlight: true,
@@ -42,7 +43,7 @@ const venueRentalsByLocale: Record<Locale, VenueRental[]> = {
     {
       id: 'weekend',
       label: 'Location le week-end',
-      price: 3500,
+      price: eventVenueRentalPrice,
       priceSuffix: '+ frais de ménage',
       features: ['Location de l’espace uniquement', 'Traiteur et services additionnels disponibles séparément'],
       highlight: true,
@@ -52,7 +53,7 @@ const venueRentalsByLocale: Record<Locale, VenueRental[]> = {
     {
       id: 'weekday',
       label: 'השכרת המקום באמצע השבוע',
-      price: 2800,
+      price: eventVenueRentalPrice,
       priceSuffix: '+ דמי ניקיון',
       features: ['השכרת המקום בלבד', 'קייטרינג ושירותים נוספים זמינים בנפרד'],
       highlight: true,
@@ -60,7 +61,7 @@ const venueRentalsByLocale: Record<Locale, VenueRental[]> = {
     {
       id: 'weekend',
       label: 'השכרת המקום בסוף השבוע',
-      price: 3500,
+      price: eventVenueRentalPrice,
       priceSuffix: '+ דמי ניקיון',
       features: ['השכרת המקום בלבד', 'קייטרינג ושירותים נוספים זמינים בנפרד'],
       highlight: true,
