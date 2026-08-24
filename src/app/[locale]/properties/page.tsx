@@ -14,6 +14,7 @@ import {
 import Image from 'next/image';
 import Link from 'next/link';
 
+import BreadcrumbSchema from '@/components/BreadcrumbSchema';
 import LiquidGlassCTA from '@/components/LiquidGlassCTA';
 import { isLocale, localizePath, type Locale } from '@/i18n/config';
 import { propertiesMessages, type PropertiesMessages } from '@/i18n/messages/properties';
@@ -120,6 +121,7 @@ export default function Properties({ params }: { params: { locale: string } }) {
 
   return (
     <div className="min-h-screen pt-28 pb-10 md:pb-20 md:pt-32" style={{ backgroundColor: '#e8e4dc' }}>
+      <BreadcrumbSchema locale={params.locale} path="/properties" label="properties" />
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Hero Section */}
         <div className="text-center mb-8 md:mb-16" data-animate="fade-up">

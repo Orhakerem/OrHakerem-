@@ -52,19 +52,36 @@ function hasAnalyticsConsent(): boolean {
 }
 
 /**
- * Push straight onto dataLayer rather than calling window.gtag: gtag.js is
- * loaded by <Script>, so on an early submit the helper may not exist yet.
- * gtag.js drains whatever is already queued once it boots, so queueing keeps
- * the conversion instead of dropping it.
+ * Queue a gtag.js command.
+ *
+ * gtag.js only processes dataLayer entries that are `arguments` objects whose
+ * first element is a command ('js', 'config', 'event', …). A plain
+ * `{ event: 'generate_lead' }` object is *GTM's* format, and gtag.js — which
+ * is what `GoogleAnalytics.tsx` loads — ignores it silently. The first version
+ * of this file pushed that object shape, so every lead event was dropped
+ * before it ever reached GA4.
+ *
+ * Building a real `arguments` object here makes the queue entry byte-identical
+ * to what `window.gtag()` would push, without depending on `window.gtag`
+ * existing yet: the loader is `afterInteractive`, so an early submit can beat
+ * it. gtag.js drains whatever is already queued once it boots.
  */
-function push(payload: Record<string, unknown>): boolean {
+function queueGtagCommand(...args: unknown[]): void {
+  window.dataLayer = window.dataLayer || [];
+
+  (function () {
+    // eslint-disable-next-line prefer-rest-params
+    (window.dataLayer as unknown[]).push(arguments);
+  }).apply(null, args as []);
+}
+
+function push(eventName: string, params: Record<string, unknown>): boolean {
   if (typeof window === 'undefined' || !hasAnalyticsConsent()) {
     return false;
   }
 
   try {
-    window.dataLayer = window.dataLayer || [];
-    window.dataLayer.push(payload);
+    queueGtagCommand('event', eventName, params);
   } catch {
     // Analytics must never turn a successful submission into a failure.
     return false;
@@ -82,8 +99,7 @@ export function trackGaLead({
   formLocation,
   locale,
 }: GaLeadEvent): boolean {
-  return push({
-    event: 'generate_lead',
+  return push('generate_lead', {
     lead_type: leadType,
     form_location: formLocation,
     locale,
@@ -99,8 +115,7 @@ export function trackGaOutboundContact({
   location,
   locale,
 }: GaOutboundEvent): boolean {
-  return push({
-    event: 'contact_outbound',
+  return push('contact_outbound', {
     method,
     location,
     locale,

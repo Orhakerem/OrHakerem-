@@ -13,6 +13,7 @@ import { ENABLED_LOCALES, isEnabledLocale, isLocale, isRtl, OG_LOCALE, type Loca
 import { commonMessages } from '@/i18n/messages/common';
 import { seoMessages } from '@/i18n/messages/seo';
 import { getBusinessStructuredData } from '@/lib/business-schema';
+import { getOrganizationStructuredData, getWebSiteStructuredData } from '@/lib/site-schema';
 
 import '../globals.css';
 
@@ -97,6 +98,8 @@ export default function RootLayout({
     : `${inter.variable} ${manrope.variable}`;
   const t = commonMessages[locale];
   const businessStructuredData = getBusinessStructuredData(locale, seoMessages[locale].home.description);
+  const organizationStructuredData = getOrganizationStructuredData();
+  const webSiteStructuredData = getWebSiteStructuredData(locale);
 
   return (
     <html lang={locale} dir={isRtl(locale) ? 'rtl' : 'ltr'}>
@@ -114,6 +117,14 @@ export default function RootLayout({
         />
       </head>
       <body className={`${fontVariables} min-h-screen bg-cream antialiased`}>
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(organizationStructuredData) }}
+        />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(webSiteStructuredData) }}
+        />
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(businessStructuredData) }}
