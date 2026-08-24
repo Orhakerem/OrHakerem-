@@ -203,12 +203,14 @@ Une chute de cette ampleur signifie généralement un changement de nature du tr
 ## 8. Plan d'action
 
 ### Immédiat
-1. 🔴 **Fusionner `dev` → `main` et déployer** — le correctif `8652d46` ne sert à rien tant qu'il n'est pas en production
-2. 🟠 **Passer la conservation des données événementielles à 14 mois** — gratuit, deux clics, non rétroactif : chaque jour d'attente est de la donnée perdue
+1. ✅ **Fait le 25 août** — `dev` → `main` fusionné et déployé (`3d3ddc4`). Vérifié en production : un clic WhatsApp sur `www.orhakerem.com` produit
+   `…&en=contact_outbound&ep.method=whatsapp&ep.location=navbar&ep.locale=en`.
+   **Les conversions sont mesurées pour la première fois.**
+2. ✅ **Fait le 25 août** — conservation des données événementielles portée de 2 à **14 mois**. Applicable sous 24 h, non rétroactif.
 
 ### Sous 48 h après déploiement
-3. 🔴 Vérifier dans **GA4 → Temps réel** que `generate_lead` et `contact_outbound` arrivent
-4. 🔴 **Les marquer comme événements clés**, et retirer `purchase`
+3. 🔴 Vérifier dans **GA4 → Temps réel** que `generate_lead` arrive aussi (le premier vrai envoi de formulaire le confirmera ; `contact_outbound` est déjà validé)
+4. 🔴 **Marquer `generate_lead` et `contact_outbound` comme événements clés** — sans ça ils ne comptent pas comme conversions. Optionnel : retirer `purchase`, qui restera à zéro.
 
 ### Cette semaine
 5. 🟠 **Baliser en UTM** tous les liens que vous contrôlez (bio Instagram, Facebook, signature, WhatsApp, QR codes) — sans quoi 43 % du trafic restera aveugle même une fois les conversions actives
