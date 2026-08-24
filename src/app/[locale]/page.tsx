@@ -7,16 +7,23 @@ import { ContactCard } from '@/components/ContactCard';
 import { Mail, Phone, Instagram, Facebook } from 'lucide-react';
 import TestimonialsCarousel from '@/components/TestimonialsCarousel';
 import MapEmbed from '@/components/MapEmbed';
-import { isLocale, type Locale } from '@/i18n/config';
+import { isLocale, localizePath, type Locale } from '@/i18n/config';
 import { homeMessages } from '@/i18n/messages/home';
 import { GOOGLE_BUSINESS_PROFILE_URL } from '@/lib/business-schema';
+import { getVideoStructuredData } from '@/lib/site-schema';
+import { getHomeHeroVideo } from '@/lib/site-videos';
 
 export default function Home({ params }: { params: { locale: string } }) {
   const locale: Locale = isLocale(params.locale) ? params.locale : 'en';
   const t = homeMessages[locale];
+  const heroVideoSchema = getVideoStructuredData(getHomeHeroVideo(locale), localizePath(locale, '/'));
 
   return (
     <div className="min-h-screen">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(heroVideoSchema) }}
+      />
       {/* Preload the hero poster (the LCP paint) at high priority */}
       <link rel="preload" as="image" href="/hero-poster.webp" fetchPriority="high" />
       {/* Hero Section with Video Background - No Margin Top */}

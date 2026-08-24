@@ -3,12 +3,18 @@ import { NextResponse } from 'next/server';
 
 import { SESSION_COOKIE_NAME, buildSessionTokenPayload } from '@/lib/admin-session-token';
 
-const LEGACY_ACCOMMODATION_PATHS = new Set([
-  '/rentals',
-  '/rentals/',
-  '/short-term-rentals',
-  '/short-term-rentals/',
-]);
+const LEGACY_ACCOMMODATION_PREFIXES = ['/rentals', '/short-term-rentals'];
+
+/**
+ * The matcher already routes every `/rentals/*` depth here, so match the same
+ * shape: exact-string matching left deep legacy URLs (e.g. `/rentals/studio`)
+ * falling through to a 404 instead of the 301 they were meant to get.
+ */
+function isLegacyAccommodationPath(pathname: string): boolean {
+  return LEGACY_ACCOMMODATION_PREFIXES.some(
+    (prefix) => pathname === prefix || pathname.startsWith(`${prefix}/`),
+  );
+}
 
 async function sha256Hex(value: string): Promise<string> {
   const digest = await crypto.subtle.digest('SHA-256', new TextEncoder().encode(value));
@@ -42,7 +48,7 @@ async function isAdminSessionValid(token: string | undefined): Promise<boolean> 
 export async function middleware(request: NextRequest) {
   const { pathname } = request.nextUrl;
 
-  if (LEGACY_ACCOMMODATION_PATHS.has(pathname)) {
+  if (isLegacyAccommodationPath(pathname)) {
     const destination = request.nextUrl.clone();
     destination.pathname = '/properties';
 
