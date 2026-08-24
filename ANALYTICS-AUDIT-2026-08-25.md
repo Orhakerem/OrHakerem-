@@ -100,23 +100,37 @@ C'est un changement de paramètres sur votre propriété : je ne le fais pas san
 
 ---
 
-## 3. 🔴 Google Ads dépense sans signal de conversion
+## 3. 🟠 Google Ads — à l'arrêt aujourd'hui, à préparer avant de relancer
+
+> **Précision apportée par Joseph le 25 août :** aucune campagne Google Ads n'est active en ce moment, mais **c'est prévu pour la suite.** Cela change entièrement la lecture ci-dessous : ce n'est pas un budget qui saigne, c'est une infrastructure à monter **avant** le premier shekel dépensé.
 
 | Constat | Détail |
 |---|---|
-| Compte lié | `607-285-6086`, depuis le 22 février 2026 ✅ |
+| Compte lié à GA4 | `607-285-6086`, depuis le 22 février 2026 ✅ |
+| Campagnes actives | **Aucune** (confirmé) |
+| Sessions Paid Search + Cross-network (90 j) | 3 — résidus d'anciennes campagnes |
 | Publicité personnalisée | **Désactivée** |
-| Conversion `ads_conversion_Demande_de_devis_1` | **Aucune donnée de flux** |
+| Conversion `ads_conversion_Demande_de_devis_1` | Aucune donnée de flux |
 | Balise de conversion Google Ads dans le code | **Absente** — aucun `AW-…` dans tout le dépôt |
-| Sessions Paid Search + Cross-network (90 j) | **3** — engagement 0 %, durée 0 s |
 
-Trois lectures :
+Les 3 sessions payantes et le `0 %` d'engagement s'expliquent donc simplement : il n'y a rien qui tourne. **Aucune urgence.**
 
-1. **Il n'y a aucune balise de conversion Google Ads sur le site.** La politique de confidentialité documente pourtant « les données de conversion et de remarketing Google Ads ». Le document décrit un dispositif qui n'existe pas techniquement.
-2. **3 sessions payantes en 90 jours**, avec 0 % d'engagement. Soit les campagnes sont à l'arrêt, soit le budget ne produit rien de mesurable.
-3. **La publicité personnalisée est désactivée**, ce qui empêche d'exporter les audiences GA4 vers Google Ads. C'est peut-être un choix de confidentialité assumé — cohérent avec votre bandeau de consentement — mais il faut le savoir : le remarketing est hors circuit.
+Mais le constat qui compte reste entier : **si vous relancez aujourd'hui, vous dépenserez à l'aveugle.** Il n'existe aucune balise de conversion sur le site, et l'action `ads_conversion_Demande_de_devis_1` est une coquille vide.
 
-> **Décision à prendre :** soit vous arrêtez Google Ads (3 sessions/90 j ne justifient pas la complexité), soit vous branchez la conversion correctement en important `generate_lead` depuis GA4 une fois §2 fait. **Ne laissez pas tourner un budget sans signal de retour.**
+### La bonne nouvelle : le plus dur est déjà fait
+
+Le correctif du §1 vient de rendre `generate_lead` opérationnel. Google Ads n'a **pas besoin** d'une balise `AW-…` séparée : il suffit d'importer l'événement clé GA4. C'est même la méthode que Google recommande aujourd'hui, et elle a un avantage réel — une seule définition de conversion, partagée entre GA4 et Ads, impossible à faire diverger.
+
+### Checklist avant de relancer
+
+1. ✅ `generate_lead` émis correctement — fait le 25 août
+2. ⏳ `generate_lead` marqué comme **événement clé** dans GA4 — prévu le 26 août (§2)
+3. ⏳ **Importer l'événement clé dans Google Ads** : `Objectifs → Conversions → Importer → Google Analytics 4 → Web`. Attendre l'étape 2, sinon l'événement n'apparaît pas dans la liste.
+4. ⏳ **Nettoyer `ads_conversion_Demande_de_devis_1`** — une action de conversion morte fausserait l'optimisation automatique des enchères, qui apprendrait sur zéro signal.
+5. ⏳ **Baliser en UTM les liens d'annonces** si vous utilisez des URL de destination personnalisées (voir `docs/utm-links.md`). Le balisage automatique (`auto-tagging` / `gclid`) suffit dans la plupart des cas et vaut mieux : laissez-le activé.
+6. 🤔 **Décider sur la publicité personnalisée.** Elle est désactivée, ce qui empêche d'exporter les audiences GA4 vers Ads — donc **pas de remarketing**. C'est peut-être un choix assumé, cohérent avec votre bandeau de consentement. Mais si le plan média inclut du remarketing, il faudra la réactiver *et* vérifier que le gating de consentement le couvre correctement.
+
+> **Ordre à respecter :** ne lancez pas de campagne avant l'étape 3. Une campagne sans signal de conversion apprend sur le mauvais objectif — Google optimisera les clics au lieu des demandes, et les premières semaines de budget serviront à entraîner un modèle vers le vide. C'est le budget le plus cher d'une campagne, autant qu'il compte.
 
 ---
 
@@ -220,7 +234,7 @@ Une chute de cette ampleur signifie généralement un changement de nature du tr
 
 ### Cette semaine
 5. 🟠 **Baliser en UTM** tous les liens que vous contrôlez (bio Instagram, Facebook, signature, WhatsApp, QR codes) — sans quoi 43 % du trafic restera aveugle même une fois les conversions actives
-6. 🟠 **Trancher sur Google Ads** : brancher la conversion correctement, ou arrêter. Pas d'entre-deux.
+6. 🟠 **Préparer Google Ads avant relance** (aucune campagne active aujourd'hui, relance prévue) : importer l'événement clé `generate_lead` dans Ads, et supprimer l'action de conversion morte. Voir la checklist §3.
 
 ### Sous quinzaine
 7. 🟡 Regarder ce qui s'est passé sur Organic Social (engagement 80 % → 48 %)
