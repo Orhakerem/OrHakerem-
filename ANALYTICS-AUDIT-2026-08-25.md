@@ -209,8 +209,14 @@ Une chute de cette ampleur signifie généralement un changement de nature du tr
 2. ✅ **Fait le 25 août** — conservation des données événementielles portée de 2 à **14 mois**. Applicable sous 24 h, non rétroactif.
 
 ### Sous 48 h après déploiement
-3. 🔴 Vérifier dans **GA4 → Temps réel** que `generate_lead` arrive aussi (le premier vrai envoi de formulaire le confirmera ; `contact_outbound` est déjà validé)
-4. 🔴 **Marquer `generate_lead` et `contact_outbound` comme événements clés** — sans ça ils ne comptent pas comme conversions. Optionnel : retirer `purchase`, qui restera à zéro.
+3. ✅ **Fait le 25 août** — les deux événements sont confirmés côté GA4 :
+   - `contact_outbound` : validé au niveau réseau depuis la production
+   - `generate_lead` : visible dans **GA4 → Temps réel** (1 événement, déclenché volontairement pour l'enregistrer dans la propriété)
+4. ⏳ **À faire le 26 août** — **marquer `generate_lead` et `contact_outbound` comme événements clés**.
+   Bloqué aujourd'hui, pas par un problème : l'interface GA4 ne permet de poser l'étoile que sur un événement figurant dans **Administration → Événements → Événements récents**, et cette liste n'est rafraîchie que toutes les ~24 h. Elle n'affiche encore que les 7 événements automatiques.
+   > Aucun contournement propre n'existe : « Créer un événement » fabriquerait un événement dérivé redondant, qui dupliquerait la donnée et brouillerait la taxonomie qu'on vient d'assainir.
+   > ⚠️ **Le marquage n'est pas rétroactif.** Les conversions ne seront comptées qu'à partir du moment où l'étoile est posée. Chaque jour de retard est une journée de demandes non comptabilisées.
+   Optionnel : retirer `purchase`, qui restera à zéro.
 
 ### Cette semaine
 5. 🟠 **Baliser en UTM** tous les liens que vous contrôlez (bio Instagram, Facebook, signature, WhatsApp, QR codes) — sans quoi 43 % du trafic restera aveugle même une fois les conversions actives
