@@ -9,7 +9,7 @@ export type VenueRental = {
   highlight?: boolean;
 };
 
-export const eventVenueRentalPrice = 3500;
+export const eventVenueRentalPrice = 4500;
 export const eventCleaningFee = 750;
 
 const venueRentalsByLocale: Record<Locale, VenueRental[]> = {
