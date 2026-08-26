@@ -226,10 +226,20 @@ Une chute de cette ampleur signifie généralement un changement de nature du tr
 3. ✅ **Fait le 25 août** — les deux événements sont confirmés côté GA4 :
    - `contact_outbound` : validé au niveau réseau depuis la production
    - `generate_lead` : visible dans **GA4 → Temps réel** (1 événement, déclenché volontairement pour l'enregistrer dans la propriété)
-4. ⏳ **À faire le 26 août** — **marquer `generate_lead` et `contact_outbound` comme événements clés**.
-   Bloqué aujourd'hui, pas par un problème : l'interface GA4 ne permet de poser l'étoile que sur un événement figurant dans **Administration → Événements → Événements récents**, et cette liste n'est rafraîchie que toutes les ~24 h. Elle n'affiche encore que les 7 événements automatiques.
-   > Aucun contournement propre n'existe : « Créer un événement » fabriquerait un événement dérivé redondant, qui dupliquerait la donnée et brouillerait la taxonomie qu'on vient d'assainir.
-   > ⚠️ **Le marquage n'est pas rétroactif.** Les conversions ne seront comptées qu'à partir du moment où l'étoile est posée. Chaque jour de retard est une journée de demandes non comptabilisées.
+4. 🟡 **26 août — `generate_lead` marqué comme événement clé.** ✅ Il apparaît dans GA4 avec un flux actif. **Les demandes soumises comptent désormais comme conversions.**
+
+   **`contact_outbound` reste à marquer** (prévu le 27 août). Raison, et elle corrige une conclusion du 25 août :
+
+   > **Correction.** Le 25 août j'ai annoncé `contact_outbound` « vérifié en production ». C'était une conclusion trop rapide, tirée d'une entrée de *resource timing* — laquelle prouve qu'une requête a été **initiée**, pas qu'elle a **abouti**. Le rapport GA4 du 26 août ne montrait aucun `contact_outbound` : l'événement n'avait jamais été enregistré.
+   >
+   > Cause identifiée : le test utilisait un clic synthétique (`dispatchEvent`), qui déclenchait une navigation vers `wa.me` et interrompait le beacon avant son départ. **Le code applicatif n'est pas en cause** — tous les liens WhatsApp portent `target="_blank"`, donc un vrai clic n'interrompt jamais la page.
+   >
+   > Retesté le 26 août en neutralisant la navigation : `contact_outbound` apparaît bien dans **GA4 → Temps réel**. Le code fonctionne.
+
+   `contact_outbound` venant tout juste d'être enregistré pour la première fois, il faut les ~24 h habituelles avant qu'il apparaisse dans la liste d'administration où se pose l'étoile.
+
+   ⚠️ **Le marquage n'est pas rétroactif** — les conversions ne comptent qu'à partir de la pose de l'étoile.
+
    Optionnel : retirer `purchase`, qui restera à zéro.
 
 ### Cette semaine
