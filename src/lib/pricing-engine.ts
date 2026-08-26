@@ -370,6 +370,7 @@ export async function fetchPricingTiers(
   const { data, error } = await supabase
     .from('pricing_tiers')
     .select('listing_id, season_type, day_type, min_nights, max_nights, target_price')
+    .eq('is_active', true)
     .eq('listing_id', listingId);
 
   if (error) {

@@ -66,6 +66,7 @@ test('saves a pending reservation request with server-calculated pricing', async
         min_nights: 1,
         max_nights: null,
         target_price: '200',
+        is_active: true,
       },
       {
         listing_id: LISTING_ID,
@@ -74,6 +75,7 @@ test('saves a pending reservation request with server-calculated pricing', async
         min_nights: 1,
         max_nights: null,
         target_price: '300',
+        is_active: true,
       },
     ],
     season_date_overrides: [],
