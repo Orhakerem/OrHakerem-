@@ -82,7 +82,11 @@ export type SiteVideo = {
   thumbnailPath: string;
   /** Site-relative path to the mp4. */
   contentPath: string;
-  /** ISO 8601 date the video was published on the site. */
+  /**
+   * ISO 8601 date-time the video was published, **with a timezone offset**.
+   * A date alone (`2025-05-18`) is what Search Console flags as "missing
+   * timezone" / "incorrect date and time value" for `uploadDate`.
+   */
   uploadDate: string;
   /** ISO 8601 duration, e.g. `PT4S`. */
   duration: string;

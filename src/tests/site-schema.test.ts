@@ -73,7 +73,12 @@ test('hero videos are localized and point at files that exist', () => {
       assert.equal(schema['@type'], 'VideoObject');
       assert.ok(schema.name.length > 0);
       assert.ok(schema.description.length > 0);
-      assert.match(schema.uploadDate, /^\d{4}-\d{2}-\d{2}$/);
+      // Search Console rejects a bare date here: uploadDate must be a full
+      // ISO 8601 date-time carrying a timezone offset.
+      assert.match(
+        schema.uploadDate,
+        /^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}(Z|[+-]\d{2}:\d{2})$/,
+      );
       assert.match(schema.duration, /^PT\d+S$/);
       assert.equal(schema.publisher['@id'], ORGANIZATION_ID);
       assert.ok(existsSync(path.join(PUBLIC_DIR, video.contentPath)));

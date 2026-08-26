@@ -11,7 +11,7 @@ type VideoDefinition = Omit<SiteVideo, 'name' | 'description'> & {
 const HOME_HERO: VideoDefinition = {
   thumbnailPath: '/hero-poster.webp',
   contentPath: '/hero.mp4',
-  uploadDate: '2025-05-18',
+  uploadDate: '2025-05-18T19:39:49+02:00',
   duration: 'PT4S',
   name: {
     en: 'Or Hakerem — luxury apartments in Kerem HaTeimanim, Tel Aviv',
@@ -28,7 +28,7 @@ const HOME_HERO: VideoDefinition = {
 const EVENTS_HERO: VideoDefinition = {
   thumbnailPath: '/hero-events-2-poster.webp',
   contentPath: '/hero-events-2.mp4',
-  uploadDate: '2026-07-19',
+  uploadDate: '2026-07-19T17:15:19+03:00',
   duration: 'PT10S',
   name: {
     en: 'Or Hakerem — private event venue in Tel Aviv',
