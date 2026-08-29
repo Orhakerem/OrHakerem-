@@ -1,37 +1,61 @@
--- Pricing reset for the Penthouse and Studio listings (2026-08-26).
+-- Pricing reset for the Penthouse and Studio listings.
 -- Run this in the Supabase SQL editor for the Or Hakerem project.
+-- Last revised 2026-08-29; reflects the grid currently live in production.
 --
--- New pricing model: a single flat nightly rate per listing (no more
--- weekend/season surcharges), with duration discounts applied on top by
+-- Pricing model: a single flat nightly rate per listing (no weekend or season
+-- surcharge), with ONE open-ended duration discount applied on top by
 -- src/lib/pricing-adjustments.ts:
 --
---   Listing (id)          Nightly    Weekly (7-27 nights)   Monthly (28+ nights)
---   Luxury Penthouse       2500 ILS   -10% -> 2250 ILS       -18% -> 2050 ILS
+--   Listing (id)          Nightly    7+ nights (no upper bound)
+--   Luxury Penthouse       2500 ILS   -10% -> 2250 ILS
 --   (penthouse)
---   Spacious & Cosy Apt     500 ILS   -12% ->  440 ILS       -15% ->  425 ILS
+--   Spacious & Cosy Apt     500 ILS   -12% ->  440 ILS
 --   (studio)
 --
+-- WHY ONE DISCOUNT TIER AND NOT TWO
+--
+-- An earlier revision of this script had a second, deeper "monthly" tier
+-- (28+ nights: -18% penthouse, -15% studio) stacked above a 7-27 night
+-- "weekly" tier. That shape is a trap, because the weekly tier's upper bound
+-- makes the total jump discontinuously at the boundary:
+--
+--   * Penthouse -10%/-18%: 27 nights cost 60750, but 28 nights cost 57400.
+--     Adding a night made the stay 3350 ILS CHEAPER, so nobody had any reason
+--     to book 25-27 nights.
+--   * Studio -12%/-15%: 27 nights cost 11880, 28 nights cost 11900 — a 20 ILS
+--     step for a whole extra night.
+--
+-- The two failure modes are the same bug seen from either side. With a capped
+-- weekly tier at rate w and a monthly tier at rate m, night 28 only prices
+-- sanely when 28*m is just above 27*w — a knife edge (the studio's -15% was
+-- within 0.1pt of it). Dropping the cap and keeping a single rate removes the
+-- boundary entirely: every extra night costs exactly one night.
+--
+-- If long stays should be cheaper, lower the single rate below. Do NOT
+-- reintroduce a second tier on top of a capped one.
+--
 -- Requires the src/lib/pricing-engine.ts fix that filters pricing_tiers on
--- is_active = true (shipped alongside this script). Without that fix, the
--- `delete` below is still correct, but deactivating a tier from
--- /admin/pricing afterwards would silently keep charging the old rate.
+-- is_active = true (merged to main in PR #36). Without that fix, the `delete`
+-- below is still correct, but deactivating a tier from /admin/pricing
+-- afterwards would silently keep charging the old rate.
 --
 -- Equivalent manual steps in /admin/pricing (no SQL access required):
 --   1. Listing price matrix -> set "Base price" to 2500 (Penthouse) /
 --      500 (Studio). Keep exactly 6 tier rows per listing (Current/Low/High
 --      x Weekday/Weekend), each with Min nights = 1, Max nights empty,
 --      Nightly price = 2500 / 500, Active checked. Save.
---   2. Pricing adjustment rules -> deactivate existing "duration" rules for
---      these listings, then add the 4 rules inserted below (basis points:
---      -1000 = -10%, -1800 = -18%, -1200 = -12%, -1500 = -15%).
+--   2. Pricing adjustment rules -> remove every existing "duration" rule for
+--      these listings, then add the 2 rules inserted below, each with
+--      Min nights = 7 and Max nights EMPTY (basis points: -1000 = -10%,
+--      -1200 = -12%).
 --   3. Confirm with the pricing simulator on the same page.
 --
--- NOTE: existing "last_minute" / "early_booking" rules for these listings
--- are NOT touched by this script. Adjustments of different rule types
--- stack additively (src/lib/pricing-adjustments.ts applyPricingAdjustments),
--- so an active last-minute discount will combine with the new weekly/
--- monthly discount. Check the verification query at the end and let us
--- know if those rules should be revisited too.
+-- NOTE: "last_minute" / "early_booking" rules are NOT touched by this script.
+-- Adjustments of different rule types stack additively (see
+-- applyPricingAdjustments in src/lib/pricing-adjustments.ts), so an active
+-- last-minute discount would combine with the duration discount below. There
+-- were none on these two listings as of 2026-08-29; the verification query at
+-- the end re-checks this.
 
 begin;
 
@@ -43,7 +67,7 @@ update public.listings set base_price = 500  where id = 'studio';
 -- 2. Replace the pricing tier grid with a single open-ended tier per
 --    season/day-type combination, at the flat nightly rate. Deleting (not
 --    deactivating) avoids leaving old, more-specific tiers around that
---    would otherwise win over the new one (see note above).
+--    would otherwise win over the new one.
 delete from public.pricing_tiers where listing_id in ('penthouse', 'studio');
 
 insert into public.pricing_tiers
@@ -62,47 +86,56 @@ values
   ('studio',    'high',    'weekday', 1, null, 500,  true, 0),
   ('studio',    'high',    'weekend', 1, null, 500,  true, 0);
 
--- 3. Replace the duration-based discount rules for these two listings.
---    Deactivate any existing "duration" rule first: selectPricingAdjustmentRules
---    only keeps one rule per rule_type per night, so a stale duration rule
---    would otherwise compete with the new ones.
-update public.pricing_adjustment_rules
-set is_active = false
-where listing_id in ('penthouse', 'studio')
-  and rule_type = 'duration';
-
+-- 3. Replace the duration discount rules for these two listings. Every
+--    duration rule is removed first: selectPricingAdjustmentRules keeps only
+--    one rule per rule_type per night, and when two duration rules match the
+--    same night the tie is broken on a UUID comparison — i.e. arbitrarily.
+--    Never leave two overlapping duration rules on one listing.
+--
+--    The delete covers the superseded 2026-08-26 rule names as well, so this
+--    script is safe to re-run over either revision of the grid.
 delete from public.pricing_adjustment_rules
 where listing_id in ('penthouse', 'studio')
-  and name in (
-    'Penthouse weekly discount',
-    'Penthouse monthly discount',
-    'Studio weekly discount',
-    'Studio monthly discount'
-  );
+  and rule_type = 'duration';
 
 insert into public.pricing_adjustment_rules
   (listing_id, name, rule_type, is_active, priority, adjustment_basis_points, min_nights, max_nights)
 values
-  ('penthouse', 'Penthouse weekly discount',  'duration', true, 0, -1000, 7,  27),
-  ('penthouse', 'Penthouse monthly discount', 'duration', true, 0, -1800, 28, null),
-  ('studio',    'Studio weekly discount',     'duration', true, 0, -1200, 7,  27),
-  ('studio',    'Studio monthly discount',    'duration', true, 0, -1500, 28, null);
+  ('penthouse', 'Penthouse long-stay discount (7+ nights)', 'duration', true, 0, -1000, 7, null),
+  ('studio',    'Studio long-stay discount (7+ nights)',    'duration', true, 0, -1200, 7, null);
 
 commit;
 
 -- Verification (run separately, after commit):
 --
 -- select id, base_price from public.listings where id in ('penthouse', 'studio');
+--   -> penthouse 2500, studio 500
 --
 -- select listing_id, season_type, day_type, min_nights, max_nights, target_price, is_active
 -- from public.pricing_tiers
 -- where listing_id in ('penthouse', 'studio')
 -- order by listing_id, season_type, day_type;
+--   -> 12 rows, all is_active = true, min_nights 1, max_nights null
 --
 -- select listing_id, name, rule_type, is_active, adjustment_basis_points, min_nights, max_nights
 -- from public.pricing_adjustment_rules
--- where listing_id in ('penthouse', 'studio')
 -- order by listing_id, rule_type, min_nights;
+--   -> exactly 2 rows, both rule_type 'duration', both max_nights null.
+--      Any extra row with rule_type in ('last_minute', 'early_booking') and
+--      is_active = true stacks additively with the duration discount.
+--      Any SECOND active 'duration' row on the same listing is a bug (see
+--      step 3) — the engine would pick between them arbitrarily.
 --
--- Any row above with rule_type in ('last_minute', 'early_booking') and
--- is_active = true will stack additively with the new duration discounts.
+-- End-to-end check against the public pricing API (no auth required):
+--
+--   curl -s -X POST https://www.orhakerem.com/api/calculate-price \
+--     -H 'Content-Type: application/json' \
+--     -d '{"listing_id":"penthouse","check_in":"2026-10-05","check_out":"2026-11-04"}'
+--
+-- Expected night_total (excludes the cleaning fee):
+--
+--   penthouse   2 nights ->  5000     studio   2 nights ->  1000
+--   penthouse   7 nights -> 15750     studio   7 nights ->  3080
+--   penthouse  27 nights -> 60750     studio  27 nights -> 11880
+--   penthouse  28 nights -> 63000     studio  28 nights -> 12320
+--   penthouse  30 nights -> 67500     studio  30 nights -> 13200
