@@ -35,8 +35,20 @@ function installWindow({
   return value;
 }
 
-function queue(): Record<string, unknown>[] {
-  return (window.dataLayer ?? []) as Record<string, unknown>[];
+function queue(): IArguments[] {
+  return (window.dataLayer ?? []) as IArguments[];
+}
+
+/**
+ * gtag.js reads dataLayer entries as `arguments` objects: [command, name,
+ * params]. Asserting on that shape — not on a `{ event }` object — is the
+ * whole point: the object form is GTM's and gtag.js drops it silently.
+ */
+function commandAt(index: number): [unknown, unknown, unknown] {
+  const entry = queue()[index];
+  assert.equal(typeof entry, 'object');
+  assert.equal(entry.length, 3);
+  return [entry[0], entry[1], entry[2]];
 }
 
 afterEach(() => {
@@ -74,12 +86,15 @@ describe('GA4 lead tracking', () => {
     );
 
     assert.equal(queue().length, 1);
-    assert.deepEqual(queue()[0], {
-      event: 'generate_lead',
-      lead_type: 'reservation_inquiry',
-      form_location: 'property_detail',
-      locale: 'fr',
-    });
+    assert.deepEqual(commandAt(0), [
+      'event',
+      'generate_lead',
+      {
+        lead_type: 'reservation_inquiry',
+        form_location: 'property_detail',
+        locale: 'fr',
+      },
+    ]);
   });
 
   test('creates the queue when gtag has not booted yet', () => {
@@ -107,6 +122,7 @@ describe('GA4 lead tracking', () => {
 
     assert.equal(queue().length, 2);
     assert.deepEqual(queue()[0], { event: 'page_view' });
+    assert.equal(commandAt(1)[1], 'generate_lead');
   });
 
   test('refuses to emit when analytics consent is withdrawn', () => {
@@ -160,8 +176,7 @@ describe('GA4 lead tracking', () => {
       name: string;
     });
 
-    assert.deepEqual(Object.keys(queue()[0]).sort(), [
-      'event',
+    assert.deepEqual(Object.keys(commandAt(0)[2] as object).sort(), [
       'form_location',
       'lead_type',
       'locale',
@@ -182,12 +197,11 @@ describe('GA4 outbound contact tracking', () => {
       true,
     );
 
-    assert.deepEqual(queue()[0], {
-      event: 'contact_outbound',
-      method: 'whatsapp',
-      location: 'floating_button',
-      locale: 'he',
-    });
+    assert.deepEqual(commandAt(0), [
+      'event',
+      'contact_outbound',
+      { method: 'whatsapp', location: 'floating_button', locale: 'he' },
+    ]);
   });
 
   test('respects withdrawn analytics consent', () => {

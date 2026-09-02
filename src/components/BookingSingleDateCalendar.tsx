@@ -141,11 +141,13 @@ export default function BookingSingleDateCalendar({
         ) : null}
       </div>
 
-      {availabilityStatus === 'error' ? (
+      {availabilityStatus === 'ready' ? null : (
         <p className="text-sm text-amber-700">
-          {t.singleDate.availabilityError}
+          {availabilityStatus === 'error'
+            ? t.singleDate.availabilityError
+            : t.singleDate.availabilityStale}
         </p>
-      ) : null}
+      )}
 
       <div>
         <div className="flex items-center justify-between gap-3">

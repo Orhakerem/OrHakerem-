@@ -5,6 +5,7 @@ import { DEFAULT_OG_IMAGE, DEFAULT_OPEN_GRAPH_IMAGE, createCanonicalUrl, createL
 import { isLocale, localizePath, OG_LOCALE, type Locale } from '@/i18n/config';
 import { seoMessages } from '@/i18n/messages/seo';
 import { faqData } from '@/lib/faq-data';
+import BreadcrumbSchema from '@/components/BreadcrumbSchema';
 
 const PATH = '/faq';
 
@@ -64,6 +65,7 @@ export default function FAQLayout({
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(faqStructuredData) }}
       />
+      <BreadcrumbSchema locale={params.locale} path={PATH} label="faq" />
       {children}
     </>
   );

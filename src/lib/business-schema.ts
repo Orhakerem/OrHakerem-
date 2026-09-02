@@ -13,7 +13,7 @@ export const BUSINESS_NAP = {
   email: 'keremliving@gmail.com',
 } as const;
 
-const SOCIAL_PROFILES = [
+export const SOCIAL_PROFILES = [
   GOOGLE_BUSINESS_PROFILE_URL,
   'https://www.instagram.com/or_hakerem/',
   'https://www.facebook.com/profile.php?id=61583829025542',
@@ -57,5 +57,6 @@ export function getBusinessStructuredData(locale: Locale, description: string) {
       availableLanguage: ['English', 'French', 'Hebrew'],
     },
     sameAs: SOCIAL_PROFILES,
+    parentOrganization: { '@id': `${SITE_URL}/#organization` },
   };
 }

@@ -4,6 +4,7 @@ import type { ReactNode } from 'react';
 import { DEFAULT_OG_IMAGE, DEFAULT_OPEN_GRAPH_IMAGE, createCanonicalUrl, createLocalizedAlternates } from '@/app/seo';
 import { isLocale, localizePath, OG_LOCALE, type Locale } from '@/i18n/config';
 import { seoMessages } from '@/i18n/messages/seo';
+import BreadcrumbSchema from '@/components/BreadcrumbSchema';
 
 const PATH = '/about';
 
@@ -36,6 +37,17 @@ export function generateMetadata({ params }: { params: { locale: string } }): Me
   };
 }
 
-export default function AboutLayout({ children }: { children: ReactNode }) {
-  return <>{children}</>;
+export default function AboutLayout({
+  children,
+  params,
+}: {
+  children: ReactNode;
+  params: { locale: string };
+}) {
+  return (
+    <>
+      <BreadcrumbSchema locale={params.locale} path={PATH} label="about" />
+      {children}
+    </>
+  );
 }

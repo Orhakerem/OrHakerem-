@@ -5,6 +5,8 @@ import { isBookablePropertyId } from '@/lib/bookable-properties';
 import { getPropertySeo, getPropertyStructuredData } from '@/lib/property-seo';
 import { createCanonicalUrl, createLocalizedAlternates, SITE_URL } from '@/app/seo';
 import { isLocale, localizePath, OG_LOCALE, type Locale } from '@/i18n/config';
+import { commonMessages } from '@/i18n/messages/common';
+import { getBreadcrumbStructuredData } from '@/lib/site-schema';
 
 const PATH_PREFIX = '/properties';
 
@@ -72,12 +74,25 @@ export default function PropertyDetailsLayout({
 
   const locale: Locale = isLocale(params.locale) ? params.locale : 'en';
   const structuredData = getPropertyStructuredData(params.id, locale);
+  const t = commonMessages[locale];
+  // The SEO title is "<property name> | <qualifiers> | Or Hakerem"; the
+  // breadcrumb leaf wants only the name, localized.
+  const propertyName = getPropertySeo(locale)[params.id].title.split('|')[0].trim();
+  const breadcrumbData = getBreadcrumbStructuredData([
+    { name: t.footer.home, path: localizePath(locale, '/') },
+    { name: t.nav.properties, path: localizePath(locale, PATH_PREFIX) },
+    { name: propertyName, path: localizePath(locale, `${PATH_PREFIX}/${params.id}`) },
+  ]);
 
   return (
     <>
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbData) }}
       />
       {children}
     </>

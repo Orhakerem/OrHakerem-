@@ -164,6 +164,20 @@ export function getOverlappingRange(
   };
 }
 
+/**
+ * Sources whose events are authored inside this app (owner blocks, direct bookings).
+ *
+ * OTA-sourced rows in `calendar_events` are only ever a snapshot of an external feed, so
+ * public availability must never be derived from them: the live iCal fetch is the source of
+ * truth for those channels, and a snapshot that stops being refreshed turns into phantom
+ * blocks that no one can clear.
+ */
+export const INTERNAL_CALENDAR_SOURCES = ['manual', 'direct'] as const satisfies readonly CalendarEventSource[];
+
+export function isInternalCalendarEvent(event: Pick<CalendarEvent, 'source'>) {
+  return (INTERNAL_CALENDAR_SOURCES as readonly string[]).includes(event.source);
+}
+
 export function getBlockedDatesFromEvents(
   events: readonly CalendarEvent[],
   propertyIds?: readonly BookablePropertyId[],

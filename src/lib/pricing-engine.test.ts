@@ -682,6 +682,7 @@ test('fetches listing, pricing tiers, and season rules from Supabase before pric
         min_nights: 1,
         max_nights: null,
         target_price: '300',
+        is_active: true,
       },
     ],
     season_date_overrides: [],
@@ -727,6 +728,7 @@ test('fetches listing, pricing tiers, and season rules from Supabase before pric
   assert.deepEqual(filters.sort(), [
     'listings.id.listing-1',
     'pricing_adjustment_rules.is_active.true',
+    'pricing_tiers.is_active.true',
     'pricing_tiers.listing_id.listing-1',
     'season_date_overrides.is_active.true',
     'season_periods.is_active.true',
@@ -740,6 +742,78 @@ test('fetches listing, pricing tiers, and season rules from Supabase before pric
   assert.equal(breakdown.cleaning_fee, 75);
   assert.equal(breakdown.total_price, 615);
   assert.equal(breakdown.currency, 'ILS');
+});
+
+test('ignores deactivated pricing tiers even when they are more specific', async () => {
+  const { client } = createMockSupabase({
+    listings: [
+      {
+        id: LISTING_ID,
+        cleaning_fee: '0',
+        currency: 'ils',
+      },
+    ],
+    pricing_tiers: [
+      {
+        listing_id: LISTING_ID,
+        season_type: 'current',
+        day_type: 'weekday',
+        min_nights: 1,
+        max_nights: null,
+        target_price: '2500',
+        is_active: true,
+      },
+      {
+        listing_id: LISTING_ID,
+        season_type: 'current',
+        day_type: 'weekend',
+        min_nights: 1,
+        max_nights: null,
+        target_price: '2500',
+        is_active: true,
+      },
+      // A retired weekly tier: selectPricingTier() prefers the highest
+      // min_nights, so it would win the whole stay if it were still fetched.
+      {
+        listing_id: LISTING_ID,
+        season_type: 'current',
+        day_type: 'weekday',
+        min_nights: 7,
+        max_nights: 27,
+        target_price: '999',
+        is_active: false,
+      },
+      {
+        listing_id: LISTING_ID,
+        season_type: 'current',
+        day_type: 'weekend',
+        min_nights: 7,
+        max_nights: 27,
+        target_price: '999',
+        is_active: false,
+      },
+    ],
+    season_date_overrides: [],
+    season_periods: [],
+    pricing_adjustment_rules: [],
+  });
+
+  const breakdown = await getPricingBreakdown(
+    {
+      listingId: LISTING_ID,
+      checkIn: '2026-09-01',
+      checkOut: '2026-09-08',
+      quoteDate: '2026-08-01',
+    },
+    client as never,
+  );
+
+  assert.equal(breakdown.nights, 7);
+  assert.equal(breakdown.night_total, 17500);
+  assert.ok(
+    breakdown.nightly_breakdown.every((night) => night.nightly_price === 2500),
+    'every night should use the active open-ended tier',
+  );
 });
 
 test('reports missing listings as a typed pricing error', async () => {
