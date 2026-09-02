@@ -290,11 +290,11 @@ export default function BookingRangeCalendar({
   return (
     <div ref={rootRef} className="w-full">
       <div className="overflow-hidden rounded-[14px] border border-primary/15 bg-white shadow-[0_1px_2px_rgba(0,0,0,0.04)]">
-        {availabilityStatus === 'error' ? (
+        {availabilityStatus === 'ready' ? null : (
           <p className="border-b border-amber-200 bg-amber-50 px-5 py-3 text-sm text-amber-900">
-            {t.availabilityError}
+            {availabilityStatus === 'error' ? t.availabilityError : t.availabilityStale}
           </p>
-        ) : null}
+        )}
 
         <div className="grid grid-cols-2 divide-x rtl:divide-x-reverse divide-primary/10 border-b border-primary/10 sm:grid-cols-3">
           <button

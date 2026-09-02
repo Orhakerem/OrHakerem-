@@ -8,6 +8,7 @@ const en = {
     addDate: 'Add date',
     nightsCount: (n: number) => `${n} night${n === 1 ? '' : 's'}`,
     availabilityError: 'Airbnb availability is temporarily unavailable. Refresh before submitting your stay.',
+    availabilityStale: 'Availability may be a few minutes out of date. Refresh before submitting your stay.',
     blockedBoundaryNote: 'Airbnb-blocked nights stay unavailable. You can still check out on the first blocked day.',
     pickCheckIn: 'Pick your check-in date',
     pickCheckOut: 'Pick your check-out date',
@@ -23,6 +24,7 @@ const en = {
     pickADay: 'Pick a day below',
     clear: 'Clear',
     availabilityError: 'Airbnb availability is temporarily unavailable. Refresh before submitting your event.',
+    availabilityStale: 'Availability may be a few minutes out of date. Refresh before submitting your event.',
   },
   price: {
     nights: 'Nights',
@@ -51,6 +53,8 @@ const fr: BookingMessages = {
     nightsCount: (n: number) => `${n} nuit${n === 1 ? '' : 's'}`,
     availabilityError:
       'Les disponibilités Airbnb sont temporairement indisponibles. Actualisez avant d’envoyer votre demande.',
+    availabilityStale:
+      'Les disponibilités datent peut-être de quelques minutes. Actualisez avant d’envoyer votre demande.',
     blockedBoundaryNote:
       'Les nuits bloquées sur Airbnb restent indisponibles. Vous pouvez toutefois partir le premier jour bloqué.',
     pickCheckIn: "Choisissez votre date d'arrivée",
@@ -68,6 +72,8 @@ const fr: BookingMessages = {
     clear: 'Effacer',
     availabilityError:
       'Les disponibilités Airbnb sont temporairement indisponibles. Actualisez avant d’envoyer votre demande.',
+    availabilityStale:
+      'Les disponibilités datent peut-être de quelques minutes. Actualisez avant d’envoyer votre demande.',
   },
   price: {
     nights: 'Nuits',
@@ -93,6 +99,7 @@ const he: BookingMessages = {
     addDate: 'בחרו תאריך',
     nightsCount: (n: number) => (n === 1 ? 'לילה אחד' : `${n} לילות`),
     availabilityError: 'זמינות Airbnb אינה זמינה כרגע. רעננו את העמוד לפני שליחת הבקשה.',
+    availabilityStale: 'ייתכן שהזמינות מעודכנת בכמה דקות. רעננו את העמוד לפני שליחת הבקשה.',
     blockedBoundaryNote:
       'לילות חסומים ב-Airbnb נשארים לא זמינים. עדיין אפשר לבצע צ׳ק-אאוט ביום החסום הראשון.',
     pickCheckIn: 'בחרו את תאריך הצ׳ק-אין',
@@ -109,6 +116,7 @@ const he: BookingMessages = {
     pickADay: 'בחרו יום למטה',
     clear: 'ניקוי',
     availabilityError: 'זמינות Airbnb אינה זמינה כרגע. רעננו את העמוד לפני שליחת הבקשה.',
+    availabilityStale: 'ייתכן שהזמינות מעודכנת בכמה דקות. רעננו את העמוד לפני שליחת הבקשה.',
   },
   price: {
     nights: 'לילות',

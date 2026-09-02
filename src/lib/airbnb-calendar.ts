@@ -10,8 +10,10 @@ import {
 } from '@/lib/bookable-properties';
 import { compareIsoDates } from '@/lib/booking-dates';
 import { parseBlockedDatesFromCalendar } from '@/lib/calendar-ical';
+import { getBlockedDatesFromEvents, isInternalCalendarEvent } from '@/lib/calendar-rules';
 
 const CALENDAR_CACHE_TTL_MS = 30 * 60 * 1000;
+const CALENDAR_ERROR_CACHE_TTL_MS = 60 * 1000;
 const FETCH_TIMEOUT_MS = 15 * 1000;
 
 export interface PropertyAvailability {
@@ -23,6 +25,20 @@ export interface PropertyAvailability {
 interface CachedPropertyAvailability {
   data: PropertyAvailability;
   expiresAt: number;
+}
+
+/**
+ * Thrown when every iCal source for a property is unreachable. It carries the internal blocks so
+ * the degraded response can still close dates the owner deliberately blocked.
+ */
+class AllCalendarSourcesFailedError extends Error {
+  readonly internalBlockedDates: string[];
+
+  constructor(propertyId: BookablePropertyId, internalBlockedDates: string[]) {
+    super(`All iCal sources failed for ${propertyId}`);
+    this.name = 'AllCalendarSourcesFailedError';
+    this.internalBlockedDates = internalBlockedDates;
+  }
 }
 
 const availabilityCache = new Map<BookablePropertyId, CachedPropertyAvailability>();
@@ -52,12 +68,16 @@ async function fetchBlockedDatesFromUrl(icalUrl: string) {
   return parseBlockedDatesFromCalendar(calendarText);
 }
 
+/**
+ * Owner-authored blocks only. OTA rows in `calendar_events` are a snapshot of a feed we already
+ * fetch live here; merging them back in would resurrect bookings that have since been cancelled.
+ */
 async function getInternalBlockedDates(propertyId: BookablePropertyId) {
   try {
     const { fetchAdminCalendarSnapshot } = await import('./admin-calendar');
     const snapshot = await fetchAdminCalendarSnapshot();
 
-    return snapshot.blockedDatesByProperty[propertyId] ?? [];
+    return getBlockedDatesFromEvents(snapshot.events.filter(isInternalCalendarEvent), [propertyId]);
   } catch {
     return [];
   }
@@ -65,7 +85,10 @@ async function getInternalBlockedDates(propertyId: BookablePropertyId) {
 
 async function refreshPropertyAvailability(propertyId: BookablePropertyId): Promise<PropertyAvailability> {
   const icalUrls = BOOKABLE_PROPERTIES[propertyId].icalUrls;
-  const results = await Promise.allSettled(icalUrls.map((url) => fetchBlockedDatesFromUrl(url)));
+  const [results, internalBlockedDates] = await Promise.all([
+    Promise.allSettled(icalUrls.map((url) => fetchBlockedDatesFromUrl(url))),
+    getInternalBlockedDates(propertyId),
+  ]);
 
   const mergedBlockedDates = new Set<string>();
   let hasFailure = false;
@@ -82,10 +105,10 @@ async function refreshPropertyAvailability(propertyId: BookablePropertyId): Prom
   }
 
   if (results.every((result) => result.status === 'rejected')) {
-    throw new Error(`All iCal sources failed for ${propertyId}`);
+    throw new AllCalendarSourcesFailedError(propertyId, internalBlockedDates);
   }
 
-  for (const blockedDate of await getInternalBlockedDates(propertyId)) {
+  for (const blockedDate of internalBlockedDates) {
     mergedBlockedDates.add(blockedDate);
   }
 
@@ -121,21 +144,28 @@ export async function getPropertyAvailability(
 
       return availability;
     })
-    .catch((error) => {
+    .catch(async (error) => {
       console.warn(`Airbnb iCal sync failed for ${propertyId}:`, error);
 
-      if (cachedAvailability) {
-        return {
-          ...cachedAvailability.data,
-          status: 'stale',
-        } satisfies PropertyAvailability;
-      }
+      const degradedAvailability: PropertyAvailability = cachedAvailability
+        ? { ...cachedAvailability.data, status: 'stale' }
+        : {
+            blockedDates:
+              error instanceof AllCalendarSourcesFailedError
+                ? error.internalBlockedDates
+                : await getInternalBlockedDates(propertyId),
+            fetchedAtIso: null,
+            status: 'error',
+          };
 
-      return {
-        blockedDates: [],
-        fetchedAtIso: null,
-        status: 'error',
-      } satisfies PropertyAvailability;
+      // Cache the degraded result briefly so a failing feed cannot make every request pay the
+      // full fetch timeout again.
+      availabilityCache.set(propertyId, {
+        data: degradedAvailability,
+        expiresAt: Date.now() + CALENDAR_ERROR_CACHE_TTL_MS,
+      });
+
+      return degradedAvailability;
     })
     .finally(() => {
       inflightAvailabilityRequests.delete(propertyId);
