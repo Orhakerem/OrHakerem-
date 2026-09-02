@@ -5,6 +5,7 @@ import {
   detectCalendarConflicts,
   doDateRangesOverlap,
   getBlockedDatesFromEvents,
+  isInternalCalendarEvent,
   validateCalendarStay,
   type CalendarEvent,
   type CalendarRule,
@@ -252,4 +253,71 @@ test('detects calendar conflicts without treating back-to-back stays as conflict
   assert.equal(conflicts.length, 1);
   assert.equal(conflicts[0].severity, 'critical');
   assert.deepEqual(conflicts[0].eventIds, ['a', 'b']);
+});
+
+test('isInternalCalendarEvent only accepts owner-authored sources', () => {
+  assert.equal(isInternalCalendarEvent({ source: 'manual' }), true);
+  assert.equal(isInternalCalendarEvent({ source: 'direct' }), true);
+  assert.equal(isInternalCalendarEvent({ source: 'airbnb' }), false);
+  assert.equal(isInternalCalendarEvent({ source: 'booking' }), false);
+  assert.equal(isInternalCalendarEvent({ source: 'vrbo' }), false);
+});
+
+test('filtering to internal events keeps manual blocks and drops OTA rows', () => {
+  const events: CalendarEvent[] = [
+    {
+      id: 'ota',
+      propertyId: 'cozy-studio',
+      source: 'airbnb',
+      type: 'booking',
+      status: 'confirmed',
+      checkIn: '2026-09-03',
+      checkOut: '2026-09-06',
+      title: 'Reserved',
+    },
+    {
+      id: 'owner',
+      propertyId: 'cozy-studio',
+      source: 'manual',
+      type: 'manual_block',
+      status: 'confirmed',
+      checkIn: '2026-09-20',
+      checkOut: '2026-09-22',
+      title: 'Maintenance',
+    },
+  ];
+
+  assert.deepEqual(
+    getBlockedDatesFromEvents(events.filter(isInternalCalendarEvent), ['cozy-studio']),
+    ['2026-09-20', '2026-09-21'],
+  );
+});
+
+test('a stale OTA row no longer blocks nights the live feed has freed', () => {
+  // Regression: calendar_events held a frozen 2026-07-06 snapshot of the Airbnb feed. Merging it
+  // into public availability kept cancelled reservations blocking the site forever.
+  const staleSnapshot: CalendarEvent[] = [
+    {
+      id: 'stale-airbnb',
+      propertyId: 'cozy-studio',
+      source: 'airbnb',
+      type: 'booking',
+      status: 'confirmed',
+      checkIn: '2026-09-03',
+      checkOut: '2026-09-11',
+      title: 'Reserved',
+    },
+  ];
+
+  const liveBlockedDates = ['2026-09-14', '2026-09-15'];
+  const internalBlockedDates = getBlockedDatesFromEvents(
+    staleSnapshot.filter(isInternalCalendarEvent),
+    ['cozy-studio'],
+  );
+  const published = new Set([...liveBlockedDates, ...internalBlockedDates]);
+
+  assert.equal(internalBlockedDates.length, 0);
+  assert.equal(published.has('2026-09-03'), false);
+  assert.equal(published.has('2026-09-10'), false);
+  assert.equal(published.has('2026-09-14'), true);
 });

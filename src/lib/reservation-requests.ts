@@ -1,6 +1,7 @@
 import type { SupabaseClient } from '@supabase/supabase-js';
 
 import { getBookablePropertyIdFromListingId } from './bookable-properties';
+import { getStayNights, isInternalCalendarEvent } from './calendar-rules';
 import { getPricingBreakdown, type PricingBreakdown } from './pricing-engine';
 
 export interface PendingReservationRequestInput {
@@ -64,12 +65,36 @@ async function assertReservationCalendarAvailability(input: PendingReservationRe
     return;
   }
 
+  // OTA availability comes from the live iCal feed, never from `calendar_events`: those rows are
+  // only ever a snapshot, so a stale one would reject dates the channel has since freed.
+  const { getPropertyAvailability } = await import('./airbnb-calendar');
+  const availability = await getPropertyAvailability(propertyId);
+
+  if (availability.status === 'error') {
+    throw new ReservationAvailabilityError(
+      'Availability cannot be confirmed right now. Please try again in a moment.',
+    );
+  }
+
+  const blockedDates = new Set(availability.blockedDates);
+  const bookedNight = getStayNights(input.checkIn, input.checkOut).find((night) =>
+    blockedDates.has(night),
+  );
+
+  if (bookedNight) {
+    throw new ReservationAvailabilityError('Selected dates are not available.');
+  }
+
   const { fetchAdminCalendarSnapshot, validateAdminCalendarStay } = await import('./admin-calendar');
-  const validation = validateAdminCalendarStay(await fetchAdminCalendarSnapshot(), {
-    propertyIds: [propertyId],
-    checkIn: input.checkIn,
-    checkOut: input.checkOut,
-  });
+  const snapshot = await fetchAdminCalendarSnapshot();
+  const validation = validateAdminCalendarStay(
+    { ...snapshot, events: snapshot.events.filter(isInternalCalendarEvent) },
+    {
+      propertyIds: [propertyId],
+      checkIn: input.checkIn,
+      checkOut: input.checkOut,
+    },
+  );
 
   if (!validation.available) {
     throw new ReservationAvailabilityError(
