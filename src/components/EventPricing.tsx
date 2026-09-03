@@ -13,7 +13,7 @@ export default function EventPricing({ locale, t }: EventPricingProps) {
   return (
     <section
       id="pricing"
-      className="events-pricing-section py-8 md:py-20 mb-8 md:mb-20"
+      className="events-pricing-section mb-6 md:mb-10"
       data-animate="fade-up"
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
